@@ -1,0 +1,1 @@
+## https://php.ru/manual/language.types.html
