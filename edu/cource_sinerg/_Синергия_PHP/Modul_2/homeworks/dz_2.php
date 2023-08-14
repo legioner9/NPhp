@@ -1,15 +1,14 @@
 <?php
 
-$myFile='file.txt';
-$str='Я учу PHP!';
+// 1) Cоздайте функцию, которая принимает два аргумента, выполняет вычисление с их использованием, а затем возвращает предложение.
+function fn_words($word_1, $word_2)
+{
+    return "$word_1 " . "$word_2";
+}
 
-$fd = fopen($myFile,'w+');
-fwrite($fd,$str);
+// 2) Создайте массив и выполните его сортировку.
+echo "fn_words('Hello', 'World !') = " . fn_words('Hello', 'World !') . "\n";
 
-echo fread($fd,11);
-echo "\n";
-
-fclose($fd);
-
-// Создайте файл ‘file.txt' и запишите в него фразу 'Я учу PHP!'.
-// Считайте данные из файла ‘file.txt' и выведите их на экран.
+$arr_letters = array('w', 'e', 'a', 'b', 'a');
+sort($arr_letters);
+print_r($arr_letters);
