@@ -3,10 +3,14 @@
 $myFile='file.txt';
 $str='Я учу PHP!';
 
-$fd = fopen($myFile,'w+');
+$fd = fopen($myFile,"w+");
 fwrite($fd,$str);
+fseek($fd,0);
 
-echo fread($fd,11);
+var_dump(fread($fd,filesize($myFile)));
+fseek($fd,0);
+
+echo fread($fd,filesize($myFile));
 echo "\n";
 
 fclose($fd);
