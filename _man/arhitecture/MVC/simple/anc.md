@@ -1,0 +1,1 @@
+https://aisearch.ru/1277573/sozdaite-prostoi-primer-dlya-realizacii-mvc-arxitektury-na-rnr-dlya-veb-prilozenii-vklyucayushhii-spisok
