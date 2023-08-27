@@ -21,7 +21,7 @@ if ($strlen1 != $strlen2) {
     $arr1 = str_split($str1);
     $arr2 = str_split($str2);
 
-    var_dump($arr1);
+    var_dump($arr1); 
     var_dump($arr2);
 
     if ($arr1 === $arr2) {
