@@ -1,5 +1,5 @@
 <?php
 
-$path="./src/req.php";
+include __DIR__ . '/../src/req.php'; 
 
-require($path);
+// require($path);

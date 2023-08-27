@@ -1,7 +1,6 @@
 <?php
 class Cookie
 {
-
     public function set($key, $value, $time = 31536000)
     {
         setcookie($key, $value, time() + $time, '/');
