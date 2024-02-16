@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: PDO - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="book.pdo.php.html">
+ <link rel="shorturl" href="https://www.php.net/pdo">
+ <link rel="alternate" href="https://www.php.net/pdo" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="refs.database.abstract.php.html">
+ <link rel="prev" href="function.odbc-tables.php.html">
+ <link rel="next" href="intro.pdo.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/book.pdo.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/book.pdo.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/book.pdo.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/book.pdo.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/book.pdo.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/book.pdo.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/book.pdo.php" hreflang="pt_BR">
+ <link rel="alternate" href="book.pdo.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/book.pdo.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/book.pdo.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="intro.pdo.php.html">
+          Введение &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="function.odbc-tables.php.html">
+          &laquo; odbc_tables        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.database.php.html'>Модули для работы с базами данных</a></li>      <li><a href='refs.database.abstract.php.html'>Уровни абстракции</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/book.pdo.php'>English</option>
+            <option value='de/book.pdo.php'>German</option>
+            <option value='es/book.pdo.php'>Spanish</option>
+            <option value='fr/book.pdo.php'>French</option>
+            <option value='it/book.pdo.php'>Italian</option>
+            <option value='ja/book.pdo.php'>Japanese</option>
+            <option value='pt_BR/book.pdo.php'>Brazilian Portuguese</option>
+            <option value='ru/book.pdo.php' selected="selected">Russian</option>
+            <option value='tr/book.pdo.php'>Turkish</option>
+            <option value='zh/book.pdo.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/pdo/book.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Fbook.pdo%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="book.pdo" class="book">
+ 
+ <h1 class="title">Объекты данных PHP</h1>
+ 
+
+ 
+ 
+ 
+
+ 
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+<ul class="chunklist chunklist_book"><li><a href="intro.pdo.php.html">Введение</a></li><li><a href="pdo.setup.php.html">Установка и настройка</a><ul class="chunklist chunklist_book chunklist_children"><li><a href="pdo.requirements.php.html">Требования</a></li><li><a href="pdo.installation.php.html">Установка</a></li><li><a href="pdo.configuration.php.html">Настройка во время выполнения</a></li><li><a href="pdo.resources.php.html">Типы ресурсов</a></li></ul></li><li><a href="pdo.constants.php.html">Предопределённые константы</a></li><li><a href="pdo.connections.php.html">Подключения и управление подключениями</a></li><li><a href="pdo.transactions.php.html">Транзакции и автоматическая фиксация изменений</a></li><li><a href="pdo.prepared-statements.php.html">Подготовленные запросы и хранимые процедуры</a></li><li><a href="pdo.error-handling.php.html">Ошибки и их обработка</a></li><li><a href="pdo.lobs.php.html">Большие объекты (LOB)</a></li><li><a href="class.pdo.php.html">PDO</a> — Класс PDO<ul class="chunklist chunklist_book chunklist_children"><li><a href="pdo.begintransaction.php.html">PDO::beginTransaction</a> — Инициализация транзакции</li><li><a href="pdo.commit.php.html">PDO::commit</a> — Фиксирует транзакцию</li><li><a href="pdo.construct.php.html">PDO::__construct</a> — Создаёт экземпляр PDO, предоставляющий соединение с базой данных</li><li><a href="pdo.errorcode.php.html">PDO::errorCode</a> — Возвращает код SQLSTATE результата последней операции с базой данных</li><li><a href="pdo.errorinfo.php.html">PDO::errorInfo</a> — Получает расширенную информацию об ошибке, произошедшей в ходе
+   последнего обращения к базе данных</li><li><a href="pdo.exec.php.html">PDO::exec</a> — Выполняет SQL-запрос и возвращает количество затронутых строк</li><li><a href="pdo.getattribute.php.html">PDO::getAttribute</a> — Получает атрибут соединения с базой данных</li><li><a href="pdo.getavailabledrivers.php.html">PDO::getAvailableDrivers</a> — Возвращает массив доступных драйверов PDO</li><li><a href="pdo.intransaction.php.html">PDO::inTransaction</a> — Проверяет, начата ли транзакция</li><li><a href="pdo.lastinsertid.php.html">PDO::lastInsertId</a> — Возвращает ID последней вставленной строки или значение последовательности</li><li><a href="pdo.prepare.php.html">PDO::prepare</a> — Подготавливает запрос к выполнению и возвращает связанный с этим запросом
+   объект</li><li><a href="pdo.query.php.html">PDO::query</a> — Подготавливает и выполняет выражение SQL без заполнителей</li><li><a href="pdo.quote.php.html">PDO::quote</a> — Заключает строку в кавычки для использования в запросе</li><li><a href="pdo.rollback.php.html">PDO::rollBack</a> — Откат транзакции</li><li><a href="pdo.setattribute.php.html">PDO::setAttribute</a> — Установка атрибута</li></ul></li><li><a href="class.pdostatement.php.html">PDOStatement</a> — Класс PDOStatement<ul class="chunklist chunklist_book chunklist_children"><li><a href="pdostatement.bindcolumn.php.html">PDOStatement::bindColumn</a> — Связывает столбец с переменной PHP</li><li><a href="pdostatement.bindparam.php.html">PDOStatement::bindParam</a> — Привязывает параметр запроса к переменной</li><li><a href="pdostatement.bindvalue.php.html">PDOStatement::bindValue</a> — Связывает параметр с заданным значением</li><li><a href="pdostatement.closecursor.php.html">PDOStatement::closeCursor</a> — Закрывает курсор, переводя запрос в состояние готовности к повторному запуску</li><li><a href="pdostatement.columncount.php.html">PDOStatement::columnCount</a> — Возвращает количество столбцов в результирующем наборе</li><li><a href="pdostatement.debugdumpparams.php.html">PDOStatement::debugDumpParams</a> — Вывод информации о подготовленной SQL-команде в целях отладки</li><li><a href="pdostatement.errorcode.php.html">PDOStatement::errorCode</a> — Получает код SQLSTATE, связанный с последней операцией в объекте PDOStatement</li><li><a href="pdostatement.errorinfo.php.html">PDOStatement::errorInfo</a> — Получение расширенной информации об ошибке, произошедшей в результате работы
+   объекта PDOStatement</li><li><a href="pdostatement.execute.php.html">PDOStatement::execute</a> — Запускает подготовленный запрос на выполнение</li><li><a href="pdostatement.fetch.php.html">PDOStatement::fetch</a> — Извлечение следующей строки из результирующего набора</li><li><a href="pdostatement.fetchall.php.html">PDOStatement::fetchAll</a> — Выбирает оставшиеся строки из набора результатов</li><li><a href="pdostatement.fetchcolumn.php.html">PDOStatement::fetchColumn</a> — Возвращает данные одного столбца следующей строки результирующего набора</li><li><a href="pdostatement.fetchobject.php.html">PDOStatement::fetchObject</a> — Извлекает следующую строку и возвращает её в виде объекта</li><li><a href="pdostatement.getattribute.php.html">PDOStatement::getAttribute</a> — Получение значения атрибута запроса PDOStatement</li><li><a href="pdostatement.getcolumnmeta.php.html">PDOStatement::getColumnMeta</a> — Возвращает метаданные столбца в результирующей таблице</li><li><a href="pdostatement.getiterator.php.html">PDOStatement::getIterator</a> — Получает итератор набора результатов</li><li><a href="pdostatement.nextrowset.php.html">PDOStatement::nextRowset</a> — Переход к следующему набору строк в результате запроса</li><li><a href="pdostatement.rowcount.php.html">PDOStatement::rowCount</a> — Возвращает количество строк, затронутых последним SQL-запросом</li><li><a href="pdostatement.setattribute.php.html">PDOStatement::setAttribute</a> — Устанавливает атрибут объекту PDOStatement</li><li><a href="pdostatement.setfetchmode.php.html">PDOStatement::setFetchMode</a> — Устанавливает режим выборки по умолчанию для объекта запроса</li></ul></li><li><a href="class.pdorow.php.html">PDORow</a> — Класс PDORow</li><li><a href="class.pdoexception.php.html">PDOException</a> — Класс PDOException</li><li><a href="pdo.drivers.php.html">Драйверы PDO</a><ul class="chunklist chunklist_book chunklist_children"><li><a href="ref.pdo-cubrid.php.html">CUBRID (PDO)</a> — Функции CUBRID (PDO_CUBRID)</li><li><a href="ref.pdo-dblib.php.html">MS SQL Server (PDO_DBLIB)</a> — Функции Microsoft SQL Server и Sybase (PDO_DBLIB)</li><li><a href="ref.pdo-firebird.php.html">Firebird (PDO)</a> — Функции Firebird (PDO_FIREBIRD)</li><li><a href="ref.pdo-ibm.php.html">IBM (PDO)</a> — Функции IBM (PDO_IBM)</li><li><a href="ref.pdo-informix.php.html">Informix (PDO)</a> — Функции Informix (PDO_INFORMIX)</li><li><a href="ref.pdo-mysql.php.html">MySQL (PDO)</a> — Функции MySQL (PDO_MYSQL)</li><li><a href="ref.pdo-sqlsrv.php.html">MS SQL Server (PDO)</a> — Функции модуля PDO_SQLSRV для Microsoft SQL Server</li><li><a href="ref.pdo-oci.php.html">Oracle (PDO)</a> — Функции Oracle (PDO_OCI)</li><li><a href="ref.pdo-odbc.php.html">ODBC и DB2 (PDO)</a> — Функции ODBC и DB2 (PDO_ODBC)</li><li><a href="ref.pdo-pgsql.php.html">PostgreSQL (PDO)</a> — Функции PostgreSQL (PDO_PGSQL)</li><li><a href="ref.pdo-sqlite.php.html">SQLite (PDO)</a> — Функции SQLite (PDO_SQLITE)</li></ul></li></ul></div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=book.pdo&amp;redirect=https://www.php.net/manual/ru/book.pdo.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">15 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="69304">  <div class="votes">
+    <div id="Vu69304">
+    <a href="https://www.php.net/manual/vote-note.php?id=69304&amp;page=book.pdo&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd69304">
+    <a href="https://www.php.net/manual/vote-note.php?id=69304&amp;page=book.pdo&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V69304" title="56% like this...">
+    132
+    </div>
+  </div>
+  <a href="book.pdo.php.html#69304" class="name">
+  <strong class="user"><em>djlopez at gmx dot de</em></strong></a><a class="genanchor" href="book.pdo.php.html#69304"> &para;</a><div class="date" title="2006-08-30 02:56"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom69304">
+<div class="phpcode"><code><span class="html">Please note this:<br /><br />Won't work:<br />$sth = $dbh-&gt;prepare('SELECT name, colour, calories FROM ?  WHERE calories &lt; ?');<br /><br />THIS WORKS!<br />$sth = $dbh-&gt;prepare('SELECT name, colour, calories FROM fruit WHERE calories &lt; ?');<br /><br />The parameter cannot be applied on table names!!</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="125834">  <div class="votes">
+    <div id="Vu125834">
+    <a href="https://www.php.net/manual/vote-note.php?id=125834&amp;page=book.pdo&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd125834">
+    <a href="https://www.php.net/manual/vote-note.php?id=125834&amp;page=book.pdo&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V125834" title="57% like this...">
+    12
+    </div>
+  </div>
+  <a href="book.pdo.php.html#125834" class="name">
+  <strong class="user"><em>wiserufferto at gmail dot com</em></strong></a><a class="genanchor" href="book.pdo.php.html#125834"> &para;</a><div class="date" title="2021-02-17 02:12"><strong>2 years ago</strong></div>
+  <div class="text" id="Hcom125834">
+<div class="phpcode"><code><span class="html">This is a little late... but I'm old and slow.......<br />Regarding Extending PDOStatement and PDO I found that sending the PDOExtended class by reference helps:<br />    In the constructor after parent::__construct() :<br />$this-&gt;setAttribute(\PDO::ATTR_STATEMENT_CLASS,array('PDOStatementExtended', [&amp;$this]));}<br /><br />And in <br />class PDOStatementExtended extends \PDOStatement<br />{<br />  <br />  protected function __construct<br />  (<br />    \PDO &amp;$PDO,<br />   )</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="64950">  <div class="votes">
+    <div id="Vu64950">
+    <a href="https://www.php.net/manual/vote-note.php?id=64950&amp;page=book.pdo&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd64950">
+    <a href="https://www.php.net/manual/vote-note.php?id=64950&amp;page=book.pdo&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V64950" title="51% like this...">
+    10
+    </div>
+  </div>
+  <a href="book.pdo.php.html#64950" class="name">
+  <strong class="user"><em>pokojny at radlight dot com</em></strong></a><a class="genanchor" href="book.pdo.php.html#64950"> &para;</a><div class="date" title="2006-04-23 08:50"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom64950">
+<div class="phpcode"><code><span class="html">I wanted to extend PDO class to store statistics of DB usage, and I faced some problems. I wanted to count number of created statements and number of their executings. So PDOStatement should have link to PDO that created it and stores the statistical info. The problem was that I didn't knew how PDO creates PDOStatement (constructor parameters and so on), so I have created these two classes:<br /><br /><span class="default">&lt;?php<br /></span><span class="comment">/**<br /> * PHP Document Object plus<br /> * <br /> * PHP Document Object plus is library with functionality of PDO, entirely written<br /> * in PHP, so that developer can easily extend it's classes with specific functionality,<br /> * such as providing database usage statistics implemented in v1.0b<br /> * <br /> * @author Peter Pokojny<br /> * @license <a href="http://opensource.org/licenses/gpl-license.php" rel="nofollow" target="_blank">http://opensource.org/licenses/gpl-license.php</a> GNU Public License<br /> */<br />    </span><span class="keyword">class </span><span class="default">PDOp </span><span class="keyword">{<br />        protected </span><span class="default">$PDO</span><span class="keyword">;<br />        public </span><span class="default">$numExecutes</span><span class="keyword">;<br />        public </span><span class="default">$numStatements</span><span class="keyword">;<br />        public function </span><span class="default">__construct</span><span class="keyword">(</span><span class="default">$dsn</span><span class="keyword">, </span><span class="default">$user</span><span class="keyword">=</span><span class="default">NULL</span><span class="keyword">, </span><span class="default">$pass</span><span class="keyword">=</span><span class="default">NULL</span><span class="keyword">, </span><span class="default">$driver_options</span><span class="keyword">=</span><span class="default">NULL</span><span class="keyword">) {<br />            </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">PDO </span><span class="keyword">= new </span><span class="default">PDO</span><span class="keyword">(</span><span class="default">$dsn</span><span class="keyword">, </span><span class="default">$user</span><span class="keyword">, </span><span class="default">$pass</span><span class="keyword">, </span><span class="default">$driver_options</span><span class="keyword">);<br />            </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">numExecutes </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br />            </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">numStatements </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br />        }<br />        public function </span><span class="default">__call</span><span class="keyword">(</span><span class="default">$func</span><span class="keyword">, </span><span class="default">$args</span><span class="keyword">) {<br />            return </span><span class="default">call_user_func_array</span><span class="keyword">(array(&amp;</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">PDO</span><span class="keyword">, </span><span class="default">$func</span><span class="keyword">), </span><span class="default">$args</span><span class="keyword">);<br />        }<br />        public function </span><span class="default">prepare</span><span class="keyword">() {<br />            </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">numStatements</span><span class="keyword">++;<br />            <br />            </span><span class="default">$args </span><span class="keyword">= </span><span class="default">func_get_args</span><span class="keyword">();<br />            </span><span class="default">$PDOS </span><span class="keyword">= </span><span class="default">call_user_func_array</span><span class="keyword">(array(&amp;</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">PDO</span><span class="keyword">, </span><span class="string">'prepare'</span><span class="keyword">), </span><span class="default">$args</span><span class="keyword">);<br />            <br />            return new </span><span class="default">PDOpStatement</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">, </span><span class="default">$PDOS</span><span class="keyword">);<br />        }<br />        public function </span><span class="default">query</span><span class="keyword">() {<br />            </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">numExecutes</span><span class="keyword">++;<br />            </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">numStatements</span><span class="keyword">++;<br />            <br />            </span><span class="default">$args </span><span class="keyword">= </span><span class="default">func_get_args</span><span class="keyword">();<br />            </span><span class="default">$PDOS </span><span class="keyword">= </span><span class="default">call_user_func_array</span><span class="keyword">(array(&amp;</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">PDO</span><span class="keyword">, </span><span class="string">'query'</span><span class="keyword">), </span><span class="default">$args</span><span class="keyword">);<br />            <br />            return new </span><span class="default">PDOpStatement</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">, </span><span class="default">$PDOS</span><span class="keyword">);<br />        }<br />        public function </span><span class="default">exec</span><span class="keyword">() {<br />            </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">numExecutes</span><span class="keyword">++;<br />            <br />            </span><span class="default">$args </span><span class="keyword">= </span><span class="default">func_get_args</span><span class="keyword">();<br />            return </span><span class="default">call_user_func_array</span><span class="keyword">(array(&amp;</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">PDO</span><span class="keyword">, </span><span class="string">'exec'</span><span class="keyword">), </span><span class="default">$args</span><span class="keyword">);<br />        }<br />    }<br />    class </span><span class="default">PDOpStatement </span><span class="keyword">implements </span><span class="default">IteratorAggregate </span><span class="keyword">{<br />        protected </span><span class="default">$PDOS</span><span class="keyword">;<br />        protected </span><span class="default">$PDOp</span><span class="keyword">;<br />        public function </span><span class="default">__construct</span><span class="keyword">(</span><span class="default">$PDOp</span><span class="keyword">, </span><span class="default">$PDOS</span><span class="keyword">) {<br />            </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">PDOp </span><span class="keyword">= </span><span class="default">$PDOp</span><span class="keyword">;<br />            </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">PDOS </span><span class="keyword">= </span><span class="default">$PDOS</span><span class="keyword">;<br />        }<br />        public function </span><span class="default">__call</span><span class="keyword">(</span><span class="default">$func</span><span class="keyword">, </span><span class="default">$args</span><span class="keyword">) {<br />            return </span><span class="default">call_user_func_array</span><span class="keyword">(array(&amp;</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">PDOS</span><span class="keyword">, </span><span class="default">$func</span><span class="keyword">), </span><span class="default">$args</span><span class="keyword">);<br />        }<br />        public function </span><span class="default">bindColumn</span><span class="keyword">(</span><span class="default">$column</span><span class="keyword">, &amp;</span><span class="default">$param</span><span class="keyword">, </span><span class="default">$type</span><span class="keyword">=</span><span class="default">NULL</span><span class="keyword">) {<br />            if (</span><span class="default">$type </span><span class="keyword">=== </span><span class="default">NULL</span><span class="keyword">)<br />                </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">PDOS</span><span class="keyword">-&gt;</span><span class="default">bindColumn</span><span class="keyword">(</span><span class="default">$column</span><span class="keyword">, </span><span class="default">$param</span><span class="keyword">);<br />            else<br />                </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">PDOS</span><span class="keyword">-&gt;</span><span class="default">bindColumn</span><span class="keyword">(</span><span class="default">$column</span><span class="keyword">, </span><span class="default">$param</span><span class="keyword">, </span><span class="default">$type</span><span class="keyword">);<br />        }<br />        public function </span><span class="default">bindParam</span><span class="keyword">(</span><span class="default">$column</span><span class="keyword">, &amp;</span><span class="default">$param</span><span class="keyword">, </span><span class="default">$type</span><span class="keyword">=</span><span class="default">NULL</span><span class="keyword">) {<br />            if (</span><span class="default">$type </span><span class="keyword">=== </span><span class="default">NULL</span><span class="keyword">)<br />                </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">PDOS</span><span class="keyword">-&gt;</span><span class="default">bindParam</span><span class="keyword">(</span><span class="default">$column</span><span class="keyword">, </span><span class="default">$param</span><span class="keyword">);<br />            else<br />                </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">PDOS</span><span class="keyword">-&gt;</span><span class="default">bindParam</span><span class="keyword">(</span><span class="default">$column</span><span class="keyword">, </span><span class="default">$param</span><span class="keyword">, </span><span class="default">$type</span><span class="keyword">);<br />        }<br />        public function </span><span class="default">execute</span><span class="keyword">() {<br />            </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">PDOp</span><span class="keyword">-&gt;</span><span class="default">numExecutes</span><span class="keyword">++;<br />            </span><span class="default">$args </span><span class="keyword">= </span><span class="default">func_get_args</span><span class="keyword">();<br />            return </span><span class="default">call_user_func_array</span><span class="keyword">(array(&amp;</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">PDOS</span><span class="keyword">, </span><span class="string">'execute'</span><span class="keyword">), </span><span class="default">$args</span><span class="keyword">);<br />        }<br />        public function </span><span class="default">__get</span><span class="keyword">(</span><span class="default">$property</span><span class="keyword">) {<br />            return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">PDOS</span><span class="keyword">-&gt;</span><span class="default">$property</span><span class="keyword">;<br />        }<br />        public function </span><span class="default">getIterator</span><span class="keyword">() {<br />            return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">PDOS</span><span class="keyword">;<br />        }<br />   }<br /></span><span class="default">?&gt;<br /></span><br />Classes have properties with original PDO and PDOStatement objects, which are providing the functionality to PDOp and PDOpStatement.<br />From outside, PDOp and PDOpStatement look like PDO and PDOStatement, but also are providing wanted info.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="114974">  <div class="votes">
+    <div id="Vu114974">
+    <a href="https://www.php.net/manual/vote-note.php?id=114974&amp;page=book.pdo&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd114974">
+    <a href="https://www.php.net/manual/vote-note.php?id=114974&amp;page=book.pdo&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V114974" title="48% like this...">
+    -4
+    </div>
+  </div>
+  <a href="book.pdo.php.html#114974" class="name">
+  <strong class="user"><em>matthew at button-mashers dot net</em></strong></a><a class="genanchor" href="book.pdo.php.html#114974"> &para;</a><div class="date" title="2014-05-07 11:31"><strong>9 years ago</strong></div>
+  <div class="text" id="Hcom114974">
+<div class="phpcode"><code><span class="html">When using prepared statements there is no official PDO feature to show you the final query string that is submitted to a database complete with the parameters you passed.<br /><br />Use this simple function for debugging. The values you are passing may not be what you expect.<br /><br /><span class="default">&lt;?php<br /></span><span class="comment">//Sample query string<br /></span><span class="default">$query </span><span class="keyword">= </span><span class="string">"UPDATE users SET name = :user_name WHERE id = :user_id"</span><span class="keyword">;<br /><br /></span><span class="comment">//Sample parameters<br /></span><span class="default">$params </span><span class="keyword">= [</span><span class="string">':user_name' </span><span class="keyword">=&gt; </span><span class="string">'foobear'</span><span class="keyword">, </span><span class="string">':user_id' </span><span class="keyword">=&gt; </span><span class="default">1001</span><span class="keyword">];<br /><br />function </span><span class="default">build_pdo_query</span><span class="keyword">(</span><span class="default">$string</span><span class="keyword">, </span><span class="default">$array</span><span class="keyword">) {<br />    </span><span class="comment">//Get the key lengths for each of the array elements.<br />    </span><span class="default">$keys </span><span class="keyword">= </span><span class="default">array_map</span><span class="keyword">(</span><span class="string">'strlen'</span><span class="keyword">, </span><span class="default">array_keys</span><span class="keyword">(</span><span class="default">$array</span><span class="keyword">));<br /><br />    </span><span class="comment">//Sort the array by string length so the longest strings are replaced first.<br />    </span><span class="default">array_multisort</span><span class="keyword">(</span><span class="default">$keys</span><span class="keyword">, </span><span class="default">SORT_DESC</span><span class="keyword">, </span><span class="default">$array</span><span class="keyword">);<br /><br />    foreach(</span><span class="default">$array </span><span class="keyword">as </span><span class="default">$k </span><span class="keyword">=&gt; </span><span class="default">$v</span><span class="keyword">) {<br />        </span><span class="comment">//Quote non-numeric values.<br />        </span><span class="default">$replacement </span><span class="keyword">= </span><span class="default">is_numeric</span><span class="keyword">(</span><span class="default">$v</span><span class="keyword">) ? </span><span class="default">$v </span><span class="keyword">: </span><span class="string">"'</span><span class="keyword">{</span><span class="default">$v</span><span class="keyword">}</span><span class="string">'"</span><span class="keyword">;<br /><br />        </span><span class="comment">//Replace the needle.<br />        </span><span class="default">$string </span><span class="keyword">= </span><span class="default">str_replace</span><span class="keyword">(</span><span class="default">$k</span><span class="keyword">, </span><span class="default">$replacement</span><span class="keyword">, </span><span class="default">$string</span><span class="keyword">);<br />    }<br /><br />    return </span><span class="default">$string</span><span class="keyword">;<br />}<br /><br />echo </span><span class="default">build_pdo_query</span><span class="keyword">(</span><span class="default">$query</span><span class="keyword">, </span><span class="default">$params</span><span class="keyword">);    </span><span class="comment">//UPDATE users SET name = 'foobear' WHERE id = 1001<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="61622">  <div class="votes">
+    <div id="Vu61622">
+    <a href="https://www.php.net/manual/vote-note.php?id=61622&amp;page=book.pdo&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd61622">
+    <a href="https://www.php.net/manual/vote-note.php?id=61622&amp;page=book.pdo&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V61622" title="49% like this...">
+    -1
+    </div>
+  </div>
+  <a href="book.pdo.php.html#61622" class="name">
+  <strong class="user"><em>shaolin at adf dot nu</em></strong></a><a class="genanchor" href="book.pdo.php.html#61622"> &para;</a><div class="date" title="2006-02-07 06:18"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom61622">
+<div class="phpcode"><code><span class="html">If your having problems re-compiling PHP with PDO as shared module try this.<br /><br />--enable-pdo=shared<br />--with-pdo-mysql=shared,/usr/local/mysql<br />--with-sqlite=shared<br />--with-pdo-sqlite=shared<br /><br />1. If PDO is built as a shared modules, all PDO drivers must also be<br />built as shared modules.<br />2. If ext/pdo_sqlite is built as a shared module, ext/sqlite must also<br />be built as a shared module.<br />3. In the extensions entries, if ext/pdo_sqlite is built as a shared<br />module, php.ini must specify pdo_sqlite first, followed by sqlite.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="112641">  <div class="votes">
+    <div id="Vu112641">
+    <a href="https://www.php.net/manual/vote-note.php?id=112641&amp;page=book.pdo&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd112641">
+    <a href="https://www.php.net/manual/vote-note.php?id=112641&amp;page=book.pdo&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V112641" title="46% like this...">
+    -7
+    </div>
+  </div>
+  <a href="book.pdo.php.html#112641" class="name">
+  <strong class="user"><em>Sbastien Gourmand</em></strong></a><a class="genanchor" href="book.pdo.php.html#112641"> &para;</a><div class="date" title="2013-07-08 10:19"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom112641">
+<div class="phpcode"><code><span class="html">Merge the prepare() and execute() in one function like a sprintf().<br />And like sprintf, I choose to use unnamed args (?) ;)<br /><br />you could still use old insecure query() ( not prepared ) with renamed function :)<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">class </span><span class="default">MyPDO </span><span class="keyword">extends </span><span class="default">PDO</span><span class="keyword">{<br /><br />    const </span><span class="default">PARAM_host</span><span class="keyword">=</span><span class="string">'localhost'</span><span class="keyword">;<br />    const </span><span class="default">PARAM_port</span><span class="keyword">=</span><span class="string">'3306'</span><span class="keyword">;<br />    const </span><span class="default">PARAM_db_name</span><span class="keyword">=</span><span class="string">'test'</span><span class="keyword">;<br />    const </span><span class="default">PARAM_user</span><span class="keyword">=</span><span class="string">'root'</span><span class="keyword">;<br />    const </span><span class="default">PARAM_db_pass</span><span class="keyword">=</span><span class="string">''</span><span class="keyword">;<br /><br />    public function </span><span class="default">__construct</span><span class="keyword">(</span><span class="default">$options</span><span class="keyword">=</span><span class="default">null</span><span class="keyword">){<br />        </span><span class="default">parent</span><span class="keyword">::</span><span class="default">__construct</span><span class="keyword">(</span><span class="string">'mysql:host='</span><span class="keyword">.</span><span class="default">MyPDO</span><span class="keyword">::</span><span class="default">PARAM_host</span><span class="keyword">.</span><span class="string">';port='</span><span class="keyword">.</span><span class="default">MyPDO</span><span class="keyword">::</span><span class="default">PARAM_port</span><span class="keyword">.</span><span class="string">';dbname='</span><span class="keyword">.</span><span class="default">MyPDO</span><span class="keyword">::</span><span class="default">PARAM_db_name</span><span class="keyword">,<br /></span><span class="default">MyPDO</span><span class="keyword">::</span><span class="default">PARAM_user</span><span class="keyword">,<br /></span><span class="default">MyPDO</span><span class="keyword">::</span><span class="default">PARAM_db_pass</span><span class="keyword">,</span><span class="default">$options</span><span class="keyword">);<br />    }<br /><br />    public function </span><span class="default">query</span><span class="keyword">(</span><span class="default">$query</span><span class="keyword">){ </span><span class="comment">//secured query with prepare and execute<br />        </span><span class="default">$args </span><span class="keyword">= </span><span class="default">func_get_args</span><span class="keyword">();<br />        </span><span class="default">array_shift</span><span class="keyword">(</span><span class="default">$args</span><span class="keyword">); </span><span class="comment">//first element is not an argument but the query itself, should removed<br /><br />        </span><span class="default">$reponse </span><span class="keyword">= </span><span class="default">parent</span><span class="keyword">::</span><span class="default">prepare</span><span class="keyword">(</span><span class="default">$query</span><span class="keyword">);<br />        </span><span class="default">$reponse</span><span class="keyword">-&gt;</span><span class="default">execute</span><span class="keyword">(</span><span class="default">$args</span><span class="keyword">);<br />        return </span><span class="default">$reponse</span><span class="keyword">;<br /><br />    }<br /><br />    public function </span><span class="default">insecureQuery</span><span class="keyword">(</span><span class="default">$query</span><span class="keyword">){ </span><span class="comment">//you can use the old query at your risk ;) and should use secure quote() function with it<br />        </span><span class="keyword">return </span><span class="default">parent</span><span class="keyword">::</span><span class="default">query</span><span class="keyword">(</span><span class="default">$query</span><span class="keyword">);<br />    }<br /><br />}<br /><br /></span><span class="default">$db </span><span class="keyword">= new </span><span class="default">MyPDO</span><span class="keyword">();<br /></span><span class="default">$db</span><span class="keyword">-&gt;</span><span class="default">setAttribute</span><span class="keyword">(</span><span class="default">PDO</span><span class="keyword">::</span><span class="default">ATTR_DEFAULT_FETCH_MODE</span><span class="keyword">, </span><span class="default">PDO</span><span class="keyword">::</span><span class="default">FETCH_OBJ</span><span class="keyword">);<br /><br /></span><span class="default">$t1 </span><span class="keyword">= isset(</span><span class="default">$_GET</span><span class="keyword">[</span><span class="string">"t1"</span><span class="keyword">])?</span><span class="default">$_GET</span><span class="keyword">[</span><span class="string">"t1"</span><span class="keyword">]:</span><span class="default">1</span><span class="keyword">; </span><span class="comment">// need to be securised for injonction<br /></span><span class="default">$t2 </span><span class="keyword">= isset(</span><span class="default">$_GET</span><span class="keyword">[</span><span class="string">"t2"</span><span class="keyword">])?</span><span class="default">$_GET</span><span class="keyword">[</span><span class="string">"t2"</span><span class="keyword">]:</span><span class="default">2</span><span class="keyword">; </span><span class="comment">// need to be securised for injonction<br /></span><span class="default">$t3 </span><span class="keyword">= isset(</span><span class="default">$_GET</span><span class="keyword">[</span><span class="string">"t3"</span><span class="keyword">])?</span><span class="default">$_GET</span><span class="keyword">[</span><span class="string">"t3"</span><span class="keyword">]:</span><span class="default">3</span><span class="keyword">; </span><span class="comment">// need to be securised for injonction<br /><br /></span><span class="default">$ret </span><span class="keyword">= </span><span class="default">$db</span><span class="keyword">-&gt;</span><span class="default">query</span><span class="keyword">(</span><span class="string">"SELECT * FROM table_test WHERE t1=? AND t2=? AND t3=?"</span><span class="keyword">,</span><span class="default">$t1</span><span class="keyword">,</span><span class="default">$t2</span><span class="keyword">,</span><span class="default">$t3</span><span class="keyword">);<br /></span><span class="comment">//$ret = $db-&gt;insecureQuery("SELECT * FROM table_test WHERE t1=".$db-&gt;quote($t1));<br /><br /></span><span class="keyword">while (</span><span class="default">$o </span><span class="keyword">= </span><span class="default">$ret</span><span class="keyword">-&gt;</span><span class="default">fetch</span><span class="keyword">())<br />{<br />    echo </span><span class="default">$o</span><span class="keyword">-&gt;</span><span class="default">nom</span><span class="keyword">.</span><span class="default">PHP_EOL</span><span class="keyword">;<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="79722">  <div class="votes">
+    <div id="Vu79722">
+    <a href="https://www.php.net/manual/vote-note.php?id=79722&amp;page=book.pdo&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd79722">
+    <a href="https://www.php.net/manual/vote-note.php?id=79722&amp;page=book.pdo&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V79722" title="46% like this...">
+    -4
+    </div>
+  </div>
+  <a href="book.pdo.php.html#79722" class="name">
+  <strong class="user"><em>neonmandk at gmail dot com</em></strong></a><a class="genanchor" href="book.pdo.php.html#79722"> &para;</a><div class="date" title="2007-12-10 04:29"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom79722">
+<div class="phpcode"><code><span class="html">If you will make a OBJ row from PDO you can use this eg.<br /><br />$resKampange = $dbc-&gt;prepare( "SELECT * FROM Table LIMIT 1" );<br />$resKampange-&gt;execute();<br />$rowKampange = $resKampange-&gt;fetch( PDO::FETCH_OB );<br /><br />echo $rowKampange-&gt;felt1;<br /><br />Good lock :0)</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="75310">  <div class="votes">
+    <div id="Vu75310">
+    <a href="https://www.php.net/manual/vote-note.php?id=75310&amp;page=book.pdo&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd75310">
+    <a href="https://www.php.net/manual/vote-note.php?id=75310&amp;page=book.pdo&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V75310" title="47% like this...">
+    -7
+    </div>
+  </div>
+  <a href="book.pdo.php.html#75310" class="name">
+  <strong class="user"><em>bart at mediawave dot nl</em></strong></a><a class="genanchor" href="book.pdo.php.html#75310"> &para;</a><div class="date" title="2007-05-23 07:57"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom75310">
+<div class="phpcode"><code><span class="html">It seems MySQL doesn't support scrollable cursors. So unfortunately PDO::CURSOR_SCROLL wont work.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="68398">  <div class="votes">
+    <div id="Vu68398">
+    <a href="https://www.php.net/manual/vote-note.php?id=68398&amp;page=book.pdo&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd68398">
+    <a href="https://www.php.net/manual/vote-note.php?id=68398&amp;page=book.pdo&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V68398" title="47% like this...">
+    -7
+    </div>
+  </div>
+  <a href="book.pdo.php.html#68398" class="name">
+  <strong class="user"><em>paulius_k at yahoo dot com</em></strong></a><a class="genanchor" href="book.pdo.php.html#68398"> &para;</a><div class="date" title="2006-07-25 08:42"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom68398">
+<div class="phpcode"><code><span class="html">If you need to get Output variable from MSSQL stored procedure, try this :<br /><br />-- PROCEDURE<br />CREATE PROCEDURE spReturn_Int @err int OUTPUT <br />AS<br />SET @err = 11<br />GO<br /><br />$sth = $dbh-&gt;prepare("EXECUTE spReturn_Int ?");<br />$sth-&gt;bindParam(1, $return_value, PDO::PARAM_INT|PDO::PARAM_INPUT_OUTPUT);<br />$sth-&gt;execute();<br />print "procedure returned $return_value\n";</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="101681">  <div class="votes">
+    <div id="Vu101681">
+    <a href="https://www.php.net/manual/vote-note.php?id=101681&amp;page=book.pdo&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd101681">
+    <a href="https://www.php.net/manual/vote-note.php?id=101681&amp;page=book.pdo&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V101681" title="45% like this...">
+    -7
+    </div>
+  </div>
+  <a href="book.pdo.php.html#101681" class="name">
+  <strong class="user"><em>lkmorlan at uwaterloo dot ca</em></strong></a><a class="genanchor" href="book.pdo.php.html#101681"> &para;</a><div class="date" title="2011-01-04 07:25"><strong>13 years ago</strong></div>
+  <div class="text" id="Hcom101681">
+<div class="phpcode"><code><span class="html">You may also have to edit /etc/freetds.conf. Make sure the TDS version is recent, e.g., "tds version = 8.0".</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="78532">  <div class="votes">
+    <div id="Vu78532">
+    <a href="https://www.php.net/manual/vote-note.php?id=78532&amp;page=book.pdo&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd78532">
+    <a href="https://www.php.net/manual/vote-note.php?id=78532&amp;page=book.pdo&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V78532" title="45% like this...">
+    -9
+    </div>
+  </div>
+  <a href="book.pdo.php.html#78532" class="name">
+  <strong class="user"><em>Konstantin at Tokar dot ru</em></strong></a><a class="genanchor" href="book.pdo.php.html#78532"> &para;</a><div class="date" title="2007-10-16 08:34"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom78532">
+<div class="phpcode"><code><span class="html">Example 5: <br /><span class="default">&lt;?php<br /></span><span class="keyword">try {<br />  </span><span class="default">$dbh </span><span class="keyword">= new </span><span class="default">PDO</span><span class="keyword">(</span><span class="string">'odbc:SAMPLE'</span><span class="keyword">, </span><span class="string">'db2inst1'</span><span class="keyword">, </span><span class="string">'ibmdb2'</span><span class="keyword">,<br />      array(</span><span class="default">PDO</span><span class="keyword">::</span><span class="default">ATTR_PERSISTENT </span><span class="keyword">=&gt; </span><span class="default">true</span><span class="keyword">));<br />....... <br />} catch (</span><span class="default">Exception $e</span><span class="keyword">) {<br />  </span><span class="default">$dbh</span><span class="keyword">-&gt;</span><span class="default">rollBack</span><span class="keyword">();<br />  echo </span><span class="string">"Failed: " </span><span class="keyword">. </span><span class="default">$e</span><span class="keyword">-&gt;</span><span class="default">getMessage</span><span class="keyword">();<br />}<br /></span><span class="default">?&gt;</span> <br /><br />We must change the last two lines to catch the error connecting to the database:<br /><br />} catch (Exception $e) {<br />  echo "Failed: " . $e-&gt;getMessage();<br />  $dbh-&gt;rollBack();<br />}<br />?&gt;</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="62087">  <div class="votes">
+    <div id="Vu62087">
+    <a href="https://www.php.net/manual/vote-note.php?id=62087&amp;page=book.pdo&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd62087">
+    <a href="https://www.php.net/manual/vote-note.php?id=62087&amp;page=book.pdo&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V62087" title="45% like this...">
+    -8
+    </div>
+  </div>
+  <a href="book.pdo.php.html#62087" class="name">
+  <strong class="user"><em>www.navin.biz</em></strong></a><a class="genanchor" href="book.pdo.php.html#62087"> &para;</a><div class="date" title="2006-02-19 10:16"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom62087">
+<div class="phpcode"><code><span class="html">Below is an example of extending PDO &amp; PDOStatement classes:<br /><br /><span class="default">&lt;?php<br /><br /></span><span class="keyword">class </span><span class="default">Database </span><span class="keyword">extends </span><span class="default">PDO<br /></span><span class="keyword">{<br />    function </span><span class="default">__construct</span><span class="keyword">()<br />    {<br />        </span><span class="default">parent</span><span class="keyword">::</span><span class="default">__construct</span><span class="keyword">(</span><span class="string">'mysql:dbname=test;host=localhost'</span><span class="keyword">, </span><span class="string">'root'</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">);<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">setAttribute</span><span class="keyword">(</span><span class="default">PDO</span><span class="keyword">::</span><span class="default">ATTR_STATEMENT_CLASS</span><span class="keyword">, array(</span><span class="string">'DBStatement'</span><span class="keyword">, array(</span><span class="default">$this</span><span class="keyword">)));<br />    }<br />}<br /><br />class </span><span class="default">DBStatement </span><span class="keyword">extends </span><span class="default">PDOStatement<br /></span><span class="keyword">{<br />    public </span><span class="default">$dbh</span><span class="keyword">;<br /><br />    protected function </span><span class="default">__construct</span><span class="keyword">(</span><span class="default">$dbh</span><span class="keyword">)<br />    {<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">dbh </span><span class="keyword">= </span><span class="default">$dbh</span><span class="keyword">;<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">setFetchMode</span><span class="keyword">(</span><span class="default">PDO</span><span class="keyword">::</span><span class="default">FETCH_OBJ</span><span class="keyword">);<br />    }<br />    <br />    public function </span><span class="default">foundRows</span><span class="keyword">()<br />    {<br />        </span><span class="default">$rows </span><span class="keyword">= </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">dbh</span><span class="keyword">-&gt;</span><span class="default">prepare</span><span class="keyword">(</span><span class="string">'SELECT found_rows() AS rows'</span><span class="keyword">, array(</span><span class="default">PDO</span><span class="keyword">::</span><span class="default">MYSQL_ATTR_USE_BUFFERED_QUERY </span><span class="keyword">=&gt; </span><span class="default">TRUE</span><span class="keyword">));<br />        </span><span class="default">$rows</span><span class="keyword">-&gt;</span><span class="default">execute</span><span class="keyword">();<br />        </span><span class="default">$rowsCount </span><span class="keyword">= </span><span class="default">$rows</span><span class="keyword">-&gt;</span><span class="default">fetch</span><span class="keyword">(</span><span class="default">PDO</span><span class="keyword">::</span><span class="default">FETCH_OBJ</span><span class="keyword">)-&gt;</span><span class="default">rows</span><span class="keyword">;<br />        </span><span class="default">$rows</span><span class="keyword">-&gt;</span><span class="default">closeCursor</span><span class="keyword">();<br />        return </span><span class="default">$rowsCount</span><span class="keyword">;<br />    }<br />}<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="69963">  <div class="votes">
+    <div id="Vu69963">
+    <a href="https://www.php.net/manual/vote-note.php?id=69963&amp;page=book.pdo&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd69963">
+    <a href="https://www.php.net/manual/vote-note.php?id=69963&amp;page=book.pdo&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V69963" title="45% like this...">
+    -10
+    </div>
+  </div>
+  <a href="book.pdo.php.html#69963" class="name">
+  <strong class="user"><em>webform at aouie dot website</em></strong></a><a class="genanchor" href="book.pdo.php.html#69963"> &para;</a><div class="date" title="2006-09-27 11:38"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom69963">
+<div class="phpcode"><code><span class="html">If you use $dbh = new PDO('pgsql:host=localhost;dbname=test_basic01', $user, $pass); and you get the following error:<br />PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[08006] [7] could not connect to server: Connection refused\n\tIs the server running on host "localhost" and accepting\n\tTCP/IP connections on port 5432?'<br />then as pointed out under pg_connect at: <a href="http://www.php.net/manual/en/function.pg-connect.php#38291" rel="nofollow" target="_blank">http://www.php.net/manual/en/function.pg-connect.php#38291</a> <br />******<br />you should try to leave the host= and port= parts out of the connection string. This sounds strange, but this is an "option" of Postgre. If you have not activated the TCP/IP port in postgresql.conf then postgresql doesn't accept any incoming requests from an TCP/IP port. If you use host= in your connection string you are going to connect to Postgre via TCP/IP, so that's not going to work. If you leave the host= part out of your connection string you connect to Postgre via the Unix domain sockets, which is faster and more secure, but you can't connect with the database via any other PC as the localhost.<br />******<br />Sincerely,<br />Aouie</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="77532">  <div class="votes">
+    <div id="Vu77532">
+    <a href="https://www.php.net/manual/vote-note.php?id=77532&amp;page=book.pdo&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd77532">
+    <a href="https://www.php.net/manual/vote-note.php?id=77532&amp;page=book.pdo&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V77532" title="43% like this...">
+    -8
+    </div>
+  </div>
+  <a href="book.pdo.php.html#77532" class="name">
+  <strong class="user"><em>anton dot clarke at sonikmedia dot com</em></strong></a><a class="genanchor" href="book.pdo.php.html#77532"> &para;</a><div class="date" title="2007-09-02 12:12"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom77532">
+<div class="phpcode"><code><span class="html">Not all PDO drivers return a LOB as a file stream; mysql 5 is one example. Therefore when streaming a mime typed object from the database you cannot use fpassthru.<br /><br />The following is a modified example that works with a mysql database. (Tested FreeBSD v 6.2 with mysql 5.0.45 and php 5.2.3) <br /><br /><span class="default">&lt;?php<br />ob_start</span><span class="keyword">();<br /></span><span class="default">$db </span><span class="keyword">= new </span><span class="default">PDO</span><span class="keyword">(</span><span class="string">'mysql:host=localhost;dbname=&lt;SOMEDB&gt;'</span><span class="keyword">, </span><span class="string">'&lt;USERNAME&gt;'</span><span class="keyword">, </span><span class="string">'PASSWORD'</span><span class="keyword">);<br /></span><span class="default">$stmt </span><span class="keyword">= </span><span class="default">$db</span><span class="keyword">-&gt;</span><span class="default">prepare</span><span class="keyword">(</span><span class="string">"select contenttype, imagedata from images where id=?"</span><span class="keyword">);<br /></span><span class="default">$stmt</span><span class="keyword">-&gt;</span><span class="default">execute</span><span class="keyword">(array(</span><span class="default">$_GET</span><span class="keyword">[</span><span class="string">'id'</span><span class="keyword">]));<br /></span><span class="default">$stmt</span><span class="keyword">-&gt;</span><span class="default">bindColumn</span><span class="keyword">(</span><span class="default">1</span><span class="keyword">, </span><span class="default">$type</span><span class="keyword">, </span><span class="default">PDO</span><span class="keyword">::</span><span class="default">PARAM_STR</span><span class="keyword">, </span><span class="default">256</span><span class="keyword">);<br /></span><span class="default">$stmt</span><span class="keyword">-&gt;</span><span class="default">bindColumn</span><span class="keyword">(</span><span class="default">2</span><span class="keyword">, </span><span class="default">$lob</span><span class="keyword">, </span><span class="default">PDO</span><span class="keyword">::</span><span class="default">PARAM_LOB</span><span class="keyword">);<br /></span><span class="default">$stmt</span><span class="keyword">-&gt;</span><span class="default">fetch</span><span class="keyword">(</span><span class="default">PDO</span><span class="keyword">::</span><span class="default">FETCH_BOUND</span><span class="keyword">);<br /></span><span class="default">ob_clean</span><span class="keyword">();<br /></span><span class="default">header</span><span class="keyword">(</span><span class="string">"Content-Type: </span><span class="default">$type</span><span class="string">"</span><span class="keyword">);<br />echo </span><span class="default">$lob</span><span class="keyword">; </span><span class="comment">// fpassthru reports an error that $lob is not a stream so echo is used in place.<br /></span><span class="default">ob_end_flush</span><span class="keyword">();<br /></span><span class="default">?&gt;<br /></span><br />Please note the inclusion of buffer control. I only needed this when using 'include','include_once','require', or 'require_once' - my feeling is there is a subtle issue with those options as even an empty include file caused a buffer issue for me. === AND YES, I DID CHECK MY INCLUDE FILES DID NOT HAVE SPURIOUS WHITESPACE ETC OUTSIDE THE <span class="default">&lt;?php ?&gt;</span> DELIMITERS! ===</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="98659">  <div class="votes">
+    <div id="Vu98659">
+    <a href="https://www.php.net/manual/vote-note.php?id=98659&amp;page=book.pdo&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd98659">
+    <a href="https://www.php.net/manual/vote-note.php?id=98659&amp;page=book.pdo&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V98659" title="45% like this...">
+    -21
+    </div>
+  </div>
+  <a href="book.pdo.php.html#98659" class="name">
+  <strong class="user"><em>lkmorlan at uwaterloo dot ca</em></strong></a><a class="genanchor" href="book.pdo.php.html#98659"> &para;</a><div class="date" title="2010-06-29 09:38"><strong>13 years ago</strong></div>
+  <div class="text" id="Hcom98659">
+<div class="phpcode"><code><span class="html">This works to get UTF8 data from MSSQL:<br /><br /><span class="default">&lt;?php<br />$db </span><span class="keyword">= new </span><span class="default">PDO</span><span class="keyword">(</span><span class="string">'dblib:host=your_hostname;dbname=your_db;charset=UTF-8'</span><span class="keyword">, </span><span class="default">$user</span><span class="keyword">, </span><span class="default">$pass</span><span class="keyword">);<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=book.pdo&amp;redirect=https://www.php.net/manual/ru/book.pdo.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="refs.database.abstract.php.html">Уровни абстракции</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="book.dba.php.html" title="DBA">DBA</a>
+                        </li>
+                                                <li class="">
+                            <a href="book.uodbc.php.html" title="ODBC">ODBC</a>
+                        </li>
+                                                <li class="current">
+                            <a href="book.pdo.php.html" title="PDO">PDO</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

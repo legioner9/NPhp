@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: SplQueue - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="class.splqueue.php.html">
+ <link rel="shorturl" href="https://www.php.net/splqueue">
+ <link rel="alternate" href="https://www.php.net/splqueue" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="spl.datastructures.php.html">
+ <link rel="prev" href="class.splstack.php.html">
+ <link rel="next" href="splqueue.dequeue.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/class.splqueue.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/class.splqueue.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/class.splqueue.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/class.splqueue.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/class.splqueue.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/class.splqueue.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/class.splqueue.php" hreflang="pt_BR">
+ <link rel="alternate" href="class.splqueue.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/class.splqueue.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/class.splqueue.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="splqueue.dequeue.php.html">
+          SplQueue::dequeue &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="class.splstack.php.html">
+          &laquo; SplStack        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.basic.other.php.html'>Другие базовые модули</a></li>      <li><a href='book.spl.php.html'>SPL</a></li>      <li><a href='spl.datastructures.php.html'>Структуры данных</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/class.splqueue.php'>English</option>
+            <option value='de/class.splqueue.php'>German</option>
+            <option value='es/class.splqueue.php'>Spanish</option>
+            <option value='fr/class.splqueue.php'>French</option>
+            <option value='it/class.splqueue.php'>Italian</option>
+            <option value='ja/class.splqueue.php'>Japanese</option>
+            <option value='pt_BR/class.splqueue.php'>Brazilian Portuguese</option>
+            <option value='ru/class.splqueue.php' selected="selected">Russian</option>
+            <option value='tr/class.splqueue.php'>Turkish</option>
+            <option value='zh/class.splqueue.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/spl/splqueue.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Fclass.splqueue%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="class.splqueue" class="reference">
+ <h1 class="title">Класс SplQueue</h1>
+ 
+
+ <div class="partintro"><p class="verinfo">(PHP 5 &gt;= 5.3.0, PHP 7, PHP 8)</p>
+
+  
+  <div class="section" id="splqueue.intro">
+   <h2 class="title">Введение</h2>
+   <p class="para">
+    Класс SplQueue предоставляет основные функциональные возможности очереди, реализованной с использованием двусвязного списка,
+    установив режим итератора <strong><code>SplDoublyLinkedList::IT_MODE_FIFO</code></strong>.
+   </p>
+  </div>
+  
+
+  <div class="section" id="splqueue.synopsis">
+   <h2 class="title">Обзор классов</h2>
+
+
+   <div class="classsynopsis"><div class="classsynopsisinfo">
+    
+     <span class="modifier">class</span> <strong class="classname"><strong class="classname">SplQueue</strong></strong>
+    
+
+    
+     <span class="modifier">extends</span>
+      <a href="class.spldoublylinkedlist.php.html" class="classname">SplDoublyLinkedList</a>
+     {</div>
+
+    <div class="classsynopsisinfo classsynopsisinfo_comment">/* Наследуемые константы */</div>
+    <div class="fieldsynopsis">
+     <span class="modifier">public</span>
+     <span class="modifier">const</span>
+     <span class="type">int</span>
+      <var class="fieldsynopsis_varname"><a href="class.spldoublylinkedlist.php.html#spldoublylinkedlist.constants.it-mode-lifo"><var class="varname">SplDoublyLinkedList::IT_MODE_LIFO</var></a></var>;</div>
+<div class="fieldsynopsis"><span class="modifier">public</span>
+     <span class="modifier">const</span>
+     <span class="type">int</span>
+      <var class="fieldsynopsis_varname"><a href="class.spldoublylinkedlist.php.html#spldoublylinkedlist.constants.it-mode-fifo"><var class="varname">SplDoublyLinkedList::IT_MODE_FIFO</var></a></var>;</div>
+<div class="fieldsynopsis"><span class="modifier">public</span>
+     <span class="modifier">const</span>
+     <span class="type">int</span>
+      <var class="fieldsynopsis_varname"><a href="class.spldoublylinkedlist.php.html#spldoublylinkedlist.constants.it-mode-delete"><var class="varname">SplDoublyLinkedList::IT_MODE_DELETE</var></a></var>;</div>
+<div class="fieldsynopsis"><span class="modifier">public</span>
+     <span class="modifier">const</span>
+     <span class="type">int</span>
+      <var class="fieldsynopsis_varname"><a href="class.spldoublylinkedlist.php.html#spldoublylinkedlist.constants.it-mode-keep"><var class="varname">SplDoublyLinkedList::IT_MODE_KEEP</var></a></var>;</div>
+
+
+    <div class="classsynopsisinfo classsynopsisinfo_comment">/* Методы */</div>
+    <div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="methodname"><a href="splqueue.dequeue.php.html" class="methodname">dequeue</a></span>(): <span class="type"><a href="language.types.declarations.php.html#language.types.declarations.mixed" class="type mixed">mixed</a></span></div>
+<div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="splqueue.enqueue.php.html" class="methodname">enqueue</a></span>(<span class="methodparam"><span class="type"><a href="language.types.declarations.php.html#language.types.declarations.mixed" class="type mixed">mixed</a></span> <code class="parameter">$value</code></span>): <span class="type"><span class="type void">void</span></span></div>
+
+
+    <div class="classsynopsisinfo classsynopsisinfo_comment">/* Наследуемые методы */</div>
+    <div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="spldoublylinkedlist.add.php.html" class="methodname">SplDoublyLinkedList::add</a></span>(<span class="methodparam"><span class="type">int</span> <code class="parameter">$index</code></span>, <span class="methodparam"><span class="type"><a href="language.types.declarations.php.html#language.types.declarations.mixed" class="type mixed">mixed</a></span> <code class="parameter">$value</code></span>): <span class="type"><span class="type void">void</span></span></div>
+<div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="spldoublylinkedlist.bottom.php.html" class="methodname">SplDoublyLinkedList::bottom</a></span>(): <span class="type"><a href="language.types.declarations.php.html#language.types.declarations.mixed" class="type mixed">mixed</a></span></div>
+<div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="spldoublylinkedlist.count.php.html" class="methodname">SplDoublyLinkedList::count</a></span>(): <span class="type">int</span></div>
+<div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="spldoublylinkedlist.current.php.html" class="methodname">SplDoublyLinkedList::current</a></span>(): <span class="type"><a href="language.types.declarations.php.html#language.types.declarations.mixed" class="type mixed">mixed</a></span></div>
+<div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="spldoublylinkedlist.getiteratormode.php.html" class="methodname">SplDoublyLinkedList::getIteratorMode</a></span>(): <span class="type">int</span></div>
+<div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="spldoublylinkedlist.isempty.php.html" class="methodname">SplDoublyLinkedList::isEmpty</a></span>(): <span class="type">bool</span></div>
+<div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="spldoublylinkedlist.key.php.html" class="methodname">SplDoublyLinkedList::key</a></span>(): <span class="type">int</span></div>
+<div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="spldoublylinkedlist.next.php.html" class="methodname">SplDoublyLinkedList::next</a></span>(): <span class="type"><span class="type void">void</span></span></div>
+<div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="spldoublylinkedlist.offsetexists.php.html" class="methodname">SplDoublyLinkedList::offsetExists</a></span>(<span class="methodparam"><span class="type">int</span> <code class="parameter">$index</code></span>): <span class="type">bool</span></div>
+<div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="spldoublylinkedlist.offsetget.php.html" class="methodname">SplDoublyLinkedList::offsetGet</a></span>(<span class="methodparam"><span class="type">int</span> <code class="parameter">$index</code></span>): <span class="type"><a href="language.types.declarations.php.html#language.types.declarations.mixed" class="type mixed">mixed</a></span></div>
+<div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="spldoublylinkedlist.offsetset.php.html" class="methodname">SplDoublyLinkedList::offsetSet</a></span>(<span class="methodparam"><span class="type">?</span><span class="type"><span class="type">int</span><span class="type"></span></span> <code class="parameter">$index</code></span>, <span class="methodparam"><span class="type"><a href="language.types.declarations.php.html#language.types.declarations.mixed" class="type mixed">mixed</a></span> <code class="parameter">$value</code></span>): <span class="type"><span class="type void">void</span></span></div>
+<div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="spldoublylinkedlist.offsetunset.php.html" class="methodname">SplDoublyLinkedList::offsetUnset</a></span>(<span class="methodparam"><span class="type">int</span> <code class="parameter">$index</code></span>): <span class="type"><span class="type void">void</span></span></div>
+<div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="spldoublylinkedlist.pop.php.html" class="methodname">SplDoublyLinkedList::pop</a></span>(): <span class="type"><a href="language.types.declarations.php.html#language.types.declarations.mixed" class="type mixed">mixed</a></span></div>
+<div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="spldoublylinkedlist.prev.php.html" class="methodname">SplDoublyLinkedList::prev</a></span>(): <span class="type"><span class="type void">void</span></span></div>
+<div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="spldoublylinkedlist.push.php.html" class="methodname">SplDoublyLinkedList::push</a></span>(<span class="methodparam"><span class="type"><a href="language.types.declarations.php.html#language.types.declarations.mixed" class="type mixed">mixed</a></span> <code class="parameter">$value</code></span>): <span class="type"><span class="type void">void</span></span></div>
+<div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="spldoublylinkedlist.rewind.php.html" class="methodname">SplDoublyLinkedList::rewind</a></span>(): <span class="type"><span class="type void">void</span></span></div>
+<div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="spldoublylinkedlist.serialize.php.html" class="methodname">SplDoublyLinkedList::serialize</a></span>(): <span class="type">string</span></div>
+<div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="spldoublylinkedlist.setiteratormode.php.html" class="methodname">SplDoublyLinkedList::setIteratorMode</a></span>(<span class="methodparam"><span class="type">int</span> <code class="parameter">$mode</code></span>): <span class="type">int</span></div>
+<div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="spldoublylinkedlist.shift.php.html" class="methodname">SplDoublyLinkedList::shift</a></span>(): <span class="type"><a href="language.types.declarations.php.html#language.types.declarations.mixed" class="type mixed">mixed</a></span></div>
+<div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="spldoublylinkedlist.top.php.html" class="methodname">SplDoublyLinkedList::top</a></span>(): <span class="type"><a href="language.types.declarations.php.html#language.types.declarations.mixed" class="type mixed">mixed</a></span></div>
+<div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="spldoublylinkedlist.unserialize.php.html" class="methodname">SplDoublyLinkedList::unserialize</a></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$data</code></span>): <span class="type"><span class="type void">void</span></span></div>
+<div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="spldoublylinkedlist.unshift.php.html" class="methodname">SplDoublyLinkedList::unshift</a></span>(<span class="methodparam"><span class="type"><a href="language.types.declarations.php.html#language.types.declarations.mixed" class="type mixed">mixed</a></span> <code class="parameter">$value</code></span>): <span class="type"><span class="type void">void</span></span></div>
+<div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="spldoublylinkedlist.valid.php.html" class="methodname">SplDoublyLinkedList::valid</a></span>(): <span class="type">bool</span></div>
+
+   }</div>
+
+  </div>
+
+  <div class="section">
+   <h2 class="title">Примеры</h2>
+   <p class="para">
+    <div class="example" id="">
+     <p><strong>Пример #1 Пример использования <span class="classname"><strong class="classname">SplQueue</strong></span></strong></p>
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$q </span><span style="color: #007700">= new </span><span style="color: #0000BB">SplQueue</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$q</span><span style="color: #007700">[] = </span><span style="color: #0000BB">1</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$q</span><span style="color: #007700">[] = </span><span style="color: #0000BB">2</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$q</span><span style="color: #007700">[] = </span><span style="color: #0000BB">3</span><span style="color: #007700">;<br />foreach (</span><span style="color: #0000BB">$q </span><span style="color: #007700">as </span><span style="color: #0000BB">$elem</span><span style="color: #007700">)  {<br /> echo </span><span style="color: #0000BB">$elem</span><span style="color: #007700">.</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+     </div>
+
+     
+<div class="example-contents"><p>
+ Результат выполнения приведённого примера:
+</p></div>
+
+     <div class="example-contents screen">
+<div class="cdata"><pre>
+1
+2
+3
+</pre></div>
+     </div>
+    </div>
+    <div class="example" id="">
+     <p><strong>Пример #2 Эффективное решение задач с помощью <span class="classname"><strong class="classname">SplQueue</strong></span></strong></p>
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$q </span><span style="color: #007700">= new </span><span style="color: #0000BB">SplQueue</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$q</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">setIteratorMode</span><span style="color: #007700">(</span><span style="color: #0000BB">SplQueue</span><span style="color: #007700">::</span><span style="color: #0000BB">IT_MODE_DELETE</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">// ... добавление некоторых задач в очередь ...<br />// обработка<br /></span><span style="color: #007700">foreach (</span><span style="color: #0000BB">$q </span><span style="color: #007700">as </span><span style="color: #0000BB">$task</span><span style="color: #007700">) {<br />    </span><span style="color: #FF8000">// ... обработка $task ...<br />    // добавление новых задач в очередь<br />    </span><span style="color: #0000BB">$q</span><span style="color: #007700">[] = </span><span style="color: #0000BB">$newTask</span><span style="color: #007700">;<br />    </span><span style="color: #FF8000">// ...<br /></span><span style="color: #007700">}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+     </div>
+
+    </div>
+   </p>
+  </div>
+
+ </div>
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2>Содержание</h2><ul class="chunklist chunklist_reference"><li><a href="splqueue.dequeue.php.html">SplQueue::dequeue</a> — Удаляет элемент из очереди</li><li><a href="splqueue.enqueue.php.html">SplQueue::enqueue</a> — Добавляет элемент в очередь</li></ul>
+</div>
+<section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=class.splqueue&amp;redirect=https://www.php.net/manual/ru/class.splqueue.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">6 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="114336">  <div class="votes">
+    <div id="Vu114336">
+    <a href="https://www.php.net/manual/vote-note.php?id=114336&amp;page=class.splqueue&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd114336">
+    <a href="https://www.php.net/manual/vote-note.php?id=114336&amp;page=class.splqueue&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V114336" title="80% like this...">
+    50
+    </div>
+  </div>
+  <a href="class.splqueue.php.html#114336" class="name">
+  <strong class="user"><em>Manu Manjunath</em></strong></a><a class="genanchor" href="class.splqueue.php.html#114336"> &para;</a><div class="date" title="2014-02-10 10:56"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom114336">
+<div class="phpcode"><code><span class="html">SplQueue inherits from SplDoublyLinkedList. So, objects of SplQueue support methods push() and pop(). But please be advised that if you use push() and pop() methods on a SplQueue object, it behaves like a stack rather than a queue.<br /><br />For example:<br /><br />$q = new SplQueue();<br />$q-&gt;push(1);<br />$q-&gt;push(2);<br />$q-&gt;push(3);<br />$q-&gt;pop();<br />print_r($q);<br /><br />Above code returns:<br /><br />SplQueue Object<br />(<br />    [flags:SplDoublyLinkedList:private] =&gt; 4<br />    [dllist:SplDoublyLinkedList:private] =&gt; Array<br />        (<br />            [0] =&gt; 1<br />            [1] =&gt; 2<br />        )<br />)<br /><br />Note that 3 got popped and *not* 1.<br /><br />So, please make sure that you use only enqueue() and dequeue() methods on a SplQueue object and *not* push() and pop().</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="116422">  <div class="votes">
+    <div id="Vu116422">
+    <a href="https://www.php.net/manual/vote-note.php?id=116422&amp;page=class.splqueue&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd116422">
+    <a href="https://www.php.net/manual/vote-note.php?id=116422&amp;page=class.splqueue&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V116422" title="56% like this...">
+    2
+    </div>
+  </div>
+  <a href="class.splqueue.php.html#116422" class="name">
+  <strong class="user"><em>MrStonedOne</em></strong></a><a class="genanchor" href="class.splqueue.php.html#116422"> &para;</a><div class="date" title="2014-12-31 04:49"><strong>9 years ago</strong></div>
+  <div class="text" id="Hcom116422">
+<div class="phpcode"><code><span class="html">You can use shift/unshift and push/pop to dequeue/undequeue and queue/unqueue respectively. Really handy for those applications that use sockets where you might not know you can't send data until you attempt to.<br /><br />for example, this is a function for an application that will un-dequeue the remainder of the data if socket_write indicated it did not write the entire contents of the provided data.<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">processSendQueue</span><span class="keyword">(</span><span class="default">$socket</span><span class="keyword">, </span><span class="default">$sendQueue</span><span class="keyword">) {<br />    while (!</span><span class="default">$sendQueue</span><span class="keyword">-&gt;</span><span class="default">isEmpty</span><span class="keyword">()) {<br />                            </span><span class="comment">//shift() is the same as dequeue()<br />        </span><span class="default">$senditem </span><span class="keyword">= </span><span class="default">$sendQueue</span><span class="keyword">-&gt;</span><span class="default">shift</span><span class="keyword">();<br /><br />        </span><span class="comment">//returns the number of bytes written.<br />        </span><span class="default">$rtn </span><span class="keyword">= </span><span class="default">socket_write</span><span class="keyword">(</span><span class="default">$socket</span><span class="keyword">, </span><span class="default">$senditem</span><span class="keyword">);<br />        if (</span><span class="default">$rtn </span><span class="keyword">=== </span><span class="default">false</span><span class="keyword">) {<br />            </span><span class="default">$sendQueue</span><span class="keyword">-&gt;</span><span class="default">unshift</span><span class="keyword">(</span><span class="default">$senditem</span><span class="keyword">);<br />            throw new </span><span class="default">exception</span><span class="keyword">(</span><span class="string">"send error: " </span><span class="keyword">. </span><span class="default">socket_last_error</span><span class="keyword">(</span><span class="default">$socket</span><span class="keyword">));<br />            return;<br />        }<br />        if (</span><span class="default">$rtn </span><span class="keyword">&lt; </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$senditem</span><span class="keyword">) {<br />            </span><span class="default">$sendQueue</span><span class="keyword">-&gt;</span><span class="default">unshift</span><span class="keyword">(</span><span class="default">substr</span><span class="keyword">(</span><span class="default">$senditem</span><span class="keyword">, </span><span class="default">$rtn</span><span class="keyword">);<br />            break;<br />        }<br />    }<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="126085">  <div class="votes">
+    <div id="Vu126085">
+    <a href="https://www.php.net/manual/vote-note.php?id=126085&amp;page=class.splqueue&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd126085">
+    <a href="https://www.php.net/manual/vote-note.php?id=126085&amp;page=class.splqueue&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V126085" title="100% like this...">
+    1
+    </div>
+  </div>
+  <a href="class.splqueue.php.html#126085" class="name">
+  <strong class="user"><em>booleantype at ya dot ru</em></strong></a><a class="genanchor" href="class.splqueue.php.html#126085"> &para;</a><div class="date" title="2021-05-18 07:58"><strong>2 years ago</strong></div>
+  <div class="text" id="Hcom126085">
+<div class="phpcode"><code><span class="html">Answer to Manu Manjunath post (#114336).<br /><br />IMO, pop() works as expected.<br /><br />There are 2 main groups of methods:<br /><br />1) pop() &amp; push() are inherited from SplDoublyLinkedList and can be applied to SplStack as well as SplQueue (ie are "faceless"). It isn't about stack or queue; it's just about deleting / adding element to the end of the list;<br /><br />2) the same situation with shift() &amp; unshift(): it is just about adding an element to the beginning of the list, and doesn't matter, if we use it on SplStack or SplQueue.<br /><br />So, yes, $q-&gt;pop(); will remove *last* element from SplQueue $q.<br /><br />But enqueue() &amp; dequeue() *are about* SplQueue. FIFO principle is realized by these methods, which were implemented *exactly* for queue purpose:<br />- enqueue() adds an element to the end of the queue and is alias for "faceless" push() (FI...);<br />- dequeue() removes element from the beginning of the queue and is alias for "faceless" shift() (...FO).<br /><br />If you want to delete *next in line* element from *queue*, use dequeue().<br />If you want to delete *last* element from the list (doesn't matter, if it's queue or stack), use pop().</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="121366">  <div class="votes">
+    <div id="Vu121366">
+    <a href="https://www.php.net/manual/vote-note.php?id=121366&amp;page=class.splqueue&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd121366">
+    <a href="https://www.php.net/manual/vote-note.php?id=121366&amp;page=class.splqueue&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V121366" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="class.splqueue.php.html#121366" class="name">
+  <strong class="user"><em>lincoln dot du dot j at gmail dot com</em></strong></a><a class="genanchor" href="class.splqueue.php.html#121366"> &para;</a><div class="date" title="2017-07-12 07:07"><strong>6 years ago</strong></div>
+  <div class="text" id="Hcom121366">
+<div class="phpcode"><code><span class="html"><span class="default">&lt;?php<br />  <br />$queue </span><span class="keyword">= new </span><span class="default">SplQueue</span><span class="keyword">();<br /></span><span class="default">$queue</span><span class="keyword">-&gt;</span><span class="default">enqueue</span><span class="keyword">(</span><span class="string">'A'</span><span class="keyword">);<br /></span><span class="default">$queue</span><span class="keyword">-&gt;</span><span class="default">enqueue</span><span class="keyword">(</span><span class="string">'B'</span><span class="keyword">);<br /></span><span class="default">$queue</span><span class="keyword">-&gt;</span><span class="default">enqueue</span><span class="keyword">(</span><span class="string">'C'</span><span class="keyword">);<br /><br /></span><span class="default">$queue</span><span class="keyword">-&gt;</span><span class="default">rewind</span><span class="keyword">();<br />while(</span><span class="default">$queue</span><span class="keyword">-&gt;</span><span class="default">valid</span><span class="keyword">()){<br />    echo </span><span class="default">$queue</span><span class="keyword">-&gt;</span><span class="default">current</span><span class="keyword">(),</span><span class="string">"\n"</span><span class="keyword">;<br />    </span><span class="default">$queue</span><span class="keyword">-&gt;</span><span class="default">next</span><span class="keyword">();<br />}<br /><br /></span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$queue</span><span class="keyword">);<br /></span><span class="default">$queue</span><span class="keyword">-&gt;</span><span class="default">dequeue</span><span class="keyword">(); </span><span class="comment">//remove first one<br /></span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$queue</span><span class="keyword">);<br /><br /></span><span class="default">?&gt;<br /></span>Output<br /><br />A<br />B<br />C<br />SplQueue Object<br />(<br />    [flags:SplDoublyLinkedList:private] =&gt; 4<br />    [dllist:SplDoublyLinkedList:private] =&gt; Array<br />        (<br />            [0] =&gt; A<br />            [1] =&gt; B<br />            [2] =&gt; C<br />        )<br /><br />)<br />SplQueue Object<br />(<br />    [flags:SplDoublyLinkedList:private] =&gt; 4<br />    [dllist:SplDoublyLinkedList:private] =&gt; Array<br />        (<br />            [0] =&gt; B<br />            [1] =&gt; C<br />        )<br /><br />)</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="119936">  <div class="votes">
+    <div id="Vu119936">
+    <a href="https://www.php.net/manual/vote-note.php?id=119936&amp;page=class.splqueue&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd119936">
+    <a href="https://www.php.net/manual/vote-note.php?id=119936&amp;page=class.splqueue&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V119936" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="class.splqueue.php.html#119936" class="name">
+  <strong class="user"><em>Stingus</em></strong></a><a class="genanchor" href="class.splqueue.php.html#119936"> &para;</a><div class="date" title="2016-09-23 10:16"><strong>7 years ago</strong></div>
+  <div class="text" id="Hcom119936">
+<div class="phpcode"><code><span class="html">Take care that SplQueue::valid() is not returning true if the queue has nodes. Use isEmpty() instead:<br /><br />$queue = new SplQueue();<br />$queue-&gt;enqueue('A');<br />$queue-&gt;enqueue('B');<br />$queue-&gt;enqueue('C');<br />var_dump($queue-&gt;valid()); // false<br />var_dump(!$queue-&gt;isEmpty()); // true</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="125869">  <div class="votes">
+    <div id="Vu125869">
+    <a href="https://www.php.net/manual/vote-note.php?id=125869&amp;page=class.splqueue&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd125869">
+    <a href="https://www.php.net/manual/vote-note.php?id=125869&amp;page=class.splqueue&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V125869" title="33% like this...">
+    -2
+    </div>
+  </div>
+  <a href="class.splqueue.php.html#125869" class="name">
+  <strong class="user"><em>mostefa dot medjahed dot pro at gmail dot com</em></strong></a><a class="genanchor" href="class.splqueue.php.html#125869"> &para;</a><div class="date" title="2021-03-01 07:13"><strong>2 years ago</strong></div>
+  <div class="text" id="Hcom125869">
+<div class="phpcode"><code><span class="html">As was said before, the push () and pop () methods on a SplQueue object, its behave like a stack rather than a queue.<br /><br />Knowing that the enqueue () and dequeue () methods are respectively aliases of push () and shift () methods, we can also use SplQueue :: push () and SplQueue :: shift () for the same purpose as SplQueue :: enqueue and SplQueue :: dequeue.</span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=class.splqueue&amp;redirect=https://www.php.net/manual/ru/class.splqueue.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="spl.datastructures.php.html">Структуры данных</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="class.spldoublylinkedlist.php.html" title="SplDoublyLinkedList">SplDoublyLinkedList</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.splstack.php.html" title="SplStack">SplStack</a>
+                        </li>
+                                                <li class="current">
+                            <a href="class.splqueue.php.html" title="SplQueue">SplQueue</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.splheap.php.html" title="SplHeap">SplHeap</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.splmaxheap.php.html" title="SplMaxHeap">SplMaxHeap</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.splminheap.php.html" title="SplMinHeap">SplMinHeap</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.splpriorityqueue.php.html" title="SplPriorityQueue">SplPriorityQueue</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.splfixedarray.php.html" title="SplFixedArray">SplFixedArray</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.splobjectstorage.php.html" title="SplObjectStorage">SplObjectStorage</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: PDO_MYSQL DSN - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="ref.pdo-mysql.connection.php.html">
+ <link rel="shorturl" href="https://www.php.net/pdo-mysql.connection">
+ <link rel="alternate" href="https://www.php.net/pdo-mysql.connection" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="ref.pdo-mysql.php.html">
+ <link rel="prev" href="ref.pdo-mysql.php.html">
+ <link rel="next" href="ref.pdo-sqlsrv.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/ref.pdo-mysql.connection.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/ref.pdo-mysql.connection.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/ref.pdo-mysql.connection.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/ref.pdo-mysql.connection.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/ref.pdo-mysql.connection.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/ref.pdo-mysql.connection.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/ref.pdo-mysql.connection.php" hreflang="pt_BR">
+ <link rel="alternate" href="ref.pdo-mysql.connection.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/ref.pdo-mysql.connection.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/ref.pdo-mysql.connection.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="ref.pdo-sqlsrv.php.html">
+          MS SQL Server (PDO) &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="ref.pdo-mysql.php.html">
+          &laquo; MySQL (PDO)        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.database.php.html'>Модули для работы с базами данных</a></li>      <li><a href='refs.database.abstract.php.html'>Уровни абстракции</a></li>      <li><a href='book.pdo.php.html'>PDO</a></li>      <li><a href='pdo.drivers.php.html'>Драйверы PDO</a></li>      <li><a href='ref.pdo-mysql.php.html'>MySQL (PDO)</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/ref.pdo-mysql.connection.php'>English</option>
+            <option value='de/ref.pdo-mysql.connection.php'>German</option>
+            <option value='es/ref.pdo-mysql.connection.php'>Spanish</option>
+            <option value='fr/ref.pdo-mysql.connection.php'>French</option>
+            <option value='it/ref.pdo-mysql.connection.php'>Italian</option>
+            <option value='ja/ref.pdo-mysql.connection.php'>Japanese</option>
+            <option value='pt_BR/ref.pdo-mysql.connection.php'>Brazilian Portuguese</option>
+            <option value='ru/ref.pdo-mysql.connection.php' selected="selected">Russian</option>
+            <option value='tr/ref.pdo-mysql.connection.php'>Turkish</option>
+            <option value='zh/ref.pdo-mysql.connection.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/pdo_mysql/reference.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Fref.pdo-mysql.connection%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="ref.pdo-mysql.connection" class="refentry">
+   <div class="refnamediv">
+    <h1 class="refname">PDO_MYSQL DSN</h1>
+    <p class="verinfo">(PECL PDO_MYSQL &gt;= 0.1.0)</p><p class="refpurpose"><span class="refname">PDO_MYSQL DSN</span> &mdash; <span class="dc-title">Соединение с базой данных MySQL</span></p>
+
+   </div>
+
+   <div class="refsect1 description" id="refsect1-ref.pdo-mysql.connection-description">
+    <h3 class="title">Описание</h3>
+    <p class="para">
+     Имя источника данных (Data Source Name, или DSN) PDO_MYSQL состоит из следующих элементов:
+     <dl>
+      
+       <dt>
+DSN префикс</dt>
+
+       <dd>
+
+        <p class="para">
+        DSN-префикс — это <strong class="userinput"><code>mysql:</code></strong>.
+        </p>
+       </dd>
+
+      
+      
+       <dt>
+<code class="literal">host</code></dt>
+
+       <dd>
+
+        <p class="para">
+         Имя хоста сервера баз данных.
+        </p>
+       </dd>
+
+      
+      
+       <dt>
+<code class="literal">port</code></dt>
+
+       <dd>
+
+        <p class="para">
+         Номер порта, который слушает сервер баз данных.
+        </p>
+       </dd>
+
+      
+      
+       <dt>
+<code class="literal">dbname</code></dt>
+
+       <dd>
+
+        <p class="para">
+         Имя базы данных.
+        </p>
+       </dd>
+
+      
+      
+       <dt>
+<code class="literal">unix_socket</code></dt>
+
+       <dd>
+
+        <p class="para">
+         Сокет MySQL Unix (нельзя указывать совместно с <code class="literal">host</code>
+         или <code class="literal">port</code>).
+        </p>
+       </dd>
+
+      
+      
+       <dt>
+<code class="literal">charset</code></dt>
+
+       <dd>
+
+        <p class="para">
+         Кодировка. Дополнительная информация дана в разделе
+         «<a href="mysqlinfo.concepts.charset.php.html" class="link">Кодировки</a>».
+        </p>
+       </dd>
+
+      
+     </dl>
+
+    </p>
+   </div>
+
+
+   <div class="refsect1 examples" id="refsect1-ref.pdo-mysql.connection-examples">
+    <h3 class="title">Примеры</h3>
+    <p class="para">
+     <div class="example" id="example-3328">
+      <p><strong>Пример #1 Примеры DSN для драйвера PDO_MYSQL</strong></p>
+      <div class="example-contents"><p>
+       Следующий пример показывает DSN-имя драйвера PDO_MYSQL
+       для соединения с базой данных MySQL:
+       <div class="example-contents">
+<div class="cdata"><pre>
+mysql:host=localhost;dbname=testdb
+</pre></div>
+       </div>
+
+       Более полные примеры:
+       <div class="example-contents">
+<div class="cdata"><pre>
+mysql:host=localhost;port=3307;dbname=testdb
+mysql:unix_socket=/tmp/mysql.sock;dbname=testdb
+</pre></div>
+       </div>
+
+      </p></div>
+     </div>
+    </p>
+   </div>
+
+
+   <div class="refsect1 notes" id="refsect1-ref.pdo-mysql.connection-notes">
+    <h3 class="title">Примечания</h3>
+    <blockquote class="note"><p><strong class="note">Замечание</strong>: 
+     <strong>Только Unix:</strong><br />
+     <p class="para">
+      Если имя хоста установлено как <code class="literal">«localhost»</code>, то соединение выполняется
+      через сокет домена. Если драйвер PDO_MYSQL скомпилирован с модулем libmysqlclient,
+      то файла сокета будет находиться в папке, скомпилированной libmysqlclient.
+      Если PDO_MYSQL скомпилирован с модулем mysqlnd, сокет по умолчанию
+      можно установить через директиву
+      <a href="ref.pdo-mysql.php.html#ini.pdo-mysql.default-socket" class="link">pdo_mysql.default_socket</a>.
+     </p>
+   </p></blockquote>
+   </div>
+
+  </div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=ref.pdo-mysql.connection&amp;redirect=https://www.php.net/manual/ru/ref.pdo-mysql.connection.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">8 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="89499">  <div class="votes">
+    <div id="Vu89499">
+    <a href="https://www.php.net/manual/vote-note.php?id=89499&amp;page=ref.pdo-mysql.connection&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd89499">
+    <a href="https://www.php.net/manual/vote-note.php?id=89499&amp;page=ref.pdo-mysql.connection&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V89499" title="66% like this...">
+    37
+    </div>
+  </div>
+  <a href="ref.pdo-mysql.connection.php.html#89499" class="name">
+  <strong class="user"><em>codeslinger at compsalot dot com</em></strong></a><a class="genanchor" href="ref.pdo-mysql.connection.php.html#89499"> &para;</a><div class="date" title="2009-03-11 03:00"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom89499">
+<div class="phpcode"><code><span class="html">I have tested this and found that the "dbname" field is optional.  Which is a good thing if you must first create the db.<br /><br />After creating a db be sure to exec a "use dbname;"  command, or else use fully specified table references.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="120262">  <div class="votes">
+    <div id="Vu120262">
+    <a href="https://www.php.net/manual/vote-note.php?id=120262&amp;page=ref.pdo-mysql.connection&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd120262">
+    <a href="https://www.php.net/manual/vote-note.php?id=120262&amp;page=ref.pdo-mysql.connection&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V120262" title="58% like this...">
+    7
+    </div>
+  </div>
+  <a href="ref.pdo-mysql.connection.php.html#120262" class="name">
+  <strong class="user"><em>rhian</em></strong></a><a class="genanchor" href="ref.pdo-mysql.connection.php.html#120262"> &para;</a><div class="date" title="2016-12-02 03:13"><strong>7 years ago</strong></div>
+  <div class="text" id="Hcom120262">
+<div class="phpcode"><code><span class="html">xwisdom made a mistake in his comment and got it backwards, correction below:<br /><br />If you are having problems accessing a remote MYSQL database, the solution is to make sure that you add a white-space after "mysql:"<br /><br />Change this...:<br />mysql:host=remote;<br /><br />...to this:<br />mysql: host=remote;<br /><br />See original solution here:<br /><a href="http://stackoverflow.com/a/25432156" rel="nofollow" target="_blank">http://stackoverflow.com/a/25432156</a></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="124292">  <div class="votes">
+    <div id="Vu124292">
+    <a href="https://www.php.net/manual/vote-note.php?id=124292&amp;page=ref.pdo-mysql.connection&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd124292">
+    <a href="https://www.php.net/manual/vote-note.php?id=124292&amp;page=ref.pdo-mysql.connection&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V124292" title="56% like this...">
+    4
+    </div>
+  </div>
+  <a href="ref.pdo-mysql.connection.php.html#124292" class="name">
+  <strong class="user"><em>divinity76 at gmail dot com</em></strong></a><a class="genanchor" href="ref.pdo-mysql.connection.php.html#124292"> &para;</a><div class="date" title="2019-10-13 04:07"><strong>4 years ago</strong></div>
+  <div class="text" id="Hcom124292">
+<div class="phpcode"><code><span class="html">here is the example i prefer myself, in my opinion, this is almost always "the correct way" to do it:<br /><span class="default">&lt;?php<br /><br />$db </span><span class="keyword">= new </span><span class="default">\PDO</span><span class="keyword">(</span><span class="string">'mysql:host=localhost;dbname=testdb;charset=utf8mb4'</span><span class="keyword">, </span><span class="string">'username'</span><span class="keyword">, </span><span class="string">'password'</span><span class="keyword">, array(<br />    </span><span class="default">\PDO</span><span class="keyword">::</span><span class="default">ATTR_EMULATE_PREPARES </span><span class="keyword">=&gt; </span><span class="default">false</span><span class="keyword">,<br />    </span><span class="default">\PDO</span><span class="keyword">::</span><span class="default">ATTR_ERRMODE </span><span class="keyword">=&gt; </span><span class="default">\PDO</span><span class="keyword">::</span><span class="default">ERRMODE_EXCEPTION<br /></span><span class="keyword">));</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="124685">  <div class="votes">
+    <div id="Vu124685">
+    <a href="https://www.php.net/manual/vote-note.php?id=124685&amp;page=ref.pdo-mysql.connection&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd124685">
+    <a href="https://www.php.net/manual/vote-note.php?id=124685&amp;page=ref.pdo-mysql.connection&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V124685" title="53% like this...">
+    1
+    </div>
+  </div>
+  <a href="ref.pdo-mysql.connection.php.html#124685" class="name">
+  <strong class="user"><em>FireDev</em></strong></a><a class="genanchor" href="ref.pdo-mysql.connection.php.html#124685"> &para;</a><div class="date" title="2020-02-05 05:32"><strong>4 years ago</strong></div>
+  <div class="text" id="Hcom124685">
+<div class="phpcode"><code><span class="html">The best way for me<br /><br />$bdd= new PDO("mysql:host=localhost;dbname=test_db;charset=UTF8", "username", "password");<br />$bdd-&gt;setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="126879">  <div class="votes">
+    <div id="Vu126879">
+    <a href="https://www.php.net/manual/vote-note.php?id=126879&amp;page=ref.pdo-mysql.connection&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd126879">
+    <a href="https://www.php.net/manual/vote-note.php?id=126879&amp;page=ref.pdo-mysql.connection&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V126879" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="ref.pdo-mysql.connection.php.html#126879" class="name">
+  <strong class="user"><em>anrdaemon at yandex dot ru</em></strong></a><a class="genanchor" href="ref.pdo-mysql.connection.php.html#126879"> &para;</a><div class="date" title="2022-02-25 11:47"><strong>1 year ago</strong></div>
+  <div class="text" id="Hcom126879">
+<div class="phpcode"><code><span class="html">Wrappers may add support for extra parameters in the DSN, which are ignored by PDO itself, but facilitate more fine-grained connection setup.<br /><br />F.e. localization (particularly LC_TIME) and timezones support.<br /><br /><a href="https://github.com/AnrDaemon/library-php/blob/335e9e58f22cca8c185b35cf201ad0a367ae4c9f/src/Wrappers/PDOMysql.php#L54-L69" rel="nofollow" target="_blank">https://github.com/AnrDaemon/library-php/blob/335e9e58f22cca8c185b35cf201ad0a367ae4c9f/src/Wrappers/PDOMysql.php#L54-L69</a></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="116445">  <div class="votes">
+    <div id="Vu116445">
+    <a href="https://www.php.net/manual/vote-note.php?id=116445&amp;page=ref.pdo-mysql.connection&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd116445">
+    <a href="https://www.php.net/manual/vote-note.php?id=116445&amp;page=ref.pdo-mysql.connection&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V116445" title="48% like this...">
+    -1
+    </div>
+  </div>
+  <a href="ref.pdo-mysql.connection.php.html#116445" class="name">
+  <strong class="user"><em>siguza at siguza dot net dot IGNORETHIS</em></strong></a><a class="genanchor" href="ref.pdo-mysql.connection.php.html#116445"> &para;</a><div class="date" title="2015-01-04 02:24"><strong>9 years ago</strong></div>
+  <div class="text" id="Hcom116445">
+<div class="phpcode"><code><span class="html">It should be noted that unix_socket can also be used for named pipes under Windows.<br /><br /><span class="default">&lt;?php<br />$pipeName </span><span class="keyword">= </span><span class="string">'my_awesome_pipe'</span><span class="keyword">;<br /></span><span class="default">$username </span><span class="keyword">= </span><span class="string">'username'</span><span class="keyword">;<br /></span><span class="default">$password </span><span class="keyword">= </span><span class="string">'password'</span><span class="keyword">;<br /></span><span class="default">$dbh </span><span class="keyword">= new </span><span class="default">PDO</span><span class="keyword">(</span><span class="string">'mysql:unix_socket='</span><span class="keyword">.</span><span class="default">$pipeName</span><span class="keyword">, </span><span class="default">$username</span><span class="keyword">, </span><span class="default">$password</span><span class="keyword">);<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="123794">  <div class="votes">
+    <div id="Vu123794">
+    <a href="https://www.php.net/manual/vote-note.php?id=123794&amp;page=ref.pdo-mysql.connection&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd123794">
+    <a href="https://www.php.net/manual/vote-note.php?id=123794&amp;page=ref.pdo-mysql.connection&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V123794" title="27% like this...">
+    -8
+    </div>
+  </div>
+  <a href="ref.pdo-mysql.connection.php.html#123794" class="name">
+  <strong class="user"><em>yuqiangliu at outlook dot com</em></strong></a><a class="genanchor" href="ref.pdo-mysql.connection.php.html#123794"> &para;</a><div class="date" title="2019-04-23 09:40"><strong>4 years ago</strong></div>
+  <div class="text" id="Hcom123794">
+<div class="phpcode"><code><span class="html">$options = array(<br />    PDO::MYSQL_ATTR_INIT_COMMAND =&gt; 'SET NAMES utf8',<br />); <br /><br />SET NAMES utf8 is equivalent to<br /><br />SET character_set_client = utf8;<br />SET character_set_results = utf8;<br />SET character_set_connection = utf8;</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="118449">  <div class="votes">
+    <div id="Vu118449">
+    <a href="https://www.php.net/manual/vote-note.php?id=118449&amp;page=ref.pdo-mysql.connection&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd118449">
+    <a href="https://www.php.net/manual/vote-note.php?id=118449&amp;page=ref.pdo-mysql.connection&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V118449" title="31% like this...">
+    -14
+    </div>
+  </div>
+  <a href="ref.pdo-mysql.connection.php.html#118449" class="name">
+  <strong class="user"><em>xwisdom at gmail dot com</em></strong></a><a class="genanchor" href="ref.pdo-mysql.connection.php.html#118449"> &para;</a><div class="date" title="2015-12-07 11:11"><strong>8 years ago</strong></div>
+  <div class="text" id="Hcom118449">
+<div class="phpcode"><code><span class="html">If you are having problems accessing a remote MYSQL database, the solution is to make sure that you remove any white-space after "mysql:" <br /><br />Change this...:<br />mysql: host=remote;<br /><br />...to this:<br />mysql:host=remote;<br /><br />See original solution here:<br /><a href="http://stackoverflow.com/a/25432156" rel="nofollow" target="_blank">http://stackoverflow.com/a/25432156</a></span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=ref.pdo-mysql.connection&amp;redirect=https://www.php.net/manual/ru/ref.pdo-mysql.connection.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="ref.pdo-mysql.php.html">MySQL (PDO)</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="current">
+                            <a href="ref.pdo-mysql.connection.php.html" title="PDO_&#8203;MYSQL DSN">PDO_&#8203;MYSQL DSN</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

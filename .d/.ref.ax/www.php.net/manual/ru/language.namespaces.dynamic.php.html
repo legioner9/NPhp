@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: Пространства имён и динамические особенности языка - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="language.namespaces.dynamic.php.html">
+ <link rel="shorturl" href="https://www.php.net/namespaces.dynamic">
+ <link rel="alternate" href="https://www.php.net/namespaces.dynamic" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="language.namespaces.php.html">
+ <link rel="prev" href="language.namespaces.basics.php.html">
+ <link rel="next" href="language.namespaces.nsconstants.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/language.namespaces.dynamic.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/language.namespaces.dynamic.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/language.namespaces.dynamic.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/language.namespaces.dynamic.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/language.namespaces.dynamic.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/language.namespaces.dynamic.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/language.namespaces.dynamic.php" hreflang="pt_BR">
+ <link rel="alternate" href="language.namespaces.dynamic.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/language.namespaces.dynamic.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/language.namespaces.dynamic.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="language.namespaces.nsconstants.php.html">
+          Ключевое слово namespace и константа __NAMESPACE__ &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="language.namespaces.basics.php.html">
+          &laquo; Основы        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='langref.php.html'>Справочник языка</a></li>      <li><a href='language.namespaces.php.html'>Пространства имён</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/language.namespaces.dynamic.php'>English</option>
+            <option value='de/language.namespaces.dynamic.php'>German</option>
+            <option value='es/language.namespaces.dynamic.php'>Spanish</option>
+            <option value='fr/language.namespaces.dynamic.php'>French</option>
+            <option value='it/language.namespaces.dynamic.php'>Italian</option>
+            <option value='ja/language.namespaces.dynamic.php'>Japanese</option>
+            <option value='pt_BR/language.namespaces.dynamic.php'>Brazilian Portuguese</option>
+            <option value='ru/language.namespaces.dynamic.php' selected="selected">Russian</option>
+            <option value='tr/language.namespaces.dynamic.php'>Turkish</option>
+            <option value='zh/language.namespaces.dynamic.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/language/namespaces.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Flanguage.namespaces.dynamic%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="language.namespaces.dynamic" class="sect1">
+  <h2 class="title">Пространства имён и динамические особенности языка</h2>
+  
+  <p class="verinfo">(PHP 5 &gt;= 5.3.0, PHP 7, PHP 8)</p>
+  <p class="para">
+   На реализацию пространств имён в PHP повлияли и динамические свойства языка.
+   Поэтому, чтобы преобразовать код наподобие следующего примера в код,
+   который будет работать внутри пространства имён:…
+   <div class="example" id="example-904">
+    <p><strong>Пример #1 Динамически доступные элементы</strong></p>
+    <div class="example-contents"><p>example1.php:</p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">class </span><span style="color: #0000BB">classname<br /></span><span style="color: #007700">{<br />    function </span><span style="color: #0000BB">__construct</span><span style="color: #007700">()<br />    {<br />        echo </span><span style="color: #0000BB">__METHOD__</span><span style="color: #007700">,</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />    }<br />}<br /><br />function </span><span style="color: #0000BB">funcname</span><span style="color: #007700">()<br />{<br />    echo </span><span style="color: #0000BB">__FUNCTION__</span><span style="color: #007700">,</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />}<br /><br />const </span><span style="color: #0000BB">constname </span><span style="color: #007700">= </span><span style="color: #DD0000">"global"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$a </span><span style="color: #007700">= </span><span style="color: #DD0000">'classname'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$obj </span><span style="color: #007700">= new </span><span style="color: #0000BB">$a</span><span style="color: #007700">; </span><span style="color: #FF8000">// Выводит classname::__construct<br /></span><span style="color: #0000BB">$b </span><span style="color: #007700">= </span><span style="color: #DD0000">'funcname'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$b</span><span style="color: #007700">(); </span><span style="color: #FF8000">// Выводит funcname<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">constant</span><span style="color: #007700">(</span><span style="color: #DD0000">'constname'</span><span style="color: #007700">), </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">; </span><span style="color: #FF8000">// Выводит global<br /><br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+    </div>
+
+   </div>
+   …нужно указать абсолютное имя (имя класса с префиксом пространства имён).
+   Обратите внимание, поскольку между полным и абсолютным именем
+   внутри динамического имени класса, функции или константы нет разницы,
+   начальный обратный слеш не нужен.
+   <div class="example" id="example-907">
+    <p><strong>Пример #2 Динамически доступные элементы пространства имён</strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">namespace </span><span style="color: #0000BB">namespacename</span><span style="color: #007700">;<br /><br />class </span><span style="color: #0000BB">classname<br /></span><span style="color: #007700">{<br />    function </span><span style="color: #0000BB">__construct</span><span style="color: #007700">()<br />    {<br />        echo </span><span style="color: #0000BB">__METHOD__</span><span style="color: #007700">,</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />    }<br />}<br /><br />function </span><span style="color: #0000BB">funcname</span><span style="color: #007700">()<br />{<br />    echo </span><span style="color: #0000BB">__FUNCTION__</span><span style="color: #007700">,</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />}<br /><br />const </span><span style="color: #0000BB">constname </span><span style="color: #007700">= </span><span style="color: #DD0000">"namespaced"</span><span style="color: #007700">;<br /><br />include </span><span style="color: #DD0000">'example1.php'</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$a </span><span style="color: #007700">= </span><span style="color: #DD0000">'classname'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$obj </span><span style="color: #007700">= new </span><span style="color: #0000BB">$a</span><span style="color: #007700">; </span><span style="color: #FF8000">// Выводит classname::__construct<br /></span><span style="color: #0000BB">$b </span><span style="color: #007700">= </span><span style="color: #DD0000">'funcname'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$b</span><span style="color: #007700">(); </span><span style="color: #FF8000">// Выводит funcname<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">constant</span><span style="color: #007700">(</span><span style="color: #DD0000">'constname'</span><span style="color: #007700">), </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">; </span><span style="color: #FF8000">// Выводит global<br /><br />/* Обратите внимание, что в двойных кавычках символ обратного слеша нужно заэкранировать. Например, "\\namespacename\\classname" */<br /></span><span style="color: #0000BB">$a </span><span style="color: #007700">= </span><span style="color: #DD0000">'\namespacename\classname'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$obj </span><span style="color: #007700">= new </span><span style="color: #0000BB">$a</span><span style="color: #007700">; </span><span style="color: #FF8000">// Выводит namespacename\classname::__construct<br /></span><span style="color: #0000BB">$a </span><span style="color: #007700">= </span><span style="color: #DD0000">'namespacename\classname'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$obj </span><span style="color: #007700">= new </span><span style="color: #0000BB">$a</span><span style="color: #007700">; </span><span style="color: #FF8000">// Тоже выводит namespacename\classname::__construct<br /></span><span style="color: #0000BB">$b </span><span style="color: #007700">= </span><span style="color: #DD0000">'namespacename\funcname'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$b</span><span style="color: #007700">(); </span><span style="color: #FF8000">// Выводит namespacename\funcname<br /></span><span style="color: #0000BB">$b </span><span style="color: #007700">= </span><span style="color: #DD0000">'\namespacename\funcname'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$b</span><span style="color: #007700">(); </span><span style="color: #FF8000">// Тоже выводит namespacename\funcname<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">constant</span><span style="color: #007700">(</span><span style="color: #DD0000">'\namespacename\constname'</span><span style="color: #007700">), </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">; </span><span style="color: #FF8000">// Выводит namespaced<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">constant</span><span style="color: #007700">(</span><span style="color: #DD0000">'namespacename\constname'</span><span style="color: #007700">), </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">; </span><span style="color: #FF8000">// Тоже выводит namespaced<br /><br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+     </div>
+
+    </div>
+   </p>
+   <p class="para">
+    Обязательно прочитайте <a href="language.namespaces.faq.php.html#language.namespaces.faq.quote" class="link">примечание об
+    экранировании имён пространства имён в строках</a>.
+   </p>
+ </div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=language.namespaces.dynamic&amp;redirect=https://www.php.net/manual/ru/language.namespaces.dynamic.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">8 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="104762">  <div class="votes">
+    <div id="Vu104762">
+    <a href="https://www.php.net/manual/vote-note.php?id=104762&amp;page=language.namespaces.dynamic&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd104762">
+    <a href="https://www.php.net/manual/vote-note.php?id=104762&amp;page=language.namespaces.dynamic&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V104762" title="82% like this...">
+    75
+    </div>
+  </div>
+  <a href="language.namespaces.dynamic.php.html#104762" class="name">
+  <strong class="user"><em>Alexander Kirk</em></strong></a><a class="genanchor" href="language.namespaces.dynamic.php.html#104762"> &para;</a><div class="date" title="2011-07-06 12:57"><strong>12 years ago</strong></div>
+  <div class="text" id="Hcom104762">
+<div class="phpcode"><code><span class="html">When extending a class from another namespace that should instantiate a class from within the current namespace, you need to pass on the namespace.<br /><br /><span class="default">&lt;?php </span><span class="comment">// File1.php<br /></span><span class="keyword">namespace </span><span class="default">foo</span><span class="keyword">;<br />class </span><span class="default">A </span><span class="keyword">{<br />    public function </span><span class="default">factory</span><span class="keyword">() {<br />        return new </span><span class="default">C</span><span class="keyword">;<br />    }<br />}<br />class </span><span class="default">C </span><span class="keyword">{<br />    public function </span><span class="default">tell</span><span class="keyword">() {<br />        echo </span><span class="string">"foo"</span><span class="keyword">;<br />    }<br />}<br /></span><span class="default">?&gt;<br /></span><br /><span class="default">&lt;?php </span><span class="comment">// File2.php<br /></span><span class="keyword">namespace </span><span class="default">bar</span><span class="keyword">;<br />class </span><span class="default">B </span><span class="keyword">extends </span><span class="default">\foo\A </span><span class="keyword">{}<br />class </span><span class="default">C </span><span class="keyword">{<br />    public function </span><span class="default">tell</span><span class="keyword">() {<br />        echo </span><span class="string">"bar"</span><span class="keyword">;<br />    }<br />}<br /></span><span class="default">?&gt;<br /></span><br /><span class="default">&lt;?php<br /></span><span class="keyword">include </span><span class="string">"File1.php"</span><span class="keyword">;<br />include </span><span class="string">"File2.php"</span><span class="keyword">;<br /></span><span class="default">$b </span><span class="keyword">= new </span><span class="default">bar\B</span><span class="keyword">;<br /></span><span class="default">$c </span><span class="keyword">= </span><span class="default">$b</span><span class="keyword">-&gt;</span><span class="default">factory</span><span class="keyword">();<br /></span><span class="default">$c</span><span class="keyword">-&gt;</span><span class="default">tell</span><span class="keyword">(); </span><span class="comment">// "foo" but you want "bar"<br /></span><span class="default">?&gt;<br /></span><br />You need to do it like this:<br /><br />When extending a class from another namespace that should instantiate a class from within the current namespace, you need to pass on the namespace.<br /><br /><span class="default">&lt;?php </span><span class="comment">// File1.php<br /></span><span class="keyword">namespace </span><span class="default">foo</span><span class="keyword">;<br />class </span><span class="default">A </span><span class="keyword">{<br />    protected </span><span class="default">$namespace </span><span class="keyword">= </span><span class="default">__NAMESPACE__</span><span class="keyword">;<br />    public function </span><span class="default">factory</span><span class="keyword">() {<br />        </span><span class="default">$c </span><span class="keyword">= </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">namespace </span><span class="keyword">. </span><span class="string">'\C'</span><span class="keyword">;<br />        return new </span><span class="default">$c</span><span class="keyword">;<br />    }<br />}<br />class </span><span class="default">C </span><span class="keyword">{<br />    public function </span><span class="default">tell</span><span class="keyword">() {<br />        echo </span><span class="string">"foo"</span><span class="keyword">;<br />    }<br />}<br /></span><span class="default">?&gt;<br /></span><br /><span class="default">&lt;?php </span><span class="comment">// File2.php<br /></span><span class="keyword">namespace </span><span class="default">bar</span><span class="keyword">;<br />class </span><span class="default">B </span><span class="keyword">extends </span><span class="default">\foo\A </span><span class="keyword">{<br />    protected </span><span class="default">$namespace </span><span class="keyword">= </span><span class="default">__NAMESPACE__</span><span class="keyword">;<br />}<br />class </span><span class="default">C </span><span class="keyword">{<br />    public function </span><span class="default">tell</span><span class="keyword">() {<br />        echo </span><span class="string">"bar"</span><span class="keyword">;<br />    }<br />}<br /></span><span class="default">?&gt;<br /></span><br /><span class="default">&lt;?php<br /></span><span class="keyword">include </span><span class="string">"File1.php"</span><span class="keyword">;<br />include </span><span class="string">"File2.php"</span><span class="keyword">;<br /></span><span class="default">$b </span><span class="keyword">= new </span><span class="default">bar\B</span><span class="keyword">;<br /></span><span class="default">$c </span><span class="keyword">= </span><span class="default">$b</span><span class="keyword">-&gt;</span><span class="default">factory</span><span class="keyword">();<br /></span><span class="default">$c</span><span class="keyword">-&gt;</span><span class="default">tell</span><span class="keyword">(); </span><span class="comment">// "bar"<br /></span><span class="default">?&gt;<br /></span><br />(it seems that the namespace-backslashes are stripped from the source code in the preview, maybe it works in the main view. If not: fooA was written as \foo\A and barB as bar\B)</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="124210">  <div class="votes">
+    <div id="Vu124210">
+    <a href="https://www.php.net/manual/vote-note.php?id=124210&amp;page=language.namespaces.dynamic&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd124210">
+    <a href="https://www.php.net/manual/vote-note.php?id=124210&amp;page=language.namespaces.dynamic&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V124210" title="90% like this...">
+    9
+    </div>
+  </div>
+  <a href="language.namespaces.dynamic.php.html#124210" class="name">
+  <strong class="user"><em>Daan</em></strong></a><a class="genanchor" href="language.namespaces.dynamic.php.html#124210"> &para;</a><div class="date" title="2019-09-19 08:56"><strong>4 years ago</strong></div>
+  <div class="text" id="Hcom124210">
+<div class="phpcode"><code><span class="html">Important to know is that you need to use the *fully qualified name* in a dynamic class name. Here is an example that emphasizes the difference between a dynamic class name and a normal class name.<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">namespace </span><span class="default">namespacename\foo</span><span class="keyword">;<br /><br />class </span><span class="default">classname      <br /></span><span class="keyword">{                                                                                        <br />    function </span><span class="default">__construct</span><span class="keyword">()                                                               <br />    {                                                                                    <br />        echo </span><span class="string">'bar'</span><span class="keyword">;<br />    }                                                                                    <br />}                                                                                        <br /><br /></span><span class="default">$a </span><span class="keyword">= </span><span class="string">'\namespacename\foo\classname'</span><span class="keyword">; </span><span class="comment">// Works, is fully qualified name                   <br /></span><span class="default">$b </span><span class="keyword">= </span><span class="string">'namespacename\foo\classname'</span><span class="keyword">; </span><span class="comment">// Works, is treated as it was with a prefixed "\"   <br /></span><span class="default">$c </span><span class="keyword">= </span><span class="string">'foo\classname'</span><span class="keyword">; </span><span class="comment">// Will not work, it should be the fully qualified name            <br /><br />// Use dynamic class name                                                                                         <br /></span><span class="keyword">new </span><span class="default">$a</span><span class="keyword">; </span><span class="comment">// bar<br /></span><span class="keyword">new </span><span class="default">$b</span><span class="keyword">; </span><span class="comment">// bar<br /></span><span class="keyword">new </span><span class="default">$c</span><span class="keyword">; </span><span class="comment">// [500]: / - Uncaught Error: Class 'foo\classname' not found in <br /><br />// Use normal class name                                                                                         <br /></span><span class="keyword">new </span><span class="default">\namespacename\foo\classname</span><span class="keyword">; </span><span class="comment">// bar<br /></span><span class="keyword">new </span><span class="default">namespacename\foo\classname</span><span class="keyword">; </span><span class="comment">// [500]: / - Uncaught Error: Class 'namespacename\foo\namespacename\foo\classname' not found<br /></span><span class="keyword">new </span><span class="default">foo\classname</span><span class="keyword">; </span><span class="comment">// [500]: / - Uncaught Error: Class 'namespacename\foo\foo\classname' not found</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="123673">  <div class="votes">
+    <div id="Vu123673">
+    <a href="https://www.php.net/manual/vote-note.php?id=123673&amp;page=language.namespaces.dynamic&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd123673">
+    <a href="https://www.php.net/manual/vote-note.php?id=123673&amp;page=language.namespaces.dynamic&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V123673" title="87% like this...">
+    6
+    </div>
+  </div>
+  <a href="language.namespaces.dynamic.php.html#123673" class="name">
+  <strong class="user"><em>museyib dot e at gmail dot com</em></strong></a><a class="genanchor" href="language.namespaces.dynamic.php.html#123673"> &para;</a><div class="date" title="2019-03-09 04:48"><strong>4 years ago</strong></div>
+  <div class="text" id="Hcom123673">
+<div class="phpcode"><code><span class="html">Be careful when using dynamic accessing namespaced elements. If you use double-quote backslashes will be parsed as escape character.<br /><br /><span class="default">&lt;?php<br />    $a</span><span class="keyword">=</span><span class="string">"\namespacename\classname"</span><span class="keyword">; </span><span class="comment">//Invalid use and Fatal error.<br />    </span><span class="default">$a</span><span class="keyword">=</span><span class="string">"\\namespacename\\classname"</span><span class="keyword">; </span><span class="comment">//Valid use.<br />    </span><span class="default">$a</span><span class="keyword">=</span><span class="string">'\namespacename\classname'</span><span class="keyword">; </span><span class="comment">//Valid use.<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="91552">  <div class="votes">
+    <div id="Vu91552">
+    <a href="https://www.php.net/manual/vote-note.php?id=91552&amp;page=language.namespaces.dynamic&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd91552">
+    <a href="https://www.php.net/manual/vote-note.php?id=91552&amp;page=language.namespaces.dynamic&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V91552" title="72% like this...">
+    16
+    </div>
+  </div>
+  <a href="language.namespaces.dynamic.php.html#91552" class="name">
+  <strong class="user"><em>guilhermeblanco at php dot net</em></strong></a><a class="genanchor" href="language.namespaces.dynamic.php.html#91552"> &para;</a><div class="date" title="2009-06-16 12:04"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom91552">
+<div class="phpcode"><code><span class="html">Please be aware of FQCN (Full Qualified Class Name) point.<br />Many people will have troubles with this:<br /><br /><span class="default">&lt;?php<br /><br /></span><span class="comment">// File1.php<br /></span><span class="keyword">namespace </span><span class="default">foo</span><span class="keyword">;<br /><br />class </span><span class="default">Bar </span><span class="keyword">{ ... }<br /><br />function </span><span class="default">factory</span><span class="keyword">(</span><span class="default">$class</span><span class="keyword">) {<br />    return new </span><span class="default">$class</span><span class="keyword">;<br />}<br /><br /></span><span class="comment">// File2.php<br /></span><span class="default">$bar </span><span class="keyword">= </span><span class="default">\foo\factory</span><span class="keyword">(</span><span class="string">'Bar'</span><span class="keyword">); </span><span class="comment">// Will try to instantiate \Bar, not \foo\Bar<br /><br /></span><span class="default">?&gt;<br /></span><br />To fix that, and also incorporate a 2 step namespace resolution, you can check for \ as first char of $class, and if not present, build manually the FQCN:<br /><br /><span class="default">&lt;?php<br /><br /></span><span class="comment">// File1.php<br /></span><span class="keyword">namespace </span><span class="default">foo</span><span class="keyword">;<br /><br />function </span><span class="default">factory</span><span class="keyword">(</span><span class="default">$class</span><span class="keyword">) {<br />    if (</span><span class="default">$class</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">] != </span><span class="string">'\\'</span><span class="keyword">) {<br />        echo </span><span class="string">'-&gt;'</span><span class="keyword">;<br />         </span><span class="default">$class </span><span class="keyword">= </span><span class="string">'\\' </span><span class="keyword">. </span><span class="default">__NAMESPACE__ </span><span class="keyword">. </span><span class="string">'\\' </span><span class="keyword">. </span><span class="default">$class</span><span class="keyword">;<br />    }<br /><br />    return new </span><span class="default">$class</span><span class="keyword">();<br />}<br /><br /></span><span class="comment">// File2.php<br /></span><span class="default">$bar </span><span class="keyword">= </span><span class="default">\foo\factory</span><span class="keyword">(</span><span class="string">'Bar'</span><span class="keyword">); </span><span class="comment">// Will correctly instantiate \foo\Bar<br /><br /></span><span class="default">$bar2 </span><span class="keyword">= </span><span class="default">\foo\factory</span><span class="keyword">(</span><span class="string">'\anotherfoo\Bar'</span><span class="keyword">); </span><span class="comment">// Wil correctly instantiate \anotherfoo\Bar<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="112942">  <div class="votes">
+    <div id="Vu112942">
+    <a href="https://www.php.net/manual/vote-note.php?id=112942&amp;page=language.namespaces.dynamic&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd112942">
+    <a href="https://www.php.net/manual/vote-note.php?id=112942&amp;page=language.namespaces.dynamic&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V112942" title="63% like this...">
+    6
+    </div>
+  </div>
+  <a href="language.namespaces.dynamic.php.html#112942" class="name">
+  <strong class="user"><em>akhoondi+php at gmail dot com</em></strong></a><a class="genanchor" href="language.namespaces.dynamic.php.html#112942"> &para;</a><div class="date" title="2013-08-09 04:17"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom112942">
+<div class="phpcode"><code><span class="html">It might make it more clear if said this way: <br /><br />One must note that when using a dynamic class name, function name or constant name, the "current namespace", as in <a href="http://www.php.net/manual/en/language.namespaces.basics.php" rel="nofollow" target="_blank">http://www.php.net/manual/en/language.namespaces.basics.php</a> is global namespace.<br /><br />One situation that dynamic class names are used is in 'factory' pattern. Thus, add the desired namespace of your target class before the variable name.<br /><br />namespaced.php<br /><span class="default">&lt;?php<br /></span><span class="comment">// namespaced.php<br /></span><span class="keyword">namespace </span><span class="default">Mypackage</span><span class="keyword">;<br />class </span><span class="default">Foo </span><span class="keyword">{<br />    public function </span><span class="default">factory</span><span class="keyword">(</span><span class="default">$name</span><span class="keyword">, </span><span class="default">$global </span><span class="keyword">= </span><span class="default">FALSE</span><span class="keyword">)<br />    {<br />        if (</span><span class="default">$global</span><span class="keyword">)<br />            </span><span class="default">$class </span><span class="keyword">= </span><span class="default">$name</span><span class="keyword">;<br />        else<br />            </span><span class="default">$class </span><span class="keyword">= </span><span class="string">'Mypackage\\' </span><span class="keyword">. </span><span class="default">$name</span><span class="keyword">;<br />        return new </span><span class="default">$class</span><span class="keyword">;<br />    }<br />}<br /><br />class </span><span class="default">A </span><span class="keyword">{<br />    function </span><span class="default">__construct</span><span class="keyword">()<br />    {<br />        echo </span><span class="default">__METHOD__ </span><span class="keyword">. </span><span class="string">"&lt;br /&gt;\n"</span><span class="keyword">;<br />    }<br />}<br />class </span><span class="default">B </span><span class="keyword">{<br />    function </span><span class="default">__construct</span><span class="keyword">()<br />    {<br />        echo </span><span class="default">__METHOD__ </span><span class="keyword">. </span><span class="string">"&lt;br /&gt;\n"</span><span class="keyword">;<br />    }<br />}<br /></span><span class="default">?&gt;<br /></span><br />global.php<br /><span class="default">&lt;?php <br /></span><span class="comment">// global.php<br /></span><span class="keyword">class </span><span class="default">A </span><span class="keyword">{<br />    function </span><span class="default">__construct</span><span class="keyword">()<br />    {<br />        echo  </span><span class="default">__METHOD__</span><span class="keyword">;<br />    }<br />}<br /></span><span class="default">?&gt;<br /></span><br />index.php<br /><span class="default">&lt;?php<br /></span><span class="comment">//  index.php<br /></span><span class="keyword">namespace </span><span class="default">Mypackage</span><span class="keyword">;<br />include(</span><span class="string">'namespaced.php'</span><span class="keyword">);<br />include(</span><span class="string">'global.php'</span><span class="keyword">);<br />  <br />  </span><span class="default">$foo </span><span class="keyword">= new </span><span class="default">Foo</span><span class="keyword">();<br />  <br />  </span><span class="default">$a </span><span class="keyword">= </span><span class="default">$foo</span><span class="keyword">-&gt;</span><span class="default">factory</span><span class="keyword">(</span><span class="string">'A'</span><span class="keyword">);        </span><span class="comment">// Mypackage\A::__construct <br />  </span><span class="default">$b </span><span class="keyword">= </span><span class="default">$foo</span><span class="keyword">-&gt;</span><span class="default">factory</span><span class="keyword">(</span><span class="string">'B'</span><span class="keyword">);        </span><span class="comment">// Mypackage\B::__construct<br />  <br />  </span><span class="default">$a2 </span><span class="keyword">= </span><span class="default">$foo</span><span class="keyword">-&gt;</span><span class="default">factory</span><span class="keyword">(</span><span class="string">'A'</span><span class="keyword">,</span><span class="default">TRUE</span><span class="keyword">);    </span><span class="comment">// A::__construct<br />  </span><span class="default">$b2 </span><span class="keyword">= </span><span class="default">$foo</span><span class="keyword">-&gt;</span><span class="default">factory</span><span class="keyword">(</span><span class="string">'B'</span><span class="keyword">,</span><span class="default">TRUE</span><span class="keyword">);    </span><span class="comment">// Will produce : Fatal error: Class 'B' not found in ...namespaced.php on line ...<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="120707">  <div class="votes">
+    <div id="Vu120707">
+    <a href="https://www.php.net/manual/vote-note.php?id=120707&amp;page=language.namespaces.dynamic&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd120707">
+    <a href="https://www.php.net/manual/vote-note.php?id=120707&amp;page=language.namespaces.dynamic&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V120707" title="60% like this...">
+    2
+    </div>
+  </div>
+  <a href="language.namespaces.dynamic.php.html#120707" class="name">
+  <strong class="user"><em>m dot mannes at gmail dot com</em></strong></a><a class="genanchor" href="language.namespaces.dynamic.php.html#120707"> &para;</a><div class="date" title="2017-02-25 06:36"><strong>6 years ago</strong></div>
+  <div class="text" id="Hcom120707">
+<div class="phpcode"><code><span class="html">Case you are trying call a static method that's the way to go:<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">class </span><span class="default">myClass <br /></span><span class="keyword">{<br />    public static function </span><span class="default">myMethod</span><span class="keyword">() <br />    {<br />      return </span><span class="string">"You did it!\n"</span><span class="keyword">;<br />    }<br />}<br /><br /></span><span class="default">$foo </span><span class="keyword">= </span><span class="string">"myClass"</span><span class="keyword">;<br /></span><span class="default">$bar </span><span class="keyword">= </span><span class="string">"myMethod"</span><span class="keyword">;<br /><br />echo </span><span class="default">$foo</span><span class="keyword">::</span><span class="default">$bar</span><span class="keyword">(); </span><span class="comment">// prints "You did it!";<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="126621">  <div class="votes">
+    <div id="Vu126621">
+    <a href="https://www.php.net/manual/vote-note.php?id=126621&amp;page=language.namespaces.dynamic&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd126621">
+    <a href="https://www.php.net/manual/vote-note.php?id=126621&amp;page=language.namespaces.dynamic&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V126621" title="100% like this...">
+    2
+    </div>
+  </div>
+  <a href="language.namespaces.dynamic.php.html#126621" class="name">
+  <strong class="user"><em>anisgazig at gmail dot com</em></strong></a><a class="genanchor" href="language.namespaces.dynamic.php.html#126621"> &para;</a><div class="date" title="2021-11-19 05:12"><strong>2 years ago</strong></div>
+  <div class="text" id="Hcom126621">
+<div class="phpcode"><code><span class="html"><span class="default">&lt;?php<br /><br /></span><span class="comment">//single or double quotes with single or double backslash in dynamic namespace class.<br /><br /></span><span class="keyword">namespace </span><span class="default">Country_Name</span><span class="keyword">{<br />class </span><span class="default">Mexico</span><span class="keyword">{<br />function </span><span class="default">__construct</span><span class="keyword">(){<br />echo </span><span class="default">__METHOD__</span><span class="keyword">,</span><span class="string">"&lt;br&gt;"</span><span class="keyword">;<br />}<br />}<br /><br /></span><span class="default">$a </span><span class="keyword">= </span><span class="string">'Country_Name\Mexico'</span><span class="keyword">;</span><span class="comment">//Country_Name\Mexico::__construct<br /></span><span class="default">$a </span><span class="keyword">= </span><span class="string">"Country_Name\Mexico"</span><span class="keyword">;<br /></span><span class="comment">//Country_Name\Mexico::__construct<br /></span><span class="default">$a </span><span class="keyword">= </span><span class="string">'\Country_Name\Mexico'</span><span class="keyword">;<br /></span><span class="comment">//Country_Name\Mexico::__construct<br /></span><span class="default">$a </span><span class="keyword">= </span><span class="string">"\Country_Name\Mexico"</span><span class="keyword">;<br /></span><span class="comment">//Country_Name\Mexico::__construct<br /></span><span class="default">$a </span><span class="keyword">= </span><span class="string">"\\Country_Name\\Mexico"</span><span class="keyword">;<br /></span><span class="comment">//Country_Name\Mexico::__construct<br /></span><span class="default">$o </span><span class="keyword">= new </span><span class="default">$a</span><span class="keyword">;<br /><br />}<br /><br /></span><span class="comment">/* if your namespace name or class name start with lowercase n then you should be alart about the use of single or double quotes with backslash  */<br /><br /></span><span class="keyword">namespace </span><span class="default">name_of_country</span><span class="keyword">{<br />class </span><span class="default">Japan</span><span class="keyword">{<br />function </span><span class="default">__construct</span><span class="keyword">()<br />{<br />    echo </span><span class="default">__METHOD__</span><span class="keyword">,</span><span class="string">"&lt;br&gt;"</span><span class="keyword">;<br />}<br /><br />}<br /><br /></span><span class="default">$a </span><span class="keyword">= </span><span class="string">'name_of_country\Japan'</span><span class="keyword">;<br /></span><span class="comment">//name_of_country\Japan::__construct<br /></span><span class="default">$a </span><span class="keyword">= </span><span class="string">"name_of_country\Japan"</span><span class="keyword">;<br /></span><span class="comment">//name_of_country\Japan::__construct<br /></span><span class="default">$a </span><span class="keyword">= </span><span class="string">'\name_of_country\Japan'</span><span class="keyword">;<br /></span><span class="comment">//name_of_country\Japan::__construct<br />//$a = "\name_of_country\Japan";<br />//Fatal error: Uncaught Error: Class ' ame_of_country\Japan' not found <br />//In this statement "\name_of_country\Japan" means -first letter n with "\ == new line("\n). for fix it we can use double back slash or single quotes with single backslash. <br /></span><span class="default">$a </span><span class="keyword">= </span><span class="string">"\\name_of_country\\Japan"</span><span class="keyword">;<br /></span><span class="comment">//name_of_country\Japan::__construct<br /></span><span class="default">$o </span><span class="keyword">= new </span><span class="default">$a</span><span class="keyword">;<br />}<br /><br />namespace </span><span class="default">Country_Name</span><span class="keyword">{<br />class </span><span class="default">name</span><span class="keyword">{<br />function </span><span class="default">__construct</span><span class="keyword">(){<br />echo </span><span class="default">__METHOD__</span><span class="keyword">,</span><span class="string">"&lt;br&gt;"</span><span class="keyword">;<br />}<br />}<br /><br /></span><span class="default">$a </span><span class="keyword">= </span><span class="string">'Country_Name\name'</span><span class="keyword">;<br /></span><span class="comment">//Country_Name\Norway::__construct<br /></span><span class="default">$a </span><span class="keyword">= </span><span class="string">"Country_Name\name"</span><span class="keyword">;<br /></span><span class="comment">//Country_Name\Norway::__construct<br /></span><span class="default">$a </span><span class="keyword">= </span><span class="string">'\Country_Name\name'</span><span class="keyword">;<br /></span><span class="comment">//Country_Name\Norway::__construct<br />//$a = "\Country_Name\name";<br />//Fatal error: Uncaught Error: Class '\Country_Name ame' not found <br /><br />//In this statement "\Country_Name\name" at class name's first letter n with "\ == new line("\n). for fix it we can use double back slash or single quotes with single backslash<br /></span><span class="default">$a </span><span class="keyword">= </span><span class="string">"\\Country_Name\\name"</span><span class="keyword">;<br /></span><span class="comment">//Country_Name\name::__construct<br /></span><span class="default">$o </span><span class="keyword">= new </span><span class="default">$a</span><span class="keyword">;<br /><br />}<br /><br /></span><span class="comment">//"\n == new line are case insensitive so "\N could not affected<br /><br /> </span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="92764">  <div class="votes">
+    <div id="Vu92764">
+    <a href="https://www.php.net/manual/vote-note.php?id=92764&amp;page=language.namespaces.dynamic&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd92764">
+    <a href="https://www.php.net/manual/vote-note.php?id=92764&amp;page=language.namespaces.dynamic&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V92764" title="53% like this...">
+    1
+    </div>
+  </div>
+  <a href="language.namespaces.dynamic.php.html#92764" class="name">
+  <strong class="user"><em>scott at intothewild dot ca</em></strong></a><a class="genanchor" href="language.namespaces.dynamic.php.html#92764"> &para;</a><div class="date" title="2009-08-07 03:33"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom92764">
+<div class="phpcode"><code><span class="html">as noted by guilhermeblanco at php dot net, <br /><br /><span class="default">&lt;?php<br /><br />  </span><span class="comment">// fact.php<br /><br />  </span><span class="keyword">namespace </span><span class="default">foo</span><span class="keyword">;<br /><br />  class </span><span class="default">fact </span><span class="keyword">{<br /><br />    public function </span><span class="default">create</span><span class="keyword">(</span><span class="default">$class</span><span class="keyword">) {<br />      return new </span><span class="default">$class</span><span class="keyword">();<br />    }<br />  }<br /><br /></span><span class="default">?&gt;<br /></span><br /><span class="default">&lt;?php <br /><br />  </span><span class="comment">// bar.php<br /><br />  </span><span class="keyword">namespace </span><span class="default">foo</span><span class="keyword">;<br /><br />  class </span><span class="default">bar </span><span class="keyword">{<br />  ... <br />  }<br /><br /></span><span class="default">?&gt;<br /></span><br /><span class="default">&lt;?php<br /><br />  </span><span class="comment">// index.php<br /> <br />  </span><span class="keyword">namespace </span><span class="default">foo</span><span class="keyword">;<br /><br />  include(</span><span class="string">'fact.php'</span><span class="keyword">);<br />  <br />  </span><span class="default">$foofact </span><span class="keyword">= new </span><span class="default">fact</span><span class="keyword">();<br />  </span><span class="default">$bar </span><span class="keyword">= </span><span class="default">$foofact</span><span class="keyword">-&gt;</span><span class="default">create</span><span class="keyword">(</span><span class="string">'bar'</span><span class="keyword">); </span><span class="comment">// attempts to create \bar<br />                                  // even though foofact and<br />                                  // bar reside in \foo<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=language.namespaces.dynamic&amp;redirect=https://www.php.net/manual/ru/language.namespaces.dynamic.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="language.namespaces.php.html">Пространства имён</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="language.namespaces.rationale.php.html" title="Обзор">Обзор</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.namespaces.definition.php.html" title="Пространства имён">Пространства имён</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.namespaces.nested.php.html" title="Подпространства имён">Подпространства имён</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.namespaces.definitionmultiple.php.html" title="Несколько пространств имён в одном файле">Несколько пространств имён в одном файле</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.namespaces.basics.php.html" title="Основы">Основы</a>
+                        </li>
+                                                <li class="current">
+                            <a href="language.namespaces.dynamic.php.html" title="Пространства имён и динамические особенности языка">Пространства имён и динамические особенности языка</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.namespaces.nsconstants.php.html" title="Ключевое слово namespace и константа _&#8203;_&#8203;NAMESPACE_&#8203;_&#8203;">Ключевое слово namespace и константа _&#8203;_&#8203;NAMESPACE_&#8203;_&#8203;</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.namespaces.importing.php.html" title="Псевдонимирование и импорт">Псевдонимирование и импорт</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.namespaces.global.php.html" title="Глобальное пространство">Глобальное пространство</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.namespaces.fallback.php.html" title="Возврат к глобальному пространству">Возврат к глобальному пространству</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.namespaces.rules.php.html" title="Правила разрешения имён">Правила разрешения имён</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.namespaces.faq.php.html" title="FAQ">FAQ</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: Манипуляции с типами - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="language.types.type-juggling.php.html">
+ <link rel="shorturl" href="https://www.php.net/types.type-juggling">
+ <link rel="alternate" href="https://www.php.net/types.type-juggling" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="language.types.php.html">
+ <link rel="prev" href="language.types.declarations.php.html">
+ <link rel="next" href="language.variables.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/language.types.type-juggling.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/language.types.type-juggling.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/language.types.type-juggling.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/language.types.type-juggling.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/language.types.type-juggling.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/language.types.type-juggling.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/language.types.type-juggling.php" hreflang="pt_BR">
+ <link rel="alternate" href="language.types.type-juggling.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/language.types.type-juggling.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/language.types.type-juggling.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="language.variables.php.html">
+          Переменные &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="language.types.declarations.php.html">
+          &laquo; Объявления типов        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='langref.php.html'>Справочник языка</a></li>      <li><a href='language.types.php.html'>Типы</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/language.types.type-juggling.php'>English</option>
+            <option value='de/language.types.type-juggling.php'>German</option>
+            <option value='es/language.types.type-juggling.php'>Spanish</option>
+            <option value='fr/language.types.type-juggling.php'>French</option>
+            <option value='it/language.types.type-juggling.php'>Italian</option>
+            <option value='ja/language.types.type-juggling.php'>Japanese</option>
+            <option value='pt_BR/language.types.type-juggling.php'>Brazilian Portuguese</option>
+            <option value='ru/language.types.type-juggling.php' selected="selected">Russian</option>
+            <option value='tr/language.types.type-juggling.php'>Turkish</option>
+            <option value='zh/language.types.type-juggling.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/language/types/type-juggling.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Flanguage.types.type-juggling%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="language.types.type-juggling" class="sect1">
+ <h2 class="title">Манипуляции с типами</h2>
+
+ <p class="simpara">
+  PHP не требует явного определения типа при объявлении переменной.
+  Если тип переменной не указан, он будет определён значением, которое она хранит.
+  То есть, если переменной <var class="varname">$var</var> присваивается значение типа строка (<span class="type">string</span>), то
+  <var class="varname">$var</var> изменит тип на строку (<span class="type">string</span>).
+  Если после этого переменной <var class="varname">$var</var> будет присвоено значение типа целое число (<span class="type">int</span>), то она изменит тип на целое число (<span class="type">int</span>).
+ </p>
+
+ <p class="para">
+  В ряде контекстов PHP может попытаться автоматически преобразовать тип значения в другой. Существующие контексты:
+  <ul class="itemizedlist">
+   <li class="listitem">
+    <span class="simpara">Числовой</span>
+   </li>
+   <li class="listitem">
+    <span class="simpara">Строчный</span>
+   </li>
+   <li class="listitem">
+    <span class="simpara">Логический</span>
+   </li>
+   <li class="listitem">
+    <span class="simpara">Контекст целых чисел и строк</span>
+   </li>
+   <li class="listitem">
+    <span class="simpara">Сравнительный</span>
+   </li>
+   <li class="listitem">
+    <span class="simpara">Контекст функций</span>
+   </li>
+  </ul>
+ </p>
+
+ <blockquote class="note"><p><strong class="note">Замечание</strong>: 
+  <span class="simpara">
+   Когда значение нужно интерпретировать как другой тип, само значение <em>не</em> меняет тип.
+  </span>
+ </p></blockquote>
+
+ <p class="simpara">
+  О том, как принудительно установить тип переменной, рассказано в разделе
+  «<a href="language.types.type-juggling.php.html#language.types.typecasting" class="link">Приведение типа</a>».
+  О том, как изменить тип переменной, рассказано в описании функции <span class="function"><a href="function.settype.php.html" class="function">settype()</a></span>.
+ </p>
+
+ <div class="sect2">
+  <h3 class="title">Числовой контекст</h3>
+
+  <p class="simpara">
+   Числовой контекст возникает при работе с
+   <a href="language.operators.arithmetic.php.html" class="link">арифметическими операторами</a>.
+  </p>
+
+  <p class="simpara">
+   В этом контексте, если один из операндов — число с плавающей точкой (<span class="type">float</span>)
+   (или не интерпретируется как целое число (<span class="type">int</span>)),
+   оба операнда интерпретируются как число с плавающей точкой (<span class="type">float</span>)
+   и результатом будет число с плавающей точкой (<span class="type">float</span>).
+   В противном случае операнды будут интерпретированы как целое число (<span class="type">int</span>)
+   и результатом также будет целое число (<span class="type">int</span>).
+   Начиная с PHP 8.0.0, если один из операндов не может быть интерпретирован,
+   выбрасывается исключение <span class="classname"><a href="class.typeerror.php.html" class="classname">TypeError</a></span>.
+  </p>
+ </div>
+
+ <div class="sect2">
+  <h3 class="title">Строчный контекст</h3>
+
+  <p class="simpara">
+   Строчный контекст возникает при работе с языковыми конструкциями <span class="function"><a href="function.echo.php.html" class="function">echo</a></span>,
+   <span class="function"><a href="function.print.php.html" class="function">print</a></span>, при <a href="language.types.string.php.html#language.types.string.parsing" class="link">интерполяции строк</a>
+   или строковом <a href="language.operators.string.php.html" class="link">операторе конкатенации</a>.
+  </p>
+
+  <p class="simpara">
+   В этом контексте значение будет интерпретироваться как строка (<span class="type">string</span>).
+   Если значение не может быть интерпретировано, выбрасывается исключение <span class="classname"><a href="class.typeerror.php.html" class="classname">TypeError</a></span>.
+   До версии PHP 7.4.0 выдавалась ошибка уровня <strong><code>E_RECOVERABLE_ERROR</code></strong>.
+  </p>
+ </div>
+
+ <div class="sect2">
+  <h3 class="title">Логический контекст</h3>
+
+  <p class="simpara">
+   Логический контекст возникает при работе с условными операторами,
+   <a href="language.operators.comparison.php.html#language.operators.comparison.ternary" class="link">тернарным оператором</a>
+   или <a href="language.operators.logical.php.html" class="link">логическим оператором</a>.
+  </p>
+
+  <p class="simpara">
+   В данном контексте значение будет интерпретироваться как логическое значение (<span class="type">bool</span>).
+  </p>
+ </div>
+
+ <div class="sect2">
+  <h3 class="title">Контекст целых чисел и строк</h3>
+
+  <p class="simpara">
+   Контекст целых чисел и строк возникает
+   при работе с <a href="language.operators.bitwise.php.html" class="link">побитовыми операторами</a>.
+  </p>
+
+  <p class="simpara">
+   В этом контексте, если у всех операндов тип строка (<span class="type">string</span>),
+   результат также будет строкой (<span class="type">string</span>).
+   В противном случае операнды будут интерпретированы как целое число (<span class="type">int</span>)
+   и результат также будет целым числом (<span class="type">int</span>).
+   Начиная с PHP 8.0.0, если один из операндов не может быть интерпретирован,
+   то будет выброшено исключение <span class="classname"><a href="class.typeerror.php.html" class="classname">TypeError</a></span>.
+  </p>
+ </div>
+
+ <div class="sect2">
+  <h3 class="title">Сравнительный контекст</h3>
+
+  <p class="simpara">
+   Сравнительный контекст возникает при работе
+   с <a href="language.operators.comparison.php.html" class="link">операторами сравнения</a>.
+  </p>
+
+  <p class="simpara">
+   Преобразования типов, которые происходят в этом контексте, объяснены
+   в <a href="language.operators.comparison.php.html#language.operators.comparison.types" class="link">таблице сравнения типов</a>
+   раздела «Операторы сравнения».
+  </p>
+ </div>
+
+ <div class="sect2" id="language.types.type-juggling.function">
+  <h3 class="title">Контекст функций</h3>
+
+  <p class="simpara">
+   Контекст функций возникает, когда значение передаётся типизированному параметру,
+   свойству или возвращается из функции, в которой объявлен тип возвращаемого значения.
+  </p>
+
+  <p class="para">
+   В этом контексте значение должно быть значением типа.
+   Есть два исключения, первое: если тип значения — целое число (<span class="type">int</span>),
+   а объявленный тип — число с плавающей точкой (<span class="type">float</span>),
+   то целое число преобразовывается в число с плавающей точкой.
+   Второй: если объявленный тип — это <em>скалярный</em> тип,
+   значение преобразуемо в скалярный тип и режим строгой типизации активен (по умолчанию),
+   значение может быть преобразовано в допустимое скалярное значение.
+   Описание такого поведения дано ниже.
+  </p>
+
+  <div class="warning"><strong class="warning">Внимание</strong>
+   <p class="simpara">
+    <a href="functions.internal.php.html" class="link">Встроенные функции</a> автоматически подставляют <strong><code>null</code></strong> к скалярным типам,
+    это поведение <em>УСТАРЕЛО</em> с PHP 8.1.0.
+   </p>
+  </div>
+
+  <div class="sect3" id="language.types.type-juggling.function.simple">
+   <h4 class="title">Принудительная типизация с простым объявлением типов</h4>
+   <ul class="itemizedlist">
+    <li class="listitem">
+     <span class="simpara">
+      Объявление типа <span class="type">bool</span>: значение интерпретируется как логическое значение (<span class="type">bool</span>).
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      Объявление типа <span class="type">int</span>: значение интерпретируется как целое число (<span class="type">int</span>),
+      если преобразование надёжно определимо. Например, когда строка —
+      <a href="language.types.numeric-strings.php.html" class="link">числовая строка</a>.
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      Объявление типа <span class="type">float</span>: значение интерпретируется как число с плавающей точкой (<span class="type">float</span>),
+      если преобразование надёжно определимо. Например, когда строка —
+      <a href="language.types.numeric-strings.php.html" class="link">числовая строка</a>.
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      Объявление типа <span class="type">string</span>: значение интерпретируется как строка (<span class="type">string</span>).
+     </span>
+    </li>
+   </ul>
+  </div>
+
+  <div class="sect3" id="language.types.type-juggling.function.union">
+   <h4 class="title">Принудительная типизация с объединением типов</h4>
+   <p class="para">
+    Когда директива <code class="literal">strict_types</code> не включена, объявления скалярных типов
+    подлежат ограниченному неявному приведению типов.
+    Если точный тип значения — не часть объединения,
+    то целевой тип выбран из списка в порядке убывания приоритета:
+
+    <ol type="1">
+     <li class="listitem">
+      <span class="simpara">
+       <span class="type">int</span>
+      </span>
+     </li>
+     <li class="listitem">
+      <span class="simpara">
+       <span class="type">float</span>
+      </span>
+     </li>
+     <li class="listitem">
+      <span class="simpara">
+       <span class="type">string</span>
+      </span>
+     </li>
+     <li class="listitem">
+      <span class="simpara">
+       <span class="type">bool</span>
+      </span>
+     </li>
+    </ol>
+
+    Если тип и существует в объединении и значение может быть приведено к этому типу
+    в соответствии с существующей семантикой проверки типов PHP, то PHP выбирает этот тип.
+    В противном случае будет выбран следующий по порядку тип.
+   </p>
+
+   <div class="caution"><strong class="caution">Предостережение</strong>
+    <p class="para">
+     В качестве исключения, если значение — строка,
+     а целое число (int) и число с плавающей точкой (float) — это часть объединения,
+     предпочтительный тип будет определён существующей семантикой
+     <a href="language.types.numeric-strings.php.html" class="link">числовой строки</a>.
+     Например, для <code class="literal">«42»</code> PHP выбирает целое число (<span class="type">int</span>),
+     а для <code class="literal">«42.0»</code> — число с плавающей точкой (<span class="type">float</span>).
+    </p>
+   </div>
+
+   <blockquote class="note"><p><strong class="note">Замечание</strong>: 
+    <p class="para">
+     Типы, которые не входят в список предпочтений, не станут целями
+     для неявного приведения. Говоря конкретнее, никакого неявного приведения к типам
+     <span class="type">null</span>, <span class="type"><span class="type false">false</span></span> и <span class="type"><span class="type true">true</span></span> не будет.
+    </p>
+   </p></blockquote>
+
+   <div class="example" id="language.oop5.traits.precedence.examples.ex2">
+    <p><strong>Пример #1 Пример принудительного включения типов в состав объединения</strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">// int|string<br /></span><span style="color: #0000BB">42    </span><span style="color: #007700">--&gt; </span><span style="color: #0000BB">42          </span><span style="color: #FF8000">// точный тип<br /></span><span style="color: #DD0000">"42"  </span><span style="color: #007700">--&gt; </span><span style="color: #DD0000">"42"        </span><span style="color: #FF8000">// точный тип<br /></span><span style="color: #007700">new </span><span style="color: #0000BB">ObjectWithToString </span><span style="color: #007700">--&gt; </span><span style="color: #DD0000">"Результат __toString()"<br />                      </span><span style="color: #FF8000">// объект не совместим с int, переход к string<br /></span><span style="color: #0000BB">42.0  </span><span style="color: #007700">--&gt; </span><span style="color: #0000BB">42          </span><span style="color: #FF8000">// float совместимый с int<br /></span><span style="color: #0000BB">42.1  </span><span style="color: #007700">--&gt; </span><span style="color: #0000BB">42          </span><span style="color: #FF8000">// float совместимый с int<br /></span><span style="color: #0000BB">1e100 </span><span style="color: #007700">--&gt; </span><span style="color: #DD0000">"1.0E+100"  </span><span style="color: #FF8000">// float слишком велик для типа int, переход к string<br /></span><span style="color: #0000BB">INF   </span><span style="color: #007700">--&gt; </span><span style="color: #DD0000">"INF"       </span><span style="color: #FF8000">// float слишком велик для типа int, переход к string<br /></span><span style="color: #0000BB">true  </span><span style="color: #007700">--&gt; </span><span style="color: #0000BB">1           </span><span style="color: #FF8000">// bool совместимый с int<br /></span><span style="color: #007700">[]    --&gt; </span><span style="color: #0000BB">TypeError   </span><span style="color: #FF8000">// массив не совместим с int или string<br /><br />// int|float|bool<br /></span><span style="color: #DD0000">"45"    </span><span style="color: #007700">--&gt; </span><span style="color: #0000BB">45        </span><span style="color: #FF8000">// int числовая строка<br /></span><span style="color: #DD0000">"45.0"  </span><span style="color: #007700">--&gt; </span><span style="color: #0000BB">45.0      </span><span style="color: #FF8000">// float числовая строка<br /><br /></span><span style="color: #DD0000">"45X"   </span><span style="color: #007700">--&gt; </span><span style="color: #0000BB">true      </span><span style="color: #FF8000">// не числовая строка, переход к bool<br /></span><span style="color: #DD0000">""      </span><span style="color: #007700">--&gt; </span><span style="color: #0000BB">false     </span><span style="color: #FF8000">// не числовая строка, переход к bool<br /></span><span style="color: #DD0000">"X"     </span><span style="color: #007700">--&gt; </span><span style="color: #0000BB">true      </span><span style="color: #FF8000">// не числовая строка, переход к bool<br /></span><span style="color: #007700">[]      --&gt; </span><span style="color: #0000BB">TypeError </span><span style="color: #FF8000">// массив не совместимый с int, float или bool<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+    </div>
+
+   </div>
+  </div>
+
+ </div>
+
+ <div class="sect2" id="language.types.typecasting">
+  <h3 class="title">Приведение типов</h3>
+
+  <p class="simpara">
+   Приведение типа преобразовывает значение к выбранному типу,
+   записывая тип в круглых скобках перед преобразуемым значением.
+  </p>
+
+  <div class="informalexample">
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br />$foo </span><span style="color: #007700">= </span><span style="color: #0000BB">10</span><span style="color: #007700">;   </span><span style="color: #FF8000">// $foo — это целое число<br /></span><span style="color: #0000BB">$bar </span><span style="color: #007700">= (bool) </span><span style="color: #0000BB">$foo</span><span style="color: #007700">;   </span><span style="color: #FF8000">// $bar — это логическое значение<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+   </div>
+
+  </div>
+
+  <p class="simpara">
+   Разрешены следующие приведения типов:
+  </p>
+
+
+  <ul class="simplelist">
+   <li class="member"><code class="literal">(int)</code> — приведение типа к целому числу (<span class="type">int</span>)</li>
+   <li class="member"><code class="literal">(bool)</code> — приведение типа к логическому значению (<span class="type">bool</span>)</li>
+   <li class="member"><code class="literal">(float)</code> — приведение типа к числу с плавающей точкой (<span class="type">float</span>)</li>
+   <li class="member"><code class="literal">(string)</code> — приведение типа к строке (<span class="type">string</span>)</li>
+   <li class="member"><code class="literal">(array)</code> — приведение типа к массиву (<span class="type">array</span>)</li>
+   <li class="member"><code class="literal">(object)</code> — приведение типа к объекту (<span class="type">object</span>)</li>
+   <li class="member"><code class="literal">(unset)</code> — приведение типа к <span class="type">NULL</span></li>
+  </ul>
+
+  <blockquote class="note"><p><strong class="note">Замечание</strong>: 
+   <p class="para">
+    <code class="literal">(integer)</code> — псевдоним приведения типа <code class="literal">(int)</code>.
+    <code class="literal">(boolean)</code> — псевдоним приведения типа <code class="literal">(bool)</code>.
+    <code class="literal">(binary)</code> — псевдоним приведения типа <code class="literal">(string)</code>.
+    <code class="literal">(double)</code> и <code class="literal">(real)</code> — псевдонимы приведения типа <code class="literal">(float)</code>.
+    Эти приведения не используют каноническое имя типа и не рекомендуются.
+   </p>
+  </p></blockquote>
+
+  <div class="warning"><strong class="warning">Внимание</strong>
+   <p class="simpara">
+    Псевдоним приведения типа <code class="literal">(real)</code> устарел с PHP 8.0.0.
+   </p>
+  </div>
+
+  <div class="warning"><strong class="warning">Внимание</strong>
+   <p class="simpara">
+    Приведение типа <code class="literal">(unset)</code> устарело с версии PHP 7.2.0.
+    Обратите внимание, что приведение <code class="literal">(unset)</code> равносильно присвоению переменной или вызову значения <span class="type">NULL</span>.
+    Приведение <code class="literal">(unset)</code> удалено в PHP 8.0.0.
+   </p>
+  </div>
+
+  <div class="caution"><strong class="caution">Предостережение</strong>
+   <p class="simpara">
+   Приведение типа <code class="literal">(binary)</code> и префикс <code class="literal">b</code> существуют для прямой поддержки.
+   Типы <code class="literal">(binary)</code> и <code class="literal">(string)</code> идентичны, однако, это может измениться, не нужно на это полагаться.
+   </p>
+  </div>
+
+  <blockquote class="note"><p><strong class="note">Замечание</strong>: 
+   <p class="para">
+    PHP игнорирует пробелы в круглых скобках при приведении типа.
+    Поэтому следующие два приведения типов эквивалентны:
+    <div class="informalexample">
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br />$foo </span><span style="color: #007700">= (int) </span><span style="color: #0000BB">$bar</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$foo </span><span style="color: #007700">= ( int ) </span><span style="color: #0000BB">$bar</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+     </div>
+
+    </div>
+   </p>
+  </p></blockquote>
+
+  <div class="informalexample">
+   <p class="simpara">
+    Приведение строк (<span class="type">string</span>) и переменных к бинарным строкам (<span class="type">string</span>):
+   </p>
+
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br />$binary </span><span style="color: #007700">= (binary) </span><span style="color: #0000BB">$string</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$binary </span><span style="color: #007700">= </span><span style="color: #DD0000">b"binary string"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+   </div>
+
+  </div>
+
+  <blockquote class="note"><p><strong class="note">Замечание</strong>: 
+   <span class="simpara">
+    Вместо приведения переменной к типу строка (<span class="type">string</span>) можно также заключить переменную в двойные кавычки.
+   </span>
+
+   <div class="informalexample">
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br />$foo </span><span style="color: #007700">= </span><span style="color: #0000BB">10</span><span style="color: #007700">;            </span><span style="color: #FF8000">// $foo — целое число<br /></span><span style="color: #0000BB">$str </span><span style="color: #007700">= </span><span style="color: #DD0000">"</span><span style="color: #0000BB">$foo</span><span style="color: #DD0000">"</span><span style="color: #007700">;        </span><span style="color: #FF8000">// $str — строка<br /></span><span style="color: #0000BB">$fst </span><span style="color: #007700">= (string) </span><span style="color: #0000BB">$foo</span><span style="color: #007700">; </span><span style="color: #FF8000">// $fst тоже строка<br /><br />// Выводит, что «они одинаковые»<br /></span><span style="color: #007700">if (</span><span style="color: #0000BB">$fst </span><span style="color: #007700">=== </span><span style="color: #0000BB">$str</span><span style="color: #007700">) {<br />    echo </span><span style="color: #DD0000">"они одинаковые"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+    </div>
+
+   </div>
+  </p></blockquote>
+
+  <p class="para">
+   Может быть неочевидно, что произойдёт при преобразовании между разными типами.
+   Получить дополнительную информацию можно в разделах:
+
+   <ul class="simplelist">
+    <li class="member"><a href="language.types.boolean.php.html#language.types.boolean.casting" class="link">Преобразование типа к логическому значению (boolean)</a></li>
+    <li class="member"><a href="language.types.integer.php.html#language.types.integer.casting" class="link">Преобразование типа к целому числу (integer)</a></li>
+    <li class="member"><a href="language.types.float.php.html#language.types.float.casting" class="link">Преобразование типа к числу с плавающей точкой (float)</a></li>
+    <li class="member"><a href="language.types.string.php.html#language.types.string.casting" class="link">Преобразование типа к строке (string)</a></li>
+    <li class="member"><a href="language.types.array.php.html#language.types.array.casting" class="link">Преобразование типа к массиву (array)</a></li>
+    <li class="member"><a href="language.types.object.php.html#language.types.object.casting" class="link">Преобразование типа к объекту (object)</a></li>
+    <li class="member"><a href="language.types.resource.php.html#language.types.resource.casting" class="link">Преобразование типа к ресурсу (resource)</a></li>
+    <li class="member"><a href="language.types.null.php.html#language.types.null.casting" class="link">Преобразование типа к NULL</a></li>
+    <li class="member"><a href="types.comparisons.php.html" class="link">Таблицы сравнения типов</a></li>
+   </ul>
+  </p>
+ </div>
+
+ <div class="simplesect">
+  <blockquote class="note"><p><strong class="note">Замечание</strong>: 
+   <span class="simpara">
+    Поскольку PHP поддерживает индексацию в строках (<span class="type">string</span>) через смещения, используя тот же синтаксис,
+    что и индексация в массивах (<span class="type">array</span>), следующий пример справедлив для всех версий PHP:
+   </span>
+
+   <div class="informalexample">
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br />$a    </span><span style="color: #007700">= </span><span style="color: #DD0000">'car'</span><span style="color: #007700">; </span><span style="color: #FF8000">// $a — строка<br /></span><span style="color: #0000BB">$a</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">] = </span><span style="color: #DD0000">'b'</span><span style="color: #007700">;   </span><span style="color: #FF8000">// $a по-прежнему строка<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">$a</span><span style="color: #007700">;       </span><span style="color: #FF8000">// bar<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+    </div>
+
+   </div>
+
+   <span class="simpara">
+    Дополнительную информацию можно найти разделе «<a href="language.types.string.php.html#language.types.string.substr" class="link">Доступ к символу в строке и его изменение</a>».
+   </span>
+  </p></blockquote>
+ </div>
+
+</div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=language.types.type-juggling&amp;redirect=https://www.php.net/manual/ru/language.types.type-juggling.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">7 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="49849">  <div class="votes">
+    <div id="Vu49849">
+    <a href="https://www.php.net/manual/vote-note.php?id=49849&amp;page=language.types.type-juggling&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd49849">
+    <a href="https://www.php.net/manual/vote-note.php?id=49849&amp;page=language.types.type-juggling&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V49849" title="64% like this...">
+    66
+    </div>
+  </div>
+  <a href="language.types.type-juggling.php.html#49849" class="name">
+  <strong class="user"><em>Raja</em></strong></a><a class="genanchor" href="language.types.type-juggling.php.html#49849"> &para;</a><div class="date" title="2005-02-10 03:05"><strong>19 years ago</strong></div>
+  <div class="text" id="Hcom49849">
+<div class="phpcode"><code><span class="html">Uneven division of an integer variable by another integer variable will result in a float by automatic conversion -- you do not have to cast the variables to floats in order to avoid integer truncation (as you would in C, for example):<br /><br />$dividend = 2;<br />$divisor = 3;<br />$quotient = $dividend/$divisor;<br />print $quotient; // 0.66666666666667</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="111930">  <div class="votes">
+    <div id="Vu111930">
+    <a href="https://www.php.net/manual/vote-note.php?id=111930&amp;page=language.types.type-juggling&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd111930">
+    <a href="https://www.php.net/manual/vote-note.php?id=111930&amp;page=language.types.type-juggling&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V111930" title="62% like this...">
+    27
+    </div>
+  </div>
+  <a href="language.types.type-juggling.php.html#111930" class="name">
+  <strong class="user"><em>fardelian</em></strong></a><a class="genanchor" href="language.types.type-juggling.php.html#111930"> &para;</a><div class="date" title="2013-04-13 03:23"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom111930">
+<div class="phpcode"><code><span class="html">Casting objects to arrays is a pain. Example:<br /><br /><span class="default">&lt;?php<br /><br /></span><span class="keyword">class </span><span class="default">MyClass </span><span class="keyword">{<br /><br />    private </span><span class="default">$priv </span><span class="keyword">= </span><span class="string">'priv_value'</span><span class="keyword">;<br />    protected </span><span class="default">$prot </span><span class="keyword">= </span><span class="string">'prot_value'</span><span class="keyword">;<br />    public </span><span class="default">$pub </span><span class="keyword">= </span><span class="string">'pub_value'</span><span class="keyword">;<br />    public </span><span class="default">$MyClasspriv </span><span class="keyword">= </span><span class="string">'second_pub_value'</span><span class="keyword">;<br /><br />}<br /><br /></span><span class="default">$test </span><span class="keyword">= new </span><span class="default">MyClass</span><span class="keyword">();<br />echo </span><span class="string">'&lt;pre&gt;'</span><span class="keyword">;<br /></span><span class="default">print_r</span><span class="keyword">((array) </span><span class="default">$test</span><span class="keyword">);<br /><br /></span><span class="comment">/*<br />Array<br />(<br />    [MyClasspriv] =&gt; priv_value<br />    [*prot] =&gt; prot_value<br />    [pub] =&gt; pub_value<br />    [MyClasspriv] =&gt; second_pub_value<br />)<br /> */<br /><br /></span><span class="default">?&gt;<br /></span><br />Yes, that looks like an array with two keys with the same name and it looks like the protected field was prepended with an asterisk. But that's not true:<br /><br /><span class="default">&lt;?php<br /><br /></span><span class="keyword">foreach ((array) </span><span class="default">$test </span><span class="keyword">as </span><span class="default">$key </span><span class="keyword">=&gt; </span><span class="default">$value</span><span class="keyword">) {<br />    </span><span class="default">$len </span><span class="keyword">= </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">);<br />    echo </span><span class="string">"</span><span class="keyword">{</span><span class="default">$key</span><span class="keyword">}</span><span class="string"> (</span><span class="keyword">{</span><span class="default">$len</span><span class="keyword">}</span><span class="string">) =&gt; </span><span class="keyword">{</span><span class="default">$value</span><span class="keyword">}</span><span class="string">&lt;br /&gt;"</span><span class="keyword">;<br />    for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">$len</span><span class="keyword">; ++</span><span class="default">$i</span><span class="keyword">) {<br />        echo </span><span class="default">ord</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">]) . </span><span class="string">' '</span><span class="keyword">;<br />    }<br />    echo </span><span class="string">'&lt;hr /&gt;'</span><span class="keyword">;<br />}<br /><br /></span><span class="comment">/*<br />MyClasspriv (13) =&gt; priv_value<br />0 77 121 67 108 97 115 115 0 112 114 105 118<br />*prot (7) =&gt; prot_value<br />0 42 0 112 114 111 116<br />pub (3) =&gt; pub_value<br />112 117 98<br />MyClasspriv (11) =&gt; second_pub_value<br />77 121 67 108 97 115 115 112 114 105 118<br /> */<br /><br /></span><span class="default">?&gt;<br /></span><br />The char codes show that the protected keys are prepended with '\0*\0' and private keys are prepended with '\0'.__CLASS__.'\0' so be careful when playing around with this.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="125780">  <div class="votes">
+    <div id="Vu125780">
+    <a href="https://www.php.net/manual/vote-note.php?id=125780&amp;page=language.types.type-juggling&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd125780">
+    <a href="https://www.php.net/manual/vote-note.php?id=125780&amp;page=language.types.type-juggling&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V125780" title="72% like this...">
+    11
+    </div>
+  </div>
+  <a href="language.types.type-juggling.php.html#125780" class="name">
+  <strong class="user"><em>Anonymous</em></strong></a><a class="genanchor" href="language.types.type-juggling.php.html#125780"> &para;</a><div class="date" title="2021-02-05 01:07"><strong>3 years ago</strong></div>
+  <div class="text" id="Hcom125780">
+<div class="phpcode"><code><span class="html">Cast operators have a very high precedence, for example (int)$a/$b is evaluated as ((int)$a)/$b, not as (int)($a/$b) [which would be like intdiv($a,$b) if both $a and $b are integers].<br />The only exceptions (as of PHP 8.0) are the exponentiation operator ** [i.e. (int)$a**$b is evaluated as (int)($a**$b) rather than ((int)$a)**$b] and the special access/invocation operators -&gt;, ::, [] and () [i.e. in each of (int)$a-&gt;$b, (int)$a::$b, (int)$a[$b] and (int)$a($b), the cast is performed last on the result of the variable expression].</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="62113">  <div class="votes">
+    <div id="Vu62113">
+    <a href="https://www.php.net/manual/vote-note.php?id=62113&amp;page=language.types.type-juggling&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd62113">
+    <a href="https://www.php.net/manual/vote-note.php?id=62113&amp;page=language.types.type-juggling&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V62113" title="64% like this...">
+    11
+    </div>
+  </div>
+  <a href="language.types.type-juggling.php.html#62113" class="name">
+  <strong class="user"><em>miracle at 1oo-percent dot de</em></strong></a><a class="genanchor" href="language.types.type-juggling.php.html#62113"> &para;</a><div class="date" title="2006-02-20 05:26"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom62113">
+<div class="phpcode"><code><span class="html">If you want to convert a string automatically to float or integer (e.g. "0.234" to float and "123" to int), simply add 0 to the string - PHP will do the rest.<br /><br />e.g.<br /><br />$val = 0 + "1.234";<br />(type of $val is float now)<br /><br />$val = 0 + "123";<br />(type of $val is integer now)</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="100460">  <div class="votes">
+    <div id="Vu100460">
+    <a href="https://www.php.net/manual/vote-note.php?id=100460&amp;page=language.types.type-juggling&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd100460">
+    <a href="https://www.php.net/manual/vote-note.php?id=100460&amp;page=language.types.type-juggling&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V100460" title="62% like this...">
+    11
+    </div>
+  </div>
+  <a href="language.types.type-juggling.php.html#100460" class="name">
+  <strong class="user"><em>rmirabelle</em></strong></a><a class="genanchor" href="language.types.type-juggling.php.html#100460"> &para;</a><div class="date" title="2010-10-17 10:18"><strong>13 years ago</strong></div>
+  <div class="text" id="Hcom100460">
+<div class="phpcode"><code><span class="html">The object casting methods presented here do not take into account the class hierarchy of the class you're trying to cast your object into.<br /><br />/**<br />     * Convert an object to a specific class.<br />     * @param object $object<br />     * @param string $class_name The class to cast the object to<br />     * @return object<br />     */<br />    public static function cast($object, $class_name) {<br />        if($object === false) return false;<br />        if(class_exists($class_name)) {<br />            $ser_object     = serialize($object);<br />            $obj_name_len     = strlen(get_class($object));<br />            $start             = $obj_name_len + strlen($obj_name_len) + 6;<br />            $new_object      = 'O:' . strlen($class_name) . ':"' . $class_name . '":';<br />            $new_object     .= substr($ser_object, $start);<br />            $new_object     = unserialize($new_object);<br />            /**<br />             * The new object is of the correct type but<br />             * is not fully initialized throughout its graph.<br />             * To get the full object graph (including parent<br />             * class data, we need to create a new instance of <br />             * the specified class and then assign the new <br />             * properties to it.<br />             */<br />            $graph = new $class_name;<br />            foreach($new_object as $prop =&gt; $val) {<br />                $graph-&gt;$prop = $val;<br />            }<br />            return $graph;<br />        } else {<br />            throw new CoreException(false, "could not find class $class_name for casting in DB::cast");<br />            return false;<br />        }<br />    }</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="24809">  <div class="votes">
+    <div id="Vu24809">
+    <a href="https://www.php.net/manual/vote-note.php?id=24809&amp;page=language.types.type-juggling&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd24809">
+    <a href="https://www.php.net/manual/vote-note.php?id=24809&amp;page=language.types.type-juggling&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V24809" title="57% like this...">
+    16
+    </div>
+  </div>
+  <a href="language.types.type-juggling.php.html#24809" class="name"><strong class="user"><em>Anonymous</em></strong></a><a class="genanchor" href="language.types.type-juggling.php.html#24809"> &para;</a><div class="date" title="2002-08-28 10:26"><strong>21 years ago</strong></div>
+  <div class="text" id="Hcom24809">
+<div class="phpcode"><code><span class="html">Printing or echoing a FALSE boolean value or a NULL value results in an empty string:<br />(string)TRUE //returns "1"<br />(string)FALSE //returns ""<br />echo TRUE; //prints "1"<br />echo FALSE; //prints nothing!</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="109059">  <div class="votes">
+    <div id="Vu109059">
+    <a href="https://www.php.net/manual/vote-note.php?id=109059&amp;page=language.types.type-juggling&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd109059">
+    <a href="https://www.php.net/manual/vote-note.php?id=109059&amp;page=language.types.type-juggling&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V109059" title="56% like this...">
+    12
+    </div>
+  </div>
+  <a href="language.types.type-juggling.php.html#109059" class="name">
+  <strong class="user"><em>ieee at REMOVE dot bk dot ru</em></strong></a><a class="genanchor" href="language.types.type-juggling.php.html#109059"> &para;</a><div class="date" title="2012-06-17 04:26"><strong>11 years ago</strong></div>
+  <div class="text" id="Hcom109059">
+<div class="phpcode"><code><span class="html">There are some shorter and faster (at least on my machine) ways to perform a type cast.<br /><span class="default">&lt;?php<br />$string</span><span class="keyword">=</span><span class="string">'12345.678'</span><span class="keyword">;<br /></span><span class="default">$float</span><span class="keyword">=+</span><span class="default">$string</span><span class="keyword">; <br /></span><span class="default">$integer</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">|</span><span class="default">$string</span><span class="keyword">;<br /></span><span class="default">$boolean</span><span class="keyword">=!!</span><span class="default">$string</span><span class="keyword">;<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=language.types.type-juggling&amp;redirect=https://www.php.net/manual/ru/language.types.type-juggling.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="language.types.php.html">Типы</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="language.types.intro.php.html" title="Введение">Введение</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.types.type-system.php.html" title="Система типов">Система типов</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.types.null.php.html" title="NULL">NULL</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.types.boolean.php.html" title="Логические значения">Логические значения</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.types.integer.php.html" title="Целые числа">Целые числа</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.types.float.php.html" title="Числа с плавающей точкой">Числа с плавающей точкой</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.types.string.php.html" title="Строки">Строки</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.types.numeric-strings.php.html" title="Числовые строки">Числовые строки</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.types.array.php.html" title="Массивы">Массивы</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.types.object.php.html" title="Объекты">Объекты</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.types.enumerations.php.html" title="Перечисления">Перечисления</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.types.resource.php.html" title="Ресурсы">Ресурсы</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.types.callable.php.html" title="Callable и callback-&#8203;функции">Callable и callback-&#8203;функции</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.types.mixed.php.html" title="Mixed">Mixed</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.types.void.php.html" title="Void">Void</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.types.never.php.html" title="Never">Never</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.types.relative-class-types.php.html" title="Относительные типы классов">Относительные типы классов</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.types.value.php.html" title="Типы значений">Типы значений</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.types.iterable.php.html" title="Итерируемые значения">Итерируемые значения</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.types.declarations.php.html" title="Объявления типов">Объявления типов</a>
+                        </li>
+                                                <li class="current">
+                            <a href="language.types.type-juggling.php.html" title="Манипуляции с типами">Манипуляции с типами</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: OAuth::fetch - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="oauth.fetch.php.html">
+ <link rel="shorturl" href="oauth.fetch.php.html">
+ <link rel="alternate" href="oauth.fetch.php.html" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="class.oauth.php.html">
+ <link rel="prev" href="oauth.enablesslchecks.php.html">
+ <link rel="next" href="oauth.generatesignature.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/oauth.fetch.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/oauth.fetch.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/oauth.fetch.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/oauth.fetch.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/oauth.fetch.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/oauth.fetch.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/oauth.fetch.php" hreflang="pt_BR">
+ <link rel="alternate" href="oauth.fetch.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/oauth.fetch.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/oauth.fetch.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="oauth.generatesignature.php.html">
+          OAuth::generateSignature &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="oauth.enablesslchecks.php.html">
+          &laquo; OAuth::enableSSLChecks        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.webservice.php.html'>Веб-сервисы</a></li>      <li><a href='book.oauth.php.html'>OAuth</a></li>      <li><a href='class.oauth.php.html'>OAuth</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/oauth.fetch.php'>English</option>
+            <option value='de/oauth.fetch.php'>German</option>
+            <option value='es/oauth.fetch.php'>Spanish</option>
+            <option value='fr/oauth.fetch.php'>French</option>
+            <option value='it/oauth.fetch.php'>Italian</option>
+            <option value='ja/oauth.fetch.php'>Japanese</option>
+            <option value='pt_BR/oauth.fetch.php'>Brazilian Portuguese</option>
+            <option value='ru/oauth.fetch.php' selected="selected">Russian</option>
+            <option value='tr/oauth.fetch.php'>Turkish</option>
+            <option value='zh/oauth.fetch.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/oauth/oauth/fetch.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Foauth.fetch%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="oauth.fetch" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">OAuth::fetch</h1>
+  <p class="verinfo">(PECL OAuth &gt;= 0.99.1)</p><p class="refpurpose"><span class="refname">OAuth::fetch</span> &mdash; <span class="dc-title">Извлечь защищённый ресурс OAuth</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-oauth.fetch-description">
+  <h3 class="title">Описание</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="methodname"><strong>OAuth::fetch</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$protected_resource_url</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">array</span> <code class="parameter">$extra_parameters</code><span class="initializer"> = ?</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$http_method</code><span class="initializer"> = ?</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">array</span> <code class="parameter">$http_headers</code><span class="initializer"> = ?</span></span><br>): <span class="type"><a href="language.types.declarations.php.html#language.types.declarations.mixed" class="type mixed">mixed</a></span></div>
+
+  <p class="para rdfs-comment">
+   Извлечь ресурс.
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-oauth.fetch-parameters">
+  <h3 class="title">Список параметров</h3>
+  <p class="para">
+   <dl>
+    
+     <dt>
+<code class="parameter">protected_resource_url</code></dt>
+
+     <dd>
+
+      <p class="para">
+       URL защищённого ресурса OAuth.
+      </p>
+     </dd>
+
+    
+    
+     <dt>
+<code class="parameter">extra_parameters</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Дополнительные параметры запроса ресурса.
+      </p>
+     </dd>
+
+    
+    
+     <dt>
+<code class="parameter">http_method</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Один из методов <strong><code>OAUTH_HTTP_METHOD_*</code></strong>.
+       Смотрите <a href="oauth.constants.php.html" class="link">константы OAUTH</a>, которые включают
+       GET, POST, PUT, HEAD и DELETE.
+      </p>
+      <p class="para">
+       HEAD (<strong><code>OAUTH_HTTP_METHOD_HEAD</code></strong>) может быть полезен
+       для изучения информации перед произведением запроса (если учётные данные OAuth
+       в заголовке <code class="literal">Authorization</code>).
+      </p>
+     </dd>
+
+    
+    
+     <dt>
+<code class="parameter">http_headers</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Клиентские заголовки HTTP (такие как User-Agent, Accept и т.д.)
+      </p>
+     </dd>
+
+    
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-oauth.fetch-returnvalues">
+  <h3 class="title">Возвращаемые значения</h3>
+  <p class="para">
+   Возвращает <strong><code>true</code></strong> в случае успешного выполнения или <strong><code>false</code></strong> в случае возникновения ошибки.
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-oauth.fetch-changelog">
+  <h3 class="title">Список изменений</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead>
+      <tr>
+       <th>Версия</th>
+       <th>Описание</th>
+      </tr>
+
+     </thead>
+
+     <tbody class="tbody">
+      <tr>
+       <td>PECL oauth 1.0.0</td>
+       <td>
+        Раньше в случае возникновения ошибки возвращался <strong><code>null</code></strong> вместо <strong><code>false</code></strong>.
+       </td>
+      </tr>
+
+      <tr>
+       <td>PECL oauth 0.99.5</td>
+       <td>
+        Добавлен параметр <code class="parameter">http_method</code>
+       </td>
+      </tr>
+
+      <tr>
+       <td>PECL oauth 0.99.8</td>
+       <td>
+        Добавлен параметр <code class="parameter">http_headers</code>
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-oauth.fetch-examples">
+  <h3 class="title">Примеры</h3>
+  <p class="para">
+   <div class="example" id="">
+    <p><strong>Пример #1 Пример использования <span class="function"><strong>OAuth::fetch()</strong></span></strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">try {<br />    </span><span style="color: #0000BB">$oauth </span><span style="color: #007700">= new </span><span style="color: #0000BB">OAuth</span><span style="color: #007700">(</span><span style="color: #DD0000">"consumer_key"</span><span style="color: #007700">,</span><span style="color: #DD0000">"consumer_secret"</span><span style="color: #007700">,</span><span style="color: #0000BB">OAUTH_SIG_METHOD_HMACSHA1</span><span style="color: #007700">,</span><span style="color: #0000BB">OAUTH_AUTH_TYPE_AUTHORIZATION</span><span style="color: #007700">);<br />    </span><span style="color: #0000BB">$oauth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">setToken</span><span style="color: #007700">(</span><span style="color: #DD0000">"access_token"</span><span style="color: #007700">,</span><span style="color: #DD0000">"access_token_secret"</span><span style="color: #007700">);<br /><br />    </span><span style="color: #0000BB">$oauth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fetch</span><span style="color: #007700">(</span><span style="color: #DD0000">"http://photos.example.net/photo?file=vacation.jpg"</span><span style="color: #007700">);<br /><br />    </span><span style="color: #0000BB">$response_info </span><span style="color: #007700">= </span><span style="color: #0000BB">$oauth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getLastResponseInfo</span><span style="color: #007700">();<br />    </span><span style="color: #0000BB">header</span><span style="color: #007700">(</span><span style="color: #DD0000">"Content-Type: </span><span style="color: #007700">{</span><span style="color: #0000BB">$response_info</span><span style="color: #007700">[</span><span style="color: #DD0000">"content_type"</span><span style="color: #007700">]}</span><span style="color: #DD0000">"</span><span style="color: #007700">);<br />    echo </span><span style="color: #0000BB">$oauth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getLastResponse</span><span style="color: #007700">();<br />} catch(</span><span style="color: #0000BB">OAuthException $E</span><span style="color: #007700">) {<br />    echo </span><span style="color: #DD0000">"Поймали исключение!\n"</span><span style="color: #007700">;<br />    echo </span><span style="color: #DD0000">"Ответ: "</span><span style="color: #007700">. </span><span style="color: #0000BB">$E</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">lastResponse </span><span style="color: #007700">. </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-oauth.fetch-seealso">
+  <h3 class="title">Смотрите также</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="methodname"><a href="oauth.getlastresponse.php.html" class="methodname" rel="rdfs-seeAlso">OAuth::getLastResponse()</a> - Получить последний ответ</span></li>
+    <li class="member"><span class="methodname"><a href="oauth.getlastresponseinfo.php.html" class="methodname" rel="rdfs-seeAlso">OAuth::getLastResponseInfo()</a> - Получить HTTP-информацию о последнем ответе</span></li>
+    <li class="member"><span class="methodname"><a href="oauth.settoken.php.html" class="methodname" rel="rdfs-seeAlso">OAuth::setToken()</a> - Задать токен и его пароль</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=oauth.fetch&amp;redirect=https://www.php.net/manual/ru/oauth.fetch.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">6 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="111574">  <div class="votes">
+    <div id="Vu111574">
+    <a href="https://www.php.net/manual/vote-note.php?id=111574&amp;page=oauth.fetch&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd111574">
+    <a href="https://www.php.net/manual/vote-note.php?id=111574&amp;page=oauth.fetch&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V111574" title="64% like this...">
+    4
+    </div>
+  </div>
+  <a href="oauth.fetch.php.html#111574" class="name">
+  <strong class="user"><em>chris dot barr at ntlworld dot com</em></strong></a><a class="genanchor" href="oauth.fetch.php.html#111574"> &para;</a><div class="date" title="2013-03-05 05:59"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom111574">
+<div class="phpcode"><code><span class="html">The fetch() method will throw an OAuthException if the returned http status code is in the 4xx or 5xx range:<br /><br /><span class="default">&lt;?php<br /></span><span class="comment">// Querying Twitter with bad login details<br /></span><span class="keyword">try {<br />  </span><span class="default">$oauth</span><span class="keyword">-&gt;</span><span class="default">fetch</span><span class="keyword">(</span><span class="string">'<a href="https://api.twitter.com/1.1/favorites/list.json" rel="nofollow" target="_blank">https://api.twitter.com/1.1/favorites/list.json</a>'</span><span class="keyword">);<br />}<br />catch(</span><span class="default">Exception $e</span><span class="keyword">) {<br />  echo </span><span class="default">$e</span><span class="keyword">-&gt;</span><span class="default">getCode</span><span class="keyword">(); </span><span class="comment">// 401<br />  // Message generated by OAuth class<br />  </span><span class="keyword">echo </span><span class="default">$e</span><span class="keyword">-&gt;</span><span class="default">getMessage</span><span class="keyword">(); </span><span class="comment">// Invalid auth/bad request (got a 401, expected HTTP/1.1 20X or a redirect)<br />  // Message returned from Twitter<br />  </span><span class="keyword">echo </span><span class="default">$e</span><span class="keyword">-&gt;</span><span class="default">lastResponse</span><span class="keyword">; </span><span class="comment">// {"errors":[{"message":"Could not authenticate you","code":32}]}<br /></span><span class="keyword">}</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="105332">  <div class="votes">
+    <div id="Vu105332">
+    <a href="https://www.php.net/manual/vote-note.php?id=105332&amp;page=oauth.fetch&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd105332">
+    <a href="https://www.php.net/manual/vote-note.php?id=105332&amp;page=oauth.fetch&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V105332" title="75% like this...">
+    2
+    </div>
+  </div>
+  <a href="oauth.fetch.php.html#105332" class="name">
+  <strong class="user"><em>sun at drupal dot org</em></strong></a><a class="genanchor" href="oauth.fetch.php.html#105332"> &para;</a><div class="date" title="2011-08-09 06:40"><strong>12 years ago</strong></div>
+  <div class="text" id="Hcom105332">
+<div class="phpcode"><code><span class="html">Make sure that your $extra_parameters is an array.<br /><br />If it's not, then OAuth will silently skip the malformed data type and produce a signature base string that is invalid (doesn't contain POST parameters, as defined in the RFC).<br /><br />You should file a critical bug report against any REST API you find in the wild that accepts such a bogus signature to pass authentication.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="103074">  <div class="votes">
+    <div id="Vu103074">
+    <a href="https://www.php.net/manual/vote-note.php?id=103074&amp;page=oauth.fetch&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd103074">
+    <a href="https://www.php.net/manual/vote-note.php?id=103074&amp;page=oauth.fetch&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V103074" title="63% like this...">
+    3
+    </div>
+  </div>
+  <a href="oauth.fetch.php.html#103074" class="name">
+  <strong class="user"><em>contact info  at  mech dot cx</em></strong></a><a class="genanchor" href="oauth.fetch.php.html#103074"> &para;</a><div class="date" title="2011-03-23 04:00"><strong>12 years ago</strong></div>
+  <div class="text" id="Hcom103074">
+<div class="phpcode"><code><span class="html">I was having troubles getting fetch() to post, the remote server (Twitter, in this case) complained at me that their "resource only supports POST". Turned out to be a known bug in OAuth 1.1, downgrading to 1.0 fixed it.<br /><br />Don't lose as much time over this as I did :-)</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="114737">  <div class="votes">
+    <div id="Vu114737">
+    <a href="https://www.php.net/manual/vote-note.php?id=114737&amp;page=oauth.fetch&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd114737">
+    <a href="https://www.php.net/manual/vote-note.php?id=114737&amp;page=oauth.fetch&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V114737" title="61% like this...">
+    3
+    </div>
+  </div>
+  <a href="oauth.fetch.php.html#114737" class="name">
+  <strong class="user"><em>zverik at textual dot ru</em></strong></a><a class="genanchor" href="oauth.fetch.php.html#114737"> &para;</a><div class="date" title="2014-03-31 08:46"><strong>9 years ago</strong></div>
+  <div class="text" id="Hcom114737">
+<div class="phpcode"><code><span class="html">If $extra_parameters is not an array, you have to specify Content-Type header, or else you'll get HTTP 401 error. Example:<br /><br /><span class="default">&lt;?php<br />$oauth</span><span class="keyword">-&gt;</span><span class="default">fetch</span><span class="keyword">(</span><span class="default">ENDPOINT</span><span class="keyword">, </span><span class="string">'{"action": "get_user_info"}'</span><span class="keyword">, </span><span class="default">OAUTH_HTTP_METHOD_PUT</span><span class="keyword">, array(</span><span class="string">'Content-Type' </span><span class="keyword">=&gt; </span><span class="string">'application/json'</span><span class="keyword">));<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="119010">  <div class="votes">
+    <div id="Vu119010">
+    <a href="https://www.php.net/manual/vote-note.php?id=119010&amp;page=oauth.fetch&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd119010">
+    <a href="https://www.php.net/manual/vote-note.php?id=119010&amp;page=oauth.fetch&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V119010" title="100% like this...">
+    1
+    </div>
+  </div>
+  <a href="oauth.fetch.php.html#119010" class="name">
+  <strong class="user"><em>Lars Stttrup Nielsen</em></strong></a><a class="genanchor" href="oauth.fetch.php.html#119010"> &para;</a><div class="date" title="2016-03-16 07:37"><strong>7 years ago</strong></div>
+  <div class="text" id="Hcom119010">
+<div class="phpcode"><code><span class="html">So I'm using this to talk to the Woocommerce REST API, and was having a lot of trouble figuring out what exactly $extra_parameters was supposed to look like (which WC REST API expects, besides being of the type OAUTH_AUTH_TYPE_URI).<br /><br />The multidimensional array I fed it crashed PHP, so don't do that if you're in my shoes.<br /><br />What ended up solving it was me looking through the OAuth source and noticing that $extra_parameters can also be a string, which, encoded as json (json_encode), solved all my troubles as WC accepted it.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="99627">  <div class="votes">
+    <div id="Vu99627">
+    <a href="https://www.php.net/manual/vote-note.php?id=99627&amp;page=oauth.fetch&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd99627">
+    <a href="https://www.php.net/manual/vote-note.php?id=99627&amp;page=oauth.fetch&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V99627" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="oauth.fetch.php.html#99627" class="name">
+  <strong class="user"><em>Lyuben Penkovski (l_penkovski at yahoo dot com)</em></strong></a><a class="genanchor" href="oauth.fetch.php.html#99627"> &para;</a><div class="date" title="2010-08-26 11:51"><strong>13 years ago</strong></div>
+  <div class="text" id="Hcom99627">
+<div class="phpcode"><code><span class="html">If the provider's web server is configured to use Keep-Alive extension to HTTP protocol (HTTP 1.1), there can be a big delay in the response time from the provider. By default Apache is configured to use Keep-Alive for 5 seconds. This is the delay after which the response will come back to the consumer. If you have this issue of delayed result, you can pass in HTTP headers when calling $consumer-&gt;fetch():<br /><br /><span class="default">&lt;?php<br />$consumer </span><span class="keyword">= new </span><span class="default">OAuth</span><span class="keyword">(</span><span class="string">"consumer_key"</span><span class="keyword">, </span><span class="string">"consumer_secret"</span><span class="keyword">, </span><span class="default">OAUTH_SIG_METHOD_HMACSHA1</span><span class="keyword">, </span><span class="default">OAUTH_AUTH_TYPE_FORM</span><span class="keyword">);<br /></span><span class="default">$consumer</span><span class="keyword">-&gt;</span><span class="default">fetch</span><span class="keyword">(</span><span class="string">'<a href="http://example.com/api/" rel="nofollow" target="_blank">http://example.com/api/</a>'</span><span class="keyword">, </span><span class="default">null</span><span class="keyword">, </span><span class="default">OAUTH_HTTP_METHOD_POST</span><span class="keyword">, array(</span><span class="string">'Connection'</span><span class="keyword">=&gt;</span><span class="string">'close'</span><span class="keyword">));<br /></span><span class="default">?&gt;<br /></span><br />Then the provider will send the result immediately after it's ready with the processing and the connection will be closed. Unfortunately, when calling $consumer-&gt;getRequestToken() and $consumer-&gt;getAccessToken() there's no way provided to pass in HTTP headers and this delay (if present) cannot be avoided, or at least we could not find a way to avoid it.<br /><br />The solution that worked for us is to send this header from the provider when returning result to the consumer:<br /><br /><span class="default">&lt;?php<br />$result </span><span class="keyword">= </span><span class="string">'oauth_callback_accepted=true&amp;oauth_token=' </span><span class="keyword">. </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">urlencode</span><span class="keyword">(</span><span class="default">$token</span><span class="keyword">-&gt;</span><span class="default">oauth_token</span><span class="keyword">) .<br />          </span><span class="string">'&amp;oauth_token_secret='</span><span class="keyword">.</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">urlencode</span><span class="keyword">(</span><span class="default">$token</span><span class="keyword">-&gt;</span><span class="default">oauth_token_secret</span><span class="keyword">);<br /><br /></span><span class="default">header</span><span class="keyword">(</span><span class="string">'HTTP/1.1 200 OK'</span><span class="keyword">);<br /></span><span class="default">header</span><span class="keyword">(</span><span class="string">'Content-Length: '</span><span class="keyword">.</span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$result</span><span class="keyword">));<br /></span><span class="default">header</span><span class="keyword">(</span><span class="string">'Content-Type: application/x-www-form-urlencoded'</span><span class="keyword">);<br /></span><span class="default">header</span><span class="keyword">(</span><span class="string">'Connection:close'</span><span class="keyword">);<br />echo </span><span class="default">$result</span><span class="keyword">;<br /></span><span class="default">?&gt;<br /></span><br />This can work if you have the possibility to modify the code of the provider, e.g. if you are the provider yourself or if you can talk with the people that develop it and ask them to send this header for your request.</span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=oauth.fetch&amp;redirect=https://www.php.net/manual/ru/oauth.fetch.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="class.oauth.php.html">OAuth</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="oauth.construct.php.html" title="_&#8203;_&#8203;construct">_&#8203;_&#8203;construct</a>
+                        </li>
+                                                <li class="">
+                            <a href="oauth.destruct.php.html" title="_&#8203;_&#8203;destruct">_&#8203;_&#8203;destruct</a>
+                        </li>
+                                                <li class="">
+                            <a href="oauth.disabledebug.php.html" title="disableDebug">disableDebug</a>
+                        </li>
+                                                <li class="">
+                            <a href="oauth.disableredirects.php.html" title="disableRedirects">disableRedirects</a>
+                        </li>
+                                                <li class="">
+                            <a href="oauth.disablesslchecks.php.html" title="disableSSLChecks">disableSSLChecks</a>
+                        </li>
+                                                <li class="">
+                            <a href="oauth.enabledebug.php.html" title="enableDebug">enableDebug</a>
+                        </li>
+                                                <li class="">
+                            <a href="oauth.enableredirects.php.html" title="enableRedirects">enableRedirects</a>
+                        </li>
+                                                <li class="">
+                            <a href="oauth.enablesslchecks.php.html" title="enableSSLChecks">enableSSLChecks</a>
+                        </li>
+                                                <li class="current">
+                            <a href="oauth.fetch.php.html" title="fetch">fetch</a>
+                        </li>
+                                                <li class="">
+                            <a href="oauth.generatesignature.php.html" title="generateSignature">generateSignature</a>
+                        </li>
+                                                <li class="">
+                            <a href="oauth.getaccesstoken.php.html" title="getAccessToken">getAccessToken</a>
+                        </li>
+                                                <li class="">
+                            <a href="oauth.getcapath.php.html" title="getCAPath">getCAPath</a>
+                        </li>
+                                                <li class="">
+                            <a href="oauth.getlastresponse.php.html" title="getLastResponse">getLastResponse</a>
+                        </li>
+                                                <li class="">
+                            <a href="oauth.getlastresponseheaders.php.html" title="getLastResponseHeaders">getLastResponseHeaders</a>
+                        </li>
+                                                <li class="">
+                            <a href="oauth.getlastresponseinfo.php.html" title="getLastResponseInfo">getLastResponseInfo</a>
+                        </li>
+                                                <li class="">
+                            <a href="oauth.getrequestheader.php.html" title="getRequestHeader">getRequestHeader</a>
+                        </li>
+                                                <li class="">
+                            <a href="oauth.getrequesttoken.php.html" title="getRequestToken">getRequestToken</a>
+                        </li>
+                                                <li class="">
+                            <a href="oauth.setauthtype.php.html" title="setAuthType">setAuthType</a>
+                        </li>
+                                                <li class="">
+                            <a href="oauth.setcapath.php.html" title="setCAPath">setCAPath</a>
+                        </li>
+                                                <li class="">
+                            <a href="oauth.setnonce.php.html" title="setNonce">setNonce</a>
+                        </li>
+                                                <li class="">
+                            <a href="oauth.setrequestengine.php.html" title="setRequestEngine">setRequestEngine</a>
+                        </li>
+                                                <li class="">
+                            <a href="oauth.setrsacertificate.php.html" title="setRSACertificate">setRSACertificate</a>
+                        </li>
+                                                <li class="">
+                            <a href="oauth.setsslchecks.php.html" title="setSSLChecks">setSSLChecks</a>
+                        </li>
+                                                <li class="">
+                            <a href="oauth.settimestamp.php.html" title="setTimestamp">setTimestamp</a>
+                        </li>
+                                                <li class="">
+                            <a href="oauth.settoken.php.html" title="setToken">setToken</a>
+                        </li>
+                                                <li class="">
+                            <a href="oauth.setversion.php.html" title="setVersion">setVersion</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: Iterator - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="class.iterator.php.html">
+ <link rel="shorturl" href="https://www.php.net/iterator">
+ <link rel="alternate" href="https://www.php.net/iterator" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="reserved.interfaces.php.html">
+ <link rel="prev" href="class.traversable.php.html">
+ <link rel="next" href="iterator.current.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/class.iterator.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/class.iterator.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/class.iterator.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/class.iterator.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/class.iterator.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/class.iterator.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/class.iterator.php" hreflang="pt_BR">
+ <link rel="alternate" href="class.iterator.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/class.iterator.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/class.iterator.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="iterator.current.php.html">
+          Iterator::current &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="class.traversable.php.html">
+          &laquo; Traversable        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='langref.php.html'>Справочник языка</a></li>      <li><a href='reserved.interfaces.php.html'>Встроенные интерфейсы и классы</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/class.iterator.php'>English</option>
+            <option value='de/class.iterator.php'>German</option>
+            <option value='es/class.iterator.php'>Spanish</option>
+            <option value='fr/class.iterator.php'>French</option>
+            <option value='it/class.iterator.php'>Italian</option>
+            <option value='ja/class.iterator.php'>Japanese</option>
+            <option value='pt_BR/class.iterator.php'>Brazilian Portuguese</option>
+            <option value='ru/class.iterator.php' selected="selected">Russian</option>
+            <option value='tr/class.iterator.php'>Turkish</option>
+            <option value='zh/class.iterator.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/language/predefined/iterator.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Fclass.iterator%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="class.iterator" class="reference">
+
+ <h1 class="title">Интерфейс Iterator</h1>
+ 
+
+ <div class="partintro"><p class="verinfo">(PHP 5, PHP 7, PHP 8)</p>
+
+  
+  <div class="section" id="iterator.intro">
+   <h2 class="title">Введение</h2>
+   <p class="para">
+    Интерфейс для внешних итераторов или объектов, которые могут
+    повторять себя изнутри.
+   </p>
+  </div>
+  
+
+  <div class="section" id="iterator.synopsis">
+   <h2 class="title">Обзор интерфейсов</h2>
+
+
+   <div class="classsynopsis"><div class="classsynopsisinfo">
+    <span class="modifier">interface</span> <strong class="interfacename"><strong class="interfacename">Iterator</strong></strong>
+
+    <span class="modifier">extends</span>
+      <a href="class.traversable.php.html" class="interfacename">Traversable</a> {</div>
+
+    <div class="classsynopsisinfo classsynopsisinfo_comment">/* Методы */</div>
+    <div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="methodname"><a href="iterator.current.php.html" class="methodname">current</a></span>(): <span class="type"><a href="language.types.declarations.php.html#language.types.declarations.mixed" class="type mixed">mixed</a></span></div>
+<div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="iterator.key.php.html" class="methodname">key</a></span>(): <span class="type"><a href="language.types.declarations.php.html#language.types.declarations.mixed" class="type mixed">mixed</a></span></div>
+<div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="iterator.next.php.html" class="methodname">next</a></span>(): <span class="type"><span class="type void">void</span></span></div>
+<div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="iterator.rewind.php.html" class="methodname">rewind</a></span>(): <span class="type"><span class="type void">void</span></span></div>
+<div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="iterator.valid.php.html" class="methodname">valid</a></span>(): <span class="type">bool</span></div>
+
+   }</div>
+
+
+  </div>
+
+  <div class="section" id="iterator.iterators">
+   <h2 class="title">Предопределённые итераторы</h2>
+   <p class="para">
+    PHP уже предоставляет некоторые итераторы для многих ежедневных задач.
+    Смотрите список <a href="spl.iterators.php.html" class="link">итераторов SPL</a> для более детальной информации.
+   </p>
+  </div>
+
+  <div class="section" id="iterator.examples">
+   <h2 class="title">Примеры</h2>
+   <div class="example" id="example-1165">
+    <p><strong>Пример #1 Основы использования</strong></p>
+    <div class="example-contents"><p>
+     Этот пример демонстрирует в каком порядке вызываются методы, когда
+     используется с итератором оператор <a href="control-structures.foreach.php.html" class="link">foreach</a>.
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class </span><span style="color: #0000BB">myIterator </span><span style="color: #007700">implements </span><span style="color: #0000BB">Iterator </span><span style="color: #007700">{<br />    private </span><span style="color: #0000BB">$position </span><span style="color: #007700">= </span><span style="color: #0000BB">0</span><span style="color: #007700">;<br />    private </span><span style="color: #0000BB">$array </span><span style="color: #007700">= array(<br />        </span><span style="color: #DD0000">"firstelement"</span><span style="color: #007700">,<br />        </span><span style="color: #DD0000">"secondelement"</span><span style="color: #007700">,<br />        </span><span style="color: #DD0000">"lastelement"</span><span style="color: #007700">,<br />    );<br /><br />    public function </span><span style="color: #0000BB">__construct</span><span style="color: #007700">() {<br />        </span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">position </span><span style="color: #007700">= </span><span style="color: #0000BB">0</span><span style="color: #007700">;<br />    }<br /><br />    public function </span><span style="color: #0000BB">rewind</span><span style="color: #007700">(): </span><span style="color: #0000BB">void </span><span style="color: #007700">{<br />        </span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">__METHOD__</span><span style="color: #007700">);<br />        </span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">position </span><span style="color: #007700">= </span><span style="color: #0000BB">0</span><span style="color: #007700">;<br />    }<br /><br />    #[</span><span style="color: #0000BB">\ReturnTypeWillChange</span><span style="color: #007700">]<br />    public function </span><span style="color: #0000BB">current</span><span style="color: #007700">() {<br />        </span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">__METHOD__</span><span style="color: #007700">);<br />        return </span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">array</span><span style="color: #007700">[</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">position</span><span style="color: #007700">];<br />    }<br /><br />    #[</span><span style="color: #0000BB">\ReturnTypeWillChange</span><span style="color: #007700">]<br />    public function </span><span style="color: #0000BB">key</span><span style="color: #007700">() {<br />        </span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">__METHOD__</span><span style="color: #007700">);<br />        return </span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">position</span><span style="color: #007700">;<br />    }<br /><br />    public function </span><span style="color: #0000BB">next</span><span style="color: #007700">(): </span><span style="color: #0000BB">void </span><span style="color: #007700">{<br />        </span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">__METHOD__</span><span style="color: #007700">);<br />        ++</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">position</span><span style="color: #007700">;<br />    }<br /><br />    public function </span><span style="color: #0000BB">valid</span><span style="color: #007700">(): </span><span style="color: #0000BB">bool </span><span style="color: #007700">{<br />        </span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">__METHOD__</span><span style="color: #007700">);<br />        return isset(</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">array</span><span style="color: #007700">[</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">position</span><span style="color: #007700">]);<br />    }<br />}<br /><br /></span><span style="color: #0000BB">$it </span><span style="color: #007700">= new </span><span style="color: #0000BB">myIterator</span><span style="color: #007700">;<br /><br />foreach(</span><span style="color: #0000BB">$it </span><span style="color: #007700">as </span><span style="color: #0000BB">$key </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">$value</span><span style="color: #007700">) {<br />    </span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$key</span><span style="color: #007700">, </span><span style="color: #0000BB">$value</span><span style="color: #007700">);<br />    echo </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+    </div>
+
+    
+<div class="example-contents"><p>
+ Вывод приведённого примера будет похож на:
+</p></div>
+
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+string(18) &quot;myIterator::rewind&quot;
+string(17) &quot;myIterator::valid&quot;
+string(19) &quot;myIterator::current&quot;
+string(15) &quot;myIterator::key&quot;
+int(0)
+string(12) &quot;firstelement&quot;
+
+string(16) &quot;myIterator::next&quot;
+string(17) &quot;myIterator::valid&quot;
+string(19) &quot;myIterator::current&quot;
+string(15) &quot;myIterator::key&quot;
+int(1)
+string(13) &quot;secondelement&quot;
+
+string(16) &quot;myIterator::next&quot;
+string(17) &quot;myIterator::valid&quot;
+string(19) &quot;myIterator::current&quot;
+string(15) &quot;myIterator::key&quot;
+int(2)
+string(11) &quot;lastelement&quot;
+
+string(16) &quot;myIterator::next&quot;
+string(17) &quot;myIterator::valid&quot;
+</pre></div>
+    </div>
+   </div>
+  </div>
+
+  <div class="section" id="iterator.seealso">
+   <h2 class="title">Смотрите также</h2>
+   <p class="para">Смотрите также раздел <a href="language.oop5.iterations.php.html" class="link">Итераторы объектов</a>.</p>
+  </div>
+
+ </div>
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+
+<h2>Содержание</h2><ul class="chunklist chunklist_reference"><li><a href="iterator.current.php.html">Iterator::current</a> — Возврат текущего элемента</li><li><a href="iterator.key.php.html">Iterator::key</a> — Возвращает ключ текущего элемента</li><li><a href="iterator.next.php.html">Iterator::next</a> — Переходит к следующему элементу</li><li><a href="iterator.rewind.php.html">Iterator::rewind</a> — Возвращает итератор на первый элемент</li><li><a href="iterator.valid.php.html">Iterator::valid</a> — Проверяет корректность текущей позиции</li></ul>
+</div>
+<section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=class.iterator&amp;redirect=https://www.php.net/manual/ru/class.iterator.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">18 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="96691">  <div class="votes">
+    <div id="Vu96691">
+    <a href="https://www.php.net/manual/vote-note.php?id=96691&amp;page=class.iterator&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd96691">
+    <a href="https://www.php.net/manual/vote-note.php?id=96691&amp;page=class.iterator&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V96691" title="91% like this...">
+    239
+    </div>
+  </div>
+  <a href="class.iterator.php.html#96691" class="name">
+  <strong class="user"><em>robert_e_lee at dell dot com</em></strong></a><a class="genanchor" href="class.iterator.php.html#96691"> &para;</a><div class="date" title="2010-03-11 10:08"><strong>13 years ago</strong></div>
+  <div class="text" id="Hcom96691">
+<div class="phpcode"><code><span class="html">Order of operations when using a foreach loop:<br /><br />1. Before the first iteration of the loop, Iterator::rewind() is called.<br />2. Before each iteration of the loop, Iterator::valid() is called.<br />3a. It Iterator::valid() returns false, the loop is terminated.<br />3b. If Iterator::valid() returns true, Iterator::current() and<br />Iterator::key() are called.<br />4. The loop body is evaluated.<br />5. After each iteration of the loop, Iterator::next() is called and we repeat from step 2 above.<br /><br />This is roughly equivalent to:<br /><br /><span class="default">&lt;?php<br />$it</span><span class="keyword">-&gt;</span><span class="default">rewind</span><span class="keyword">();<br /><br />while (</span><span class="default">$it</span><span class="keyword">-&gt;</span><span class="default">valid</span><span class="keyword">())<br />{<br />    </span><span class="default">$key </span><span class="keyword">= </span><span class="default">$it</span><span class="keyword">-&gt;</span><span class="default">key</span><span class="keyword">();<br />    </span><span class="default">$value </span><span class="keyword">= </span><span class="default">$it</span><span class="keyword">-&gt;</span><span class="default">current</span><span class="keyword">();<br /><br />    </span><span class="comment">// ...<br /><br />    </span><span class="default">$it</span><span class="keyword">-&gt;</span><span class="default">next</span><span class="keyword">();<br />}<br /></span><span class="default">?&gt;<br /></span><br />The loop isn't terminated until Iterator::valid() returns false or the body of the loop executes a break statement.<br /><br />The only two methods that are always executed are Iterator::rewind() and Iterator::valid() (unless rewind throws an exception).<br /><br />The Iterator::next() method need not return anything. It is defined as returning void. On the other hand, sometimes it is convenient for this method to return something, in which case you can do so if you want.<br /><br />If your iterator is doing something expensive, like making a database query and iterating over the result set, the best place to make the query is probably in the Iterator::rewind() implementation.<br /><br />In this case, the construction of the iterator itself can be cheap, and after construction you can continue to set the properties of the query all the way up to the beginning of the foreach loop since the<br />Iterator::rewind() method isn't called until then.<br /><br />Things to keep in mind when making a database result set iterator:<br /><br />* Make sure you close your cursor or otherwise clean up any previous query at the top of the rewind method. Otherwise your code will break if the same iterator is used in two consecutive foreach loops when the first loop terminates with a break statement before all the results are iterated over.<br /><br />* Make sure your rewind() implementation tries to grab the first result so that the subsequent call to valid() will know whether or not the result set is empty. I do this by explicitly calling next() from the end of my rewind() implementation.<br /><br />* For things like result set iterators, there really isn't always a "key" that you can return, unless you know you have a scalar primary key column in the query. Unfortunately, there will be cases where either the iterator doesn't know the primary key column because it isn't providing the query, the nature of the query is such that a primary key isn't applicable, the iterator is iterating over a table that doesn't have one, or the iterator is iterating over a table that has a compound primary key. In these cases, key() can return either:<br />the row index (based on a simple counter that you provide), or can simply return null.<br /><br />Iterators can also be used to:<br /><br />* iterate over the lines of a file or rows of a CSV file<br />* iterate over the characters of a string<br />* iterate over the tokens in an input stream<br />* iterate over the matches returned by an xpath expression<br />* iterate over the matches returned by a regexp<br />* iterate over the files in a folder<br />* etc...</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="90830">  <div class="votes">
+    <div id="Vu90830">
+    <a href="https://www.php.net/manual/vote-note.php?id=90830&amp;page=class.iterator&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd90830">
+    <a href="https://www.php.net/manual/vote-note.php?id=90830&amp;page=class.iterator&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V90830" title="92% like this...">
+    44
+    </div>
+  </div>
+  <a href="class.iterator.php.html#90830" class="name">
+  <strong class="user"><em>RocketInABog at techno-monks dot net</em></strong></a><a class="genanchor" href="class.iterator.php.html#90830"> &para;</a><div class="date" title="2009-05-11 04:35"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom90830">
+<div class="phpcode"><code><span class="html"><span class="default">&lt;?php<br /></span><span class="comment"># - Here is an implementation of the Iterator interface for arrays<br />#     which works with maps (key/value pairs)<br />#     as well as traditional arrays<br />#     (contiguous monotonically increasing indexes).<br />#   Though it pretty much does what an array<br />#     would normally do within foreach() loops,<br />#     this class may be useful for using arrays<br />#     with code that generically/only supports the<br />#     Iterator interface.<br />#  Another use of this class is to simply provide<br />#     object methods with tightly controlling iteration of arrays.<br /><br /></span><span class="keyword">class </span><span class="default">tIterator_array </span><span class="keyword">implements </span><span class="default">Iterator </span><span class="keyword">{<br />  private </span><span class="default">$myArray</span><span class="keyword">;<br /><br />  public function </span><span class="default">__construct</span><span class="keyword">( </span><span class="default">$givenArray </span><span class="keyword">) {<br />    </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">myArray </span><span class="keyword">= </span><span class="default">$givenArray</span><span class="keyword">;<br />  }<br />  function </span><span class="default">rewind</span><span class="keyword">() {<br />    return </span><span class="default">reset</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">myArray</span><span class="keyword">);<br />  }<br />  function </span><span class="default">current</span><span class="keyword">() {<br />    return </span><span class="default">current</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">myArray</span><span class="keyword">);<br />  }<br />  function </span><span class="default">key</span><span class="keyword">() {<br />    return </span><span class="default">key</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">myArray</span><span class="keyword">);<br />  }<br />  function </span><span class="default">next</span><span class="keyword">() {<br />    return </span><span class="default">next</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">myArray</span><span class="keyword">);<br />  }<br />  function </span><span class="default">valid</span><span class="keyword">() {<br />    return </span><span class="default">key</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">myArray</span><span class="keyword">) !== </span><span class="default">null</span><span class="keyword">;<br />  }<br />}<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="108609">  <div class="votes">
+    <div id="Vu108609">
+    <a href="https://www.php.net/manual/vote-note.php?id=108609&amp;page=class.iterator&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd108609">
+    <a href="https://www.php.net/manual/vote-note.php?id=108609&amp;page=class.iterator&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V108609" title="81% like this...">
+    24
+    </div>
+  </div>
+  <a href="class.iterator.php.html#108609" class="name">
+  <strong class="user"><em>fetidfrog at gmail dot com</em></strong></a><a class="genanchor" href="class.iterator.php.html#108609"> &para;</a><div class="date" title="2012-05-10 03:11"><strong>11 years ago</strong></div>
+  <div class="text" id="Hcom108609">
+<div class="phpcode"><code><span class="html">If you have a custom iterator that may throw an exception in it's current() method, there is no way to catch the exception without breaking a foreach loop.<br /><br />The following for loop allows you to skip elements for which $iterator-&gt;current() throws an exception, rather than breaking the loop.<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">for (</span><span class="default">$iterator</span><span class="keyword">-&gt;</span><span class="default">rewind</span><span class="keyword">(); </span><span class="default">$iterator</span><span class="keyword">-&gt;</span><span class="default">valid</span><span class="keyword">(); </span><span class="default">$iterator</span><span class="keyword">-&gt;</span><span class="default">next</span><span class="keyword">()) {<br />    try {<br />        </span><span class="default">$value </span><span class="keyword">= </span><span class="default">$iterator</span><span class="keyword">-&gt;</span><span class="default">current</span><span class="keyword">();<br />    } catch (</span><span class="default">Exception $exception</span><span class="keyword">) {<br />        continue;<br />    }<br /><br />    </span><span class="comment"># ...<br /></span><span class="keyword">}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="124513">  <div class="votes">
+    <div id="Vu124513">
+    <a href="https://www.php.net/manual/vote-note.php?id=124513&amp;page=class.iterator&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd124513">
+    <a href="https://www.php.net/manual/vote-note.php?id=124513&amp;page=class.iterator&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V124513" title="80% like this...">
+    3
+    </div>
+  </div>
+  <a href="class.iterator.php.html#124513" class="name">
+  <strong class="user"><em>jeroen at asystance dot nl</em></strong></a><a class="genanchor" href="class.iterator.php.html#124513"> &para;</a><div class="date" title="2019-12-16 03:57"><strong>4 years ago</strong></div>
+  <div class="text" id="Hcom124513">
+<div class="phpcode"><code><span class="html">RocketInABog's seemingly trivial tIterator_array class has one huge problem (which just cost me a couple of hours).<br /><br />Consider this example, using their class:<br /><span class="default">&lt;?php<br />$values </span><span class="keyword">= [</span><span class="string">'one'</span><span class="keyword">, </span><span class="string">'two'</span><span class="keyword">, </span><span class="string">'three'</span><span class="keyword">];<br />foreach (</span><span class="default">$values </span><span class="keyword">as </span><span class="default">$v</span><span class="keyword">) {}<br /></span><span class="default">$current </span><span class="keyword">= </span><span class="default">current</span><span class="keyword">(</span><span class="default">$values</span><span class="keyword">);<br /></span><span class="comment">// $current === 'one', as you would expect<br /><br /></span><span class="default">$iterator </span><span class="keyword">= new </span><span class="default">tIterator_array</span><span class="keyword">(</span><span class="default">$values</span><span class="keyword">);<br />foreach (</span><span class="default">$iterator </span><span class="keyword">as </span><span class="default">$v</span><span class="keyword">) {}<br /></span><span class="default">$current </span><span class="keyword">= </span><span class="default">$iterator</span><span class="keyword">-&gt;</span><span class="default">current</span><span class="keyword">();    </span><span class="comment">// do NOT use current($iterator) or key($iterator)!!!<br />// $current === false, but why?<br /></span><span class="default">?&gt;<br /></span>The problem is that foreach resets arrays, but doesn't call Iterator::rewind on objects!<br /><br />I also think it's a design mistake that foreach works with Iterator, but current(), key() and end() don't - these iterate over the objects fields.<br /><br />I just refactored some code to use an Iterator instead of an array, and it broke in several very unexpected ways because of these differences.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="90715">  <div class="votes">
+    <div id="Vu90715">
+    <a href="https://www.php.net/manual/vote-note.php?id=90715&amp;page=class.iterator&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd90715">
+    <a href="https://www.php.net/manual/vote-note.php?id=90715&amp;page=class.iterator&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V90715" title="72% like this...">
+    13
+    </div>
+  </div>
+  <a href="class.iterator.php.html#90715" class="name">
+  <strong class="user"><em>mike dot thornton at firstroi dot com</em></strong></a><a class="genanchor" href="class.iterator.php.html#90715"> &para;</a><div class="date" title="2009-05-05 01:40"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom90715">
+<div class="phpcode"><code><span class="html">It's important to note that following won't work if you have null values.<br /><br /><span class="default">&lt;?php<br />    </span><span class="keyword">function </span><span class="default">valid</span><span class="keyword">() {<br />        </span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">__METHOD__</span><span class="keyword">);<br />        return isset(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">array</span><span class="keyword">[</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">position</span><span class="keyword">]);<br />    }<br /></span><span class="default">?&gt;<br /></span><br />Other examples have shown the following which won't work if you have false values:<br /><br /><span class="default">&lt;?php<br />    </span><span class="keyword">function </span><span class="default">valid</span><span class="keyword">() {<br />        return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">current</span><span class="keyword">() !== </span><span class="default">false</span><span class="keyword">;<br />    }<br /></span><span class="default">?&gt;<br /></span><br />Instead use:<br /><br /><span class="default">&lt;?php<br />    </span><span class="keyword">function </span><span class="default">valid</span><span class="keyword">() {<br />        return </span><span class="default">array_key_exists</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">array</span><span class="keyword">, </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">position</span><span class="keyword">);<br />    }<br /></span><span class="default">?&gt;<br /></span><br />Or the following if you do not store the position.<br /><br /><span class="default">&lt;?php<br />    </span><span class="keyword">public function </span><span class="default">valid</span><span class="keyword">() {<br />        return !</span><span class="default">is_null</span><span class="keyword">(</span><span class="default">key</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">array</span><span class="keyword">));<br />    }<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="118838">  <div class="votes">
+    <div id="Vu118838">
+    <a href="https://www.php.net/manual/vote-note.php?id=118838&amp;page=class.iterator&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd118838">
+    <a href="https://www.php.net/manual/vote-note.php?id=118838&amp;page=class.iterator&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V118838" title="66% like this...">
+    5
+    </div>
+  </div>
+  <a href="class.iterator.php.html#118838" class="name">
+  <strong class="user"><em>Anonymous</em></strong></a><a class="genanchor" href="class.iterator.php.html#118838"> &para;</a><div class="date" title="2016-02-14 12:51"><strong>7 years ago</strong></div>
+  <div class="text" id="Hcom118838">
+<div class="phpcode"><code><span class="html">An interesting fact that I didn't read in the doc:<br /><br />the key() method is called only if your foreach loop needs it.<br /><br />For instance, the following loop calls the key() method:<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">foreach(</span><span class="default">$it </span><span class="keyword">as </span><span class="default">$key </span><span class="keyword">=&gt; </span><span class="default">$value</span><span class="keyword">) {<br />    </span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">, </span><span class="default">$value</span><span class="keyword">);<br />    echo </span><span class="string">"\n"</span><span class="keyword">;<br />}<br /></span><span class="default">?&gt;<br /></span><br />But the following loop doesn't:<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">foreach(</span><span class="default">$it </span><span class="keyword">as </span><span class="default">$value</span><span class="keyword">) {<br />    </span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$value</span><span class="keyword">);<br />    echo </span><span class="string">"\n"</span><span class="keyword">;<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="91068">  <div class="votes">
+    <div id="Vu91068">
+    <a href="https://www.php.net/manual/vote-note.php?id=91068&amp;page=class.iterator&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd91068">
+    <a href="https://www.php.net/manual/vote-note.php?id=91068&amp;page=class.iterator&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V91068" title="66% like this...">
+    11
+    </div>
+  </div>
+  <a href="class.iterator.php.html#91068" class="name">
+  <strong class="user"><em>Geoffrey Sneddon</em></strong></a><a class="genanchor" href="class.iterator.php.html#91068"> &para;</a><div class="date" title="2009-05-23 10:42"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom91068">
+<div class="phpcode"><code><span class="html">So, playing around with iterators in PHP (coming from languages where I'm spoiled with generators to do things like this), I wrote a quick piece of code to give the Fibonacci sequence (to infinity, though only the first terms up to F_{10} are output).<br /><br /><span class="default">&lt;?php<br /><br /></span><span class="keyword">class </span><span class="default">Fibonacci </span><span class="keyword">implements </span><span class="default">Iterator </span><span class="keyword">{<br />    private </span><span class="default">$previous </span><span class="keyword">= </span><span class="default">1</span><span class="keyword">;<br />    private </span><span class="default">$current </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br />    private </span><span class="default">$key </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br />    <br />    public function </span><span class="default">current</span><span class="keyword">() {<br />        return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">current</span><span class="keyword">;<br />    }<br />    <br />    public function </span><span class="default">key</span><span class="keyword">() {<br />        return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">key</span><span class="keyword">;<br />    }<br />    <br />    public function </span><span class="default">next</span><span class="keyword">() {<br />        </span><span class="default">$newprevious </span><span class="keyword">= </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">current</span><span class="keyword">;<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">current </span><span class="keyword">+= </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">previous</span><span class="keyword">;<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">previous </span><span class="keyword">= </span><span class="default">$newprevious</span><span class="keyword">;<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">key</span><span class="keyword">++;<br />    }<br />    <br />    public function </span><span class="default">rewind</span><span class="keyword">() {<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">previous </span><span class="keyword">= </span><span class="default">1</span><span class="keyword">;<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">current </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">key </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br />    }<br />    <br />    public function </span><span class="default">valid</span><span class="keyword">() {<br />        return </span><span class="default">true</span><span class="keyword">;<br />    }<br />}<br /><br /></span><span class="default">$seq </span><span class="keyword">= new </span><span class="default">Fibonacci</span><span class="keyword">;<br /></span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br />foreach (</span><span class="default">$seq </span><span class="keyword">as </span><span class="default">$f</span><span class="keyword">) {<br />    echo </span><span class="string">"</span><span class="default">$f</span><span class="string">\n"</span><span class="keyword">;<br />    if (</span><span class="default">$i</span><span class="keyword">++ === </span><span class="default">10</span><span class="keyword">) break;<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="114776">  <div class="votes">
+    <div id="Vu114776">
+    <a href="https://www.php.net/manual/vote-note.php?id=114776&amp;page=class.iterator&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd114776">
+    <a href="https://www.php.net/manual/vote-note.php?id=114776&amp;page=class.iterator&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V114776" title="61% like this...">
+    6
+    </div>
+  </div>
+  <a href="class.iterator.php.html#114776" class="name">
+  <strong class="user"><em>Gilles A</em></strong></a><a class="genanchor" href="class.iterator.php.html#114776"> &para;</a><div class="date" title="2014-04-04 03:41"><strong>9 years ago</strong></div>
+  <div class="text" id="Hcom114776">
+<div class="phpcode"><code><span class="html">Examples of use<br /><span class="default">&lt;?php<br /></span><span class="keyword">class </span><span class="default">myIterator </span><span class="keyword">implements </span><span class="default">Iterator <br />    </span><span class="keyword">{<br />    private <br />        </span><span class="default">$_array </span><span class="keyword">= array();<br />    public function </span><span class="default">__construct</span><span class="keyword">(array </span><span class="default">$array</span><span class="keyword">) <br />        {<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_array </span><span class="keyword">= </span><span class="default">$array</span><span class="keyword">;<br />        }<br />    public function </span><span class="default">rewind</span><span class="keyword">() <br />        {<br />        </span><span class="default">reset</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_array</span><span class="keyword">);<br />        }<br />    public function </span><span class="default">current</span><span class="keyword">() <br />        {<br />        return </span><span class="default">current</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_array</span><span class="keyword">);<br />        }<br />    public function </span><span class="default">key</span><span class="keyword">() <br />        {<br />        return </span><span class="default">key</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_array</span><span class="keyword">);<br />        }<br />    public function </span><span class="default">next</span><span class="keyword">() <br />        {<br />        </span><span class="default">next</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_array</span><span class="keyword">);<br />        }<br />    public function </span><span class="default">valid</span><span class="keyword">() <br />        {<br />        return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">key</span><span class="keyword">() !== </span><span class="default">null</span><span class="keyword">;<br />        }<br />    }<br /><br /></span><span class="default">$it </span><span class="keyword">= new </span><span class="default">myIterator</span><span class="keyword">(array(</span><span class="string">'foo_1' </span><span class="keyword">=&gt; </span><span class="string">'bar_1'</span><span class="keyword">,</span><span class="string">'foo_2' </span><span class="keyword">=&gt; </span><span class="string">'bar_2'</span><span class="keyword">));<br /><br /></span><span class="comment">//example 1 : foreach<br /><br /></span><span class="keyword">foreach(</span><span class="default">$it </span><span class="keyword">as </span><span class="default">$key </span><span class="keyword">=&gt; </span><span class="default">$value</span><span class="keyword">) <br />    {<br />    </span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">, </span><span class="default">$value</span><span class="keyword">);<br />    }<br />    <br /></span><span class="comment">//example 2 : while<br /><br /></span><span class="default">$it </span><span class="keyword">-&gt; </span><span class="default">rewind</span><span class="keyword">();<br />while(</span><span class="default">$it</span><span class="keyword">-&gt;</span><span class="default">valid</span><span class="keyword">())<br />    {<br />    </span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$it</span><span class="keyword">-&gt;</span><span class="default">key</span><span class="keyword">(), </span><span class="default">$it</span><span class="keyword">-&gt;</span><span class="default">current</span><span class="keyword">());<br />    <br />    </span><span class="default">$it</span><span class="keyword">-&gt;</span><span class="default">next</span><span class="keyword">();<br />    }<br /> <br /></span><span class="comment">//example 3 : for<br /><br /></span><span class="keyword">for(</span><span class="default">$it</span><span class="keyword">-&gt;</span><span class="default">rewind</span><span class="keyword">();</span><span class="default">$it</span><span class="keyword">-&gt;</span><span class="default">valid</span><span class="keyword">();</span><span class="default">$it</span><span class="keyword">-&gt;</span><span class="default">next</span><span class="keyword">())<br />    {<br />   </span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$it</span><span class="keyword">-&gt;</span><span class="default">key</span><span class="keyword">(), </span><span class="default">$it</span><span class="keyword">-&gt;</span><span class="default">current</span><span class="keyword">());<br />    }<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="93580">  <div class="votes">
+    <div id="Vu93580">
+    <a href="https://www.php.net/manual/vote-note.php?id=93580&amp;page=class.iterator&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd93580">
+    <a href="https://www.php.net/manual/vote-note.php?id=93580&amp;page=class.iterator&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V93580" title="62% like this...">
+    7
+    </div>
+  </div>
+  <a href="class.iterator.php.html#93580" class="name">
+  <strong class="user"><em>Anthony Sterling</em></strong></a><a class="genanchor" href="class.iterator.php.html#93580"> &para;</a><div class="date" title="2009-09-17 02:20"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom93580">
+<div class="phpcode"><code><span class="html">Here's a Fibonacci example using the formula, rather than addition.<br /><br /><span class="default">&lt;?php<br /></span><span class="comment">/**<br /> * @author    Anthony Sterling<br /> */<br /></span><span class="keyword">class </span><span class="default">FibonacciSequence </span><span class="keyword">implements </span><span class="default">Iterator<br /></span><span class="keyword">{<br />    protected<br />        </span><span class="default">$limit        </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br />        <br />    protected<br />        </span><span class="default">$key        </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;    <br />        <br />    public function </span><span class="default">__construct</span><span class="keyword">(</span><span class="default">$limit </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">)<br />    {<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">limit </span><span class="keyword">= (integer)</span><span class="default">$limit</span><span class="keyword">;<br />    }<br />    <br />    public function </span><span class="default">current</span><span class="keyword">()<br />    {<br />        return </span><span class="default">round</span><span class="keyword">(<br />            (</span><span class="default">pow</span><span class="keyword">(((</span><span class="default">1 </span><span class="keyword">+ </span><span class="default">sqrt</span><span class="keyword">(</span><span class="default">5</span><span class="keyword">)) / </span><span class="default">2</span><span class="keyword">), </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">key</span><span class="keyword">) - </span><span class="default">pow</span><span class="keyword">((-</span><span class="default">1 </span><span class="keyword">/ (</span><span class="default">1 </span><span class="keyword">+ </span><span class="default">sqrt</span><span class="keyword">(</span><span class="default">5</span><span class="keyword">)) / </span><span class="default">2</span><span class="keyword">), </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">key</span><span class="keyword">)) / </span><span class="default">sqrt</span><span class="keyword">(</span><span class="default">5</span><span class="keyword">),<br />            </span><span class="default">null<br />        </span><span class="keyword">);<br />    }<br /><br />    public function </span><span class="default">key</span><span class="keyword">()<br />    {<br />        return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">key</span><span class="keyword">;<br />    }<br /><br />    public function </span><span class="default">next</span><span class="keyword">()<br />    {<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">key</span><span class="keyword">++;<br />    }<br /><br />    public function </span><span class="default">rewind</span><span class="keyword">()<br />    {<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">key </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br />    }<br /><br />    public function </span><span class="default">valid</span><span class="keyword">()<br />    {<br />        return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">key </span><span class="keyword">&lt; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">limit</span><span class="keyword">;<br />    } <br />}<br /><br />foreach(new </span><span class="default">FibonacciSequence</span><span class="keyword">() as </span><span class="default">$number</span><span class="keyword">)<br />{<br />    </span><span class="default">printf</span><span class="keyword">(<br />        </span><span class="string">'%d&lt;br /&gt;'</span><span class="keyword">,<br />        </span><span class="default">$number<br />    </span><span class="keyword">);<br />}<br /></span><span class="comment">/*<br />    0<br />    1<br />    1<br />    2<br />    3<br />    5<br />    8<br />    13<br />    21<br />    34<br />    55<br />    89<br />    144<br />    233<br />    377<br />    610<br />    987<br />    1597<br />    2584<br />    4181<br />    6765<br />    10946<br />    17711<br />    28657<br />    46368<br />    75025<br />    121393<br />    196418<br />    317811<br />    514229<br />*/<br /></span><span class="default">?&gt;<br /></span><br />Anthony.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="104720">  <div class="votes">
+    <div id="Vu104720">
+    <a href="https://www.php.net/manual/vote-note.php?id=104720&amp;page=class.iterator&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd104720">
+    <a href="https://www.php.net/manual/vote-note.php?id=104720&amp;page=class.iterator&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V104720" title="57% like this...">
+    3
+    </div>
+  </div>
+  <a href="class.iterator.php.html#104720" class="name">
+  <strong class="user"><em>geompse at gmail dot com</em></strong></a><a class="genanchor" href="class.iterator.php.html#104720"> &para;</a><div class="date" title="2011-07-03 06:43"><strong>12 years ago</strong></div>
+  <div class="text" id="Hcom104720">
+<div class="phpcode"><code><span class="html">Be carefull with Iterator when using nested loops or deleting items inside the collection while looping over it.<br />It can be tricky to detect.<br />This unexpected behavior is pertinent if you think about it long enough.<br /><br /><span class="default">&lt;?php<br /><br /></span><span class="keyword">foreach(</span><span class="default">$it </span><span class="keyword">as </span><span class="default">$key </span><span class="keyword">=&gt; </span><span class="default">$value</span><span class="keyword">)<br />    echo </span><span class="default">$value</span><span class="keyword">;<br /></span><span class="comment">#output: value1, value2, value3<br /><br /></span><span class="keyword">foreach(</span><span class="default">$it </span><span class="keyword">as </span><span class="default">$key </span><span class="keyword">=&gt; </span><span class="default">$value</span><span class="keyword">)<br />    foreach(</span><span class="default">$it </span><span class="keyword">as </span><span class="default">$key </span><span class="keyword">=&gt; </span><span class="default">$value</span><span class="keyword">)<br />        echo </span><span class="default">$value</span><span class="keyword">;<br /></span><span class="comment">#output: value1, value2, value3<br /><br /></span><span class="keyword">foreach(</span><span class="default">$it </span><span class="keyword">as </span><span class="default">$key </span><span class="keyword">=&gt; </span><span class="default">$value</span><span class="keyword">)<br />    foreach(clone </span><span class="default">$it </span><span class="keyword">as </span><span class="default">$key </span><span class="keyword">=&gt; </span><span class="default">$value</span><span class="keyword">)<br />        echo </span><span class="default">$value</span><span class="keyword">;<br /></span><span class="comment">#output: value1, value2, value3, value1, value2, value3, value1, value2, value3<br /><br /></span><span class="keyword">foreach(</span><span class="default">$it </span><span class="keyword">as </span><span class="default">$key </span><span class="keyword">=&gt; </span><span class="default">$value</span><span class="keyword">)<br />{<br />    echo </span><span class="default">$value</span><span class="keyword">;<br />    </span><span class="default">array_shift</span><span class="keyword">(</span><span class="default">$it</span><span class="keyword">-&gt;</span><span class="default">values</span><span class="keyword">);<br />}<br /></span><span class="comment">#ouput: value1, value3<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="105121">  <div class="votes">
+    <div id="Vu105121">
+    <a href="https://www.php.net/manual/vote-note.php?id=105121&amp;page=class.iterator&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd105121">
+    <a href="https://www.php.net/manual/vote-note.php?id=105121&amp;page=class.iterator&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V105121" title="54% like this...">
+    1
+    </div>
+  </div>
+  <a href="class.iterator.php.html#105121" class="name">
+  <strong class="user"><em>ct</em></strong></a><a class="genanchor" href="class.iterator.php.html#105121"> &para;</a><div class="date" title="2011-07-28 12:00"><strong>12 years ago</strong></div>
+  <div class="text" id="Hcom105121">
+<div class="phpcode"><code><span class="html"><span class="default">&lt;?php<br /><br /></span><span class="comment">/*<br /> * An implementation of the Iterator<br /> * with simpleXML to remove a node and generate a new XML file.<br /> * <br /> * project.xml file:<br /> * &lt;?xml version="1.0" encoding="UTF-8"?&gt;<br /> * ...<br /> * &lt;data&gt;<br /> *  &lt;item&gt;<br /> *      &lt;value&gt;one&lt;/value&gt;<br /> *  &lt;/item&gt;<br /> *  &lt;item&gt;<br /> *      &lt;value&gt;two&lt;/value&gt;<br /> *  &lt;/item&gt;<br /> *  ...<br /> * &lt;/data&gt;<br /> * <br /> */<br /><br /></span><span class="keyword">class </span><span class="default">parseXML </span><span class="keyword">implements </span><span class="default">Iterator </span><span class="keyword">{<br />    <br />    private </span><span class="default">$position</span><span class="keyword">;<br />    private </span><span class="default">$xml</span><span class="keyword">;<br />    public </span><span class="default">$item</span><span class="keyword">;<br /><br />    public function </span><span class="default">__construct</span><span class="keyword">() {<br />        <br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">position </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">xml </span><span class="keyword">= </span><span class="default">simplexml_load_file</span><span class="keyword">(</span><span class="string">'project.xml'</span><span class="keyword">);<br />                <br />    }<br />    <br />    public function </span><span class="default">unsetItem</span><span class="keyword">() {<br />        <br />        foreach (</span><span class="default">$this </span><span class="keyword">as </span><span class="default">$key </span><span class="keyword">=&gt; </span><span class="default">$value</span><span class="keyword">) {<br />        <br />            if (</span><span class="default">$value</span><span class="keyword">-&gt;</span><span class="default">value </span><span class="keyword">== </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">item </span><span class="keyword">) {<br />        <br />                unset(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">xml</span><span class="keyword">-&gt;</span><span class="default">data</span><span class="keyword">-&gt;</span><span class="default">item</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">]);<br />        <br />            }<br />        }<br />        <br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">mkXML</span><span class="keyword">();<br />    }<br />    <br />    public function </span><span class="default">mkXML</span><span class="keyword">() {<br />        <br />        </span><span class="default">file_put_contents</span><span class="keyword">(</span><span class="string">'project.xml'</span><span class="keyword">, </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">xml</span><span class="keyword">-&gt;</span><span class="default">asXML</span><span class="keyword">() );<br />        <br />    }<br /><br />    function </span><span class="default">rewind</span><span class="keyword">() {<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">position </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br />    }<br /><br />    function </span><span class="default">current</span><span class="keyword">() {<br />        return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">xml</span><span class="keyword">-&gt;</span><span class="default">data</span><span class="keyword">-&gt;</span><span class="default">item</span><span class="keyword">[</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">position</span><span class="keyword">];<br />    }<br /><br />    function </span><span class="default">key</span><span class="keyword">() {<br />        return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">position</span><span class="keyword">;<br />    }<br /><br />    function </span><span class="default">next</span><span class="keyword">() {<br />        ++</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">position</span><span class="keyword">;<br />    }<br /><br />    function </span><span class="default">valid</span><span class="keyword">() {<br />        return isset(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">xml</span><span class="keyword">-&gt;</span><span class="default">data</span><span class="keyword">-&gt;</span><span class="default">item</span><span class="keyword">[</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">position</span><span class="keyword">]);<br />    }<br />    <br />}<br /><br /></span><span class="default">$itemRemove </span><span class="keyword">= new </span><span class="default">parseXML</span><span class="keyword">();<br /><br /></span><span class="default">$itemRemove</span><span class="keyword">-&gt;</span><span class="default">item </span><span class="keyword">= </span><span class="string">"one"</span><span class="keyword">;<br /><br /></span><span class="default">$itemRemove</span><span class="keyword">-&gt;</span><span class="default">unsetItem</span><span class="keyword">();<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="127309">  <div class="votes">
+    <div id="Vu127309">
+    <a href="https://www.php.net/manual/vote-note.php?id=127309&amp;page=class.iterator&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd127309">
+    <a href="https://www.php.net/manual/vote-note.php?id=127309&amp;page=class.iterator&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V127309" title="0% like this...">
+    -1
+    </div>
+  </div>
+  <a href="class.iterator.php.html#127309" class="name">
+  <strong class="user"><em>InvisibleSmiley</em></strong></a><a class="genanchor" href="class.iterator.php.html#127309"> &para;</a><div class="date" title="2022-07-20 07:32"><strong>1 year ago</strong></div>
+  <div class="text" id="Hcom127309">
+<div class="phpcode"><code><span class="html">If you implemented Iterator methods next() and rewind() by calling array functions next() and reset() and returning their results, be advised that this violates the tentative return types (void in both cases) introduced with PHP 8.1.<br /><br />You can add the #[\ReturnTypeWillChange] attribute to both method implementations but that will only delay the issue until PHP 9.0 comes around.<br /><br />Better adapt your implementations now (stop returning anything from these methods) and, if need be, only add the return type declarations later.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="125802">  <div class="votes">
+    <div id="Vu125802">
+    <a href="https://www.php.net/manual/vote-note.php?id=125802&amp;page=class.iterator&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd125802">
+    <a href="https://www.php.net/manual/vote-note.php?id=125802&amp;page=class.iterator&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V125802" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="class.iterator.php.html#125802" class="name">
+  <strong class="user"><em>Andrew Roffey</em></strong></a><a class="genanchor" href="class.iterator.php.html#125802"> &para;</a><div class="date" title="2021-02-09 10:41"><strong>3 years ago</strong></div>
+  <div class="text" id="Hcom125802">
+<div class="phpcode"><code><span class="html">/**<br /> * Iterate  a directory tree by walking the tree. For each directory in<br /> * the tree rooted at directory $parent_dir (including $parent_dir<br /> * itself), it returns $dirpath =&gt; array($dirnames, $filenames).<br /> *<br /> * $dirpath is a string, the path to the directory. $dirnames is a list<br /> * of the names of the subdirectories in dirpath (excluding '.' and<br /> * '..'). $filenames is a list of the names of the non-directory files in<br /> * $dirpath.<br /> *<br /> * Inspired by Python os.walk; see<br /> * <a href="https://docs.python.org/3/library/os.html#os.walk" rel="nofollow" target="_blank">https://docs.python.org/3/library/os.html#os.walk</a><br /> * Implemented as an iterator rather than a generator.<br /> *<br /> * @return array<br /> */<br /><br />class walker implements Iterator {<br />  private $parent_dir = '';<br />  private $d = 0; // iterator<br />  private $dirs = array(); // indexed by iterator<br />  private $dirstack;<br />  private $discovered = array(); // indexed by directory<br />  private $v; // current directory<br />  private $cur_dirnames = array(); // current subdirs<br />  private $cur_filenames = array(); // current files in directory<br /><br />  public function __construct($parent_dir) {<br />    $this-&gt;parent_dir = $parent_dir;<br />    $this-&gt;d = 0;<br />    $this-&gt;dirs[$this-&gt;d] = $parent_dir;<br />    $this-&gt;dirstack = new SplStack();<br />    $this-&gt;dirstack-&gt;push($parent_dir);<br />    $this-&gt;discovered = array($parent_dir =&gt; true);<br />    $this-&gt;v = $parent_dir;<br />    $this-&gt;cur_dirnames = array();<br />    $this-&gt;cur_filenames = array();<br />    $this-&gt;next();<br />  }<br /><br />  public function rewind() {<br />    $this-&gt;__construct($this-&gt;parent_dir);<br />  }<br /><br />  public function current() {<br />    return array($this-&gt;cur_dirnames, $this-&gt;cur_filenames);<br />  }<br /><br />  public function key() {<br />    return $this-&gt;v;<br />  }<br /><br />  public function next() {<br />    ++$this-&gt;d;<br />    $this-&gt;v = $this-&gt;dirstack-&gt;pop();<br />    $this-&gt;dirs[$this-&gt;d] = $this-&gt;v;<br />    $this-&gt;cur_dirnames = array();<br />    $this-&gt;cur_filenames = array();<br />    if (!$dh = opendir($this-&gt;v)) {<br />      // opendir emits E_WARNING if unable to open directory, likely due<br />      // to a permissions issue or directory removed before we could get<br />      // there<br />      return;<br />    }<br />    // discover the directories, return directories and files<br />    while (false !== ($fn = readdir($dh))) {<br />      if ($fn != '.' &amp;&amp; $fn !== '..') {<br />        $fullfn = $this-&gt;v . '/' . $fn;<br />        if (is_dir($fullfn)) {<br />      $this-&gt;cur_dirnames[] = $fn;<br />          if (!array_key_exists($fullfn, $this-&gt;discovered)) {<br />            $this-&gt;discovered[$fullfn] = true;<br />        $this-&gt;dirstack-&gt;push($fullfn);<br />      }<br />        } else {<br />          $this-&gt;cur_filenames[] = $fn;<br />        }<br />      }<br />    }<br />    closedir($dh);<br />  }<br /><br />  public function valid() {<br />    return $this-&gt;dirstack-&gt;count();<br />  }<br />}<br /><br />$tree = new walker("/tmp");<br />foreach ($tree as $parent_dir =&gt; $nodes) {<br />  $subdirs = $nodes[0];<br />  $files = $nodes[1];<br />  printf("%s\n", $parent_dir);<br />  if ($subdirs) printf("  %s\n", implode("/\n  ", $subdirs));<br />  if ($files) printf("  %s\n", implode("\n  ", $files));<br />  print("\n");<br />}</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="125201">  <div class="votes">
+    <div id="Vu125201">
+    <a href="https://www.php.net/manual/vote-note.php?id=125201&amp;page=class.iterator&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd125201">
+    <a href="https://www.php.net/manual/vote-note.php?id=125201&amp;page=class.iterator&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V125201" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="class.iterator.php.html#125201" class="name">
+  <strong class="user"><em>sofe2038 at gmail dot com</em></strong></a><a class="genanchor" href="class.iterator.php.html#125201"> &para;</a><div class="date" title="2020-07-22 03:26"><strong>3 years ago</strong></div>
+  <div class="text" id="Hcom125201">
+<div class="phpcode"><code><span class="html">The "scalar" restriction on key() is no longer true. A simple example is that Generators can yield non-scalar keys.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="101381">  <div class="votes">
+    <div id="Vu101381">
+    <a href="https://www.php.net/manual/vote-note.php?id=101381&amp;page=class.iterator&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd101381">
+    <a href="https://www.php.net/manual/vote-note.php?id=101381&amp;page=class.iterator&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V101381" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="class.iterator.php.html#101381" class="name">
+  <strong class="user"><em>kent at marketacumen dot com</em></strong></a><a class="genanchor" href="class.iterator.php.html#101381"> &para;</a><div class="date" title="2010-12-13 01:15"><strong>13 years ago</strong></div>
+  <div class="text" id="Hcom101381">
+<div class="phpcode"><code><span class="html">For Iterators implement database queries, what I've found is that if you want to chain multiple iterators together using a "MultipleIterator" then you *do not* want ::rewind() to actually execute your query, especially if it's expensive.<br /><br />Instead, what I've done is implement that portion in "valid." <br /><br />e.g.<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">class </span><span class="default">Database_Result_Iterator </span><span class="keyword">{<br />    ...<br />    private </span><span class="default">$_db_resource </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">;<br />    private </span><span class="default">$_loaded </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;<br />    private </span><span class="default">$_valid </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;<br /><br />    function </span><span class="default">rewind</span><span class="keyword">() {<br />        if (</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_db_resource</span><span class="keyword">) {<br />            </span><span class="default">mysql_free</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_db_resource</span><span class="keyword">);<br />            </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_db_resource </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">;<br />        }<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_loaded </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_valid </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;<br />    }<br /><br />    function </span><span class="default">valid</span><span class="keyword">() {<br />        if (</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_loaded</span><span class="keyword">) {<br />            </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">load</span><span class="keyword">();<br />        }<br />        return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_valid</span><span class="keyword">;<br />    }<br /><br />    private function </span><span class="default">load</span><span class="keyword">() {<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_db_resource </span><span class="keyword">= </span><span class="default">mysql_query</span><span class="keyword">(...);<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_loaded </span><span class="keyword">= </span><span class="default">true</span><span class="keyword">;<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">next</span><span class="keyword">(); </span><span class="comment">// Sets _valid<br />    </span><span class="keyword">}<br />}<br /></span><span class="default">?&gt;<br /></span><br />That way if you chain multiple queries in a "MultipleIterator" together, the "rewind" call (which rewinds all iterators at once) does not execute every query at once. <br /><br />In addition, I found that the MultipleIterator may now work best for other reasons, but still, the above is a good idea to postpone queries until the last possible moment they are needed.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="106010">  <div class="votes">
+    <div id="Vu106010">
+    <a href="https://www.php.net/manual/vote-note.php?id=106010&amp;page=class.iterator&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd106010">
+    <a href="https://www.php.net/manual/vote-note.php?id=106010&amp;page=class.iterator&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V106010" title="47% like this...">
+    -1
+    </div>
+  </div>
+  <a href="class.iterator.php.html#106010" class="name">
+  <strong class="user"><em>dwlnetnl at users dot sourceforge dot net</em></strong></a><a class="genanchor" href="class.iterator.php.html#106010"> &para;</a><div class="date" title="2011-10-02 02:06"><strong>12 years ago</strong></div>
+  <div class="text" id="Hcom106010">
+<div class="phpcode"><code><span class="html">Be aware that when you call a method like current($this) within the Iterator class, the properties of the class are returned and the Iterator's current() isn't called. This is because current() applies to arrays and the Iterator class is then interpretated as an array.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="112499">  <div class="votes">
+    <div id="Vu112499">
+    <a href="https://www.php.net/manual/vote-note.php?id=112499&amp;page=class.iterator&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd112499">
+    <a href="https://www.php.net/manual/vote-note.php?id=112499&amp;page=class.iterator&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V112499" title="45% like this...">
+    -2
+    </div>
+  </div>
+  <a href="class.iterator.php.html#112499" class="name">
+  <strong class="user"><em>Daniel Lo Nigro</em></strong></a><a class="genanchor" href="class.iterator.php.html#112499"> &para;</a><div class="date" title="2013-06-23 06:33"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom112499">
+<div class="phpcode"><code><span class="html">If you're using PHP 5.5 or above and are creating a simple iterator, consider using a generator function instead. There is significantly less boilerplate code and the code is easier to read. <a href="http://au1.php.net/generators" rel="nofollow" target="_blank">http://au1.php.net/generators</a></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="123423">  <div class="votes">
+    <div id="Vu123423">
+    <a href="https://www.php.net/manual/vote-note.php?id=123423&amp;page=class.iterator&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd123423">
+    <a href="https://www.php.net/manual/vote-note.php?id=123423&amp;page=class.iterator&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V123423" title="16% like this...">
+    -4
+    </div>
+  </div>
+  <a href="class.iterator.php.html#123423" class="name">
+  <strong class="user"><em>shaun at slickdesign dot com dot au</em></strong></a><a class="genanchor" href="class.iterator.php.html#123423"> &para;</a><div class="date" title="2018-12-12 03:09"><strong>5 years ago</strong></div>
+  <div class="text" id="Hcom123423">
+<div class="phpcode"><code><span class="html">With a large number of `current`, `next`, `key`, and `reset` array function implementations, care needs to be taken to ensure that deletions and nested loops are accounted for appropriately for each situation.<br /><br />The following class has been copied from a previous comment and modified to allow it to be used within nested loops.<br /><br /><span class="default">&lt;?php<br /></span><span class="comment"># Comment removed for brevity.<br /><br /></span><span class="keyword">class </span><span class="default">tIterator_array </span><span class="keyword">implements </span><span class="default">Iterator </span><span class="keyword">{<br />  private </span><span class="default">$myArray</span><span class="keyword">;<br />  </span><span class="comment">// Store each iteration in a separate array.<br />  </span><span class="keyword">private </span><span class="default">$iterations </span><span class="keyword">= [];<br />  private </span><span class="default">$i </span><span class="keyword">= -</span><span class="default">1</span><span class="keyword">;<br /><br />  public function </span><span class="default">__construct</span><span class="keyword">( </span><span class="default">$givenArray </span><span class="keyword">) {<br />    </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">myArray </span><span class="keyword">= </span><span class="default">$givenArray</span><span class="keyword">;<br />  }<br />  function </span><span class="default">rewind</span><span class="keyword">() {<br />    </span><span class="comment">// Rewind is called at the start of the loop. This is where we can append the current array to start our new iteration.<br />    </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">iterations</span><span class="keyword">[] = </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">myArray</span><span class="keyword">;<br />    </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">i</span><span class="keyword">++;<br />    return </span><span class="default">reset</span><span class="keyword">( </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">iterations</span><span class="keyword">[ </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">i </span><span class="keyword">] );<br />  }<br />  function </span><span class="default">current</span><span class="keyword">() {<br />    return </span><span class="default">current</span><span class="keyword">( </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">iterations</span><span class="keyword">[ </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">i </span><span class="keyword">] );<br />  }<br />  function </span><span class="default">key</span><span class="keyword">() {<br />    return </span><span class="default">key</span><span class="keyword">( </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">iterations</span><span class="keyword">[ </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">i </span><span class="keyword">] );<br />  }<br />  function </span><span class="default">next</span><span class="keyword">() {<br />    return </span><span class="default">next</span><span class="keyword">( </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">iterations</span><span class="keyword">[ </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">i </span><span class="keyword">] );<br />  }<br />  function </span><span class="default">valid</span><span class="keyword">() {<br />    if ( </span><span class="default">null </span><span class="keyword">=== </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">key</span><span class="keyword">() ) {<br />      </span><span class="comment">// Standard valid check. When null is returned the loop has finished, so we decrement the index and remove the latest iteration.<br />      </span><span class="default">array_pop</span><span class="keyword">( </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">iterations </span><span class="keyword">);<br />      </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">i</span><span class="keyword">--;<br />      return </span><span class="default">false</span><span class="keyword">;<br />    }<br />    return </span><span class="default">true</span><span class="keyword">;<br />  }<br />}<br /><br /></span><span class="comment">// Example:<br /></span><span class="default">$a </span><span class="keyword">= new </span><span class="default">tIterator_array</span><span class="keyword">( [</span><span class="default">1</span><span class="keyword">, </span><span class="default">2</span><span class="keyword">] );<br />foreach ( </span><span class="default">$a </span><span class="keyword">as </span><span class="default">$k </span><span class="keyword">=&gt; </span><span class="default">$v </span><span class="keyword">) {<br />  echo </span><span class="string">" </span><span class="default">$k</span><span class="string"> =&gt; </span><span class="default">$v</span><span class="string">:\n"</span><span class="keyword">;<br />  foreach ( </span><span class="default">$a </span><span class="keyword">as </span><span class="default">$k </span><span class="keyword">=&gt; </span><span class="default">$v </span><span class="keyword">) {<br />    echo </span><span class="string">"  </span><span class="default">$k</span><span class="string"> =&gt; </span><span class="default">$v</span><span class="string">,\n"</span><span class="keyword">;<br />  }<br />}<br /></span><span class="comment">// Output:<br /># 0 =&gt; 1:<br />#  0 =&gt; 1,<br />#  1 =&gt; 2,<br /># 1 =&gt; 2:<br />#  0 =&gt; 1,<br />#  1 =&gt; 2,<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=class.iterator&amp;redirect=https://www.php.net/manual/ru/class.iterator.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="reserved.interfaces.php.html">Встроенные интерфейсы и классы</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="class.traversable.php.html" title="Traversable">Traversable</a>
+                        </li>
+                                                <li class="current">
+                            <a href="class.iterator.php.html" title="Iterator">Iterator</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.iteratoraggregate.php.html" title="IteratorAggregate">IteratorAggregate</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.internaliterator.php.html" title="InternalIterator">InternalIterator</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.throwable.php.html" title="Throwable">Throwable</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.arrayaccess.php.html" title="ArrayAccess">ArrayAccess</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.serializable.php.html" title="Serializable">Serializable</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.closure.php.html" title="Closure">Closure</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.stdclass.php.html" title="stdClass">stdClass</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.generator.php.html" title="Generator">Generator</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.fiber.php.html" title="Fiber">Fiber</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.weakreference.php.html" title="WeakReference">WeakReference</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.weakmap.php.html" title="WeakMap">WeakMap</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.stringable.php.html" title="Stringable">Stringable</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.unitenum.php.html" title="UnitEnum">UnitEnum</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.backedenum.php.html" title="BackedEnum">BackedEnum</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.sensitiveparametervalue.php.html" title="SensitiveParameterValue">SensitiveParameterValue</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

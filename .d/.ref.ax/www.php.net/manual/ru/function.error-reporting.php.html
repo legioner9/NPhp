@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: error_reporting - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="function.error-reporting.php.html">
+ <link rel="shorturl" href="https://www.php.net/error-reporting">
+ <link rel="alternate" href="https://www.php.net/error-reporting" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="ref.errorfunc.php.html">
+ <link rel="prev" href="function.error-log.php.html">
+ <link rel="next" href="function.restore-error-handler.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/function.error-reporting.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/function.error-reporting.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/function.error-reporting.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/function.error-reporting.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/function.error-reporting.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/function.error-reporting.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/function.error-reporting.php" hreflang="pt_BR">
+ <link rel="alternate" href="function.error-reporting.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/function.error-reporting.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/function.error-reporting.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="function.restore-error-handler.php.html">
+          restore_error_handler &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="function.error-log.php.html">
+          &laquo; error_log        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.basic.php.php.html'>Изменение поведения PHP</a></li>      <li><a href='book.errorfunc.php.html'>Обработка ошибок</a></li>      <li><a href='ref.errorfunc.php.html'>Функции обработки ошибок</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/function.error-reporting.php'>English</option>
+            <option value='de/function.error-reporting.php'>German</option>
+            <option value='es/function.error-reporting.php'>Spanish</option>
+            <option value='fr/function.error-reporting.php'>French</option>
+            <option value='it/function.error-reporting.php'>Italian</option>
+            <option value='ja/function.error-reporting.php'>Japanese</option>
+            <option value='pt_BR/function.error-reporting.php'>Brazilian Portuguese</option>
+            <option value='ru/function.error-reporting.php' selected="selected">Russian</option>
+            <option value='tr/function.error-reporting.php'>Turkish</option>
+            <option value='zh/function.error-reporting.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/errorfunc/functions/error-reporting.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Ffunction.error-reporting%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="function.error-reporting" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">error_reporting</h1>
+  <p class="verinfo">(PHP 4, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">error_reporting</span> &mdash; <span class="dc-title">
+   Устанавливает, какие ошибки PHP попадут в отчёт
+  </span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.error-reporting-description">
+  <h3 class="title">Описание</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="methodname"><strong>error_reporting</strong></span>(<span class="methodparam"><span class="type">?</span><span class="type"><span class="type">int</span><span class="type"></span></span> <code class="parameter">$error_level</code><span class="initializer"> = <strong><code>null</code></strong></span></span>): <span class="type">int</span></div>
+
+  <p class="para rdfs-comment">
+   Функция <span class="function"><strong>error_reporting()</strong></span> задаёт значение директивы
+   <a href="errorfunc.configuration.php.html#ini.error-reporting" class="link">error_reporting</a> во время работы (выполнения) программы.
+   PHP содержит много уровней ошибок. Через эту функцию
+   задают уровень ошибок на время работы (выполнения) скрипта, которые попадут в отчёт.
+   Если необязательный аргумент <code class="parameter">error_level</code> не задан,
+   функция <span class="function"><strong>error_reporting()</strong></span> вернёт текущее значение уровня
+   протоколирования ошибок.
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.error-reporting-parameters">
+  <h3 class="title">Список параметров</h3>
+  <p class="para">
+   <dl>
+    
+     <dt>
+<code class="parameter">error_level</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Новое значение уровня
+       <a href="errorfunc.configuration.php.html#ini.error-reporting" class="link">error_reporting</a>. Параметр принимает
+       либо битовую маску, либо именованные константы. При указании
+       именованных констант нужно будет следить за совместимостью с новыми
+       версиями PHP. По мере добавления уровней ошибок диапазон целых чисел увеличивается,
+       поэтому старые уровни ошибок на основе целых чисел не всегда будут вести себя предсказуемо.
+      </p>
+      <p class="para">
+       Доступные константы уровней ошибок и их описания приведены в разделе
+       «<a href="errorfunc.constants.php.html" class="link">Предопределённые константы</a>».
+      </p>
+     </dd>
+
+    
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.error-reporting-returnvalues">
+  <h3 class="title">Возвращаемые значения</h3>
+  <p class="para">
+   Возвращает значение директивы <a href="errorfunc.configuration.php.html#ini.error-reporting" class="link">error_reporting</a>,
+   которое в ней хранилось <em>до того</em>, как оно
+   было изменено на значение параметра <code class="parameter">error_level</code>.
+  </p>
+  <blockquote class="note"><p><strong class="note">Замечание</strong>: 
+   <span class="simpara">
+    Оператор <a href="language.operators.errorcontrol.php.html" class="link">управления ошибками</a>
+    (<code class="literal">@</code>) изменяет значение параметра <code class="parameter">error_level</code> во время обработки ошибки.
+   </span>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.error-reporting-changelog">
+  <h3 class="title">Список изменений</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>Версия</th>
+      <th>Описание</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+      <td>8.0.0</td>
+      <td>
+       Параметр <code class="parameter">error_level</code> теперь может принимать значение null.
+      </td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.error-reporting-examples">
+  <h3 class="title">Примеры</h3>
+  <p class="para">
+   <div class="example" id="example-1567">
+    <p><strong>Пример #1 Примеры использования функции <span class="function"><strong>error_reporting()</strong></span></strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">// Выключение протоколирования ошибок<br /></span><span style="color: #0000BB">error_reporting</span><span style="color: #007700">(</span><span style="color: #0000BB">0</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Включать в отчёт простые описания ошибок<br /></span><span style="color: #0000BB">error_reporting</span><span style="color: #007700">(</span><span style="color: #0000BB">E_ERROR </span><span style="color: #007700">| </span><span style="color: #0000BB">E_WARNING </span><span style="color: #007700">| </span><span style="color: #0000BB">E_PARSE</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Включать в отчёт E_NOTICE сообщения (добавятся сообщения о<br />// непроинициализированных переменных или ошибках в именах переменных)<br /></span><span style="color: #0000BB">error_reporting</span><span style="color: #007700">(</span><span style="color: #0000BB">E_ERROR </span><span style="color: #007700">| </span><span style="color: #0000BB">E_WARNING </span><span style="color: #007700">| </span><span style="color: #0000BB">E_PARSE </span><span style="color: #007700">| </span><span style="color: #0000BB">E_NOTICE</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Добавлять сообщения обо всех ошибках, кроме E_NOTICE<br /></span><span style="color: #0000BB">error_reporting</span><span style="color: #007700">(</span><span style="color: #0000BB">E_ALL </span><span style="color: #007700">&amp; ~</span><span style="color: #0000BB">E_NOTICE</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Добавлять в отчёт все ошибки PHP<br /></span><span style="color: #0000BB">error_reporting</span><span style="color: #007700">(</span><span style="color: #0000BB">E_ALL</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Добавлять в отчёт все ошибки PHP<br /></span><span style="color: #0000BB">error_reporting</span><span style="color: #007700">(-</span><span style="color: #0000BB">1</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// То же, что и error_reporting(E_ALL);<br /></span><span style="color: #0000BB">ini_set</span><span style="color: #007700">(</span><span style="color: #DD0000">'error_reporting'</span><span style="color: #007700">, </span><span style="color: #0000BB">E_ALL</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.error-reporting-notes">
+  <h3 class="title">Примечания</h3>
+  <div class="tip"><strong class="tip">Подсказка</strong>
+   <p class="simpara">
+    Если передать значение <code class="literal">-1</code>, будут отображаться все возможные
+    ошибки, даже если в новых версиях PHP добавятся уровни или константы.
+    Поведение эквивалентно передаче константы <strong><code>E_ALL</code></strong>.
+   </p>
+  </div>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.error-reporting-seealso">
+  <h3 class="title">Смотрите также</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member">Директива <a href="errorfunc.configuration.php.html#ini.display-errors" class="link">display_errors</a></li>
+    <li class="member">Директива <a href="errorfunc.configuration.php.html#ini.html-errors" class="link">html_errors</a></li>
+    <li class="member">Директива <a href="errorfunc.configuration.php.html#ini.xmlrpc-errors" class="link">xmlrpc_errors</a></li>
+    <li class="member">Оператор <a href="language.operators.errorcontrol.php.html" class="link">управления ошибками</a></li>
+    <li class="member">Функция <span class="function"><a href="function.ini-set.php.html" class="function" rel="rdfs-seeAlso">ini_set()</a> - Устанавливает значение настройки конфигурации</span> — Устанавливает значение настройи конфигурации</li>
+   </ul>
+  </p>
+ </div>
+
+</div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=function.error-reporting&amp;redirect=https://www.php.net/manual/ru/function.error-reporting.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">27 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="85096">  <div class="votes">
+    <div id="Vu85096">
+    <a href="https://www.php.net/manual/vote-note.php?id=85096&amp;page=function.error-reporting&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd85096">
+    <a href="https://www.php.net/manual/vote-note.php?id=85096&amp;page=function.error-reporting&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V85096" title="78% like this...">
+    369
+    </div>
+  </div>
+  <a href="function.error-reporting.php.html#85096" class="name">
+  <strong class="user"><em>info at hephoz dot de</em></strong></a><a class="genanchor" href="function.error-reporting.php.html#85096"> &para;</a><div class="date" title="2008-08-14 06:34"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom85096">
+<div class="phpcode"><code><span class="html">If you just see a blank page instead of an error reporting and you have no server access so you can't edit php configuration files like php.ini try this:<br /><br />- create a new file in which you include the faulty script:<br /><br /><span class="default">&lt;?php<br /> error_reporting</span><span class="keyword">(</span><span class="default">E_ALL</span><span class="keyword">);<br /> </span><span class="default">ini_set</span><span class="keyword">(</span><span class="string">"display_errors"</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">);<br /> include(</span><span class="string">"file_with_errors.php"</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />- execute this file instead of the faulty script file <br /><br />now errors of your faulty script should be reported.<br />this works fine with me. hope it solves your problem as well!</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="125674">  <div class="votes">
+    <div id="Vu125674">
+    <a href="https://www.php.net/manual/vote-note.php?id=125674&amp;page=function.error-reporting&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd125674">
+    <a href="https://www.php.net/manual/vote-note.php?id=125674&amp;page=function.error-reporting&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V125674" title="69% like this...">
+    14
+    </div>
+  </div>
+  <a href="function.error-reporting.php.html#125674" class="name">
+  <strong class="user"><em>jcastromail at yahoo dot es</em></strong></a><a class="genanchor" href="function.error-reporting.php.html#125674"> &para;</a><div class="date" title="2021-01-12 03:01"><strong>3 years ago</strong></div>
+  <div class="text" id="Hcom125674">
+<div class="phpcode"><code><span class="html">Under PHP 8.0, error_reporting() does not return 0 when then the code uses a @ character.  <br /><br />For example<br /><br /><span class="default">&lt;?php<br /><br />$a</span><span class="keyword">=</span><span class="default">$array</span><span class="keyword">[</span><span class="default">20</span><span class="keyword">]; </span><span class="comment">// error_reporting() returns 0 in php &lt;8 and 4437 in PHP&gt;=8<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="64060">  <div class="votes">
+    <div id="Vu64060">
+    <a href="https://www.php.net/manual/vote-note.php?id=64060&amp;page=function.error-reporting&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd64060">
+    <a href="https://www.php.net/manual/vote-note.php?id=64060&amp;page=function.error-reporting&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V64060" title="65% like this...">
+    48
+    </div>
+  </div>
+  <a href="function.error-reporting.php.html#64060" class="name">
+  <strong class="user"><em>dave at davidhbrown dot us</em></strong></a><a class="genanchor" href="function.error-reporting.php.html#64060"> &para;</a><div class="date" title="2006-04-06 08:51"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom64060">
+<div class="phpcode"><code><span class="html">The example of E_ALL ^ E_NOTICE is a 'bit' confusing for those of us not wholly conversant with bitwise operators.<br /><br />If you wish to remove notices from the current level, whatever that unknown level might be, use &amp; ~ instead:<br /><br /><span class="default">&lt;?php<br /></span><span class="comment">//....<br /></span><span class="default">$errorlevel</span><span class="keyword">=</span><span class="default">error_reporting</span><span class="keyword">();<br /></span><span class="default">error_reporting</span><span class="keyword">(</span><span class="default">$errorlevel </span><span class="keyword">&amp; ~</span><span class="default">E_NOTICE</span><span class="keyword">);<br /></span><span class="comment">//...code that generates notices<br /></span><span class="default">error_reporting</span><span class="keyword">(</span><span class="default">$errorlevel</span><span class="keyword">);<br /></span><span class="comment">//...<br /></span><span class="default">?&gt;<br /></span><br />^ is the xor (bit flipping) operator and would actually turn notices *on* if they were previously off (in the error level on its left). It works in the example because E_ALL is guaranteed to have the bit for E_NOTICE set, so when ^ flips that bit, it is in fact turned off. &amp; ~ (and not) will always turn off the bits specified by the right-hand parameter, whether or not they were on or off.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="48147">  <div class="votes">
+    <div id="Vu48147">
+    <a href="https://www.php.net/manual/vote-note.php?id=48147&amp;page=function.error-reporting&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd48147">
+    <a href="https://www.php.net/manual/vote-note.php?id=48147&amp;page=function.error-reporting&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V48147" title="57% like this...">
+    9
+    </div>
+  </div>
+  <a href="function.error-reporting.php.html#48147" class="name">
+  <strong class="user"><em>Fernando Piancastelli</em></strong></a><a class="genanchor" href="function.error-reporting.php.html#48147"> &para;</a><div class="date" title="2004-12-13 01:23"><strong>19 years ago</strong></div>
+  <div class="text" id="Hcom48147">
+<div class="phpcode"><code><span class="html">The error_reporting() function won't be effective if your display_errors directive in php.ini is set to "Off", regardless of level reporting you set. I had to set<br /><br />display_errors = On<br />error_reporting = ~E_ALL<br /><br />to keep no error reporting as default, but be able to change error reporting level in my scripts.<br />I'm using PHP 4.3.9 and Apache 2.0.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="122624">  <div class="votes">
+    <div id="Vu122624">
+    <a href="https://www.php.net/manual/vote-note.php?id=122624&amp;page=function.error-reporting&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd122624">
+    <a href="https://www.php.net/manual/vote-note.php?id=122624&amp;page=function.error-reporting&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V122624" title="56% like this...">
+    2
+    </div>
+  </div>
+  <a href="function.error-reporting.php.html#122624" class="name">
+  <strong class="user"><em>kevinson112 at yahoo dot com</em></strong></a><a class="genanchor" href="function.error-reporting.php.html#122624"> &para;</a><div class="date" title="2018-04-16 05:34"><strong>5 years ago</strong></div>
+  <div class="text" id="Hcom122624">
+<div class="phpcode"><code><span class="html">I had the problem that if there was an error, php would just give me a blank page.  Any error at all forced a blank page instead of any output whatsoever, even though I made sure that I had error_reporting set to E_ALL, display_errors turned on, etc etc.  But simply running the file in a different directory allowed it to show errors!<br /><br />Turns out that the error_log file in the one directory was full (2.0 Gb).  I erased the file and now errors are displayed normally.  It might also help to turn error logging off.<br /><br /><a href="https://techysupport.co/norton-tech-support/" rel="nofollow" target="_blank">https://techysupport.co/norton-tech-support/</a></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="124950">  <div class="votes">
+    <div id="Vu124950">
+    <a href="https://www.php.net/manual/vote-note.php?id=124950&amp;page=function.error-reporting&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd124950">
+    <a href="https://www.php.net/manual/vote-note.php?id=124950&amp;page=function.error-reporting&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V124950" title="55% like this...">
+    2
+    </div>
+  </div>
+  <a href="function.error-reporting.php.html#124950" class="name">
+  <strong class="user"><em>&amp;IT</em></strong></a><a class="genanchor" href="function.error-reporting.php.html#124950"> &para;</a><div class="date" title="2020-04-27 08:13"><strong>3 years ago</strong></div>
+  <div class="text" id="Hcom124950">
+<div class="phpcode"><code><span class="html">error_reporting(E_ALL);<br />if (!ini_get('display_errors')) {<br />    ini_set('display_errors', '1');<br />}</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="89829">  <div class="votes">
+    <div id="Vu89829">
+    <a href="https://www.php.net/manual/vote-note.php?id=89829&amp;page=function.error-reporting&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd89829">
+    <a href="https://www.php.net/manual/vote-note.php?id=89829&amp;page=function.error-reporting&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V89829" title="54% like this...">
+    8
+    </div>
+  </div>
+  <a href="function.error-reporting.php.html#89829" class="name">
+  <strong class="user"><em>ecervetti at orupaca dot fr</em></strong></a><a class="genanchor" href="function.error-reporting.php.html#89829"> &para;</a><div class="date" title="2009-03-25 01:54"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom89829">
+<div class="phpcode"><code><span class="html">It could save two minutes to someone:<br />E_ALL &amp; ~E_NOTICE  integer value is 6135</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="50228">  <div class="votes">
+    <div id="Vu50228">
+    <a href="https://www.php.net/manual/vote-note.php?id=50228&amp;page=function.error-reporting&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd50228">
+    <a href="https://www.php.net/manual/vote-note.php?id=50228&amp;page=function.error-reporting&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V50228" title="55% like this...">
+    4
+    </div>
+  </div>
+  <a href="function.error-reporting.php.html#50228" class="name">
+  <strong class="user"><em>vdephily at bluemetrix dot com</em></strong></a><a class="genanchor" href="function.error-reporting.php.html#50228"> &para;</a><div class="date" title="2005-02-22 03:40"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom50228">
+<div class="phpcode"><code><span class="html">Note that E_NOTICE will warn you about uninitialized variables, but assigning a key/value pair counts as initialization, and will not trigger any error :<br /><span class="default">&lt;?php<br />error_reporting</span><span class="keyword">(</span><span class="default">E_ALL</span><span class="keyword">);<br /><br /></span><span class="default">$foo </span><span class="keyword">= </span><span class="default">$bar</span><span class="keyword">; </span><span class="comment">//notice : $bar uninitialized<br /><br /></span><span class="default">$bar</span><span class="keyword">[</span><span class="string">'foo'</span><span class="keyword">] = </span><span class="string">'hello'</span><span class="keyword">; </span><span class="comment">// no notice, although $bar itself has never been initialized (with "$bar = array()" for example)<br /><br /></span><span class="default">$bar </span><span class="keyword">= array(</span><span class="string">'foobar' </span><span class="keyword">=&gt; </span><span class="string">'barfoo'</span><span class="keyword">);<br /></span><span class="default">$foo </span><span class="keyword">= </span><span class="default">$bar</span><span class="keyword">[</span><span class="string">'foobar'</span><span class="keyword">] </span><span class="comment">// ok<br /><br /></span><span class="default">$foo </span><span class="keyword">= </span><span class="default">$bar</span><span class="keyword">[</span><span class="string">'nope'</span><span class="keyword">] </span><span class="comment">// notice : no such index<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="95944">  <div class="votes">
+    <div id="Vu95944">
+    <a href="https://www.php.net/manual/vote-note.php?id=95944&amp;page=function.error-reporting&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd95944">
+    <a href="https://www.php.net/manual/vote-note.php?id=95944&amp;page=function.error-reporting&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V95944" title="54% like this...">
+    2
+    </div>
+  </div>
+  <a href="function.error-reporting.php.html#95944" class="name">
+  <strong class="user"><em>roberto at spadim dot com dot br</em></strong></a><a class="genanchor" href="function.error-reporting.php.html#95944"> &para;</a><div class="date" title="2010-01-29 01:00"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom95944">
+<div class="phpcode"><code><span class="html">see more information about php 5.3 deprecated errors<br /><br /><a href="http://php.net/manual/en/migration53.deprecated.php" rel="nofollow" target="_blank">http://php.net/manual/en/migration53.deprecated.php</a></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="120152">  <div class="votes">
+    <div id="Vu120152">
+    <a href="https://www.php.net/manual/vote-note.php?id=120152&amp;page=function.error-reporting&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd120152">
+    <a href="https://www.php.net/manual/vote-note.php?id=120152&amp;page=function.error-reporting&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V120152" title="52% like this...">
+    2
+    </div>
+  </div>
+  <a href="function.error-reporting.php.html#120152" class="name">
+  <strong class="user"><em>chris at ocproducts dot com</em></strong></a><a class="genanchor" href="function.error-reporting.php.html#120152"> &para;</a><div class="date" title="2016-11-12 12:55"><strong>7 years ago</strong></div>
+  <div class="text" id="Hcom120152">
+<div class="phpcode"><code><span class="html">The error_reporting() function will return 0 if error suppression is currently active somewhere in the call tree (via the @ operator).</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="122774">  <div class="votes">
+    <div id="Vu122774">
+    <a href="https://www.php.net/manual/vote-note.php?id=122774&amp;page=function.error-reporting&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd122774">
+    <a href="https://www.php.net/manual/vote-note.php?id=122774&amp;page=function.error-reporting&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V122774" title="52% like this...">
+    1
+    </div>
+  </div>
+  <a href="function.error-reporting.php.html#122774" class="name">
+  <strong class="user"><em>luisdev</em></strong></a><a class="genanchor" href="function.error-reporting.php.html#122774"> &para;</a><div class="date" title="2018-05-29 12:26"><strong>5 years ago</strong></div>
+  <div class="text" id="Hcom122774">
+<div class="phpcode"><code><span class="html">This article refers to these two reporting levels:<br /><br />// Report all PHP errors (see changelog)<br />error_reporting(E_ALL);<br /><br />// Report all PHP errors<br />error_reporting(-1);<br /><br />What is the difference between those two levels?<br /><br />Please update this article with a clear explanation of the difference and the possible use cases.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="124411">  <div class="votes">
+    <div id="Vu124411">
+    <a href="https://www.php.net/manual/vote-note.php?id=124411&amp;page=function.error-reporting&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd124411">
+    <a href="https://www.php.net/manual/vote-note.php?id=124411&amp;page=function.error-reporting&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V124411" title="52% like this...">
+    1
+    </div>
+  </div>
+  <a href="function.error-reporting.php.html#124411" class="name">
+  <strong class="user"><em>lhenry at lhenry dot com</em></strong></a><a class="genanchor" href="function.error-reporting.php.html#124411"> &para;</a><div class="date" title="2019-11-18 06:21"><strong>4 years ago</strong></div>
+  <div class="text" id="Hcom124411">
+<div class="phpcode"><code><span class="html">In php7,  what was generally a notice or a deprecated is now a warning : the same level of a mysql error …  unacceptable for me.<br /><br />I do have dozen of old projects and I surely d'ont want to define every variable which I eventually wrote 20y ago.<br /><br />So two option: let php7 degrade my expensive SSDs writing Gb/hours or implement smthing like server level monitoring ( with auto_[pre-ap]pend_file in php.ini) and turn off E_WARNING<br /><br />Custom overriding the level of php errors should be super handy and flexible …</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="120809">  <div class="votes">
+    <div id="Vu120809">
+    <a href="https://www.php.net/manual/vote-note.php?id=120809&amp;page=function.error-reporting&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd120809">
+    <a href="https://www.php.net/manual/vote-note.php?id=120809&amp;page=function.error-reporting&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V120809" title="52% like this...">
+    1
+    </div>
+  </div>
+  <a href="function.error-reporting.php.html#120809" class="name">
+  <strong class="user"><em>adam at adamhahn dot com</em></strong></a><a class="genanchor" href="function.error-reporting.php.html#120809"> &para;</a><div class="date" title="2017-03-14 09:35"><strong>6 years ago</strong></div>
+  <div class="text" id="Hcom120809">
+<div class="phpcode"><code><span class="html">To expand upon the note by chris at ocproducts dot com. If you prepend @ to error_reporting(), the function will always return 0.<br /><br /><span class="default">&lt;?php<br />error_reporting</span><span class="keyword">(</span><span class="default">E_ALL</span><span class="keyword">);<br /></span><span class="default">var_dump</span><span class="keyword">(<br />    </span><span class="default">error_reporting</span><span class="keyword">(), </span><span class="comment">// value of E_ALL,<br />    </span><span class="keyword">@</span><span class="default">error_reporting</span><span class="keyword">() </span><span class="comment">// value is 0<br /></span><span class="keyword">);<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="98414">  <div class="votes">
+    <div id="Vu98414">
+    <a href="https://www.php.net/manual/vote-note.php?id=98414&amp;page=function.error-reporting&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd98414">
+    <a href="https://www.php.net/manual/vote-note.php?id=98414&amp;page=function.error-reporting&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V98414" title="52% like this...">
+    6
+    </div>
+  </div>
+  <a href="function.error-reporting.php.html#98414" class="name">
+  <strong class="user"><em>keithm at aoeex dot com</em></strong></a><a class="genanchor" href="function.error-reporting.php.html#98414"> &para;</a><div class="date" title="2010-06-14 10:23"><strong>13 years ago</strong></div>
+  <div class="text" id="Hcom98414">
+<div class="phpcode"><code><span class="html">Some E_STRICT errors seem to be thrown during the page's compilation process.  This means they cannot be disabled by dynamically altering the error level at run time within that page.<br /><br />The work-around for this was to rename the file and replace the original with a error_reporting() call and then a require() call.<br /><br />Ex, rename index.php to index.inc.php, then re-create index.php as:<br /><br /><span class="default">&lt;?php<br />error_reporting</span><span class="keyword">(</span><span class="default">E_ALL </span><span class="keyword">&amp; ~(</span><span class="default">E_STRICT</span><span class="keyword">|</span><span class="default">E_NOTICE</span><span class="keyword">));<br />require(</span><span class="string">'index.inc.php'</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />That allows you to alter the error reporting prior to the file being compiled.<br /><br />I discovered this recently when I was given code from another development firm that triggered several E_STRICT errors and I wanted to disable E_STRICT on a per-page basis.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="8866">  <div class="votes">
+    <div id="Vu8866">
+    <a href="https://www.php.net/manual/vote-note.php?id=8866&amp;page=function.error-reporting&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd8866">
+    <a href="https://www.php.net/manual/vote-note.php?id=8866&amp;page=function.error-reporting&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V8866" title="53% like this...">
+    3
+    </div>
+  </div>
+  <a href="function.error-reporting.php.html#8866" class="name">
+  <strong class="user"><em>j dot schriver at vindiou dot com</em></strong></a><a class="genanchor" href="function.error-reporting.php.html#8866"> &para;</a><div class="date" title="2000-10-02 11:37"><strong>23 years ago</strong></div>
+  <div class="text" id="Hcom8866">
+<div class="phpcode"><code><span class="html">error_reporting() has no effect if you have defined your own error handler with set_error_handler()<br /><br />[Editor's Note: This is not quite accurate.<br /><br />E_ERROR, E_PARSE, E_CORE_ERROR, E_CORE_WARNING, E_COMPILE_ERROR and E_COMPILE_WARNING error levels will be handled as per the error_reporting settings.<br /><br />All other levels of errors will be passed to the custom error handler defined by set_error_handler().<br /><br />Zeev Suraski suggests that a simple way to use the defined levels of error reporting with your custom error handlers is to add the following line to the top of your error handling function:<br /><br />if (!($type &amp; error_reporting())) return;<br /><br /> -zak@php.net]</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="117071">  <div class="votes">
+    <div id="Vu117071">
+    <a href="https://www.php.net/manual/vote-note.php?id=117071&amp;page=function.error-reporting&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd117071">
+    <a href="https://www.php.net/manual/vote-note.php?id=117071&amp;page=function.error-reporting&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V117071" title="51% like this...">
+    1
+    </div>
+  </div>
+  <a href="function.error-reporting.php.html#117071" class="name">
+  <strong class="user"><em>qeremy ! gmail</em></strong></a><a class="genanchor" href="function.error-reporting.php.html#117071"> &para;</a><div class="date" title="2015-04-10 11:44"><strong>8 years ago</strong></div>
+  <div class="text" id="Hcom117071">
+<div class="phpcode"><code><span class="html">If you want to see all errors in your local environment, you can set your project URL like "foo.com.local" locally and put that in bootstrap file.<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">if (</span><span class="default">substr</span><span class="keyword">(</span><span class="default">$_SERVER</span><span class="keyword">[</span><span class="string">'SERVER_NAME'</span><span class="keyword">], -</span><span class="default">6</span><span class="keyword">) == </span><span class="string">'.local'</span><span class="keyword">) {<br />    </span><span class="default">ini_set</span><span class="keyword">(</span><span class="string">'display_errors'</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">);<br />    </span><span class="default">ini_set</span><span class="keyword">(</span><span class="string">'error_reporting'</span><span class="keyword">, </span><span class="default">E_ALL</span><span class="keyword">);<br />    </span><span class="comment">// or error_reporting(E_ALL);<br /></span><span class="keyword">}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="116441">  <div class="votes">
+    <div id="Vu116441">
+    <a href="https://www.php.net/manual/vote-note.php?id=116441&amp;page=function.error-reporting&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd116441">
+    <a href="https://www.php.net/manual/vote-note.php?id=116441&amp;page=function.error-reporting&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V116441" title="51% like this...">
+    1
+    </div>
+  </div>
+  <a href="function.error-reporting.php.html#116441" class="name">
+  <strong class="user"><em>Rash</em></strong></a><a class="genanchor" href="function.error-reporting.php.html#116441"> &para;</a><div class="date" title="2015-01-03 05:18"><strong>9 years ago</strong></div>
+  <div class="text" id="Hcom116441">
+<div class="phpcode"><code><span class="html">If you are using the PHP development server, run from the command line via `php -S servername:port`, every single error/notice/warning will be reported in the command line itself, with file name, and line number, and stack trace.<br /><br />So if you want to keep a log of all the errors even after page reloads (for help in debugging, maybe), running the PHP development server can be useful.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="123154">  <div class="votes">
+    <div id="Vu123154">
+    <a href="https://www.php.net/manual/vote-note.php?id=123154&amp;page=function.error-reporting&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd123154">
+    <a href="https://www.php.net/manual/vote-note.php?id=123154&amp;page=function.error-reporting&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V123154" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="function.error-reporting.php.html#123154" class="name">
+  <strong class="user"><em>huhiko334 at yandex dot ru</em></strong></a><a class="genanchor" href="function.error-reporting.php.html#123154"> &para;</a><div class="date" title="2018-09-23 02:20"><strong>5 years ago</strong></div>
+  <div class="text" id="Hcom123154">
+<div class="phpcode"><code><span class="html">If you get a weird mysql warnings like "Warning: mysql_query() : Your query requires a full tablescan...", don't look for error_reporting settings - it's set in php.ini.<br />You can turn it off with<br />ini_set("mysql.trace_mode","Off");<br />in your script<br /><a href="http://tinymy.link/mctct" rel="nofollow" target="_blank">http://tinymy.link/mctct</a></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="101260">  <div class="votes">
+    <div id="Vu101260">
+    <a href="https://www.php.net/manual/vote-note.php?id=101260&amp;page=function.error-reporting&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd101260">
+    <a href="https://www.php.net/manual/vote-note.php?id=101260&amp;page=function.error-reporting&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V101260" title="51% like this...">
+    1
+    </div>
+  </div>
+  <a href="function.error-reporting.php.html#101260" class="name">
+  <strong class="user"><em>rojaro at gmail dot com</em></strong></a><a class="genanchor" href="function.error-reporting.php.html#101260"> &para;</a><div class="date" title="2010-12-06 02:55"><strong>13 years ago</strong></div>
+  <div class="text" id="Hcom101260">
+<div class="phpcode"><code><span class="html">To enable error reporting for *ALL* error messages including every error level (including E_STRICT, E_NOTICE etc.), simply use:<br /><br /><span class="default">&lt;?php error_reporting</span><span class="keyword">(-</span><span class="default">1</span><span class="keyword">); </span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="85013">  <div class="votes">
+    <div id="Vu85013">
+    <a href="https://www.php.net/manual/vote-note.php?id=85013&amp;page=function.error-reporting&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd85013">
+    <a href="https://www.php.net/manual/vote-note.php?id=85013&amp;page=function.error-reporting&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V85013" title="51% like this...">
+    1
+    </div>
+  </div>
+  <a href="function.error-reporting.php.html#85013" class="name">
+  <strong class="user"><em>kc8yds at gmail dot com</em></strong></a><a class="genanchor" href="function.error-reporting.php.html#85013"> &para;</a><div class="date" title="2008-08-10 11:45"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom85013">
+<div class="phpcode"><code><span class="html">this is to show all errors for code that may be run on different versions<br /><br />for php 5 it shows E_ALL^E_STRICT and for other versions just E_ALL<br /><br />if anyone sees any problems with it please correct this post<br /><br /><span class="default">&lt;?php<br />ini_set</span><span class="keyword">(</span><span class="string">'error_reporting'</span><span class="keyword">, </span><span class="default">version_compare</span><span class="keyword">(</span><span class="default">PHP_VERSION</span><span class="keyword">,</span><span class="default">5</span><span class="keyword">,</span><span class="string">'&gt;='</span><span class="keyword">) &amp;&amp; </span><span class="default">version_compare</span><span class="keyword">(</span><span class="default">PHP_VERSION</span><span class="keyword">,</span><span class="default">6</span><span class="keyword">,</span><span class="string">'&lt;'</span><span class="keyword">) ?</span><span class="default">E_ALL</span><span class="keyword">^</span><span class="default">E_STRICT</span><span class="keyword">:</span><span class="default">E_ALL</span><span class="keyword">);<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="55035">  <div class="votes">
+    <div id="Vu55035">
+    <a href="https://www.php.net/manual/vote-note.php?id=55035&amp;page=function.error-reporting&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd55035">
+    <a href="https://www.php.net/manual/vote-note.php?id=55035&amp;page=function.error-reporting&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V55035" title="51% like this...">
+    1
+    </div>
+  </div>
+  <a href="function.error-reporting.php.html#55035" class="name">
+  <strong class="user"><em>fredrik at demomusic dot nu</em></strong></a><a class="genanchor" href="function.error-reporting.php.html#55035"> &para;</a><div class="date" title="2005-07-22 04:24"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom55035">
+<div class="phpcode"><code><span class="html">Remember that the error_reporting value is an integer, not a string ie "E_ALL &amp; ~E_NOTICE". <br /><br />This is very useful to remember when setting error_reporting levels in httpd.conf:<br /><br />Use the table above or: <br /><br /><span class="default">&lt;?php<br />ini_set</span><span class="keyword">(</span><span class="string">"error_reporting"</span><span class="keyword">, </span><span class="default">E_YOUR_ERROR_LEVEL</span><span class="keyword">);<br />echo </span><span class="default">ini_get</span><span class="keyword">(</span><span class="string">"error_reporting"</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />To get the appropriate integer for your error-level. Then use:<br /><br />php_admin_value error_reporting YOUR_INT<br /><br />in httpd.conf<br /><br />I want to share this rather straightforward tip as it is rather annoying for new php users trying to understand why things are not working when the error-level is set to (int) "E_ALL" = 0...<br /><br />Maybe the PHP-developers should make ie error_reporting("E_ALL"); output a E_NOTICE informative message about the mistake?</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="55985">  <div class="votes">
+    <div id="Vu55985">
+    <a href="https://www.php.net/manual/vote-note.php?id=55985&amp;page=function.error-reporting&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd55985">
+    <a href="https://www.php.net/manual/vote-note.php?id=55985&amp;page=function.error-reporting&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V55985" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="function.error-reporting.php.html#55985" class="name">
+  <strong class="user"><em>DarkGool</em></strong></a><a class="genanchor" href="function.error-reporting.php.html#55985"> &para;</a><div class="date" title="2005-08-19 10:30"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom55985">
+<div class="phpcode"><code><span class="html">In phpinfo() error reporting level display like a bit (such as 4095)<br /><br />Maybe it is a simply method to understand what a level set on your host<br />if you are not have access to php.ini file<br /><br /><span class="default">&lt;?php<br />$bit </span><span class="keyword">= </span><span class="default">ini_get</span><span class="keyword">(</span><span class="string">'error_reporting'</span><span class="keyword">);<br />while (</span><span class="default">$bit </span><span class="keyword">&gt; </span><span class="default">0</span><span class="keyword">) {<br />    for(</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">, </span><span class="default">$n </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt;= </span><span class="default">$bit</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">= </span><span class="default">1 </span><span class="keyword">* </span><span class="default">pow</span><span class="keyword">(</span><span class="default">2</span><span class="keyword">, </span><span class="default">$n</span><span class="keyword">), </span><span class="default">$n</span><span class="keyword">++) {<br />        </span><span class="default">$end </span><span class="keyword">= </span><span class="default">$i</span><span class="keyword">;<br />    }<br />    </span><span class="default">$res</span><span class="keyword">[] = </span><span class="default">$end</span><span class="keyword">;<br />    </span><span class="default">$bit </span><span class="keyword">= </span><span class="default">$bit </span><span class="keyword">- </span><span class="default">$end</span><span class="keyword">;<br />}<br /></span><span class="default">?&gt;<br /></span><br />In $res you will have all constants of error reporting<br />$res[]=int(16) // E_CORE_ERROR <br />$res[]=int(8)    // E_NOTICE <br />...</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="89017">  <div class="votes">
+    <div id="Vu89017">
+    <a href="https://www.php.net/manual/vote-note.php?id=89017&amp;page=function.error-reporting&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd89017">
+    <a href="https://www.php.net/manual/vote-note.php?id=89017&amp;page=function.error-reporting&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V89017" title="49% like this...">
+    -1
+    </div>
+  </div>
+  <a href="function.error-reporting.php.html#89017" class="name">
+  <strong class="user"><em>Daz Williams (The Northeast)</em></strong></a><a class="genanchor" href="function.error-reporting.php.html#89017"> &para;</a><div class="date" title="2009-02-18 06:03"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom89017">
+<div class="phpcode"><code><span class="html">Only display php errors to the developer...<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">if(</span><span class="default">$_SERVER</span><span class="keyword">[</span><span class="string">'REMOTE_ADDR'</span><span class="keyword">]==</span><span class="string">"00.00.00.00"</span><span class="keyword">)<br />{<br />  </span><span class="default">ini_set</span><span class="keyword">(</span><span class="string">'display_errors'</span><span class="keyword">,</span><span class="string">'On'</span><span class="keyword">);<br />}<br />else<br />{<br />  </span><span class="default">ini_set</span><span class="keyword">(</span><span class="string">'display_errors'</span><span class="keyword">,</span><span class="string">'Off'</span><span class="keyword">);<br />}<br /></span><span class="default">?&gt;<br /></span><br />Just replace 00.00.00.00 with your ip address.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="107447">  <div class="votes">
+    <div id="Vu107447">
+    <a href="https://www.php.net/manual/vote-note.php?id=107447&amp;page=function.error-reporting&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd107447">
+    <a href="https://www.php.net/manual/vote-note.php?id=107447&amp;page=function.error-reporting&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V107447" title="48% like this...">
+    -2
+    </div>
+  </div>
+  <a href="function.error-reporting.php.html#107447" class="name">
+  <strong class="user"><em>teynon1 at gmail dot com</em></strong></a><a class="genanchor" href="function.error-reporting.php.html#107447"> &para;</a><div class="date" title="2012-02-09 08:50"><strong>12 years ago</strong></div>
+  <div class="text" id="Hcom107447">
+<div class="phpcode"><code><span class="html">It might be a good idea to include E_COMPILE_ERROR in error_reporting. <br /><br />If you have a customer error handler that does not output warnings, you may get a white screen of death if a "require" fails.<br /><br />Example:<br /><span class="default">&lt;?php <br />  error_reporting</span><span class="keyword">(</span><span class="default">E_ERROR </span><span class="keyword">| </span><span class="default">E_WARNING </span><span class="keyword">| </span><span class="default">E_PARSE</span><span class="keyword">);<br /><br />  function </span><span class="default">myErrorHandler</span><span class="keyword">(</span><span class="default">$errno</span><span class="keyword">, </span><span class="default">$errstr</span><span class="keyword">, </span><span class="default">$errfile</span><span class="keyword">, </span><span class="default">$errline</span><span class="keyword">) {<br />    </span><span class="comment">// Do something other than output message.<br />    </span><span class="keyword">return </span><span class="default">true</span><span class="keyword">;<br />  }<br /><br />  </span><span class="default">$old_error_handler </span><span class="keyword">= </span><span class="default">set_error_handler</span><span class="keyword">(</span><span class="string">"myErrorHandler"</span><span class="keyword">);<br /><br />  require </span><span class="string">"this file does not exist"</span><span class="keyword">;<br /></span><span class="default">?&gt;<br /></span><br />To prevent this, simply include E_COMPILE_ERROR in the error_reporting.<br /><br /><span class="default">&lt;?php<br />  error_reporting</span><span class="keyword">(</span><span class="default">E_ERROR </span><span class="keyword">| </span><span class="default">E_WARNING </span><span class="keyword">| </span><span class="default">E_PARSE </span><span class="keyword">| </span><span class="default">E_COMPILE_ERROR</span><span class="keyword">);<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="91412">  <div class="votes">
+    <div id="Vu91412">
+    <a href="https://www.php.net/manual/vote-note.php?id=91412&amp;page=function.error-reporting&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd91412">
+    <a href="https://www.php.net/manual/vote-note.php?id=91412&amp;page=function.error-reporting&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V91412" title="48% like this...">
+    -3
+    </div>
+  </div>
+  <a href="function.error-reporting.php.html#91412" class="name">
+  <strong class="user"><em>misplacedme at gmail dot com</em></strong></a><a class="genanchor" href="function.error-reporting.php.html#91412"> &para;</a><div class="date" title="2009-06-09 02:25"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom91412">
+<div class="phpcode"><code><span class="html">I always code with E_ALL set.<br />After a couple of pages of<br /><span class="default">&lt;?php<br />$username </span><span class="keyword">= (isset(</span><span class="default">$_POST</span><span class="keyword">[</span><span class="string">'username'</span><span class="keyword">]) &amp;&amp; !empty(</span><span class="default">$_POST</span><span class="keyword">[</span><span class="string">'username'</span><span class="keyword">]))....<br /></span><span class="default">?&gt;<br /></span><br />I made this function to make things a little bit quicker.  Unset values passed by reference won't trigger a notice.<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">test_ref</span><span class="keyword">(&amp;</span><span class="default">$var</span><span class="keyword">,</span><span class="default">$test_function</span><span class="keyword">=</span><span class="string">''</span><span class="keyword">,</span><span class="default">$negate</span><span class="keyword">=</span><span class="default">false</span><span class="keyword">) {<br />    </span><span class="default">$stat </span><span class="keyword">= </span><span class="default">true</span><span class="keyword">;<br />    if(!isset(</span><span class="default">$var</span><span class="keyword">)) </span><span class="default">$stat </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;<br />    if (!empty(</span><span class="default">$test_function</span><span class="keyword">) &amp;&amp; </span><span class="default">function_exists</span><span class="keyword">(</span><span class="default">$test_function</span><span class="keyword">)){<br />        </span><span class="default">$stat </span><span class="keyword">= </span><span class="default">$test_function</span><span class="keyword">(</span><span class="default">$var</span><span class="keyword">);<br />        </span><span class="default">$stat </span><span class="keyword">= (</span><span class="default">$negate</span><span class="keyword">) ? </span><span class="default">$stat</span><span class="keyword">^</span><span class="default">1 </span><span class="keyword">: </span><span class="default">$stat</span><span class="keyword">;<br />    }<br />    elseif(</span><span class="default">$test_function </span><span class="keyword">== </span><span class="string">'empty'</span><span class="keyword">) {<br />        </span><span class="default">$stat </span><span class="keyword">= empty(</span><span class="default">$var</span><span class="keyword">);<br />        </span><span class="default">$stat </span><span class="keyword">= (</span><span class="default">$negate</span><span class="keyword">) ? </span><span class="default">$stat</span><span class="keyword">^</span><span class="default">1 </span><span class="keyword">: </span><span class="default">$stat</span><span class="keyword">;<br />    }<br />    elseif (!</span><span class="default">function_exists</span><span class="keyword">(</span><span class="default">$test_function</span><span class="keyword">)) {<br />        </span><span class="default">$stat </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">; <br />        </span><span class="default">trigger_error</span><span class="keyword">(</span><span class="string">"</span><span class="default">$test_function</span><span class="string">() is not a valid function"</span><span class="keyword">);<br />    }<br />    </span><span class="default">$stat </span><span class="keyword">= (</span><span class="default">$stat</span><span class="keyword">) ? </span><span class="default">true </span><span class="keyword">: </span><span class="default">false</span><span class="keyword">;<br />    return </span><span class="default">$stat</span><span class="keyword">;<br />}<br /></span><span class="default">$a </span><span class="keyword">= </span><span class="string">''</span><span class="keyword">;<br /></span><span class="default">$b </span><span class="keyword">= </span><span class="string">'15'</span><span class="keyword">;<br /><br /></span><span class="default">test_ref</span><span class="keyword">(</span><span class="default">$a</span><span class="keyword">,</span><span class="string">'empty'</span><span class="keyword">,</span><span class="default">true</span><span class="keyword">);  </span><span class="comment">//False<br /></span><span class="default">test_ref</span><span class="keyword">(</span><span class="default">$a</span><span class="keyword">,</span><span class="string">'is_int'</span><span class="keyword">);  </span><span class="comment">//False<br /></span><span class="default">test_ref</span><span class="keyword">(</span><span class="default">$a</span><span class="keyword">,</span><span class="string">'is_numeric'</span><span class="keyword">);  </span><span class="comment">//False<br /></span><span class="default">test_ref</span><span class="keyword">(</span><span class="default">$b</span><span class="keyword">,</span><span class="string">'empty'</span><span class="keyword">,</span><span class="default">true</span><span class="keyword">);  </span><span class="comment">//true<br /></span><span class="default">test_ref</span><span class="keyword">(</span><span class="default">$b</span><span class="keyword">,</span><span class="string">'is_int'</span><span class="keyword">);  </span><span class="comment">//False<br /></span><span class="default">test_ref</span><span class="keyword">(</span><span class="default">$b</span><span class="keyword">,</span><span class="string">'is_numeric'</span><span class="keyword">);  </span><span class="comment">//false<br /></span><span class="default">test_ref</span><span class="keyword">(</span><span class="default">$unset</span><span class="keyword">,</span><span class="string">'is_numeric'</span><span class="keyword">);  </span><span class="comment">//false<br /></span><span class="default">test_ref</span><span class="keyword">(</span><span class="default">$b</span><span class="keyword">,</span><span class="string">'is_number'</span><span class="keyword">);  </span><span class="comment">//returns false, with an error.<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="72457">  <div class="votes">
+    <div id="Vu72457">
+    <a href="https://www.php.net/manual/vote-note.php?id=72457&amp;page=function.error-reporting&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd72457">
+    <a href="https://www.php.net/manual/vote-note.php?id=72457&amp;page=function.error-reporting&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V72457" title="47% like this...">
+    -2
+    </div>
+  </div>
+  <a href="function.error-reporting.php.html#72457" class="name">
+  <strong class="user"><em>Alex</em></strong></a><a class="genanchor" href="function.error-reporting.php.html#72457"> &para;</a><div class="date" title="2007-01-19 03:43"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom72457">
+<div class="phpcode"><code><span class="html">error_reporting() may give unexpected results if the @ error suppression directive is used.<br /><br /><span class="default">&lt;?php<br /> </span><span class="keyword">@include </span><span class="string">'config.php'</span><span class="keyword">;<br /> include </span><span class="string">'foo.bar'</span><span class="keyword">;        </span><span class="comment">// non-existent file<br /></span><span class="default">?&gt;<br /></span><br />config.php<br /><span class="default">&lt;?php<br /> error_reporting</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />will throw an error level E_WARNING in relation to the non-existent file (depending of course on your configuration settings).  If the suppressor is removed, this works as expected.<br /><br />Alternatively using ini_set('display_errors', 0) in config.php will achieve the same result.  This is contrary to the note above which says that the two instructions are equivalent.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="113358">  <div class="votes">
+    <div id="Vu113358">
+    <a href="https://www.php.net/manual/vote-note.php?id=113358&amp;page=function.error-reporting&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd113358">
+    <a href="https://www.php.net/manual/vote-note.php?id=113358&amp;page=function.error-reporting&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V113358" title="45% like this...">
+    -5
+    </div>
+  </div>
+  <a href="function.error-reporting.php.html#113358" class="name">
+  <strong class="user"><em>forcemdt</em></strong></a><a class="genanchor" href="function.error-reporting.php.html#113358"> &para;</a><div class="date" title="2013-10-01 07:56"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom113358">
+<div class="phpcode"><code><span class="html">Php &gt;5.4<br /><br />Creating a Custom Error Handler<br /><br />set_error_handler("customError",E_ALL);<br />function customError($errno, $errstr)<br />  {<br />  echo "&lt;b&gt;Error:&lt;/b&gt; [$errno] $errstr&lt;br&gt;";<br />  echo "Ending Script";<br />  die();<br />  }</span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=function.error-reporting&amp;redirect=https://www.php.net/manual/ru/function.error-reporting.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="ref.errorfunc.php.html">Функции обработки ошибок</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="function.debug-backtrace.php.html" title="debug_&#8203;backtrace">debug_&#8203;backtrace</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.debug-print-backtrace.php.html" title="debug_&#8203;print_&#8203;backtrace">debug_&#8203;print_&#8203;backtrace</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.error-clear-last.php.html" title="error_&#8203;clear_&#8203;last">error_&#8203;clear_&#8203;last</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.error-get-last.php.html" title="error_&#8203;get_&#8203;last">error_&#8203;get_&#8203;last</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.error-log.php.html" title="error_&#8203;log">error_&#8203;log</a>
+                        </li>
+                                                <li class="current">
+                            <a href="function.error-reporting.php.html" title="error_&#8203;reporting">error_&#8203;reporting</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.restore-error-handler.php.html" title="restore_&#8203;error_&#8203;handler">restore_&#8203;error_&#8203;handler</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.restore-exception-handler.php.html" title="restore_&#8203;exception_&#8203;handler">restore_&#8203;exception_&#8203;handler</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.set-error-handler.php.html" title="set_&#8203;error_&#8203;handler">set_&#8203;error_&#8203;handler</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.set-exception-handler.php.html" title="set_&#8203;exception_&#8203;handler">set_&#8203;exception_&#8203;handler</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.trigger-error.php.html" title="trigger_&#8203;error">trigger_&#8203;error</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.user-error.php.html" title="user_&#8203;error">user_&#8203;error</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

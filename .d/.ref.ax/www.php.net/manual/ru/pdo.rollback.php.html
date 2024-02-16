@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: PDO::rollBack - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="pdo.rollback.php.html">
+ <link rel="shorturl" href="pdo.rollback.php.html">
+ <link rel="alternate" href="pdo.rollback.php.html" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="class.pdo.php.html">
+ <link rel="prev" href="pdo.quote.php.html">
+ <link rel="next" href="pdo.setattribute.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/pdo.rollback.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/pdo.rollback.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/pdo.rollback.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/pdo.rollback.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/pdo.rollback.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/pdo.rollback.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/pdo.rollback.php" hreflang="pt_BR">
+ <link rel="alternate" href="pdo.rollback.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/pdo.rollback.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/pdo.rollback.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="pdo.setattribute.php.html">
+          PDO::setAttribute &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="pdo.quote.php.html">
+          &laquo; PDO::quote        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.database.php.html'>Модули для работы с базами данных</a></li>      <li><a href='refs.database.abstract.php.html'>Уровни абстракции</a></li>      <li><a href='book.pdo.php.html'>PDO</a></li>      <li><a href='class.pdo.php.html'>PDO</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/pdo.rollback.php'>English</option>
+            <option value='de/pdo.rollback.php'>German</option>
+            <option value='es/pdo.rollback.php'>Spanish</option>
+            <option value='fr/pdo.rollback.php'>French</option>
+            <option value='it/pdo.rollback.php'>Italian</option>
+            <option value='ja/pdo.rollback.php'>Japanese</option>
+            <option value='pt_BR/pdo.rollback.php'>Brazilian Portuguese</option>
+            <option value='ru/pdo.rollback.php' selected="selected">Russian</option>
+            <option value='tr/pdo.rollback.php'>Turkish</option>
+            <option value='zh/pdo.rollback.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/pdo/pdo/rollback.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Fpdo.rollback%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="pdo.rollback" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">PDO::rollBack</h1>
+  <p class="verinfo">(PHP 5 &gt;= 5.1.0, PHP 7, PHP 8, PECL pdo &gt;= 0.1.0)</p><p class="refpurpose"><span class="refname">PDO::rollBack</span> &mdash; <span class="dc-title">
+   Откат транзакции
+  </span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-pdo.rollback-description">
+  <h3 class="title">Описание</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="methodname"><strong>PDO::rollBack</strong></span>(): <span class="type">bool</span></div>
+
+
+  <p class="para rdfs-comment">
+   Откатывает изменения в базе данных сделанные в рамках текущей транзакции,
+   которая была создана методом <span class="methodname"><a href="pdo.begintransaction.php.html" class="methodname">PDO::beginTransaction()</a></span>.
+  </p>
+  <p class="para">
+   Если в СУБД включён режим автофиксации изменений, эта функция восстановит этот
+   режим после отката.
+  </p>
+  <p class="para">
+   Некоторые СУБД, включая MySQL, автоматически неявно фиксируют изменения, когда
+   встречаются выражения языка определения базы данных (DDL), выполняемые в рамках
+   транзакции. Эта неявная фиксация делает невозможным откат других изменений,
+   сделанных в рамках этой транзакции.
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-pdo.rollback-parameters">
+  <h3 class="title">Список параметров</h3>
+  
+<p class="para">
+ У этой функции нет параметров.
+</p>
+
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-pdo.rollback-returnvalues">
+  <h3 class="title">Возвращаемые значения</h3>
+  <p class="para">
+   Возвращает <strong><code>true</code></strong> в случае успешного выполнения или <strong><code>false</code></strong> в случае возникновения ошибки.
+  </p>
+ </div>
+
+
+ <div class="refsect1 errors" id="refsect1-pdo.rollback-errors">
+  <h3 class="title">Ошибки</h3>
+  <p class="para">
+   Если активной транзакции нет, будет выброшено исключение <span class="classname"><a href="class.pdoexception.php.html" class="classname">PDOException</a></span>.
+  </p>
+  <blockquote class="note"><p><strong class="note">Замечание</strong>: <span class="simpara">Исключение будет вызвано, даже если атрибут <strong><code>PDO::ATTR_ERRMODE</code></strong> не выставлен в <strong><code>PDO::ERRMODE_EXCEPTION</code></strong>.</span></p></blockquote>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-pdo.rollback-examples">
+  <h3 class="title">Примеры</h3>
+  <p class="para">
+   <div class="example" id="example-3184"><p><strong>Пример #1 Откат транзакции</strong></p>
+    <div class="example-contents"><p>
+     В следующем примере создаётся транзакция и выполняются два запроса, которые
+     модифицируют данные в базе, а затем база возвращается к исходному
+     состоянию. В MySQL, тем не менее, выражение DROP TABLE автоматически фиксирует
+     изменения, поэтому их откат не произойдёт.
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/* Начинаем транзакцию, отключение автоматической фиксации */<br /></span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">beginTransaction</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">/* Изменяем схему базы данных и данные в таблицах */<br /></span><span style="color: #0000BB">$sth </span><span style="color: #007700">= </span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">exec</span><span style="color: #007700">(</span><span style="color: #DD0000">"DROP TABLE fruit"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$sth </span><span style="color: #007700">= </span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">exec</span><span style="color: #007700">(</span><span style="color: #DD0000">"UPDATE dessert<br />    SET name = 'hamburger'"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* Осознаем свою ошибку и откатываем транзакцию */<br /></span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">rollBack</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">/* База данных возвращается в режим автофиксации */<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-pdo.rollback-seealso">
+  <h3 class="title">Смотрите также</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="methodname"><a href="pdo.begintransaction.php.html" class="methodname" rel="rdfs-seeAlso">PDO::beginTransaction()</a> - Инициализация транзакции</span></li>
+    <li class="member"><span class="methodname"><a href="pdo.commit.php.html" class="methodname" rel="rdfs-seeAlso">PDO::commit()</a> - Фиксирует транзакцию</span></li>
+    <li class="member"><a href="pdo.transactions.php.html" class="link">Транзакции и автофиксация изменений</a></li>
+   </ul>
+  </p>
+ </div>
+
+
+
+</div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=pdo.rollback&amp;redirect=https://www.php.net/manual/ru/pdo.rollback.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">4 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="80295">  <div class="votes">
+    <div id="Vu80295">
+    <a href="https://www.php.net/manual/vote-note.php?id=80295&amp;page=pdo.rollback&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd80295">
+    <a href="https://www.php.net/manual/vote-note.php?id=80295&amp;page=pdo.rollback&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V80295" title="90% like this...">
+    53
+    </div>
+  </div>
+  <a href="pdo.rollback.php.html#80295" class="name">
+  <strong class="user"><em>JonasJ</em></strong></a><a class="genanchor" href="pdo.rollback.php.html#80295"> &para;</a><div class="date" title="2008-01-08 01:59"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom80295">
+<div class="phpcode"><code><span class="html">Just a quick (and perhaps obvious) note for MySQL users;<br /><br />Don't scratch your head if it isn't working if you are using a MyISAM table to test the rollbacks with. <br /><br />Both rollBack() and beginTransaction() will return TRUE but the rollBack will not happen.<br /><br />Convert the table to InnoDB and run the test again.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="82034">  <div class="votes">
+    <div id="Vu82034">
+    <a href="https://www.php.net/manual/vote-note.php?id=82034&amp;page=pdo.rollback&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd82034">
+    <a href="https://www.php.net/manual/vote-note.php?id=82034&amp;page=pdo.rollback&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V82034" title="64% like this...">
+    11
+    </div>
+  </div>
+  <a href="pdo.rollback.php.html#82034" class="name">
+  <strong class="user"><em>brian at diamondsea dot com</em></strong></a><a class="genanchor" href="pdo.rollback.php.html#82034"> &para;</a><div class="date" title="2008-03-25 07:19"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom82034">
+<div class="phpcode"><code><span class="html">Here is a way of testing that your transaction has started when using MySQL's InnoDB tables.  It will fail if you are using MySQL's MyISAM tables, which do not support transactions but will also not return an error when using them.<br /><br />&lt;?<br />// Begin the transaction<br />$dbh-&gt;beginTransaction();<br /><br />// To verify that a transaction has started, try to create an (illegal for InnoDB) nested transaction.<br />//    If it works, the first transaction did not start correctly or is unsupported (such as on MyISAM tables)<br />try {<br />    $dbh-&gt;beginTransaction();<br />    die('Cancelling, Transaction was not properly started');<br />} catch (PDOException $e) {<br />    print "Transaction is running (because trying another one failed)\n";<br />}<br />?&gt;</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="100847">  <div class="votes">
+    <div id="Vu100847">
+    <a href="https://www.php.net/manual/vote-note.php?id=100847&amp;page=pdo.rollback&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd100847">
+    <a href="https://www.php.net/manual/vote-note.php?id=100847&amp;page=pdo.rollback&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V100847" title="60% like this...">
+    5
+    </div>
+  </div>
+  <a href="pdo.rollback.php.html#100847" class="name">
+  <strong class="user"><em>Petros Giakouvakis</em></strong></a><a class="genanchor" href="pdo.rollback.php.html#100847"> &para;</a><div class="date" title="2010-11-10 01:30"><strong>13 years ago</strong></div>
+  <div class="text" id="Hcom100847">
+<div class="phpcode"><code><span class="html">Should anyone reading this be slightly panicked because they just discovered that their MySQL  tables are MyIsam and not InnoDb, don't worry... You can very easily change the storage engine using the following query: <br /><br />ALTER TABLE your_table_name ENGINE = innodb;</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="75431">  <div class="votes">
+    <div id="Vu75431">
+    <a href="https://www.php.net/manual/vote-note.php?id=75431&amp;page=pdo.rollback&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd75431">
+    <a href="https://www.php.net/manual/vote-note.php?id=75431&amp;page=pdo.rollback&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V75431" title="38% like this...">
+    -6
+    </div>
+  </div>
+  <a href="pdo.rollback.php.html#75431" class="name">
+  <strong class="user"><em>linfo2003 at libero dot it</em></strong></a><a class="genanchor" href="pdo.rollback.php.html#75431"> &para;</a><div class="date" title="2007-05-29 07:07"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom75431">
+<div class="phpcode"><code><span class="html">Since "It is an error to call this method if no transaction is active", it could be useful (even if not indispensable) to have a method which returns true if a transaction is active.<br /><br />try {<br />    $dbh-&gt;beginTransaction();<br />    ...<br />} catch (PDOException $e) {<br />    if ($dbh-&gt;isTransactionActive())  // this function does NOT exist<br />        $dbh-&gt;rollBack();<br />    ...<br />}<br /><br />In the meanwhile, I'm using this code:<br /><br />    ...<br />} catch (PDOException $e) {<br />    try { $dbh-&gt;rollBack(); } catch (Exception $e2) {}<br />    ...<br />}<br /><br />It's not so chic, but it works fine.</span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=pdo.rollback&amp;redirect=https://www.php.net/manual/ru/pdo.rollback.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="class.pdo.php.html">PDO</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="pdo.begintransaction.php.html" title="beginTransaction">beginTransaction</a>
+                        </li>
+                                                <li class="">
+                            <a href="pdo.commit.php.html" title="commit">commit</a>
+                        </li>
+                                                <li class="">
+                            <a href="pdo.construct.php.html" title="_&#8203;_&#8203;construct">_&#8203;_&#8203;construct</a>
+                        </li>
+                                                <li class="">
+                            <a href="pdo.errorcode.php.html" title="errorCode">errorCode</a>
+                        </li>
+                                                <li class="">
+                            <a href="pdo.errorinfo.php.html" title="errorInfo">errorInfo</a>
+                        </li>
+                                                <li class="">
+                            <a href="pdo.exec.php.html" title="exec">exec</a>
+                        </li>
+                                                <li class="">
+                            <a href="pdo.getattribute.php.html" title="getAttribute">getAttribute</a>
+                        </li>
+                                                <li class="">
+                            <a href="pdo.getavailabledrivers.php.html" title="getAvailableDrivers">getAvailableDrivers</a>
+                        </li>
+                                                <li class="">
+                            <a href="pdo.intransaction.php.html" title="inTransaction">inTransaction</a>
+                        </li>
+                                                <li class="">
+                            <a href="pdo.lastinsertid.php.html" title="lastInsertId">lastInsertId</a>
+                        </li>
+                                                <li class="">
+                            <a href="pdo.prepare.php.html" title="prepare">prepare</a>
+                        </li>
+                                                <li class="">
+                            <a href="pdo.query.php.html" title="query">query</a>
+                        </li>
+                                                <li class="">
+                            <a href="pdo.quote.php.html" title="quote">quote</a>
+                        </li>
+                                                <li class="current">
+                            <a href="pdo.rollback.php.html" title="rollBack">rollBack</a>
+                        </li>
+                                                <li class="">
+                            <a href="pdo.setattribute.php.html" title="setAttribute">setAttribute</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

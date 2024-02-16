@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: MongoDB\Driver\Monitoring - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="mongodb.monitoring.php.html">
+ <link rel="shorturl" href="mongodb.monitoring.php.html">
+ <link rel="alternate" href="mongodb.monitoring.php.html" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="set.mongodb.php.html">
+ <link rel="prev" href="mongodb-bson-undefined.unserialize.php.html">
+ <link rel="next" href="ref.monitoring.functions.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/mongodb.monitoring.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/mongodb.monitoring.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/mongodb.monitoring.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/mongodb.monitoring.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/mongodb.monitoring.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/mongodb.monitoring.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/mongodb.monitoring.php" hreflang="pt_BR">
+ <link rel="alternate" href="mongodb.monitoring.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/mongodb.monitoring.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/mongodb.monitoring.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="ref.monitoring.functions.php.html">
+          Функции &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="mongodb-bson-undefined.unserialize.php.html">
+          &laquo; MongoDB\BSON\Undefined::unserialize        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.database.php.html'>Модули для работы с базами данных</a></li>      <li><a href='refs.database.vendors.php.html'>Модули для работы с базами данных отдельных производителей</a></li>      <li><a href='set.mongodb.php.html'>MongoDB</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/mongodb.monitoring.php'>English</option>
+            <option value='de/mongodb.monitoring.php'>German</option>
+            <option value='es/mongodb.monitoring.php'>Spanish</option>
+            <option value='fr/mongodb.monitoring.php'>French</option>
+            <option value='it/mongodb.monitoring.php'>Italian</option>
+            <option value='ja/mongodb.monitoring.php'>Japanese</option>
+            <option value='pt_BR/mongodb.monitoring.php'>Brazilian Portuguese</option>
+            <option value='ru/mongodb.monitoring.php' selected="selected">Russian</option>
+            <option value='tr/mongodb.monitoring.php'>Turkish</option>
+            <option value='zh/mongodb.monitoring.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/mongodb/monitoring.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Fmongodb.monitoring%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="mongodb.monitoring" class="book">
+ <h1 class="title">Классы мониторинга и функции подписчика</h1>
+ 
+
+ 
+
+ 
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+
+<ul class="chunklist chunklist_book"><li><a href="ref.monitoring.functions.php.html">Функции</a><ul class="chunklist chunklist_book chunklist_children"><li><a href="function.mongodb.driver.monitoring.addsubscriber.php.html">MongoDB\Driver\Monitoring\addSubscriber</a> — Глобальная регистрация подписчика на событие мониторинга</li><li><a href="function.mongodb.driver.monitoring.removesubscriber.php.html">MongoDB\Driver\Monitoring\removeSubscriber</a> — Отменяет глобальную регистрацию подписчика на событие мониторинга</li></ul></li><li><a href="class.mongodb-driver-monitoring-commandfailedevent.php.html">MongoDB\Driver\Monitoring\CommandFailedEvent</a> — Класс MongoDB\Driver\Monitoring\CommandFailedEvent<ul class="chunklist chunklist_book chunklist_children"><li><a href="mongodb-driver-monitoring-commandfailedevent.getcommandname.php.html">MongoDB\Driver\Monitoring\CommandFailedEvent::getCommandName</a> — Возвращает имя команды</li><li><a href="mongodb-driver-monitoring-commandfailedevent.getdurationmicros.php.html">MongoDB\Driver\Monitoring\CommandFailedEvent::getDurationMicros</a> — Возвращает длительность команды в микросекундах</li><li><a href="mongodb-driver-monitoring-commandfailedevent.geterror.php.html">MongoDB\Driver\Monitoring\CommandFailedEvent::getError</a> — Возвращает исключение, связанное с неудачной командой</li><li><a href="mongodb-driver-monitoring-commandfailedevent.getoperationid.php.html">MongoDB\Driver\Monitoring\CommandFailedEvent::getOperationId</a> — Возвращает идентификатор операции команды</li><li><a href="mongodb-driver-monitoring-commandfailedevent.getreply.php.html">MongoDB\Driver\Monitoring\CommandFailedEvent::getReply</a> — Возвращает документ ответа команды</li><li><a href="mongodb-driver-monitoring-commandfailedevent.getrequestid.php.html">MongoDB\Driver\Monitoring\CommandFailedEvent::getRequestId</a> — Возвращает идентификатор запроса команды</li><li><a href="mongodb-driver-monitoring-commandfailedevent.getserver.php.html">MongoDB\Driver\Monitoring\CommandFailedEvent::getServer</a> — Возвращает сервер, на котором была выполнена команда</li><li><a href="mongodb-driver-monitoring-commandfailedevent.getserverconnectionid.php.html">MongoDB\Driver\Monitoring\CommandFailedEvent::getServerConnectionId</a> — Возвращает идентификатор соединения с сервером для команды</li><li><a href="mongodb-driver-monitoring-commandfailedevent.getserviceid.php.html">MongoDB\Driver\Monitoring\CommandFailedEvent::getServiceId</a> — Возвращает идентификатор службы балансировщика нагрузки для команды</li></ul></li><li><a href="class.mongodb-driver-monitoring-commandstartedevent.php.html">MongoDB\Driver\Monitoring\CommandStartedEvent</a> — Класс MongoDB\Driver\Monitoring\CommandStartedEvent<ul class="chunklist chunklist_book chunklist_children"><li><a href="mongodb-driver-monitoring-commandstartedevent.getcommand.php.html">MongoDB\Driver\Monitoring\CommandStartedEvent::getCommand</a> — Возвращает документ команды</li><li><a href="mongodb-driver-monitoring-commandstartedevent.getcommandname.php.html">MongoDB\Driver\Monitoring\CommandStartedEvent::getCommandName</a> — Возвращает имя команды</li><li><a href="mongodb-driver-monitoring-commandstartedevent.getdatabasename.php.html">MongoDB\Driver\Monitoring\CommandStartedEvent::getDatabaseName</a> — Возвращает базу данных, на которой выполнялась команда</li><li><a href="mongodb-driver-monitoring-commandstartedevent.getoperationid.php.html">MongoDB\Driver\Monitoring\CommandStartedEvent::getOperationId</a> — Возвращает идентификатор операции команды</li><li><a href="mongodb-driver-monitoring-commandstartedevent.getrequestid.php.html">MongoDB\Driver\Monitoring\CommandStartedEvent::getRequestId</a> — Возвращает идентификатор запроса команды</li><li><a href="mongodb-driver-monitoring-commandstartedevent.getserver.php.html">MongoDB\Driver\Monitoring\CommandStartedEvent::getServer</a> — Возвращает сервер, на котором была выполнена команда</li><li><a href="mongodb-driver-monitoring-commandstartedevent.getserverconnectionid.php.html">MongoDB\Driver\Monitoring\CommandStartedEvent::getServerConnectionId</a> — Возвращает идентификатор соединения с сервером для команды</li><li><a href="mongodb-driver-monitoring-commandstartedevent.getserviceid.php.html">MongoDB\Driver\Monitoring\CommandStartedEvent::getServiceId</a> — Возвращает идентификатор службы балансировщика нагрузки для команды</li></ul></li><li><a href="class.mongodb-driver-monitoring-commandsucceededevent.php.html">MongoDB\Driver\Monitoring\CommandSucceededEvent</a> — Класс MongoDB\Driver\Monitoring\CommandSucceededEvent<ul class="chunklist chunklist_book chunklist_children"><li><a href="mongodb-driver-monitoring-commandsucceededevent.getcommandname.php.html">MongoDB\Driver\Monitoring\CommandSucceededEvent::getCommandName</a> — Возвращает имя команды</li><li><a href="mongodb-driver-monitoring-commandsucceededevent.getdurationmicros.php.html">MongoDB\Driver\Monitoring\CommandSucceededEvent::getDurationMicros</a> — Возвращает длительность команды в микросекундах</li><li><a href="mongodb-driver-monitoring-commandsucceededevent.getoperationid.php.html">MongoDB\Driver\Monitoring\CommandSucceededEvent::getOperationId</a> — Возвращает идентификатор операции команды</li><li><a href="mongodb-driver-monitoring-commandsucceededevent.getreply.php.html">MongoDB\Driver\Monitoring\CommandSucceededEvent::getReply</a> — Возвращает документ ответа команды</li><li><a href="mongodb-driver-monitoring-commandsucceededevent.getrequestid.php.html">MongoDB\Driver\Monitoring\CommandSucceededEvent::getRequestId</a> — Возвращает идентификатор запроса команды</li><li><a href="mongodb-driver-monitoring-commandsucceededevent.getserver.php.html">MongoDB\Driver\Monitoring\CommandSucceededEvent::getServer</a> — Возвращает сервер, на котором была выполнена команда</li><li><a href="mongodb-driver-monitoring-commandsucceededevent.getserverconnectionid.php.html">MongoDB\Driver\Monitoring\CommandSucceededEvent::getServerConnectionId</a> — Возвращает идентификатор соединения с сервером для команды</li><li><a href="mongodb-driver-monitoring-commandsucceededevent.getserviceid.php.html">MongoDB\Driver\Monitoring\CommandSucceededEvent::getServiceId</a> — Возвращает идентификатор службы балансировщика нагрузки для команды</li></ul></li><li><a href="class.mongodb-driver-monitoring-serverchangedevent.php.html">MongoDB\Driver\Monitoring\ServerChangedEvent</a> — Класс MongoDB\Driver\Monitoring\ServerChangedEvent<ul class="chunklist chunklist_book chunklist_children"><li><a href="mongodb-driver-monitoring-serverchangedevent.gethost.php.html">MongoDB\Driver\Monitoring\ServerChangedEvent::getHost</a> — Возвращает имя хоста сервера</li><li><a href="mongodb-driver-monitoring-serverchangedevent.getnewdescription.php.html">MongoDB\Driver\Monitoring\ServerChangedEvent::getNewDescription</a> — Возвращает новое описание сервера</li><li><a href="mongodb-driver-monitoring-serverchangedevent.getport.php.html">MongoDB\Driver\Monitoring\ServerChangedEvent::getPort</a> — Возвращает порт, на котором прослушивается сервер</li><li><a href="mongodb-driver-monitoring-serverchangedevent.getpreviousdescription.php.html">MongoDB\Driver\Monitoring\ServerChangedEvent::getPreviousDescription</a> — Возвращает предыдущее описание сервера</li><li><a href="mongodb-driver-monitoring-serverchangedevent.gettopologyid.php.html">MongoDB\Driver\Monitoring\ServerChangedEvent::getTopologyId</a> — Возвращает идентификатор топологии, связанный с этим сервером</li></ul></li><li><a href="class.mongodb-driver-monitoring-serverclosedevent.php.html">MongoDB\Driver\Monitoring\ServerClosedEvent</a> — Класс MongoDB\Driver\Monitoring\ServerClosedEvent<ul class="chunklist chunklist_book chunklist_children"><li><a href="mongodb-driver-monitoring-serverclosedevent.gethost.php.html">MongoDB\Driver\Monitoring\ServerClosedEvent::getHost</a> — Возвращает имя хоста сервера</li><li><a href="mongodb-driver-monitoring-serverclosedevent.getport.php.html">MongoDB\Driver\Monitoring\ServerClosedEvent::getPort</a> — Возвращает порт, на котором прослушивается сервер</li><li><a href="mongodb-driver-monitoring-serverclosedevent.gettopologyid.php.html">MongoDB\Driver\Monitoring\ServerClosedEvent::getTopologyId</a> — Возвращает идентификатор топологии, связанный с этим сервером</li></ul></li><li><a href="class.mongodb-driver-monitoring-serveropeningevent.php.html">MongoDB\Driver\Monitoring\ServerOpeningEvent</a> — Класс MongoDB\Driver\Monitoring\ServerOpeningEvent<ul class="chunklist chunklist_book chunklist_children"><li><a href="mongodb-driver-monitoring-serveropeningevent.gethost.php.html">MongoDB\Driver\Monitoring\ServerOpeningEvent::getHost</a> — Возвращает имя хоста сервера</li><li><a href="mongodb-driver-monitoring-serveropeningevent.getport.php.html">MongoDB\Driver\Monitoring\ServerOpeningEvent::getPort</a> — Возвращает порт, на котором прослушивается сервер</li><li><a href="mongodb-driver-monitoring-serveropeningevent.gettopologyid.php.html">MongoDB\Driver\Monitoring\ServerOpeningEvent::getTopologyId</a> — Returns the topology ID associated with this server</li></ul></li><li><a href="class.mongodb-driver-monitoring-serverheartbeatfailedevent.php.html">MongoDB\Driver\Monitoring\ServerHeartbeatFailedEvent</a> — Класс MongoDB\Driver\Monitoring\ServerHeartbeatFailedEvent<ul class="chunklist chunklist_book chunklist_children"><li><a href="mongodb-driver-monitoring-serverheartbeatfailedevent.getdurationmicros.php.html">MongoDB\Driver\Monitoring\ServerHeartbeatFailedEvent::getDurationMicros</a> — Возвращает продолжительность heartbeat в микросекундах</li><li><a href="mongodb-driver-monitoring-serverheartbeatfailedevent.geterror.php.html">MongoDB\Driver\Monitoring\ServerHeartbeatFailedEvent::getError</a> — Возвращает исключение, связанное с неудачным выполнением heartbeat</li><li><a href="mongodb-driver-monitoring-serverheartbeatfailedevent.gethost.php.html">MongoDB\Driver\Monitoring\ServerHeartbeatFailedEvent::getHost</a> — Возвращает имя хоста сервера</li><li><a href="mongodb-driver-monitoring-serverheartbeatfailedevent.getport.php.html">MongoDB\Driver\Monitoring\ServerHeartbeatFailedEvent::getPort</a> — Возвращает порт, на котором прослушивается сервер</li><li><a href="mongodb-driver-monitoring-serverheartbeatfailedevent.isawaited.php.html">MongoDB\Driver\Monitoring\ServerHeartbeatFailedEvent::isAwaited</a> — Возвращает, использовался ли в heartbeat потоковый протокол</li></ul></li><li><a href="class.mongodb-driver-monitoring-serverheartbeatstartedevent.php.html">MongoDB\Driver\Monitoring\ServerHeartbeatStartedEvent</a> — Класс MongoDB\Driver\Monitoring\ServerHeartbeatStartedEvent<ul class="chunklist chunklist_book chunklist_children"><li><a href="mongodb-driver-monitoring-serverheartbeatstartedevent.gethost.php.html">MongoDB\Driver\Monitoring\ServerHeartbeatStartedEvent::getHost</a> — Возвращает имя хоста сервера</li><li><a href="mongodb-driver-monitoring-serverheartbeatstartedevent.getport.php.html">MongoDB\Driver\Monitoring\ServerHeartbeatStartedEvent::getPort</a> — Возвращает порт, на котором прослушивается сервер</li><li><a href="mongodb-driver-monitoring-serverheartbeatstartedevent.isawaited.php.html">MongoDB\Driver\Monitoring\ServerHeartbeatStartedEvent::isAwaited</a> — Возвращает, использовался ли в heartbeat потоковый протокол</li></ul></li><li><a href="class.mongodb-driver-monitoring-serverheartbeatsucceededevent.php.html">MongoDB\Driver\Monitoring\ServerHeartbeatSucceededEvent</a> — Класс MongoDB\Driver\Monitoring\ServerHeartbeatSucceededEvent<ul class="chunklist chunklist_book chunklist_children"><li><a href="mongodb-driver-monitoring-serverheartbeatsucceededevent.getdurationmicros.php.html">MongoDB\Driver\Monitoring\ServerHeartbeatSucceededEvent::getDurationMicros</a> — Возвращает продолжительность heartbeat в микросекундах</li><li><a href="mongodb-driver-monitoring-serverheartbeatsucceededevent.gethost.php.html">MongoDB\Driver\Monitoring\ServerHeartbeatSucceededEvent::getHost</a> — Возвращает имя хоста сервера</li><li><a href="mongodb-driver-monitoring-serverheartbeatsucceededevent.getport.php.html">MongoDB\Driver\Monitoring\ServerHeartbeatSucceededEvent::getPort</a> — Возвращает порт, на котором прослушивается сервер</li><li><a href="mongodb-driver-monitoring-serverheartbeatsucceededevent.getreply.php.html">MongoDB\Driver\Monitoring\ServerHeartbeatSucceededEvent::getReply</a> — Возвращает документ ответа heartbeat</li><li><a href="mongodb-driver-monitoring-serverheartbeatsucceededevent.isawaited.php.html">MongoDB\Driver\Monitoring\ServerHeartbeatSucceededEvent::isAwaited</a> — Возвращает, использовался ли в heartbeat потоковый протокол</li></ul></li><li><a href="class.mongodb-driver-monitoring-topologychangedevent.php.html">MongoDB\Driver\Monitoring\TopologyChangedEvent</a> — Класс MongoDB\Driver\Monitoring\TopologyChangedEvent<ul class="chunklist chunklist_book chunklist_children"><li><a href="mongodb-driver-monitoring-topologychangedevent.getnewdescription.php.html">MongoDB\Driver\Monitoring\TopologyChangedEvent::getNewDescription</a> — Возвращает новое описание топологии</li><li><a href="mongodb-driver-monitoring-topologychangedevent.getpreviousdescription.php.html">MongoDB\Driver\Monitoring\TopologyChangedEvent::getPreviousDescription</a> — Возвращает предыдущее описание топологии</li><li><a href="mongodb-driver-monitoring-topologychangedevent.gettopologyid.php.html">MongoDB\Driver\Monitoring\TopologyChangedEvent::getTopologyId</a> — Возвращает идентификатор топологии</li></ul></li><li><a href="class.mongodb-driver-monitoring-topologyclosedevent.php.html">MongoDB\Driver\Monitoring\TopologyClosedEvent</a> — Класс MongoDB\Driver\Monitoring\TopologyClosedEvent<ul class="chunklist chunklist_book chunklist_children"><li><a href="mongodb-driver-monitoring-topologyclosedevent.gettopologyid.php.html">MongoDB\Driver\Monitoring\TopologyClosedEvent::getTopologyId</a> — Возвращает идентификатор топологии</li></ul></li><li><a href="class.mongodb-driver-monitoring-topologyopeningevent.php.html">MongoDB\Driver\Monitoring\TopologyOpeningEvent</a> — Класс MongoDB\Driver\Monitoring\TopologyOpeningEvent<ul class="chunklist chunklist_book chunklist_children"><li><a href="mongodb-driver-monitoring-topologyopeningevent.gettopologyid.php.html">MongoDB\Driver\Monitoring\TopologyOpeningEvent::getTopologyId</a> — Возвращает идентификатор топологии</li></ul></li><li><a href="class.mongodb-driver-monitoring-commandsubscriber.php.html">MongoDB\Driver\Monitoring\CommandSubscriber</a> — Интерфейс The MongoDB\Driver\Monitoring\CommandSubscriber<ul class="chunklist chunklist_book chunklist_children"><li><a href="mongodb-driver-monitoring-commandsubscriber.commandfailed.php.html">MongoDB\Driver\Monitoring\CommandSubscriber::commandFailed</a> — Метод уведомления о неудачной команде</li><li><a href="mongodb-driver-monitoring-commandsubscriber.commandstarted.php.html">MongoDB\Driver\Monitoring\CommandSubscriber::commandStarted</a> — Метод уведомления о запущенной команде</li><li><a href="mongodb-driver-monitoring-commandsubscriber.commandsucceeded.php.html">MongoDB\Driver\Monitoring\CommandSubscriber::commandSucceeded</a> — Метод уведомления об успешной команде</li></ul></li><li><a href="class.mongodb-driver-monitoring-logsubscriber.php.html">MongoDB\Driver\Monitoring\LogSubscriber</a> — Интерфейс MongoDB\Driver\Monitoring\LogSubscriber<ul class="chunklist chunklist_book chunklist_children"><li><a href="mongodb-driver-monitoring-logsubscriber.log.php.html">MongoDB\Driver\Monitoring\LogSubscriber::log</a> — Метод уведомления для сообщения журнала</li></ul></li><li><a href="class.mongodb-driver-monitoring-sdamsubscriber.php.html">MongoDB\Driver\Monitoring\SDAMSubscriber</a> — Интерфейс MongoDB\Driver\Monitoring\SDAMSubscriber<ul class="chunklist chunklist_book chunklist_children"><li><a href="mongodb-driver-monitoring-sdamsubscriber.serverchanged.php.html">MongoDB\Driver\Monitoring\SDAMSubscriber::serverChanged</a> — Метод уведомления об изменении описания сервера</li><li><a href="mongodb-driver-monitoring-sdamsubscriber.serverclosed.php.html">MongoDB\Driver\Monitoring\SDAMSubscriber::serverClosed</a> — Метод уведомления о закрытии сервера</li><li><a href="mongodb-driver-monitoring-sdamsubscriber.serverheartbeatfailed.php.html">MongoDB\Driver\Monitoring\SDAMSubscriber::serverHeartbeatFailed</a> — Метод уведомления о неудачном heartbeat сервера</li><li><a href="mongodb-driver-monitoring-sdamsubscriber.serverheartbeatstarted.php.html">MongoDB\Driver\Monitoring\SDAMSubscriber::serverHeartbeatStarted</a> — Метод уведомления о запущенном heartbeat сервера</li><li><a href="mongodb-driver-monitoring-sdamsubscriber.serverheartbeatsucceeded.php.html">MongoDB\Driver\Monitoring\SDAMSubscriber::serverHeartbeatSucceeded</a> — Метод уведомления об успешном heartbeat сервера</li><li><a href="mongodb-driver-monitoring-sdamsubscriber.serveropening.php.html">MongoDB\Driver\Monitoring\SDAMSubscriber::serverOpening</a> — Метод уведомления об открытии сервера</li><li><a href="mongodb-driver-monitoring-sdamsubscriber.topologychanged.php.html">MongoDB\Driver\Monitoring\SDAMSubscriber::topologyChanged</a> — Метод уведомления об изменении описания топологии</li><li><a href="mongodb-driver-monitoring-sdamsubscriber.topologyclosed.php.html">MongoDB\Driver\Monitoring\SDAMSubscriber::topologyClosed</a> — Метод уведомления о закрытии топологии</li><li><a href="mongodb-driver-monitoring-sdamsubscriber.topologyopening.php.html">MongoDB\Driver\Monitoring\SDAMSubscriber::topologyOpening</a> — Метод уведомления об открытии топологии</li></ul></li><li><a href="class.mongodb-driver-monitoring-subscriber.php.html">MongoDB\Driver\Monitoring\Subscriber</a> — Интерфейс MongoDB\Driver\Monitoring\Subscriber</li></ul></div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=mongodb.monitoring&amp;redirect=https://www.php.net/manual/ru/mongodb.monitoring.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes </h3>
+ </div>
+ <div class="note">There are no user contributed notes for this page.</div></section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="set.mongodb.php.html">MongoDB</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="mongodb.setup.php.html" title="Установка и настройка">Установка и настройка</a>
+                        </li>
+                                                <li class="">
+                            <a href="mongodb.tutorial.php.html" title="Обучающие материалы">Обучающие материалы</a>
+                        </li>
+                                                <li class="">
+                            <a href="mongodb.architecture.php.html" title="Архитектура и внутреннее устройство драйвера">Архитектура и внутреннее устройство драйвера</a>
+                        </li>
+                                                <li class="">
+                            <a href="mongodb.security.php.html" title="Безопасность">Безопасность</a>
+                        </li>
+                                                <li class="">
+                            <a href="book.mongodb.php.html" title="MongoDB\Driver">MongoDB\Driver</a>
+                        </li>
+                                                <li class="">
+                            <a href="book.bson.php.html" title="MongoDB\BSON">MongoDB\BSON</a>
+                        </li>
+                                                <li class="current">
+                            <a href="mongodb.monitoring.php.html" title="MongoDB\Driver\Monitoring">MongoDB\Driver\Monitoring</a>
+                        </li>
+                                                <li class="">
+                            <a href="mongodb.exceptions.php.html" title="MongoDB\Driver\Exception">MongoDB\Driver\Exception</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

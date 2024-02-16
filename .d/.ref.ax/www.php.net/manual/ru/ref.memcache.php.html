@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: Функции Memcache - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="ref.memcache.php.html">
+ <link rel="shorturl" href="https://www.php.net/memcache">
+ <link rel="alternate" href="https://www.php.net/memcache" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="book.memcache.php.html">
+ <link rel="prev" href="memcache.setserverparams.php.html">
+ <link rel="next" href="function.memcache-debug.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/ref.memcache.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/ref.memcache.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/ref.memcache.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/ref.memcache.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/ref.memcache.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/ref.memcache.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/ref.memcache.php" hreflang="pt_BR">
+ <link rel="alternate" href="ref.memcache.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/ref.memcache.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/ref.memcache.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="function.memcache-debug.php.html">
+          memcache_debug &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="memcache.setserverparams.php.html">
+          &laquo; Memcache::setServerParams        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.remote.other.php.html'>Другие службы</a></li>      <li><a href='book.memcache.php.html'>Memcache</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/ref.memcache.php'>English</option>
+            <option value='de/ref.memcache.php'>German</option>
+            <option value='es/ref.memcache.php'>Spanish</option>
+            <option value='fr/ref.memcache.php'>French</option>
+            <option value='it/ref.memcache.php'>Italian</option>
+            <option value='ja/ref.memcache.php'>Japanese</option>
+            <option value='pt_BR/ref.memcache.php'>Brazilian Portuguese</option>
+            <option value='ru/ref.memcache.php' selected="selected">Russian</option>
+            <option value='tr/ref.memcache.php'>Turkish</option>
+            <option value='zh/ref.memcache.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/memcache/reference.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Fref.memcache%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="ref.memcache" class="reference">
+ <h1 class="title">Функции Memcache</h1>
+ 
+
+
+
+
+
+
+
+<h2>Содержание</h2><ul class="chunklist chunklist_reference"><li><a href="function.memcache-debug.php.html">memcache_debug</a> — Включить/выключить вывод отладочной информации</li></ul>
+</div>
+<section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=ref.memcache&amp;redirect=https://www.php.net/manual/ru/ref.memcache.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">13 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="70760">  <div class="votes">
+    <div id="Vu70760">
+    <a href="https://www.php.net/manual/vote-note.php?id=70760&amp;page=ref.memcache&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd70760">
+    <a href="https://www.php.net/manual/vote-note.php?id=70760&amp;page=ref.memcache&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V70760" title="71% like this...">
+    3
+    </div>
+  </div>
+  <a href="ref.memcache.php.html#70760" class="name">
+  <strong class="user"><em>ed at me3inc dot com</em></strong></a><a class="genanchor" href="ref.memcache.php.html#70760"> &para;</a><div class="date" title="2006-10-26 02:47"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom70760">
+<div class="phpcode"><code><span class="html">Re. Installing the memcache extension:<br /><br />I had all kinds of troubles getting it hooked up, because in all of the instructions I read I never got the last, most important step - you must have a php.ini and have in it "extension=memcache.so." <br /><br />So, the steps:<br />First - ./configure with --enable-memcache. This should show in your phpinfo() at the top (even though nothing of the memcache extension works yet).<br /><br />Second:<br />either pecl install memcache<br />OR<br />download the source<br />tar -xzvf [thesourcetarball]<br />phpize<br />./configure<br />make<br />make install<br /><br />Finally: Add extension=memcache.so to your php.ini. (If you don't have one, it should go in the root of where php is called ie., /usr/local/lib)<br /><br />Call phpinfo() and you should see a memcache section.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="78156">  <div class="votes">
+    <div id="Vu78156">
+    <a href="https://www.php.net/manual/vote-note.php?id=78156&amp;page=ref.memcache&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd78156">
+    <a href="https://www.php.net/manual/vote-note.php?id=78156&amp;page=ref.memcache&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V78156" title="66% like this...">
+    2
+    </div>
+  </div>
+  <a href="ref.memcache.php.html#78156" class="name">
+  <strong class="user"><em>mogmios at gmail dot com</em></strong></a><a class="genanchor" href="ref.memcache.php.html#78156"> &para;</a><div class="date" title="2007-09-30 09:03"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom78156">
+<div class="phpcode"><code><span class="html">When installing the memcache module for Apache/PHP with a non-standard location it seems like there is no way to define the location when configuring for build. You'll get an error complaining about being unable to find php_session.h. I modified configure to try the PREFIX location too and that seems to have worked fine.<br /><br />    if test -f "${prefix}/include/php/ext/session/php_session.h"; then<br />      session_inc_path="${prefix}/include/php"<br />    elif test -f "$abs_srcdir/include/php/ext/session/php_session.h"; then<br />      session_inc_path="$abs_srcdir/include/php"<br />    elif test -f "$abs_srcdir/ext/session/php_session.h"; then<br />      session_inc_path="$abs_srcdir"<br />    elif test -f "$phpincludedir/ext/session/php_session.h"; then<br />      session_inc_path="$phpincludedir"<br />    fi</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="94689">  <div class="votes">
+    <div id="Vu94689">
+    <a href="https://www.php.net/manual/vote-note.php?id=94689&amp;page=ref.memcache&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd94689">
+    <a href="https://www.php.net/manual/vote-note.php?id=94689&amp;page=ref.memcache&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V94689" title="66% like this...">
+    1
+    </div>
+  </div>
+  <a href="ref.memcache.php.html#94689" class="name">
+  <strong class="user"><em>dweller at devonweller dot com</em></strong></a><a class="genanchor" href="ref.memcache.php.html#94689"> &para;</a><div class="date" title="2009-11-18 09:02"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom94689">
+<div class="phpcode"><code><span class="html">In the memcache PECL extension version 2.2.5, the delete function does not work with memcached 1.4.3.  To work around this, here is a version of the memcache PECL extension with a patch provided by harv at pringo dot com applied:<br /><br /><a href="http://code.google.com/p/phpmemcachepatch/downloads/list" rel="nofollow" target="_blank">http://code.google.com/p/phpmemcachepatch/downloads/list</a><br /><br />To install: download <br /><br /><a href="http://phpmemcachepatch.googlecode.com/files/memcache-2.2.5b.tgz" rel="nofollow" target="_blank">http://phpmemcachepatch.googlecode.com/files/memcache-2.2.5b.tgz</a> <br /><br />and do:<br /><br />pecl install memcache-2.2.5b.tgz</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="60901">  <div class="votes">
+    <div id="Vu60901">
+    <a href="https://www.php.net/manual/vote-note.php?id=60901&amp;page=ref.memcache&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd60901">
+    <a href="https://www.php.net/manual/vote-note.php?id=60901&amp;page=ref.memcache&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V60901" title="100% like this...">
+    1
+    </div>
+  </div>
+  <a href="ref.memcache.php.html#60901" class="name">
+  <strong class="user"><em>iliya at pisem dot net</em></strong></a><a class="genanchor" href="ref.memcache.php.html#60901"> &para;</a><div class="date" title="2006-01-19 12:35"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom60901">
+<div class="phpcode"><code><span class="html">one more "intelligent" cache aggregator:<br /><a href="https://svn.shadanakar.org/onPHP/" rel="nofollow" target="_blank">https://svn.shadanakar.org/onPHP/</a> trunk/core/Cache/AggregateCache.class.php<br />can be used with several cache connectors - memcached, filesystem, etc.<br />(remove whitespace manually)</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="56765">  <div class="votes">
+    <div id="Vu56765">
+    <a href="https://www.php.net/manual/vote-note.php?id=56765&amp;page=ref.memcache&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd56765">
+    <a href="https://www.php.net/manual/vote-note.php?id=56765&amp;page=ref.memcache&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V56765" title="100% like this...">
+    1
+    </div>
+  </div>
+  <a href="ref.memcache.php.html#56765" class="name">
+  <strong class="user"><em>Ron</em></strong></a><a class="genanchor" href="ref.memcache.php.html#56765"> &para;</a><div class="date" title="2005-09-14 10:20"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom56765">
+<div class="phpcode"><code><span class="html">Here is a simple memcached aggregator class which distributes the cache among multiple cache servers.  If a server fails, the load is redistributed automatically.  It uses persistent connections.<br /><br />The constructor takes an array of arrays, with each inner array representing a server, with a 'server' (string) attribute that is the IP addres or host name of the memcached server, and a 'port' (int) attribute that is the port number on which memcached is running on the server.<br /><br />All of the existing memcached API functions are implemented except getStats() and getVersion(), which are server-specific.<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">class </span><span class="default">MemcachedAggregator </span><span class="keyword">{<br />    var </span><span class="default">$connections</span><span class="keyword">;<br /><br />    public function </span><span class="default">__construct</span><span class="keyword">(</span><span class="default">$servers</span><span class="keyword">) {<br />    </span><span class="comment">// Attempt to establish/retrieve persistent connections to all servers.<br />    // If any of them fail, they just don't get put into our list of active<br />    // connections.<br />    </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">connections </span><span class="keyword">= array();<br />    for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">, </span><span class="default">$n </span><span class="keyword">= </span><span class="default">count</span><span class="keyword">(</span><span class="default">$servers</span><span class="keyword">); </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">$n</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++) {<br />        </span><span class="default">$server </span><span class="keyword">= </span><span class="default">$servers</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">];<br />        </span><span class="default">$con </span><span class="keyword">= </span><span class="default">memcache_pconnect</span><span class="keyword">(</span><span class="default">$server</span><span class="keyword">[</span><span class="string">'host'</span><span class="keyword">], </span><span class="default">$server</span><span class="keyword">[</span><span class="string">'port'</span><span class="keyword">]);<br />        if (!(</span><span class="default">$con </span><span class="keyword">== </span><span class="default">false</span><span class="keyword">)) {<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">connections</span><span class="keyword">[] = </span><span class="default">$con</span><span class="keyword">;<br />        }<br />    }<br />    }<br /><br />    private function </span><span class="default">_getConForKey</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">) {<br />    </span><span class="default">$hashCode </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br />    for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">, </span><span class="default">$len </span><span class="keyword">= </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">); </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">$len</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++) {<br />        </span><span class="default">$hashCode </span><span class="keyword">= (int)((</span><span class="default">$hashCode</span><span class="keyword">*</span><span class="default">33</span><span class="keyword">)+</span><span class="default">ord</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">])) &amp; </span><span class="default">0x7fffffff</span><span class="keyword">;<br />    }<br />    if ((</span><span class="default">$ns </span><span class="keyword">= </span><span class="default">count</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">connections</span><span class="keyword">)) &gt; </span><span class="default">0</span><span class="keyword">) {<br />        return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">connections</span><span class="keyword">[</span><span class="default">$hashCode</span><span class="keyword">%</span><span class="default">$ns</span><span class="keyword">];<br />    }<br />    return </span><span class="default">false</span><span class="keyword">;<br />    }<br /><br />    public function </span><span class="default">debug</span><span class="keyword">(</span><span class="default">$on_off</span><span class="keyword">) {<br />    </span><span class="default">$result </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;<br />    for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">count</span><span class="keyword">(</span><span class="default">$connections</span><span class="keyword">); </span><span class="default">$i</span><span class="keyword">++) {<br />        if (</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">connections</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">]-&gt;</span><span class="default">debug</span><span class="keyword">(</span><span class="default">$on_off</span><span class="keyword">)) </span><span class="default">$result </span><span class="keyword">= </span><span class="default">true</span><span class="keyword">;<br />    }<br />    return </span><span class="default">$result</span><span class="keyword">;<br />    }<br /><br />    public function </span><span class="default">flush</span><span class="keyword">() {<br />    </span><span class="default">$result </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;<br />    for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">count</span><span class="keyword">(</span><span class="default">$connections</span><span class="keyword">); </span><span class="default">$i</span><span class="keyword">++) {<br />        if (</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">connections</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">]-&gt;</span><span class="default">flush</span><span class="keyword">()) </span><span class="default">$result </span><span class="keyword">= </span><span class="default">true</span><span class="keyword">;<br />    }<br />    return </span><span class="default">$result</span><span class="keyword">;<br />    }<br /><br /></span><span class="comment">/// The following are not implemented:<br />///getStats()<br />///getVersion()<br /><br />    </span><span class="keyword">public function </span><span class="default">get</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">) {<br />    if (</span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">)) {<br />        </span><span class="default">$dest </span><span class="keyword">= array();<br />        foreach (</span><span class="default">$key </span><span class="keyword">as </span><span class="default">$subkey</span><span class="keyword">) {<br />        </span><span class="default">$val </span><span class="keyword">= </span><span class="default">get</span><span class="keyword">(</span><span class="default">$subkey</span><span class="keyword">);<br />        if (!(</span><span class="default">$val </span><span class="keyword">=== </span><span class="default">false</span><span class="keyword">)) </span><span class="default">$dest</span><span class="keyword">[</span><span class="default">$subkey</span><span class="keyword">] = </span><span class="default">$val</span><span class="keyword">;<br />        }<br />        return </span><span class="default">$dest</span><span class="keyword">;<br />    } else {<br />        return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_getConForKey</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">)-&gt;</span><span class="default">get</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">);<br />    }<br />    }<br /><br />    public function </span><span class="default">set</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">, </span><span class="default">$var</span><span class="keyword">, </span><span class="default">$compress</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">, </span><span class="default">$expire</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">) {<br />    return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_getConForKey</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">)-&gt;</span><span class="default">set</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">, </span><span class="default">$var</span><span class="keyword">, </span><span class="default">$compress</span><span class="keyword">, </span><span class="default">$expire</span><span class="keyword">);<br />    }<br /><br />    public function </span><span class="default">add</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">, </span><span class="default">$var</span><span class="keyword">, </span><span class="default">$compress</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">, </span><span class="default">$expire</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">) {<br />    return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_getConForKey</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">)-&gt;</span><span class="default">add</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">, </span><span class="default">$var</span><span class="keyword">, </span><span class="default">$compress</span><span class="keyword">, </span><span class="default">$expire</span><span class="keyword">);<br />    }<br /><br />    public function </span><span class="default">replace</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">, </span><span class="default">$var</span><span class="keyword">, </span><span class="default">$compress</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">, </span><span class="default">$expire</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">) {<br />    return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_getConForKey</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">)-&gt;</span><span class="default">replace<br />        </span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">, </span><span class="default">$var</span><span class="keyword">, </span><span class="default">$compress</span><span class="keyword">, </span><span class="default">$expire</span><span class="keyword">);<br />    }<br /><br />    public function </span><span class="default">delete</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">, </span><span class="default">$timeout</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">) {<br />    return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_getConForKey</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">)-&gt;</span><span class="default">delete</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">, </span><span class="default">$timeout</span><span class="keyword">);<br />    }<br /><br />    public function </span><span class="default">increment</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">, </span><span class="default">$value</span><span class="keyword">=</span><span class="default">1</span><span class="keyword">) {<br />    return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_getConForKey</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">)-&gt;</span><span class="default">increment</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">, </span><span class="default">$value</span><span class="keyword">);<br />    }<br /><br />    public function </span><span class="default">decrement</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">, </span><span class="default">$value</span><span class="keyword">=</span><span class="default">1</span><span class="keyword">) {<br />    return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_getConForKey</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">)-&gt;</span><span class="default">decrement</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">, </span><span class="default">$value</span><span class="keyword">);<br />    }<br /><br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="81240">  <div class="votes">
+    <div id="Vu81240">
+    <a href="https://www.php.net/manual/vote-note.php?id=81240&amp;page=ref.memcache&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd81240">
+    <a href="https://www.php.net/manual/vote-note.php?id=81240&amp;page=ref.memcache&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V81240" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="ref.memcache.php.html#81240" class="name">
+  <strong class="user"><em>restlessmind at I dot gmail dot HATE dot com dot SPAM</em></strong></a><a class="genanchor" href="ref.memcache.php.html#81240"> &para;</a><div class="date" title="2008-02-19 01:50"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom81240">
+<div class="phpcode"><code><span class="html">If you are trying install this module for PHP 5.2 under Windows but it won't load on startup, make sure you have all your dependencies including the correct thread-safety build of PHP.<br /><br />For hours I tried to track down why I couldn't load php_memcache.dll, and finally used Dependency Walker (from <a href="http://www.dependencywalker.com" rel="nofollow" target="_blank">http://www.dependencywalker.com</a>) on the .dll file.  This made me realize that while I was using the version of PHP 5.2.5 that was non-thread safe, the .dll offered by pecl4win was expecting the thread safe version of PHP.  Once I rectified this, everything worked fine.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="77296">  <div class="votes">
+    <div id="Vu77296">
+    <a href="https://www.php.net/manual/vote-note.php?id=77296&amp;page=ref.memcache&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd77296">
+    <a href="https://www.php.net/manual/vote-note.php?id=77296&amp;page=ref.memcache&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V77296" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="ref.memcache.php.html#77296" class="name">
+  <strong class="user"><em>Colin Guthrie</em></strong></a><a class="genanchor" href="ref.memcache.php.html#77296"> &para;</a><div class="date" title="2007-08-23 02:57"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom77296">
+<div class="phpcode"><code><span class="html">I have noticed a bug/documentation error:<br /><br />The above docs say the following about the session.save_path arguement:<br />"Each url may contain parameters which are applied to that server, they are the same as for the Memcache::addServer() method. "<br /><br />addServer method's docs say:<br />"port<br /><br />    Point to the port where memcached is listening for connections. This parameter is optional and its default value is 11211. Set this parameter to 0 when using UNIX domain sockets. "<br /><br />However when specifying the save_path, I have found that with PHP 5.2.3 and memcache 2.1.2 that the port is a *required* part of the string.<br /><br />Hope that helps some people scratching their heads.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="72239">  <div class="votes">
+    <div id="Vu72239">
+    <a href="https://www.php.net/manual/vote-note.php?id=72239&amp;page=ref.memcache&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd72239">
+    <a href="https://www.php.net/manual/vote-note.php?id=72239&amp;page=ref.memcache&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V72239" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="ref.memcache.php.html#72239" class="name">
+  <strong class="user"><em>jcastromail at yahoo dot es</em></strong></a><a class="genanchor" href="ref.memcache.php.html#72239"> &para;</a><div class="date" title="2007-01-08 05:28"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom72239">
+<div class="phpcode"><code><span class="html">Hi there:<br /><br />For run memcached in a windows box: (tested with latest php,apache and memcache in xp sp2)<br /><br />a) download the php_memcache.dll it can be found in the pecl file.<br /><br />b) put the dll in the extension folder (c:/php/extension for example). You cannot miss this folder because they are filled with php*.dll files.  In some cases the extension folder used is the system32, a non-standard way to put dll but still works.<br /><br />c)configure the php.ini<br />; i put this like the latest extension<br />extension=php_memcache.dll<br /><br />; i'm not sure about this but don't hurts..<br />[Memcache]<br />memcache.allow_failover = 1 <br />memcache.max_failover_attempts=20 <br />memcache.chunk_size =8192<br />memcache.default_port = 11211<br /><br />d)This is important, memcached works with a EXTERNAL service. This service must be downloaded and installed prior to use the memcache.  I use:  <a href="http://jehiah.cz/projects/memcached-win32/" rel="nofollow" target="_blank">http://jehiah.cz/projects/memcached-win32/</a><br /><br />e)Remember to install the service and to start the service memcached.exe -d install for install and run services.msc for start the memcached service (or restart the system).<br /><br />f) check the firewall ports.<br /><br />Finally restart the apache/iis and runs some test. At least in phpinfo must show some info about the memcache.<br /><br />Final notes :The "awe" about memcache is not only can help for speed some process (or reduce the cpu use), also can be used like a global session for store a whole object also this "global session" is shared among all the users, like APPLICATION used in ASP.  So (for example) it's possible to do a user counter without needing of database or writing a file.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="74418">  <div class="votes">
+    <div id="Vu74418">
+    <a href="https://www.php.net/manual/vote-note.php?id=74418&amp;page=ref.memcache&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd74418">
+    <a href="https://www.php.net/manual/vote-note.php?id=74418&amp;page=ref.memcache&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V74418" title="0% like this...">
+    -1
+    </div>
+  </div>
+  <a href="ref.memcache.php.html#74418" class="name">
+  <strong class="user"><em>gil at squidoo dot com</em></strong></a><a class="genanchor" href="ref.memcache.php.html#74418"> &para;</a><div class="date" title="2007-04-10 02:45"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom74418">
+<div class="phpcode"><code><span class="html">There is a tiny bug in the Aggregator class when using the flush() function. The reference to $connections should be $this-&gt;connections.<br /><br />Change:<br /><br />public function flush() {<br />  $result = false;<br />  for ($i = 0; $i &lt; count($connections); $i++) {<br />    if ($this-&gt;connections[$i]-&gt;flush()) {<br />      $result = true;<br />    }<br />  }<br />  return $result;<br />}<br /><br />To:<br /><br />public function flush() {<br />  $result = false;<br />  for ($i = 0; $i &lt; count($this-&gt;connections); $i++) {<br />    if ($this-&gt;connections[$i]-&gt;flush()) {<br />      $result = true;<br />    }<br />  }<br />  return $result;<br />}</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="75997">  <div class="votes">
+    <div id="Vu75997">
+    <a href="https://www.php.net/manual/vote-note.php?id=75997&amp;page=ref.memcache&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd75997">
+    <a href="https://www.php.net/manual/vote-note.php?id=75997&amp;page=ref.memcache&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V75997" title="0% like this...">
+    -2
+    </div>
+  </div>
+  <a href="ref.memcache.php.html#75997" class="name">
+  <strong class="user"><em>markfrawley at gmail dot com</em></strong></a><a class="genanchor" href="ref.memcache.php.html#75997"> &para;</a><div class="date" title="2007-06-26 01:10"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom75997">
+<div class="phpcode"><code><span class="html">Here is a PHP4 backport of the above MemcacheAggregator class:<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">class </span><span class="default">MemcachedAggregator </span><span class="keyword">{<br />    var </span><span class="default">$connections</span><span class="keyword">;<br />    var </span><span class="default">$_servers</span><span class="keyword">;<br /><br />    function </span><span class="default">MemcachedAggregator</span><span class="keyword">(</span><span class="default">$servers</span><span class="keyword">) {<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_servers </span><span class="keyword">= </span><span class="default">$servers</span><span class="keyword">;<br />        </span><span class="comment">// Attempt to establish/retrieve persistent connections to all servers.<br />        // If any of them fail, they just don't get put into our list of active<br />        // connections.<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">connections </span><span class="keyword">= array();<br />        for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">, </span><span class="default">$n </span><span class="keyword">= </span><span class="default">count</span><span class="keyword">(</span><span class="default">$servers</span><span class="keyword">); </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">$n</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++) {<br />            </span><span class="default">$server </span><span class="keyword">= </span><span class="default">$servers</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">];<br />            </span><span class="default">$con </span><span class="keyword">= </span><span class="default">memcache_connect</span><span class="keyword">(</span><span class="default">$server</span><span class="keyword">[</span><span class="string">'host'</span><span class="keyword">]);<br />            </span><span class="comment">//memcache_debug(1); <br />            //$memcache = &amp;new Memcache;<br />            //$con = $memcache-&gt;connect($server['host']);<br />            </span><span class="keyword">if (!(</span><span class="default">$con </span><span class="keyword">== </span><span class="default">false</span><span class="keyword">)) {<br />                </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">connections</span><span class="keyword">[] = &amp;</span><span class="default">$con</span><span class="keyword">;<br />            }<br />            <br />        }<br />    }<br /><br />    function </span><span class="default">_getConForKey</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">) {<br />        </span><span class="default">$hashCode </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br />        for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">, </span><span class="default">$len </span><span class="keyword">= </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">); </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">$len</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++) {<br />            </span><span class="default">$hashCode </span><span class="keyword">= (int)((</span><span class="default">$hashCode</span><span class="keyword">*</span><span class="default">33</span><span class="keyword">)+</span><span class="default">ord</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">])) &amp; </span><span class="default">0x7fffffff</span><span class="keyword">;<br />        }<br />        if ((</span><span class="default">$ns </span><span class="keyword">= </span><span class="default">count</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">connections</span><span class="keyword">)) &gt; </span><span class="default">0</span><span class="keyword">) {<br />            return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">connections</span><span class="keyword">[</span><span class="default">$hashCode</span><span class="keyword">%</span><span class="default">$ns</span><span class="keyword">];<br />            </span><span class="comment">//return $this-&gt;connections[0];<br />        </span><span class="keyword">}<br />        return </span><span class="default">false</span><span class="keyword">;<br />    }<br /><br />    function </span><span class="default">debug</span><span class="keyword">(</span><span class="default">$on_off</span><span class="keyword">) {<br />        </span><span class="default">$result </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;<br />        for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">count</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">connections</span><span class="keyword">); </span><span class="default">$i</span><span class="keyword">++) {<br />            if (</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">connections</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">]-&gt;</span><span class="default">debug</span><span class="keyword">(</span><span class="default">$on_off</span><span class="keyword">)) </span><span class="default">$result </span><span class="keyword">= </span><span class="default">true</span><span class="keyword">;<br />        }<br />        return </span><span class="default">$result</span><span class="keyword">;<br />    }<br /><br />    function </span><span class="default">flush</span><span class="keyword">() {<br />        </span><span class="default">$result </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;<br />        for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">count</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">connections</span><span class="keyword">); </span><span class="default">$i</span><span class="keyword">++) {<br />            if (</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">connections</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">]-&gt;</span><span class="default">flush</span><span class="keyword">()) </span><span class="default">$result </span><span class="keyword">= </span><span class="default">true</span><span class="keyword">;<br />        }<br />        return </span><span class="default">$result</span><span class="keyword">;<br />    }<br /><br />    </span><span class="comment">/// The following are not implemented:<br />    ///getStats()<br />    ///getVersion()<br /><br />    </span><span class="keyword">function </span><span class="default">get</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">) {<br />        if (</span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">)) {<br />            </span><span class="default">$dest </span><span class="keyword">= array();<br />            foreach (</span><span class="default">$key </span><span class="keyword">as </span><span class="default">$subkey</span><span class="keyword">) {<br />            </span><span class="default">$val </span><span class="keyword">= </span><span class="default">get</span><span class="keyword">(</span><span class="default">$subkey</span><span class="keyword">);<br />            if (!(</span><span class="default">$val </span><span class="keyword">=== </span><span class="default">false</span><span class="keyword">)) </span><span class="default">$dest</span><span class="keyword">[</span><span class="default">$subkey</span><span class="keyword">] = </span><span class="default">$val</span><span class="keyword">;<br />            }<br />            return </span><span class="default">$dest</span><span class="keyword">;<br />        } else {<br />            </span><span class="default">$conn </span><span class="keyword">= &amp;</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_getConForKey</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">);<br />            return </span><span class="default">$conn</span><span class="keyword">-&gt;</span><span class="default">get</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">);<br />        }<br />    }<br /><br />    function </span><span class="default">set</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">, </span><span class="default">$var</span><span class="keyword">, </span><span class="default">$compress</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">, </span><span class="default">$expire</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">) {<br />        </span><span class="default">$conn </span><span class="keyword">= &amp;</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_getConForKey</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">);<br />        return </span><span class="default">$conn</span><span class="keyword">-&gt;</span><span class="default">set</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">, </span><span class="default">$var</span><span class="keyword">, </span><span class="default">$compress</span><span class="keyword">, </span><span class="default">$expire</span><span class="keyword">);<br />    }<br /><br />    function </span><span class="default">add</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">, </span><span class="default">$var</span><span class="keyword">, </span><span class="default">$compress</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">, </span><span class="default">$expire</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">) {<br />        </span><span class="default">$conn </span><span class="keyword">= &amp;</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_getConForKey</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">);<br />        return </span><span class="default">$conn</span><span class="keyword">-&gt;</span><span class="default">add</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">, </span><span class="default">$var</span><span class="keyword">, </span><span class="default">$compress</span><span class="keyword">, </span><span class="default">$expire</span><span class="keyword">);<br />    }<br /><br />    function </span><span class="default">replace</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">, </span><span class="default">$var</span><span class="keyword">, </span><span class="default">$compress</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">, </span><span class="default">$expire</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">) {<br />        </span><span class="default">$conn </span><span class="keyword">= &amp;</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_getConForKey</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">);<br />        return </span><span class="default">$conn</span><span class="keyword">-&gt;</span><span class="default">replace</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">, </span><span class="default">$var</span><span class="keyword">, </span><span class="default">$compress</span><span class="keyword">, </span><span class="default">$expire</span><span class="keyword">);<br />    }<br /><br />    function </span><span class="default">delete</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">, </span><span class="default">$timeout</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">) {<br />        </span><span class="default">$conn </span><span class="keyword">= &amp;</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_getConForKey</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">);<br />        return </span><span class="default">$conn</span><span class="keyword">-&gt;</span><span class="default">delete</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">, </span><span class="default">$timeout</span><span class="keyword">);<br />    }<br /><br />    function </span><span class="default">increment</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">, </span><span class="default">$value</span><span class="keyword">=</span><span class="default">1</span><span class="keyword">) {<br />        </span><span class="default">$conn </span><span class="keyword">= &amp;</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_getConForKey</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">);<br />        return </span><span class="default">$conn</span><span class="keyword">-&gt;</span><span class="default">increment</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">, </span><span class="default">$value</span><span class="keyword">);<br />    }<br /><br />    function </span><span class="default">decrement</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">, </span><span class="default">$value</span><span class="keyword">=</span><span class="default">1</span><span class="keyword">) {<br />        </span><span class="default">$conn </span><span class="keyword">= &amp;</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_getConForKey</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">);<br />        return </span><span class="default">$conn</span><span class="keyword">-&gt;</span><span class="default">decrement</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">, </span><span class="default">$value</span><span class="keyword">);<br />    }<br /><br />    function </span><span class="default">showStats</span><span class="keyword">(</span><span class="default">$server</span><span class="keyword">=</span><span class="default">null</span><span class="keyword">) {<br />        </span><span class="default">$stats_out </span><span class="keyword">= </span><span class="string">''</span><span class="keyword">;<br />        if(</span><span class="default">$server </span><span class="keyword">== </span><span class="default">null</span><span class="keyword">) {<br />            </span><span class="default">$i</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">;<br />            foreach(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">connections </span><span class="keyword">as </span><span class="default">$conn</span><span class="keyword">) {  <br />                </span><span class="default">$server </span><span class="keyword">= </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_servers</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">];<br />                </span><span class="default">$stats_array </span><span class="keyword">= </span><span class="default">memcache_get_stats</span><span class="keyword">(</span><span class="default">$conn</span><span class="keyword">);<br />                </span><span class="default">$stats_out </span><span class="keyword">.= </span><span class="string">"&lt;/br&gt;&lt;b&gt;Server: "</span><span class="keyword">.</span><span class="default">$server</span><span class="keyword">[</span><span class="string">'host'</span><span class="keyword">].</span><span class="string">": &lt;/b&gt;&lt;br/&gt;"</span><span class="keyword">;<br />                foreach(</span><span class="default">$stats_array </span><span class="keyword">as </span><span class="default">$key </span><span class="keyword">=&gt; </span><span class="default">$val</span><span class="keyword">) {<br />                    </span><span class="default">$stats_out </span><span class="keyword">.= </span><span class="string">"</span><span class="default">$key</span><span class="string"> =&gt; </span><span class="default">$val</span><span class="string"> &lt;br/&gt;"</span><span class="keyword">;<br />                }   <br />                </span><span class="default">$i</span><span class="keyword">++;<br />            }<br />        }<br />        return </span><span class="default">$stats_out</span><span class="keyword">;<br />    }    <br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="75232">  <div class="votes">
+    <div id="Vu75232">
+    <a href="https://www.php.net/manual/vote-note.php?id=75232&amp;page=ref.memcache&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd75232">
+    <a href="https://www.php.net/manual/vote-note.php?id=75232&amp;page=ref.memcache&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V75232" title="40% like this...">
+    -1
+    </div>
+  </div>
+  <a href="ref.memcache.php.html#75232" class="name">
+  <strong class="user"><em>moazzamk at gmail dot com</em></strong></a><a class="genanchor" href="ref.memcache.php.html#75232"> &para;</a><div class="date" title="2007-05-18 03:25"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom75232">
+<div class="phpcode"><code><span class="html">You can't call parent::__construct() in the constructor of your class if you are extending the memcache class. However, not running the constructor still initiates it and works fine. <br /><br /><span class="default">&lt;?php<br /><br /></span><span class="comment">// wrong<br /><br /></span><span class="keyword">class </span><span class="default">a </span><span class="keyword">extends </span><span class="default">Memcache </span><span class="keyword">{<br />  function </span><span class="default">__construct</span><span class="keyword">(</span><span class="default">$host</span><span class="keyword">, </span><span class="default">$port</span><span class="keyword">)<br />  {<br />    </span><span class="default">parent</span><span class="keyword">::</span><span class="default">__construct</span><span class="keyword">();<br />    </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">connect</span><span class="keyword">(</span><span class="default">$host</span><span class="keyword">, </span><span class="default">$port</span><span class="keyword">);<br />  }<br /><br /></span><span class="comment">//correct<br /></span><span class="keyword">class </span><span class="default">a </span><span class="keyword">extends </span><span class="default">Memcache </span><span class="keyword">{<br />  function </span><span class="default">__construct</span><span class="keyword">(</span><span class="default">$host</span><span class="keyword">, </span><span class="default">$port</span><span class="keyword">)<br />  {<br />    </span><span class="default">parent</span><span class="keyword">::</span><span class="default">__construct</span><span class="keyword">();<br />    </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">connect</span><span class="keyword">(</span><span class="default">$host</span><span class="keyword">, </span><span class="default">$port</span><span class="keyword">);<br />  }<br /><br /></span><span class="default">?&gt;<br /></span><br />I am guessing this applies to all native/PECL classes.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="56771">  <div class="votes">
+    <div id="Vu56771">
+    <a href="https://www.php.net/manual/vote-note.php?id=56771&amp;page=ref.memcache&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd56771">
+    <a href="https://www.php.net/manual/vote-note.php?id=56771&amp;page=ref.memcache&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V56771" title="0% like this...">
+    -2
+    </div>
+  </div>
+  <a href="ref.memcache.php.html#56771" class="name">
+  <strong class="user"><em>Ron</em></strong></a><a class="genanchor" href="ref.memcache.php.html#56771"> &para;</a><div class="date" title="2005-09-14 01:19"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom56771">
+<div class="phpcode"><code><span class="html">An improvement to the above:<br /><br />The above class will cause an error if all cache servers are down.  The preferred behavior is to just have a cache miss (or take no action in the case of write operations) and return false, so the app can run in non-cached mode if all cache servers are down.<br /><br />To make this happen, simply change the connection usage to look something like this in each affected function.  This code is for the get() function:<br /><br />        $con = $this-&gt;_getConForKey($key);<br />        if ($con === false) return false;<br />        return $con-&gt;get($key);<br /><br />Similarly, the affected code in the set() function would look like this:<br />    $con = $this-&gt;_getConForKey($key);<br />    if ($con === false) return false;<br />    return $con-&gt;set($key, $var, $compress, $expire);<br /><br />Modify each function accordingly, and if all of your cache servers are down, you can still function (although more slowly due to the 100% cache miss rate).</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="80747">  <div class="votes">
+    <div id="Vu80747">
+    <a href="https://www.php.net/manual/vote-note.php?id=80747&amp;page=ref.memcache&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd80747">
+    <a href="https://www.php.net/manual/vote-note.php?id=80747&amp;page=ref.memcache&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V80747" title="33% like this...">
+    -1
+    </div>
+  </div>
+  <a href="ref.memcache.php.html#80747" class="name">
+  <strong class="user"><em>contact at codeassembly dot com</em></strong></a><a class="genanchor" href="ref.memcache.php.html#80747"> &para;</a><div class="date" title="2008-01-30 06:28"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom80747">
+<div class="phpcode"><code><span class="html">Note that there is no way to have your own hashing mechanism, the best way to group a set of objects to a server is to manually select the server to use.<br /><br />I want to keep all objects for a certain user on the same server.<br /><br />user_54_description<br />user_54_info<br />user_54_comments<br />user_54_etc<br />.<br />.<br /><br />If I have all these objects on the same server I can get all data with only one call to memcache -&gt; get (get_multi), so this improves performance a lot.<br /><br />The way I do this is by hashing the User/Object id to to the number of servers.<br /><br /><span class="default">&lt;?php<br />$memcache_hosts </span><span class="keyword">= array<br />(<br /></span><span class="string">'192.168.1.1'</span><span class="keyword">,<br /></span><span class="string">'192.168.1.2'</span><span class="keyword">,<br /></span><span class="string">'192.168.1.3'</span><span class="keyword">,<br /></span><span class="string">'192.168.1.4'</span><span class="keyword">,<br /></span><span class="string">'192.168.1.5'</span><span class="keyword">,<br />);<br /><br /></span><span class="default">$server </span><span class="keyword">= </span><span class="default">$id </span><span class="keyword">% </span><span class="default">count</span><span class="keyword">(</span><span class="default">$memcache_hosts</span><span class="keyword">);<br /><br /></span><span class="default">$memcache </span><span class="keyword">= new </span><span class="default">Memcache</span><span class="keyword">;<br /></span><span class="default">$memcache</span><span class="keyword">-&gt;</span><span class="default">connect</span><span class="keyword">(</span><span class="default">$memcache_hosts</span><span class="keyword">[</span><span class="default">$server</span><span class="keyword">], </span><span class="default">11211</span><span class="keyword">);<br /><br /></span><span class="comment">//get or set your objects here<br /></span><span class="default">?&gt;<br /></span><br />You can leave other objects that you don't want to group to memcache extension to hash and select the appropiate server.</span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=ref.memcache&amp;redirect=https://www.php.net/manual/ru/ref.memcache.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="book.memcache.php.html">Memcache</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="intro.memcache.php.html" title="Введение">Введение</a>
+                        </li>
+                                                <li class="">
+                            <a href="memcache.setup.php.html" title="Установка и настройка">Установка и настройка</a>
+                        </li>
+                                                <li class="">
+                            <a href="memcache.constants.php.html" title="Предопределённые константы">Предопределённые константы</a>
+                        </li>
+                                                <li class="">
+                            <a href="memcache.examples.php.html" title="Примеры">Примеры</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.memcache.php.html" title="Memcache">Memcache</a>
+                        </li>
+                                                <li class="current">
+                            <a href="ref.memcache.php.html" title="Функции Memcache">Функции Memcache</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

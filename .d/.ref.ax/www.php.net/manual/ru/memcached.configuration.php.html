@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: Настройка во время выполнения - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="memcached.configuration.php.html">
+ <link rel="shorturl" href="memcached.configuration.php.html">
+ <link rel="alternate" href="memcached.configuration.php.html" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="memcached.setup.php.html">
+ <link rel="prev" href="memcached.installation.php.html">
+ <link rel="next" href="memcached.resources.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/memcached.configuration.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/memcached.configuration.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/memcached.configuration.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/memcached.configuration.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/memcached.configuration.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/memcached.configuration.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/memcached.configuration.php" hreflang="pt_BR">
+ <link rel="alternate" href="memcached.configuration.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/memcached.configuration.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/memcached.configuration.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="memcached.resources.php.html">
+          Типы ресурсов &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="memcached.installation.php.html">
+          &laquo; Установка        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.remote.other.php.html'>Другие службы</a></li>      <li><a href='book.memcached.php.html'>Memcached</a></li>      <li><a href='memcached.setup.php.html'>Установка и настройка</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/memcached.configuration.php'>English</option>
+            <option value='de/memcached.configuration.php'>German</option>
+            <option value='es/memcached.configuration.php'>Spanish</option>
+            <option value='fr/memcached.configuration.php'>French</option>
+            <option value='it/memcached.configuration.php'>Italian</option>
+            <option value='ja/memcached.configuration.php'>Japanese</option>
+            <option value='pt_BR/memcached.configuration.php'>Brazilian Portuguese</option>
+            <option value='ru/memcached.configuration.php' selected="selected">Russian</option>
+            <option value='tr/memcached.configuration.php'>Turkish</option>
+            <option value='zh/memcached.configuration.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/memcached/ini.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Fmemcached.configuration%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="memcached.configuration" class="section">
+ <h2 class="title">Настройка во время выполнения</h2>
+ <p class="simpara">
+Поведение этих функций зависит от установок в <var class="filename">php.ini</var>.
+</p>
+ <p class="para">
+  <table class="doctable table">
+   <caption><strong>Опции настройки Memcached</strong></caption>
+   
+    <thead>
+     <tr>
+      <th>Имя</th>
+      <th>По умолчанию</th>
+      <th>Место изменения</th>
+      <th>Список изменений</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+      <td><a href="memcached.configuration.php.html#ini.memcached.sess-locking" class="link">memcached.sess_locking</a></td>
+      <td>On</td>
+      <td><strong><code>INI_ALL</code></strong></td>
+      <td>Доступно с memcached 0.1.0.</td>
+     </tr>
+
+     <tr>
+      <td><a href="memcached.configuration.php.html#ini.memcached.sess-consistent-hash" class="link">memcached.sess_consistent_hash</a></td>
+      <td>On</td>
+      <td><strong><code>INI_ALL</code></strong></td>
+      <td>Доступно с memcached 2.1.0. Значение по умолчанию — <code class="literal">On</code>, начиная с memcached 3.0.0.</td>
+     </tr>
+
+     <tr>
+      <td><a href="memcached.configuration.php.html#ini.memcached.sess-binary" class="link">memcached.sess_binary</a></td>
+      <td>Off</td>
+      <td><strong><code>INI_ALL</code></strong></td>
+      <td>Доступно с memcached 2.0.0. Заменено на <code class="literal">memcached.sess_binary_protocol</code> в memcached 3.0.0.</td>
+     </tr>
+
+     <tr>
+      <td><a href="memcached.configuration.php.html#ini.memcached.sess-lock-wait" class="link">memcached.sess_lock_wait</a></td>
+      <td>150000</td>
+      <td><strong><code>INI_ALL</code></strong></td>
+      <td>Доступно с memcached 0.1.0. Удалено в memcached 3.0.0.</td>
+     </tr>
+
+     <tr>
+      <td><a href="memcached.configuration.php.html#ini.memcached.sess-prefix" class="link">memcached.sess_prefix</a></td>
+      <td>memc.sess.key.</td>
+      <td><strong><code>INI_ALL</code></strong></td>
+      <td>Доступно с memcached 0.1.0.</td>
+     </tr>
+
+     <tr>
+      <td><a href="memcached.configuration.php.html#ini.memcached.sess-number-of-replicas" class="link">memcached.sess_number_of_replicas</a></td>
+      <td>0</td>
+      <td><strong><code>INI_ALL</code></strong></td>
+      <td>Доступно с memcached 2.1.0.</td>
+     </tr>
+
+     <tr>
+      <td><a href="memcached.configuration.php.html#ini.memcached.sess-randomize-replica-read" class="link">memcached.sess_randomize_replica_read</a></td>
+      <td>Off</td>
+      <td><strong><code>INI_ALL</code></strong></td>
+      <td>Доступно с memcached 2.1.0.</td>
+     </tr>
+
+     <tr>
+      <td><a href="memcached.configuration.php.html#ini.memcached.sess-remove-failed" class="link">memcached.sess_remove_failed</a></td>
+      <td>On</td>
+      <td><strong><code>INI_ALL</code></strong></td>
+      <td>Доступно с memcached 2.1.0. Заменено на <code class="literal">memcached.sess_remove_failed_servers</code> в memcached 3.0.0.</td>
+     </tr>
+
+     <tr>
+      <td><a href="memcached.configuration.php.html#ini.memcached.compression-type" class="link">memcached.compression_type</a></td>
+      <td>fastlz</td>
+      <td><strong><code>INI_ALL</code></strong></td>
+      <td>Доступно с memcached 0.1.0.</td>
+     </tr>
+
+     <tr>
+      <td><a href="memcached.configuration.php.html#ini.memcached.compression-factor" class="link">memcached.compression_factor</a></td>
+      <td>1.3</td>
+      <td><strong><code>INI_ALL</code></strong></td>
+      <td>Доступно с memcached 0.1.0.</td>
+     </tr>
+
+     <tr>
+      <td><a href="memcached.configuration.php.html#ini.memcached.compression-threshold" class="link">memcached.compression_threshold</a></td>
+      <td>2000</td>
+      <td><strong><code>INI_ALL</code></strong></td>
+      <td>Доступно с memcached 0.1.0.</td>
+     </tr>
+
+     <tr>
+      <td><a href="memcached.configuration.php.html#ini.memcached.serializer" class="link">memcached.serializer</a></td>
+      <td>igbinary</td>
+      <td><strong><code>INI_ALL</code></strong></td>
+      <td>Доступно с memcached 0.1.0.</td>
+     </tr>
+
+     <tr>
+      <td><a href="memcached.configuration.php.html#ini.memcached.use-sasl" class="link">memcached.use_sasl</a></td>
+      <td>Off</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td>Доступно с memcached 2.2.0. Удалено в memcached 3.0.0.</td>
+     </tr>
+
+     <tr>
+      <td><a href="memcached.configuration.php.html#ini.memcached.default-binary-protocol" class="link">memcached.default_binary_protocol</a></td>
+      <td>Off</td>
+      <td><strong><code>INI_ALL</code></strong></td>
+      <td>Доступно с memcached 3.0.0.</td>
+     </tr>
+
+     <tr>
+      <td><a href="memcached.configuration.php.html#ini.memcached.default-connect-timeout" class="link">memcached.default_connect_timeout</a></td>
+      <td>0</td>
+      <td><strong><code>INI_ALL</code></strong></td>
+      <td>Доступно с memcached 3.0.0.</td>
+     </tr>
+
+     <tr>
+      <td><a href="memcached.configuration.php.html#ini.memcached.default-consistent-hash" class="link">memcached.default_consistent_hash</a></td>
+      <td>Off</td>
+      <td><strong><code>INI_ALL</code></strong></td>
+      <td>Доступно с memcached 3.0.0.</td>
+     </tr>
+
+     <tr>
+      <td><a href="memcached.configuration.php.html#ini.memcached.sess-binary-protocol" class="link">memcached.sess_binary_protocol</a></td>
+      <td>On</td>
+      <td><strong><code>INI_ALL</code></strong></td>
+      <td>Доступно с memcached 3.0.0. Заменено на <code class="literal">memcached.sess_binary</code>.</td>
+     </tr>
+
+     <tr>
+      <td><a href="memcached.configuration.php.html#ini.memcached.sess-connect-timeout" class="link">memcached.sess_connect_timeout</a></td>
+       <td>1000</td>
+       <td><strong><code>INI_ALL</code></strong></td>
+       <td>Доступно с memcached 2.2.0.</td>
+     </tr>
+
+     <tr>
+      <td><a href="memcached.configuration.php.html#ini.memcached.sess-consistent-hash-type" class="link">memcached.sess_consistent_hash_type</a></td>
+      <td>ketama</td>
+      <td><strong><code>INI_ALL</code></strong></td>
+      <td>Доступно с memcached 3.1.0.</td>
+     </tr>
+
+     <tr>
+      <td><a href="memcached.configuration.php.html#ini.memcached.sess-lock-expire" class="link">memcached.sess_lock_expire</a></td>
+      <td>0</td>
+      <td><strong><code>INI_ALL</code></strong></td>
+      <td>Доступно с memcached 2.2.0.</td>
+     </tr>
+
+     <tr>
+      <td><a href="memcached.configuration.php.html#ini.memcached.sess-lock-retries" class="link">memcached.sess_lock_retries</a></td>
+      <td>5</td>
+      <td><strong><code>INI_ALL</code></strong></td>
+      <td>Доступно с memcached 3.0.0.</td>
+     </tr>
+
+     <tr>
+      <td><a href="memcached.configuration.php.html#ini.memcached.sess-lock-wait-max" class="link">memcached.sess_lock_wait_max</a></td>
+      <td>150</td>
+      <td><strong><code>INI_ALL</code></strong></td>
+      <td>Доступно с memcached 3.0.0. Значение по умолчанию <code class="literal">150</code> с memcached 3.1.0 (предыдущее значение <code class="literal">2000</code>).</td>
+     </tr>
+
+     <tr>
+      <td><a href="memcached.configuration.php.html#ini.memcached.sess-lock-wait-min" class="link">memcached.sess_lock_wait_min</a></td>
+      <td>150</td>
+      <td><strong><code>INI_ALL</code></strong></td>
+      <td>Доступно с memcached 3.0.0. Значение по умолчанию <code class="literal">150</code> с memcached 3.1.0 (предыдущее значение <code class="literal">1000</code>).</td>
+     </tr>
+
+     <tr>
+      <td><a href="memcached.configuration.php.html#ini.memcached.sess-persistent" class="link">memcached.sess_persistent</a></td>
+      <td>Off</td>
+      <td><strong><code>INI_ALL</code></strong></td>
+      <td>Доступно с memcached 3.0.0.</td>
+     </tr>
+
+     <tr>
+      <td><a href="memcached.configuration.php.html#ini.memcached.sess-remove-failed-servers" class="link">memcached.sess_remove_failed_servers</a></td>
+      <td>Off</td>
+      <td><strong><code>INI_ALL</code></strong></td>
+      <td>Доступно с memcached 3.0.0. Заменено на <code class="literal">memcached.sess_remove_failed</code>.</td>
+     </tr>
+
+     <tr>
+      <td><a href="memcached.configuration.php.html#ini.memcached.sess-server-failure-limit" class="link">memcached.sess_server_failure_limit</a></td>
+      <td>0</td>
+      <td><strong><code>INI_ALL</code></strong></td>
+      <td>Доступно с memcached 3.0.0.</td>
+     </tr>
+
+     <tr>
+      <td><a href="memcached.configuration.php.html#ini.memcached.sess-sasl-password" class="link">memcached.sess_sasl_password</a></td>
+      <td>null</td>
+      <td><strong><code>INI_ALL</code></strong></td>
+      <td>Доступно с memcached 2.2.0.</td>
+     </tr>
+
+     <tr>
+      <td><a href="memcached.configuration.php.html#ini.memcached.sess-sasl-username" class="link">memcached.sess_sasl_username</a></td>
+      <td>null</td>
+      <td><strong><code>INI_ALL</code></strong></td>
+      <td>Доступно с memcached 2.2.0.</td>
+     </tr>
+
+     <tr>
+      <td><a href="memcached.configuration.php.html#ini.memcached.store-retry-count" class="link">memcached.store_retry_count</a></td>
+      <td>0</td>
+      <td><strong><code>INI_ALL</code></strong></td>
+      <td>
+       Доступно с memcached 2.2.0.
+       Значение по умолчанию <code class="literal">0</code> с memcached 3.2.0
+       (предыдущее значение <code class="literal">2</code>).
+      </td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
+ </p>
+
+ <p class="para">Краткое разъяснение конфигурационных
+директив.</p>
+
+ <p class="para">
+  <dl>
+   
+    <dt id="ini.memcached.sess-locking">
+     <code class="parameter">memcached.sess_locking</code>
+     <span class="type">bool</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Использовать блокировку сессий. Допустимые значения: <code class="literal">On</code>, <code class="literal">Off</code>. По умолчанию — <code class="literal">On</code>.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.memcached.sess-consistent-hash">
+     <code class="parameter">memcached.sess_consistent_hash</code>
+     <span class="type">bool</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Если установлено значение <code class="literal">On</code>, то для обработки сессий будет использовано согласованное хеширование (libketama).
+      При использовании согласованного хеширования можно
+      добавлять или удалять узлы кеширования без больших потерь кешированных ключей.
+      По умолчанию — <code class="literal">On</code>.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.memcached.sess-binary">
+     <code class="parameter">memcached.sess_binary</code>
+     <span class="type">bool</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Использовать бинарный режим сессии. Реплики модуля libmemcached работают только
+      если включён этот режим. По умолчанию — <code class="literal">Off</code>.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.memcached.sess-lock-wait">
+     <code class="parameter">memcached.sess_lock_wait</code>
+     <span class="type">int</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Время ожидания повторной синхронизации сессии в микросекундах.
+      При установке этого значения нужно быть осторожным. Допустимы
+      целочисленные значения. Если установлено значене <code class="literal">0</code>, то будет использовано
+      значение по умолчанию. Отрицательные значения уменьшают
+      блокировку попытки блокировки.
+      По умолчанию — <code class="literal">150000</code>.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.memcached.sess-prefix">
+     <code class="parameter">memcached.sess_prefix</code>
+     <span class="type">string</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Префикс ключа сессии. Строка длиной не более 219 байтов. По умолчанию — <code class="literal">memc.sess.key</code>.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.memcached.sess-number-of-replicas">
+     <code class="parameter">memcached.sess_number_of_replicas</code>
+     <span class="type">int</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Записывать данные на ряд дополнительных серверов memcached. Это «высокая доступность для бедняков», как её называет модуль libmemcached.
+      Если это значение положительное и активирован режим <code class="literal">sessions_remove_failed_servers</code>,
+      когда сервер memcached выходит из строя, сессия будет по-прежнему доступна из реплики.
+      Однако, если отказавший сервер memcache снова становится доступным,
+      он будет читать сессию оттуда, которая может иметь старые данные или вообще не иметь данных.
+      По умолчанию — <code class="literal">0</code>.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.memcached.sess-randomize-replica-read">
+     <code class="parameter">memcached.sess_randomize_replica_read</code>
+     <span class="type">bool</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Случайное чтение реплики memcached сессией.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.memcached.sess-remove-failed">
+     <code class="parameter">memcached.sess_remove_failed</code>
+     <span class="type">int</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Разрешить автоматическое удаление недоступных серверов memcached.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.memcached.compression-type">
+     <code class="parameter">memcached.compression_type</code>
+     <span class="type">string</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Настройка типа сжатия, корректные значения: <code class="literal">fastlz</code>,
+      <code class="literal">zlib</code>. По умолчанию — <code class="literal">fastlz</code>.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.memcached.compression-factor">
+     <code class="parameter">memcached.compression_factor</code>
+     <span class="type">float</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Коэффициент сжатия. Хранить значения сжатыми только если коэффициент
+      сжатия превышает заданный. Храним сжатым, если:
+      <code class="literal">plain_len &gt; comp_len * factor</code>.
+      По умолчанию — <code class="literal">1.3</code> (экономия места 23 %).
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.memcached.compression-threshold">
+     <code class="parameter">memcached.compression_threshold</code>
+     <span class="type">int</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Порог сжатия. Не сжимать сериализованные значения меньше указанного размера.
+      По умолчанию <code class="literal">2000</code> байтов.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.memcached.serializer">
+     <code class="parameter">memcached.serializer</code>
+     <span class="type">string</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Устанавливает сериализатор по умолчанию для новых объектов memcached. Допустимые значения:
+      <code class="literal">php</code>, <code class="literal">igbinary</code>, <code class="literal">json</code>, <code class="literal">json_array</code>, <code class="literal">msgpack</code>.
+     </p>
+     <dl>
+      
+       <dt>
+json</dt>
+
+       <dd>
+
+        <p class="para">
+         Стандартное для PHP кодирование в формат JSON. Этот сериализатор быстрый и компактный, но
+         работает только с данными в кодировке UTF-8, и не полностью реализует сериализацию.
+         Подробнее об этом рассказано в описании модуля JSON. Доступно с memcached 0.2.0.
+        </p>
+       </dd>
+
+      
+      
+       <dt>
+json_array</dt>
+
+       <dd>
+
+        <p class="para">
+         Тот же <code class="literal">json</code>, но декодируется в массивы. Доступно с memcached 2.0.0.
+        </p>
+       </dd>
+
+      
+      
+       <dt>
+php</dt>
+
+       <dd>
+
+        <p class="para">
+         Стандартный сериализатор PHP.
+        </p>
+       </dd>
+
+      
+      
+       <dt>
+igbinary</dt>
+
+       <dd>
+
+        <p class="para">
+         Бинарный сериализатор. Доступно с memcached 0.1.4
+        </p>
+       </dd>
+
+      
+      
+        <dt>
+msgpack</dt>
+
+        <dd>
+
+         <p class="para">
+          Межъязыковой двоичный сериализатор. Доступно с memcached 2.2.0.
+         </p>
+        </dd>
+
+       
+     </dl>
+
+     <p class="para">
+      По умолчанию <code class="literal">igbinary</code>, если доступен, затем <code class="literal">igbinary</code>, если доступен, иначе PHP.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.memcached.use-sasl">
+     <code class="parameter">memcached.use_sasl</code>
+     <span class="type">bool</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Использовать аутентификацию SASL при соединении. Допустимые значения:
+      <code class="literal">On</code>, <code class="literal">Off</code>.
+      По умолчанию — <code class="literal">Off</code>.
+     </p>
+    </dd>
+
+   
+
+     <dt id="ini.memcached.default-binary-protocol">
+      <code class="parameter">memcached.default_binary_protocol</code>
+      <span class="type">bool</span>
+     </dt>
+
+     <dd>
+
+      <p class="para">
+       Устанавливает протокол memcached по умолчанию для новых подключений. (Чтобы настроить протокол memcached для соединений,
+       используемых сессиями, вместо нее используют директиву <code class="literal">memcached.sess_binary_protocol</code>.)
+
+       Если установлено значение <code class="literal">On</code>, по умолчанию будет использован двоичный протокол memcached.
+       Если установлено значение <code class="literal">Off</code>, будет использован текстовый протокол memcached.
+       По умолчанию — <code class="literal">Off</code>.
+      </p>
+     </dd>
+
+    
+    
+     <dt id="ini.memcached.default-connect-timeout">
+      <code class="parameter">memcached.default_connect_timeout</code>
+      <span class="type">int</span>
+     </dt>
+
+     <dd>
+
+      <p class="para">
+       Устанавливает время ожидания соединения memcached по умолчанию для новых соединений.
+       (Чтобы настроить время ожидания соединения memcached для сессий,
+       вместо этого используют <code class="literal">memcached.sess_connect_timeout</code>.)
+
+       В неблокирующем режиме это изменяет значение времени ожидания во время подключения к сокету в миллисекундах.
+       Указание <code class="literal">-1</code> означает бесконечное время ожидания.
+       Указание <code class="literal">0</code> означает использование времени ожидания соединения
+       по умолчанию для библиотеки memcached. По умолчанию — <code class="literal">0</code>.
+      </p>
+     </dd>
+
+    
+    
+     <dt id="ini.memcached.default-consistent-hash">
+      <code class="parameter">memcached.default_consistent_hash</code>
+      <span class="type">bool</span>
+     </dt>
+
+     <dd>
+
+      <p class="para">
+       Устанавливает значение по умолчанию для согласованного хеширования для новых подключений.
+       (Чтобы настроить согласованное хеширование для сессий,
+       вместо этого используют <code class="literal">memcached.sess_consistent_hash</code>.)
+
+       Если установлено значение <code class="literal">On</code>, для обработки сессии используется
+       согласованное хеширование (libketama). Когда используется согласованное хеширование,
+       можно добавлять или удалять узлы кеша, не беспокоясь о том, что существующие ключи по умолчанию отключены.
+      </p>
+     </dd>
+
+    
+    
+     <dt id="ini.memcached.sess-binary-protocol">
+      <code class="parameter">memcached.sess_binary_protocol</code>
+      <span class="type">bool</span>
+     </dt>
+
+     <dd>
+
+      <p class="para">
+       Использовать двоичный протокол memcached для сессий memcached (вместо текстового протокола).
+       Реплики модуля libmemcached работают,
+       только если включён двоичный режим. Однако некоторые прокси (например, twemproxy) будут работать,
+       только если двоичный протокол отключён.
+       По умолчанию — <code class="literal">On</code> с libmemcached 1.0.18 или новее.
+       До libmemcached 1.0.18 значение по умолчанию <code class="literal">Off</code>.
+      </p>
+      <blockquote class="note"><p><strong class="note">Замечание</strong>: 
+       <span class="simpara">
+        В более старых версиях php-memcached эта директива была выключена и называлась
+       <code class="literal">memcached.sess_binary</code>.
+       </span>
+      </p></blockquote>
+     </dd>
+
+    
+    
+     <dt id="ini.memcached.sess-connect-timeout">
+      <code class="parameter">memcached.sess_connect_timeout</code>
+      <span class="type">int</span>
+     </dt>
+
+     <dd>
+
+      <p class="para">
+       Значение времени ожидания соединения memcached.
+       В неблокирующем режиме это изменяет значение времени ожидания
+       во время соединения сокета в миллисекундах.
+       Указание <code class="literal">-1</code> означает бесконечное время ожидания.
+      </p>
+     </dd>
+
+    
+    
+     <dt id="ini.memcached.sess-consistent-hash-type">
+      <code class="parameter">memcached.sess_consistent_hash_type</code>
+      <span class="type">string</span>
+     </dt>
+
+     <dd>
+
+      <p class="para">
+       Тип согласованного хеширования сессии Memcached. Если установлено значение
+       <code class="literal">ketama</code> (по умолчанию для php-memcached 3.x), для обработки сессии
+       используется согласованное хеширование модуля libketama, если установлено значение
+       <code class="literal">ketama_weighted</code> (по умолчанию для php-memcached 2.x),
+       для обработки сессии используется взвешенное согласованное хеширование
+       (модуль libketama). По умолчанию — <code class="literal">ketama</code>.
+      </p>
+     </dd>
+
+    
+    
+     <dt id="ini.memcached.sess-lock-expire">
+      <code class="parameter">memcached.sess_lock_expire</code>
+      <span class="type">int</span>
+     </dt>
+
+     <dd>
+
+      <p class="para">
+       Время в секундах до того, как должна сработать блокировка.
+       Установка значения <code class="literal">0</code> приводит к поведению по умолчанию —
+       будет использована PHP-директива <code class="literal">max_execution_time</code>.
+       По умолчанию — <code class="literal">0</code>.
+      </p>
+     </dd>
+
+    
+    
+     <dt id="ini.memcached.sess-lock-retries">
+      <code class="parameter">memcached.sess_lock_retries</code>
+      <span class="type">int</span>
+     </dt>
+
+     <dd>
+
+      <p class="para">
+       Количество попыток повторной блокировки блокировки сессии,
+       не включая первую попытку. По умолчанию — <code class="literal">5</code>.
+      </p>
+     </dd>
+
+    
+    
+     <dt id="ini.memcached.sess-lock-wait-max">
+      <code class="parameter">memcached.sess_lock_wait_max</code>
+      <span class="type">int</span>
+     </dt>
+
+     <dd>
+
+      <p class="para">
+       Максимальное время ожидания в миллисекундах между попытками блокировки сессии.
+       По умолчанию — <code class="literal">150</code>.
+      </p>
+     </dd>
+
+    
+    
+     <dt id="ini.memcached.sess-lock-wait-min">
+      <code class="parameter">memcached.sess_lock_wait_min</code>
+      <span class="type">int</span>
+     </dt>
+
+     <dd>
+
+      <p class="para">
+       Минимальное время ожидания в миллисекундах между попытками блокировки сессии.
+       Это значение удваивается при каждой попытке блокировки до тех пор, пока не будет
+       достигнуто значение, заданное директивой <code class="literal">memcached.sess_lock_wait_max</code>,
+       очередные попытки будут занимать время достигнутого значения.
+       По умолчанию — <code class="literal">150</code>.
+      </p>
+     </dd>
+
+    
+    
+     <dt id="ini.memcached.sess-persistent">
+      <code class="parameter">memcached.sess_persistent</code>
+      <span class="type">bool</span>
+     </dt>
+
+     <dd>
+
+      <p class="para">
+       Следует ли повторно использовать соединения memcached,
+       соответствующие значению (значениям) директивы <code class="literal">session.save_path</code>
+       после завершения выполнения скрипта. Эту директиву не используют,
+       если определённые настройки (например, настройки SASL, sess_binary_protocol)
+       будут переопределены между запросами. По умолчанию — <code class="literal">Off</code>.
+      </p>
+     </dd>
+
+    
+    
+     <dt id="ini.memcached.sess-remove-failed-servers">
+      <code class="parameter">memcached.sess_remove_failed_servers</code>
+      <span class="type">bool</span>
+     </dt>
+
+     <dd>
+
+      <p class="para">
+       Разрешить автоматическое удаление отказавшего сервера memcached.
+       По умолчанию — <code class="literal">Off</code>.
+      </p>
+      <blockquote class="note"><p><strong class="note">Замечание</strong>: 
+       <span class="simpara">
+        В предыдущих версиях эта директива называлась <code class="literal">memcached.sess_remove_failed</code>.
+       </span>
+      </p></blockquote>
+     </dd>
+
+    
+    
+     <dt id="ini.memcached.sess-server-failure-limit">
+      <code class="parameter">memcached.sess_server_failure_limit</code>
+      <span class="type">int</span>
+     </dt>
+
+     <dd>
+
+      <p class="para">
+       Установка большего, чем установленное по умолчанию,
+       значения разрешит удаление сервера после
+       заданного количества непрерывных сбоев подключения.
+       По умолчанию — <code class="literal">0</code>.
+      </p>
+     </dd>
+
+    
+    
+     <dt id="ini.memcached.sess-sasl-password">
+      <code class="parameter">memcached.sess_sasl_password</code>
+      <span class="type">string</span>
+     </dt>
+
+     <dd>
+
+      <p class="para">
+       Пароль сессии SASL.
+       Для включения SASL необходимо указать имя пользователя и пароль.
+      </p>
+     </dd>
+
+    
+    
+     <dt id="ini.memcached.sess-sasl-username">
+      <code class="parameter">memcached.sess_sasl_username</code>
+      <span class="type">string</span>
+     </dt>
+
+     <dd>
+
+      <p class="para">
+       Имя пользователя сессии SASL.
+       Для включения SASL необходимо указать имя пользователя и пароль.
+      </p>
+     </dd>
+
+    
+    
+     <dt id="ini.memcached.store-retry-count">
+      <code class="parameter">memcached.store_retry_count</code>
+      <span class="type">int</span>
+     </dt>
+
+     <dd>
+
+      <p class="para">
+       Количество повторных попыток для неудачных команд сохранения.
+       Этот механизм прозрачно переключает на вторичные серверы
+       при сбое операций set/increment/decrement/setMulti
+       на желаемом сервере в среде c множеством серверов.
+       По умолчанию — <code class="literal">2</code>.
+      </p>
+     </dd>
+
+    
+  </dl>
+
+ </p>
+</div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=memcached.configuration&amp;redirect=https://www.php.net/manual/ru/memcached.configuration.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">3 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="114565">  <div class="votes">
+    <div id="Vu114565">
+    <a href="https://www.php.net/manual/vote-note.php?id=114565&amp;page=memcached.configuration&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd114565">
+    <a href="https://www.php.net/manual/vote-note.php?id=114565&amp;page=memcached.configuration&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V114565" title="58% like this...">
+    4
+    </div>
+  </div>
+  <a href="memcached.configuration.php.html#114565" class="name">
+  <strong class="user"><em>senz</em></strong></a><a class="genanchor" href="memcached.configuration.php.html#114565"> &para;</a><div class="date" title="2014-03-06 01:28"><strong>9 years ago</strong></div>
+  <div class="text" id="Hcom114565">
+<div class="phpcode"><code><span class="html">In case, you are wondering why your sessions are "killed" after 1440 seconds, take a look at session.gc_maxlifetime. It's value is used in memcached expiration field according to memcache protocol rules. Also, do not forget about cookie expiration time</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="121628">  <div class="votes">
+    <div id="Vu121628">
+    <a href="https://www.php.net/manual/vote-note.php?id=121628&amp;page=memcached.configuration&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd121628">
+    <a href="https://www.php.net/manual/vote-note.php?id=121628&amp;page=memcached.configuration&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V121628" title="53% like this...">
+    1
+    </div>
+  </div>
+  <a href="memcached.configuration.php.html#121628" class="name">
+  <strong class="user"><em>Piotr Gabryjeluk</em></strong></a><a class="genanchor" href="memcached.configuration.php.html#121628"> &para;</a><div class="date" title="2017-09-11 11:12"><strong>6 years ago</strong></div>
+  <div class="text" id="Hcom121628">
+<div class="phpcode"><code><span class="html">Apparently in version 3.0.3 the default for memcached.sess_binary_protocol in TRUE. Also note the key is memcached.sess_binary_protocol, not memcached.sess.<br /><br />Setting memcached.sess_binary_protocol to FALSE is required if you want to save the session to memcached through twemproxy.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="106887">  <div class="votes">
+    <div id="Vu106887">
+    <a href="https://www.php.net/manual/vote-note.php?id=106887&amp;page=memcached.configuration&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd106887">
+    <a href="https://www.php.net/manual/vote-note.php?id=106887&amp;page=memcached.configuration&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V106887" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="memcached.configuration.php.html#106887" class="name">
+  <strong class="user"><em>adolfoabegg at gmail dot com</em></strong></a><a class="genanchor" href="memcached.configuration.php.html#106887"> &para;</a><div class="date" title="2011-12-15 09:01"><strong>12 years ago</strong></div>
+  <div class="text" id="Hcom106887">
+<div class="phpcode"><code><span class="html">you can get the list of the possible options for the memcached.ini configuration file here:<br /><a href="https://github.com/php-memcached-dev/php-memcached/blob/master/memcached.ini" rel="nofollow" target="_blank">https://github.com/php-memcached-dev/php-memcached/blob/master/memcached.ini</a></span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=memcached.configuration&amp;redirect=https://www.php.net/manual/ru/memcached.configuration.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="memcached.setup.php.html">Установка и настройка</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="memcached.requirements.php.html" title="Требования">Требования</a>
+                        </li>
+                                                <li class="">
+                            <a href="memcached.installation.php.html" title="Установка">Установка</a>
+                        </li>
+                                                <li class="current">
+                            <a href="memcached.configuration.php.html" title="Настройка во время выполнения">Настройка во время выполнения</a>
+                        </li>
+                                                <li class="">
+                            <a href="memcached.resources.php.html" title="Типы ресурсов">Типы ресурсов</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

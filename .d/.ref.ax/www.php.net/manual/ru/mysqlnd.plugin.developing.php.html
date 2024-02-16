@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: Начинаем разработку плагина mysqlnd - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="mysqlnd.plugin.developing.php.html">
+ <link rel="shorturl" href="mysqlnd.plugin.developing.php.html">
+ <link rel="alternate" href="mysqlnd.plugin.developing.php.html" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="mysqlnd.plugin.php.html">
+ <link rel="prev" href="mysqlnd.plugin.api.php.html">
+ <link rel="next" href="book.oci8.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/mysqlnd.plugin.developing.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/mysqlnd.plugin.developing.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/mysqlnd.plugin.developing.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/mysqlnd.plugin.developing.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/mysqlnd.plugin.developing.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/mysqlnd.plugin.developing.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/mysqlnd.plugin.developing.php" hreflang="pt_BR">
+ <link rel="alternate" href="mysqlnd.plugin.developing.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/mysqlnd.plugin.developing.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/mysqlnd.plugin.developing.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="book.oci8.php.html">
+          OCI8 &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="mysqlnd.plugin.api.php.html">
+          &laquo; API плагинов mysqlnd        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.database.php.html'>Модули для работы с базами данных</a></li>      <li><a href='refs.database.vendors.php.html'>Модули для работы с базами данных отдельных производителей</a></li>      <li><a href='set.mysqlinfo.php.html'>MySQL</a></li>      <li><a href='book.mysqlnd.php.html'>Mysqlnd</a></li>      <li><a href='mysqlnd.plugin.php.html'>API для плагинов к встроенному драйверу MySQL</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/mysqlnd.plugin.developing.php'>English</option>
+            <option value='de/mysqlnd.plugin.developing.php'>German</option>
+            <option value='es/mysqlnd.plugin.developing.php'>Spanish</option>
+            <option value='fr/mysqlnd.plugin.developing.php'>French</option>
+            <option value='it/mysqlnd.plugin.developing.php'>Italian</option>
+            <option value='ja/mysqlnd.plugin.developing.php'>Japanese</option>
+            <option value='pt_BR/mysqlnd.plugin.developing.php'>Brazilian Portuguese</option>
+            <option value='ru/mysqlnd.plugin.developing.php' selected="selected">Russian</option>
+            <option value='tr/mysqlnd.plugin.developing.php'>Turkish</option>
+            <option value='zh/mysqlnd.plugin.developing.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/mysqlnd/plugin.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Fmysqlnd.plugin.developing%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="mysqlnd.plugin.developing" class="section">
+  <h2 class="title">Начинаем разработку плагина mysqlnd</h2>
+  <p class="para">
+   Важно помнить, что плагин <code class="literal">mysqlnd</code> сам по себе
+   является модулем PHP.
+  </p>
+  <p class="para">
+   Следующий пример показывает базовую структуру функции MINIT,
+   использующуюся в типичном плагине <code class="literal">mysqlnd</code>:
+  </p>
+  <div class="example-contents">
+<div class="cdata"><pre>
+/* my_php_mysqlnd_plugin.c */
+
+ static PHP_MINIT_FUNCTION(mysqlnd_plugin) {
+  /* глобальные переменные, ini-настройки, ресурсы, классы */
+
+  /* регистрируем плагин mysqlnd */
+  mysqlnd_plugin_id = mysqlnd_plugin_register();
+
+  conn_m = mysqlnd_get_conn_methods();
+  memcpy(org_conn_m, conn_m,
+    sizeof(struct st_mysqlnd_conn_methods));
+
+  conn_m-&gt;query = MYSQLND_METHOD(mysqlnd_plugin_conn, query);
+  conn_m-&gt;connect = MYSQLND_METHOD(mysqlnd_plugin_conn, connect);
+}
+</pre></div>
+  </div>
+
+  <div class="example-contents">
+<div class="cdata"><pre>
+/* my_mysqlnd_plugin.c */
+
+ enum_func_status MYSQLND_METHOD(mysqlnd_plugin_conn, query)(/* ... */) {
+  /* ... */
+}
+enum_func_status MYSQLND_METHOD(mysqlnd_plugin_conn, connect)(/* ... */) {
+  /* ... */
+}
+</pre></div>
+  </div>
+
+  <p class="para">
+   <strong>Анализ задачи: от C до пользовательского пространства</strong>
+  </p>
+  <div class="example-contents">
+<div class="cdata"><pre>
+ class proxy extends mysqlnd_plugin_connection {
+  public function connect($host, ...) { .. }
+}
+mysqlnd_plugin_set_conn_proxy(new proxy());
+</pre></div>
+  </div>
+
+  <p class="para">
+   Процесс:
+  </p>
+  <ol type="1">
+   <li class="listitem">
+    <p class="para">
+     PHP: пользователь регистрирует callback-функцию плагина
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     PHP: пользователь вызывает PHP MySQL API для соединения с MySQL
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     C: ext/*mysql* вызывает метод mysqlnd
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     C: mysqlnd обрывается в ext/mysqlnd_plugin
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     C: ext/mysqlnd_plugin
+     <ol type="1">
+      <li class="listitem">
+       <p class="para">
+        Вызывает пользовательскую callback-функцию
+       </p>
+      </li>
+      <li class="listitem">
+       <p class="para">
+        Или оригинальный метод <code class="literal">mysqlnd</code>, если она не задана
+       </p>
+      </li>
+     </ol>
+    </p>
+   </li>
+  </ol>
+  <p class="para">
+   Вам необходимо выполнить следующие действия:
+  </p>
+  <ol type="1">
+   <li class="listitem">
+    <p class="para">
+     Создайте в С класс &quot;mysqlnd_plugin_connection&quot;
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     Примите и зарегистрируйте прокси объект с помощью
+     &quot;mysqlnd_plugin_set_conn_proxy()&quot;
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     Вызовите прокси методы пространства пользователя из C (оптимизация -
+     zend_interfaces.h)
+    </p>
+   </li>
+  </ol>
+  <p class="para">
+   Методы объекта пространства пользователя должны быть вызваны с помощью
+   <code class="literal">call_user_function()</code> или на уровень ниже, с помощью
+   <code class="literal">zend_call_method()</code>.
+  </p>
+  <p class="para">
+   <strong> Оптимизация: вызывайте методы из С с помощью
+    zend_call_method </strong>
+  </p>
+  <p class="para">
+   Следующий кусок кода демонстрирует прототип функции
+   <code class="literal">zend_call_method</code>, взятый из
+   <var class="filename">zend_interfaces.h</var>.
+  </p>
+  <div class="example-contents">
+<div class="cdata"><pre>
+ ZEND_API zval* zend_call_method(
+  zval **object_pp, zend_class_entry *obj_ce,
+  zend_function **fn_proxy, char *function_name,
+  int function_name_len, zval **retval_ptr_ptr,
+  int param_count, zval* arg1, zval* arg2 TSRMLS_DC
+);
+</pre></div>
+  </div>
+
+  <p class="para">
+   Zend API поддерживает только два аргумента. Вам может понадобиться больше. К примеру:
+  </p>
+  <div class="example-contents">
+<div class="cdata"><pre>
+ enum_func_status (*func_mysqlnd_conn__connect)(
+  MYSQLND *conn, const char *host,
+  const char * user, const char * passwd,
+  unsigned int passwd_len, const char * db,
+  unsigned int db_len, unsigned int port,
+  const char * socket, unsigned int mysql_flags TSRMLS_DC
+);
+</pre></div>
+  </div>
+
+  <p class="para">
+   Для обхода этой проблемы вам необходимо сделать копию
+   <code class="literal">zend_call_method()</code> и добавить необходимые параметры.
+   Вы можете сделать это создав набор макросов
+   <code class="literal">MY_ZEND_CALL_METHOD_WRAPPER</code>.
+  </p>
+  <p class="para">
+   <strong>Обращение к пространству пользователя  PHP</strong>
+  </p>
+  <p class="para">
+   Этот кусок кода демонстрирует оптимизированный метод вызова функций пространства
+   пользователя из С:
+  </p>
+  <div class="example-contents">
+<div class="cdata"><pre>
+/* my_mysqlnd_plugin.c */
+
+MYSQLND_METHOD(my_conn_class,connect)(
+  MYSQLND *conn, const char *host /* ... */ TSRMLS_DC) {
+  enum_func_status ret = FAIL;
+  zval * global_user_conn_proxy = fetch_userspace_proxy();
+  if (global_user_conn_proxy) {
+    /* вызов прокси пространства пользователя */
+    ret = MY_ZEND_CALL_METHOD_WRAPPER(global_user_conn_proxy, host, /*...*/);
+  } else {
+    /* или оригинальный метод mysqlnd = ничего не делать, быть прозрачным */
+    ret = org_methods.connect(conn, host, user, passwd,
+          passwd_len, db, db_len, port,
+          socket, mysql_flags TSRMLS_CC);
+  }
+  return ret;
+}
+</pre></div>
+  </div>
+
+  <p class="para">
+   <strong> Обращение к пространству пользователя: простые аргументы
+   </strong>
+  </p>
+  <div class="example-contents">
+<div class="cdata"><pre>
+/* my_mysqlnd_plugin.c */
+
+ MYSQLND_METHOD(my_conn_class,connect)(
+  /* ... */, const char *host, /* ...*/) {
+  /* ... */
+  if (global_user_conn_proxy) {
+    /* ... */
+    zval* zv_host;
+    MAKE_STD_ZVAL(zv_host);
+    ZVAL_STRING(zv_host, host, 1);
+    MY_ZEND_CALL_METHOD_WRAPPER(global_user_conn_proxy, zv_retval, zv_host /*, ...*/);
+    zval_ptr_dtor(&amp;zv_host);
+    /* ... */
+  }
+  /* ... */
+}
+</pre></div>
+  </div>
+
+  <p class="para">
+   <strong> Обращение к пространству пользователя: структуры как аргументы
+   </strong>
+  </p>
+  <div class="example-contents">
+<div class="cdata"><pre>
+/* my_mysqlnd_plugin.c */
+
+MYSQLND_METHOD(my_conn_class, connect)(
+  MYSQLND *conn, /* ...*/) {
+  /* ... */
+  if (global_user_conn_proxy) {
+    /* ... */
+    zval* zv_conn;
+    ZEND_REGISTER_RESOURCE(zv_conn, (void *)conn, le_mysqlnd_plugin_conn);
+    MY_ZEND_CALL_METHOD_WRAPPER(global_user_conn_proxy, zv_retval, zv_conn, zv_host /*, ...*/);
+    zval_ptr_dtor(&amp;zv_conn);
+    /* ... */
+  }
+  /* ... */
+}
+</pre></div>
+  </div>
+
+  <p class="para">
+   первый аргумент многих методов <code class="literal">mysqlnd</code> - это &quot;объекты&quot; С.
+   К примеру, первый аргумент метода connect() является указателем на
+   <code class="literal">MYSQLND</code>. Структура MYSQLND представляет собой
+   объект соединения <code class="literal">mysqlnd</code>.
+  </p>
+  <p class="para">
+   Указатель на объект соединения <code class="literal">mysqlnd</code> можно сравнить со стандартным
+   обработчиком файлового ввода/вывода. Так же как и он, объект соединения
+   <code class="literal">mysqlnd</code> должен быть связан с пространством пользователя с
+   использованием PHP типом &quot;resource&quot;.
+  </p>
+  <p class="para">
+   <strong> Из C в пространство пользователя и обратно</strong>
+  </p>
+  <div class="example-contents">
+<div class="cdata"><pre>
+ class proxy extends mysqlnd_plugin_connection {
+  public function connect($conn, $host, ...) {
+    /* до внедрения */
+    printf(&quot;Подключение к = &#039;%s&#039;\n&quot;, $host);
+    debug_print_backtrace();
+    return parent::connect($conn);
+  }
+
+  public function query($conn, $query) {
+    /* после внедрения */
+    $ret = parent::query($conn, $query);
+    printf(&quot;Запрос = &#039;%s&#039;\n&quot;, $query);
+    return $ret;
+  }
+}
+mysqlnd_plugin_set_conn_proxy(new proxy());
+</pre></div>
+  </div>
+
+  <p class="para">
+   Пользователи PHP должны иметь возможность вызывать родительские
+   реализации переопределённых методов.
+  </p>
+  <p class="para">
+   В результате наследования возможно &quot;уточнить&quot; только выбранные
+   методы и вы можете выбрать, когда выполнять ваш код, до или после родительского.
+  </p>
+  <p class="para">
+   <strong> Встроенный класс:
+    mysqlnd_plugin_connection::connect() </strong>
+  </p>
+  <div class="example-contents">
+<div class="cdata"><pre>
+/*  my_mysqlnd_plugin_classes.c */
+
+ PHP_METHOD(&quot;mysqlnd_plugin_connection&quot;, connect) {
+  /* ... упрощённый! ... */
+  zval* mysqlnd_rsrc;
+  MYSQLND* conn;
+  char* host; int host_len;
+  if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, &quot;rs&quot;,
+    &amp;mysqlnd_rsrc, &amp;host, &amp;host_len) == FAILURE) {
+    RETURN_NULL();
+  }
+  ZEND_FETCH_RESOURCE(conn, MYSQLND* conn, &amp;mysqlnd_rsrc, -1,
+    &quot;Mysqlnd Connection&quot;, le_mysqlnd_plugin_conn);
+  if (PASS == org_methods.connect(conn, host, /* simplified! */ TSRMLS_CC))
+    RETVAL_TRUE;
+  else
+    RETVAL_FALSE;
+}
+</pre></div>
+  </div>
+
+ </div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=mysqlnd.plugin.developing&amp;redirect=https://www.php.net/manual/ru/mysqlnd.plugin.developing.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes </h3>
+ </div>
+ <div class="note">There are no user contributed notes for this page.</div></section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="mysqlnd.plugin.php.html">API для плагинов к встроенному драйверу MySQL</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="mysqlnd.plugin.mysql-proxy.php.html" title="Сравнение плагинов mysqlnd с MySQL Proxy">Сравнение плагинов mysqlnd с MySQL Proxy</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqlnd.plugin.obtaining.php.html" title="Получение API плагинов mysqlnd">Получение API плагинов mysqlnd</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqlnd.plugin.architecture.php.html" title="Архитектура плагинов MySQL Native Driver">Архитектура плагинов MySQL Native Driver</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqlnd.plugin.api.php.html" title="API плагинов mysqlnd">API плагинов mysqlnd</a>
+                        </li>
+                                                <li class="current">
+                            <a href="mysqlnd.plugin.developing.php.html" title="Начинаем разработку плагина mysqlnd">Начинаем разработку плагина mysqlnd</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

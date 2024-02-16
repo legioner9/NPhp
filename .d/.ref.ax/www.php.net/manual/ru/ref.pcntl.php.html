@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: Функции PCNTL - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="ref.pcntl.php.html">
+ <link rel="shorturl" href="https://www.php.net/pcntl">
+ <link rel="alternate" href="https://www.php.net/pcntl" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="book.pcntl.php.html">
+ <link rel="prev" href="pcntl.example.php.html">
+ <link rel="next" href="function.pcntl-alarm.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/ref.pcntl.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/ref.pcntl.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/ref.pcntl.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/ref.pcntl.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/ref.pcntl.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/ref.pcntl.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/ref.pcntl.php" hreflang="pt_BR">
+ <link rel="alternate" href="ref.pcntl.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/ref.pcntl.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/ref.pcntl.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="function.pcntl-alarm.php.html">
+          pcntl_alarm &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="pcntl.example.php.html">
+          &laquo; Базовое применение        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.fileprocess.process.php.html'>Модули для управления процессами программ</a></li>      <li><a href='book.pcntl.php.html'>PCNTL</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/ref.pcntl.php'>English</option>
+            <option value='de/ref.pcntl.php'>German</option>
+            <option value='es/ref.pcntl.php'>Spanish</option>
+            <option value='fr/ref.pcntl.php'>French</option>
+            <option value='it/ref.pcntl.php'>Italian</option>
+            <option value='ja/ref.pcntl.php'>Japanese</option>
+            <option value='pt_BR/ref.pcntl.php'>Brazilian Portuguese</option>
+            <option value='ru/ref.pcntl.php' selected="selected">Russian</option>
+            <option value='tr/ref.pcntl.php'>Turkish</option>
+            <option value='zh/ref.pcntl.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/pcntl/reference.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Fref.pcntl%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="ref.pcntl" class="reference">
+ <h1 class="title">Функции PCNTL</h1>
+
+ <div class="partintro">
+  <h1 class="title">Смотрите также</h1>
+  <p class="para">
+   Обзор раздела о
+   <a href="ref.posix.php.html" class="link">функциях POSIX</a>
+   может быть полезным.
+  </p>
+ </div>
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2>Содержание</h2><ul class="chunklist chunklist_reference"><li><a href="function.pcntl-alarm.php.html">pcntl_alarm</a> — Задать таймер доставки сигнала SIGALRM</li><li><a href="function.pcntl-async-signals.php.html">pcntl_async_signals</a> — Включить/отключить асинхронную обработку сигналов, либо получить текущий статус</li><li><a href="function.pcntl-errno.php.html">pcntl_errno</a> — Псевдоним pcntl_get_last_error</li><li><a href="function.pcntl-exec.php.html">pcntl_exec</a> — Запустить указанную программу в области текущего процесса</li><li><a href="function.pcntl-fork.php.html">pcntl_fork</a> — Разветвить (fork) текущий запущенный процесс</li><li><a href="function.pcntl-get-last-error.php.html">pcntl_get_last_error</a> — Получить код последней ошибки, возникшей в pcntl-функции</li><li><a href="function.pcntl-getpriority.php.html">pcntl_getpriority</a> — Получить значение приоритета процесса</li><li><a href="function.pcntl-rfork.php.html">pcntl_rfork</a> — Взаимодействует с ресурсами процесса</li><li><a href="function.pcntl-setpriority.php.html">pcntl_setpriority</a> — Изменить приоритет процесса</li><li><a href="function.pcntl-signal-dispatch.php.html">pcntl_signal_dispatch</a> — Вызывает обработчики для ожидающих сигналов</li><li><a href="function.pcntl-signal-get-handler.php.html">pcntl_signal_get_handler</a> — Получить текущий обработчик указанного сигнала</li><li><a href="function.pcntl-signal.php.html">pcntl_signal</a> — Установка обработчика сигнала</li><li><a href="function.pcntl-sigprocmask.php.html">pcntl_sigprocmask</a> — Задаёт и извлекает список блокируемых сигналов</li><li><a href="function.pcntl-sigtimedwait.php.html">pcntl_sigtimedwait</a> — Ожидает сигналы в течение заданного времени</li><li><a href="function.pcntl-sigwaitinfo.php.html">pcntl_sigwaitinfo</a> — Ожидание сигналов</li><li><a href="function.pcntl-strerror.php.html">pcntl_strerror</a> — Получить текст ошибки по её коду</li><li><a href="function.pcntl-unshare.php.html">pcntl_unshare</a> — Разделяет части контекста выполнения процесса</li><li><a href="function.pcntl-wait.php.html">pcntl_wait</a> — Ожидает или возвращает статус порождённого дочернего процесса</li><li><a href="function.pcntl-waitpid.php.html">pcntl_waitpid</a> — Ожидает или возвращает статус порождённого дочернего процесса</li><li><a href="function.pcntl-wexitstatus.php.html">pcntl_wexitstatus</a> — Получить код возврата завершённого дочернего процесса</li><li><a href="function.pcntl-wifexited.php.html">pcntl_wifexited</a> — Проверяет, соответствует ли код завершения процесса нормальному завершению</li><li><a href="function.pcntl-wifsignaled.php.html">pcntl_wifsignaled</a> — Проверить, соответствует ли код завершения процесса завершению по сигналу</li><li><a href="function.pcntl-wifstopped.php.html">pcntl_wifstopped</a> — Проверить, остановлен ли дочерний процесс</li><li><a href="function.pcntl-wstopsig.php.html">pcntl_wstopsig</a> — Получить сигнал, из-за которого был остановлен дочерний процесс</li><li><a href="function.pcntl-wtermsig.php.html">pcntl_wtermsig</a> — Получить сигнал, из-за которого был принудительно завершён дочерний процесс</li></ul>
+</div>
+<section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=ref.pcntl&amp;redirect=https://www.php.net/manual/ru/ref.pcntl.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">18 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="85558">  <div class="votes">
+    <div id="Vu85558">
+    <a href="https://www.php.net/manual/vote-note.php?id=85558&amp;page=ref.pcntl&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd85558">
+    <a href="https://www.php.net/manual/vote-note.php?id=85558&amp;page=ref.pcntl&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V85558" title="75% like this...">
+    12
+    </div>
+  </div>
+  <a href="ref.pcntl.php.html#85558" class="name">
+  <strong class="user"><em>kevin at vanzonneveld dot net</em></strong></a><a class="genanchor" href="ref.pcntl.php.html#85558"> &para;</a><div class="date" title="2008-09-05 03:29"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom85558">
+<div class="phpcode"><code><span class="html">If you want to create a daemon in PHP, consider using System_Daemon <a href="http://pear.php.net/package/System_Daemon" rel="nofollow" target="_blank">http://pear.php.net/package/System_Daemon</a><br /><br />Install it like this:<br />pear install -f system_daemon<br /><br />Then use it like this:<br /><span class="default">&lt;?php<br /></span><span class="comment">// Include PEAR's Daemon Class<br /></span><span class="keyword">require_once </span><span class="string">"System/Daemon.php"</span><span class="keyword">;<br /><br /></span><span class="comment">// Bare minimum setup<br /></span><span class="default">System_Daemon</span><span class="keyword">::</span><span class="default">setOption</span><span class="keyword">(</span><span class="string">"appName"</span><span class="keyword">, </span><span class="string">"mydaemonname"</span><span class="keyword">);<br /><br /></span><span class="comment">// Spawn Deamon!<br /></span><span class="default">System_Daemon</span><span class="keyword">::</span><span class="default">start</span><span class="keyword">();<br /><br /></span><span class="comment">// Your PHP Here!<br /></span><span class="keyword">while (</span><span class="default">true</span><span class="keyword">) {<br />    </span><span class="default">doTask</span><span class="keyword">();<br />}<br /><br /></span><span class="comment">// Stop daemon!<br /></span><span class="default">System_Daemon</span><span class="keyword">::</span><span class="default">stop</span><span class="keyword">();<br /></span><span class="default">?&gt;<br /></span><br />More examples can be found inside the PEAR package.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="77603">  <div class="votes">
+    <div id="Vu77603">
+    <a href="https://www.php.net/manual/vote-note.php?id=77603&amp;page=ref.pcntl&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd77603">
+    <a href="https://www.php.net/manual/vote-note.php?id=77603&amp;page=ref.pcntl&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V77603" title="70% like this...">
+    10
+    </div>
+  </div>
+  <a href="ref.pcntl.php.html#77603" class="name">
+  <strong class="user"><em>registrazioni at XSPAMX dot tassetti dot net</em></strong></a><a class="genanchor" href="ref.pcntl.php.html#77603"> &para;</a><div class="date" title="2007-09-05 09:12"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom77603">
+<div class="phpcode"><code><span class="html">(PHP 5.2.4) <br /><br />This is an example of multithreading keeping different connections to a mysql database: when children exit they close the connection and others can't use it any more generating problems. In this example I used variable variables to make a different connection per each child. <br /><br />This scripts loops forever with one mother detached from the terminal and five children 'named' from 1 to 5. When one children sees it's name in the database (one table 'test.tb' with only one field 'test') he lets himself die. To kill children insert their value in the db. The mother suicides only when all children are dead.<br /><br />What a sad but interesting story...<br /><br />    $npid = pcntl_fork(); // DETACH FROM TERMINAL AND BE REAPED BY INIT<br /><br />    if ($npid==-1) die("Error: impossible to pcntl_fork()\n");<br />    else if ($npid) exit(0); // THE GRANPA DIES<br />    else // MOTHER GOES ON TO MAKE CHILDREN<br />    {<br />        $children = 5;<br />        for ($i=1; $i&lt;=$children; $i++)<br />        {<br />            $pid = pcntl_fork();<br />            if ($pid==-1) die("Error: impossible to pcntl_fork()\n");<br />            else if ($pid)<br />            {<br />                 $pid_arr[$i] = $pid;<br />            }<br />            if (!$pid) // CHILDREN<br />            {<br />                global $vconn;<br />                $vconn = "vconn$i";<br />                global $$vconn;<br />                $$vconn = @mysql_connect("mydbhost","mydbuser","mydbpwd");<br />                if (!($$vconn)) echo mysql_error();<br />                if (!($$vconn)) exit;<br /><br />                while (1)<br />                {<br />                    $query = "SELECT test FROM test.tb";<br />                    $rs = mysql_query($query,$$vconn);<br />                    $rw = mysql_fetch_row($rs);<br />                    if ($rw[0]==$i) exit;<br />                    else<br />                    {<br />                        echo "Database is $rw[0] and I am $i, it's not my time, I will wait....\n";<br />                        sleep(1);<br />                    }<br />                }<br />            }<br />        }<br /><br />        foreach ($pid_arr as $pid)<br />        {<br />            // we are the parent and we wait for all children to die<br />            pcntl_waitpid($pid, $status);<br />        }<br />        echo "All my children died, I will suicide...\n";<br />        exit();<br />    }</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="72004">  <div class="votes">
+    <div id="Vu72004">
+    <a href="https://www.php.net/manual/vote-note.php?id=72004&amp;page=ref.pcntl&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd72004">
+    <a href="https://www.php.net/manual/vote-note.php?id=72004&amp;page=ref.pcntl&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V72004" title="60% like this...">
+    1
+    </div>
+  </div>
+  <a href="ref.pcntl.php.html#72004" class="name">
+  <strong class="user"><em>kementeusNOSPAM at gmail dot com</em></strong></a><a class="genanchor" href="ref.pcntl.php.html#72004"> &para;</a><div class="date" title="2006-12-28 09:43"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom72004">
+<div class="phpcode"><code><span class="html">In the example of the documentation we need to put the pctnl_signal statements BEFORE the while loop.<br /><br />In that way we can execute whatever we put in the signal handler functions.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="35777">  <div class="votes">
+    <div id="Vu35777">
+    <a href="https://www.php.net/manual/vote-note.php?id=35777&amp;page=ref.pcntl&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd35777">
+    <a href="https://www.php.net/manual/vote-note.php?id=35777&amp;page=ref.pcntl&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V35777" title="60% like this...">
+    1
+    </div>
+  </div>
+  <a href="ref.pcntl.php.html#35777" class="name">
+  <strong class="user"><em>David Koopman</em></strong></a><a class="genanchor" href="ref.pcntl.php.html#35777"> &para;</a><div class="date" title="2003-09-14 01:32"><strong>20 years ago</strong></div>
+  <div class="text" id="Hcom35777">
+<div class="phpcode"><code><span class="html">I had a hard time finding a complete example of using PHP as a multi-process (or multi-threaded - I don't understand the difference in these two terms) daemon using connection pooling.  I put pieces of the puzzle together and came up with the program below.  I hope it helps someone.  Notes about making this work:<br /><br />1) I rebuilt PHP on my machine with these config options:<br />./configure --enable-sockets --enable-pcntl --enable-sigchild<br />make<br />make install<br /><br />2) I have problems when tried to handle SIGTERM and SIGHUP myself, so I removed these from my code, don't use them unless you have a special need for this:<br />pcntl_signal(SIGTERM, "sig_handler");<br />pcntl_signal(SIGHUP, "sig_handler");<br /><br />What I do is: <br />1. start the program, then fork to detach from the terminal (kill the parent and make the child the session leader).<br /><br />2. bind to address and port and start listening.<br /><br />3. fork $poolNum times, creating $poolNum children (this is the pool of daemons running.  The children handle the incoming connections).<br /><br />4. keep the parent process running in a loop, constantly checking to see if it should create a new child.  It will always keep $poolNum spare children ready (as long as the total pooled connections doesn't exceed $maxDaemon).  As connections come in, more children are spawned. <br /><br />5. When a new connection comes in, it is handed off to the first child.  This child then sends a SIGUSR1 signal back to the parent.  The parent has a signal handler for SIGUSR1, which will increment the $numActive variable by one.  The loop that is running (see 4 above) will note the increment in $numActive and automatically create a new child process to keep the process pool going.<br /><br />I have to post the code in the next note, the note engine on this site won't allow such a long note to be posted, but I think this code example is well worth a comment on this...</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="37369">  <div class="votes">
+    <div id="Vu37369">
+    <a href="https://www.php.net/manual/vote-note.php?id=37369&amp;page=ref.pcntl&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd37369">
+    <a href="https://www.php.net/manual/vote-note.php?id=37369&amp;page=ref.pcntl&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V37369" title="57% like this...">
+    1
+    </div>
+  </div>
+  <a href="ref.pcntl.php.html#37369" class="name">
+  <strong class="user"><em>luca dot mariano at email dot it</em></strong></a><a class="genanchor" href="ref.pcntl.php.html#37369"> &para;</a><div class="date" title="2003-11-12 06:49"><strong>20 years ago</strong></div>
+  <div class="text" id="Hcom37369">
+<div class="phpcode"><code><span class="html">Hi folks,<br />if someone uses PHP-CLI onWin32 and wants to experiment the PCNTL stuff, I've packed a binary version of PHP with built-in pcntl, shmop, sysvshm and other typical Unix extensions... (thanks to Cygwin DLLs).<br />Download it: <a href="http://phplet.sf.net/modules.php?name=Web_Links&amp;l_op=visit&amp;lid=4" rel="nofollow" target="_blank">http://phplet.sf.net/modules.php?name=Web_Links&amp;l_op=visit&amp;lid=4</a></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="123915">  <div class="votes">
+    <div id="Vu123915">
+    <a href="https://www.php.net/manual/vote-note.php?id=123915&amp;page=ref.pcntl&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd123915">
+    <a href="https://www.php.net/manual/vote-note.php?id=123915&amp;page=ref.pcntl&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V123915" title="100% like this...">
+    2
+    </div>
+  </div>
+  <a href="ref.pcntl.php.html#123915" class="name">
+  <strong class="user"><em>debasiss at mindfiresolutions dot com</em></strong></a><a class="genanchor" href="ref.pcntl.php.html#123915"> &para;</a><div class="date" title="2019-06-07 04:22"><strong>4 years ago</strong></div>
+  <div class="text" id="Hcom123915">
+<div class="phpcode"><code><span class="html"><span class="default">&lt;?php<br /></span><span class="comment">/**<br /> * @file<br /> * Working demo of simulating parallel process in PHP.<br /> */<br /><br />// ****                       **** //<br /></span><span class="keyword">print </span><span class="string">"Main program started.... \n"</span><span class="keyword">;<br /></span><span class="comment">// Start two child processes.<br /></span><span class="default">createProcess</span><span class="keyword">(</span><span class="string">"Job1"</span><span class="keyword">);<br /></span><span class="default">createProcess</span><span class="keyword">(</span><span class="string">"Job2"</span><span class="keyword">);<br />print </span><span class="string">" *** Child Process started *** \n"</span><span class="keyword">;<br /><br />while (</span><span class="default">TRUE</span><span class="keyword">) {<br /><br /> </span><span class="default">$pid </span><span class="keyword">= </span><span class="default">pcntl_waitpid</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">, </span><span class="default">$status</span><span class="keyword">, </span><span class="default">WNOHANG</span><span class="keyword">);<br />    if (</span><span class="default">$pid </span><span class="keyword">&gt; </span><span class="default">0</span><span class="keyword">) {<br />        </span><span class="default">childProcessComplete</span><span class="keyword">(</span><span class="default">$pid</span><span class="keyword">);<br />    }else if(</span><span class="default">$pid </span><span class="keyword">=== -</span><span class="default">1</span><span class="keyword">){<br />        print </span><span class="string">" *** Child Process Completed *** \n"</span><span class="keyword">;<br />        </span><span class="default">allChildProcessComplete</span><span class="keyword">();<br />        exit();<br />    }<br /><br />}<br />print </span><span class="string">"Main program end. \n"</span><span class="keyword">;<br /><br /></span><span class="comment">/**<br /> * Method to start child process.<br /> */<br /></span><span class="keyword">function </span><span class="default">startChildProcess</span><span class="keyword">(</span><span class="default">$childProcessName</span><span class="keyword">) {<br />    </span><span class="default">$executionTime </span><span class="keyword">= </span><span class="default">rand</span><span class="keyword">(</span><span class="default">5</span><span class="keyword">, </span><span class="default">10</span><span class="keyword">);<br /><br />    if(</span><span class="default">$childProcessName </span><span class="keyword">=== </span><span class="string">"Job1"</span><span class="keyword">){<br />        print </span><span class="string">"Starting Job1 on processId " </span><span class="keyword">.</span><span class="default">getmypid</span><span class="keyword">().</span><span class="string">"  at " </span><span class="keyword">. </span><span class="default">date</span><span class="keyword">(</span><span class="string">'l jS \of F Y h:i:s A'</span><span class="keyword">) . </span><span class="string">" expected time </span><span class="default">$executionTime</span><span class="string"> seconds\n"</span><span class="keyword">;<br />    }else if(</span><span class="default">$childProcessName </span><span class="keyword">=== </span><span class="string">"Job2"</span><span class="keyword">){<br />        print </span><span class="string">"Starting Job2 on processId " </span><span class="keyword">.</span><span class="default">getmypid</span><span class="keyword">().</span><span class="string">"  at " </span><span class="keyword">. </span><span class="default">date</span><span class="keyword">(</span><span class="string">'l jS \of F Y h:i:s A'</span><span class="keyword">) . </span><span class="string">" expected time </span><span class="default">$executionTime</span><span class="string"> seconds\n"</span><span class="keyword">;<br />    }<br /><br />    </span><span class="comment">// Simulate doing actual work with sleep().<br />    </span><span class="default">sleep</span><span class="keyword">(</span><span class="default">$executionTime</span><span class="keyword">);<br />}<br /><br /></span><span class="comment">/**<br /> * Method to notify when system unable to start a process.<br /> */<br /></span><span class="keyword">function </span><span class="default">errorOnProcessLunch</span><span class="keyword">() {<br />    print </span><span class="string">"Failed to lunch process \n"</span><span class="keyword">;<br />}<br /><br /></span><span class="comment">/**<br /> * Method to notify when a child process complete the task.<br /> */<br /></span><span class="keyword">function </span><span class="default">childProcessComplete</span><span class="keyword">(</span><span class="default">$pid</span><span class="keyword">) {<br />    print </span><span class="string">"Child processing is done for </span><span class="default">$pid</span><span class="string">  at " </span><span class="keyword">. </span><span class="default">date</span><span class="keyword">(</span><span class="string">'l jS \of F Y h:i:s A'</span><span class="keyword">) . </span><span class="string">" \n"</span><span class="keyword">;<br />}<br /><br /></span><span class="comment">/**<br /> * Method to create a new process.<br /> */<br /></span><span class="keyword">function </span><span class="default">createProcess</span><span class="keyword">(</span><span class="default">$pname</span><span class="keyword">) {<br />    </span><span class="default">$pid </span><span class="keyword">= </span><span class="default">pcntl_fork</span><span class="keyword">();<br /><br />    if (</span><span class="default">$pid </span><span class="keyword">== -</span><span class="default">1</span><span class="keyword">) {<br />        </span><span class="default">errorOnProcessLunch</span><span class="keyword">();<br />    }<br />    else if (</span><span class="default">$pid </span><span class="keyword">=== </span><span class="default">0</span><span class="keyword">) {<br />        </span><span class="default">startChildProcess</span><span class="keyword">(</span><span class="default">$pname</span><span class="keyword">);<br />        exit(); </span><span class="comment">// Make sure to exit.<br />    </span><span class="keyword">}<br />    else {<br />        </span><span class="default">startParentProcess</span><span class="keyword">(</span><span class="default">$pid</span><span class="keyword">);<br />    }<br /><br />}<br /><br /></span><span class="comment">/**<br /> * Method to notify when parent thread execute.<br /> */<br /></span><span class="keyword">function </span><span class="default">startParentProcess</span><span class="keyword">(</span><span class="default">$childProcessID</span><span class="keyword">){<br />    print </span><span class="string">"In parent thread created child processid </span><span class="default">$childProcessID</span><span class="string"> \n"</span><span class="keyword">;<br />}<br /><br /></span><span class="comment">/**<br /> * Method to notify when all child process has completed the task.<br /> */<br /></span><span class="keyword">function </span><span class="default">allChildProcessComplete</span><span class="keyword">(){<br />    print </span><span class="string">"All child processing completed \n"</span><span class="keyword">;<br />}<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="21856">  <div class="votes">
+    <div id="Vu21856">
+    <a href="https://www.php.net/manual/vote-note.php?id=21856&amp;page=ref.pcntl&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd21856">
+    <a href="https://www.php.net/manual/vote-note.php?id=21856&amp;page=ref.pcntl&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V21856" title="100% like this...">
+    2
+    </div>
+  </div>
+  <a href="ref.pcntl.php.html#21856" class="name">
+  <strong class="user"><em>keksov[at]gmx.de</em></strong></a><a class="genanchor" href="ref.pcntl.php.html#21856"> &para;</a><div class="date" title="2002-05-29 10:10"><strong>21 years ago</strong></div>
+  <div class="text" id="Hcom21856">
+<div class="phpcode"><code><span class="html">You have to use socket_select before socket_accept, so your code will wait for connection with select. socket_select can be interrupted by signals easily. Below is an example from my library (methods of class TNetSocket):<br />  //-- select<br />  function select($aread=NULL,$awrite=NULL,$aexcept=NULL,$timeout=NULL)<br />  {<br />    while(1)<br />    {<br />      $res="";<br />      $res=socket_select($aread, $awrite, $aexcept, $timeout);<br /><br />      // if errno===0 it means what select was interrrupted by SysV signal<br />      if($res===false &amp;&amp; socket_last_error($this-&gt;socket())!==0)<br />      { // error occured, interrupted not by a signal<br />        $this-&gt;set_socket_error(__LINE__);<br />        return(false);<br />      }<br />      break;<br />    }<br />    return(true);<br />  }<br /><br />  //-- accept, wait for incomming connection<br />  function accept()<br />  {<br />    $this-&gt;clear_socket_error();<br />    $this-&gt;set_io_socket(_SOCKET_);<br /><br />    $socket=$this-&gt;socket();<br />    $aread=array($socket);<br />    if ($this-&gt;select($a=&amp;$aread)===false)<br />      return(false);<br /><br />    $child_socket=socket_accept($this-&gt;socket);<br />    if($child_socket &lt;= 0)<br />    { // error occured<br />      $this-&gt;set_socket_error(__LINE__);<br />      return(false);<br />    }<br /><br />    $this-&gt;child_socket=$child_socket;<br />    $this-&gt;sockets[_CHILD_SOCKET_]=&amp;$this-&gt;child_socket;<br />    $this-&gt;set_io_socket(_CHILD_SOCKET_);<br /><br />    $a=&amp;$this-&gt;peername;<br />    $res=socket_getpeername($child_socket,$a);<br /><br />    if($res &lt;= 0)<br />    { // error occured<br />      $this-&gt;set_socket_error(__LINE__);<br />      return(false);<br />    }<br /><br />    $this-&gt;get_address_and_port(_CHILD_SOCKET_);<br />    TLogManager::phpserv("Connection accepted. ADDRESS $this-&gt;address, PORT $this-&gt;port","net_socket",__FILE__,__LINE__);<br /><br />    $this-&gt;connected=true;<br />    return(true); // return new object of TNetSocket type<br />  }</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="38020">  <div class="votes">
+    <div id="Vu38020">
+    <a href="https://www.php.net/manual/vote-note.php?id=38020&amp;page=ref.pcntl&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd38020">
+    <a href="https://www.php.net/manual/vote-note.php?id=38020&amp;page=ref.pcntl&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V38020" title="100% like this...">
+    1
+    </div>
+  </div>
+  <a href="ref.pcntl.php.html#38020" class="name"><strong class="user"><em>Anonymous</em></strong></a><a class="genanchor" href="ref.pcntl.php.html#38020"> &para;</a><div class="date" title="2003-12-04 03:52"><strong>20 years ago</strong></div>
+  <div class="text" id="Hcom38020">
+<div class="phpcode"><code><span class="html">in example 1, i found unless i create function sig_handler _BEFORE_ pcnt_signal, it wouldnt work.. and would just fall to the floor bleeding to death<br /><br />(note for people having these kinda probs)</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="37518">  <div class="votes">
+    <div id="Vu37518">
+    <a href="https://www.php.net/manual/vote-note.php?id=37518&amp;page=ref.pcntl&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd37518">
+    <a href="https://www.php.net/manual/vote-note.php?id=37518&amp;page=ref.pcntl&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V37518" title="100% like this...">
+    1
+    </div>
+  </div>
+  <a href="ref.pcntl.php.html#37518" class="name">
+  <strong class="user"><em>cameronNO_SPAM at tripdubdev dot com</em></strong></a><a class="genanchor" href="ref.pcntl.php.html#37518"> &para;</a><div class="date" title="2003-11-18 12:36"><strong>20 years ago</strong></div>
+  <div class="text" id="Hcom37518">
+<div class="phpcode"><code><span class="html">I'm currently working on some code for this, but in case I forget to come back to post to the board, or in case it takes me a while, why not just have a separate background job running (started up via the shell) that tracks which sockets are available to clients ?  Then all you'd have to do is communicate with the one job (or perhaps its own mini-server) run in the background that keeps an array of the available sockets for the server.  This seems the most natural alternative since PHP disclaims that process control functionality should not be used in a web-server environment.  I would hate to build a server, especially one with high traffic, that had to run through a loop in order to find an available socket.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="36603">  <div class="votes">
+    <div id="Vu36603">
+    <a href="https://www.php.net/manual/vote-note.php?id=36603&amp;page=ref.pcntl&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd36603">
+    <a href="https://www.php.net/manual/vote-note.php?id=36603&amp;page=ref.pcntl&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V36603" title="100% like this...">
+    1
+    </div>
+  </div>
+  <a href="ref.pcntl.php.html#36603" class="name">
+  <strong class="user"><em>jeremy at nirvani dot net</em></strong></a><a class="genanchor" href="ref.pcntl.php.html#36603"> &para;</a><div class="date" title="2003-10-15 08:54"><strong>20 years ago</strong></div>
+  <div class="text" id="Hcom36603">
+<div class="phpcode"><code><span class="html">#!/usr/local/bin/php -q<br /><span class="default">&lt;?php<br /><br /></span><span class="comment"># Jeremy Brand &lt;jeremy@nirvani.net&gt;<br /># <a href="http://www.nirvani.net/" rel="nofollow" target="_blank">http://www.nirvani.net/</a><br /><br /># ./configure --enable-pcntl --enable-sigchild<br /># make<br /># make install<br /><br /># This code example shows how to use a script to do multiprocessing.  Each time<br /># this script is ran, the result is 5 (in this example) processes running to<br /># accomplish a specified task.<br /><br /># Examples could be a messaging queue.  You could get the number of messages in<br /># a queue and handle any or all of them asynchronously.<br /><br /># Get the number of children you want to be born by running this<br /># script once.<br /></span><span class="default">$children </span><span class="keyword">= </span><span class="default">5</span><span class="keyword">; </span><span class="comment"># likely a function call here.<br /><br /></span><span class="keyword">for (</span><span class="default">$i</span><span class="keyword">=</span><span class="default">1</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">&lt;=</span><span class="default">$children</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++)<br />{<br /><br />  </span><span class="default">$pid </span><span class="keyword">= </span><span class="default">pcntl_fork</span><span class="keyword">();<br />  if (</span><span class="default">$pid </span><span class="keyword">== -</span><span class="default">1</span><span class="keyword">)<br />  {<br />    die(</span><span class="string">"could not fork\n"</span><span class="keyword">);<br />  }<br />  else if (</span><span class="default">$pid</span><span class="keyword">)<br />  {<br />    </span><span class="comment"># If we are the parent, we did our job of giving birth,<br />    # now lets finish our job and die!<br />    </span><span class="keyword">exit(</span><span class="default">0</span><span class="keyword">);<br />  }<br />  else<br />  {<br />    </span><span class="comment"># Since we are the child, fork so that init will become our parent.  Init<br />    # is good at wait()ing on children - ie: reaping.<br />    </span><span class="default">$cpid </span><span class="keyword">= </span><span class="default">pcntl_fork</span><span class="keyword">();<br />    if (</span><span class="default">$cpid </span><span class="keyword">== -</span><span class="default">1</span><span class="keyword">)<br />    {<br />      die(</span><span class="string">"could not fork in child process\n"</span><span class="keyword">);<br />    }<br />    if (!</span><span class="default">$cpid</span><span class="keyword">)<br />    {<br />      </span><span class="comment"># We have now forked off from our parent and also are not waiting on any<br />      # other children to process, however other children are running<br />      # simutaniously to us.  Make sure the code you write here is safe to run<br />      # in this environment of multiprocessing - ie: proper locking, etc.<br />      # Write the custom code here that you want to multiprocess.<br /><br />      # ADD CODE HERE TO MULTIPROCESS<br />      </span><span class="keyword">print </span><span class="string">"we are child number </span><span class="default">$i</span><span class="string">\n"</span><span class="keyword">;<br /><br />      </span><span class="comment"># Don't forget to exit after the child processing is done.  Certainly<br />      # change this exit code if you need to however.<br />      </span><span class="keyword">exit(</span><span class="default">0</span><span class="keyword">);<br />    }<br />  }<br />}<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="35440">  <div class="votes">
+    <div id="Vu35440">
+    <a href="https://www.php.net/manual/vote-note.php?id=35440&amp;page=ref.pcntl&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd35440">
+    <a href="https://www.php.net/manual/vote-note.php?id=35440&amp;page=ref.pcntl&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V35440" title="100% like this...">
+    1
+    </div>
+  </div>
+  <a href="ref.pcntl.php.html#35440" class="name">
+  <strong class="user"><em>schst at php dot net</em></strong></a><a class="genanchor" href="ref.pcntl.php.html#35440"> &para;</a><div class="date" title="2003-09-01 07:39"><strong>20 years ago</strong></div>
+  <div class="text" id="Hcom35440">
+<div class="phpcode"><code><span class="html">To get rid of the zombies when child processes terminate you do not have to write a lot of code that uses complex stuff like message queues.<br />Instead you only set a signal handler:<br /><br />pcntl_signal(SIGCHLD, SIG_IGN);<br /><br />Stephan</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="19447">  <div class="votes">
+    <div id="Vu19447">
+    <a href="https://www.php.net/manual/vote-note.php?id=19447&amp;page=ref.pcntl&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd19447">
+    <a href="https://www.php.net/manual/vote-note.php?id=19447&amp;page=ref.pcntl&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V19447" title="100% like this...">
+    1
+    </div>
+  </div>
+  <a href="ref.pcntl.php.html#19447" class="name">
+  <strong class="user"><em>daniel[at]lorch.cc</em></strong></a><a class="genanchor" href="ref.pcntl.php.html#19447"> &para;</a><div class="date" title="2002-02-27 03:48"><strong>21 years ago</strong></div>
+  <div class="text" id="Hcom19447">
+<div class="phpcode"><code><span class="html">This piece of code helped me to find out what signals are being sent to my process:<br /><br />function sig_identify($signo) {<br />  switch($signo) {<br />    case SIGFPE:    return 'SIGFPE';<br />    case SIGSTOP:   return 'SIGSTOP';<br />    case SIGHUP:    return 'SIGHUP';<br />    case SIGINT:    return 'SIGINT';<br />    case SIGQUIT:   return 'SIGQUIT';<br />    case SIGILL:    return 'SIGILL';<br />    case SIGTRAP:   return 'SIGTRAP';<br />    case SIGABRT:   return 'SIGABRT';<br />    case SIGIOT:    return 'SIGIOT';<br />    case SIGBUS:    return 'SIGBUS';<br />    case SIGPOLL:   return 'SIGPOLL';<br />    case SIGSYS:    return 'SIGSYS';<br />    case SIGCONT:   return 'SIGCONT';<br />    case SIGUSR1:   return 'SIGUSR1';<br />    case SIGUSR2:   return 'SIGUSR2';<br />    case SIGSEGV:   return 'SIGSEGV';<br />    case SIGPIPE:   return 'SIGPIPE';<br />    case SIGALRM:   return 'SIGALRM';<br />    case SIGTERM:   return 'SIGTERM';<br />    case SIGSTKFLT: return 'SIGSTKFLT';<br />    case SIGCHLD:   return 'SIGCHLD';<br />    case SIGCLD:    return 'SIGCLD';<br />    case SIGIO:     return 'SIGIO';<br />    case SIGKILL:   return 'SIGKILL';<br />    case SIGTSTP:   return 'SIGTSTP';<br />    case SIGTTIN:   return 'SIGTTIN';<br />    case SIGTTOU:   return 'SIGTTOU';<br />    case SIGURG:    return 'SIGURG';<br />    case SIGXCPU:   return 'SIGXCPU';<br />    case SIGXFSZ:   return 'SIGXFSZ';<br />    case SIGVTALRM: return 'SIGVTALRM';<br />    case SIGPROF:   return 'SIGPROF';<br />    case SIGWINCH:  return 'SIGWINCH';<br />    case SIGPWR:    return 'SIGPWR';<br />  }<br />}<br /><br />function sig_handler($signo) {<br />  echo "Caught " . sig_identify($signo) . " (" . $signo  . ") on " . posix_getpid() . "\n";<br />}<br /><br />pcntl_signal(SIGFPE, "sig_handler");<br />pcntl_signal(SIGHUP, "sig_handler");<br />// pcntl_signal(SIGINT, "sig_handler");<br />pcntl_signal(SIGQUIT, "sig_handler");<br />pcntl_signal(SIGILL, "sig_handler");<br />pcntl_signal(SIGTRAP, "sig_handler");<br />pcntl_signal(SIGABRT, "sig_handler");<br />pcntl_signal(SIGIOT, "sig_handler");<br />pcntl_signal(SIGBUS, "sig_handler");<br />pcntl_signal(SIGPOLL, "sig_handler");<br />pcntl_signal(SIGSYS, "sig_handler");<br />pcntl_signal(SIGCONT, "sig_handler");<br />pcntl_signal(SIGUSR1, "sig_handler");<br />pcntl_signal(SIGUSR2, "sig_handler");<br />pcntl_signal(SIGSEGV, "sig_handler");<br />pcntl_signal(SIGPIPE, "sig_handler");<br />pcntl_signal(SIGALRM, "sig_handler");<br />pcntl_signal(SIGTERM, "sig_handler");<br />pcntl_signal(SIGSTKFLT, "sig_handler");<br />pcntl_signal(SIGCHLD, "sig_handler");<br />pcntl_signal(SIGCLD, "sig_handler");<br />pcntl_signal(SIGIO, "sig_handler");<br />pcntl_signal(SIGTSTP, "sig_handler");<br />pcntl_signal(SIGTTIN, "sig_handler");<br />pcntl_signal(SIGTTOU, "sig_handler");<br />pcntl_signal(SIGURG, "sig_handler");<br />pcntl_signal(SIGXCPU, "sig_handler");<br />pcntl_signal(SIGXFSZ, "sig_handler");<br />pcntl_signal(SIGVTALRM, "sig_handler");<br />pcntl_signal(SIGPROF, "sig_handler");<br />pcntl_signal(SIGWINCH, "sig_handler");<br />pcntl_signal(SIGPWR, "sig_handler");<br /><br />I commented out SIGNIT, as it is the signal which is sent to your process when you press CTRL-C. If you catch this signal, you must handle it properly:<br /><br />function sig_handler($signo) {<br />  switch($signo) {<br />    case SIGINT:<br />      // customized cleanup code<br />      exit; // now exit<br />      break;<br />  }<br />}<br /><br />Otherwise the only possibility to stop your process is by sending a SIGKILL signal - you can do this on the shell by typing "kill -9 PID" (where -9 is the numerical value for SIGKILL).<br /><br />Note: You cannot add a handler (i.e. ignore signals) for SIGSTOP and SIGKILL - for obvious reasons.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="82373">  <div class="votes">
+    <div id="Vu82373">
+    <a href="https://www.php.net/manual/vote-note.php?id=82373&amp;page=ref.pcntl&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd82373">
+    <a href="https://www.php.net/manual/vote-note.php?id=82373&amp;page=ref.pcntl&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V82373" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="ref.pcntl.php.html#82373" class="name">
+  <strong class="user"><em>m dot quinton at gmail dot com</em></strong></a><a class="genanchor" href="ref.pcntl.php.html#82373"> &para;</a><div class="date" title="2008-04-08 12:02"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom82373">
+<div class="phpcode"><code><span class="html">a nice example of a class framework to manage tasks using pcntl_fork.<br /><br /><span class="default">&lt;?php<br /><br /></span><span class="comment">/**<br /> * author : Marc Quinton / April 2008.<br /> *<br /> *  a simple task management framework using pcntl_fork, pcntl_wait.<br /> *<br /> *  - see at bottom for a sample usage.<br /> *  - you shoud overring Task class (SleepingClass is an example), and manage them in a pool, using taskManager<br /> */<br /><br /></span><span class="default">error_reporting</span><span class="keyword">(</span><span class="default">E_ALL</span><span class="keyword">);<br /><br />class </span><span class="default">Task </span><span class="keyword">{<br /><br />    protected </span><span class="default">$pid</span><span class="keyword">;<br />    protected </span><span class="default">$ppid</span><span class="keyword">;<br /><br />    function </span><span class="default">__construct</span><span class="keyword">(){<br />    }<br /><br />    function </span><span class="default">fork</span><span class="keyword">(){<br />        </span><span class="default">$pid </span><span class="keyword">= </span><span class="default">pcntl_fork</span><span class="keyword">();<br />        if (</span><span class="default">$pid </span><span class="keyword">== -</span><span class="default">1</span><span class="keyword">)<br />            throw new </span><span class="default">Exception </span><span class="keyword">(</span><span class="string">'fork error on Task object'</span><span class="keyword">);<br />        elseif (</span><span class="default">$pid</span><span class="keyword">) {<br />            </span><span class="comment"># we are in parent class<br />            </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">pid </span><span class="keyword">= </span><span class="default">$pid</span><span class="keyword">;<br />            </span><span class="comment"># echo "&lt; in parent with pid {$his-&gt;pid}\n";<br />        </span><span class="keyword">} else{<br />            </span><span class="comment"># we are is child<br />            </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">run</span><span class="keyword">();<br />        }<br />    }<br /><br />    function </span><span class="default">run</span><span class="keyword">(){<br />        </span><span class="comment"># echo "&gt; in child {$this-&gt;pid}\n";<br />        # sleep(rand(1,3));<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">ppid </span><span class="keyword">= </span><span class="default">posix_getppid</span><span class="keyword">();<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">pid </span><span class="keyword">= </span><span class="default">posix_getpid</span><span class="keyword">();<br />    }<br /><br />    </span><span class="comment"># call when a task in finished (in parent)<br />    </span><span class="keyword">function </span><span class="default">finish</span><span class="keyword">(){<br />        echo </span><span class="string">"task finished </span><span class="keyword">{</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">pid</span><span class="keyword">}</span><span class="string">\n"</span><span class="keyword">;<br />    }<br /><br />    function </span><span class="default">pid</span><span class="keyword">(){<br />        return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">pid</span><span class="keyword">;<br />    }<br />}<br /><br />class </span><span class="default">SleepingTask </span><span class="keyword">extends </span><span class="default">Task</span><span class="keyword">{<br />    function </span><span class="default">run</span><span class="keyword">(){<br />        </span><span class="default">parent</span><span class="keyword">::</span><span class="default">run</span><span class="keyword">();<br />        echo </span><span class="string">"&gt; in child </span><span class="keyword">{</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">pid</span><span class="keyword">}</span><span class="string">\n"</span><span class="keyword">;<br /><br />        </span><span class="comment"># print_r($this);<br /><br />        </span><span class="default">sleep</span><span class="keyword">(</span><span class="default">rand</span><span class="keyword">(</span><span class="default">1</span><span class="keyword">,</span><span class="default">5</span><span class="keyword">));<br />        echo </span><span class="string">"&gt; child done </span><span class="keyword">{</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">pid</span><span class="keyword">}</span><span class="string">\n"</span><span class="keyword">;<br />        exit(</span><span class="default">0</span><span class="keyword">);<br />    }<br />}<br /><br />class </span><span class="default">TaskManager</span><span class="keyword">{<br /><br />    protected </span><span class="default">$pool</span><span class="keyword">;<br /><br />    function </span><span class="default">__construct</span><span class="keyword">(){<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">pool </span><span class="keyword">= array();<br />    }<br /><br />    function </span><span class="default">add_task</span><span class="keyword">(</span><span class="default">$task</span><span class="keyword">){<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">pool</span><span class="keyword">[] = </span><span class="default">$task</span><span class="keyword">;<br />    }<br /><br />    function </span><span class="default">run</span><span class="keyword">(){<br /><br />        foreach(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">pool </span><span class="keyword">as </span><span class="default">$task</span><span class="keyword">){<br />            </span><span class="default">$task</span><span class="keyword">-&gt;</span><span class="default">fork</span><span class="keyword">();<br />        }<br /><br />        </span><span class="comment"># print_r($this);<br />        # sleep(60);<br /><br />        </span><span class="keyword">while(</span><span class="default">1</span><span class="keyword">){<br />            echo </span><span class="string">"waiting\n"</span><span class="keyword">;<br />            </span><span class="default">$pid </span><span class="keyword">= </span><span class="default">pcntl_wait</span><span class="keyword">(</span><span class="default">$extra</span><span class="keyword">);<br />            if(</span><span class="default">$pid </span><span class="keyword">== -</span><span class="default">1</span><span class="keyword">)<br />                break;<br /><br />            echo </span><span class="string">": task done : </span><span class="default">$pid</span><span class="string">\n"</span><span class="keyword">;<br />            </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">finish_task</span><span class="keyword">(</span><span class="default">$pid</span><span class="keyword">);<br />        }<br /><br />        echo </span><span class="string">"processes done ; exiting\n"</span><span class="keyword">;<br />        exit(</span><span class="default">0</span><span class="keyword">);<br />    }<br /><br />    function </span><span class="default">finish_task</span><span class="keyword">(</span><span class="default">$pid</span><span class="keyword">){<br />        if(</span><span class="default">$task </span><span class="keyword">= </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">pid_to_task</span><span class="keyword">(</span><span class="default">$pid</span><span class="keyword">))<br />            </span><span class="default">$task</span><span class="keyword">-&gt;</span><span class="default">finish</span><span class="keyword">();<br />    }<br /><br />    function </span><span class="default">pid_to_task</span><span class="keyword">(</span><span class="default">$pid</span><span class="keyword">){<br />        foreach(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">pool </span><span class="keyword">as </span><span class="default">$task</span><span class="keyword">){<br />            if(</span><span class="default">$task</span><span class="keyword">-&gt;</span><span class="default">pid</span><span class="keyword">() == </span><span class="default">$pid</span><span class="keyword">)<br />                return </span><span class="default">$task</span><span class="keyword">;<br />        }<br />        return </span><span class="default">false</span><span class="keyword">;<br />    }<br />}<br /><br /></span><span class="default">$manager </span><span class="keyword">= new </span><span class="default">TaskManager</span><span class="keyword">();<br /><br />for(</span><span class="default">$i</span><span class="keyword">=</span><span class="default">0 </span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">&lt;</span><span class="default">10 </span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++)<br />    </span><span class="default">$manager</span><span class="keyword">-&gt;</span><span class="default">add_task</span><span class="keyword">(new </span><span class="default">SleepingTask</span><span class="keyword">());<br /><br /></span><span class="default">$manager</span><span class="keyword">-&gt;</span><span class="default">run</span><span class="keyword">();<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="77047">  <div class="votes">
+    <div id="Vu77047">
+    <a href="https://www.php.net/manual/vote-note.php?id=77047&amp;page=ref.pcntl&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd77047">
+    <a href="https://www.php.net/manual/vote-note.php?id=77047&amp;page=ref.pcntl&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V77047" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="ref.pcntl.php.html#77047" class="name">
+  <strong class="user"><em>flyingguillotine1968 at yahoo dot com</em></strong></a><a class="genanchor" href="ref.pcntl.php.html#77047"> &para;</a><div class="date" title="2007-08-12 05:16"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom77047">
+<div class="phpcode"><code><span class="html">ok, heres what ya do to handle child process's ... :&gt; <br /><br />you want to pfork your main program, and let it exit, <br />allowing the new child to become the main program (parent process).<br /><br />example psudo code : <br />main program start;<br />     ....<br />     if pfork'd child ok<br />          then exit ;<br /><br />    // now your new child process is in control... <br />    // use a signal handler to make it exit (sigkill or sigterm probably)<br />    // when this new process pforks, store the new child PID's in an<br />    // array.   when your process  catch's the sigterm  signal<br />    // loop thru the array of its child PID's sending each child<br />    // sigkill , then call  pwait on them to wait for them to exit.<br />    // this will make sure any child process are cleaned up ok<br />    // THEN .. now here's the trick.... <br />    // reset yer sigterm handler BACK to its original default handler, <br />   // thennnnn   raise sigterm , main program will exit ok now tooooo :&gt; <br /><br />  <br />example: <br />when your pfork'd main process gets sigterm ... then do something <br />like this : <br /><br />foreach ($this-&gt;pForkList as $kiddie) {<br />$deadPID    = 0;<br />$this-&gt;sendSignal(SIGKILL,$kiddie);<br />do {<br />$deadPID = pcntl_waitpid(-1,WNOHANG);<br />if ($deadPID &gt; 0) {<br />// kiddie has exited now ... <br />unset($this-&gt;pForkList[ array_search($deadPID,$this-&gt;pForkList)]);<br />break;<br />} // end if<br />} while ($deadPID == 0);<br /><br />} // end for<br /><br />// now reset sigterm ... <br />$this-&gt;signalSet($sigNum,SIG_DFL);<br />// RAISE sigterm now ... <br />$this-&gt;sendSignal(SIGTERM,$this-&gt;myPID);<br /><br />this will allow your main process and all its child process's to exit properly and not leave and zombies or other bad stuff behind !</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="44937">  <div class="votes">
+    <div id="Vu44937">
+    <a href="https://www.php.net/manual/vote-note.php?id=44937&amp;page=ref.pcntl&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd44937">
+    <a href="https://www.php.net/manual/vote-note.php?id=44937&amp;page=ref.pcntl&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V44937" title="0% like this...">
+    -2
+    </div>
+  </div>
+  <a href="ref.pcntl.php.html#44937" class="name">
+  <strong class="user"><em>andy at cbeyond dot net</em></strong></a><a class="genanchor" href="ref.pcntl.php.html#44937"> &para;</a><div class="date" title="2004-08-20 09:26"><strong>19 years ago</strong></div>
+  <div class="text" id="Hcom44937">
+<div class="phpcode"><code><span class="html">Suppose you want to fork off children to handle a few hundred different targets (like, say, SNMP polling, but that's just one example).  Since you don't want to fork-bomb yourself, here's one method of limiting the number of children you have in play at any one time:<br /><br />#!/usr/bin/php -q<br /><span class="default">&lt;?php<br /></span><span class="keyword">declare(</span><span class="default">ticks </span><span class="keyword">= </span><span class="default">1</span><span class="keyword">);<br /><br /></span><span class="default">$max</span><span class="keyword">=</span><span class="default">10</span><span class="keyword">;<br /></span><span class="default">$child</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">;<br /><br /></span><span class="comment">// function for signal handler<br /></span><span class="keyword">function </span><span class="default">sig_handler</span><span class="keyword">(</span><span class="default">$signo</span><span class="keyword">) {<br />  global </span><span class="default">$child</span><span class="keyword">;<br />  switch (</span><span class="default">$signo</span><span class="keyword">) {<br />    case </span><span class="default">SIGCHLD</span><span class="keyword">:<br />      echo </span><span class="string">"SIGCHLD received\n"</span><span class="keyword">;<br />      </span><span class="default">$child </span><span class="keyword">-= </span><span class="default">1</span><span class="keyword">;<br />  }<br />}<br /><br /></span><span class="comment">// install signal handler for dead kids<br /></span><span class="default">pcntl_signal</span><span class="keyword">(</span><span class="default">SIGCHLD</span><span class="keyword">, </span><span class="string">"sig_handler"</span><span class="keyword">);<br /><br />for (</span><span class="default">$i</span><span class="keyword">=</span><span class="default">1</span><span class="keyword">;</span><span class="default">$i</span><span class="keyword">&lt;=</span><span class="default">20</span><span class="keyword">;</span><span class="default">$i</span><span class="keyword">++) {<br />        while (</span><span class="default">$child </span><span class="keyword">&gt;= </span><span class="default">$max</span><span class="keyword">) {<br />                </span><span class="default">sleep</span><span class="keyword">(</span><span class="default">5</span><span class="keyword">); echo </span><span class="string">"\t Maximum children allowed\n"</span><span class="keyword">;<br />                }<br />        </span><span class="default">$child</span><span class="keyword">++;<br />        </span><span class="default">$pid</span><span class="keyword">=</span><span class="default">pcntl_fork</span><span class="keyword">();<br />        if (</span><span class="default">$pid </span><span class="keyword">== -</span><span class="default">1</span><span class="keyword">) {<br />                die(</span><span class="string">"could not fork"</span><span class="keyword">);<br />        } else if (</span><span class="default">$pid</span><span class="keyword">) {<br />                </span><span class="comment">// we are the parent<br />        </span><span class="keyword">} else {<br />                </span><span class="comment">// we are the child<br />                </span><span class="keyword">echo </span><span class="string">"child number </span><span class="default">$i</span><span class="string">\n"</span><span class="keyword">;<br />                </span><span class="comment">// presumably doing something interesting<br />                </span><span class="default">sleep</span><span class="keyword">(</span><span class="default">15</span><span class="keyword">);<br />                exit;<br />        }<br />}</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="47103">  <div class="votes">
+    <div id="Vu47103">
+    <a href="https://www.php.net/manual/vote-note.php?id=47103&amp;page=ref.pcntl&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd47103">
+    <a href="https://www.php.net/manual/vote-note.php?id=47103&amp;page=ref.pcntl&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V47103" title="40% like this...">
+    -1
+    </div>
+  </div>
+  <a href="ref.pcntl.php.html#47103" class="name">
+  <strong class="user"><em>corychristison at lavacube dot com</em></strong></a><a class="genanchor" href="ref.pcntl.php.html#47103"> &para;</a><div class="date" title="2004-11-02 06:53"><strong>19 years ago</strong></div>
+  <div class="text" id="Hcom47103">
+<div class="phpcode"><code><span class="html">An easier way than what was first suggested in the first comment, to retrieve what signal your application is being sent would be to use get_defined_constants() to list all constants, loop through and strip out those that are not signals, and to check if it matches the value.<br /><br />Here is my code for doing this, written for PHP5 only.<br /><span class="default">&lt;?php<br /><br /></span><span class="comment">// php5 Specfic<br /><br /></span><span class="keyword">function </span><span class="default">pcntl_sig_identify </span><span class="keyword">( </span><span class="default">$sig_no </span><span class="keyword">) {<br />    </span><span class="default">$get_constants </span><span class="keyword">= </span><span class="default">get_defined_constants</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">);<br />    </span><span class="default">$pcntl_contstants </span><span class="keyword">= </span><span class="default">$get_constants</span><span class="keyword">[</span><span class="string">"pcntl"</span><span class="keyword">];<br />    </span><span class="default">$keys </span><span class="keyword">= </span><span class="default">array_keys</span><span class="keyword">( </span><span class="default">$pcntl_contstants </span><span class="keyword">);<br />      foreach(</span><span class="default">$keys </span><span class="keyword">as </span><span class="default">$key</span><span class="keyword">){<br />        if(</span><span class="default">strstr</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">, </span><span class="string">"SIG"</span><span class="keyword">) &amp;&amp; !</span><span class="default">strstr</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">, </span><span class="string">"_"</span><span class="keyword">) &amp;&amp; </span><span class="default">$pcntl_contstants</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">] == </span><span class="default">$sig_no</span><span class="keyword">){<br />      return </span><span class="default">$key</span><span class="keyword">;<br />    }<br />      } </span><span class="comment">// end loop<br /></span><span class="keyword">} </span><span class="comment">// end function pcntl_sig_identify<br /><br />// <br />// This example will output "SIGTERM"<br />//<br /><br /></span><span class="keyword">print </span><span class="default">pcntl_sig_identify</span><span class="keyword">(</span><span class="default">15</span><span class="keyword">) . </span><span class="string">"\n"</span><span class="keyword">;<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="33035">  <div class="votes">
+    <div id="Vu33035">
+    <a href="https://www.php.net/manual/vote-note.php?id=33035&amp;page=ref.pcntl&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd33035">
+    <a href="https://www.php.net/manual/vote-note.php?id=33035&amp;page=ref.pcntl&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V33035" title="33% like this...">
+    -1
+    </div>
+  </div>
+  <a href="ref.pcntl.php.html#33035" class="name">
+  <strong class="user"><em>Patrice Levesque</em></strong></a><a class="genanchor" href="ref.pcntl.php.html#33035"> &para;</a><div class="date" title="2003-06-14 01:11"><strong>20 years ago</strong></div>
+  <div class="text" id="Hcom33035">
+<div class="phpcode"><code><span class="html">So, you want to create multiple child processes and don't want any zombies, don't you?<br /><br />You can use IPC to achieve just that.  Every child that is spawned has to tell its parent that time has come for him to be terminated.  So, yes, zombies will be created, but once in a while the parent will 'clean up' after his kids.  Code:<br /><br /><span class="default">&lt;?php<br />  </span><span class="keyword">declare(</span><span class="default">ticks </span><span class="keyword">= </span><span class="default">1</span><span class="keyword">);<br />  </span><span class="comment">// create a IPC message queue<br />  </span><span class="default">$msgqueue </span><span class="keyword">= </span><span class="default">msg_get_queue</span><span class="keyword">(</span><span class="default">ftok</span><span class="keyword">(</span><span class="string">"/tmp/php_msgqueue.stat"</span><span class="keyword">, </span><span class="string">'R'</span><span class="keyword">),</span><span class="default">0666 </span><span class="keyword">| </span><span class="default">IPC_CREAT</span><span class="keyword">);<br />  </span><span class="comment">// loop for 1000 children <br />  </span><span class="keyword">for (</span><span class="default">$c </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$c </span><span class="keyword">&lt; </span><span class="default">1000</span><span class="keyword">; </span><span class="default">$c</span><span class="keyword">++) {<br />    </span><span class="comment">// fork<br />    </span><span class="default">$pcid </span><span class="keyword">= </span><span class="default">pcntl_fork</span><span class="keyword">();<br />    if (</span><span class="default">$pcid </span><span class="keyword">== -</span><span class="default">1</span><span class="keyword">) {<br />      die(</span><span class="string">"Could not fork!"</span><span class="keyword">);<br />    }<br />    elseif (</span><span class="default">$pcid</span><span class="keyword">) { </span><span class="comment">// we are the parent, look for zombie kids and terminate 'em<br />      // look in the IPC message queue if there are any entries<br />      </span><span class="default">$currentqueue </span><span class="keyword">= </span><span class="default">msg_stat_queue</span><span class="keyword">(</span><span class="default">$msgqueue</span><span class="keyword">);<br />      </span><span class="default">$n </span><span class="keyword">= </span><span class="default">$currentqueue</span><span class="keyword">[</span><span class="string">'msg_qnum'</span><span class="keyword">]; </span><span class="comment">// number of messages (number of kids to terminate)<br />      </span><span class="keyword">if (</span><span class="default">$n </span><span class="keyword">&gt; </span><span class="default">0</span><span class="keyword">) {<br />        echo </span><span class="string">"There are </span><span class="default">$n</span><span class="string"> kids to terminate.\n"</span><span class="keyword">;<br />        for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">$n</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++) {<br />          </span><span class="comment">// pop the kid's PID from the IPC message queue<br />          </span><span class="keyword">if (!</span><span class="default">msg_receive </span><span class="keyword">(</span><span class="default">$msgqueue</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">, </span><span class="default">$msg_type</span><span class="keyword">, </span><span class="default">16384</span><span class="keyword">, </span><span class="default">$msg</span><span class="keyword">, </span><span class="default">true</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">$msg_error</span><span class="keyword">)) {<br />            echo </span><span class="string">"MSG_RECV ERROR: </span><span class="default">$errmsg</span><span class="string"> \n"</span><span class="keyword">; </span><span class="comment">// something has gone wrong<br />          </span><span class="keyword">}<br />          else {<br />            </span><span class="default">pcntl_waitpid</span><span class="keyword">(</span><span class="default">$msg</span><span class="keyword">, </span><span class="default">$tmpstat</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">); </span><span class="comment">// terminate kid for real.<br />          </span><span class="keyword">};<br />        };<br />      };<br />    }<br />    else { </span><span class="comment">// we are the child!<br />      </span><span class="keyword">if (!</span><span class="default">posix_setsid</span><span class="keyword">()) { die (</span><span class="string">"Could not detach"</span><span class="keyword">); }; </span><span class="comment">// detach<br />      </span><span class="keyword">echo </span><span class="string">"I am child number </span><span class="default">$c</span><span class="string">\n"</span><span class="keyword">;<br />      </span><span class="default">sleep</span><span class="keyword">(</span><span class="default">5</span><span class="keyword">); </span><span class="comment">// do something useful<br />      // tell dad I'm finished via IPC: send him my PID<br />      </span><span class="keyword">if (!</span><span class="default">msg_send</span><span class="keyword">(</span><span class="default">$msgqueue</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">, </span><span class="default">posix_getpid</span><span class="keyword">(), </span><span class="default">true</span><span class="keyword">, </span><span class="default">true</span><span class="keyword">, </span><span class="default">$errmsg</span><span class="keyword">)) {<br />        echo </span><span class="string">"MSG_SEND ERROR: </span><span class="default">$errmsg</span><span class="string"> \n"</span><span class="keyword">;<br />      };<br />      exit(); </span><span class="comment">// become a zombie until dad kills me                            <br />    </span><span class="keyword">};<br />  };<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="25918">  <div class="votes">
+    <div id="Vu25918">
+    <a href="https://www.php.net/manual/vote-note.php?id=25918&amp;page=ref.pcntl&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd25918">
+    <a href="https://www.php.net/manual/vote-note.php?id=25918&amp;page=ref.pcntl&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V25918" title="33% like this...">
+    -1
+    </div>
+  </div>
+  <a href="ref.pcntl.php.html#25918" class="name">
+  <strong class="user"><em>van[at]webfreshener[dot]com</em></strong></a><a class="genanchor" href="ref.pcntl.php.html#25918"> &para;</a><div class="date" title="2002-10-10 07:53"><strong>21 years ago</strong></div>
+  <div class="text" id="Hcom25918">
+<div class="phpcode"><code><span class="html">Forking your PHP daemon will cause it to zombie on exit.<br /><br />...or so I've seen on:<br />FreeBSD (PHP4.2.x)<br />Debian (PHP4.3.0-dev)<br />Darwin (PHP4.3.0-dev)<br /><br />This was tested with the example code above and other scripts created for evaluation.<br /><br />Seems adding --enable-sigchild to your configure will get rid of the problem.<br /><br />Hope that saves some hair tearing :]</span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=ref.pcntl&amp;redirect=https://www.php.net/manual/ru/ref.pcntl.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="book.pcntl.php.html">PCNTL</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="intro.pcntl.php.html" title="Введение">Введение</a>
+                        </li>
+                                                <li class="">
+                            <a href="pcntl.setup.php.html" title="Установка и настройка">Установка и настройка</a>
+                        </li>
+                                                <li class="">
+                            <a href="pcntl.constants.php.html" title="Предопределённые константы">Предопределённые константы</a>
+                        </li>
+                                                <li class="">
+                            <a href="pcntl.examples.php.html" title="Примеры">Примеры</a>
+                        </li>
+                                                <li class="current">
+                            <a href="ref.pcntl.php.html" title="Функции PCNTL">Функции PCNTL</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

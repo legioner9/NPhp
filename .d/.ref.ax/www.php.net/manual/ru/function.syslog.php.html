@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: syslog - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="function.syslog.php.html">
+ <link rel="shorturl" href="https://www.php.net/syslog">
+ <link rel="alternate" href="https://www.php.net/syslog" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="ref.network.php.html">
+ <link rel="prev" href="function.socket-set-timeout.php.html">
+ <link rel="next" href="book.rrd.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/function.syslog.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/function.syslog.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/function.syslog.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/function.syslog.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/function.syslog.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/function.syslog.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/function.syslog.php" hreflang="pt_BR">
+ <link rel="alternate" href="function.syslog.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/function.syslog.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/function.syslog.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="book.rrd.php.html">
+          RRD &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="function.socket-set-timeout.php.html">
+          &laquo; socket_set_timeout        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.remote.other.php.html'>Другие службы</a></li>      <li><a href='book.network.php.html'>Сеть</a></li>      <li><a href='ref.network.php.html'>Сетевые функции</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/function.syslog.php'>English</option>
+            <option value='de/function.syslog.php'>German</option>
+            <option value='es/function.syslog.php'>Spanish</option>
+            <option value='fr/function.syslog.php'>French</option>
+            <option value='it/function.syslog.php'>Italian</option>
+            <option value='ja/function.syslog.php'>Japanese</option>
+            <option value='pt_BR/function.syslog.php'>Brazilian Portuguese</option>
+            <option value='ru/function.syslog.php' selected="selected">Russian</option>
+            <option value='tr/function.syslog.php'>Turkish</option>
+            <option value='zh/function.syslog.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/network/functions/syslog.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Ffunction.syslog%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="function.syslog" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">syslog</h1>
+  <p class="verinfo">(PHP 4, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">syslog</span> &mdash; <span class="dc-title">Генерирует сообщение для системного журнала</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.syslog-description">
+  <h3 class="title">Описание</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="methodname"><strong>syslog</strong></span>(<span class="methodparam"><span class="type">int</span> <code class="parameter">$priority</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$message</code></span>): <span class="type"><span class="type true">true</span></span></div>
+
+  <p class="para rdfs-comment">
+   Функция <span class="function"><strong>syslog()</strong></span> генерирует сообщение, которое направляется в системный журнал.
+  </p>
+  <p class="para">
+   По поводу информации по установке пользовательского обработчика сообщений журнала смотрите Unix руководство в части <span class="citerefentry"><span class="refentrytitle">syslog.conf</span>
+   <span class="manvolnum">(5)</span></span>.  Дополнительную информацию по функционалу syslog можно получить с помощью man для <span class="citerefentry"><span class="refentrytitle">syslog</span>
+   <span class="manvolnum">(3)</span></span> на Unix-машинах.
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.syslog-parameters">
+  <h3 class="title">Список параметров</h3>
+  <p class="para">
+   <dl>
+    
+     <dt>
+<code class="parameter">priority</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Параметр <code class="parameter">priority</code> - это комбинация типа и уровня. Возможными значениями являются:
+       <table class="doctable table">
+        <caption><strong>Приоритеты <span class="function"><strong>syslog()</strong></span> (по убыванию)</strong></caption>
+        
+         <thead>
+          <tr>
+           <th>Константа</th>
+           <th>Описание</th>
+          </tr>
+
+         </thead>
+
+         <tbody class="tbody">
+          <tr>
+           <td><strong><code>LOG_EMERG</code></strong></td>
+           <td>система непригодна</td>
+          </tr>
+
+          <tr>
+           <td><strong><code>LOG_ALERT</code></strong></td>
+           <td>необходимы незамедлительные меры</td>
+          </tr>
+
+          <tr>
+           <td><strong><code>LOG_CRIT</code></strong></td>
+           <td>критические условия</td>
+          </tr>
+
+          <tr>
+           <td><strong><code>LOG_ERR</code></strong></td>
+           <td>условия ошибки</td>
+          </tr>
+
+          <tr>
+           <td><strong><code>LOG_WARNING</code></strong></td>
+           <td>условия предупреждения</td>
+          </tr>
+
+          <tr>
+           <td><strong><code>LOG_NOTICE</code></strong></td>
+           <td>нормальные, но значительное условие</td>
+          </tr>
+
+          <tr>
+           <td><strong><code>LOG_INFO</code></strong></td>
+           <td>информационное сообщение</td>
+          </tr>
+
+          <tr>
+           <td><strong><code>LOG_DEBUG</code></strong></td>
+           <td>сообщение отладки</td>
+          </tr>
+
+         </tbody>
+        
+       </table>
+
+      </p>
+     </dd>
+
+    
+    
+     <dt>
+<code class="parameter">message</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Отсылаемое сообщение.
+      </p>
+     </dd>
+
+    
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.syslog-returnvalues">
+  <h3 class="title">Возвращаемые значения</h3>
+  <p class="para">
+   Функция всегда возвращает <strong><code>true</code></strong>.
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.syslog-examples">
+  <h3 class="title">Примеры</h3>
+  <p class="para">
+   <div class="example" id="">
+    <p><strong>Пример #1 Пример использования <span class="function"><strong>syslog()</strong></span></strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// открыть syslog, включить в сообщение ID процесса, также отправить<br />// сообщение, и использовать определённый пользователем<br />// механизм журналирования<br /></span><span style="color: #0000BB">openlog</span><span style="color: #007700">(</span><span style="color: #DD0000">"myScriptLog"</span><span style="color: #007700">, </span><span style="color: #0000BB">LOG_PID </span><span style="color: #007700">| </span><span style="color: #0000BB">LOG_PERROR</span><span style="color: #007700">, </span><span style="color: #0000BB">LOG_LOCAL0</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// некий код<br /><br /></span><span style="color: #007700">if (</span><span style="color: #0000BB">authorized_client</span><span style="color: #007700">()) {<br />    </span><span style="color: #FF8000">// что-нибудь сделать<br /></span><span style="color: #007700">} else {<br />    </span><span style="color: #FF8000">// неавторизованный клиент!<br />    // отправить сообщение журнала о попытке<br />    </span><span style="color: #0000BB">$access </span><span style="color: #007700">= </span><span style="color: #0000BB">date</span><span style="color: #007700">(</span><span style="color: #DD0000">"Y/m/d H:i:s"</span><span style="color: #007700">);<br />    </span><span style="color: #0000BB">syslog</span><span style="color: #007700">(</span><span style="color: #0000BB">LOG_WARNING</span><span style="color: #007700">, </span><span style="color: #DD0000">"Неавторизованный клиент: </span><span style="color: #0000BB">$access</span><span style="color: #DD0000"> </span><span style="color: #007700">{</span><span style="color: #0000BB">$_SERVER</span><span style="color: #007700">[</span><span style="color: #DD0000">'REMOTE_ADDR'</span><span style="color: #007700">]}</span><span style="color: #DD0000"> (</span><span style="color: #007700">{</span><span style="color: #0000BB">$_SERVER</span><span style="color: #007700">[</span><span style="color: #DD0000">'HTTP_USER_AGENT'</span><span style="color: #007700">]}</span><span style="color: #DD0000">)"</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #0000BB">closelog</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.syslog-notes">
+  <h3 class="title">Примечания</h3>
+  <p class="para">
+   В Windows служба syslog эмулируется, используя журнал событий (Event Log).
+  </p>
+  <blockquote class="note"><p><strong class="note">Замечание</strong>: 
+   <p class="para">
+    Использование значений с <code class="literal">LOG_LOCAL0</code> по
+    <code class="literal">LOG_LOCAL7</code> для параметра <code class="parameter">facility</code>
+    в функции <span class="function"><a href="function.openlog.php.html" class="function">openlog()</a></span>  недоступно в Windows.
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.syslog-seealso">
+  <h3 class="title">Смотрите также</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.openlog.php.html" class="function" rel="rdfs-seeAlso">openlog()</a> - Открывает соединение к системному журналу</span></li>
+    <li class="member"><span class="function"><a href="function.closelog.php.html" class="function" rel="rdfs-seeAlso">closelog()</a> - Закрывает соединение с системным журналом</span></li>
+    <li class="member"><a href="errorfunc.configuration.php.html#ini.syslog.filter" class="link">syslog.filter</a> Настройка INI (начиная с PHP 7.3)</li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=function.syslog&amp;redirect=https://www.php.net/manual/ru/function.syslog.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">18 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="123249">  <div class="votes">
+    <div id="Vu123249">
+    <a href="https://www.php.net/manual/vote-note.php?id=123249&amp;page=function.syslog&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd123249">
+    <a href="https://www.php.net/manual/vote-note.php?id=123249&amp;page=function.syslog&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V123249" title="81% like this...">
+    7
+    </div>
+  </div>
+  <a href="function.syslog.php.html#123249" class="name">
+  <strong class="user"><em>stevekamerman at gmail dot com</em></strong></a><a class="genanchor" href="function.syslog.php.html#123249"> &para;</a><div class="date" title="2018-10-24 06:43"><strong>5 years ago</strong></div>
+  <div class="text" id="Hcom123249">
+<div class="phpcode"><code><span class="html">This function sends messages in BSD Syslog RFC 3164 format (<a href="https://tools.ietf.org/html/rfc3164" rel="nofollow" target="_blank">https://tools.ietf.org/html/rfc3164</a>).<br /><br />To see the raw messages being sent by PHP to the logging socket, first stop your syslog/rsylsog/ng-syslog service, then listen to the logging socket with the netcat-openbsd package:<br /><br />nc -U -l /dev/log<br /><br />Now, log something from PHP:<br /><br /><span class="default">&lt;?php<br />syslog</span><span class="keyword">(</span><span class="default">LOG_LOCAL1</span><span class="keyword">|</span><span class="default">LOG_INFO</span><span class="keyword">, </span><span class="string">"Test from PHP"</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />You will see the rfc3164 output from netcat:<br /><br />&lt;142&gt;Oct 24 14:32:51 php: Test from PHP</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="79554">  <div class="votes">
+    <div id="Vu79554">
+    <a href="https://www.php.net/manual/vote-note.php?id=79554&amp;page=function.syslog&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd79554">
+    <a href="https://www.php.net/manual/vote-note.php?id=79554&amp;page=function.syslog&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V79554" title="69% like this...">
+    10
+    </div>
+  </div>
+  <a href="function.syslog.php.html#79554" class="name">
+  <strong class="user"><em>james dot ellis at gmail dot com</em></strong></a><a class="genanchor" href="function.syslog.php.html#79554"> &para;</a><div class="date" title="2007-12-02 08:26"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom79554">
+<div class="phpcode"><code><span class="html">If anyone is wondering why their log messages are appearing in multiple log files, here is one answer applying to *nix systems:<br /><br />If your syslog.conf looks like this (assuming you use LOG_LOCAL0 for web app logging) :<br /><br />local0.info    /var/log/web/info.log<br /><br />This will collect *all* messages of LOG_INFO level and higher, i.e everything except debug messages<br /><br />Try this instead to ensure that only messages of the named log level go into the relevant log file:<br /><br />local0.=info    /var/log/web/info.log<br /><br />Additionally, you may like to add this to ensure your messages don't end up in generic log files like "messages"  "all" "syslog" and "debug":<br /><br />local0.none    /var/log/messages<br />local0.none    /var/log/debug<br />etc<br /><br />saves disk space among other things - more at "man syslog.conf"</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="126649">  <div class="votes">
+    <div id="Vu126649">
+    <a href="https://www.php.net/manual/vote-note.php?id=126649&amp;page=function.syslog&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd126649">
+    <a href="https://www.php.net/manual/vote-note.php?id=126649&amp;page=function.syslog&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V126649" title="75% like this...">
+    2
+    </div>
+  </div>
+  <a href="function.syslog.php.html#126649" class="name">
+  <strong class="user"><em>Anonymous</em></strong></a><a class="genanchor" href="function.syslog.php.html#126649"> &para;</a><div class="date" title="2021-12-01 08:35"><strong>2 years ago</strong></div>
+  <div class="text" id="Hcom126649">
+<div class="phpcode"><code><span class="html">There's no point to manually timestamp the message (as shown in docs' example) as all sane logging systems timestamp all entries by themselves.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="125161">  <div class="votes">
+    <div id="Vu125161">
+    <a href="https://www.php.net/manual/vote-note.php?id=125161&amp;page=function.syslog&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd125161">
+    <a href="https://www.php.net/manual/vote-note.php?id=125161&amp;page=function.syslog&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V125161" title="70% like this...">
+    4
+    </div>
+  </div>
+  <a href="function.syslog.php.html#125161" class="name">
+  <strong class="user"><em>OWM</em></strong></a><a class="genanchor" href="function.syslog.php.html#125161"> &para;</a><div class="date" title="2020-07-02 04:45"><strong>3 years ago</strong></div>
+  <div class="text" id="Hcom125161">
+<div class="phpcode"><code><span class="html">Syslog autodetects newline control characters and therefore splits the message by multiple lines. To prevent this behavior in PHP 7.3+ you can use undocumented (at this moment) ini setting:<br /><br /><span class="default">&lt;?php<br /><br />ini_set</span><span class="keyword">(</span><span class="string">'syslog.filter'</span><span class="keyword">, </span><span class="string">'raw'</span><span class="keyword">);<br /><br /></span><span class="comment"># more info here: <a href="https://bugs.php.net/bug.php?id=77913" rel="nofollow" target="_blank">https://bugs.php.net/bug.php?id=77913</a></span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="97843">  <div class="votes">
+    <div id="Vu97843">
+    <a href="https://www.php.net/manual/vote-note.php?id=97843&amp;page=function.syslog&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd97843">
+    <a href="https://www.php.net/manual/vote-note.php?id=97843&amp;page=function.syslog&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V97843" title="62% like this...">
+    8
+    </div>
+  </div>
+  <a href="function.syslog.php.html#97843" class="name">
+  <strong class="user"><em>Antonio Lobato</em></strong></a><a class="genanchor" href="function.syslog.php.html#97843"> &para;</a><div class="date" title="2010-05-11 01:57"><strong>13 years ago</strong></div>
+  <div class="text" id="Hcom97843">
+<div class="phpcode"><code><span class="html">A word of warning; if you use openlog() to ready syslog() and your Apache threads accept multiple requests, you *must* call closelog() if Apache's error log is configured to write to syslog.  Failure to do so will cause Apache's error log to write to whatever facility/ident was used in openlog.<br /><br />Example, in httpd.conf you have:<br /><br />ErrorLog syslog:local7<br /><br />and in php you do:<br /><br /><span class="default">&lt;?php<br />openlog</span><span class="keyword">(</span><span class="string">"myprogram"</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">LOG_LOCAL0</span><span class="keyword">);<br /></span><span class="default">syslog</span><span class="keyword">(</span><span class="string">"My syslog message"</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />From here on out, this Apache thread will write ErrorLog to local0 and under the process name "myprogram" and not httpd!  Calling closelog() will fix this.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="123594">  <div class="votes">
+    <div id="Vu123594">
+    <a href="https://www.php.net/manual/vote-note.php?id=123594&amp;page=function.syslog&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd123594">
+    <a href="https://www.php.net/manual/vote-note.php?id=123594&amp;page=function.syslog&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V123594" title="66% like this...">
+    4
+    </div>
+  </div>
+  <a href="function.syslog.php.html#123594" class="name">
+  <strong class="user"><em>rgagnon24 at gmail dot com</em></strong></a><a class="genanchor" href="function.syslog.php.html#123594"> &para;</a><div class="date" title="2019-02-09 04:39"><strong>5 years ago</strong></div>
+  <div class="text" id="Hcom123594">
+<div class="phpcode"><code><span class="html">This one had me going for a while when using LOG_ constants in another object, when developing on Windows, but deploying on Linux.<br /><br />Windows evaluates some of the LOG_ constants to the same value, while LINUX does not.<br /><br />The 8 constants and their differences on the platforms to be aware of:<br /><br />Linux has these values as:<br />========================<br />LOG_EMERG = 0<br />LOG_ALERT = 1<br />LOG_CRIT = 2<br />LOG_ERR = 3<br />LOG_WARNING = 4<br />LOG_NOTICE = 5<br />LOG_INFO = 6<br />LOG_DEBUG = 7<br /><br />While on Windows, you have:<br />==========================<br />LOG_EMERG = 1<br />LOG_ALERT = 1<br />LOG_CRIT = 1<br />LOG_ERR = 4<br />LOG_WARNING = 5<br />LOG_NOTICE = 6<br />LOG_INFO = 6<br />LOG_DEBUG = 6<br /><br />So if you're setting LOG_WARNING in your code, Linux will use 4 as the priority while Windows will use 5.<br /><br />This is not a bug in PHP on either platform, but a difference in the system header files that PHP compiles with.  Not really anything you can do, but be aware if you're wondering why your messages log at different priorities depending on the platform, this could be why.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="74486">  <div class="votes">
+    <div id="Vu74486">
+    <a href="https://www.php.net/manual/vote-note.php?id=74486&amp;page=function.syslog&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd74486">
+    <a href="https://www.php.net/manual/vote-note.php?id=74486&amp;page=function.syslog&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V74486" title="57% like this...">
+    2
+    </div>
+  </div>
+  <a href="function.syslog.php.html#74486" class="name">
+  <strong class="user"><em>helly at php dot net</em></strong></a><a class="genanchor" href="function.syslog.php.html#74486"> &para;</a><div class="date" title="2007-04-13 05:49"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom74486">
+<div class="phpcode"><code><span class="html">If you are using syslog-ng and want errors send to syslog then use ini setting "error_log = syslog" and add something like the following to your syslog-ng.conf:<br /><br />destination php { file("/var/log/php.log" owner(root) group(devel) perm(0620)); };<br />log { source(src); filter(f_php); destination(php); };</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="117255">  <div class="votes">
+    <div id="Vu117255">
+    <a href="https://www.php.net/manual/vote-note.php?id=117255&amp;page=function.syslog&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd117255">
+    <a href="https://www.php.net/manual/vote-note.php?id=117255&amp;page=function.syslog&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V117255" title="55% like this...">
+    2
+    </div>
+  </div>
+  <a href="function.syslog.php.html#117255" class="name">
+  <strong class="user"><em>huangyg11 at gmail dot com</em></strong></a><a class="genanchor" href="function.syslog.php.html#117255"> &para;</a><div class="date" title="2015-05-11 04:34"><strong>8 years ago</strong></div>
+  <div class="text" id="Hcom117255">
+<div class="phpcode"><code><span class="html">For those who want to simultaneously write to multiple syslog facilities : <br /><br />syslog(LOG_INFO|LOG_LOCAL0, "message for local0");<br />syslog(LOG_INFO|LOG_LOCAL1, "message for local1");</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="37201">  <div class="votes">
+    <div id="Vu37201">
+    <a href="https://www.php.net/manual/vote-note.php?id=37201&amp;page=function.syslog&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd37201">
+    <a href="https://www.php.net/manual/vote-note.php?id=37201&amp;page=function.syslog&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V37201" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="function.syslog.php.html#37201" class="name">
+  <strong class="user"><em>daniele dot patoner at biblio dot unitn dot it</em></strong></a><a class="genanchor" href="function.syslog.php.html#37201"> &para;</a><div class="date" title="2003-11-06 11:00"><strong>20 years ago</strong></div>
+  <div class="text" id="Hcom37201">
+<div class="phpcode"><code><span class="html">This work for me, to redirect  logs to a separate syslog file<br /><br />put this line in your /etc/syslog.conf :<br /><br />local0.debug   /var/log/php.log<br /><br />Then restart syslogd:<br /><br />/etc/init.d/syslog restart<br /><br />php example:<br /><br /><span class="default">&lt;?php<br />define_syslog_variables</span><span class="keyword">();<br /></span><span class="default">openlog</span><span class="keyword">(</span><span class="string">"TextLog"</span><span class="keyword">, </span><span class="default">LOG_PID</span><span class="keyword">, </span><span class="default">LOG_LOCAL0</span><span class="keyword">);<br /><br /></span><span class="default">$data </span><span class="keyword">= </span><span class="default">date</span><span class="keyword">(</span><span class="string">"Y/m/d H:i:s"</span><span class="keyword">);<br /></span><span class="default">syslog</span><span class="keyword">(</span><span class="default">LOG_DEBUG</span><span class="keyword">,</span><span class="string">"Messagge: </span><span class="default">$data</span><span class="string">"</span><span class="keyword">);<br /><br /></span><span class="default">closelog</span><span class="keyword">();<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="10788">  <div class="votes">
+    <div id="Vu10788">
+    <a href="https://www.php.net/manual/vote-note.php?id=10788&amp;page=function.syslog&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd10788">
+    <a href="https://www.php.net/manual/vote-note.php?id=10788&amp;page=function.syslog&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V10788" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="function.syslog.php.html#10788" class="name">
+  <strong class="user"><em>mavetju at chello dot nl</em></strong></a><a class="genanchor" href="function.syslog.php.html#10788"> &para;</a><div class="date" title="2001-01-22 06:11"><strong>23 years ago</strong></div>
+  <div class="text" id="Hcom10788">
+<div class="phpcode"><code><span class="html">With FreeBSD I can use: syslog(LOG_INFO,"test");<br /><br />BSD/OS does not support this, I had to use the literal values for the priority (158: local3.info):<br />syslog(158,"test");</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="118528">  <div class="votes">
+    <div id="Vu118528">
+    <a href="https://www.php.net/manual/vote-note.php?id=118528&amp;page=function.syslog&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd118528">
+    <a href="https://www.php.net/manual/vote-note.php?id=118528&amp;page=function.syslog&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V118528" title="47% like this...">
+    -1
+    </div>
+  </div>
+  <a href="function.syslog.php.html#118528" class="name">
+  <strong class="user"><em>antoine dot leverve dot EXT at zodiacaerospace dot com</em></strong></a><a class="genanchor" href="function.syslog.php.html#118528"> &para;</a><div class="date" title="2015-12-21 11:48"><strong>8 years ago</strong></div>
+  <div class="text" id="Hcom118528">
+<div class="phpcode"><code><span class="html">The documentation is incorrect when it says "Priorities (in descending order)", as the table that follows is actually in **ascending** order.<br /><br />For example my output says:<br />LOG_ERR : 4<br />LOG_WARNING : 5<br />LOG_DEBUG : 6<br /><br />An important difference, that caused me some pain!</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="34483">  <div class="votes">
+    <div id="Vu34483">
+    <a href="https://www.php.net/manual/vote-note.php?id=34483&amp;page=function.syslog&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd34483">
+    <a href="https://www.php.net/manual/vote-note.php?id=34483&amp;page=function.syslog&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V34483" title="46% like this...">
+    -1
+    </div>
+  </div>
+  <a href="function.syslog.php.html#34483" class="name">
+  <strong class="user"><em>gregj at pdxperts dot com</em></strong></a><a class="genanchor" href="function.syslog.php.html#34483"> &para;</a><div class="date" title="2003-07-28 05:05"><strong>20 years ago</strong></div>
+  <div class="text" id="Hcom34483">
+<div class="phpcode"><code><span class="html">The message string sent to the log file is limited to 500 characters.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="18624">  <div class="votes">
+    <div id="Vu18624">
+    <a href="https://www.php.net/manual/vote-note.php?id=18624&amp;page=function.syslog&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd18624">
+    <a href="https://www.php.net/manual/vote-note.php?id=18624&amp;page=function.syslog&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V18624" title="44% like this...">
+    -2
+    </div>
+  </div>
+  <a href="function.syslog.php.html#18624" class="name">
+  <strong class="user"><em>dpreece at paradise dot net dot nz</em></strong></a><a class="genanchor" href="function.syslog.php.html#18624"> &para;</a><div class="date" title="2002-01-29 04:08"><strong>22 years ago</strong></div>
+  <div class="text" id="Hcom18624">
+<div class="phpcode"><code><span class="html">To set up a custom log file via the syslog daemon (FreeBSD in this case)...<br /><br />Add to /etc/syslog.conf a line that says all errors from the httpd process are to go to a file called (for example) /var/log/httpd-php.log<br /><br />!httpd<br />*.*   {tab}   /var/log/httpd-php.log<br /><br />Note the tab, being a tab character! Next create a blank file to be written to. I'm sure there are 1e+6 ways to do this, but I choose<br /><br /># cat &gt; httpd-php.log &lt;&lt; EOF<br />? EOF<br /><br />Finally find your syslog daemon and send it a sighup to inform it of the change:<br /><br /># ps ax | grep syslogd<br />  133  ??  Ss     0:07.23 syslogd -s<br /># kill -1 133<br /><br />Et voila! Php syslog calls will now arrive in /var/log/httpd-php.log</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="1563">  <div class="votes">
+    <div id="Vu1563">
+    <a href="https://www.php.net/manual/vote-note.php?id=1563&amp;page=function.syslog&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd1563">
+    <a href="https://www.php.net/manual/vote-note.php?id=1563&amp;page=function.syslog&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V1563" title="42% like this...">
+    -2
+    </div>
+  </div>
+  <a href="function.syslog.php.html#1563" class="name">
+  <strong class="user"><em>bb at lb-data dot co dot at</em></strong></a><a class="genanchor" href="function.syslog.php.html#1563"> &para;</a><div class="date" title="1999-09-08 03:54"><strong>24 years ago</strong></div>
+  <div class="text" id="Hcom1563">
+<div class="phpcode"><code><span class="html">In Windows NT, use the following values of priority:<br />1 = error,<br />6 = info</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="41832">  <div class="votes">
+    <div id="Vu41832">
+    <a href="https://www.php.net/manual/vote-note.php?id=41832&amp;page=function.syslog&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd41832">
+    <a href="https://www.php.net/manual/vote-note.php?id=41832&amp;page=function.syslog&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V41832" title="38% like this...">
+    -5
+    </div>
+  </div>
+  <a href="function.syslog.php.html#41832" class="name">
+  <strong class="user"><em>Torsten</em></strong></a><a class="genanchor" href="function.syslog.php.html#41832"> &para;</a><div class="date" title="2004-04-23 06:27"><strong>19 years ago</strong></div>
+  <div class="text" id="Hcom41832">
+<div class="phpcode"><code><span class="html">I had a problem trying to issue a syslog message with IIS 5.1 under Windows XP. The function call seemed to succeed, but the event viewer showed that no entry was made.<br />Finally I found out that the user account used for the webserver (IUSR_&lt;Computername&gt;) did not have enough permissions to issue syslog alerts. I changed this by adding this user to the Users group instead of only Guest.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="3813">  <div class="votes">
+    <div id="Vu3813">
+    <a href="https://www.php.net/manual/vote-note.php?id=3813&amp;page=function.syslog&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd3813">
+    <a href="https://www.php.net/manual/vote-note.php?id=3813&amp;page=function.syslog&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V3813" title="35% like this...">
+    -4
+    </div>
+  </div>
+  <a href="function.syslog.php.html#3813" class="name">
+  <strong class="user"><em>rcgraves+php at brandeis dot edu</em></strong></a><a class="genanchor" href="function.syslog.php.html#3813"> &para;</a><div class="date" title="2000-02-17 12:51"><strong>23 years ago</strong></div>
+  <div class="text" id="Hcom3813">
+<div class="phpcode"><code><span class="html">For the-header-file-enabled:<br /><br />man 3 syslog defines the priorities, but not the integer values. For that you'll need to read your system header file.<br /><br />Let's suppose I want to log an informational message in the mail log (which happens to be true). The man page tells me I want LOG_MAIL|LOG_INFO. So I look in /usr/include/sys/syslog.h and find (this happens to be Linux, your system could be different):<br /><br />#define LOG_INFO        6       /* informational */<br />#define LOG_MAIL        (2&lt;&lt;3)  /* mail system */<br /><br />2&lt;&lt;3 means shift 3 bits left, which means multiply by 8. So I want 2*8 + 6 = 22. syslog(22,"this message will appear in the mail log"); And indeed it does.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="74420">  <div class="votes">
+    <div id="Vu74420">
+    <a href="https://www.php.net/manual/vote-note.php?id=74420&amp;page=function.syslog&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd74420">
+    <a href="https://www.php.net/manual/vote-note.php?id=74420&amp;page=function.syslog&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V74420" title="29% like this...">
+    -11
+    </div>
+  </div>
+  <a href="function.syslog.php.html#74420" class="name">
+  <strong class="user"><em>adam _at_ lockdownnetworks _dot_ com</em></strong></a><a class="genanchor" href="function.syslog.php.html#74420"> &para;</a><div class="date" title="2007-04-10 06:32"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom74420">
+<div class="phpcode"><code><span class="html">Be aware when using syslog() that if you set the timezone of environment to be something other than the standard, syslog() may log the time to the log(s) with the wrong time zone information. For example:<br /><br /><span class="default">&lt;?php<br /><br />openlog</span><span class="keyword">(</span><span class="string">'mylog'</span><span class="keyword">, </span><span class="default">LOG_PID </span><span class="keyword">| </span><span class="default">LOG_ODELAY</span><span class="keyword">,</span><span class="default">LOG_LOCAL4</span><span class="keyword">);<br /><br /></span><span class="default">putenv</span><span class="keyword">(</span><span class="string">'TZ=UTC'</span><span class="keyword">);<br /></span><span class="default">syslog</span><span class="keyword">(</span><span class="default">LOG_INFO</span><span class="keyword">, </span><span class="string">'UTC Log line'</span><span class="keyword">);<br /><br /></span><span class="default">putenv</span><span class="keyword">(</span><span class="string">'TZ=US/Pacific'</span><span class="keyword">);<br /></span><span class="default">syslog</span><span class="keyword">(</span><span class="default">LOG_INFO</span><span class="keyword">, </span><span class="string">'US/Pacific Log line'</span><span class="keyword">);<br /><br /></span><span class="default">closelog</span><span class="keyword">();<br /><br /></span><span class="default">?&gt;<br /></span><br />Viewing the /usr/log/messages log will display these two lines:<br /><br />Apr 11 01:25:39 hostname mylog[1400]: UTC Log line<br />Apr 10 18:25:39 hostname mylog[1400]: US/Pacific Log line<br /><br />Adam.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="10251">  <div class="votes">
+    <div id="Vu10251">
+    <a href="https://www.php.net/manual/vote-note.php?id=10251&amp;page=function.syslog&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd10251">
+    <a href="https://www.php.net/manual/vote-note.php?id=10251&amp;page=function.syslog&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V10251" title="26% like this...">
+    -14
+    </div>
+  </div>
+  <a href="function.syslog.php.html#10251" class="name">
+  <strong class="user"><em>gherson at snet dot net</em></strong></a><a class="genanchor" href="function.syslog.php.html#10251"> &para;</a><div class="date" title="2000-12-20 01:09"><strong>23 years ago</strong></div>
+  <div class="text" id="Hcom10251">
+<div class="phpcode"><code><span class="html">Example of where to look for syslog's output:   /var/log/httpd/access_log<br />(on Red Hat Linux Secure Server v6.2).</span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=function.syslog&amp;redirect=https://www.php.net/manual/ru/function.syslog.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="ref.network.php.html">Сетевые функции</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="function.checkdnsrr.php.html" title="checkdnsrr">checkdnsrr</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.closelog.php.html" title="closelog">closelog</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.dns-check-record.php.html" title="dns_&#8203;check_&#8203;record">dns_&#8203;check_&#8203;record</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.dns-get-mx.php.html" title="dns_&#8203;get_&#8203;mx">dns_&#8203;get_&#8203;mx</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.dns-get-record.php.html" title="dns_&#8203;get_&#8203;record">dns_&#8203;get_&#8203;record</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.fsockopen.php.html" title="fsockopen">fsockopen</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.gethostbyaddr.php.html" title="gethostbyaddr">gethostbyaddr</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.gethostbyname.php.html" title="gethostbyname">gethostbyname</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.gethostbynamel.php.html" title="gethostbynamel">gethostbynamel</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.gethostname.php.html" title="gethostname">gethostname</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.getmxrr.php.html" title="getmxrr">getmxrr</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.getprotobyname.php.html" title="getprotobyname">getprotobyname</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.getprotobynumber.php.html" title="getprotobynumber">getprotobynumber</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.getservbyname.php.html" title="getservbyname">getservbyname</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.getservbyport.php.html" title="getservbyport">getservbyport</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.header-register-callback.php.html" title="header_&#8203;register_&#8203;callback">header_&#8203;register_&#8203;callback</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.header-remove.php.html" title="header_&#8203;remove">header_&#8203;remove</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.header.php.html" title="header">header</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.headers-list.php.html" title="headers_&#8203;list">headers_&#8203;list</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.headers-sent.php.html" title="headers_&#8203;sent">headers_&#8203;sent</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.http-response-code.php.html" title="http_&#8203;response_&#8203;code">http_&#8203;response_&#8203;code</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.inet-ntop.php.html" title="inet_&#8203;ntop">inet_&#8203;ntop</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.inet-pton.php.html" title="inet_&#8203;pton">inet_&#8203;pton</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.ip2long.php.html" title="ip2long">ip2long</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.long2ip.php.html" title="long2ip">long2ip</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.net-get-interfaces.php.html" title="net_&#8203;get_&#8203;interfaces">net_&#8203;get_&#8203;interfaces</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.openlog.php.html" title="openlog">openlog</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.pfsockopen.php.html" title="pfsockopen">pfsockopen</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.setcookie.php.html" title="setcookie">setcookie</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.setrawcookie.php.html" title="setrawcookie">setrawcookie</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-get-status.php.html" title="socket_&#8203;get_&#8203;status">socket_&#8203;get_&#8203;status</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-set-blocking.php.html" title="socket_&#8203;set_&#8203;blocking">socket_&#8203;set_&#8203;blocking</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-set-timeout.php.html" title="socket_&#8203;set_&#8203;timeout">socket_&#8203;set_&#8203;timeout</a>
+                        </li>
+                                                <li class="current">
+                            <a href="function.syslog.php.html" title="syslog">syslog</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

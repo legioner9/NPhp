@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: Reflection - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="book.reflection.php.html">
+ <link rel="shorturl" href="https://www.php.net/reflection">
+ <link rel="alternate" href="https://www.php.net/reflection" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="refs.basic.vartype.php.html">
+ <link rel="prev" href="quickhashintstringhash.update.php.html">
+ <link rel="next" href="intro.reflection.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/book.reflection.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/book.reflection.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/book.reflection.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/book.reflection.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/book.reflection.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/book.reflection.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/book.reflection.php" hreflang="pt_BR">
+ <link rel="alternate" href="book.reflection.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/book.reflection.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/book.reflection.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="intro.reflection.php.html">
+          Введение &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="quickhashintstringhash.update.php.html">
+          &laquo; QuickHashIntStringHash::update        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.basic.vartype.php.html'>Модули, относящиеся к переменным и типам</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/book.reflection.php'>English</option>
+            <option value='de/book.reflection.php'>German</option>
+            <option value='es/book.reflection.php'>Spanish</option>
+            <option value='fr/book.reflection.php'>French</option>
+            <option value='it/book.reflection.php'>Italian</option>
+            <option value='ja/book.reflection.php'>Japanese</option>
+            <option value='pt_BR/book.reflection.php'>Brazilian Portuguese</option>
+            <option value='ru/book.reflection.php' selected="selected">Russian</option>
+            <option value='tr/book.reflection.php'>Turkish</option>
+            <option value='zh/book.reflection.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/reflection/book.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Fbook.reflection%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="book.reflection" class="book">
+ 
+ <h1 class="title">Reflection</h1>
+ 
+
+ 
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+ 
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+
+<ul class="chunklist chunklist_book"><li><a href="intro.reflection.php.html">Введение</a></li><li><a href="reflection.setup.php.html">Установка и настройка</a><ul class="chunklist chunklist_book chunklist_children"><li><a href="reflection.requirements.php.html">Требования</a></li><li><a href="reflection.installation.php.html">Установка</a></li><li><a href="reflection.configuration.php.html">Настройка во время выполнения</a></li><li><a href="reflection.resources.php.html">Типы ресурсов</a></li></ul></li><li><a href="reflection.constants.php.html">Предопределённые константы</a></li><li><a href="reflection.examples.php.html">Примеры</a></li><li><a href="reflection.extending.php.html">Расширение</a></li><li><a href="class.reflection.php.html">Reflection</a> — Класс Reflection<ul class="chunklist chunklist_book chunklist_children"><li><a href="reflection.export.php.html">Reflection::export</a> — Экспортирует Reflection</li><li><a href="reflection.getmodifiernames.php.html">Reflection::getModifierNames</a> — Получение имён модификаторов</li></ul></li><li><a href="class.reflectionclass.php.html">ReflectionClass</a> — Класс ReflectionClass<ul class="chunklist chunklist_book chunklist_children"><li><a href="reflectionclass.construct.php.html">ReflectionClass::__construct</a> — Создаёт объект класса ReflectionClass</li><li><a href="reflectionclass.export.php.html">ReflectionClass::export</a> — Экспортирует класс</li><li><a href="reflectionclass.getattributes.php.html">ReflectionClass::getAttributes</a> — Получает атрибуты</li><li><a href="reflectionclass.getconstant.php.html">ReflectionClass::getConstant</a> — Возвращает определённую константу</li><li><a href="reflectionclass.getconstants.php.html">ReflectionClass::getConstants</a> — Возвращает константы</li><li><a href="reflectionclass.getconstructor.php.html">ReflectionClass::getConstructor</a> — Возвращает конструктор класса</li><li><a href="reflectionclass.getdefaultproperties.php.html">ReflectionClass::getDefaultProperties</a> — Возвращает свойства по умолчанию</li><li><a href="reflectionclass.getdoccomment.php.html">ReflectionClass::getDocComment</a> — Возвращает doc-блоки комментариев</li><li><a href="reflectionclass.getendline.php.html">ReflectionClass::getEndLine</a> — Возвращает номер последней строки</li><li><a href="reflectionclass.getextension.php.html">ReflectionClass::getExtension</a> — Возвращает объект класса ReflectionExtension для модуля, определяющего класс</li><li><a href="reflectionclass.getextensionname.php.html">ReflectionClass::getExtensionName</a> — Возвращает имя модуля, определяющее класс</li><li><a href="reflectionclass.getfilename.php.html">ReflectionClass::getFileName</a> — Возвращает имя файла, в котором определён класс</li><li><a href="reflectionclass.getinterfacenames.php.html">ReflectionClass::getInterfaceNames</a> — Возвращает имена интерфейсов</li><li><a href="reflectionclass.getinterfaces.php.html">ReflectionClass::getInterfaces</a> — Возвращает интерфейсы</li><li><a href="reflectionclass.getmethod.php.html">ReflectionClass::getMethod</a> — Возвращает экземпляр ReflectionMethod для метода класса</li><li><a href="reflectionclass.getmethods.php.html">ReflectionClass::getMethods</a> — Возвращает список методов в виде массива</li><li><a href="reflectionclass.getmodifiers.php.html">ReflectionClass::getModifiers</a> — Возвращает информацию о модификаторах класса</li><li><a href="reflectionclass.getname.php.html">ReflectionClass::getName</a> — Возвращает имя класса</li><li><a href="reflectionclass.getnamespacename.php.html">ReflectionClass::getNamespaceName</a> — Возвращает название пространства имён</li><li><a href="reflectionclass.getparentclass.php.html">ReflectionClass::getParentClass</a> — Возвращает родительский класс</li><li><a href="reflectionclass.getproperties.php.html">ReflectionClass::getProperties</a> — Возвращает свойства</li><li><a href="reflectionclass.getproperty.php.html">ReflectionClass::getProperty</a> — Возвращает экземпляр ReflectionProperty для свойства класса</li><li><a href="reflectionclass.getreflectionconstant.php.html">ReflectionClass::getReflectionConstant</a> — Получает ReflectionClassConstant для константы класса</li><li><a href="reflectionclass.getreflectionconstants.php.html">ReflectionClass::getReflectionConstants</a> — Получает константы класса</li><li><a href="reflectionclass.getshortname.php.html">ReflectionClass::getShortName</a> — Возвращает короткое имя</li><li><a href="reflectionclass.getstartline.php.html">ReflectionClass::getStartLine</a> — Возвращает номер начальной строки</li><li><a href="reflectionclass.getstaticproperties.php.html">ReflectionClass::getStaticProperties</a> — Возвращает статические свойства</li><li><a href="reflectionclass.getstaticpropertyvalue.php.html">ReflectionClass::getStaticPropertyValue</a> — Возвращает значение статического свойства</li><li><a href="reflectionclass.gettraitaliases.php.html">ReflectionClass::getTraitAliases</a> — Возвращает массив псевдонимов трейтов</li><li><a href="reflectionclass.gettraitnames.php.html">ReflectionClass::getTraitNames</a> — Возвращает массив имён трейтов, используемых в этом классе</li><li><a href="reflectionclass.gettraits.php.html">ReflectionClass::getTraits</a> — Возвращает массив трейтов, используемых в этом классе</li><li><a href="reflectionclass.hasconstant.php.html">ReflectionClass::hasConstant</a> — Проверяет, определена ли константа</li><li><a href="reflectionclass.hasmethod.php.html">ReflectionClass::hasMethod</a> — Проверяет, задан ли метод</li><li><a href="reflectionclass.hasproperty.php.html">ReflectionClass::hasProperty</a> — Проверяет, определено ли свойство</li><li><a href="reflectionclass.implementsinterface.php.html">ReflectionClass::implementsInterface</a> — Проверяет, реализуется ли интерфейс</li><li><a href="reflectionclass.innamespace.php.html">ReflectionClass::inNamespace</a> — Проверяет, определён ли класс в пространстве имён</li><li><a href="reflectionclass.isabstract.php.html">ReflectionClass::isAbstract</a> — Проверяет, является ли класс абстрактным</li><li><a href="reflectionclass.isanonymous.php.html">ReflectionClass::isAnonymous</a> — Проверяет, является класс анонимным</li><li><a href="reflectionclass.iscloneable.php.html">ReflectionClass::isCloneable</a> — Проверяет, можно ли клонировать этот класс</li><li><a href="reflectionclass.isenum.php.html">ReflectionClass::isEnum</a> — Возвращает, является ли класс перечислением</li><li><a href="reflectionclass.isfinal.php.html">ReflectionClass::isFinal</a> — Проверяет, является ли класс окончательным (final)</li><li><a href="reflectionclass.isinstance.php.html">ReflectionClass::isInstance</a> — Проверяет, принадлежит ли объект классу</li><li><a href="reflectionclass.isinstantiable.php.html">ReflectionClass::isInstantiable</a> — Проверяет, можно ли создать экземпляр класса</li><li><a href="reflectionclass.isinterface.php.html">ReflectionClass::isInterface</a> — Проверяет, является ли класс интерфейсом</li><li><a href="reflectionclass.isinternal.php.html">ReflectionClass::isInternal</a> — Проверяет, является ли класс встроенным в модуль или в ядро</li><li><a href="reflectionclass.isiterable.php.html">ReflectionClass::isIterable</a> — Проверить, является ли класс итерируемым</li><li><a href="reflectionclass.isiterateable.php.html">ReflectionClass::isIterateable</a> — Псевдоним ReflectionClass::isIterable</li><li><a href="reflectionclass.isreadonly.php.html">ReflectionClass::isReadOnly</a> — Проверяет, является ли класс доступным только для чтения</li><li><a href="reflectionclass.issubclassof.php.html">ReflectionClass::isSubclassOf</a> — Проверяет, является ли класс подклассом</li><li><a href="reflectionclass.istrait.php.html">ReflectionClass::isTrait</a> — Проверяет, является ли это трейтом</li><li><a href="reflectionclass.isuserdefined.php.html">ReflectionClass::isUserDefined</a> — Проверяет, является ли класс пользовательским</li><li><a href="reflectionclass.newinstance.php.html">ReflectionClass::newInstance</a> — Создаёт экземпляр класса с переданными аргументами</li><li><a href="reflectionclass.newinstanceargs.php.html">ReflectionClass::newInstanceArgs</a> — Создаёт экземпляр класса с переданными параметрами</li><li><a href="reflectionclass.newinstancewithoutconstructor.php.html">ReflectionClass::newInstanceWithoutConstructor</a> — Создаёт новый экземпляр класса без вызова конструктора</li><li><a href="reflectionclass.setstaticpropertyvalue.php.html">ReflectionClass::setStaticPropertyValue</a> — Устанавливает значение статического свойства</li><li><a href="reflectionclass.tostring.php.html">ReflectionClass::__toString</a> — Возвращает строковое представление объекта класса ReflectionClass</li></ul></li><li><a href="class.reflectionclassconstant.php.html">ReflectionClassConstant</a> — Класс ReflectionClassConstant<ul class="chunklist chunklist_book chunklist_children"><li><a href="reflectionclassconstant.construct.php.html">ReflectionClassConstant::__construct</a> — Создаёт объект ReflectionClassConstant</li><li><a href="reflectionclassconstant.export.php.html">ReflectionClassConstant::export</a> — Экспорт</li><li><a href="reflectionclassconstant.getattributes.php.html">ReflectionClassConstant::getAttributes</a> — Получает атрибуты</li><li><a href="reflectionclassconstant.getdeclaringclass.php.html">ReflectionClassConstant::getDeclaringClass</a> — Получает объявляющий класс</li><li><a href="reflectionclassconstant.getdoccomment.php.html">ReflectionClassConstant::getDocComment</a> — Получает doc-комментарии</li><li><a href="reflectionclassconstant.getmodifiers.php.html">ReflectionClassConstant::getModifiers</a> — Получает модификаторы константы класса</li><li><a href="reflectionclassconstant.getname.php.html">ReflectionClassConstant::getName</a> — Получить имя константы</li><li><a href="reflectionclassconstant.getvalue.php.html">ReflectionClassConstant::getValue</a> — Получает значение</li><li><a href="reflectionclassconstant.isenumcase.php.html">ReflectionClassConstant::isEnumCase</a> — Проверяет, является ли константа класса вариантом перечисления</li><li><a href="reflectionclassconstant.isfinal.php.html">ReflectionClassConstant::isFinal</a> — Проверяет, является ли константа класса окончательной</li><li><a href="reflectionclassconstant.isprivate.php.html">ReflectionClassConstant::isPrivate</a> — Проверяет, является ли константа закрытой</li><li><a href="reflectionclassconstant.isprotected.php.html">ReflectionClassConstant::isProtected</a> — Проверяет, является ли константа защищённой</li><li><a href="reflectionclassconstant.ispublic.php.html">ReflectionClassConstant::isPublic</a> — Проверяет, является ли константа общедоступной</li><li><a href="reflectionclassconstant.tostring.php.html">ReflectionClassConstant::__toString</a> — Возвращает строковое представление объекта ReflectionClassConstant</li></ul></li><li><a href="class.reflectionenum.php.html">ReflectionEnum</a> — Класс ReflectionEnum<ul class="chunklist chunklist_book chunklist_children"><li><a href="reflectionenum.construct.php.html">ReflectionEnum::__construct</a> — Создаёт объект ReflectionEnum</li><li><a href="reflectionenum.getbackingtype.php.html">ReflectionEnum::getBackingType</a> — Получает тип перечисления, если есть</li><li><a href="reflectionenum.getcase.php.html">ReflectionEnum::getCase</a> — Возвращает определённый вариант перечисления</li><li><a href="reflectionenum.getcases.php.html">ReflectionEnum::getCases</a> — Возвращает список всех вариантов перечисления</li><li><a href="reflectionenum.hascase.php.html">ReflectionEnum::hasCase</a> — Проверяет вариант перечисления</li><li><a href="reflectionenum.isbacked.php.html">ReflectionEnum::isBacked</a> — Определяет, является ли перечисление типизированным</li></ul></li><li><a href="class.reflectionenumunitcase.php.html">ReflectionEnumUnitCase</a> — Класс ReflectionEnumUnitCase<ul class="chunklist chunklist_book chunklist_children"><li><a href="reflectionenumunitcase.construct.php.html">ReflectionEnumUnitCase::__construct</a> — Создаёт экземпляр объекта ReflectionEnumUnitCase</li><li><a href="reflectionenumunitcase.getenum.php.html">ReflectionEnumUnitCase::getEnum</a> — Получает Reflection-объект перечисления этого варианта</li><li><a href="reflectionenumunitcase.getvalue.php.html">ReflectionEnumUnitCase::getValue</a> — Получает объект варианта перечисления, описанный Reflection-объектом</li></ul></li><li><a href="class.reflectionenumbackedcase.php.html">ReflectionEnumBackedCase</a> — Класс ReflectionEnumBackedCase<ul class="chunklist chunklist_book chunklist_children"><li><a href="reflectionenumbackedcase.construct.php.html">ReflectionEnumBackedCase::__construct</a> — Создаёт объект ReflectionEnumBackedCase</li><li><a href="reflectionenumbackedcase.getbackingvalue.php.html">ReflectionEnumBackedCase::getBackingValue</a> — Получает скалярное значение варианта перечисления</li></ul></li><li><a href="class.reflectionzendextension.php.html">ReflectionZendExtension</a> — Класс ReflectionZendExtension<ul class="chunklist chunklist_book chunklist_children"><li><a href="reflectionzendextension.clone.php.html">ReflectionZendExtension::__clone</a> — Обработчик клонирования</li><li><a href="reflectionzendextension.construct.php.html">ReflectionZendExtension::__construct</a> — Создаёт объект ReflectionZendExtension</li><li><a href="reflectionzendextension.export.php.html">ReflectionZendExtension::export</a> — Экспорт</li><li><a href="reflectionzendextension.getauthor.php.html">ReflectionZendExtension::getAuthor</a> — Получает автора</li><li><a href="reflectionzendextension.getcopyright.php.html">ReflectionZendExtension::getCopyright</a> — Получает авторские права</li><li><a href="reflectionzendextension.getname.php.html">ReflectionZendExtension::getName</a> — Получает имя</li><li><a href="reflectionzendextension.geturl.php.html">ReflectionZendExtension::getURL</a> — Получает URL</li><li><a href="reflectionzendextension.getversion.php.html">ReflectionZendExtension::getVersion</a> — Получает версию</li><li><a href="reflectionzendextension.tostring.php.html">ReflectionZendExtension::__toString</a> — Обработчик преобразования в строку</li></ul></li><li><a href="class.reflectionextension.php.html">ReflectionExtension</a> — Класс ReflectionExtension<ul class="chunklist chunklist_book chunklist_children"><li><a href="reflectionextension.clone.php.html">ReflectionExtension::__clone</a> — Клонирует объект</li><li><a href="reflectionextension.construct.php.html">ReflectionExtension::__construct</a> — Создаёт объект класса ReflectionExtension</li><li><a href="reflectionextension.export.php.html">ReflectionExtension::export</a> — Экспортирует модуль</li><li><a href="reflectionextension.getclasses.php.html">ReflectionExtension::getClasses</a> — Возвращает классы</li><li><a href="reflectionextension.getclassnames.php.html">ReflectionExtension::getClassNames</a> — Получение имён классов</li><li><a href="reflectionextension.getconstants.php.html">ReflectionExtension::getConstants</a> — Получение констант</li><li><a href="reflectionextension.getdependencies.php.html">ReflectionExtension::getDependencies</a> — Получение зависимостей</li><li><a href="reflectionextension.getfunctions.php.html">ReflectionExtension::getFunctions</a> — Получение функций модуля</li><li><a href="reflectionextension.getinientries.php.html">ReflectionExtension::getINIEntries</a> — Получение ini-настроек модуля</li><li><a href="reflectionextension.getname.php.html">ReflectionExtension::getName</a> — Получение имени модуля</li><li><a href="reflectionextension.getversion.php.html">ReflectionExtension::getVersion</a> — Получение версии модуля</li><li><a href="reflectionextension.info.php.html">ReflectionExtension::info</a> — Вывод информации о модуле</li><li><a href="reflectionextension.ispersistent.php.html">ReflectionExtension::isPersistent</a> — Определяет, является ли модуль постоянным</li><li><a href="reflectionextension.istemporary.php.html">ReflectionExtension::isTemporary</a> — Определяет, является ли модуль временным</li><li><a href="reflectionextension.tostring.php.html">ReflectionExtension::__toString</a> — Преобразование в строку</li></ul></li><li><a href="class.reflectionfunction.php.html">ReflectionFunction</a> — Класс ReflectionFunction<ul class="chunklist chunklist_book chunklist_children"><li><a href="reflectionfunction.construct.php.html">ReflectionFunction::__construct</a> — Конструктор класса ReflectionFunction</li><li><a href="reflectionfunction.export.php.html">ReflectionFunction::export</a> — Экспортирует функции</li><li><a href="reflectionfunction.getclosure.php.html">ReflectionFunction::getClosure</a> — Возвращает динамически созданное замыкание для функции</li><li><a href="reflectionfunction.invoke.php.html">ReflectionFunction::invoke</a> — Вызывает функцию</li><li><a href="reflectionfunction.invokeargs.php.html">ReflectionFunction::invokeArgs</a> — Вызов функции с передачей аргументов</li><li><a href="reflectionfunction.isanonymous.php.html">ReflectionFunction::isAnonymous</a> — Проверяет, является ли функция анонимной</li><li><a href="reflectionfunction.isdisabled.php.html">ReflectionFunction::isDisabled</a> — Проверяет, что функция отключена</li><li><a href="reflectionfunction.tostring.php.html">ReflectionFunction::__toString</a> — Возвращает строковое представление объекта ReflectionFunction</li></ul></li><li><a href="class.reflectionfunctionabstract.php.html">ReflectionFunctionAbstract</a> — Класс ReflectionFunctionAbstract<ul class="chunklist chunklist_book chunklist_children"><li><a href="reflectionfunctionabstract.clone.php.html">ReflectionFunctionAbstract::__clone</a> — Клонирует функцию</li><li><a href="reflectionfunctionabstract.getattributes.php.html">ReflectionFunctionAbstract::getAttributes</a> — Получает атрибуты</li><li><a href="reflectionfunctionabstract.getclosurescopeclass.php.html">ReflectionFunctionAbstract::getClosureScopeClass</a> — Возвращает класс в рамках которого было объявлено замыкание</li><li><a href="reflectionfunctionabstract.getclosurethis.php.html">ReflectionFunctionAbstract::getClosureThis</a> — Возвращает указатель, привязанный к замыканию</li><li><a href="reflectionfunctionabstract.getclosureusedvariables.php.html">ReflectionFunctionAbstract::getClosureUsedVariables</a> — Возвращает массив используемых в замыкании переменных</li><li><a href="reflectionfunctionabstract.getdoccomment.php.html">ReflectionFunctionAbstract::getDocComment</a> — Получает doc-комментарий</li><li><a href="reflectionfunctionabstract.getendline.php.html">ReflectionFunctionAbstract::getEndLine</a> — Получает номер строки завершения описания функции</li><li><a href="reflectionfunctionabstract.getextension.php.html">ReflectionFunctionAbstract::getExtension</a> — Получает информацию о модуле</li><li><a href="reflectionfunctionabstract.getextensionname.php.html">ReflectionFunctionAbstract::getExtensionName</a> — Получение имени модуля</li><li><a href="reflectionfunctionabstract.getfilename.php.html">ReflectionFunctionAbstract::getFileName</a> — Получает имя файла</li><li><a href="reflectionfunctionabstract.getname.php.html">ReflectionFunctionAbstract::getName</a> — Получает имя функции</li><li><a href="reflectionfunctionabstract.getnamespacename.php.html">ReflectionFunctionAbstract::getNamespaceName</a> — Получение имени пространства имён</li><li><a href="reflectionfunctionabstract.getnumberofparameters.php.html">ReflectionFunctionAbstract::getNumberOfParameters</a> — Получает количество параметров</li><li><a href="reflectionfunctionabstract.getnumberofrequiredparameters.php.html">ReflectionFunctionAbstract::getNumberOfRequiredParameters</a> — Получает количество обязательных параметров</li><li><a href="reflectionfunctionabstract.getparameters.php.html">ReflectionFunctionAbstract::getParameters</a> — Получает параметры</li><li><a href="reflectionfunctionabstract.getreturntype.php.html">ReflectionFunctionAbstract::getReturnType</a> — Получает объявленный тип возвращаемого функцией значения</li><li><a href="reflectionfunctionabstract.getshortname.php.html">ReflectionFunctionAbstract::getShortName</a> — Получает короткое имя функции</li><li><a href="reflectionfunctionabstract.getstartline.php.html">ReflectionFunctionAbstract::getStartLine</a> — Получает начальный номер строки</li><li><a href="reflectionfunctionabstract.getstaticvariables.php.html">ReflectionFunctionAbstract::getStaticVariables</a> — Получает статические переменные</li><li><a href="reflectionfunctionabstract.gettentativereturntype.php.html">ReflectionFunctionAbstract::getTentativeReturnType</a> — Возвращает предварительный тип возвращаемого значения, связанный с функцией</li><li><a href="reflectionfunctionabstract.hasreturntype.php.html">ReflectionFunctionAbstract::hasReturnType</a> — Проверяет, имеет ли функция объявленный тип возвращаемого значения</li><li><a href="reflectionfunctionabstract.hastentativereturntype.php.html">ReflectionFunctionAbstract::hasTentativeReturnType</a> — Определяет, есть ли у функции предварительный тип возвращаемого значения</li><li><a href="reflectionfunctionabstract.innamespace.php.html">ReflectionFunctionAbstract::inNamespace</a> — Проверяет, находится ли функция в пространстве имён</li><li><a href="reflectionfunctionabstract.isclosure.php.html">ReflectionFunctionAbstract::isClosure</a> — Проверяет, является ли функция замыканием (Closure)</li><li><a href="reflectionfunctionabstract.isdeprecated.php.html">ReflectionFunctionAbstract::isDeprecated</a> — Проверяет, является ли функция устаревшей</li><li><a href="reflectionfunctionabstract.isgenerator.php.html">ReflectionFunctionAbstract::isGenerator</a> — Проверяет, является ли функция генератором</li><li><a href="reflectionfunctionabstract.isinternal.php.html">ReflectionFunctionAbstract::isInternal</a> — Проверяет, является ли функция внутренней</li><li><a href="reflectiofunctionabstract.isstatic.php.html">ReflectionFunctionAbstract::isStatic</a> — Проверяет, является ли функция статической</li><li><a href="reflectionfunctionabstract.isuserdefined.php.html">ReflectionFunctionAbstract::isUserDefined</a> — Проверяет, является ли функция определённой пользователем</li><li><a href="reflectionfunctionabstract.isvariadic.php.html">ReflectionFunctionAbstract::isVariadic</a> — Проверяет, является ли функция функцией с переменным числом аргументов</li><li><a href="reflectionfunctionabstract.returnsreference.php.html">ReflectionFunctionAbstract::returnsReference</a> — Проверяет, что функция возвращает ссылку</li><li><a href="reflectionfunctionabstract.tostring.php.html">ReflectionFunctionAbstract::__toString</a> — Возвращает строковое представление объекта ReflectionFunctionAbstract</li></ul></li><li><a href="class.reflectionmethod.php.html">ReflectionMethod</a> — Класс ReflectionMethod<ul class="chunklist chunklist_book chunklist_children"><li><a href="reflectionmethod.construct.php.html">ReflectionMethod::__construct</a> — Конструктор класса ReflectionMethod</li><li><a href="reflectionmethod.createfrommethodname.php.html">ReflectionMethod::createFromMethodName</a> — Создаёт объект класса ReflectionMethod</li><li><a href="reflectionmethod.export.php.html">ReflectionMethod::export</a> — Экспорт отражённого метода</li><li><a href="reflectionmethod.getclosure.php.html">ReflectionMethod::getClosure</a> — Возвращает динамически созданное замыкание для метода</li><li><a href="reflectionmethod.getdeclaringclass.php.html">ReflectionMethod::getDeclaringClass</a> — Получает класс, объявляющий отражённый метод</li><li><a href="reflectionmethod.getmodifiers.php.html">ReflectionMethod::getModifiers</a> — Получает модификаторы метода</li><li><a href="reflectionmethod.getprototype.php.html">ReflectionMethod::getPrototype</a> — Получает прототип метода (если такой есть)</li><li><a href="reflectionmethod.hasprototype.php.html">ReflectionMethod::hasPrototype</a> — Определяет, есть ли у метода прототип</li><li><a href="reflectionmethod.invoke.php.html">ReflectionMethod::invoke</a> — Вызов</li><li><a href="reflectionmethod.invokeargs.php.html">ReflectionMethod::invokeArgs</a> — Вызов метода с передачей аргументов массивом</li><li><a href="reflectionmethod.isabstract.php.html">ReflectionMethod::isAbstract</a> — Проверяет, является ли метод абстрактным</li><li><a href="reflectionmethod.isconstructor.php.html">ReflectionMethod::isConstructor</a> — Проверяет, является ли метод конструктором</li><li><a href="reflectionmethod.isdestructor.php.html">ReflectionMethod::isDestructor</a> — Проверяет, является ли метод деструктором</li><li><a href="reflectionmethod.isfinal.php.html">ReflectionMethod::isFinal</a> — Проверяет, является ли метод окончательным</li><li><a href="reflectionmethod.isprivate.php.html">ReflectionMethod::isPrivate</a> — Проверяет, является ли метод закрытым</li><li><a href="reflectionmethod.isprotected.php.html">ReflectionMethod::isProtected</a> — Проверяет, является ли метод защищённым</li><li><a href="reflectionmethod.ispublic.php.html">ReflectionMethod::isPublic</a> — Проверяет, является ли метод общедоступным</li><li><a href="reflectionmethod.setaccessible.php.html">ReflectionMethod::setAccessible</a> — Делает метод доступным</li><li><a href="reflectionmethod.tostring.php.html">ReflectionMethod::__toString</a> — Возвращает строковое представление объекта ReflectionMethod</li></ul></li><li><a href="class.reflectionnamedtype.php.html">ReflectionNamedType</a> — Класс ReflectionNamedType<ul class="chunklist chunklist_book chunklist_children"><li><a href="reflectionnamedtype.getname.php.html">ReflectionNamedType::getName</a> — Получает имя типа в виде строки</li><li><a href="reflectionnamedtype.isbuiltin.php.html">ReflectionNamedType::isBuiltin</a> — Проверяет, является ли тип встроенным</li></ul></li><li><a href="class.reflectionobject.php.html">ReflectionObject</a> — Класс ReflectionObject<ul class="chunklist chunklist_book chunklist_children"><li><a href="reflectionobject.construct.php.html">ReflectionObject::__construct</a> — Конструктор класса ReflectionObject</li><li><a href="reflectionobject.export.php.html">ReflectionObject::export</a> — Экспорт</li></ul></li><li><a href="class.reflectionparameter.php.html">ReflectionParameter</a> — Класс ReflectionParameter<ul class="chunklist chunklist_book chunklist_children"><li><a href="reflectionparameter.allowsnull.php.html">ReflectionParameter::allowsNull</a> — Проверяет, допустимо ли значение null для параметра</li><li><a href="reflectionparameter.canbepassedbyvalue.php.html">ReflectionParameter::canBePassedByValue</a> — Проверяет, можно ли передать этот аргумент по значению</li><li><a href="reflectionparameter.clone.php.html">ReflectionParameter::__clone</a> — Клонировать</li><li><a href="reflectionparameter.construct.php.html">ReflectionParameter::__construct</a> — Конструктор</li><li><a href="reflectionparameter.export.php.html">ReflectionParameter::export</a> — Экспорт</li><li><a href="reflectionparameter.getattributes.php.html">ReflectionParameter::getAttributes</a> — Получает атрибуты</li><li><a href="reflectionparameter.getclass.php.html">ReflectionParameter::getClass</a> — Получает объект ReflectionClass для отражаемого параметра или null</li><li><a href="reflectionparameter.getdeclaringclass.php.html">ReflectionParameter::getDeclaringClass</a> — Получение объявляющего класса</li><li><a href="reflectionparameter.getdeclaringfunction.php.html">ReflectionParameter::getDeclaringFunction</a> — Получение объявляющей функции</li><li><a href="reflectionparameter.getdefaultvalue.php.html">ReflectionParameter::getDefaultValue</a> — Получение значения по умолчанию для параметра</li><li><a href="reflectionparameter.getdefaultvalueconstantname.php.html">ReflectionParameter::getDefaultValueConstantName</a> — Возвращает имя константы значения по умолчанию, если значение по умолчанию константа или null</li><li><a href="reflectionparameter.getname.php.html">ReflectionParameter::getName</a> — Получение имени параметра</li><li><a href="reflectionparameter.getposition.php.html">ReflectionParameter::getPosition</a> — Получение позиции параметра</li><li><a href="reflectionparameter.gettype.php.html">ReflectionParameter::getType</a> — Получить тип параметра</li><li><a href="reflectionparameter.hastype.php.html">ReflectionParameter::hasType</a> — Проверить, указан ли тип параметра</li><li><a href="reflectionparameter.isarray.php.html">ReflectionParameter::isArray</a> — Проверяет, ожидает ли аргумент массив в качестве значения</li><li><a href="reflectionparameter.iscallable.php.html">ReflectionParameter::isCallable</a> — Определить, должен ли параметр быть типа callable</li><li><a href="reflectionparameter.isdefaultvalueavailable.php.html">ReflectionParameter::isDefaultValueAvailable</a> — Проверяет, доступно ли значение по умолчанию</li><li><a href="reflectionparameter.isdefaultvalueconstant.php.html">ReflectionParameter::isDefaultValueConstant</a> — Определить, является ли значение параметра по умолчанию константой</li><li><a href="reflectionparameter.isoptional.php.html">ReflectionParameter::isOptional</a> — Проверяет, является ли аргумент необязательным</li><li><a href="reflectionparameter.ispassedbyreference.php.html">ReflectionParameter::isPassedByReference</a> — Проверяет, передан ли параметр по ссылке</li><li><a href="reflectionparameter.isvariadic.php.html">ReflectionParameter::isVariadic</a> — Проверить, является ли параметр параметром с переменным количеством аргументов</li><li><a href="reflectionparameter.tostring.php.html">ReflectionParameter::__toString</a> — Преобразование в строку</li></ul></li><li><a href="class.reflectionproperty.php.html">ReflectionProperty</a> — Класс ReflectionProperty<ul class="chunklist chunklist_book chunklist_children"><li><a href="reflectionproperty.clone.php.html">ReflectionProperty::__clone</a> — Клонировать</li><li><a href="reflectionproperty.construct.php.html">ReflectionProperty::__construct</a> — Конструктор класса ReflectionProperty</li><li><a href="reflectionproperty.export.php.html">ReflectionProperty::export</a> — Экспорт</li><li><a href="reflectionproperty.getattributes.php.html">ReflectionProperty::getAttributes</a> — Получает атрибуты</li><li><a href="reflectionproperty.getdeclaringclass.php.html">ReflectionProperty::getDeclaringClass</a> — Получение объявляющего класса</li><li><a href="reflectionproperty.getdefaultvalue.php.html">ReflectionProperty::getDefaultValue</a> — Возвращает значение по умолчанию, заданное для свойства</li><li><a href="reflectionproperty.getdoccomment.php.html">ReflectionProperty::getDocComment</a> — Получение doc-комментария для свойства</li><li><a href="reflectionproperty.getmodifiers.php.html">ReflectionProperty::getModifiers</a> — Получение модификаторов свойств класса</li><li><a href="reflectionproperty.getname.php.html">ReflectionProperty::getName</a> — Получение имени свойства</li><li><a href="reflectionproperty.gettype.php.html">ReflectionProperty::getType</a> — Получить тип свойства</li><li><a href="reflectionproperty.getvalue.php.html">ReflectionProperty::getValue</a> — Получает значение</li><li><a href="reflectionproperty.hasdefaultvalue.php.html">ReflectionProperty::hasDefaultValue</a> — Проверяет, задано ли для свойства значение по умолчанию</li><li><a href="reflectionproperty.hastype.php.html">ReflectionProperty::hasType</a> — Проверить, задан ли для свойства тип</li><li><a href="reflectionproperty.isdefault.php.html">ReflectionProperty::isDefault</a> — Проверяет, является ли значение свойством по умолчанию</li><li><a href="reflectionproperty.isinitialized.php.html">ReflectionProperty::isInitialized</a> — Проверить, инициализировано ли свойство</li><li><a href="reflectionproperty.isprivate.php.html">ReflectionProperty::isPrivate</a> — Проверяет, является ли свойство закрытым</li><li><a href="reflectionproperty.ispromoted.php.html">ReflectionProperty::isPromoted</a> — Проверяет, определено ли свойство в конструкторе</li><li><a href="reflectionproperty.isprotected.php.html">ReflectionProperty::isProtected</a> — Проверяет, является ли свойство защищённым</li><li><a href="reflectionproperty.ispublic.php.html">ReflectionProperty::isPublic</a> — Проверяет, является ли свойство общедоступным</li><li><a href="reflectionproperty.isreadonly.php.html">ReflectionProperty::isReadOnly</a> — Проверяет, является ли свойство readonly-свойством</li><li><a href="reflectionproperty.isstatic.php.html">ReflectionProperty::isStatic</a> — Проверка, является ли свойство статическим</li><li><a href="reflectionproperty.setaccessible.php.html">ReflectionProperty::setAccessible</a> — Делает свойство доступным</li><li><a href="reflectionproperty.setvalue.php.html">ReflectionProperty::setValue</a> — Установка значения свойства</li><li><a href="reflectionproperty.tostring.php.html">ReflectionProperty::__toString</a> — Преобразование в строку</li></ul></li><li><a href="class.reflectiontype.php.html">ReflectionType</a> — Класс ReflectionType<ul class="chunklist chunklist_book chunklist_children"><li><a href="reflectiontype.allowsnull.php.html">ReflectionType::allowsNull</a> — Проверяет, допустим ли NULL</li><li><a href="reflectiontype.tostring.php.html">ReflectionType::__toString</a> — Преобразование в строку</li></ul></li><li><a href="class.reflectionuniontype.php.html">ReflectionUnionType</a> — Класс ReflectionUnionType<ul class="chunklist chunklist_book chunklist_children"><li><a href="reflectionuniontype.gettypes.php.html">ReflectionUnionType::getTypes</a> — Возвращает типы, включённые в тип union</li></ul></li><li><a href="class.reflectiongenerator.php.html">ReflectionGenerator</a> — Класс ReflectionGenerator<ul class="chunklist chunklist_book chunklist_children"><li><a href="reflectiongenerator.construct.php.html">ReflectionGenerator::__construct</a> — Конструктор ReflectionGenerator</li><li><a href="reflectiongenerator.getexecutingfile.php.html">ReflectionGenerator::getExecutingFile</a> — Получить имя файла, из которого запущен генератор</li><li><a href="reflectiongenerator.getexecutinggenerator.php.html">ReflectionGenerator::getExecutingGenerator</a> — Получить запущенный объект Generator</li><li><a href="reflectiongenerator.getexecutingline.php.html">ReflectionGenerator::getExecutingLine</a> — Получить текущую выполняющуюся строку генератора</li><li><a href="reflectiongenerator.getfunction.php.html">ReflectionGenerator::getFunction</a> — Получить имя функции генератора</li><li><a href="reflectiongenerator.getthis.php.html">ReflectionGenerator::getThis</a> — Получает значение $this генератора</li><li><a href="reflectiongenerator.gettrace.php.html">ReflectionGenerator::getTrace</a> — Получить трассировку запущенного генератора</li></ul></li><li><a href="class.reflectionfiber.php.html">ReflectionFiber</a> — Класс ReflectionFiber<ul class="chunklist chunklist_book chunklist_children"><li><a href="reflectionfiber.construct.php.html">ReflectionFiber::__construct</a> — Создаёт объект ReflectionFiber</li><li><a href="reflectionfiber.getcallable.php.html">ReflectionFiber::getCallable</a> — Получает вызываемый объект, используемый для создания файбера</li><li><a href="reflectionfiber.getexecutingfile.php.html">ReflectionFiber::getExecutingFile</a> — Получает имя файла текущей точки выполнения</li><li><a href="reflectionfiber.getexecutingline.php.html">ReflectionFiber::getExecutingLine</a> — Получает номер строки текущей точки выполнения</li><li><a href="reflectionfiber.getfiber.php.html">ReflectionFiber::getFiber</a> — Получает отражённый экземпляр файбера</li><li><a href="reflectionfiber.gettrace.php.html">ReflectionFiber::getTrace</a> — Получает обратную трассировку текущей точки выполнения</li></ul></li><li><a href="class.reflectionintersectiontype.php.html">ReflectionIntersectionType</a> — Класс ReflectionIntersectionType<ul class="chunklist chunklist_book chunklist_children"><li><a href="reflectionintersectiontype.gettypes.php.html">ReflectionIntersectionType::getTypes</a> — Возвращает пересекающиеся типы</li></ul></li><li><a href="class.reflectionreference.php.html">ReflectionReference</a> — Класс ReflectionReference<ul class="chunklist chunklist_book chunklist_children"><li><a href="reflectionreference.construct.php.html">ReflectionReference::__construct</a> — Закрытый конструктор, запрещающий создание экземпляра напрямую</li><li><a href="reflectionreference.fromarrayelement.php.html">ReflectionReference::fromArrayElement</a> — Создаёт ReflectionReference из элемента массива</li><li><a href="reflectionreference.getid.php.html">ReflectionReference::getId</a> — Получить уникальный идентификатор ссылки</li></ul></li><li><a href="class.reflectionattribute.php.html">ReflectionAttribute</a> — Класс ReflectionAttribute<ul class="chunklist chunklist_book chunklist_children"><li><a href="reflectionattribute.construct.php.html">ReflectionAttribute::__construct</a> — Закрытый конструктор, запрещающий создание объекта напрямую</li><li><a href="reflectionattribute.getarguments.php.html">ReflectionAttribute::getArguments</a> — Возвращает аргументы, переданные атрибуту</li><li><a href="reflectionattribute.getname.php.html">ReflectionAttribute::getName</a> — Возвращает имя атрибута</li><li><a href="reflectionattribute.gettarget.php.html">ReflectionAttribute::getTarget</a> — Возвращает цель атрибута в виде битовой маски</li><li><a href="reflectionattribute.isrepeated.php.html">ReflectionAttribute::isRepeated</a> — Определяет, был ли атрибут с таким именем указан многократно в элементе кода</li><li><a href="reflectionattribute.newinstance.php.html">ReflectionAttribute::newInstance</a> — Создаёт экземпляр класса атрибута, используя содержащиеся в объекте ReflectionAttribute имя класса и аргументы</li></ul></li><li><a href="class.reflector.php.html">Reflector</a> — Интерфейс Reflector<ul class="chunklist chunklist_book chunklist_children"><li><a href="reflector.export.php.html">Reflector::export</a> — Экспорт</li></ul></li><li><a href="class.reflectionexception.php.html">ReflectionException</a> — Класс ReflectionException</li></ul></div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=book.reflection&amp;redirect=https://www.php.net/manual/ru/book.reflection.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes </h3>
+ </div>
+ <div class="note">There are no user contributed notes for this page.</div></section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="refs.basic.vartype.php.html">Модули, относящиеся к переменным и типам</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="book.array.php.html" title="Массивы">Массивы</a>
+                        </li>
+                                                <li class="">
+                            <a href="book.classobj.php.html" title="Классы и объекты">Классы и объекты</a>
+                        </li>
+                                                <li class="">
+                            <a href="book.ctype.php.html" title="Ctype">Ctype</a>
+                        </li>
+                                                <li class="">
+                            <a href="book.filter.php.html" title="Filter">Filter</a>
+                        </li>
+                                                <li class="">
+                            <a href="book.funchand.php.html" title="Управление функциями">Управление функциями</a>
+                        </li>
+                                                <li class="">
+                            <a href="book.quickhash.php.html" title="Quickhash">Quickhash</a>
+                        </li>
+                                                <li class="current">
+                            <a href="book.reflection.php.html" title="Reflection">Reflection</a>
+                        </li>
+                                                <li class="">
+                            <a href="book.var.php.html" title="Обработка переменных">Обработка переменных</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

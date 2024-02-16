@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: pcntl_waitpid - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="function.pcntl-waitpid.php.html">
+ <link rel="shorturl" href="https://www.php.net/pcntl-waitpid">
+ <link rel="alternate" href="https://www.php.net/pcntl-waitpid" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="ref.pcntl.php.html">
+ <link rel="prev" href="function.pcntl-wait.php.html">
+ <link rel="next" href="function.pcntl-wexitstatus.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/function.pcntl-waitpid.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/function.pcntl-waitpid.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/function.pcntl-waitpid.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/function.pcntl-waitpid.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/function.pcntl-waitpid.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/function.pcntl-waitpid.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/function.pcntl-waitpid.php" hreflang="pt_BR">
+ <link rel="alternate" href="function.pcntl-waitpid.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/function.pcntl-waitpid.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/function.pcntl-waitpid.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="function.pcntl-wexitstatus.php.html">
+          pcntl_wexitstatus &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="function.pcntl-wait.php.html">
+          &laquo; pcntl_wait        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.fileprocess.process.php.html'>Модули для управления процессами программ</a></li>      <li><a href='book.pcntl.php.html'>PCNTL</a></li>      <li><a href='ref.pcntl.php.html'>Функции PCNTL</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/function.pcntl-waitpid.php'>English</option>
+            <option value='de/function.pcntl-waitpid.php'>German</option>
+            <option value='es/function.pcntl-waitpid.php'>Spanish</option>
+            <option value='fr/function.pcntl-waitpid.php'>French</option>
+            <option value='it/function.pcntl-waitpid.php'>Italian</option>
+            <option value='ja/function.pcntl-waitpid.php'>Japanese</option>
+            <option value='pt_BR/function.pcntl-waitpid.php'>Brazilian Portuguese</option>
+            <option value='ru/function.pcntl-waitpid.php' selected="selected">Russian</option>
+            <option value='tr/function.pcntl-waitpid.php'>Turkish</option>
+            <option value='zh/function.pcntl-waitpid.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/pcntl/functions/pcntl-waitpid.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Ffunction.pcntl-waitpid%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="function.pcntl-waitpid" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">pcntl_waitpid</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.1.0, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">pcntl_waitpid</span> &mdash; <span class="dc-title">Ожидает или возвращает статус порождённого дочернего процесса</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.pcntl-waitpid-description">
+  <h3 class="title">Описание</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="methodname"><strong>pcntl_waitpid</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$process_id</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter reference">&$status</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$flags</code><span class="initializer"> = 0</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">array</span> <code class="parameter reference">&$resource_usage</code><span class="initializer"> = []</span></span><br>): <span class="type">int</span></div>
+
+  <p class="para rdfs-comment">
+   Функция ожидания приостанавливает выполнение текущего процесса до тех пор,
+   пока дочерний процесс, указанный в аргументе <code class="parameter">process_id</code>,
+   не завершится или пока не будет получен сигнал,
+   который завершает текущий процесс или вызывает функцию обработки сигнала.
+  </p>
+  <p class="para">
+   Если дочерний процесс, указанный в аргументе <code class="parameter">process_id</code>,
+   уже завершился ко времени вызова
+   (так называемые &quot;зомби&quot; процессы), функция незамедлительно вернёт управление.
+   Любые системные ресурсы используемые дочерним процессом будут освобождены.
+   Обратитесь к вашей системному руководству waitpid(2) для уточнения
+   специфики работы waitpid в вашей системе.
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.pcntl-waitpid-parameters">
+  <h3 class="title">Список параметров</h3>
+  <p class="para">
+   <dl>
+    
+     <dt>
+<code class="parameter">process_id</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Аргумент <code class="parameter">process_id</code> может принимать одно из следующих
+       значений:
+       <table class="doctable table">
+        <caption><strong>возможные значения аргумента <code class="parameter">process_id</code></strong></caption>
+        
+         <tbody class="tbody">
+          <tr>
+           <td><code class="literal">&lt; -1</code></td>
+           <td>
+            ожидать любой дочерний процесс, у которого значение
+            идентификатор группы процессов (group ID)
+            равно модулю значения аргумента |<code class="parameter">process_id</code>|.
+           </td>
+          </tr>
+
+          <tr>
+           <td><code class="literal">-1</code></td>
+           <td>
+            ожидать любой дочерний процесс; это такое же поведение, что и
+            у функции wait.
+           </td>
+          </tr>
+
+          <tr>
+           <td><code class="literal">0</code></td>
+           <td>
+            ожидать любой дочерний процесс, идентификатор группы процессов (group ID)
+            которого равен идентификатору текущего процесса.
+           </td>
+          </tr>
+
+          <tr>
+           <td><code class="literal">&gt; 0</code></td>
+           <td>
+            ожидать дочерний процесс ID которого равен <code class="parameter">process_id</code>.
+           </td>
+          </tr>
+
+         </tbody>
+        
+       </table>
+
+      </p>
+      <blockquote class="note"><p><strong class="note">Замечание</strong>: 
+       <p class="para">
+        Указание <code class="literal">-1</code> в качестве <code class="parameter">process_id</code> -
+        это аналог функции <span class="function"><a href="function.pcntl-wait.php.html" class="function">pcntl_wait()</a></span>
+        (минус <code class="parameter">flags</code>).
+       </p>
+      </p></blockquote>
+     </dd>
+
+    
+    
+     <dt>
+<code class="parameter">status</code></dt>
+
+     <dd>
+
+      <p class="para">
+       <span class="function"><strong>pcntl_waitpid()</strong></span> разместит информацию о статусе
+       по ссылке в аргументе <code class="parameter">status</code>, который может
+       быть передан в следующие функции:
+       <span class="function"><a href="function.pcntl-wifexited.php.html" class="function">pcntl_wifexited()</a></span>,
+       <span class="function"><a href="function.pcntl-wifstopped.php.html" class="function">pcntl_wifstopped()</a></span>,
+       <span class="function"><a href="function.pcntl-wifsignaled.php.html" class="function">pcntl_wifsignaled()</a></span>,
+       <span class="function"><a href="function.pcntl-wexitstatus.php.html" class="function">pcntl_wexitstatus()</a></span>,
+       <span class="function"><a href="function.pcntl-wtermsig.php.html" class="function">pcntl_wtermsig()</a></span> и
+       <span class="function"><a href="function.pcntl-wstopsig.php.html" class="function">pcntl_wstopsig()</a></span>.
+      </p>
+     </dd>
+
+    
+    
+     <dt>
+<code class="parameter">flags</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Значение аргумента <code class="parameter">flags</code> - это битовая маска,
+       которая может принимать значение ноль или более путём логического объединения следующих констант:
+       <table class="doctable table">
+        <caption><strong>Возможные значения для <code class="parameter">flags</code></strong></caption>
+        
+         <tbody class="tbody">
+          <tr>
+           <td><code class="literal">WNOHANG</code></td>
+           <td>
+            Незамедлительно вернуть управление, если ни один из дочерних процессов не завершён
+           </td>
+          </tr>
+
+          <tr>
+           <td><code class="literal">WUNTRACED</code></td>
+           <td>
+            Вернуть управление для остановленных дочерних процессов, о статусе которых ещё не сообщено
+           </td>
+          </tr>
+
+         </tbody>
+        
+       </table>
+
+      </p>
+     </dd>
+
+    
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.pcntl-waitpid-returnvalues">
+  <h3 class="title">Возвращаемые значения</h3>
+  <p class="para">
+   <span class="function"><a href="function.pcntl-wait.php.html" class="function">pcntl_wait()</a></span> возвращает ID завершённого дочернего процесса,
+   -1 в случае возникновения ошибке или ноль, если <strong><code>WNOHANG</code></strong> был передан в аргумент
+   <code class="parameter">flags</code> и не было доступных дочерних процессов.
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.pcntl-waitpid-seealso">
+  <h3 class="title">Смотрите также</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.pcntl-fork.php.html" class="function" rel="rdfs-seeAlso">pcntl_fork()</a> - Разветвить (fork) текущий запущенный процесс</span></li>
+    <li class="member"><span class="function"><a href="function.pcntl-signal.php.html" class="function" rel="rdfs-seeAlso">pcntl_signal()</a> - Установка обработчика сигнала</span></li>
+    <li class="member"><span class="function"><a href="function.pcntl-wifexited.php.html" class="function" rel="rdfs-seeAlso">pcntl_wifexited()</a> - Проверяет, соответствует ли код завершения процесса нормальному завершению</span></li>
+    <li class="member"><span class="function"><a href="function.pcntl-wifstopped.php.html" class="function" rel="rdfs-seeAlso">pcntl_wifstopped()</a> - Проверить, остановлен ли дочерний процесс</span></li>
+    <li class="member"><span class="function"><a href="function.pcntl-wifsignaled.php.html" class="function" rel="rdfs-seeAlso">pcntl_wifsignaled()</a> - Проверить, соответствует ли код завершения процесса завершению по сигналу</span></li>
+    <li class="member"><span class="function"><a href="function.pcntl-wexitstatus.php.html" class="function" rel="rdfs-seeAlso">pcntl_wexitstatus()</a> - Получить код возврата завершённого дочернего процесса</span></li>
+    <li class="member"><span class="function"><a href="function.pcntl-wtermsig.php.html" class="function" rel="rdfs-seeAlso">pcntl_wtermsig()</a> - Получить сигнал, из-за которого был принудительно завершён дочерний процесс</span></li>
+    <li class="member"><span class="function"><a href="function.pcntl-wstopsig.php.html" class="function" rel="rdfs-seeAlso">pcntl_wstopsig()</a> - Получить сигнал, из-за которого был остановлен дочерний процесс</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=function.pcntl-waitpid&amp;redirect=https://www.php.net/manual/ru/function.pcntl-waitpid.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">3 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="82421">  <div class="votes">
+    <div id="Vu82421">
+    <a href="https://www.php.net/manual/vote-note.php?id=82421&amp;page=function.pcntl-waitpid&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd82421">
+    <a href="https://www.php.net/manual/vote-note.php?id=82421&amp;page=function.pcntl-waitpid&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V82421" title="66% like this...">
+    3
+    </div>
+  </div>
+  <a href="function.pcntl-waitpid.php.html#82421" class="name">
+  <strong class="user"><em>saguto dot l7cc at gmail dot com</em></strong></a><a class="genanchor" href="function.pcntl-waitpid.php.html#82421"> &para;</a><div class="date" title="2008-04-09 09:09"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom82421">
+<div class="phpcode"><code><span class="html">please note, if you using configure option --enable-sigchild(Enable PHP's own SIGCHLD handler) when complie php(under linux 2.6.18-53.1.13.el5.centos.plus and php 5.2.5 as I know), pcntl_waitpid and pcntl_wait in php script would never return the child pid, because the build in handle get it first.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="115714">  <div class="votes">
+    <div id="Vu115714">
+    <a href="https://www.php.net/manual/vote-note.php?id=115714&amp;page=function.pcntl-waitpid&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd115714">
+    <a href="https://www.php.net/manual/vote-note.php?id=115714&amp;page=function.pcntl-waitpid&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V115714" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="function.pcntl-waitpid.php.html#115714" class="name">
+  <strong class="user"><em>fx4084 at gmail dot com</em></strong></a><a class="genanchor" href="function.pcntl-waitpid.php.html#115714"> &para;</a><div class="date" title="2014-09-12 07:53"><strong>9 years ago</strong></div>
+  <div class="text" id="Hcom115714">
+<div class="phpcode"><code><span class="html"><span class="default">&lt;?php<br />$childs </span><span class="keyword">= array();<br /><br /></span><span class="comment">// Fork some process.<br /></span><span class="keyword">for(</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">10</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++) {<br />    </span><span class="default">$pid </span><span class="keyword">= </span><span class="default">pcntl_fork</span><span class="keyword">();<br />    if(</span><span class="default">$pid </span><span class="keyword">== -</span><span class="default">1</span><span class="keyword">)<br />        die(</span><span class="string">'Could not fork'</span><span class="keyword">);<br /><br />    if (</span><span class="default">$pid</span><span class="keyword">) {<br />        echo </span><span class="string">"parent \n"</span><span class="keyword">;<br />        </span><span class="default">$childs</span><span class="keyword">[] = </span><span class="default">$pid</span><span class="keyword">;<br />    } else {<br />        </span><span class="comment">// Sleep $i+1 (s). The child process can get this parameters($i).<br />        </span><span class="default">sleep</span><span class="keyword">(</span><span class="default">$i</span><span class="keyword">+</span><span class="default">1</span><span class="keyword">);<br />        <br />        </span><span class="comment">// The child process needed to end the loop.<br />        </span><span class="keyword">exit();<br />    }<br />}<br /><br />while(</span><span class="default">count</span><span class="keyword">(</span><span class="default">$childs</span><span class="keyword">) &gt; </span><span class="default">0</span><span class="keyword">) {<br />    foreach(</span><span class="default">$childs </span><span class="keyword">as </span><span class="default">$key </span><span class="keyword">=&gt; </span><span class="default">$pid</span><span class="keyword">) {<br />        </span><span class="default">$res </span><span class="keyword">= </span><span class="default">pcntl_waitpid</span><span class="keyword">(</span><span class="default">$pid</span><span class="keyword">, </span><span class="default">$status</span><span class="keyword">, </span><span class="default">WNOHANG</span><span class="keyword">);<br />        <br />        </span><span class="comment">// If the process has already exited<br />        </span><span class="keyword">if(</span><span class="default">$res </span><span class="keyword">== -</span><span class="default">1 </span><span class="keyword">|| </span><span class="default">$res </span><span class="keyword">&gt; </span><span class="default">0</span><span class="keyword">)<br />            unset(</span><span class="default">$childs</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">]);<br />    }<br />    <br />    </span><span class="default">sleep</span><span class="keyword">(</span><span class="default">1</span><span class="keyword">);<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="123755">  <div class="votes">
+    <div id="Vu123755">
+    <a href="https://www.php.net/manual/vote-note.php?id=123755&amp;page=function.pcntl-waitpid&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd123755">
+    <a href="https://www.php.net/manual/vote-note.php?id=123755&amp;page=function.pcntl-waitpid&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V123755" title="33% like this...">
+    -1
+    </div>
+  </div>
+  <a href="function.pcntl-waitpid.php.html#123755" class="name">
+  <strong class="user"><em>renmengyang567 at gmail dot com</em></strong></a><a class="genanchor" href="function.pcntl-waitpid.php.html#123755"> &para;</a><div class="date" title="2019-04-07 06:26"><strong>4 years ago</strong></div>
+  <div class="text" id="Hcom123755">
+<div class="phpcode"><code><span class="html"><span class="default">&lt;?php<br /><br /></span><span class="keyword">declare(</span><span class="default">ticks </span><span class="keyword">= </span><span class="default">1</span><span class="keyword">);<br />function </span><span class="default">zp_handler</span><span class="keyword">(</span><span class="default">$signal</span><span class="keyword">) {<br />    </span><span class="default">$id </span><span class="keyword">= </span><span class="default">pcntl_waitpid</span><span class="keyword">(-</span><span class="default">1</span><span class="keyword">, </span><span class="default">$status</span><span class="keyword">, </span><span class="default">WNOHANG</span><span class="keyword">);<br />    if (</span><span class="default">pcntl_wifexited</span><span class="keyword">(</span><span class="default">$status</span><span class="keyword">)) <br />    {<br />        </span><span class="default">printf</span><span class="keyword">(</span><span class="string">"Removed Chlid id: %d \n"</span><span class="keyword">,</span><span class="default">$id</span><span class="keyword">);<br />        </span><span class="default">printf</span><span class="keyword">(</span><span class="string">"Chlid status: %d \n"</span><span class="keyword">,</span><span class="default">pcntl_wexitstatus</span><span class="keyword">(</span><span class="default">$status</span><span class="keyword">));<br />    }<br />}<br /><br /></span><span class="comment">//pcntl_signal_dispatch();<br /></span><span class="default">pcntl_signal</span><span class="keyword">(</span><span class="default">SIGCHLD</span><span class="keyword">, </span><span class="string">"zp_handler"</span><span class="keyword">);<br /></span><span class="comment">//pcntl_signal_dispatch();<br />//<br /><br /></span><span class="default">$pid </span><span class="keyword">= </span><span class="default">pcntl_fork</span><span class="keyword">();<br />if (</span><span class="default">$pid </span><span class="keyword">== </span><span class="default">0</span><span class="keyword">)<br />{<br />    print </span><span class="string">"#1 Hi, I'm child process"</span><span class="keyword">.</span><span class="default">PHP_EOL</span><span class="keyword">;<br />    </span><span class="default">sleep</span><span class="keyword">(</span><span class="default">3</span><span class="keyword">);<br />    return </span><span class="default">10</span><span class="keyword">;<br />}<br />else <br />{<br />    print </span><span class="string">"#1parent process id:"</span><span class="keyword">.</span><span class="default">$pid</span><span class="keyword">.</span><span class="default">PHP_EOL</span><span class="keyword">;<br />    </span><span class="default">$pid </span><span class="keyword">= </span><span class="default">pcntl_fork</span><span class="keyword">();<br />    if (</span><span class="default">$pid </span><span class="keyword">== </span><span class="default">0</span><span class="keyword">)<br />    {   print </span><span class="string">"#2 Hi, I'm child process"</span><span class="keyword">.</span><span class="default">PHP_EOL</span><span class="keyword">;<br />        </span><span class="default">sleep</span><span class="keyword">(</span><span class="default">10</span><span class="keyword">);<br />        exit(</span><span class="default">20</span><span class="keyword">);<br />    } <br />    else <br />    {<br />        print </span><span class="string">"#2parent process id:"</span><span class="keyword">.</span><span class="default">$pid</span><span class="keyword">.</span><span class="default">PHP_EOL</span><span class="keyword">;<br />        for (</span><span class="default">$i</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt;</span><span class="default">10 </span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++) { <br />            print </span><span class="string">"wait.."</span><span class="keyword">.</span><span class="default">PHP_EOL</span><span class="keyword">;<br />            </span><span class="default">sleep</span><span class="keyword">(</span><span class="default">10</span><span class="keyword">);<br />        }<br />    }<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=function.pcntl-waitpid&amp;redirect=https://www.php.net/manual/ru/function.pcntl-waitpid.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="ref.pcntl.php.html">Функции PCNTL</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="function.pcntl-alarm.php.html" title="pcntl_&#8203;alarm">pcntl_&#8203;alarm</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.pcntl-async-signals.php.html" title="pcntl_&#8203;async_&#8203;signals">pcntl_&#8203;async_&#8203;signals</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.pcntl-errno.php.html" title="pcntl_&#8203;errno">pcntl_&#8203;errno</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.pcntl-exec.php.html" title="pcntl_&#8203;exec">pcntl_&#8203;exec</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.pcntl-fork.php.html" title="pcntl_&#8203;fork">pcntl_&#8203;fork</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.pcntl-get-last-error.php.html" title="pcntl_&#8203;get_&#8203;last_&#8203;error">pcntl_&#8203;get_&#8203;last_&#8203;error</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.pcntl-getpriority.php.html" title="pcntl_&#8203;getpriority">pcntl_&#8203;getpriority</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.pcntl-rfork.php.html" title="pcntl_&#8203;rfork">pcntl_&#8203;rfork</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.pcntl-setpriority.php.html" title="pcntl_&#8203;setpriority">pcntl_&#8203;setpriority</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.pcntl-signal-dispatch.php.html" title="pcntl_&#8203;signal_&#8203;dispatch">pcntl_&#8203;signal_&#8203;dispatch</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.pcntl-signal-get-handler.php.html" title="pcntl_&#8203;signal_&#8203;get_&#8203;handler">pcntl_&#8203;signal_&#8203;get_&#8203;handler</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.pcntl-signal.php.html" title="pcntl_&#8203;signal">pcntl_&#8203;signal</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.pcntl-sigprocmask.php.html" title="pcntl_&#8203;sigprocmask">pcntl_&#8203;sigprocmask</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.pcntl-sigtimedwait.php.html" title="pcntl_&#8203;sigtimedwait">pcntl_&#8203;sigtimedwait</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.pcntl-sigwaitinfo.php.html" title="pcntl_&#8203;sigwaitinfo">pcntl_&#8203;sigwaitinfo</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.pcntl-strerror.php.html" title="pcntl_&#8203;strerror">pcntl_&#8203;strerror</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.pcntl-unshare.php.html" title="pcntl_&#8203;unshare">pcntl_&#8203;unshare</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.pcntl-wait.php.html" title="pcntl_&#8203;wait">pcntl_&#8203;wait</a>
+                        </li>
+                                                <li class="current">
+                            <a href="function.pcntl-waitpid.php.html" title="pcntl_&#8203;waitpid">pcntl_&#8203;waitpid</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.pcntl-wexitstatus.php.html" title="pcntl_&#8203;wexitstatus">pcntl_&#8203;wexitstatus</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.pcntl-wifexited.php.html" title="pcntl_&#8203;wifexited">pcntl_&#8203;wifexited</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.pcntl-wifsignaled.php.html" title="pcntl_&#8203;wifsignaled">pcntl_&#8203;wifsignaled</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.pcntl-wifstopped.php.html" title="pcntl_&#8203;wifstopped">pcntl_&#8203;wifstopped</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.pcntl-wstopsig.php.html" title="pcntl_&#8203;wstopsig">pcntl_&#8203;wstopsig</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.pcntl-wtermsig.php.html" title="pcntl_&#8203;wtermsig">pcntl_&#8203;wtermsig</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

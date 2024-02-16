@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: Функции GD и функции для работы с изображениями - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="ref.image.php.html">
+ <link rel="shorturl" href="https://www.php.net/image">
+ <link rel="alternate" href="https://www.php.net/image" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="book.image.php.html">
+ <link rel="prev" href="image.examples.merged-watermark.php.html">
+ <link rel="next" href="function.gd-info.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/ref.image.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/ref.image.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/ref.image.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/ref.image.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/ref.image.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/ref.image.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/ref.image.php" hreflang="pt_BR">
+ <link rel="alternate" href="ref.image.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/ref.image.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/ref.image.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="function.gd-info.php.html">
+          gd_info &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="image.examples.merged-watermark.php.html">
+          &laquo; Использование imagecopymerge создать полупрозрачный водяной знак        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.utilspec.image.php.html'>Обработка и генерация изображений</a></li>      <li><a href='book.image.php.html'>GD</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/ref.image.php'>English</option>
+            <option value='de/ref.image.php'>German</option>
+            <option value='es/ref.image.php'>Spanish</option>
+            <option value='fr/ref.image.php'>French</option>
+            <option value='it/ref.image.php'>Italian</option>
+            <option value='ja/ref.image.php'>Japanese</option>
+            <option value='pt_BR/ref.image.php'>Brazilian Portuguese</option>
+            <option value='ru/ref.image.php' selected="selected">Russian</option>
+            <option value='tr/ref.image.php'>Turkish</option>
+            <option value='zh/ref.image.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/image/reference.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Fref.image%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="ref.image" class="reference">
+ <h1 class="title">Функции GD и функции для работы с изображениями</h1>
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2>Содержание</h2><ul class="chunklist chunklist_reference"><li><a href="function.gd-info.php.html">gd_info</a> — Вывод информации о текущей установленной GD библиотеке</li><li><a href="function.getimagesize.php.html">getimagesize</a> — Получение размера изображения</li><li><a href="function.getimagesizefromstring.php.html">getimagesizefromstring</a> — Получение размера изображения из строки данных</li><li><a href="function.image-type-to-extension.php.html">image_type_to_extension</a> — Получение расширения файла для типа изображения</li><li><a href="function.image-type-to-mime-type.php.html">image_type_to_mime_type</a> — Получение Mime-типа для типа изображения, возвращаемого
+   функциями getimagesize, exif_read_data, exif_thumbnail, exif_imagetype</li><li><a href="function.image2wbmp.php.html">image2wbmp</a> — Выводит изображение в браузер или пишет в файл</li><li><a href="function.imageaffine.php.html">imageaffine</a> — Вернуть изображение, содержащее аффинно-преобразованное изображение src, используя дополнительную область ограничения</li><li><a href="function.imageaffinematrixconcat.php.html">imageaffinematrixconcat</a> — Конкатенирует две аффинные матрицы преобразования</li><li><a href="function.imageaffinematrixget.php.html">imageaffinematrixget</a> — Получает матрицу аффинного преобразования</li><li><a href="function.imagealphablending.php.html">imagealphablending</a> — Задание режима сопряжения цветов для изображения</li><li><a href="function.imageantialias.php.html">imageantialias</a> — Требуется ли применять функции сглаживания или нет</li><li><a href="function.imagearc.php.html">imagearc</a> — Рисование дуги</li><li><a href="function.imageavif.php.html">imageavif</a> — Выводит изображение в браузер или пишет в файл</li><li><a href="function.imagebmp.php.html">imagebmp</a> — Вывести BMP-изображение в браузер или файл</li><li><a href="function.imagechar.php.html">imagechar</a> — Рисование символа по горизонтали</li><li><a href="function.imagecharup.php.html">imagecharup</a> — Рисование символа вертикально</li><li><a href="function.imagecolorallocate.php.html">imagecolorallocate</a> — Создание цвета для изображения</li><li><a href="function.imagecolorallocatealpha.php.html">imagecolorallocatealpha</a> — Создание цвета для изображения</li><li><a href="function.imagecolorat.php.html">imagecolorat</a> — Получение индекса цвета пиксела</li><li><a href="function.imagecolorclosest.php.html">imagecolorclosest</a> — Получение индекса цвета ближайшего к заданному</li><li><a href="function.imagecolorclosestalpha.php.html">imagecolorclosestalpha</a> — Получение индекса цвета ближайшего к заданному с учётом прозрачности</li><li><a href="function.imagecolorclosesthwb.php.html">imagecolorclosesthwb</a> — Получение индекса цвета, имеющего заданный тон, белизну и затемнение</li><li><a href="function.imagecolordeallocate.php.html">imagecolordeallocate</a> — Разрыв ассоциации переменной с цветом для заданного изображения</li><li><a href="function.imagecolorexact.php.html">imagecolorexact</a> — Получение индекса заданного цвета</li><li><a href="function.imagecolorexactalpha.php.html">imagecolorexactalpha</a> — Получение индекса заданного цвета и альфа компонента</li><li><a href="function.imagecolormatch.php.html">imagecolormatch</a> — Делает цвета палитровой версии изображения более соответствующими
+   truecolor версии</li><li><a href="function.imagecolorresolve.php.html">imagecolorresolve</a> — Получает идентификатор конкретного цвета или его ближайший аналог</li><li><a href="function.imagecolorresolvealpha.php.html">imagecolorresolvealpha</a> — Получает идентификатор конкретного цвета и альфа компонента
+  или его ближайший аналог</li><li><a href="function.imagecolorset.php.html">imagecolorset</a> — Установка набора цветов для заданного индекса палитры</li><li><a href="function.imagecolorsforindex.php.html">imagecolorsforindex</a> — Получение цветов, соответствующих индексу</li><li><a href="function.imagecolorstotal.php.html">imagecolorstotal</a> — Определение количества цветов в палитре изображения</li><li><a href="function.imagecolortransparent.php.html">imagecolortransparent</a> — Определяет цвет как прозрачный</li><li><a href="function.imageconvolution.php.html">imageconvolution</a> — Наложение искривляющей матрицы 3х3, используя коэффициент и смещение</li><li><a href="function.imagecopy.php.html">imagecopy</a> — Копирование части изображения</li><li><a href="function.imagecopymerge.php.html">imagecopymerge</a> — Копирует часть изображения с наложением</li><li><a href="function.imagecopymergegray.php.html">imagecopymergegray</a> — Копирует часть изображения с наложением в градациях серого</li><li><a href="function.imagecopyresampled.php.html">imagecopyresampled</a> — Копирование и изменение размера изображения с ресемплированием</li><li><a href="function.imagecopyresized.php.html">imagecopyresized</a> — Копирование и изменение размера части изображения</li><li><a href="function.imagecreate.php.html">imagecreate</a> — Создание нового палитрового изображения</li><li><a href="function.imagecreatefromavif.php.html">imagecreatefromavif</a> — Создаёт новое изображение из файла или URL</li><li><a href="function.imagecreatefrombmp.php.html">imagecreatefrombmp</a> — Создаёт новое изображение из файла или URL</li><li><a href="function.imagecreatefromgd2.php.html">imagecreatefromgd2</a> — Создание нового изображения на основе GD2 или URL</li><li><a href="function.imagecreatefromgd2part.php.html">imagecreatefromgd2part</a> — Создание нового изображения на основе части GD2 файла или URL</li><li><a href="function.imagecreatefromgd.php.html">imagecreatefromgd</a> — Создание нового изображения на основе GD файла или URL</li><li><a href="function.imagecreatefromgif.php.html">imagecreatefromgif</a> — Создаёт новое изображение из файла или URL</li><li><a href="function.imagecreatefromjpeg.php.html">imagecreatefromjpeg</a> — Создаёт новое изображение из файла или URL</li><li><a href="function.imagecreatefrompng.php.html">imagecreatefrompng</a> — Создаёт новое изображение из файла или URL</li><li><a href="function.imagecreatefromstring.php.html">imagecreatefromstring</a> — Создание нового изображения из потока представленного строкой</li><li><a href="function.imagecreatefromtga.php.html">imagecreatefromtga</a> — Создаёт новое изображение из файла или URL</li><li><a href="function.imagecreatefromwbmp.php.html">imagecreatefromwbmp</a> — Создаёт новое изображение из файла или URL</li><li><a href="function.imagecreatefromwebp.php.html">imagecreatefromwebp</a> — Создаёт новое изображение из файла или URL</li><li><a href="function.imagecreatefromxbm.php.html">imagecreatefromxbm</a> — Создаёт новое изображение из файла или URL</li><li><a href="function.imagecreatefromxpm.php.html">imagecreatefromxpm</a> — Создаёт новое изображение из файла или URL</li><li><a href="function.imagecreatetruecolor.php.html">imagecreatetruecolor</a> — Создание нового полноцветного изображения</li><li><a href="function.imagecrop.php.html">imagecrop</a> — Обрезать изображение до заданного прямоугольника</li><li><a href="function.imagecropauto.php.html">imagecropauto</a> — Обрезает изображение автоматически на основе заданного режима</li><li><a href="function.imagedashedline.php.html">imagedashedline</a> — Рисование пунктирной линии</li><li><a href="function.imagedestroy.php.html">imagedestroy</a> — Уничтожение изображения</li><li><a href="function.imageellipse.php.html">imageellipse</a> — Рисование эллипса</li><li><a href="function.imagefill.php.html">imagefill</a> — Заливка</li><li><a href="function.imagefilledarc.php.html">imagefilledarc</a> — Рисование и заливка дуги</li><li><a href="function.imagefilledellipse.php.html">imagefilledellipse</a> — Рисование закрашенного эллипса</li><li><a href="function.imagefilledpolygon.php.html">imagefilledpolygon</a> — Рисование закрашенного многоугольника</li><li><a href="function.imagefilledrectangle.php.html">imagefilledrectangle</a> — Рисование закрашенного прямоугольника</li><li><a href="function.imagefilltoborder.php.html">imagefilltoborder</a> — Заливка цветом</li><li><a href="function.imagefilter.php.html">imagefilter</a> — Применяет фильтр к изображению</li><li><a href="function.imageflip.php.html">imageflip</a> — Переворачивает изображение, используя выбранный режим</li><li><a href="function.imagefontheight.php.html">imagefontheight</a> — Получение высоты шрифта</li><li><a href="function.imagefontwidth.php.html">imagefontwidth</a> — Получение ширины шрифта</li><li><a href="function.imageftbbox.php.html">imageftbbox</a> — Определение границ текста выводимого шрифтом freetype2</li><li><a href="function.imagefttext.php.html">imagefttext</a> — Нанесение текста на изображение, используя шрифты FreeType 2</li><li><a href="function.imagegammacorrect.php.html">imagegammacorrect</a> — Применение гамма коррекции к GD изображению</li><li><a href="function.imagegd2.php.html">imagegd2</a> — Вывод GD2 изображения в браузер или файл</li><li><a href="function.imagegd.php.html">imagegd</a> — Вывод GD-изображения в браузер или в файл</li><li><a href="function.imagegetclip.php.html">imagegetclip</a> — Получить отсекающий прямоугольник</li><li><a href="function.imagegetinterpolation.php.html">imagegetinterpolation</a> — Получает метод интерполяции</li><li><a href="function.imagegif.php.html">imagegif</a> — Выводит изображение в браузер или пишет в файл</li><li><a href="function.imagegrabscreen.php.html">imagegrabscreen</a> — Захватывает изображение с экрана</li><li><a href="function.imagegrabwindow.php.html">imagegrabwindow</a> — Захватывает изображение окна</li><li><a href="function.imageinterlace.php.html">imageinterlace</a> — Включение или выключение интерлейсинга</li><li><a href="function.imageistruecolor.php.html">imageistruecolor</a> — Определяет, является ли изображение полноцветным</li><li><a href="function.imagejpeg.php.html">imagejpeg</a> — Выводит изображение в браузер или пишет в файл</li><li><a href="function.imagelayereffect.php.html">imagelayereffect</a> — Установка флага альфа сопряжения для использования эффектов наложения изображений</li><li><a href="function.imageline.php.html">imageline</a> — Рисование линии</li><li><a href="function.imageloadfont.php.html">imageloadfont</a> — Загрузка шрифта</li><li><a href="function.imageopenpolygon.php.html">imageopenpolygon</a> — Рисует открытый полигон</li><li><a href="function.imagepalettecopy.php.html">imagepalettecopy</a> — Копирование палитры из одного изображения в другое</li><li><a href="function.imagepalettetotruecolor.php.html">imagepalettetotruecolor</a> — Преобразовывает изображение на основе палитры в настоящий цвет</li><li><a href="function.imagepng.php.html">imagepng</a> — Вывод PNG изображения в браузер или файл</li><li><a href="function.imagepolygon.php.html">imagepolygon</a> — Рисование многоугольника</li><li><a href="function.imagerectangle.php.html">imagerectangle</a> — Рисование прямоугольника</li><li><a href="function.imageresolution.php.html">imageresolution</a> — Получить или установить разрешение изображения</li><li><a href="function.imagerotate.php.html">imagerotate</a> — Поворот изображения с заданным углом</li><li><a href="function.imagesavealpha.php.html">imagesavealpha</a> — Сохранять ли полную информацию альфа-канала при сохранении изображений</li><li><a href="function.imagescale.php.html">imagescale</a> — Масштабировать изображение по заданной ширине и высоте</li><li><a href="function.imagesetbrush.php.html">imagesetbrush</a> — Установка изображения (кисти), посредством которого будут рисоваться линии</li><li><a href="function.imagesetclip.php.html">imagesetclip</a> — Установите прямоугольник ограничения</li><li><a href="function.imagesetinterpolation.php.html">imagesetinterpolation</a> — Устанавливает метод интерполяции</li><li><a href="function.imagesetpixel.php.html">imagesetpixel</a> — Рисование точки</li><li><a href="function.imagesetstyle.php.html">imagesetstyle</a> — Установка стиля рисования линий</li><li><a href="function.imagesetthickness.php.html">imagesetthickness</a> — Установка толщины линий</li><li><a href="function.imagesettile.php.html">imagesettile</a> — Установка изображения, которое будет использовано в качестве элемента мозаичной
+   заливки</li><li><a href="function.imagestring.php.html">imagestring</a> — Рисование строки текста горизонтально</li><li><a href="function.imagestringup.php.html">imagestringup</a> — Рисование строки текста вертикально</li><li><a href="function.imagesx.php.html">imagesx</a> — Получение ширины изображения</li><li><a href="function.imagesy.php.html">imagesy</a> — Получение высоты изображения</li><li><a href="function.imagetruecolortopalette.php.html">imagetruecolortopalette</a> — Преобразовывает полноцветное изображения в палитровое</li><li><a href="function.imagettfbbox.php.html">imagettfbbox</a> — Получение параметров рамки обрамляющей текст написанный TrueType шрифтом</li><li><a href="function.imagettftext.php.html">imagettftext</a> — Рисование текста на изображении шрифтом TrueType</li><li><a href="function.imagetypes.php.html">imagetypes</a> — Возвращает список типов изображений, поддерживаемых PHP сборкой</li><li><a href="function.imagewbmp.php.html">imagewbmp</a> — Выводит изображение в браузер или пишет в файл</li><li><a href="function.imagewebp.php.html">imagewebp</a> — Вывод изображения WebP в браузер или файл</li><li><a href="function.imagexbm.php.html">imagexbm</a> — Вывод XBM изображения в браузер или файл</li><li><a href="function.iptcembed.php.html">iptcembed</a> — Встраивание двоичных IPTC данных в JPEG изображение</li><li><a href="function.iptcparse.php.html">iptcparse</a> — Разбор двоичных IPTC данных на отдельные теги</li><li><a href="function.jpeg2wbmp.php.html">jpeg2wbmp</a> — Конвертирует изображение из формата JPEG в WBMP</li><li><a href="function.png2wbmp.php.html">png2wbmp</a> — Преобразовывает PNG-файла в файл WBMP</li></ul>
+</div>
+<section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=ref.image&amp;redirect=https://www.php.net/manual/ru/ref.image.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">9 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="57909">  <div class="votes">
+    <div id="Vu57909">
+    <a href="https://www.php.net/manual/vote-note.php?id=57909&amp;page=ref.image&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd57909">
+    <a href="https://www.php.net/manual/vote-note.php?id=57909&amp;page=ref.image&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V57909" title="53% like this...">
+    5
+    </div>
+  </div>
+  <a href="ref.image.php.html#57909" class="name">
+  <strong class="user"><em>michal-ok at o2 dot pl</em></strong></a><a class="genanchor" href="ref.image.php.html#57909"> &para;</a><div class="date" title="2005-10-18 02:29"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom57909">
+<div class="phpcode"><code><span class="html">The image sharpen function (by Alex R. Austin) provided below seems to be very resource hungry and I couldn't make it work on two different servers - trying to sharpen a 413 x 413 image I ended up with "Fatal error: Allowed memory size of 8388608 bytes exhausted" or "Internal Server Error" or the script terminated without notice. Because I had no priviliges to change the default memory limit on these servers I started looking for other sharpen functions. I have come across a php Unsharp Mask function which works like a charm on both of the servers I dealt with. It can be found at <a href="http://vikjavev.no/hovudsida/umtestside.php." rel="nofollow" target="_blank">http://vikjavev.no/hovudsida/umtestside.php.</a></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="63064">  <div class="votes">
+    <div id="Vu63064">
+    <a href="https://www.php.net/manual/vote-note.php?id=63064&amp;page=ref.image&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd63064">
+    <a href="https://www.php.net/manual/vote-note.php?id=63064&amp;page=ref.image&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V63064" title="53% like this...">
+    3
+    </div>
+  </div>
+  <a href="ref.image.php.html#63064" class="name">
+  <strong class="user"><em>felipensp at gmail dot com</em></strong></a><a class="genanchor" href="ref.image.php.html#63064"> &para;</a><div class="date" title="2006-03-12 09:17"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom63064">
+<div class="phpcode"><code><span class="html">Representation decimal of a color in hexadecimal for use on functions of library GD.<br /><br /><span class="default">&lt;?php<br /><br />    </span><span class="comment">// Representation hexadecimal<br />    </span><span class="default">$var </span><span class="keyword">= </span><span class="string">'#FFFFFF'</span><span class="keyword">;<br /><br />    function </span><span class="default">getRgbFromGd</span><span class="keyword">(</span><span class="default">$color_hex</span><span class="keyword">) {<br /><br />        return </span><span class="default">array_map</span><span class="keyword">(</span><span class="string">'hexdec'</span><span class="keyword">, </span><span class="default">explode</span><span class="keyword">(</span><span class="string">'|'</span><span class="keyword">, </span><span class="default">wordwrap</span><span class="keyword">(</span><span class="default">substr</span><span class="keyword">(</span><span class="default">$color_hex</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">), </span><span class="default">2</span><span class="keyword">, </span><span class="string">'|'</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">)));<br /><br />    }<br />    <br />    </span><span class="default">print_r</span><span class="keyword">(</span><span class="default">getRgbFromGd</span><span class="keyword">(</span><span class="default">$var</span><span class="keyword">));<br /><br />    </span><span class="comment">// Output: Array ( [0] =&gt; 255 [1] =&gt; 255 [2] =&gt; 255 )<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="63689">  <div class="votes">
+    <div id="Vu63689">
+    <a href="https://www.php.net/manual/vote-note.php?id=63689&amp;page=ref.image&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd63689">
+    <a href="https://www.php.net/manual/vote-note.php?id=63689&amp;page=ref.image&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V63689" title="52% like this...">
+    3
+    </div>
+  </div>
+  <a href="ref.image.php.html#63689" class="name">
+  <strong class="user"><em>shd at earthling dot net</em></strong></a><a class="genanchor" href="ref.image.php.html#63689"> &para;</a><div class="date" title="2006-03-28 04:44"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom63689">
+<div class="phpcode"><code><span class="html">If you happen to need a way to output a Windows BMP file (e.g. when using the PEAR ExcelWriter), feel free to use the following code:<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">imagebmp </span><span class="keyword">(</span><span class="default">$im</span><span class="keyword">, </span><span class="default">$fn </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">)<br />{<br />    if (!</span><span class="default">$im</span><span class="keyword">) return </span><span class="default">false</span><span class="keyword">;<br />            <br />    if (</span><span class="default">$fn </span><span class="keyword">=== </span><span class="default">false</span><span class="keyword">) </span><span class="default">$fn </span><span class="keyword">= </span><span class="string">'php://output'</span><span class="keyword">;<br />    </span><span class="default">$f </span><span class="keyword">= </span><span class="default">fopen </span><span class="keyword">(</span><span class="default">$fn</span><span class="keyword">, </span><span class="string">"w"</span><span class="keyword">);<br />    if (!</span><span class="default">$f</span><span class="keyword">) return </span><span class="default">false</span><span class="keyword">;<br />            <br />    </span><span class="comment">//Image dimensions<br />    </span><span class="default">$biWidth </span><span class="keyword">= </span><span class="default">imagesx </span><span class="keyword">(</span><span class="default">$im</span><span class="keyword">);<br />    </span><span class="default">$biHeight </span><span class="keyword">= </span><span class="default">imagesy </span><span class="keyword">(</span><span class="default">$im</span><span class="keyword">);<br />    </span><span class="default">$biBPLine </span><span class="keyword">= </span><span class="default">$biWidth </span><span class="keyword">* </span><span class="default">3</span><span class="keyword">;<br />    </span><span class="default">$biStride </span><span class="keyword">= (</span><span class="default">$biBPLine </span><span class="keyword">+ </span><span class="default">3</span><span class="keyword">) &amp; ~</span><span class="default">3</span><span class="keyword">;<br />    </span><span class="default">$biSizeImage </span><span class="keyword">= </span><span class="default">$biStride </span><span class="keyword">* </span><span class="default">$biHeight</span><span class="keyword">;<br />    </span><span class="default">$bfOffBits </span><span class="keyword">= </span><span class="default">54</span><span class="keyword">;<br />    </span><span class="default">$bfSize </span><span class="keyword">= </span><span class="default">$bfOffBits </span><span class="keyword">+ </span><span class="default">$biSizeImage</span><span class="keyword">;<br />            <br />    </span><span class="comment">//BITMAPFILEHEADER<br />    </span><span class="default">fwrite </span><span class="keyword">(</span><span class="default">$f</span><span class="keyword">, </span><span class="string">'BM'</span><span class="keyword">, </span><span class="default">2</span><span class="keyword">);<br />    </span><span class="default">fwrite </span><span class="keyword">(</span><span class="default">$f</span><span class="keyword">, </span><span class="default">pack </span><span class="keyword">(</span><span class="string">'VvvV'</span><span class="keyword">, </span><span class="default">$bfSize</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">$bfOffBits</span><span class="keyword">));<br />            <br />    </span><span class="comment">//BITMAPINFO (BITMAPINFOHEADER)<br />    </span><span class="default">fwrite </span><span class="keyword">(</span><span class="default">$f</span><span class="keyword">, </span><span class="default">pack </span><span class="keyword">(</span><span class="string">'VVVvvVVVVVV'</span><span class="keyword">, </span><span class="default">40</span><span class="keyword">, </span><span class="default">$biWidth</span><span class="keyword">, </span><span class="default">$biHeight</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">, </span><span class="default">24</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">$biSizeImage</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">));<br />            <br />    </span><span class="default">$numpad </span><span class="keyword">= </span><span class="default">$biStride </span><span class="keyword">- </span><span class="default">$biBPLine</span><span class="keyword">;<br />    for (</span><span class="default">$y </span><span class="keyword">= </span><span class="default">$biHeight </span><span class="keyword">- </span><span class="default">1</span><span class="keyword">; </span><span class="default">$y </span><span class="keyword">&gt;= </span><span class="default">0</span><span class="keyword">; --</span><span class="default">$y</span><span class="keyword">)<br />    {<br />        for (</span><span class="default">$x </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$x </span><span class="keyword">&lt; </span><span class="default">$biWidth</span><span class="keyword">; ++</span><span class="default">$x</span><span class="keyword">)<br />        {<br />            </span><span class="default">$col </span><span class="keyword">= </span><span class="default">imagecolorat </span><span class="keyword">(</span><span class="default">$im</span><span class="keyword">, </span><span class="default">$x</span><span class="keyword">, </span><span class="default">$y</span><span class="keyword">);<br />            </span><span class="default">fwrite </span><span class="keyword">(</span><span class="default">$f</span><span class="keyword">, </span><span class="default">pack </span><span class="keyword">(</span><span class="string">'V'</span><span class="keyword">, </span><span class="default">$col</span><span class="keyword">), </span><span class="default">3</span><span class="keyword">);<br />        }<br />        for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">$numpad</span><span class="keyword">; ++</span><span class="default">$i</span><span class="keyword">)<br />            </span><span class="default">fwrite </span><span class="keyword">(</span><span class="default">$f</span><span class="keyword">, </span><span class="default">pack </span><span class="keyword">(</span><span class="string">'C'</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">));<br />    }<br />    </span><span class="default">fclose </span><span class="keyword">(</span><span class="default">$f</span><span class="keyword">);<br />    return </span><span class="default">true</span><span class="keyword">;<br />}<br /></span><span class="default">?&gt;<br /></span><br />It works the same way as regular imagejpeg/imagepng do and only supports GD2.0 true colour bitmaps (which is what's required by ExcelWriter).</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="87238">  <div class="votes">
+    <div id="Vu87238">
+    <a href="https://www.php.net/manual/vote-note.php?id=87238&amp;page=ref.image&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd87238">
+    <a href="https://www.php.net/manual/vote-note.php?id=87238&amp;page=ref.image&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V87238" title="52% like this...">
+    2
+    </div>
+  </div>
+  <a href="ref.image.php.html#87238" class="name">
+  <strong class="user"><em>chuckstudios at gmail dot com</em></strong></a><a class="genanchor" href="ref.image.php.html#87238"> &para;</a><div class="date" title="2008-11-25 09:18"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom87238">
+<div class="phpcode"><code><span class="html">I wrote a simple function to convert an image resource to PGM (portable graymap) in order to feed it to an OCR program. It works just like the rest of the image output functions, and will convert to grayscale for you:<br /><br /><span class="default">&lt;?php<br />    </span><span class="keyword">function </span><span class="default">imagepgm</span><span class="keyword">(</span><span class="default">$image</span><span class="keyword">, </span><span class="default">$filename </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">)<br />    {<br />        </span><span class="default">$pgm </span><span class="keyword">= </span><span class="string">"P5 "</span><span class="keyword">.</span><span class="default">imagesx</span><span class="keyword">(</span><span class="default">$image</span><span class="keyword">).</span><span class="string">" "</span><span class="keyword">.</span><span class="default">imagesy</span><span class="keyword">(</span><span class="default">$image</span><span class="keyword">).</span><span class="string">" 255\n"</span><span class="keyword">;<br />        for(</span><span class="default">$y </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$y </span><span class="keyword">&lt; </span><span class="default">imagesy</span><span class="keyword">(</span><span class="default">$image</span><span class="keyword">); </span><span class="default">$y</span><span class="keyword">++)<br />        {<br />            for(</span><span class="default">$x </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$x </span><span class="keyword">&lt; </span><span class="default">imagesx</span><span class="keyword">(</span><span class="default">$image</span><span class="keyword">); </span><span class="default">$x</span><span class="keyword">++)<br />            {<br />                </span><span class="default">$colors </span><span class="keyword">= </span><span class="default">imagecolorsforindex</span><span class="keyword">(</span><span class="default">$image</span><span class="keyword">, </span><span class="default">imagecolorat</span><span class="keyword">(</span><span class="default">$image</span><span class="keyword">, </span><span class="default">$x</span><span class="keyword">, </span><span class="default">$y</span><span class="keyword">));<br />                </span><span class="default">$pgm </span><span class="keyword">.= </span><span class="default">chr</span><span class="keyword">(</span><span class="default">0.3 </span><span class="keyword">* </span><span class="default">$colors</span><span class="keyword">[</span><span class="string">"red"</span><span class="keyword">] + </span><span class="default">0.59 </span><span class="keyword">* </span><span class="default">$colors</span><span class="keyword">[</span><span class="string">"green"</span><span class="keyword">] + </span><span class="default">0.11 </span><span class="keyword">* </span><span class="default">$colors</span><span class="keyword">[</span><span class="string">"blue"</span><span class="keyword">]);<br />            }<br />        }<br />        if(</span><span class="default">$filename </span><span class="keyword">!= </span><span class="default">null</span><span class="keyword">)<br />        {<br />            </span><span class="default">$fp </span><span class="keyword">= </span><span class="default">fopen</span><span class="keyword">(</span><span class="default">$filename</span><span class="keyword">, </span><span class="string">"w"</span><span class="keyword">);<br />            </span><span class="default">fwrite</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">, </span><span class="default">$pgm</span><span class="keyword">);<br />            </span><span class="default">fclose</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">);<br />        }<br />        else<br />        {<br />            return </span><span class="default">$pgm</span><span class="keyword">;<br />        }<br />    }<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="106150">  <div class="votes">
+    <div id="Vu106150">
+    <a href="https://www.php.net/manual/vote-note.php?id=106150&amp;page=ref.image&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd106150">
+    <a href="https://www.php.net/manual/vote-note.php?id=106150&amp;page=ref.image&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V106150" title="48% like this...">
+    -2
+    </div>
+  </div>
+  <a href="ref.image.php.html#106150" class="name">
+  <strong class="user"><em>ingo at jache dot de</em></strong></a><a class="genanchor" href="ref.image.php.html#106150"> &para;</a><div class="date" title="2011-10-14 03:16"><strong>12 years ago</strong></div>
+  <div class="text" id="Hcom106150">
+<div class="phpcode"><code><span class="html">I know this might look somewhat superfluous to others, but i once came across a situation where i needed a *strong* blur on an image without having ImageMagick installed. Executing the convolution-filter several times on the same image is awfully slow and still doesn't give a good blur.<br /><br />The function below accepts a truecolor-image and a blur-factor between 0.0 and 1.0. Beware: It's still quite slow.<br /><br /><span class="default">&lt;?php<br /><br />    </span><span class="keyword">function </span><span class="default">blurImage</span><span class="keyword">(</span><span class="default">$srcimg</span><span class="keyword">,</span><span class="default">$blur</span><span class="keyword">)<br />    {<br />        </span><span class="default">$blur </span><span class="keyword">= </span><span class="default">$blur</span><span class="keyword">*</span><span class="default">$blur</span><span class="keyword">;<br />        </span><span class="default">$blur </span><span class="keyword">= </span><span class="default">max</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">,</span><span class="default">min</span><span class="keyword">(</span><span class="default">1</span><span class="keyword">,</span><span class="default">$blur</span><span class="keyword">));<br />    <br />        </span><span class="default">$srcw </span><span class="keyword">= </span><span class="default">imagesx</span><span class="keyword">(</span><span class="default">$srcimg</span><span class="keyword">);<br />        </span><span class="default">$srch </span><span class="keyword">= </span><span class="default">imagesy</span><span class="keyword">(</span><span class="default">$srcimg</span><span class="keyword">);<br />        <br />        </span><span class="default">$dstimg </span><span class="keyword">= </span><span class="default">imagecreatetruecolor</span><span class="keyword">(</span><span class="default">$srcw</span><span class="keyword">,</span><span class="default">$srch</span><span class="keyword">);<br />    <br />        </span><span class="default">$f1a </span><span class="keyword">= </span><span class="default">$blur</span><span class="keyword">;<br />        </span><span class="default">$f1b </span><span class="keyword">= </span><span class="default">1.0 </span><span class="keyword">- </span><span class="default">$blur</span><span class="keyword">;<br /><br />    <br />        </span><span class="default">$cr </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$cg </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$cb </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br />        </span><span class="default">$nr </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$ng </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$nb </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br /><br />        </span><span class="default">$rgb </span><span class="keyword">= </span><span class="default">imagecolorat</span><span class="keyword">(</span><span class="default">$srcimg</span><span class="keyword">,</span><span class="default">0</span><span class="keyword">,</span><span class="default">0</span><span class="keyword">);<br />        </span><span class="default">$or </span><span class="keyword">= (</span><span class="default">$rgb </span><span class="keyword">&gt;&gt; </span><span class="default">16</span><span class="keyword">) &amp; </span><span class="default">0xFF</span><span class="keyword">;<br />        </span><span class="default">$og </span><span class="keyword">= (</span><span class="default">$rgb </span><span class="keyword">&gt;&gt; </span><span class="default">8</span><span class="keyword">) &amp; </span><span class="default">0xFF</span><span class="keyword">;<br />        </span><span class="default">$ob </span><span class="keyword">= (</span><span class="default">$rgb</span><span class="keyword">) &amp; </span><span class="default">0xFF</span><span class="keyword">;<br /><br />        </span><span class="comment">//-------------------------------------------------<br />        // first line is a special case<br />        //-------------------------------------------------<br />        </span><span class="default">$x </span><span class="keyword">= </span><span class="default">$srcw</span><span class="keyword">;<br />        </span><span class="default">$y </span><span class="keyword">= </span><span class="default">$srch</span><span class="keyword">-</span><span class="default">1</span><span class="keyword">;<br />        while (</span><span class="default">$x</span><span class="keyword">--)<br />        {<br />            </span><span class="comment">//horizontal blurren<br />            </span><span class="default">$rgb </span><span class="keyword">= </span><span class="default">imagecolorat</span><span class="keyword">(</span><span class="default">$srcimg</span><span class="keyword">,</span><span class="default">$x</span><span class="keyword">,</span><span class="default">$y</span><span class="keyword">);<br />            </span><span class="default">$cr </span><span class="keyword">= (</span><span class="default">$rgb </span><span class="keyword">&gt;&gt; </span><span class="default">16</span><span class="keyword">) &amp; </span><span class="default">0xFF</span><span class="keyword">;<br />            </span><span class="default">$cg </span><span class="keyword">= (</span><span class="default">$rgb </span><span class="keyword">&gt;&gt; </span><span class="default">8</span><span class="keyword">) &amp; </span><span class="default">0xFF</span><span class="keyword">;<br />            </span><span class="default">$cb </span><span class="keyword">= (</span><span class="default">$rgb</span><span class="keyword">) &amp; </span><span class="default">0xFF</span><span class="keyword">;<br />    <br />            </span><span class="default">$nr </span><span class="keyword">= (</span><span class="default">$cr </span><span class="keyword">* </span><span class="default">$f1a</span><span class="keyword">) + (</span><span class="default">$or </span><span class="keyword">* </span><span class="default">$f1b</span><span class="keyword">);<br />            </span><span class="default">$ng </span><span class="keyword">= (</span><span class="default">$cg </span><span class="keyword">* </span><span class="default">$f1a</span><span class="keyword">) + (</span><span class="default">$og </span><span class="keyword">* </span><span class="default">$f1b</span><span class="keyword">);<br />            </span><span class="default">$nb </span><span class="keyword">= (</span><span class="default">$cb </span><span class="keyword">* </span><span class="default">$f1a</span><span class="keyword">) + (</span><span class="default">$ob </span><span class="keyword">* </span><span class="default">$f1b</span><span class="keyword">);    <br /><br />            </span><span class="default">$or </span><span class="keyword">= </span><span class="default">$nr</span><span class="keyword">;<br />            </span><span class="default">$og </span><span class="keyword">= </span><span class="default">$ng</span><span class="keyword">;<br />            </span><span class="default">$ob </span><span class="keyword">= </span><span class="default">$nb</span><span class="keyword">;<br />            <br />            </span><span class="default">imagesetpixel</span><span class="keyword">(</span><span class="default">$dstimg</span><span class="keyword">,</span><span class="default">$x</span><span class="keyword">,</span><span class="default">$y</span><span class="keyword">,(</span><span class="default">$nr </span><span class="keyword">&lt;&lt; </span><span class="default">16</span><span class="keyword">) | (</span><span class="default">$ng </span><span class="keyword">&lt;&lt; </span><span class="default">8</span><span class="keyword">) | (</span><span class="default">$nb</span><span class="keyword">));<br />        }<br />        </span><span class="comment">//-------------------------------------------------<br /><br />        //-------------------------------------------------<br />        // now process the entire picture<br />        //-------------------------------------------------<br />        </span><span class="default">$y </span><span class="keyword">= </span><span class="default">$srch</span><span class="keyword">-</span><span class="default">1</span><span class="keyword">;<br />        while (</span><span class="default">$y</span><span class="keyword">--)<br />        {<br /><br />            </span><span class="default">$rgb </span><span class="keyword">= </span><span class="default">imagecolorat</span><span class="keyword">(</span><span class="default">$srcimg</span><span class="keyword">,</span><span class="default">0</span><span class="keyword">,</span><span class="default">$y</span><span class="keyword">);<br />            </span><span class="default">$or </span><span class="keyword">= (</span><span class="default">$rgb </span><span class="keyword">&gt;&gt; </span><span class="default">16</span><span class="keyword">) &amp; </span><span class="default">0xFF</span><span class="keyword">;<br />            </span><span class="default">$og </span><span class="keyword">= (</span><span class="default">$rgb </span><span class="keyword">&gt;&gt; </span><span class="default">8</span><span class="keyword">) &amp; </span><span class="default">0xFF</span><span class="keyword">;<br />            </span><span class="default">$ob </span><span class="keyword">= (</span><span class="default">$rgb</span><span class="keyword">) &amp; </span><span class="default">0xFF</span><span class="keyword">;<br /><br />            </span><span class="default">$x </span><span class="keyword">= </span><span class="default">$srcw</span><span class="keyword">;<br />            while (</span><span class="default">$x</span><span class="keyword">--)<br />            {<br />                </span><span class="comment">//horizontal <br />                </span><span class="default">$rgb </span><span class="keyword">= </span><span class="default">imagecolorat</span><span class="keyword">(</span><span class="default">$srcimg</span><span class="keyword">,</span><span class="default">$x</span><span class="keyword">,</span><span class="default">$y</span><span class="keyword">);<br />                </span><span class="default">$cr </span><span class="keyword">= (</span><span class="default">$rgb </span><span class="keyword">&gt;&gt; </span><span class="default">16</span><span class="keyword">) &amp; </span><span class="default">0xFF</span><span class="keyword">;<br />                </span><span class="default">$cg </span><span class="keyword">= (</span><span class="default">$rgb </span><span class="keyword">&gt;&gt; </span><span class="default">8</span><span class="keyword">) &amp; </span><span class="default">0xFF</span><span class="keyword">;<br />                </span><span class="default">$cb </span><span class="keyword">= (</span><span class="default">$rgb</span><span class="keyword">) &amp; </span><span class="default">0xFF</span><span class="keyword">;<br />                <br />                </span><span class="default">$nr </span><span class="keyword">= (</span><span class="default">$cr </span><span class="keyword">* </span><span class="default">$f1a</span><span class="keyword">) + (</span><span class="default">$or </span><span class="keyword">* </span><span class="default">$f1b</span><span class="keyword">);<br />                </span><span class="default">$ng </span><span class="keyword">= (</span><span class="default">$cg </span><span class="keyword">* </span><span class="default">$f1a</span><span class="keyword">) + (</span><span class="default">$og </span><span class="keyword">* </span><span class="default">$f1b</span><span class="keyword">);<br />                </span><span class="default">$nb </span><span class="keyword">= (</span><span class="default">$cb </span><span class="keyword">* </span><span class="default">$f1a</span><span class="keyword">) + (</span><span class="default">$ob </span><span class="keyword">* </span><span class="default">$f1b</span><span class="keyword">);    <br />    <br />                </span><span class="default">$or </span><span class="keyword">= </span><span class="default">$nr</span><span class="keyword">;<br />                </span><span class="default">$og </span><span class="keyword">= </span><span class="default">$ng</span><span class="keyword">;<br />                </span><span class="default">$ob </span><span class="keyword">= </span><span class="default">$nb</span><span class="keyword">;<br />                <br />                <br />                </span><span class="comment">//vertical <br />                </span><span class="default">$rgb </span><span class="keyword">= </span><span class="default">imagecolorat</span><span class="keyword">(</span><span class="default">$dstimg</span><span class="keyword">,</span><span class="default">$x</span><span class="keyword">,</span><span class="default">$y</span><span class="keyword">+</span><span class="default">1</span><span class="keyword">);<br />                </span><span class="default">$vr </span><span class="keyword">= (</span><span class="default">$rgb </span><span class="keyword">&gt;&gt; </span><span class="default">16</span><span class="keyword">) &amp; </span><span class="default">0xFF</span><span class="keyword">;<br />                </span><span class="default">$vg </span><span class="keyword">= (</span><span class="default">$rgb </span><span class="keyword">&gt;&gt; </span><span class="default">8</span><span class="keyword">) &amp; </span><span class="default">0xFF</span><span class="keyword">;<br />                </span><span class="default">$vb </span><span class="keyword">= (</span><span class="default">$rgb</span><span class="keyword">) &amp; </span><span class="default">0xFF</span><span class="keyword">;<br />                <br />                </span><span class="default">$nr </span><span class="keyword">= (</span><span class="default">$nr </span><span class="keyword">* </span><span class="default">$f1a</span><span class="keyword">) + (</span><span class="default">$vr </span><span class="keyword">* </span><span class="default">$f1b</span><span class="keyword">);<br />                </span><span class="default">$ng </span><span class="keyword">= (</span><span class="default">$ng </span><span class="keyword">* </span><span class="default">$f1a</span><span class="keyword">) + (</span><span class="default">$vg </span><span class="keyword">* </span><span class="default">$f1b</span><span class="keyword">);<br />                </span><span class="default">$nb </span><span class="keyword">= (</span><span class="default">$nb </span><span class="keyword">* </span><span class="default">$f1a</span><span class="keyword">) + (</span><span class="default">$vb </span><span class="keyword">* </span><span class="default">$f1b</span><span class="keyword">);    <br />    <br />                </span><span class="default">$vr </span><span class="keyword">= </span><span class="default">$nr</span><span class="keyword">;<br />                </span><span class="default">$vg </span><span class="keyword">= </span><span class="default">$ng</span><span class="keyword">;<br />                </span><span class="default">$vb </span><span class="keyword">= </span><span class="default">$nb</span><span class="keyword">;<br />                <br />                </span><span class="default">imagesetpixel</span><span class="keyword">(</span><span class="default">$dstimg</span><span class="keyword">,</span><span class="default">$x</span><span class="keyword">,</span><span class="default">$y</span><span class="keyword">,(</span><span class="default">$nr </span><span class="keyword">&lt;&lt; </span><span class="default">16</span><span class="keyword">) | (</span><span class="default">$ng </span><span class="keyword">&lt;&lt; </span><span class="default">8</span><span class="keyword">) | (</span><span class="default">$nb</span><span class="keyword">));<br />            }<br />        <br />        }<br />        </span><span class="comment">//-------------------------------------------------<br />        </span><span class="keyword">return </span><span class="default">$dstimg</span><span class="keyword">;        <br /><br />    }<br /><br />    <br />    </span><span class="default">$srcimg </span><span class="keyword">= </span><span class="default">imagecreatefromjpeg</span><span class="keyword">(</span><span class="string">"test.jpg"</span><span class="keyword">);<br />    </span><span class="default">$dstimg </span><span class="keyword">= </span><span class="default">blurImage</span><span class="keyword">(</span><span class="default">$srcimg</span><span class="keyword">,</span><span class="default">0.2</span><span class="keyword">);<br /><br />    </span><span class="default">header</span><span class="keyword">(</span><span class="string">'Content-type: image/jpeg'</span><span class="keyword">);<br />    echo( </span><span class="default">imagejpeg</span><span class="keyword">(</span><span class="default">$dstimg</span><span class="keyword">) );<br />    exit();<br />    <br />    <br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="120217">  <div class="votes">
+    <div id="Vu120217">
+    <a href="https://www.php.net/manual/vote-note.php?id=120217&amp;page=ref.image&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd120217">
+    <a href="https://www.php.net/manual/vote-note.php?id=120217&amp;page=ref.image&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V120217" title="42% like this...">
+    -2
+    </div>
+  </div>
+  <a href="ref.image.php.html#120217" class="name">
+  <strong class="user"><em>delabahan at gmail dot com</em></strong></a><a class="genanchor" href="ref.image.php.html#120217"> &para;</a><div class="date" title="2016-11-24 05:44"><strong>7 years ago</strong></div>
+  <div class="text" id="Hcom120217">
+<div class="phpcode"><code><span class="html">This is an example of get high resolution images.<br /><br /><span class="default">&lt;?php<br /> </span><span class="comment">/**<br /> * Class name      : resizeImage<br /> * Created by   : wang<br /> * Description   : This class is to resize the image from original size to new size <br /> */<br /></span><span class="keyword">class </span><span class="default">resizeImage<br /></span><span class="keyword">{<br />     </span><span class="comment">/**<br />     * Function name : resize_img<br />     * Description   : This function is to resize image <br />     * @param          : $origimg variable is the original image <br />     * @param          : $newimg variable is the new image <br />     * @param          : $w variable is the width of image <br />     * @param          : $f variable is the height of image <br />     */<br />    </span><span class="keyword">public  function </span><span class="default">resize_img</span><span class="keyword">(</span><span class="default">$origimg</span><span class="keyword">,</span><span class="default">$newimg</span><span class="keyword">,</span><span class="default">$w</span><span class="keyword">,</span><span class="default">$h</span><span class="keyword">){<br />        </span><span class="default">$info </span><span class="keyword">= </span><span class="default">getimagesize</span><span class="keyword">(</span><span class="default">$origimg</span><span class="keyword">);<br />        </span><span class="default">$mime   </span><span class="keyword">= </span><span class="default">$info</span><span class="keyword">[</span><span class="string">'mime'</span><span class="keyword">];<br /><br />        </span><span class="comment">// Make sure that the requested file is actually an image<br />        </span><span class="keyword">if(</span><span class="default">substr</span><span class="keyword">(</span><span class="default">$mime</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">6</span><span class="keyword">) != </span><span class="string">'image/'</span><span class="keyword">)<br />        {<br />            </span><span class="default">header</span><span class="keyword">(</span><span class="string">'HTTP/1.1 400 Bad Request'</span><span class="keyword">);<br />            return </span><span class="string">'Error: requested file is not an accepted type: ' </span><span class="keyword">.</span><span class="default">$origimg</span><span class="keyword">;<br />            exit();<br />        }<br /><br />        </span><span class="comment">// Check they extention of image<br />        </span><span class="default">$extension </span><span class="keyword">= </span><span class="default">image_type_to_extension</span><span class="keyword">(</span><span class="default">$info</span><span class="keyword">[</span><span class="default">2</span><span class="keyword">]);<br />        if(</span><span class="default">strtolower</span><span class="keyword">(</span><span class="default">$extension</span><span class="keyword">) == </span><span class="string">'.png'</span><span class="keyword">){<br />            </span><span class="default">$img </span><span class="keyword">= </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">resize_imagepng</span><span class="keyword">(</span><span class="default">$origimg</span><span class="keyword">,</span><span class="default">$w</span><span class="keyword">, </span><span class="default">$h</span><span class="keyword">);<br />            </span><span class="default">imagepng</span><span class="keyword">(</span><span class="default">$img</span><span class="keyword">,</span><span class="default">$newimg</span><span class="keyword">);<br />            </span><span class="default">imagedestroy</span><span class="keyword">(</span><span class="default">$img</span><span class="keyword">);<br />        }elseif(</span><span class="default">strtolower</span><span class="keyword">(</span><span class="default">$extension</span><span class="keyword">) == </span><span class="string">'.jpeg'</span><span class="keyword">){<br />            </span><span class="default">$img </span><span class="keyword">= </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">resize_imagejpeg</span><span class="keyword">(</span><span class="default">$origimg</span><span class="keyword">, </span><span class="default">$w</span><span class="keyword">, </span><span class="default">$h</span><span class="keyword">);<br />            </span><span class="default">imagejpeg</span><span class="keyword">(</span><span class="default">$img</span><span class="keyword">, </span><span class="default">$newimg</span><span class="keyword">);<br />            </span><span class="default">imagedestroy</span><span class="keyword">(</span><span class="default">$img</span><span class="keyword">);<br />        }elseif(</span><span class="default">strtolower</span><span class="keyword">(</span><span class="default">$extension </span><span class="keyword">== </span><span class="string">'.gif'</span><span class="keyword">)){<br />            </span><span class="default">$img </span><span class="keyword">= </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">resize_imagegif</span><span class="keyword">(</span><span class="default">$origimg</span><span class="keyword">, </span><span class="default">$w</span><span class="keyword">, </span><span class="default">$h</span><span class="keyword">);<br />            </span><span class="default">imagegif</span><span class="keyword">(</span><span class="default">$img</span><span class="keyword">,</span><span class="default">$newimg</span><span class="keyword">);<br />            </span><span class="default">imagedestroy</span><span class="keyword">(</span><span class="default">$img</span><span class="keyword">);<br />        }<br /><br />    }<br />     </span><span class="comment">/**<br />     * End function name : resize_img<br />     */<br /><br />     /**<br />     * Function name : resize_imagepng<br />     * Description   : This function is to resize png image <br />     * @param          : $file variable is the original image <br />     * @param          : $w variable is the width of image <br />     * @param          : $f variable is the height of image <br />     */<br />    </span><span class="keyword">private function </span><span class="default">resize_imagepng</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">, </span><span class="default">$w</span><span class="keyword">, </span><span class="default">$h</span><span class="keyword">) {<br />       list(</span><span class="default">$width</span><span class="keyword">, </span><span class="default">$height</span><span class="keyword">) = </span><span class="default">getimagesize</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">);<br />       </span><span class="default">$src </span><span class="keyword">= </span><span class="default">imagecreatefrompng</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">);<br />       </span><span class="default">$dst </span><span class="keyword">= </span><span class="default">imagecreatetruecolor</span><span class="keyword">(</span><span class="default">$w</span><span class="keyword">, </span><span class="default">$h</span><span class="keyword">);<br />       </span><span class="default">imagecopyresampled</span><span class="keyword">(</span><span class="default">$dst</span><span class="keyword">, </span><span class="default">$src</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">$w</span><span class="keyword">, </span><span class="default">$h</span><span class="keyword">, </span><span class="default">$width</span><span class="keyword">, </span><span class="default">$height</span><span class="keyword">);<br />       return </span><span class="default">$dst</span><span class="keyword">;<br />    }<br />     </span><span class="comment">/**<br />     * End function name : resize_imagepng<br />     */<br /><br />     /**<br />     * Function name : resize_imagejpeg<br />     * Description   : This function is to resize jpeg image <br />     * @param          : $file variable is the original image <br />     * @param          : $w variable is the width of image <br />     * @param          : $f variable is the height of image <br />     */<br />    </span><span class="keyword">private function </span><span class="default">resize_imagejpeg</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">, </span><span class="default">$w</span><span class="keyword">, </span><span class="default">$h</span><span class="keyword">) {<br />       list(</span><span class="default">$width</span><span class="keyword">, </span><span class="default">$height</span><span class="keyword">) = </span><span class="default">getimagesize</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">);<br />       </span><span class="default">$src </span><span class="keyword">= </span><span class="default">imagecreatefromjpeg</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">);<br />       </span><span class="default">$dst </span><span class="keyword">= </span><span class="default">imagecreatetruecolor</span><span class="keyword">(</span><span class="default">$w</span><span class="keyword">, </span><span class="default">$h</span><span class="keyword">);<br />       </span><span class="default">imagecopyresampled</span><span class="keyword">(</span><span class="default">$dst</span><span class="keyword">, </span><span class="default">$src</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">$w</span><span class="keyword">, </span><span class="default">$h</span><span class="keyword">, </span><span class="default">$width</span><span class="keyword">, </span><span class="default">$height</span><span class="keyword">);<br />       return </span><span class="default">$dst</span><span class="keyword">;<br />    }<br />     </span><span class="comment">/**<br />     * End function name : resize_imagejpeg<br />     */<br /><br />     /**<br />     * Function name : resize_imagegif<br />     * Description   : This function is to resize gif image <br />     * @param          : $file variable is the original image <br />     * @param          : $w variable is the width of image <br />     * @param          : $f variable is the height of image <br />     */<br />    </span><span class="keyword">private function </span><span class="default">resize_imagegif</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">, </span><span class="default">$w</span><span class="keyword">, </span><span class="default">$h</span><span class="keyword">) {<br />       list(</span><span class="default">$width</span><span class="keyword">, </span><span class="default">$height</span><span class="keyword">) = </span><span class="default">getimagesize</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">);<br />       </span><span class="default">$src </span><span class="keyword">= </span><span class="default">imagecreatefromgif</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">);<br />       </span><span class="default">$dst </span><span class="keyword">= </span><span class="default">imagecreatetruecolor</span><span class="keyword">(</span><span class="default">$w</span><span class="keyword">, </span><span class="default">$h</span><span class="keyword">);<br />       </span><span class="default">imagecopyresampled</span><span class="keyword">(</span><span class="default">$dst</span><span class="keyword">, </span><span class="default">$src</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">$w</span><span class="keyword">, </span><span class="default">$h</span><span class="keyword">, </span><span class="default">$width</span><span class="keyword">, </span><span class="default">$height</span><span class="keyword">);<br />       return </span><span class="default">$dst</span><span class="keyword">;<br />    }<br />     </span><span class="comment">/**<br />     * End function name : resize_imagegif<br />     */<br /></span><span class="keyword">}<br /></span><span class="comment">/**<br />* End class name : resizeImage<br />*/<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="37131">  <div class="votes">
+    <div id="Vu37131">
+    <a href="https://www.php.net/manual/vote-note.php?id=37131&amp;page=ref.image&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd37131">
+    <a href="https://www.php.net/manual/vote-note.php?id=37131&amp;page=ref.image&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V37131" title="45% like this...">
+    -2
+    </div>
+  </div>
+  <a href="ref.image.php.html#37131" class="name">
+  <strong class="user"><em>jeff at lushmedia dot com</em></strong></a><a class="genanchor" href="ref.image.php.html#37131"> &para;</a><div class="date" title="2003-11-04 08:52"><strong>20 years ago</strong></div>
+  <div class="text" id="Hcom37131">
+<div class="phpcode"><code><span class="html">I wrote an online overview of the image functions that people might find useful. In addition to a general overview of the various function categories and code samples, I have included many interactive examples of the functions, allowing viewers to experiment with the parameters, and seeing the results in real time. The presentation is located at New York PHP<br /><a href="http://www.nyphp.org/content/presentations/GDintro/" rel="nofollow" target="_blank">http://www.nyphp.org/content/presentations/GDintro/</a></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="120139">  <div class="votes">
+    <div id="Vu120139">
+    <a href="https://www.php.net/manual/vote-note.php?id=120139&amp;page=ref.image&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd120139">
+    <a href="https://www.php.net/manual/vote-note.php?id=120139&amp;page=ref.image&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V120139" title="40% like this...">
+    -4
+    </div>
+  </div>
+  <a href="ref.image.php.html#120139" class="name">
+  <strong class="user"><em>mpyw</em></strong></a><a class="genanchor" href="ref.image.php.html#120139"> &para;</a><div class="date" title="2016-11-10 08:45"><strong>7 years ago</strong></div>
+  <div class="text" id="Hcom120139">
+<div class="phpcode"><code><span class="html">This is an example of black-and-white imagebmp() implementation. <br /><br /><span class="default">&lt;?php<br /><br /></span><span class="comment">/**<br /> * Output a black-and-white BMP image to either the browser or a file.<br /> * <br /> * @param resource $image<br /> *            An image resource, returned by one of the image creation functions,<br /> *            such as imagecreatetruecolor().<br /> *<br /> * @param string|null $to<br /> *            The path or an open stream resource<br /> *            (which is automatically being closed after this function returns)<br /> *            to save the file to.<br /> *            If not set or NULL, the raw image stream will be outputted directly.<br /> *<br /> * @param float $threshold<br /> *            The number in the range of 0.0 to 1.0.<br /> *            Brighter for larger, or darker for smaller.<br /> *<br /> * @return bool Returns TRUE on success or FALSE on failure.<br /> * <br /> */<br /></span><span class="keyword">function </span><span class="default">imagebwbmp</span><span class="keyword">(</span><span class="default">$image</span><span class="keyword">, </span><span class="default">$to </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">, </span><span class="default">$threshold </span><span class="keyword">= </span><span class="default">0.5</span><span class="keyword">)<br />{<br />    if (</span><span class="default">func_num_args</span><span class="keyword">() &lt; </span><span class="default">1</span><span class="keyword">) {<br />        </span><span class="default">$fmt </span><span class="keyword">= </span><span class="string">"imagebwbmp() expects a least 1 parameters, %d given"</span><span class="keyword">;<br />        </span><span class="default">trigger_error</span><span class="keyword">(</span><span class="default">sprintf</span><span class="keyword">(</span><span class="default">$fmt</span><span class="keyword">, </span><span class="default">func_num_args</span><span class="keyword">()), </span><span class="default">E_USER_WARNING</span><span class="keyword">);<br />        return;<br />    }<br />    if (!</span><span class="default">is_resource</span><span class="keyword">(</span><span class="default">$image</span><span class="keyword">)) {<br />        </span><span class="default">$fmt </span><span class="keyword">= </span><span class="string">"imagebwbmp() expects parameter 1 to be resource, %s given"</span><span class="keyword">;<br />        </span><span class="default">trigger_error</span><span class="keyword">(</span><span class="default">sprintf</span><span class="keyword">(</span><span class="default">$fmt</span><span class="keyword">, </span><span class="default">gettype</span><span class="keyword">(</span><span class="default">$image</span><span class="keyword">)), </span><span class="default">E_USER_WARNING</span><span class="keyword">);<br />        return;<br />    }<br />    if (!</span><span class="default">is_numeric</span><span class="keyword">(</span><span class="default">$threshold</span><span class="keyword">)) {<br />        </span><span class="default">$fmt </span><span class="keyword">= </span><span class="string">"imagebwbmp() expects parameter 3 to be float, %s given"</span><span class="keyword">;<br />        </span><span class="default">trigger_error</span><span class="keyword">(</span><span class="default">sprintf</span><span class="keyword">(</span><span class="default">$fmt</span><span class="keyword">, </span><span class="default">gettype</span><span class="keyword">(</span><span class="default">$threshold</span><span class="keyword">)), </span><span class="default">E_USER_WARNING</span><span class="keyword">);<br />        return;<br />    }<br /><br />    if (</span><span class="default">get_resource_type</span><span class="keyword">(</span><span class="default">$image</span><span class="keyword">) !== </span><span class="string">'gd'</span><span class="keyword">) {<br />        </span><span class="default">$msg </span><span class="keyword">= </span><span class="string">"imagebwbmp(): supplied resource is not a valid gd resource"</span><span class="keyword">;<br />        </span><span class="default">trigger_error</span><span class="keyword">(</span><span class="default">$msg</span><span class="keyword">, </span><span class="default">E_USER_WARNING</span><span class="keyword">);<br />        return </span><span class="default">false</span><span class="keyword">;<br />    }<br />    switch (</span><span class="default">true</span><span class="keyword">) {<br />        case </span><span class="default">$to </span><span class="keyword">=== </span><span class="default">null</span><span class="keyword">:<br />            break;<br />        case </span><span class="default">is_resource</span><span class="keyword">(</span><span class="default">$to</span><span class="keyword">) &amp;&amp; </span><span class="default">get_resource_type</span><span class="keyword">(</span><span class="default">$to</span><span class="keyword">) === </span><span class="string">'stream'</span><span class="keyword">:<br />        case </span><span class="default">is_string</span><span class="keyword">(</span><span class="default">$to</span><span class="keyword">) &amp;&amp; </span><span class="default">$to </span><span class="keyword">= </span><span class="default">fopen</span><span class="keyword">(</span><span class="default">$to</span><span class="keyword">, </span><span class="string">'wb'</span><span class="keyword">):<br />            if (</span><span class="default">preg_match</span><span class="keyword">(</span><span class="string">'/[waxc+]/'</span><span class="keyword">, </span><span class="default">stream_get_meta_data</span><span class="keyword">(</span><span class="default">$to</span><span class="keyword">)[</span><span class="string">'mode'</span><span class="keyword">])) {<br />                break;<br />            }<br />        default:<br />            </span><span class="default">$msg </span><span class="keyword">= </span><span class="string">"imagebwbmp(): Invalid 2nd parameter, it must a writable filename or a writable stream"</span><span class="keyword">;<br />            </span><span class="default">trigger_error</span><span class="keyword">(</span><span class="default">$msg</span><span class="keyword">, </span><span class="default">E_USER_WARNING</span><span class="keyword">);<br />            return </span><span class="default">false</span><span class="keyword">;<br />    }<br /><br />    if (</span><span class="default">$to </span><span class="keyword">=== </span><span class="default">null</span><span class="keyword">) {<br />        </span><span class="default">$to </span><span class="keyword">= </span><span class="default">fopen</span><span class="keyword">(</span><span class="string">'php://output'</span><span class="keyword">, </span><span class="string">'wb'</span><span class="keyword">);<br />    }<br /><br />    </span><span class="default">$biWidth </span><span class="keyword">= </span><span class="default">imagesx</span><span class="keyword">(</span><span class="default">$image</span><span class="keyword">);<br />    </span><span class="default">$biHeight </span><span class="keyword">= </span><span class="default">imagesy</span><span class="keyword">(</span><span class="default">$image</span><span class="keyword">);<br />    </span><span class="default">$biSizeImage </span><span class="keyword">= ((int)</span><span class="default">ceil</span><span class="keyword">(</span><span class="default">$biWidth </span><span class="keyword">/ </span><span class="default">32</span><span class="keyword">) * </span><span class="default">32 </span><span class="keyword">/ </span><span class="default">8 </span><span class="keyword">* </span><span class="default">$biHeight</span><span class="keyword">);<br />    </span><span class="default">$bfOffBits </span><span class="keyword">= </span><span class="default">54 </span><span class="keyword">+ </span><span class="default">4 </span><span class="keyword">* </span><span class="default">2</span><span class="keyword">; </span><span class="comment">// Use two colors (black and white)<br />    </span><span class="default">$bfSize </span><span class="keyword">= </span><span class="default">$bfOffBits </span><span class="keyword">+ </span><span class="default">$biSizeImage</span><span class="keyword">;<br />    <br />    </span><span class="default">fwrite</span><span class="keyword">(</span><span class="default">$to</span><span class="keyword">, </span><span class="string">'BM'</span><span class="keyword">);<br />    </span><span class="default">fwrite</span><span class="keyword">(</span><span class="default">$to</span><span class="keyword">, </span><span class="default">pack</span><span class="keyword">(</span><span class="string">'VvvV'</span><span class="keyword">, </span><span class="default">$bfSize</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">$bfOffBits</span><span class="keyword">));<br />    </span><span class="default">fwrite</span><span class="keyword">(</span><span class="default">$to</span><span class="keyword">, </span><span class="default">pack</span><span class="keyword">(</span><span class="string">'VVVvvVVVVVV'</span><span class="keyword">, </span><span class="default">40</span><span class="keyword">, </span><span class="default">$biWidth</span><span class="keyword">, </span><span class="default">$biHeight</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">$biSizeImage</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">));<br />    </span><span class="default">fwrite</span><span class="keyword">(</span><span class="default">$to</span><span class="keyword">, </span><span class="string">"\xff\xff\xff\x00"</span><span class="keyword">); </span><span class="comment">// white<br />    </span><span class="default">fwrite</span><span class="keyword">(</span><span class="default">$to</span><span class="keyword">, </span><span class="string">"\x00\x00\x00\x00"</span><span class="keyword">); </span><span class="comment">// black<br />    <br />    </span><span class="keyword">for (</span><span class="default">$y </span><span class="keyword">= </span><span class="default">$biHeight </span><span class="keyword">- </span><span class="default">1</span><span class="keyword">; </span><span class="default">$y </span><span class="keyword">&gt;= </span><span class="default">0</span><span class="keyword">; --</span><span class="default">$y</span><span class="keyword">) {<br />        </span><span class="default">$byte </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br />        for (</span><span class="default">$x </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$x </span><span class="keyword">&lt; </span><span class="default">$biWidth</span><span class="keyword">; ++</span><span class="default">$x</span><span class="keyword">) {<br />            </span><span class="default">$rgb </span><span class="keyword">= </span><span class="default">imagecolorsforindex</span><span class="keyword">(</span><span class="default">$image</span><span class="keyword">, </span><span class="default">imagecolorat</span><span class="keyword">(</span><span class="default">$image</span><span class="keyword">, </span><span class="default">$x</span><span class="keyword">, </span><span class="default">$y</span><span class="keyword">));<br />            </span><span class="default">$value </span><span class="keyword">= (</span><span class="default">0.299 </span><span class="keyword">* </span><span class="default">$rgb</span><span class="keyword">[</span><span class="string">'red'</span><span class="keyword">] + </span><span class="default">0.587 </span><span class="keyword">* </span><span class="default">$rgb</span><span class="keyword">[</span><span class="string">'green'</span><span class="keyword">] + </span><span class="default">0.114 </span><span class="keyword">* </span><span class="default">$rgb</span><span class="keyword">[</span><span class="string">'blue'</span><span class="keyword">]) / </span><span class="default">0xff</span><span class="keyword">;<br />            </span><span class="default">$color </span><span class="keyword">= (int)(</span><span class="default">$value </span><span class="keyword">&gt; </span><span class="default">$threshold</span><span class="keyword">);<br />            </span><span class="default">$byte </span><span class="keyword">= (</span><span class="default">$byte </span><span class="keyword">&lt;&lt; </span><span class="default">1</span><span class="keyword">) | </span><span class="default">$color</span><span class="keyword">;<br />            if (</span><span class="default">$x </span><span class="keyword">% </span><span class="default">8 </span><span class="keyword">=== </span><span class="default">7</span><span class="keyword">) {<br />                </span><span class="default">fwrite</span><span class="keyword">(</span><span class="default">$to</span><span class="keyword">, </span><span class="default">pack</span><span class="keyword">(</span><span class="string">'C'</span><span class="keyword">, </span><span class="default">$byte</span><span class="keyword">));<br />                </span><span class="default">$byte </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br />            }<br />        }<br />        if (</span><span class="default">$x </span><span class="keyword">% </span><span class="default">8</span><span class="keyword">) {<br />            </span><span class="default">fwrite</span><span class="keyword">(</span><span class="default">$to</span><span class="keyword">, </span><span class="default">pack</span><span class="keyword">(</span><span class="string">'C'</span><span class="keyword">, </span><span class="default">$byte </span><span class="keyword">&lt;&lt; (</span><span class="default">8 </span><span class="keyword">- </span><span class="default">$x </span><span class="keyword">% </span><span class="default">8</span><span class="keyword">)));<br />        }<br />        if (</span><span class="default">$x </span><span class="keyword">% </span><span class="default">32</span><span class="keyword">) {<br />            </span><span class="default">fwrite</span><span class="keyword">(</span><span class="default">$to</span><span class="keyword">, </span><span class="default">str_repeat</span><span class="keyword">(</span><span class="string">"\x00"</span><span class="keyword">, (int)((</span><span class="default">32 </span><span class="keyword">- </span><span class="default">$x </span><span class="keyword">% </span><span class="default">32</span><span class="keyword">) / </span><span class="default">8</span><span class="keyword">)));<br />        }<br />    }<br /><br />    return </span><span class="default">true</span><span class="keyword">;<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="79996">  <div class="votes">
+    <div id="Vu79996">
+    <a href="https://www.php.net/manual/vote-note.php?id=79996&amp;page=ref.image&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd79996">
+    <a href="https://www.php.net/manual/vote-note.php?id=79996&amp;page=ref.image&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V79996" title="38% like this...">
+    -7
+    </div>
+  </div>
+  <a href="ref.image.php.html#79996" class="name">
+  <strong class="user"><em>ph_corp at yahoo dot fr</em></strong></a><a class="genanchor" href="ref.image.php.html#79996"> &para;</a><div class="date" title="2007-12-23 03:19"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom79996">
+<div class="phpcode"><code><span class="html"><span class="default">&lt;?php<br /><br /></span><span class="comment">/**<br />HSL/RGB conversion functions<br />very useful for a lot of applications<br />**/<br /><br /></span><span class="keyword">function </span><span class="default">RBGtoHSL </span><span class="keyword">( </span><span class="default">$R</span><span class="keyword">, </span><span class="default">$G</span><span class="keyword">, </span><span class="default">$B </span><span class="keyword">)<br />{<br /><br />    </span><span class="default">$var_R </span><span class="keyword">= ( </span><span class="default">$R </span><span class="keyword">/ </span><span class="default">255 </span><span class="keyword">);<br />    </span><span class="default">$var_G </span><span class="keyword">= ( </span><span class="default">$G </span><span class="keyword">/ </span><span class="default">255 </span><span class="keyword">);<br />    </span><span class="default">$var_B </span><span class="keyword">= ( </span><span class="default">$B </span><span class="keyword">/ </span><span class="default">255 </span><span class="keyword">);<br /><br />    </span><span class="default">$var_Min </span><span class="keyword">= </span><span class="default">min</span><span class="keyword">( </span><span class="default">$var_R</span><span class="keyword">, </span><span class="default">$var_G</span><span class="keyword">, </span><span class="default">$var_B </span><span class="keyword">)<br />    </span><span class="default">$var_Max </span><span class="keyword">= </span><span class="default">max</span><span class="keyword">( </span><span class="default">$var_R</span><span class="keyword">, </span><span class="default">$var_G</span><span class="keyword">, </span><span class="default">$var_B </span><span class="keyword">)<br />    </span><span class="default">$del_Max </span><span class="keyword">= </span><span class="default">$var_Max </span><span class="keyword">- </span><span class="default">$var_Min<br /><br />    $L </span><span class="keyword">= ( </span><span class="default">$var_Max </span><span class="keyword">+ </span><span class="default">$var_Min </span><span class="keyword">) / </span><span class="default">2</span><span class="keyword">;<br /><br />    if ( </span><span class="default">$del_Max </span><span class="keyword">== </span><span class="default">0 </span><span class="keyword">)<br />    {<br />       </span><span class="default">$H </span><span class="keyword">= </span><span class="default">0<br />       $S </span><span class="keyword">= </span><span class="default">0<br />    </span><span class="keyword">}<br />    else<br />    {<br />        if ( </span><span class="default">$L </span><span class="keyword">&lt; </span><span class="default">0.5 </span><span class="keyword">)<br />        {<br />            </span><span class="default">$S </span><span class="keyword">= </span><span class="default">$del_Max </span><span class="keyword">/ ( </span><span class="default">$var_Max </span><span class="keyword">+ </span><span class="default">$var_Min </span><span class="keyword">);<br />        }<br />        else<br />        {<br />            </span><span class="default">$S </span><span class="keyword">= </span><span class="default">$del_Max </span><span class="keyword">/ ( </span><span class="default">2 </span><span class="keyword">- </span><span class="default">$var_Max </span><span class="keyword">- </span><span class="default">$var_Min </span><span class="keyword">);<br />        }<br /><br />        </span><span class="default">$del_R </span><span class="keyword">= ( ( ( </span><span class="default">$var_Max </span><span class="keyword">- </span><span class="default">$var_R </span><span class="keyword">) / </span><span class="default">6 </span><span class="keyword">) + ( </span><span class="default">$del_Max </span><span class="keyword">/ </span><span class="default">2 </span><span class="keyword">) ) / </span><span class="default">$del_Max</span><span class="keyword">;<br />        </span><span class="default">$del_G </span><span class="keyword">= ( ( ( </span><span class="default">$var_Max </span><span class="keyword">- </span><span class="default">$var_G </span><span class="keyword">) / </span><span class="default">6 </span><span class="keyword">) + ( </span><span class="default">$del_Max </span><span class="keyword">/ </span><span class="default">2 </span><span class="keyword">) ) / </span><span class="default">$del_Max</span><span class="keyword">;<br />        </span><span class="default">$del_B </span><span class="keyword">= ( ( ( </span><span class="default">$var_Max </span><span class="keyword">- </span><span class="default">$var_B </span><span class="keyword">) / </span><span class="default">6 </span><span class="keyword">) + ( </span><span class="default">$del_Max </span><span class="keyword">/ </span><span class="default">2 </span><span class="keyword">) ) / </span><span class="default">$del_Max</span><span class="keyword">;<br /><br />        if ( </span><span class="default">$var_R </span><span class="keyword">== </span><span class="default">$var_Max </span><span class="keyword">)<br />        {<br />            </span><span class="default">$H </span><span class="keyword">= </span><span class="default">$del_B </span><span class="keyword">- </span><span class="default">$del_G</span><span class="keyword">;<br />        }<br />        else if ( </span><span class="default">$var_G </span><span class="keyword">== </span><span class="default">$var_Max </span><span class="keyword">)<br />        {<br />            </span><span class="default">$H </span><span class="keyword">= ( </span><span class="default">1 </span><span class="keyword">/ </span><span class="default">3 </span><span class="keyword">) + </span><span class="default">$del_R </span><span class="keyword">- </span><span class="default">$del_B</span><span class="keyword">;<br />        }<br />        else if ( </span><span class="default">$var_B </span><span class="keyword">== </span><span class="default">$var_Max </span><span class="keyword">)<br />        {<br />            </span><span class="default">$H </span><span class="keyword">= ( </span><span class="default">2 </span><span class="keyword">/ </span><span class="default">3 </span><span class="keyword">) + </span><span class="default">$del_G </span><span class="keyword">- </span><span class="default">$del_R</span><span class="keyword">;<br />        }<br /><br />        if ( </span><span class="default">$H </span><span class="keyword">&lt; </span><span class="default">0 </span><span class="keyword">)<br />        {<br />            </span><span class="default">$H </span><span class="keyword">+= </span><span class="default">1</span><span class="keyword">;<br />        }<br />        if ( </span><span class="default">$H </span><span class="keyword">&gt; </span><span class="default">1 </span><span class="keyword">)<br />        {<br />            </span><span class="default">$H </span><span class="keyword">-= </span><span class="default">1<br />        </span><span class="keyword">}<br /><br />    }<br /><br />    return array( </span><span class="default">$H</span><span class="keyword">, </span><span class="default">$S</span><span class="keyword">, </span><span class="default">$L </span><span class="keyword">);<br /><br />}<br /><br />function </span><span class="default">HuetoRGB</span><span class="keyword">( </span><span class="default">$v1</span><span class="keyword">, </span><span class="default">$v2</span><span class="keyword">, </span><span class="default">$vH </span><span class="keyword">)<br />{<br />    if ( </span><span class="default">$vH </span><span class="keyword">&lt; </span><span class="default">0 </span><span class="keyword">)<br />    {<br />        </span><span class="default">$vH </span><span class="keyword">+= </span><span class="default">1</span><span class="keyword">;<br />    }<br />    if ( </span><span class="default">$vH </span><span class="keyword">&gt; </span><span class="default">1 </span><span class="keyword">)<br />    {<br />        </span><span class="default">$vH </span><span class="keyword">-= </span><span class="default">1</span><span class="keyword">;<br />    }<br />    if ( ( </span><span class="default">6 </span><span class="keyword">* </span><span class="default">$vH </span><span class="keyword">) &lt; </span><span class="default">1 </span><span class="keyword">)<br />    {<br />        return ( </span><span class="default">$v1 </span><span class="keyword">+ ( </span><span class="default">$v2 </span><span class="keyword">- </span><span class="default">$v1 </span><span class="keyword">) * </span><span class="default">6 </span><span class="keyword">* </span><span class="default">$vH </span><span class="keyword">);<br />    }<br />    if ( ( </span><span class="default">2 </span><span class="keyword">* </span><span class="default">$vH </span><span class="keyword">) &lt; </span><span class="default">1 </span><span class="keyword">)<br />    {<br />        return ( </span><span class="default">$v2 </span><span class="keyword">);<br />    }<br />    if ( ( </span><span class="default">3 </span><span class="keyword">* </span><span class="default">$vH </span><span class="keyword">) &lt; </span><span class="default">2 </span><span class="keyword">)<br />    {<br />        return ( </span><span class="default">$v1 </span><span class="keyword">+ ( </span><span class="default">$v2 </span><span class="keyword">- </span><span class="default">$v1 </span><span class="keyword">) * ( ( </span><span class="default">2 </span><span class="keyword">/ </span><span class="default">3 </span><span class="keyword">) - </span><span class="default">$vH </span><span class="keyword">) * </span><span class="default">6 </span><span class="keyword">);<br />    }<br />    return ( </span><span class="default">$v1 </span><span class="keyword">)<br />}<br /><br />function </span><span class="default">HSLtoRGB </span><span class="keyword">( </span><span class="default">$H</span><span class="keyword">, </span><span class="default">$S</span><span class="keyword">, </span><span class="default">$L </span><span class="keyword">)<br />{<br /><br />    if ( </span><span class="default">$S </span><span class="keyword">== </span><span class="default">0 </span><span class="keyword">)<br />    {<br />        </span><span class="default">$R </span><span class="keyword">= </span><span class="default">$L </span><span class="keyword">* </span><span class="default">255</span><span class="keyword">;<br />        </span><span class="default">$G </span><span class="keyword">= </span><span class="default">$L </span><span class="keyword">* </span><span class="default">255</span><span class="keyword">;<br />        </span><span class="default">$B </span><span class="keyword">= </span><span class="default">$L </span><span class="keyword">* </span><span class="default">255</span><span class="keyword">;<br />    }<br />    else<br />    {<br />        if ( </span><span class="default">$L </span><span class="keyword">&lt; </span><span class="default">0.5 </span><span class="keyword">)<br />        {<br />            </span><span class="default">$var_2 </span><span class="keyword">= </span><span class="default">$L </span><span class="keyword">* ( </span><span class="default">1 </span><span class="keyword">+ </span><span class="default">$S </span><span class="keyword">);<br />        }<br />        else<br />        {<br />            </span><span class="default">$var_2 </span><span class="keyword">= ( </span><span class="default">$L </span><span class="keyword">+ </span><span class="default">$S </span><span class="keyword">) - ( </span><span class="default">$S </span><span class="keyword">* </span><span class="default">$L </span><span class="keyword">);<br />        }<br /><br />        </span><span class="default">$var_1 </span><span class="keyword">= </span><span class="default">2 </span><span class="keyword">* </span><span class="default">$L </span><span class="keyword">- </span><span class="default">$var_2</span><span class="keyword">;<br /><br />        </span><span class="default">$R </span><span class="keyword">= </span><span class="default">255 </span><span class="keyword">* </span><span class="default">HuetoRGB</span><span class="keyword">( </span><span class="default">$var_1</span><span class="keyword">, </span><span class="default">$var_2</span><span class="keyword">, </span><span class="default">$H </span><span class="keyword">+ ( </span><span class="default">1 </span><span class="keyword">/ </span><span class="default">3 </span><span class="keyword">) );<br />        </span><span class="default">$G </span><span class="keyword">= </span><span class="default">255 </span><span class="keyword">* </span><span class="default">HuetoRGB</span><span class="keyword">( </span><span class="default">$var_1</span><span class="keyword">, </span><span class="default">$var_2</span><span class="keyword">, </span><span class="default">$H </span><span class="keyword">);<br />        </span><span class="default">$B </span><span class="keyword">= </span><span class="default">255 </span><span class="keyword">* </span><span class="default">HuetoRGB</span><span class="keyword">( </span><span class="default">$var_1</span><span class="keyword">, </span><span class="default">$var_2</span><span class="keyword">, </span><span class="default">$H </span><span class="keyword">- ( </span><span class="default">1 </span><span class="keyword">/ </span><span class="default">3 </span><span class="keyword">) );<br />    }<br /><br />    return array( </span><span class="default">$R</span><span class="keyword">, </span><span class="default">$G</span><span class="keyword">, </span><span class="default">$B </span><span class="keyword">);<br /><br />}<br /><br />function </span><span class="default">distance </span><span class="keyword">( </span><span class="default">$R1</span><span class="keyword">, </span><span class="default">$G1</span><span class="keyword">, </span><span class="default">$B1</span><span class="keyword">, </span><span class="default">$R2</span><span class="keyword">, </span><span class="default">$G2</span><span class="keyword">, </span><span class="default">$B2 </span><span class="keyword">)<br />{<br />    </span><span class="default">$result </span><span class="keyword">= </span><span class="default">sqrt </span><span class="keyword">( ( </span><span class="default">$R1 </span><span class="keyword">- </span><span class="default">$R2 </span><span class="keyword">)*( </span><span class="default">$R1 </span><span class="keyword">- </span><span class="default">$R2 </span><span class="keyword">) + ( </span><span class="default">$G1 </span><span class="keyword">- </span><span class="default">$G2 </span><span class="keyword">)*( </span><span class="default">$G1 </span><span class="keyword">- </span><span class="default">$G2 </span><span class="keyword">) + ( </span><span class="default">$B1 </span><span class="keyword">- </span><span class="default">$B2 </span><span class="keyword">)*( </span><span class="default">$B1 </span><span class="keyword">- </span><span class="default">$B2 </span><span class="keyword">) );<br />    return ( </span><span class="default">$result </span><span class="keyword">);<br />}<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=ref.image&amp;redirect=https://www.php.net/manual/ru/ref.image.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="book.image.php.html">GD</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="intro.image.php.html" title="Введение">Введение</a>
+                        </li>
+                                                <li class="">
+                            <a href="image.setup.php.html" title="Установка и настройка">Установка и настройка</a>
+                        </li>
+                                                <li class="">
+                            <a href="image.constants.php.html" title="Предопределённые константы">Предопределённые константы</a>
+                        </li>
+                                                <li class="">
+                            <a href="image.examples.php.html" title="Примеры">Примеры</a>
+                        </li>
+                                                <li class="current">
+                            <a href="ref.image.php.html" title="Функции GD и функции для работы с изображениями">Функции GD и функции для работы с изображениями</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.gdimage.php.html" title="GdImage">GdImage</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.gdfont.php.html" title="GdFont">GdFont</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

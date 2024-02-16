@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: array_filter - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="function.array-filter.php.html">
+ <link rel="shorturl" href="https://www.php.net/array-filter">
+ <link rel="alternate" href="https://www.php.net/array-filter" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="ref.array.php.html">
+ <link rel="prev" href="function.array-fill.php.html">
+ <link rel="next" href="function.array-flip.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/function.array-filter.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/function.array-filter.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/function.array-filter.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/function.array-filter.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/function.array-filter.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/function.array-filter.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/function.array-filter.php" hreflang="pt_BR">
+ <link rel="alternate" href="function.array-filter.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/function.array-filter.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/function.array-filter.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="function.array-flip.php.html">
+          array_flip &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="function.array-fill.php.html">
+          &laquo; array_fill        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.basic.vartype.php.html'>Модули, относящиеся к переменным и типам</a></li>      <li><a href='book.array.php.html'>Массивы</a></li>      <li><a href='ref.array.php.html'>Функции для работы с массивами</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/function.array-filter.php'>English</option>
+            <option value='de/function.array-filter.php'>German</option>
+            <option value='es/function.array-filter.php'>Spanish</option>
+            <option value='fr/function.array-filter.php'>French</option>
+            <option value='it/function.array-filter.php'>Italian</option>
+            <option value='ja/function.array-filter.php'>Japanese</option>
+            <option value='pt_BR/function.array-filter.php'>Brazilian Portuguese</option>
+            <option value='ru/function.array-filter.php' selected="selected">Russian</option>
+            <option value='tr/function.array-filter.php'>Turkish</option>
+            <option value='zh/function.array-filter.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/array/functions/array-filter.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Ffunction.array-filter%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="function.array-filter" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">array_filter</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.0.6, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">array_filter</span> &mdash; <span class="dc-title">Фильтрует элементы массива с помощью callback-функции</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.array-filter-description">
+  <h3 class="title">Описание</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="methodname"><strong>array_filter</strong></span>(<span class="methodparam"><span class="type">array</span> <code class="parameter">$array</code></span>, <span class="methodparam"><span class="type">?</span><span class="type"><span class="type"><a href="language.types.callable.php.html" class="type callable">callable</a></span><span class="type"></span></span> <code class="parameter">$callback</code><span class="initializer"> = <strong><code>null</code></strong></span></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter">$mode</code><span class="initializer"> = 0</span></span>): <span class="type">array</span></div>
+
+  <p class="para rdfs-comment">
+   Обходит каждое значение массива <code class="parameter">array</code>,
+   передавая его в <code class="parameter">callback</code>-функцию. Если
+   <code class="parameter">callback</code>-функция возвращает <strong><code>true</code></strong>, данное
+   значение из <code class="parameter">array</code> возвращается в результирующий <span class="type">array</span>.
+  </p>
+  <p class="para">
+   Ключи массива сохраняются и могут привести к пропускам, если <code class="parameter">array</code> был проиндексирован.
+   Результат массива (<span class="type">array</span>) можно переиндексировать с помощью функции <span class="function"><a href="function.array-values.php.html" class="function">array_values()</a></span>.
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.array-filter-parameters">
+  <h3 class="title">Список параметров</h3>
+  <p class="para">
+   <dl>
+
+    
+     <dt>
+<code class="parameter">array</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Итерируемый массив
+      </p>
+     </dd>
+
+    
+
+    
+     <dt>
+<code class="parameter">callback</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Используемая callback-функция
+      </p>
+      <p class="para">
+       Если <code class="parameter">callback</code>-функция не передана, все пустые значения
+       массива <code class="parameter">array</code> будут удалены. Смотрите <span class="function"><a href="function.empty.php.html" class="function">empty()</a></span>,
+       чтобы узнать, как PHP определяет пустое значение в этом случае.
+      </p>
+     </dd>
+
+    
+
+    
+     <dt>
+<code class="parameter">mode</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Флаг, определяющий, какие аргументы передавать в <code class="parameter">callback</code>:
+       <ul class="itemizedlist">
+        <li class="listitem">
+         <span class="simpara"><strong><code>ARRAY_FILTER_USE_KEY</code></strong> - передавать только ключ массива как аргумент для <code class="parameter">callback</code> вместо значения</span>
+        </li>
+        <li class="listitem">
+         <span class="simpara"><strong><code>ARRAY_FILTER_USE_BOTH</code></strong> - передавать и ключ, и значение в <code class="parameter">callback</code> вместо только значения</span>
+        </li>
+       </ul>
+       По умолчанию <code class="literal">0</code>,
+       что означает, что в <code class="parameter">callback</code>-функцию будет
+       передаваться только значение в качестве единственного аргумента.
+      </p>
+     </dd>
+
+    
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.array-filter-returnvalues">
+  <h3 class="title">Возвращаемые значения</h3>
+  <p class="para">
+   Возвращает отфильтрованный массив.
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.array-filter-changelog">
+  <h3 class="title">Список изменений</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>Версия</th>
+      <th>Описание</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+      <td>8.0.0</td>
+      <td>
+       <code class="parameter">callback</code> теперь допускает значение null.
+      </td>
+     </tr>
+
+     <tr>
+ <td>8.0.0</td>
+ <td>
+  Теперь функция выдаст ошибку уровня <strong><code>E_WARNING</code></strong>,
+  если параметр callback-функции, переданной в параметр <code class="parameter">callback</code>,
+  ожидает передачу значения по ссылке.
+ </td>
+</tr>
+
+    </tbody>
+   
+  </table>
+
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.array-filter-examples">
+  <h3 class="title">Примеры</h3>
+  <p class="para">
+   <div class="example" id="">
+    <p><strong>Пример #1 Пример использования <span class="function"><strong>array_filter()</strong></span></strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function </span><span style="color: #0000BB">odd</span><span style="color: #007700">(</span><span style="color: #0000BB">$var</span><span style="color: #007700">)<br />{<br />    </span><span style="color: #FF8000">// является ли переданное число нечётным<br />    </span><span style="color: #007700">return </span><span style="color: #0000BB">$var </span><span style="color: #007700">&amp; </span><span style="color: #0000BB">1</span><span style="color: #007700">;<br />}<br /><br />function </span><span style="color: #0000BB">even</span><span style="color: #007700">(</span><span style="color: #0000BB">$var</span><span style="color: #007700">)<br />{<br />    </span><span style="color: #FF8000">// является ли переданное число чётным<br />    </span><span style="color: #007700">return !(</span><span style="color: #0000BB">$var </span><span style="color: #007700">&amp; </span><span style="color: #0000BB">1</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #0000BB">$array1 </span><span style="color: #007700">= [</span><span style="color: #DD0000">'a' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">1</span><span style="color: #007700">, </span><span style="color: #DD0000">'b' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">2</span><span style="color: #007700">, </span><span style="color: #DD0000">'c' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">3</span><span style="color: #007700">, </span><span style="color: #DD0000">'d' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">4</span><span style="color: #007700">, </span><span style="color: #DD0000">'e' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">5</span><span style="color: #007700">];<br /></span><span style="color: #0000BB">$array2 </span><span style="color: #007700">= [</span><span style="color: #0000BB">6</span><span style="color: #007700">, </span><span style="color: #0000BB">7</span><span style="color: #007700">, </span><span style="color: #0000BB">8</span><span style="color: #007700">, </span><span style="color: #0000BB">9</span><span style="color: #007700">, </span><span style="color: #0000BB">10</span><span style="color: #007700">, </span><span style="color: #0000BB">11</span><span style="color: #007700">, </span><span style="color: #0000BB">12</span><span style="color: #007700">];<br /><br />echo </span><span style="color: #DD0000">"Нечётные:\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">array_filter</span><span style="color: #007700">(</span><span style="color: #0000BB">$array1</span><span style="color: #007700">, </span><span style="color: #DD0000">"odd"</span><span style="color: #007700">));<br />echo </span><span style="color: #DD0000">"Чётные:\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">array_filter</span><span style="color: #007700">(</span><span style="color: #0000BB">$array2</span><span style="color: #007700">, </span><span style="color: #DD0000">"even"</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+    </div>
+
+    
+<div class="example-contents"><p>
+ Результат выполнения приведённого примера:
+</p></div>
+
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Нечётные:
+Array
+(
+    [a] =&gt; 1
+    [c] =&gt; 3
+    [e] =&gt; 5
+)
+Чётные:
+Array
+(
+    [0] =&gt; 6
+    [2] =&gt; 8
+    [4] =&gt; 10
+    [6] =&gt; 12
+)
+</pre></div>
+    </div>
+   </div>
+   <div class="example" id="">
+    <p><strong>Пример #2 Использование <span class="function"><strong>array_filter()</strong></span> без
+     <code class="parameter">callback</code>-функции</strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br />$entry </span><span style="color: #007700">= [<br />    </span><span style="color: #0000BB">0 </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'foo'</span><span style="color: #007700">,<br />    </span><span style="color: #0000BB">1 </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">false</span><span style="color: #007700">,<br />    </span><span style="color: #0000BB">2 </span><span style="color: #007700">=&gt; -</span><span style="color: #0000BB">1</span><span style="color: #007700">,<br />    </span><span style="color: #0000BB">3 </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">null</span><span style="color: #007700">,<br />    </span><span style="color: #0000BB">4 </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">''</span><span style="color: #007700">,<br />    </span><span style="color: #0000BB">5 </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'0'</span><span style="color: #007700">,<br />    </span><span style="color: #0000BB">6 </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">0</span><span style="color: #007700">,<br />];<br /><br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">array_filter</span><span style="color: #007700">(</span><span style="color: #0000BB">$entry</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+    </div>
+
+    
+<div class="example-contents"><p>
+ Результат выполнения приведённого примера:
+</p></div>
+
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Array
+(
+    [0] =&gt; foo
+    [2] =&gt; -1
+)
+</pre></div>
+    </div>
+   </div>
+   <div class="example" id="">
+    <p><strong>Пример #3 <span class="function"><strong>array_filter()</strong></span> с указанным
+     <code class="parameter">mode</code></strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br />$arr </span><span style="color: #007700">= [</span><span style="color: #DD0000">'a' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">1</span><span style="color: #007700">, </span><span style="color: #DD0000">'b' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">2</span><span style="color: #007700">, </span><span style="color: #DD0000">'c' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">3</span><span style="color: #007700">, </span><span style="color: #DD0000">'d' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">4</span><span style="color: #007700">];<br /><br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">array_filter</span><span style="color: #007700">(</span><span style="color: #0000BB">$arr</span><span style="color: #007700">, function(</span><span style="color: #0000BB">$k</span><span style="color: #007700">) {<br />    return </span><span style="color: #0000BB">$k </span><span style="color: #007700">== </span><span style="color: #DD0000">'b'</span><span style="color: #007700">;<br />}, </span><span style="color: #0000BB">ARRAY_FILTER_USE_KEY</span><span style="color: #007700">));<br /><br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">array_filter</span><span style="color: #007700">(</span><span style="color: #0000BB">$arr</span><span style="color: #007700">, function(</span><span style="color: #0000BB">$v</span><span style="color: #007700">, </span><span style="color: #0000BB">$k</span><span style="color: #007700">) {<br />    return </span><span style="color: #0000BB">$k </span><span style="color: #007700">== </span><span style="color: #DD0000">'b' </span><span style="color: #007700">|| </span><span style="color: #0000BB">$v </span><span style="color: #007700">== </span><span style="color: #0000BB">4</span><span style="color: #007700">;<br />}, </span><span style="color: #0000BB">ARRAY_FILTER_USE_BOTH</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+    </div>
+
+    
+<div class="example-contents"><p>
+ Результат выполнения приведённого примера:
+</p></div>
+
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+array(1) {
+  [&quot;b&quot;]=&gt;
+  int(2)
+}
+array(2) {
+  [&quot;b&quot;]=&gt;
+  int(2)
+  [&quot;d&quot;]=&gt;
+  int(4)
+}
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.array-filter-notes">
+  <h3 class="title">Примечания</h3>
+  <div class="caution"><strong class="caution">Предостережение</strong>
+   <p class="para">
+    Если callback-функция изменяет массив (например, добавляет или
+    удаляет элементы), поведение этой функции неопределённо.
+   </p>
+  </div>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.array-filter-seealso">
+  <h3 class="title">Смотрите также</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.array-intersect.php.html" class="function" rel="rdfs-seeAlso">array_intersect()</a> - Вычисляет пересечение массивов</span></li>
+    <li class="member"><span class="function"><a href="function.array-map.php.html" class="function" rel="rdfs-seeAlso">array_map()</a> - Применяет callback-функцию ко всем элементам указанных массивов</span></li>
+    <li class="member"><span class="function"><a href="function.array-reduce.php.html" class="function" rel="rdfs-seeAlso">array_reduce()</a> - Итеративно уменьшает массив к единственному значению, используя callback-функцию</span></li>
+    <li class="member"><span class="function"><a href="function.array-walk.php.html" class="function" rel="rdfs-seeAlso">array_walk()</a> - Применяет заданную пользователем функцию к каждому элементу массива</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=function.array-filter&amp;redirect=https://www.php.net/manual/ru/function.array-filter.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">10 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="111091">  <div class="votes">
+    <div id="Vu111091">
+    <a href="https://www.php.net/manual/vote-note.php?id=111091&amp;page=function.array-filter&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd111091">
+    <a href="https://www.php.net/manual/vote-note.php?id=111091&amp;page=function.array-filter&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V111091" title="89% like this...">
+    613
+    </div>
+  </div>
+  <a href="function.array-filter.php.html#111091" class="name">
+  <strong class="user"><em>Anonymous</em></strong></a><a class="genanchor" href="function.array-filter.php.html#111091"> &para;</a><div class="date" title="2013-01-13 05:52"><strong>11 years ago</strong></div>
+  <div class="text" id="Hcom111091">
+<div class="phpcode"><code><span class="html">If you want a quick way to remove NULL, FALSE and Empty Strings (""), but leave values of 0 (zero), you can use the standard php function strlen as the callback function:<br />eg:<br /><span class="default">&lt;?php<br /><br /></span><span class="comment">// removes all NULL, FALSE and Empty Strings but leaves 0 (zero) values<br /></span><span class="default">$result </span><span class="keyword">= </span><span class="default">array_filter</span><span class="keyword">( </span><span class="default">$array</span><span class="keyword">, </span><span class="string">'strlen' </span><span class="keyword">);<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="127626">  <div class="votes">
+    <div id="Vu127626">
+    <a href="https://www.php.net/manual/vote-note.php?id=127626&amp;page=function.array-filter&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd127626">
+    <a href="https://www.php.net/manual/vote-note.php?id=127626&amp;page=function.array-filter&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V127626" title="100% like this...">
+    22
+    </div>
+  </div>
+  <a href="function.array-filter.php.html#127626" class="name">
+  <strong class="user"><em>Niko E</em></strong></a><a class="genanchor" href="function.array-filter.php.html#127626"> &para;</a><div class="date" title="2022-09-14 03:24"><strong>1 year ago</strong></div>
+  <div class="text" id="Hcom127626">
+<div class="phpcode"><code><span class="html">Note that a filtered array no longer encodes to json arrays, as the indices are no longer continuous:<br /><br />$a = ['a', 'b', 'c'];<br />var_dump(json_encode($a)); //  ["a","b","c"]<br />$a = array_filter($a, function ($x) { return $x == 'b'; });<br />var_dump(json_encode($a)); // {"1": "b"}<br /><br />you can use array_values get a continuous array<br /><br />var_dump(json_encode(array_values($a))); // ["b"]</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="128646">  <div class="votes">
+    <div id="Vu128646">
+    <a href="https://www.php.net/manual/vote-note.php?id=128646&amp;page=function.array-filter&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd128646">
+    <a href="https://www.php.net/manual/vote-note.php?id=128646&amp;page=function.array-filter&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V128646" title="100% like this...">
+    4
+    </div>
+  </div>
+  <a href="function.array-filter.php.html#128646" class="name">
+  <strong class="user"><em>Merlindog</em></strong></a><a class="genanchor" href="function.array-filter.php.html#128646"> &para;</a><div class="date" title="2023-06-27 02:43"><strong>7 months ago</strong></div>
+  <div class="text" id="Hcom128646">
+<div class="phpcode"><code><span class="html">It is clearly documented above, but make sure you never forget that when ARRAY_FILTER_USE_BOTH is set, the callback argument order is value, key - NOT key, value. You'll save some time.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="127052">  <div class="votes">
+    <div id="Vu127052">
+    <a href="https://www.php.net/manual/vote-note.php?id=127052&amp;page=function.array-filter&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd127052">
+    <a href="https://www.php.net/manual/vote-note.php?id=127052&amp;page=function.array-filter&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V127052" title="88% like this...">
+    14
+    </div>
+  </div>
+  <a href="function.array-filter.php.html#127052" class="name">
+  <strong class="user"><em>TechNyquist</em></strong></a><a class="genanchor" href="function.array-filter.php.html#127052"> &para;</a><div class="date" title="2022-05-13 06:36"><strong>1 year ago</strong></div>
+  <div class="text" id="Hcom127052">
+<div class="phpcode"><code><span class="html">Keep in mind that, as of PHP 7.4 and above, you can use arrow functions to as argument.<br />So for example if you want to leave values bigger than 10:<br /><br /><span class="default">&lt;?php<br />    $arr </span><span class="keyword">= </span><span class="default">array_filter</span><span class="keyword">(</span><span class="default">$numbers</span><span class="keyword">, fn(</span><span class="default">$n</span><span class="keyword">) =&gt; </span><span class="default">$n </span><span class="keyword">&gt; </span><span class="default">10</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />also, combine with key-flag to cut certain keys:<br /><br /><span class="default">&lt;?php<br />    $arr </span><span class="keyword">= </span><span class="default">array_filter</span><span class="keyword">(</span><span class="default">$entries</span><span class="keyword">, fn(</span><span class="default">$key</span><span class="keyword">) =&gt; !</span><span class="default">in_array</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">, [</span><span class="string">'key1'</span><span class="keyword">, </span><span class="string">'key5'</span><span class="keyword">]), </span><span class="default">ARRAY_FILTER_USE_KEY</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />and so on.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="120940">  <div class="votes">
+    <div id="Vu120940">
+    <a href="https://www.php.net/manual/vote-note.php?id=120940&amp;page=function.array-filter&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd120940">
+    <a href="https://www.php.net/manual/vote-note.php?id=120940&amp;page=function.array-filter&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V120940" title="85% like this...">
+    44
+    </div>
+  </div>
+  <a href="function.array-filter.php.html#120940" class="name">
+  <strong class="user"><em>nicolaj dot knudsen at gmail dot com</em></strong></a><a class="genanchor" href="function.array-filter.php.html#120940"> &para;</a><div class="date" title="2017-04-05 12:05"><strong>6 years ago</strong></div>
+  <div class="text" id="Hcom120940">
+<div class="phpcode"><code><span class="html">If you like me have some trouble understanding example #1 due to the bitwise operator (&amp;) used, here is an explanation.<br /><br />The part in question is this callback function:<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">odd</span><span class="keyword">(</span><span class="default">$var</span><span class="keyword">)<br />{<br />    </span><span class="comment">// returns whether the input integer is odd<br />    </span><span class="keyword">return(</span><span class="default">$var </span><span class="keyword">&amp; </span><span class="default">1</span><span class="keyword">);<br />}<br /></span><span class="default">?&gt;<br /></span><br />If given an integer this function returns the integer 1 if $var is odd and the integer 0 if $var is even.<br />The single ampersand, &amp;, is the bitwise AND operator. The way it works is that it takes the binary representation of the two arguments and compare them bit for bit using AND. If $var = 45, then since 45 in binary is 101101 the operation looks like this:<br /><br />45 in binary: 101101<br />1 in binary:  000001<br />              ------<br />result:       000001<br /><br />Only if the last bit in the binary representation of $var is changed to zero (meaning that the value is even) will the result change to 000000, which is the representation of zero.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="43822">  <div class="votes">
+    <div id="Vu43822">
+    <a href="https://www.php.net/manual/vote-note.php?id=43822&amp;page=function.array-filter&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd43822">
+    <a href="https://www.php.net/manual/vote-note.php?id=43822&amp;page=function.array-filter&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V43822" title="72% like this...">
+    34
+    </div>
+  </div>
+  <a href="function.array-filter.php.html#43822" class="name">
+  <strong class="user"><em>marc dot vanwoerkom at fernuni-hagen dot de</em></strong></a><a class="genanchor" href="function.array-filter.php.html#43822"> &para;</a><div class="date" title="2004-07-05 08:09"><strong>19 years ago</strong></div>
+  <div class="text" id="Hcom43822">
+<div class="phpcode"><code><span class="html">Some of PHP's array functions play a prominent role in so called functional programming languages, where they show up under a slightly different name:<br /><br /><span class="default">&lt;?php<br />  array_filter</span><span class="keyword">() -&gt; </span><span class="default">filter</span><span class="keyword">(), <br />  </span><span class="default">array_map</span><span class="keyword">() -&gt; </span><span class="default">map</span><span class="keyword">(), <br />  </span><span class="default">array_reduce</span><span class="keyword">() -&gt; </span><span class="default">foldl</span><span class="keyword">() (</span><span class="string">"fold left"</span><span class="keyword">)<br /></span><span class="default">?&gt;<br /></span><br />Functional programming is a paradigm which centers around the side-effect free evaluation of functions. A program execution is a call of a function, which in turn might be defined by many other functions. One idea is to use functions to create special purpose functions from other functions.<br /><br />The array functions mentioned above allow you compose new functions on arrays. <br /><br />E.g. array_sum = array_map("sum", $arr).<br /><br />This leads to a style of programming that looks much like algebra, e.g. the Bird/Meertens formalism.<br /><br />E.g. a mathematician might state<br /><br />  map(f o g) = map(f) o map(g)<br /><br />the so called "loop fusion" law.<br /><br />Many functions on arrays can be created by the use of the foldr() function (which works like foldl, but eating up array elements from the right).<br /><br />I can't get into detail here, I just wanted to provide a hint about where this stuff also shows up and the theory behind it.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="114931">  <div class="votes">
+    <div id="Vu114931">
+    <a href="https://www.php.net/manual/vote-note.php?id=114931&amp;page=function.array-filter&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd114931">
+    <a href="https://www.php.net/manual/vote-note.php?id=114931&amp;page=function.array-filter&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V114931" title="63% like this...">
+    10
+    </div>
+  </div>
+  <a href="function.array-filter.php.html#114931" class="name">
+  <strong class="user"><em>marc dot gray at gmail dot com</em></strong></a><a class="genanchor" href="function.array-filter.php.html#114931"> &para;</a><div class="date" title="2014-04-29 10:44"><strong>9 years ago</strong></div>
+  <div class="text" id="Hcom114931">
+<div class="phpcode"><code><span class="html">My favourite use of this function is converting a string to an array, trimming each line and removing empty lines:<br /><br /><span class="default">&lt;?php<br />$array </span><span class="keyword">= </span><span class="default">array_filter</span><span class="keyword">(</span><span class="default">array_map</span><span class="keyword">(</span><span class="string">'trim'</span><span class="keyword">, </span><span class="default">explode</span><span class="keyword">(</span><span class="string">"\n"</span><span class="keyword">, </span><span class="default">$string</span><span class="keyword">)), </span><span class="string">'strlen'</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />Although it states clearly that array keys are preserved, it's important to note this includes numerically indexed arrays. You can't use a for loop on $array above without processing it through array_values() first.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="126402">  <div class="votes">
+    <div id="Vu126402">
+    <a href="https://www.php.net/manual/vote-note.php?id=126402&amp;page=function.array-filter&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd126402">
+    <a href="https://www.php.net/manual/vote-note.php?id=126402&amp;page=function.array-filter&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V126402" title="60% like this...">
+    2
+    </div>
+  </div>
+  <a href="function.array-filter.php.html#126402" class="name">
+  <strong class="user"><em>ASchmidt at Anamera dot net</em></strong></a><a class="genanchor" href="function.array-filter.php.html#126402"> &para;</a><div class="date" title="2021-09-08 05:24"><strong>2 years ago</strong></div>
+  <div class="text" id="Hcom126402">
+<div class="phpcode"><code><span class="html">Depending on the intended meanings of your "empty" array values, e.g., null and empty string, vs. an integer 0 or a boolean false, be mindful of the result of different filters.<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">declare(</span><span class="default">strict_types</span><span class="keyword">=</span><span class="default">1</span><span class="keyword">);<br /><br /></span><span class="default">$array </span><span class="keyword">= array( </span><span class="string">'null' </span><span class="keyword">=&gt; </span><span class="default">null</span><span class="keyword">, </span><span class="string">'nullstring' </span><span class="keyword">=&gt; </span><span class="string">''</span><span class="keyword">,  </span><span class="string">'intzero' </span><span class="keyword">=&gt; </span><span class="default">0</span><span class="keyword">,  </span><span class="string">'stringzero' </span><span class="keyword">=&gt; </span><span class="string">'0'</span><span class="keyword">, </span><span class="string">'false' </span><span class="keyword">=&gt; </span><span class="default">false</span><span class="keyword">, </span><span class="string">'stringfalse' </span><span class="keyword">=&gt; </span><span class="string">'false'</span><span class="keyword">, );<br /><br /></span><span class="comment">// Removes null, null-string -- but also FALSE!<br /></span><span class="default">$filtered1 </span><span class="keyword">= </span><span class="default">array_filter</span><span class="keyword">( </span><span class="default">$array</span><span class="keyword">, </span><span class="string">'strlen' </span><span class="keyword">);<br /><br /></span><span class="comment">// Removes only null. <br /></span><span class="default">$filtered2 </span><span class="keyword">= </span><span class="default">array_filter</span><span class="keyword">( </span><span class="default">$array</span><span class="keyword">, function( </span><span class="default">$v </span><span class="keyword">) { return !</span><span class="default">is_null</span><span class="keyword">( </span><span class="default">$v </span><span class="keyword">); } );<br /><br /></span><span class="comment">// Removes null and null-string. Keeps FALSE and 0.<br /></span><span class="default">$filtered3 </span><span class="keyword">= </span><span class="default">array_filter</span><span class="keyword">( </span><span class="default">$array</span><span class="keyword">, function( </span><span class="default">$v </span><span class="keyword">) { return !( </span><span class="default">is_null</span><span class="keyword">( </span><span class="default">$v</span><span class="keyword">) or </span><span class="string">'' </span><span class="keyword">=== </span><span class="default">$v </span><span class="keyword">); } );<br /><br /></span><span class="default">var_dump</span><span class="keyword">( </span><span class="default">$array</span><span class="keyword">, </span><span class="default">$filtered1</span><span class="keyword">, </span><span class="default">$filtered2</span><span class="keyword">, </span><span class="default">$filtered3 </span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />Results in:<br /><br />array (size=3)<br />  'intzero' =&gt; int 0<br />  'stringzero' =&gt; string '0' (length=1)<br />  'stringfalse' =&gt; string 'false' (length=5)<br /><br />array (size=5)<br />  'nullstring' =&gt; string '' (length=0)<br />  'intzero' =&gt; int 0<br />  'stringzero' =&gt; string '0' (length=1)<br />  'false' =&gt; boolean false<br />  'stringfalse' =&gt; string 'false' (length=5)<br /><br />array (size=4)<br />  'intzero' =&gt; int 0<br />  'stringzero' =&gt; string '0' (length=1)<br />  'false' =&gt; boolean false<br />  'stringfalse' =&gt; string 'false' (length=5)</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="128757">  <div class="votes">
+    <div id="Vu128757">
+    <a href="https://www.php.net/manual/vote-note.php?id=128757&amp;page=function.array-filter&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd128757">
+    <a href="https://www.php.net/manual/vote-note.php?id=128757&amp;page=function.array-filter&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V128757" title="100% like this...">
+    1
+    </div>
+  </div>
+  <a href="function.array-filter.php.html#128757" class="name">
+  <strong class="user"><em>Hayley Watson</em></strong></a><a class="genanchor" href="function.array-filter.php.html#128757"> &para;</a><div class="date" title="2023-07-25 06:20"><strong>6 months ago</strong></div>
+  <div class="text" id="Hcom128757">
+<div class="phpcode"><code><span class="html">The fact that array_filter preserves keys makes partitioning an array into [elements that pass the test, elements that fail the test] quite easy. In essence:<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">partition</span><span class="keyword">(</span><span class="default">$array</span><span class="keyword">, </span><span class="default">$test</span><span class="keyword">)<br />{<br />    </span><span class="default">$pass </span><span class="keyword">= </span><span class="default">array_filter</span><span class="keyword">(</span><span class="default">$array</span><span class="keyword">, </span><span class="default">$test</span><span class="keyword">);<br />    </span><span class="default">$fail </span><span class="keyword">= </span><span class="default">array_diff_key</span><span class="keyword">(</span><span class="default">$array</span><span class="keyword">, </span><span class="default">$pass</span><span class="keyword">);<br />    return [</span><span class="default">false </span><span class="keyword">=&gt; </span><span class="default">$fail</span><span class="keyword">, </span><span class="default">true </span><span class="keyword">=&gt; </span><span class="default">$pass</span><span class="keyword">];<br />}<br /></span><span class="default">?&gt;<br /></span><br />The array_diff_key call is key; indexing the returned array as shown allows lines like "$failures = $partition[false];" to do the right thing (the booleans get converted to integers of course, but it's consistent and self-documenting).</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="127216">  <div class="votes">
+    <div id="Vu127216">
+    <a href="https://www.php.net/manual/vote-note.php?id=127216&amp;page=function.array-filter&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd127216">
+    <a href="https://www.php.net/manual/vote-note.php?id=127216&amp;page=function.array-filter&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V127216" title="25% like this...">
+    -2
+    </div>
+  </div>
+  <a href="function.array-filter.php.html#127216" class="name">
+  <strong class="user"><em>justinphiggs at gmail dot com</em></strong></a><a class="genanchor" href="function.array-filter.php.html#127216"> &para;</a><div class="date" title="2022-07-03 08:51"><strong>1 year ago</strong></div>
+  <div class="text" id="Hcom127216">
+<div class="phpcode"><code><span class="html">Check if all elements in array are not empty/null/falsy.<br />------------------------------<br />Supposing you have a one dimensional array...<br /><br /><span class="default">&lt;?php<br />  $spicy_numbers </span><span class="keyword">= [</span><span class="default">69</span><span class="keyword">, </span><span class="default">420</span><span class="keyword">, </span><span class="default">ɸ</span><span class="keyword">];<br /></span><span class="default">?&gt;<br /></span><br />And you want to easily check that all elements in said array are not null/empty/any falsy value, instead of running a loop over each element, you can pass the array to <span class="default">&lt;?php array_filter</span><span class="keyword">() </span><span class="default">?&gt;</span>, with no callback function, and then check if the returned array is the same size as the original, since <span class="default">&lt;?php array_filter</span><span class="keyword">() </span><span class="default">?&gt;</span> strips out all non-truthy values including 0 when no callback is provided.<br /><br />Example:<br /><span class="default">&lt;?php<br />  $spicy_numbers </span><span class="keyword">= [</span><span class="default">69</span><span class="keyword">, </span><span class="default">420</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">]; </span><span class="comment">// Phi is gone!<br /><br />  </span><span class="keyword">if ( </span><span class="default">count</span><span class="keyword">( </span><span class="default">array_filter</span><span class="keyword">( </span><span class="default">$spicy_numbers </span><span class="keyword">) ) !== </span><span class="default">count</span><span class="keyword">( </span><span class="default">$spicy_numbers </span><span class="keyword">) ) {<br />    </span><span class="comment">// One of the elements is empty/null/falsy.<br />  </span><span class="keyword">} else {<br />    </span><span class="comment">// All elements present and truthy.<br />  </span><span class="keyword">}<br /></span><span class="default">?&gt;<br /></span><br />As a neat little function, you could do this:<br /><span class="default">&lt;?php<br />  </span><span class="comment">/**<br />   * Checks if all of given array's elements have a non-falsy value.<br />   * Use-case: If all items in array are set and have a value (truthy, of course), then do X; else, do Y.<br />   * <br />   * @param array $arr <br />   * @return bool<br />   */<br />  </span><span class="keyword">function </span><span class="default">is_array_full</span><span class="keyword">( </span><span class="default">$arr </span><span class="keyword">) {<br />    </span><span class="default">$array_count    </span><span class="keyword">= </span><span class="default">count</span><span class="keyword">( </span><span class="default">$arr </span><span class="keyword">);<br />    </span><span class="default">$filtered_count </span><span class="keyword">= </span><span class="default">count</span><span class="keyword">( </span><span class="default">array_filter</span><span class="keyword">( </span><span class="default">$arr </span><span class="keyword">) );<br />    <br />    return ( </span><span class="default">$array_count </span><span class="keyword">=== </span><span class="default">$filtered_count </span><span class="keyword">) ? </span><span class="default">true </span><span class="keyword">: </span><span class="default">false</span><span class="keyword">;<br />  }<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=function.array-filter&amp;redirect=https://www.php.net/manual/ru/function.array-filter.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="ref.array.php.html">Функции для работы с массивами</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="function.array-change-key-case.php.html" title="array_&#8203;change_&#8203;key_&#8203;case">array_&#8203;change_&#8203;key_&#8203;case</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.array-chunk.php.html" title="array_&#8203;chunk">array_&#8203;chunk</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.array-column.php.html" title="array_&#8203;column">array_&#8203;column</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.array-combine.php.html" title="array_&#8203;combine">array_&#8203;combine</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.array-count-values.php.html" title="array_&#8203;count_&#8203;values">array_&#8203;count_&#8203;values</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.array-diff-assoc.php.html" title="array_&#8203;diff_&#8203;assoc">array_&#8203;diff_&#8203;assoc</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.array-diff-key.php.html" title="array_&#8203;diff_&#8203;key">array_&#8203;diff_&#8203;key</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.array-diff-uassoc.php.html" title="array_&#8203;diff_&#8203;uassoc">array_&#8203;diff_&#8203;uassoc</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.array-diff-ukey.php.html" title="array_&#8203;diff_&#8203;ukey">array_&#8203;diff_&#8203;ukey</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.array-diff.php.html" title="array_&#8203;diff">array_&#8203;diff</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.array-fill-keys.php.html" title="array_&#8203;fill_&#8203;keys">array_&#8203;fill_&#8203;keys</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.array-fill.php.html" title="array_&#8203;fill">array_&#8203;fill</a>
+                        </li>
+                                                <li class="current">
+                            <a href="function.array-filter.php.html" title="array_&#8203;filter">array_&#8203;filter</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.array-flip.php.html" title="array_&#8203;flip">array_&#8203;flip</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.array-intersect-assoc.php.html" title="array_&#8203;intersect_&#8203;assoc">array_&#8203;intersect_&#8203;assoc</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.array-intersect-key.php.html" title="array_&#8203;intersect_&#8203;key">array_&#8203;intersect_&#8203;key</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.array-intersect-uassoc.php.html" title="array_&#8203;intersect_&#8203;uassoc">array_&#8203;intersect_&#8203;uassoc</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.array-intersect-ukey.php.html" title="array_&#8203;intersect_&#8203;ukey">array_&#8203;intersect_&#8203;ukey</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.array-intersect.php.html" title="array_&#8203;intersect">array_&#8203;intersect</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.array-is-list.php.html" title="array_&#8203;is_&#8203;list">array_&#8203;is_&#8203;list</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.array-key-exists.php.html" title="array_&#8203;key_&#8203;exists">array_&#8203;key_&#8203;exists</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.array-key-first.php.html" title="array_&#8203;key_&#8203;first">array_&#8203;key_&#8203;first</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.array-key-last.php.html" title="array_&#8203;key_&#8203;last">array_&#8203;key_&#8203;last</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.array-keys.php.html" title="array_&#8203;keys">array_&#8203;keys</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.array-map.php.html" title="array_&#8203;map">array_&#8203;map</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.array-merge-recursive.php.html" title="array_&#8203;merge_&#8203;recursive">array_&#8203;merge_&#8203;recursive</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.array-merge.php.html" title="array_&#8203;merge">array_&#8203;merge</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.array-multisort.php.html" title="array_&#8203;multisort">array_&#8203;multisort</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.array-pad.php.html" title="array_&#8203;pad">array_&#8203;pad</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.array-pop.php.html" title="array_&#8203;pop">array_&#8203;pop</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.array-product.php.html" title="array_&#8203;product">array_&#8203;product</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.array-push.php.html" title="array_&#8203;push">array_&#8203;push</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.array-rand.php.html" title="array_&#8203;rand">array_&#8203;rand</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.array-reduce.php.html" title="array_&#8203;reduce">array_&#8203;reduce</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.array-replace-recursive.php.html" title="array_&#8203;replace_&#8203;recursive">array_&#8203;replace_&#8203;recursive</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.array-replace.php.html" title="array_&#8203;replace">array_&#8203;replace</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.array-reverse.php.html" title="array_&#8203;reverse">array_&#8203;reverse</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.array-search.php.html" title="array_&#8203;search">array_&#8203;search</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.array-shift.php.html" title="array_&#8203;shift">array_&#8203;shift</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.array-slice.php.html" title="array_&#8203;slice">array_&#8203;slice</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.array-splice.php.html" title="array_&#8203;splice">array_&#8203;splice</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.array-sum.php.html" title="array_&#8203;sum">array_&#8203;sum</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.array-udiff-assoc.php.html" title="array_&#8203;udiff_&#8203;assoc">array_&#8203;udiff_&#8203;assoc</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.array-udiff-uassoc.php.html" title="array_&#8203;udiff_&#8203;uassoc">array_&#8203;udiff_&#8203;uassoc</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.array-udiff.php.html" title="array_&#8203;udiff">array_&#8203;udiff</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.array-uintersect-assoc.php.html" title="array_&#8203;uintersect_&#8203;assoc">array_&#8203;uintersect_&#8203;assoc</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.array-uintersect-uassoc.php.html" title="array_&#8203;uintersect_&#8203;uassoc">array_&#8203;uintersect_&#8203;uassoc</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.array-uintersect.php.html" title="array_&#8203;uintersect">array_&#8203;uintersect</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.array-unique.php.html" title="array_&#8203;unique">array_&#8203;unique</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.array-unshift.php.html" title="array_&#8203;unshift">array_&#8203;unshift</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.array-values.php.html" title="array_&#8203;values">array_&#8203;values</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.array-walk-recursive.php.html" title="array_&#8203;walk_&#8203;recursive">array_&#8203;walk_&#8203;recursive</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.array-walk.php.html" title="array_&#8203;walk">array_&#8203;walk</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.array.php.html" title="array">array</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.arsort.php.html" title="arsort">arsort</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.asort.php.html" title="asort">asort</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.compact.php.html" title="compact">compact</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.count.php.html" title="count">count</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.current.php.html" title="current">current</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.end.php.html" title="end">end</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.extract.php.html" title="extract">extract</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.in-array.php.html" title="in_&#8203;array">in_&#8203;array</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.key-exists.php.html" title="key_&#8203;exists">key_&#8203;exists</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.key.php.html" title="key">key</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.krsort.php.html" title="krsort">krsort</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.ksort.php.html" title="ksort">ksort</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.list.php.html" title="list">list</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.natcasesort.php.html" title="natcasesort">natcasesort</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.natsort.php.html" title="natsort">natsort</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.next.php.html" title="next">next</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.pos.php.html" title="pos">pos</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.prev.php.html" title="prev">prev</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.range.php.html" title="range">range</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.reset.php.html" title="reset">reset</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.rsort.php.html" title="rsort">rsort</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.shuffle.php.html" title="shuffle">shuffle</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.sizeof.php.html" title="sizeof">sizeof</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.sort.php.html" title="sort">sort</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.uasort.php.html" title="uasort">uasort</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.uksort.php.html" title="uksort">uksort</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.usort.php.html" title="usort">usort</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                        <li>
+                <span class="header">Deprecated</span>
+                <ul class="child-menu-list">
+                                    <li class="">
+                        <a href="function.each.php.html" title="each">each</a>
+                    </li>
+                                </ul>
+            </li>
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

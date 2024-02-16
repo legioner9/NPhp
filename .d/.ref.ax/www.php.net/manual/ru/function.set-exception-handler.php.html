@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: set_exception_handler - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="function.set-exception-handler.php.html">
+ <link rel="shorturl" href="https://www.php.net/set-exception-handler">
+ <link rel="alternate" href="https://www.php.net/set-exception-handler" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="ref.errorfunc.php.html">
+ <link rel="prev" href="function.set-error-handler.php.html">
+ <link rel="next" href="function.trigger-error.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/function.set-exception-handler.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/function.set-exception-handler.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/function.set-exception-handler.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/function.set-exception-handler.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/function.set-exception-handler.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/function.set-exception-handler.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/function.set-exception-handler.php" hreflang="pt_BR">
+ <link rel="alternate" href="function.set-exception-handler.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/function.set-exception-handler.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/function.set-exception-handler.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="function.trigger-error.php.html">
+          trigger_error &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="function.set-error-handler.php.html">
+          &laquo; set_error_handler        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.basic.php.php.html'>Изменение поведения PHP</a></li>      <li><a href='book.errorfunc.php.html'>Обработка ошибок</a></li>      <li><a href='ref.errorfunc.php.html'>Функции обработки ошибок</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/function.set-exception-handler.php'>English</option>
+            <option value='de/function.set-exception-handler.php'>German</option>
+            <option value='es/function.set-exception-handler.php'>Spanish</option>
+            <option value='fr/function.set-exception-handler.php'>French</option>
+            <option value='it/function.set-exception-handler.php'>Italian</option>
+            <option value='ja/function.set-exception-handler.php'>Japanese</option>
+            <option value='pt_BR/function.set-exception-handler.php'>Brazilian Portuguese</option>
+            <option value='ru/function.set-exception-handler.php' selected="selected">Russian</option>
+            <option value='tr/function.set-exception-handler.php'>Turkish</option>
+            <option value='zh/function.set-exception-handler.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/errorfunc/functions/set-exception-handler.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Ffunction.set-exception-handler%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="function.set-exception-handler" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">set_exception_handler</h1>
+  <p class="verinfo">(PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">set_exception_handler</span> &mdash; <span class="dc-title">
+   Задаёт пользовательский обработчик исключений
+  </span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.set-exception-handler-description">
+  <h3 class="title">Описание</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="methodname"><strong>set_exception_handler</strong></span>(<span class="methodparam"><span class="type">?</span><span class="type"><span class="type"><a href="language.types.callable.php.html" class="type callable">callable</a></span><span class="type"></span></span> <code class="parameter">$callback</code></span>): <span class="type"><span class="type">?</span><span class="type"><a href="language.types.callable.php.html" class="type callable">callable</a></span></span></div>
+
+  <p class="para rdfs-comment">
+   Задаёт обработчик по умолчанию для случаев, когда исключение выброшено
+   вне блока try/catch. После вызова <code class="parameter">callback</code>
+   выполнение будет остановлено.
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.set-exception-handler-parameters">
+  <h3 class="title">Список параметров</h3>
+  <p class="para">
+   <dl>
+    
+     <dt>
+<code class="parameter">callback</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Функция, вызываемая при возникновении неперехваченного исключения.
+       Эта функция-обработчик должна принимать один параметр, которым будет
+       объект выброшенного исключения <span class="classname"><a href="class.throwable.php.html" class="classname">Throwable</a></span>.
+       И <span class="classname"><a href="class.error.php.html" class="classname">Error</a></span> и <span class="classname"><a href="class.exception.php.html" class="classname">Exception</a></span>
+       реализуют интерфейс <span class="classname"><a href="class.throwable.php.html" class="classname">Throwable</a></span>.
+       Сигнатура обработчика:
+      </p>
+      <p class="para">
+       <div class="methodsynopsis dc-description">
+        <span class="methodname"><span class="replaceable">handler</span></span>(<span class="methodparam"><span class="type"><a href="class.throwable.php.html" class="type Throwable">Throwable</a></span> <code class="parameter">$ex</code></span>): <span class="type"><span class="type void">void</span></span></div>
+
+      </p>
+      <p class="para">
+       В качестве этого аргумента можно передать <strong><code>null</code></strong>. В этом случае
+       обработчик вернётся к своему изначальному состоянию.
+      </p>
+     </dd>
+
+    
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.set-exception-handler-returnvalues">
+  <h3 class="title">Возвращаемые значения</h3>
+  <p class="para">
+   Возвращает ранее определённый обработчик исключений или <strong><code>null</code></strong> в случае
+   ошибки. Если предыдущих обработчиков определено не было, то также
+   возвращается <strong><code>null</code></strong>.
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.set-exception-handler-examples">
+  <h3 class="title">Примеры</h3>
+  <p class="para">
+   <div class="example" id="example-1579">
+    <p><strong>Пример #1 
+     Пример использования <span class="function"><strong>set_exception_handler()</strong></span>
+    </strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function </span><span style="color: #0000BB">exception_handler</span><span style="color: #007700">(</span><span style="color: #0000BB">Throwable $exception</span><span style="color: #007700">) {<br />  echo </span><span style="color: #DD0000">"Неперехваченное исключение: " </span><span style="color: #007700">, </span><span style="color: #0000BB">$exception</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getMessage</span><span style="color: #007700">(), </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">set_exception_handler</span><span style="color: #007700">(</span><span style="color: #DD0000">'exception_handler'</span><span style="color: #007700">);<br /><br />throw new </span><span style="color: #0000BB">Exception</span><span style="color: #007700">(</span><span style="color: #DD0000">'Неперехваченное исключение'</span><span style="color: #007700">);<br />echo </span><span style="color: #DD0000">"Не выполнено\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.set-exception-handler-seealso">
+  <h3 class="title">Смотрите также</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.restore-exception-handler.php.html" class="function" rel="rdfs-seeAlso">restore_exception_handler()</a> - Восстанавливает предыдущий обработчик исключений</span></li>
+    <li class="member"><span class="function"><a href="function.restore-error-handler.php.html" class="function" rel="rdfs-seeAlso">restore_error_handler()</a> - Восстанавливает предыдущий обработчик ошибок</span></li>
+    <li class="member"><span class="function"><a href="function.error-reporting.php.html" class="function" rel="rdfs-seeAlso">error_reporting()</a> - Устанавливает, какие ошибки PHP попадут в отчёт</span></li>
+    <li class="member"><a href="language.exceptions.php.html" class="link">Исключения</a></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=function.set-exception-handler&amp;redirect=https://www.php.net/manual/ru/function.set-exception-handler.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">18 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="95170">  <div class="votes">
+    <div id="Vu95170">
+    <a href="https://www.php.net/manual/vote-note.php?id=95170&amp;page=function.set-exception-handler&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd95170">
+    <a href="https://www.php.net/manual/vote-note.php?id=95170&amp;page=function.set-exception-handler&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V95170" title="77% like this...">
+    83
+    </div>
+  </div>
+  <a href="function.set-exception-handler.php.html#95170" class="name">
+  <strong class="user"><em>Anonymous</em></strong></a><a class="genanchor" href="function.set-exception-handler.php.html#95170"> &para;</a><div class="date" title="2009-12-16 06:12"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom95170">
+<div class="phpcode"><code><span class="html">Things you should be aware of:<br /><br />An exception handler handles exceptions that were not caught before. It is the nature of an exception that it discontinues execution of your program - since it declares an exceptional situation in which the program cannot continue (except you catch it).<br /><br />Since it has not been catched your code signals it is not being aware of the situation and cant go on.<br /><br />This implies: returning to the script is simply impossible when the exception handler has already been called, since an uncaught exception is not a notice. use your own debug- or notice-log-system for things like that.<br /><br />Furthermore: While is is still possible to call functions from your script, since the exception handler has already been called exceptions bubbling from that piece of code won't trigger the exception handler again. php will die without leaving any information apart form "uncaught exception with unknown stack frame". So if you call functions from your script, make sure that you catch any exceptions that possibly occur via try..catch inside the exception handler.<br /><br />For those of you who misinterpreted the essential meaning of the exception handler: it's only use is to handle the abortion of your script gracefully, e.g. in a project like facebook or wikipedia: render a nice error page, eventually hiding information which shall not leak into the public (instead you may want to write to your log or mail the sys-admin or stuff like that).<br /><br />In other words: Redirecting all php-errors form an error-handler using exceptions - including notices - is a very dumb idea, if you do not intend having your script aborted everytime you didn't set a variable (for example).<br /><br />my 2 cents.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="125102">  <div class="votes">
+    <div id="Vu125102">
+    <a href="https://www.php.net/manual/vote-note.php?id=125102&amp;page=function.set-exception-handler&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd125102">
+    <a href="https://www.php.net/manual/vote-note.php?id=125102&amp;page=function.set-exception-handler&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V125102" title="76% like this...">
+    7
+    </div>
+  </div>
+  <a href="function.set-exception-handler.php.html#125102" class="name">
+  <strong class="user"><em>ohcc at 163 dot com</em></strong></a><a class="genanchor" href="function.set-exception-handler.php.html#125102"> &para;</a><div class="date" title="2020-06-09 04:05"><strong>3 years ago</strong></div>
+  <div class="text" id="Hcom125102">
+<div class="phpcode"><code><span class="html">As of PHP 7.4, an exception thrown within the user-defined shutdown function can be caught by the user-defined exception handler.<br /><br /><span class="default">&lt;?php<br />    set_error_handler</span><span class="keyword">(<br />        function(</span><span class="default">$level</span><span class="keyword">, </span><span class="default">$error</span><span class="keyword">, </span><span class="default">$file</span><span class="keyword">, </span><span class="default">$line</span><span class="keyword">){<br />            if(</span><span class="default">0 </span><span class="keyword">=== </span><span class="default">error_reporting</span><span class="keyword">()){<br />                return </span><span class="default">false</span><span class="keyword">;<br />            }<br />            throw new </span><span class="default">ErrorException</span><span class="keyword">(</span><span class="default">$error</span><span class="keyword">, -</span><span class="default">1</span><span class="keyword">, </span><span class="default">$level</span><span class="keyword">, </span><span class="default">$file</span><span class="keyword">, </span><span class="default">$line</span><span class="keyword">);<br />        },<br />        </span><span class="default">E_ALL<br />    </span><span class="keyword">);<br /><br />    </span><span class="default">register_shutdown_function</span><span class="keyword">(function(){<br />        </span><span class="default">$error </span><span class="keyword">= </span><span class="default">error_get_last</span><span class="keyword">();<br />        if(</span><span class="default">$error</span><span class="keyword">){<br />            throw new </span><span class="default">ErrorException</span><span class="keyword">(</span><span class="default">$error</span><span class="keyword">[</span><span class="string">'message'</span><span class="keyword">], -</span><span class="default">1</span><span class="keyword">, </span><span class="default">$error</span><span class="keyword">[</span><span class="string">'type'</span><span class="keyword">], </span><span class="default">$error</span><span class="keyword">[</span><span class="string">'file'</span><span class="keyword">], </span><span class="default">$error</span><span class="keyword">[</span><span class="string">'line'</span><span class="keyword">]);<br />        }<br />    });<br /><br />    </span><span class="default">set_exception_handler</span><span class="keyword">(function(</span><span class="default">$exception</span><span class="keyword">){<br />        </span><span class="comment">// ... more code ...<br />    </span><span class="keyword">});    <br />    <br />    require </span><span class="string">'NotExists.php'</span><span class="keyword">;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="73607">  <div class="votes">
+    <div id="Vu73607">
+    <a href="https://www.php.net/manual/vote-note.php?id=73607&amp;page=function.set-exception-handler&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd73607">
+    <a href="https://www.php.net/manual/vote-note.php?id=73607&amp;page=function.set-exception-handler&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V73607" title="69% like this...">
+    19
+    </div>
+  </div>
+  <a href="function.set-exception-handler.php.html#73607" class="name">
+  <strong class="user"><em>Glen</em></strong></a><a class="genanchor" href="function.set-exception-handler.php.html#73607"> &para;</a><div class="date" title="2007-03-03 12:34"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom73607">
+<div class="phpcode"><code><span class="html">If you want a class instance to handle the exception, this is how you do it :<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">class </span><span class="default">example </span><span class="keyword">{<br />   public function </span><span class="default">__construct</span><span class="keyword">() {<br />       @</span><span class="default">set_exception_handler</span><span class="keyword">(array(</span><span class="default">$this</span><span class="keyword">, </span><span class="string">'exception_handler'</span><span class="keyword">));<br />       throw new </span><span class="default">Exception</span><span class="keyword">(</span><span class="string">'DOH!!'</span><span class="keyword">);<br />   }<br /><br />   public function </span><span class="default">exception_handler</span><span class="keyword">(</span><span class="default">$exception</span><span class="keyword">) {<br />       print </span><span class="string">"Exception Caught: "</span><span class="keyword">. </span><span class="default">$exception</span><span class="keyword">-&gt;</span><span class="default">getMessage</span><span class="keyword">() .</span><span class="string">"\n"</span><span class="keyword">;<br />   }<br />}<br /><br /></span><span class="default">$example </span><span class="keyword">= new </span><span class="default">example</span><span class="keyword">;<br /><br /></span><span class="default">?&gt;<br /></span><br />See the first post (Sean's) for a static example.  As Sean points out, the exception_handler function must be declared public.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="68712">  <div class="votes">
+    <div id="Vu68712">
+    <a href="https://www.php.net/manual/vote-note.php?id=68712&amp;page=function.set-exception-handler&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd68712">
+    <a href="https://www.php.net/manual/vote-note.php?id=68712&amp;page=function.set-exception-handler&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V68712" title="66% like this...">
+    10
+    </div>
+  </div>
+  <a href="function.set-exception-handler.php.html#68712" class="name">
+  <strong class="user"><em>mastabog at hotmail dot com</em></strong></a><a class="genanchor" href="function.set-exception-handler.php.html#68712"> &para;</a><div class="date" title="2006-08-08 07:44"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom68712">
+<div class="phpcode"><code><span class="html">A behaviour not documented or discussed enough, yet pretty common is that is that if an exception is thrown from the global exception handler then a fatal error occurs (Exception thrown without a stack frame). That is, if you define your own global exception handler by calling set_exception_handler() and you throw an exception from inside it then this fatal error occurs. It is only natural though, as the callback defined by set_exception_handler() is only called on uncaught (unhandled) exceptions so if you throw one from there then you get this fatal error as there is no exception handler left (you override the php internal one by calling set_exception_handler()), hence no stack frame for it.<br /><br />Example:<br /><br /><span class="default">&lt;?php<br /><br /></span><span class="keyword">function </span><span class="default">myExceptionHandler </span><span class="keyword">(</span><span class="default">Exception $ex</span><span class="keyword">)<br />{<br />    throw </span><span class="default">$ex</span><span class="keyword">;<br />}<br /><br /></span><span class="default">set_exception_handler</span><span class="keyword">(</span><span class="string">"myExceptionHandler"</span><span class="keyword">);<br /><br />throw new </span><span class="default">Exception</span><span class="keyword">(</span><span class="string">"This should cause a fatal error and this message will be lost"</span><span class="keyword">);<br /><br /></span><span class="default">?&gt;<br /></span><br />Will cause a Fatal error: Exception thrown without a stack frame<br /><br />If you skip/comment the set_exception_handler("...") line then the internal PHP global handler will catch the exception and output the exception message and trace (as string) to the browser, allowing you to at least see the exception message.<br /><br />While it is a very good idea to always define your own global exception handler by using the set_exception_handler() function, you should pay attention and never throw an exception from it (or if you do then catch it).<br /><br />Finally, every serious coder should use an IDE with debugging capabilities. Tracking down an error like this becomes a trivial matter by using simple debugging "Step into" commands (I for one recommend Zend IDE v5.2 at the moment of this writing). I have seen numerous messages on the internet with people wondering why this message pops up.<br /><br />Cheers<br /><br />p.s. Other causes for this error which are somehow unrelated to this is when you throw an exception from a destructor (the reasons behind that are similar though, the global handler might no longer exist due to the php engine shutting the page down).</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="98201">  <div class="votes">
+    <div id="Vu98201">
+    <a href="https://www.php.net/manual/vote-note.php?id=98201&amp;page=function.set-exception-handler&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd98201">
+    <a href="https://www.php.net/manual/vote-note.php?id=98201&amp;page=function.set-exception-handler&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V98201" title="65% like this...">
+    6
+    </div>
+  </div>
+  <a href="function.set-exception-handler.php.html#98201" class="name">
+  <strong class="user"><em>pinkgothic at gmail dot com</em></strong></a><a class="genanchor" href="function.set-exception-handler.php.html#98201"> &para;</a><div class="date" title="2010-06-01 02:30"><strong>13 years ago</strong></div>
+  <div class="text" id="Hcom98201">
+<div class="phpcode"><code><span class="html">If you're handling sensitive data and you don't want exceptions logging details such as variable contents when you throw them, you may find yourself frustratedly looking for the bits and pieces that make up a normal stack trace output, so you can retain its legibility but just alter a few things. In that case, this may help you:<br /><br /><span class="default">&lt;?php<br /><br /></span><span class="keyword">function </span><span class="default">exceptionHandler</span><span class="keyword">(</span><span class="default">$exception</span><span class="keyword">) {<br /><br />    </span><span class="comment">// these are our templates<br />    </span><span class="default">$traceline </span><span class="keyword">= </span><span class="string">"#%s %s(%s): %s(%s)"</span><span class="keyword">;<br />    </span><span class="default">$msg </span><span class="keyword">= </span><span class="string">"PHP Fatal error:  Uncaught exception '%s' with message '%s' in %s:%s\nStack trace:\n%s\n  thrown in %s on line %s"</span><span class="keyword">;<br /><br />    </span><span class="comment">// alter your trace as you please, here<br />    </span><span class="default">$trace </span><span class="keyword">= </span><span class="default">$exception</span><span class="keyword">-&gt;</span><span class="default">getTrace</span><span class="keyword">();<br />    foreach (</span><span class="default">$trace </span><span class="keyword">as </span><span class="default">$key </span><span class="keyword">=&gt; </span><span class="default">$stackPoint</span><span class="keyword">) {<br />        </span><span class="comment">// I'm converting arguments to their type<br />        // (prevents passwords from ever getting logged as anything other than 'string')<br />        </span><span class="default">$trace</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">][</span><span class="string">'args'</span><span class="keyword">] = </span><span class="default">array_map</span><span class="keyword">(</span><span class="string">'gettype'</span><span class="keyword">, </span><span class="default">$trace</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">][</span><span class="string">'args'</span><span class="keyword">]);<br />    }<br /><br />    </span><span class="comment">// build your tracelines<br />    </span><span class="default">$result </span><span class="keyword">= array();<br />    foreach (</span><span class="default">$trace </span><span class="keyword">as </span><span class="default">$key </span><span class="keyword">=&gt; </span><span class="default">$stackPoint</span><span class="keyword">) {<br />        </span><span class="default">$result</span><span class="keyword">[] = </span><span class="default">sprintf</span><span class="keyword">(<br />            </span><span class="default">$traceline</span><span class="keyword">,<br />            </span><span class="default">$key</span><span class="keyword">,<br />            </span><span class="default">$stackPoint</span><span class="keyword">[</span><span class="string">'file'</span><span class="keyword">],<br />            </span><span class="default">$stackPoint</span><span class="keyword">[</span><span class="string">'line'</span><span class="keyword">],<br />            </span><span class="default">$stackPoint</span><span class="keyword">[</span><span class="string">'function'</span><span class="keyword">],<br />            </span><span class="default">implode</span><span class="keyword">(</span><span class="string">', '</span><span class="keyword">, </span><span class="default">$stackPoint</span><span class="keyword">[</span><span class="string">'args'</span><span class="keyword">])<br />        );<br />    }<br />    </span><span class="comment">// trace always ends with {main}<br />    </span><span class="default">$result</span><span class="keyword">[] = </span><span class="string">'#' </span><span class="keyword">. ++</span><span class="default">$key </span><span class="keyword">. </span><span class="string">' {main}'</span><span class="keyword">;<br /><br />    </span><span class="comment">// write tracelines into main template<br />    </span><span class="default">$msg </span><span class="keyword">= </span><span class="default">sprintf</span><span class="keyword">(<br />        </span><span class="default">$msg</span><span class="keyword">,<br />        </span><span class="default">get_class</span><span class="keyword">(</span><span class="default">$exception</span><span class="keyword">),<br />        </span><span class="default">$exception</span><span class="keyword">-&gt;</span><span class="default">getMessage</span><span class="keyword">(),<br />        </span><span class="default">$exception</span><span class="keyword">-&gt;</span><span class="default">getFile</span><span class="keyword">(),<br />        </span><span class="default">$exception</span><span class="keyword">-&gt;</span><span class="default">getLine</span><span class="keyword">(),<br />        </span><span class="default">implode</span><span class="keyword">(</span><span class="string">"\n"</span><span class="keyword">, </span><span class="default">$result</span><span class="keyword">),<br />        </span><span class="default">$exception</span><span class="keyword">-&gt;</span><span class="default">getFile</span><span class="keyword">(),<br />        </span><span class="default">$exception</span><span class="keyword">-&gt;</span><span class="default">getLine</span><span class="keyword">()<br />    );<br /><br />    </span><span class="comment">// log or echo as you please<br />    </span><span class="default">error_log</span><span class="keyword">(</span><span class="default">$msg</span><span class="keyword">);<br />}<br /><br /></span><span class="default">?&gt;<br /></span><br />If you're not a fan of sprintf() or the duplicate $exception-&gt;getFile() and $exception-&gt;getLine() calls you can of course replace that as you like - consider this a mere compilation of the parts.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="115781">  <div class="votes">
+    <div id="Vu115781">
+    <a href="https://www.php.net/manual/vote-note.php?id=115781&amp;page=function.set-exception-handler&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd115781">
+    <a href="https://www.php.net/manual/vote-note.php?id=115781&amp;page=function.set-exception-handler&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V115781" title="63% like this...">
+    5
+    </div>
+  </div>
+  <a href="function.set-exception-handler.php.html#115781" class="name">
+  <strong class="user"><em>Josef Spak</em></strong></a><a class="genanchor" href="function.set-exception-handler.php.html#115781"> &para;</a><div class="date" title="2014-09-22 10:34"><strong>9 years ago</strong></div>
+  <div class="text" id="Hcom115781">
+<div class="phpcode"><code><span class="html">On GNU/Linux, When an exception handler is called, PHP will end with exit status code 0 instead of 255.<br /><br />You can change the exit status code with an exit() call at the end of your custom error handler.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="82512">  <div class="votes">
+    <div id="Vu82512">
+    <a href="https://www.php.net/manual/vote-note.php?id=82512&amp;page=function.set-exception-handler&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd82512">
+    <a href="https://www.php.net/manual/vote-note.php?id=82512&amp;page=function.set-exception-handler&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V82512" title="64% like this...">
+    4
+    </div>
+  </div>
+  <a href="function.set-exception-handler.php.html#82512" class="name">
+  <strong class="user"><em>marques at displague dot com</em></strong></a><a class="genanchor" href="function.set-exception-handler.php.html#82512"> &para;</a><div class="date" title="2008-04-14 07:19"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom82512">
+<div class="phpcode"><code><span class="html">frank,<br /><br />Your exception handler is configured to be the handler for all exceptions, yet if a basic 'Exception' is thrown, your static method will error because 'Exception's do not have 'getException'.  Because of this I don't see a real purpose to making the uncaught handler a class that extends Exception.  <br /><br />I do like the idea of using static methods of a general Exception handling class.  <br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">class </span><span class="default">ExceptionHandler </span><span class="keyword">{   <br />    public static function </span><span class="default">printException</span><span class="keyword">(</span><span class="default">Exception $e</span><span class="keyword">)<br />    {<br />        print </span><span class="string">'Uncaught '</span><span class="keyword">.</span><span class="default">get_class</span><span class="keyword">(</span><span class="default">$e</span><span class="keyword">).</span><span class="string">', code: ' </span><span class="keyword">. </span><span class="default">$e</span><span class="keyword">-&gt;</span><span class="default">getCode</span><span class="keyword">() . </span><span class="string">"&lt;br /&gt;Message: " </span><span class="keyword">. </span><span class="default">htmlentities</span><span class="keyword">(</span><span class="default">$e</span><span class="keyword">-&gt;</span><span class="default">getMessage</span><span class="keyword">()).</span><span class="string">"\n"</span><span class="keyword">;<br />    }<br />   <br />    public static function </span><span class="default">handleException</span><span class="keyword">(</span><span class="default">Exception $e</span><span class="keyword">)<br />    {<br />         </span><span class="default">self</span><span class="keyword">::</span><span class="default">printException</span><span class="keyword">(</span><span class="default">$e</span><span class="keyword">);<br />    }<br />}<br /><br /></span><span class="default">set_exception_handler</span><span class="keyword">(array(</span><span class="string">"ExceptionHandler"</span><span class="keyword">, </span><span class="string">"handleException"</span><span class="keyword">));<br /><br />class </span><span class="default">NewException </span><span class="keyword">extends </span><span class="default">Exception </span><span class="keyword">{}<br />try {<br />  throw new </span><span class="default">NewException</span><span class="keyword">(</span><span class="string">"Catch me once"</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">);<br />} catch (</span><span class="default">Exception $e</span><span class="keyword">) {<br />  </span><span class="default">ExceptionHandler</span><span class="keyword">::</span><span class="default">handleException</span><span class="keyword">(</span><span class="default">$e</span><span class="keyword">);<br />}<br /><br />throw new </span><span class="default">Exception</span><span class="keyword">(</span><span class="string">"Catch me twice"</span><span class="keyword">, </span><span class="default">2</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />Gives:<br />Uncaught NewException, code: 1&lt;br /&gt;Message: Catch me once<br />Uncaught Exception, code: 2&lt;br /&gt;Message: Catch me twice<br /><br />There are much more interesting things that can be done like reformating and optionally displaying or emailing them.  But this class acts a nice container for those functions.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="78985">  <div class="votes">
+    <div id="Vu78985">
+    <a href="https://www.php.net/manual/vote-note.php?id=78985&amp;page=function.set-exception-handler&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd78985">
+    <a href="https://www.php.net/manual/vote-note.php?id=78985&amp;page=function.set-exception-handler&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V78985" title="62% like this...">
+    2
+    </div>
+  </div>
+  <a href="function.set-exception-handler.php.html#78985" class="name">
+  <strong class="user"><em>frank at netventures dot com dot au</em></strong></a><a class="genanchor" href="function.set-exception-handler.php.html#78985"> &para;</a><div class="date" title="2007-11-05 10:10"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom78985">
+<div class="phpcode"><code><span class="html">Hey all, i've just started to use the exception suite instead of the normal PHP error suite. For those of you looking for an object orientated way to do this without looking down at Glen and Sean's examples (Lesson 1: ALWAYS read the logs!), here you go:<br /><br /><span class="default">&lt;?php<br /><br /></span><span class="keyword">class </span><span class="default">NewException </span><span class="keyword">extends </span><span class="default">Exception<br /></span><span class="keyword">{<br />    public function </span><span class="default">__construct</span><span class="keyword">(</span><span class="default">$message</span><span class="keyword">, </span><span class="default">$code</span><span class="keyword">=</span><span class="default">NULL</span><span class="keyword">)<br />    {<br />        </span><span class="default">parent</span><span class="keyword">::</span><span class="default">__construct</span><span class="keyword">(</span><span class="default">$message</span><span class="keyword">, </span><span class="default">$code</span><span class="keyword">);<br />    }<br />    <br />    public function </span><span class="default">__toString</span><span class="keyword">()<br />    {<br />        return </span><span class="string">"Code: " </span><span class="keyword">. </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">getCode</span><span class="keyword">() . </span><span class="string">"&lt;br /&gt;Message: " </span><span class="keyword">. </span><span class="default">htmlentities</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">getMessage</span><span class="keyword">());<br />    }<br />    <br />    public function </span><span class="default">getException</span><span class="keyword">()<br />    {<br />        print </span><span class="default">$this</span><span class="keyword">; </span><span class="comment">// This will print the return from the above method __toString()<br />    </span><span class="keyword">}<br />    <br />    public static function </span><span class="default">getStaticException</span><span class="keyword">(</span><span class="default">$exception</span><span class="keyword">)<br />    {<br />         </span><span class="default">$exception</span><span class="keyword">-&gt;</span><span class="default">getException</span><span class="keyword">(); </span><span class="comment">// $exception is an instance of this class<br />    </span><span class="keyword">}<br />}<br /><br /></span><span class="default">set_exception_handler</span><span class="keyword">(array(</span><span class="string">"NewException"</span><span class="keyword">, </span><span class="string">"getStaticException"</span><span class="keyword">));<br />throw new </span><span class="default">NewException</span><span class="keyword">(</span><span class="string">"Catch me!!!"</span><span class="keyword">, </span><span class="default">69</span><span class="keyword">);<br /><br /></span><span class="default">?&gt;<br /></span><br />Let me know if i'm missing something obvious as I left my glasses at home and I just came back from the Melbourne cup (If I won then I wouldn't be at work still!).</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="58086">  <div class="votes">
+    <div id="Vu58086">
+    <a href="https://www.php.net/manual/vote-note.php?id=58086&amp;page=function.set-exception-handler&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd58086">
+    <a href="https://www.php.net/manual/vote-note.php?id=58086&amp;page=function.set-exception-handler&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V58086" title="62% like this...">
+    2
+    </div>
+  </div>
+  <a href="function.set-exception-handler.php.html#58086" class="name">
+  <strong class="user"><em>sean at seanodonnell dot com</em></strong></a><a class="genanchor" href="function.set-exception-handler.php.html#58086"> &para;</a><div class="date" title="2005-10-23 04:48"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom58086">
+<div class="phpcode"><code><span class="html">Using the 'set_exception_handler' function within a class, the defined 'exception_handler' method must be declared as 'public' (preferrable 'public static' if you use the "array('example', 'exception_handler')" syntax). <br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">class </span><span class="default">example </span><span class="keyword">{<br />    public function </span><span class="default">__construct</span><span class="keyword">() {<br />        @</span><span class="default">set_exception_handler</span><span class="keyword">(array(</span><span class="string">'example'</span><span class="keyword">, </span><span class="string">'exception_handler'</span><span class="keyword">));<br />        throw new </span><span class="default">Exception</span><span class="keyword">(</span><span class="string">'DOH!!'</span><span class="keyword">);<br />    }<br /><br />    public static function </span><span class="default">exception_handler</span><span class="keyword">(</span><span class="default">$exception</span><span class="keyword">) {<br />        print </span><span class="string">"Exception Caught: "</span><span class="keyword">. </span><span class="default">$exception</span><span class="keyword">-&gt;</span><span class="default">getMessage</span><span class="keyword">() .</span><span class="string">"\n"</span><span class="keyword">;<br />    }<br />}<br /><br /></span><span class="default">$example </span><span class="keyword">= new </span><span class="default">example</span><span class="keyword">;<br /><br />echo </span><span class="string">"Not Executed\n"</span><span class="keyword">;<br /></span><span class="default">?&gt;</span> <br /><br />Declaring the 'exception_handler' function as 'private' causes a FATAL ERROR.<br /><br />[derick: red. updated statement about static a bit]</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="114582">  <div class="votes">
+    <div id="Vu114582">
+    <a href="https://www.php.net/manual/vote-note.php?id=114582&amp;page=function.set-exception-handler&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd114582">
+    <a href="https://www.php.net/manual/vote-note.php?id=114582&amp;page=function.set-exception-handler&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V114582" title="60% like this...">
+    3
+    </div>
+  </div>
+  <a href="function.set-exception-handler.php.html#114582" class="name">
+  <strong class="user"><em>Anonymous</em></strong></a><a class="genanchor" href="function.set-exception-handler.php.html#114582"> &para;</a><div class="date" title="2014-03-08 11:42"><strong>9 years ago</strong></div>
+  <div class="text" id="Hcom114582">
+<div class="phpcode"><code><span class="html">By default the stack trace is pretty unreadable, so you might want to wrap it in &lt;pre&gt; tags. Here I also wrap it in a &lt;div&gt; and set the class 'alert alert-danger' which are CSS classes in the Bootstrap CSS framework to style them red.<br /><span class="default">&lt;?php<br /><br /></span><span class="keyword">function </span><span class="default">exception_handler</span><span class="keyword">(</span><span class="default">$exception</span><span class="keyword">) {<br />  echo </span><span class="string">'&lt;div class="alert alert-danger"&gt;'</span><span class="keyword">;<br />  echo </span><span class="string">'&lt;b&gt;Fatal error&lt;/b&gt;:  Uncaught exception \'' </span><span class="keyword">. </span><span class="default">get_class</span><span class="keyword">(</span><span class="default">$exception</span><span class="keyword">) . </span><span class="string">'\' with message '</span><span class="keyword">;<br />  echo </span><span class="default">$exception</span><span class="keyword">-&gt;</span><span class="default">getMessage</span><span class="keyword">() . </span><span class="string">'&lt;br&gt;'</span><span class="keyword">;<br />  echo </span><span class="string">'Stack trace:&lt;pre&gt;' </span><span class="keyword">. </span><span class="default">$exception</span><span class="keyword">-&gt;</span><span class="default">getTraceAsString</span><span class="keyword">() . </span><span class="string">'&lt;/pre&gt;'</span><span class="keyword">;<br />  echo </span><span class="string">'thrown in &lt;b&gt;' </span><span class="keyword">. </span><span class="default">$exception</span><span class="keyword">-&gt;</span><span class="default">getFile</span><span class="keyword">() . </span><span class="string">'&lt;/b&gt; on line &lt;b&gt;' </span><span class="keyword">. </span><span class="default">$exception</span><span class="keyword">-&gt;</span><span class="default">getLine</span><span class="keyword">() . </span><span class="string">'&lt;/b&gt;&lt;br&gt;'</span><span class="keyword">;<br />  echo </span><span class="string">'&lt;/div&gt;'</span><span class="keyword">;<br />}<br /><br /></span><span class="default">set_exception_handler</span><span class="keyword">(</span><span class="string">'exception_handler'</span><span class="keyword">);</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="120196">  <div class="votes">
+    <div id="Vu120196">
+    <a href="https://www.php.net/manual/vote-note.php?id=120196&amp;page=function.set-exception-handler&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd120196">
+    <a href="https://www.php.net/manual/vote-note.php?id=120196&amp;page=function.set-exception-handler&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V120196" title="60% like this...">
+    1
+    </div>
+  </div>
+  <a href="function.set-exception-handler.php.html#120196" class="name">
+  <strong class="user"><em>dev at codesatori dot com</em></strong></a><a class="genanchor" href="function.set-exception-handler.php.html#120196"> &para;</a><div class="date" title="2016-11-21 03:51"><strong>7 years ago</strong></div>
+  <div class="text" id="Hcom120196">
+<div class="phpcode"><code><span class="html">For those of you wanting to convert PHP errors to ErrorExceptions (useful), but frustrated with the script being halted on every E_NOTICE et al. In your error handler, simply create the ErrorException, and then either throw it (script halted), or pass the object directly (script continues) to your exception handler function.<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">const </span><span class="default">EXIT_ON_ALL_PHP_ERRORS </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">; </span><span class="comment">// or true<br /><br /></span><span class="keyword">function </span><span class="default">proc_error</span><span class="keyword">(</span><span class="default">$errno</span><span class="keyword">, </span><span class="default">$errstr</span><span class="keyword">, </span><span class="default">$errfile</span><span class="keyword">, </span><span class="default">$errline</span><span class="keyword">) <br />{<br />    </span><span class="default">$e </span><span class="keyword">= new </span><span class="default">ErrorException</span><span class="keyword">(</span><span class="default">$errstr</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">$errno</span><span class="keyword">, </span><span class="default">$errfile</span><span class="keyword">, </span><span class="default">$errline</span><span class="keyword">);<br />    <br />    if (</span><span class="default">EXIT_ON_ALL_PHP_ERRORS</span><span class="keyword">) {<br />        throw </span><span class="default">$e</span><span class="keyword">; </span><span class="comment">// This will halt your script.<br />    </span><span class="keyword">} else {<br />        </span><span class="default">proc_exception</span><span class="keyword">(</span><span class="default">$e</span><span class="keyword">); </span><span class="comment">// This will let it continue.<br />    </span><span class="keyword">}<br />}<br /><br /></span><span class="default">set_error_handler</span><span class="keyword">(</span><span class="string">"proc_error"</span><span class="keyword">);<br /></span><span class="default">set_exception_handler</span><span class="keyword">(</span><span class="string">"proc_exception"</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />You could further customize the error severity level (from $errno, match bitmasks with error level constants) at which the script is halted or allowed to continue. The above simply allows passthru for PHP errors' default behavior. <br /><br />If your exception handler is receiving both error ErrorExceptions (with severity level etc.) and other types of uncaught Exceptions, then use a <span class="default">&lt;?php </span><span class="keyword">if (</span><span class="default">$e </span><span class="keyword">instanceof </span><span class="default">ErrorException</span><span class="keyword">) { </span><span class="comment">// ... } </span><span class="default">?&gt;</span> condition to deal with the variance. I had to further wrap it into a <span class="default">&lt;?php </span><span class="keyword">try { </span><span class="default">$errno </span><span class="keyword">= </span><span class="default">$e</span><span class="keyword">-&gt;</span><span class="default">getSeverity</span><span class="keyword">(); } catch (</span><span class="default">Exception $x</span><span class="keyword">) { </span><span class="default">$errno </span><span class="keyword">= </span><span class="default">0 </span><span class="keyword">} ... </span><span class="default">?&gt;</span>, because some EE-s were mysteriously lacking the severity level property (yet to dig in and find out why).</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="88082">  <div class="votes">
+    <div id="Vu88082">
+    <a href="https://www.php.net/manual/vote-note.php?id=88082&amp;page=function.set-exception-handler&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd88082">
+    <a href="https://www.php.net/manual/vote-note.php?id=88082&amp;page=function.set-exception-handler&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V88082" title="54% like this...">
+    2
+    </div>
+  </div>
+  <a href="function.set-exception-handler.php.html#88082" class="name">
+  <strong class="user"><em>joshua dot boyle-petrie at its dot monash dot edu</em></strong></a><a class="genanchor" href="function.set-exception-handler.php.html#88082"> &para;</a><div class="date" title="2009-01-08 11:44"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom88082">
+<div class="phpcode"><code><span class="html">Thanks to mastabog we know that throwing an exception within the exception handler will trigger a fatal error and a debugging nightmare.  To avoid throwing an exception within there should be easy.<br /><br />However, if you use a custom error handler to convert errors to ErrorExceptions suddenly there are a multitude of new ways to accidentally throw exceptions within the exception handler.<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">error_handler</span><span class="keyword">(</span><span class="default">$code</span><span class="keyword">, </span><span class="default">$message</span><span class="keyword">, </span><span class="default">$file</span><span class="keyword">, </span><span class="default">$line</span><span class="keyword">)<br />{<br />    if (</span><span class="default">0 </span><span class="keyword">== </span><span class="default">error_reporting</span><span class="keyword">())<br />    {<br />        return;<br />    }<br />    throw new </span><span class="default">ErrorException</span><span class="keyword">(</span><span class="default">$message</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">$code</span><span class="keyword">, </span><span class="default">$file</span><span class="keyword">, </span><span class="default">$line</span><span class="keyword">);<br />}<br />function </span><span class="default">exception_handler</span><span class="keyword">(</span><span class="default">$e</span><span class="keyword">)<br />{<br />    </span><span class="comment">// ... normal exception stuff goes here<br />    </span><span class="keyword">print </span><span class="default">$undefined</span><span class="keyword">; </span><span class="comment">// This is the underlying problem<br /></span><span class="keyword">}<br /></span><span class="default">set_error_handler</span><span class="keyword">(</span><span class="string">"error_handler"</span><span class="keyword">);<br /></span><span class="default">set_exception_handler</span><span class="keyword">(</span><span class="string">"exception_handler"</span><span class="keyword">);<br />throw new </span><span class="default">Exception</span><span class="keyword">(</span><span class="string">"Just invoking the exception handler"</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span>Output: Fatal error: Exception thrown without a stack frame in Unknown on line 0<br /><br />The best way I have found to avoid this is to wrap up everything in the exception handler in a try/catch block.<br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">exception_handler</span><span class="keyword">(</span><span class="default">$e</span><span class="keyword">)<br />{<br />    try<br />    {<br />        </span><span class="comment">// ... normal exception stuff goes here<br />        </span><span class="keyword">print </span><span class="default">$undefined</span><span class="keyword">; </span><span class="comment">// This is the underlying problem<br />    </span><span class="keyword">}<br />    catch (</span><span class="default">Exception $e</span><span class="keyword">)<br />    {<br />        print </span><span class="default">get_class</span><span class="keyword">(</span><span class="default">$e</span><span class="keyword">).</span><span class="string">" thrown within the exception handler. Message: "</span><span class="keyword">.</span><span class="default">$e</span><span class="keyword">-&gt;</span><span class="default">getMessage</span><span class="keyword">().</span><span class="string">" on line "</span><span class="keyword">.</span><span class="default">$e</span><span class="keyword">-&gt;</span><span class="default">getLine</span><span class="keyword">();<br />    }<br />}<br /></span><span class="default">?&gt;<br /></span>Output: ErrorException thrown within the exception handler. Message: Undefined variable: undefined on line 14<br /><br />This speeds up debugging and offers some scalability to any other exceptions accidentally thrown within the exception handler.<br /><br />Another solution is to restore the error handler at the beginning of the exception handler.  While this is a silver bullet in terms of avoiding the ErrorExceptions, debugging messages then rely on the error_reporting() level and the display_errors directive.  Why mention this?  It might be preferable for production code since we care more about hiding errors from users than convenient debugging messages.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="111484">  <div class="votes">
+    <div id="Vu111484">
+    <a href="https://www.php.net/manual/vote-note.php?id=111484&amp;page=function.set-exception-handler&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd111484">
+    <a href="https://www.php.net/manual/vote-note.php?id=111484&amp;page=function.set-exception-handler&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V111484" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="function.set-exception-handler.php.html#111484" class="name">
+  <strong class="user"><em>Anonymous</em></strong></a><a class="genanchor" href="function.set-exception-handler.php.html#111484"> &para;</a><div class="date" title="2013-02-25 08:51"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom111484">
+<div class="phpcode"><code><span class="html">As of PHP 5.4.11....<br /><br />Instead of:<br /><br />Output: Fatal error: Exception thrown without a stack frame in Unknown on line 0<br /><br />This snippet:<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">error_handler</span><span class="keyword">(</span><span class="default">$code</span><span class="keyword">, </span><span class="default">$message</span><span class="keyword">, </span><span class="default">$file</span><span class="keyword">, </span><span class="default">$line</span><span class="keyword">)<br />{<br />    if (</span><span class="default">0 </span><span class="keyword">== </span><span class="default">error_reporting</span><span class="keyword">())<br />    {<br />        return;<br />    }<br />    throw new </span><span class="default">ErrorException</span><span class="keyword">(</span><span class="default">$message</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">$code</span><span class="keyword">, </span><span class="default">$file</span><span class="keyword">, </span><span class="default">$line</span><span class="keyword">);<br />}<br />function </span><span class="default">exception_handler</span><span class="keyword">(</span><span class="default">$e</span><span class="keyword">)<br />{<br />    </span><span class="comment">// ... normal exception stuff goes here<br />    </span><span class="keyword">print </span><span class="default">$undefined</span><span class="keyword">; </span><span class="comment">// This is the underlying problem<br /></span><span class="keyword">}<br /></span><span class="default">set_error_handler</span><span class="keyword">(</span><span class="string">"error_handler"</span><span class="keyword">);<br /></span><span class="default">set_exception_handler</span><span class="keyword">(</span><span class="string">"exception_handler"</span><span class="keyword">);<br />throw new </span><span class="default">Exception</span><span class="keyword">(</span><span class="string">"Just invoking the exception handler"</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />Now returns:<br /><br />Fatal error: Uncaught exception 'ErrorException' with message 'Undefined variable: undefined' in C:\Apache2\htdocs\error\test.php:13 Stack trace: #0 C:\Apache2\htdocs\error\test.php(13): error_handler(8, 'Undefined varia...', 'C:\Apache2\htdo...', 13, Array) #1 [internal function]: exception_handler(Object(Exception)) #2 {main} thrown in C:\Apache2\htdocs\error\test.php on line 13<br /><br />So it appears that exceptions thrown within exception handler now bypass exception handler.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="64110">  <div class="votes">
+    <div id="Vu64110">
+    <a href="https://www.php.net/manual/vote-note.php?id=64110&amp;page=function.set-exception-handler&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd64110">
+    <a href="https://www.php.net/manual/vote-note.php?id=64110&amp;page=function.set-exception-handler&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V64110" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="function.set-exception-handler.php.html#64110" class="name">
+  <strong class="user"><em>mc-php-doco at oak dot homeunix dot org</em></strong></a><a class="genanchor" href="function.set-exception-handler.php.html#64110"> &para;</a><div class="date" title="2006-04-07 09:41"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom64110">
+<div class="phpcode"><code><span class="html">This seems not to work when calling the PHP binary with the '-r' flag.<br /><br />For example, if I run it like this:<br /><br />    php -r '<br />      function exception_handler($exception) {<br />        echo "Uncaught exception: " , $exception-&gt;getMessage(), "\n";<br />      }<br /> <br />      set_exception_handler("exception_handler");<br /> <br />      throw new Exception("Uncaught Exception");<br />      echo "Not Executed\n";<br />    '<br /><br />Or if I place it in a file and run it like this:<br /><br />    php -r 'include "./tmp.php";'<br /><br />I get a stack trace instead of having the function 'exception_handler' called.  If run it like this:<br /><br />    php tmp.php<br /><br />It works fine.  <br /><br />(Why run code from '-r'?  Sometimes it's useful to add stuff around the include like calls to microtime for benchmarks, or to include a library and then call a few functions from the library, all in an ad-hoc way without having to create new files.)<br /><br />PHP versions 5.1.2 and 5.0.4.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="95054">  <div class="votes">
+    <div id="Vu95054">
+    <a href="https://www.php.net/manual/vote-note.php?id=95054&amp;page=function.set-exception-handler&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd95054">
+    <a href="https://www.php.net/manual/vote-note.php?id=95054&amp;page=function.set-exception-handler&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V95054" title="33% like this...">
+    -4
+    </div>
+  </div>
+  <a href="function.set-exception-handler.php.html#95054" class="name">
+  <strong class="user"><em>Anonymous</em></strong></a><a class="genanchor" href="function.set-exception-handler.php.html#95054"> &para;</a><div class="date" title="2009-12-10 06:09"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom95054">
+<div class="phpcode"><code><span class="html">When an uncaught exception is handled, execution does NOT return to the script, but rather (unexpectedly, on my end anyway) terminates.<br /><br />I am using set_error_handler() and set_exception_handler() in conjunction for a system I am currently developing (on v5.3.0 with Xampp). Lets say two E_USER_NOTICES are triggered, the script will die after the first one is processed.<br /><br /><span class="default">&lt;?php<br />    set_exception_handler</span><span class="keyword">( </span><span class="string">'exc_handler' </span><span class="keyword">);<br />    function </span><span class="default">exc_handler</span><span class="keyword">(</span><span class="default">$exception</span><span class="keyword">) {<br />        echo </span><span class="string">"Uncaught exception: " </span><span class="keyword">, </span><span class="default">$exception</span><span class="keyword">-&gt;</span><span class="default">getMessage</span><span class="keyword">(), </span><span class="string">"\n"</span><span class="keyword">;<br />    }<br />    function </span><span class="default">errorone</span><span class="keyword">() {<br />        throw new </span><span class="default">Exception</span><span class="keyword">(</span><span class="string">"Test 1"</span><span class="keyword">);<br />    }<br />    function </span><span class="default">errortwo</span><span class="keyword">() {<br />        throw new </span><span class="default">Exception</span><span class="keyword">(</span><span class="string">"Test 2"</span><span class="keyword">);<br />    }<br />    function </span><span class="default">test</span><span class="keyword">() {<br />        </span><span class="default">errorone</span><span class="keyword">();<br />        </span><span class="default">errortwo</span><span class="keyword">();<br />    }<br />    </span><span class="default">test</span><span class="keyword">();<br />    </span><span class="default">test</span><span class="keyword">();<br /></span><span class="default">?&gt;<br /></span><br />Instead of printing (as I'd expect) "Uncaught exception: Text 1\nUncaught exception: Text 2\nUncaught exception: Text 1\nUncaught exception: Text 2\n"<br /><br />It is only printed ONCE. I've tried a number of different things, but I can't figure out how to return execution to the script after the EXCEPTION HANDLER has run.<br /><br />If anyone has a solution on how to return execution (hence, allow the script to log uncaught exceptions but continue processing) then PLEASE email me! Thanks!</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="121629">  <div class="votes">
+    <div id="Vu121629">
+    <a href="https://www.php.net/manual/vote-note.php?id=121629&amp;page=function.set-exception-handler&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd121629">
+    <a href="https://www.php.net/manual/vote-note.php?id=121629&amp;page=function.set-exception-handler&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V121629" title="25% like this...">
+    -2
+    </div>
+  </div>
+  <a href="function.set-exception-handler.php.html#121629" class="name">
+  <strong class="user"><em>klaussantana at gmail dot com</em></strong></a><a class="genanchor" href="function.set-exception-handler.php.html#121629"> &para;</a><div class="date" title="2017-09-12 03:44"><strong>6 years ago</strong></div>
+  <div class="text" id="Hcom121629">
+<div class="phpcode"><code><span class="html">Hi everyone. I don't know if it is an old behavior of previous versions, but currently you can set exception and error handlers as private or protected methos, if, only if, you call `set_exception_handler()` or `set_error_handler()` within a context that can access the method.<br /><br />Example:<br />    <span class="default">&lt;?PHP<br />        $Handler </span><span class="keyword">= new class ()<br />        {<br />            public function </span><span class="default">__construct </span><span class="keyword">()<br />            {<br />                </span><span class="default">set_error_handler</span><span class="keyword">([</span><span class="default">$this</span><span class="keyword">, </span><span class="string">'HandleError'</span><span class="keyword">);<br />                </span><span class="default">set_exception_handler</span><span class="keyword">([</span><span class="default">$this</span><span class="keyword">, </span><span class="string">'HandleException'</span><span class="keyword">]);<br />            }<br />            protected function </span><span class="default">HandleError </span><span class="keyword">( </span><span class="default">$Code</span><span class="keyword">, </span><span class="default">$Message</span><span class="keyword">, </span><span class="default">$File </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">, </span><span class="default">$Line </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">, </span><span class="default">$Context </span><span class="keyword">= [] )<br />            {<br />                </span><span class="comment">// Handle error here.<br />            </span><span class="keyword">}<br />            private function </span><span class="default">HandleException </span><span class="keyword">( </span><span class="default">$Exception </span><span class="keyword">)<br />            {<br />                </span><span class="comment">// Handle exception here.<br />            </span><span class="keyword">}<br />        }<br />    </span><span class="default">?&gt;<br /></span><br />NOTE: these methods must match the callbacks parameters signatures. I put</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="62154">  <div class="votes">
+    <div id="Vu62154">
+    <a href="https://www.php.net/manual/vote-note.php?id=62154&amp;page=function.set-exception-handler&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd62154">
+    <a href="https://www.php.net/manual/vote-note.php?id=62154&amp;page=function.set-exception-handler&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V62154" title="20% like this...">
+    -3
+    </div>
+  </div>
+  <a href="function.set-exception-handler.php.html#62154" class="name">
+  <strong class="user"><em>ch at westend dot com</em></strong></a><a class="genanchor" href="function.set-exception-handler.php.html#62154"> &para;</a><div class="date" title="2006-02-21 07:06"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom62154">
+<div class="phpcode"><code><span class="html">It seems that although the Exception contains a backtrace itself, the stack for the debug_backtrace() function is empty when entering an exception handler. This is very inconvinient. See bug #36477.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="75035">  <div class="votes">
+    <div id="Vu75035">
+    <a href="https://www.php.net/manual/vote-note.php?id=75035&amp;page=function.set-exception-handler&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd75035">
+    <a href="https://www.php.net/manual/vote-note.php?id=75035&amp;page=function.set-exception-handler&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V75035" title="0% like this...">
+    -10
+    </div>
+  </div>
+  <a href="function.set-exception-handler.php.html#75035" class="name">
+  <strong class="user"><em>reg dot php dot manual at entropy dot ch</em></strong></a><a class="genanchor" href="function.set-exception-handler.php.html#75035"> &para;</a><div class="date" title="2007-05-09 06:59"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom75035">
+<div class="phpcode"><code><span class="html">In my experience, the static keyword is crucial for error handlers which are methods of a class instead of free-standing functions.<br /><br />    static function exceptionHandler($exception)<br /><br />works but <br /><br />    function exceptionHandler($exception)<br /><br />doesn't and results in a "Fatal error: Exception thrown without a stack frame in Unknown on line 0" message.<br /><br />"public" is optional as it is the default anyway (but it is probably clearer to write it explicitly).</span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=function.set-exception-handler&amp;redirect=https://www.php.net/manual/ru/function.set-exception-handler.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="ref.errorfunc.php.html">Функции обработки ошибок</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="function.debug-backtrace.php.html" title="debug_&#8203;backtrace">debug_&#8203;backtrace</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.debug-print-backtrace.php.html" title="debug_&#8203;print_&#8203;backtrace">debug_&#8203;print_&#8203;backtrace</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.error-clear-last.php.html" title="error_&#8203;clear_&#8203;last">error_&#8203;clear_&#8203;last</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.error-get-last.php.html" title="error_&#8203;get_&#8203;last">error_&#8203;get_&#8203;last</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.error-log.php.html" title="error_&#8203;log">error_&#8203;log</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.error-reporting.php.html" title="error_&#8203;reporting">error_&#8203;reporting</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.restore-error-handler.php.html" title="restore_&#8203;error_&#8203;handler">restore_&#8203;error_&#8203;handler</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.restore-exception-handler.php.html" title="restore_&#8203;exception_&#8203;handler">restore_&#8203;exception_&#8203;handler</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.set-error-handler.php.html" title="set_&#8203;error_&#8203;handler">set_&#8203;error_&#8203;handler</a>
+                        </li>
+                                                <li class="current">
+                            <a href="function.set-exception-handler.php.html" title="set_&#8203;exception_&#8203;handler">set_&#8203;exception_&#8203;handler</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.trigger-error.php.html" title="trigger_&#8203;error">trigger_&#8203;error</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.user-error.php.html" title="user_&#8203;error">user_&#8203;error</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

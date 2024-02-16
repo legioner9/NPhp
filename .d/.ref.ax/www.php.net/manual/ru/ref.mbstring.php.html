@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: Функции для работы с многобайтовыми строками - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="ref.mbstring.php.html">
+ <link rel="shorturl" href="https://www.php.net/mbstring">
+ <link rel="alternate" href="https://www.php.net/mbstring" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="book.mbstring.php.html">
+ <link rel="prev" href="mbstring.php4.req.php.html">
+ <link rel="next" href="function.mb-check-encoding.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/ref.mbstring.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/ref.mbstring.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/ref.mbstring.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/ref.mbstring.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/ref.mbstring.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/ref.mbstring.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/ref.mbstring.php" hreflang="pt_BR">
+ <link rel="alternate" href="ref.mbstring.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/ref.mbstring.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/ref.mbstring.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="function.mb-check-encoding.php.html">
+          mb_check_encoding &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="mbstring.php4.req.php.html">
+          &laquo; Требования, предъявляемые к кодировкам символов в PHP        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.international.php.html'>Поддержка языков и кодировок</a></li>      <li><a href='book.mbstring.php.html'>Многобайтовые строки</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/ref.mbstring.php'>English</option>
+            <option value='de/ref.mbstring.php'>German</option>
+            <option value='es/ref.mbstring.php'>Spanish</option>
+            <option value='fr/ref.mbstring.php'>French</option>
+            <option value='it/ref.mbstring.php'>Italian</option>
+            <option value='ja/ref.mbstring.php'>Japanese</option>
+            <option value='pt_BR/ref.mbstring.php'>Brazilian Portuguese</option>
+            <option value='ru/ref.mbstring.php' selected="selected">Russian</option>
+            <option value='tr/ref.mbstring.php'>Turkish</option>
+            <option value='zh/ref.mbstring.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/mbstring/reference.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Fref.mbstring%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="ref.mbstring" class="reference">
+  <h1 class="title">Функции для работы с многобайтовыми строками</h1>
+
+  <div class="partintro">
+    <h1 class="title">Ссылки</h1>
+    <p class="para">
+     Схемы многобайтного кодирования символов и связанные с ними проблемы сложны,
+     а их описание выходит за пределы этой документации. Дополнительная информация
+     о кодировках и о том, как они устроены, доступна в следующих источниках:
+     <ul class="itemizedlist">
+      <li class="listitem">
+       <p class="para">
+        Материалы по Юникоду
+       </p>
+       <p class="para">
+        <a href="http://www.unicode.org/" class="link external">&raquo;&nbsp;http://www.unicode.org/</a>
+       </p>
+      </li>
+      <li class="listitem">
+       <p class="para">
+        Информация о символах японской, корейской и китайской кодировок
+       </p>
+       <p class="para">
+        <a href="https://resources.oreilly.com/examples/9781565922242/blob/master/doc/cjk.inf" class="link external">&raquo;&nbsp;https://resources.oreilly.com/examples/9781565922242/blob/master/doc/cjk.inf</a>
+       </p>
+      </li>
+     </ul>
+    </p>
+  </div>
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ <h2>Содержание</h2><ul class="chunklist chunklist_reference"><li><a href="function.mb-check-encoding.php.html">mb_check_encoding</a> — Проверяет, допустима ли строка для заданной кодировки</li><li><a href="function.mb-chr.php.html">mb_chr</a> — Возвращает символ по значению кодовой точки Unicode</li><li><a href="function.mb-convert-case.php.html">mb_convert_case</a> — Меняет регистр символов в строке</li><li><a href="function.mb-convert-encoding.php.html">mb_convert_encoding</a> — Преобразовывает строку из одной кодировки символов в другую</li><li><a href="function.mb-convert-kana.php.html">mb_convert_kana</a> — Преобразовывает одну кодировку &laquo;kana&raquo; в другую (&laquo;zen-kaku&raquo;, &laquo;han-kaku&raquo; и другие)</li><li><a href="function.mb-convert-variables.php.html">mb_convert_variables</a> — Преобразовывает символы в переменной(-ых) из одной кодировки в другую</li><li><a href="function.mb-decode-mimeheader.php.html">mb_decode_mimeheader</a> — Декодирует строку в MIME-заголовке</li><li><a href="function.mb-decode-numericentity.php.html">mb_decode_numericentity</a> — Декодирует ссылку на числовую строку HTML в символ</li><li><a href="function.mb-detect-encoding.php.html">mb_detect_encoding</a> — Определяет кодировку символов</li><li><a href="function.mb-detect-order.php.html">mb_detect_order</a> — Устанавливает/получает порядок определения кодировки символов</li><li><a href="function.mb-encode-mimeheader.php.html">mb_encode_mimeheader</a> — Кодирует строку для MIME-заголовка</li><li><a href="function.mb-encode-numericentity.php.html">mb_encode_numericentity</a> — Кодирует символ в числовую HTML-ссылку</li><li><a href="function.mb-encoding-aliases.php.html">mb_encoding_aliases</a> — Получает псевдонимы известного типа кодировки</li><li><a href="function.mb-ereg-match.php.html">mb_ereg_match</a> — Определяет, соответствует ли многобайтовая строка регулярному выражению</li><li><a href="function.mb-ereg-replace-callback.php.html">mb_ereg_replace_callback</a> — Выполняет поиск и замену по регулярному выражению с поддержкой многобайтовых кодировок, обрабатывая совпадения callback-функцией</li><li><a href="function.mb-ereg-replace.php.html">mb_ereg_replace</a> — Заменяет по регулярному выражению с поддержкой многобайтовых кодировок</li><li><a href="function.mb-ereg-search-getpos.php.html">mb_ereg_search_getpos</a> — Возвращает начальную позицию следующего совпадения с регулярным выражением</li><li><a href="function.mb-ereg-search-getregs.php.html">mb_ereg_search_getregs</a> — Получает последнее совпадение строки в многобайтовой кодировке регулярному выражению</li><li><a href="function.mb-ereg-search-init.php.html">mb_ereg_search_init</a> — Настраивает строку и регулярное выражение для поиска соответствий строки в многобайтовой кодировке регулярному выражению</li><li><a href="function.mb-ereg-search-pos.php.html">mb_ereg_search_pos</a> — Возвращает позицию и длину совпавшего с регулярным выражением участка
+   многобайтовой строки</li><li><a href="function.mb-ereg-search-regs.php.html">mb_ereg_search_regs</a> — Возвращает совпавшую с регулярным выражением часть строки</li><li><a href="function.mb-ereg-search-setpos.php.html">mb_ereg_search_setpos</a> — Задаёт начальную позицию в строке, с которой начнётся поиск
+   соответствий регулярному выражению</li><li><a href="function.mb-ereg-search.php.html">mb_ereg_search</a> — Находит соответствие предопределённой строки в многобайтовой кодировке регулярному выражению</li><li><a href="function.mb-ereg.php.html">mb_ereg</a> — Находит совпадение регулярному выражению с поддержкой многобайтовых кодировок</li><li><a href="function.mb-eregi-replace.php.html">mb_eregi_replace</a> — Заменяет по регулярному выражению с поддержкой многобайтовых символов без учёта регистра</li><li><a href="function.mb-eregi.php.html">mb_eregi</a> — Находит соответствие регулярному выражению с поддержкой многобайтовых символов без учёта регистра</li><li><a href="function.mb-get-info.php.html">mb_get_info</a> — Получает внутренние настройки модуля mbstring</li><li><a href="function.mb-http-input.php.html">mb_http_input</a> — Определяет кодировку символов входных данных HTTP-запроса</li><li><a href="function.mb-http-output.php.html">mb_http_output</a> — Устанавливает/получает кодировку символов вывода HTTP</li><li><a href="function.mb-internal-encoding.php.html">mb_internal_encoding</a> — Устанавливает/получает внутреннюю кодировку скрипта</li><li><a href="function.mb-language.php.html">mb_language</a> — Устанавливает/получает текущий язык</li><li><a href="function.mb-list-encodings.php.html">mb_list_encodings</a> — Возвращает массив всех поддерживаемых кодировок</li><li><a href="function.mb-ord.php.html">mb_ord</a> — Получает кодовую точку символа Unicode</li><li><a href="function.mb-output-handler.php.html">mb_output_handler</a> — Преобразовывает кодировку символов в буфере вывода, выступая в роли callback-функции</li><li><a href="function.mb-parse-str.php.html">mb_parse_str</a> — Разбирает данные запросов GET/POST/COOKIE и устанавливает значения глобальных переменных</li><li><a href="function.mb-preferred-mime-name.php.html">mb_preferred_mime_name</a> — Получает строку кодировки MIME</li><li><a href="function.mb-regex-encoding.php.html">mb_regex_encoding</a> — Устанавливает/получает кодировку символов для многобайтового регулярного выражения</li><li><a href="function.mb-regex-set-options.php.html">mb_regex_set_options</a> — Устанавливает/получает значение по умолчанию для настроек функций mbregex</li><li><a href="function.mb-scrub.php.html">mb_scrub</a> — Заменяет неправильно сформированные последовательности байтов символом-заменителем</li><li><a href="function.mb-send-mail.php.html">mb_send_mail</a> — Отправляет закодированное электронное письмо</li><li><a href="function.mb-split.php.html">mb_split</a> — Разделяет строки в многобайтных кодировках через регулярное выражение</li><li><a href="function.mb-str-pad.php.html">mb_str_pad</a> — Дополняет мультибайтовую строку другой мультибайтовой строкой до заданной длины</li><li><a href="function.mb-str-split.php.html">mb_str_split</a> — Возвращает массив символов заданной многобайтовой строки</li><li><a href="function.mb-strcut.php.html">mb_strcut</a> — Получает часть строки</li><li><a href="function.mb-strimwidth.php.html">mb_strimwidth</a> — Получает строку, обрезанную до заданной ширины</li><li><a href="function.mb-stripos.php.html">mb_stripos</a> — Находит позицию первого вхождения подстроки в строку без учёта регистра</li><li><a href="function.mb-stristr.php.html">mb_stristr</a> — Находит первое вхождение подстроки в строку без учёта регистра</li><li><a href="function.mb-strlen.php.html">mb_strlen</a> — Получает длину строки</li><li><a href="function.mb-strpos.php.html">mb_strpos</a> — Ищет позицию первого вхождения подстроки в строку</li><li><a href="function.mb-strrchr.php.html">mb_strrchr</a> — Находит последнее вхождение символа подстроки в строку</li><li><a href="function.mb-strrichr.php.html">mb_strrichr</a> — Находит последнее вхождение символа подстроки в строку без учёта регистра</li><li><a href="function.mb-strripos.php.html">mb_strripos</a> — Находит последнее вхождение подстроки в строку без учёта регистра</li><li><a href="function.mb-strrpos.php.html">mb_strrpos</a> — Ищет позицию последнего вхождения подстроки в строку</li><li><a href="function.mb-strstr.php.html">mb_strstr</a> — Находит первое вхождение подстроки в строке</li><li><a href="function.mb-strtolower.php.html">mb_strtolower</a> — Приводит строку к нижнему регистру</li><li><a href="function.mb-strtoupper.php.html">mb_strtoupper</a> — Приведит строку к верхнему регистру</li><li><a href="function.mb-strwidth.php.html">mb_strwidth</a> — Возвращает ширину строки</li><li><a href="function.mb-substitute-character.php.html">mb_substitute_character</a> — Устанавливает/получает символ замены</li><li><a href="function.mb-substr-count.php.html">mb_substr_count</a> — Возвращает количество вхождений подстроки</li><li><a href="function.mb-substr.php.html">mb_substr</a> — Возвращает часть строки</li></ul>
+</div>
+<section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=ref.mbstring&amp;redirect=https://www.php.net/manual/ru/ref.mbstring.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">35 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="109937">  <div class="votes">
+    <div id="Vu109937">
+    <a href="https://www.php.net/manual/vote-note.php?id=109937&amp;page=ref.mbstring&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd109937">
+    <a href="https://www.php.net/manual/vote-note.php?id=109937&amp;page=ref.mbstring&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V109937" title="70% like this...">
+    68
+    </div>
+  </div>
+  <a href="ref.mbstring.php.html#109937" class="name">
+  <strong class="user"><em>deceze at gmail dot com</em></strong></a><a class="genanchor" href="ref.mbstring.php.html#109937"> &para;</a><div class="date" title="2012-09-04 10:32"><strong>11 years ago</strong></div>
+  <div class="text" id="Hcom109937">
+<div class="phpcode"><code><span class="html">Please note that all the discussion about mb_str_replace in the comments is pretty pointless. str_replace works just fine with multibyte strings:<br /><br /><span class="default">&lt;?php<br /><br />$string  </span><span class="keyword">= </span><span class="string">'漢字はユニコード'</span><span class="keyword">;<br /></span><span class="default">$needle  </span><span class="keyword">= </span><span class="string">'は'</span><span class="keyword">;<br /></span><span class="default">$replace </span><span class="keyword">= </span><span class="string">'Foo'</span><span class="keyword">;<br /><br />echo </span><span class="default">str_replace</span><span class="keyword">(</span><span class="default">$needle</span><span class="keyword">, </span><span class="default">$replace</span><span class="keyword">, </span><span class="default">$string</span><span class="keyword">);<br /></span><span class="comment">// outputs: 漢字Fooユニコード<br /><br /></span><span class="default">?&gt;<br /></span><br />The usual problem is that the string is evaluated as binary string, meaning PHP is not aware of encodings at all. Problems arise if you are getting a value "from outside" somewhere (database, POST request) and the encoding of the needle and the haystack is not the same. That typically means the source code is not saved in the same encoding as you are receiving "from outside". Therefore the binary representations don't match and nothing happens.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="50298">  <div class="votes">
+    <div id="Vu50298">
+    <a href="https://www.php.net/manual/vote-note.php?id=50298&amp;page=ref.mbstring&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd50298">
+    <a href="https://www.php.net/manual/vote-note.php?id=50298&amp;page=ref.mbstring&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V50298" title="88% like this...">
+    20
+    </div>
+  </div>
+  <a href="ref.mbstring.php.html#50298" class="name">
+  <strong class="user"><em>Eugene Murai</em></strong></a><a class="genanchor" href="ref.mbstring.php.html#50298"> &para;</a><div class="date" title="2005-02-23 10:20"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom50298">
+<div class="phpcode"><code><span class="html">PHP can input and output Unicode, but a little different from what Microsoft means: when Microsoft says "Unicode", it unexplicitly means little-endian UTF-16 with BOM(FF FE = chr(255).chr(254)), whereas PHP's "UTF-16" means big-endian with BOM. For this reason, PHP does not seem to be able to output Unicode CSV file for Microsoft Excel. Solving this problem is quite simple: just put BOM infront of UTF-16LE string.<br /><br />Example:<br /><br />$unicode_str_for_Excel = chr(255).chr(254).mb_convert_encoding( $utf8_str, 'UTF-16LE', 'UTF-8');</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="122872">  <div class="votes">
+    <div id="Vu122872">
+    <a href="https://www.php.net/manual/vote-note.php?id=122872&amp;page=ref.mbstring&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd122872">
+    <a href="https://www.php.net/manual/vote-note.php?id=122872&amp;page=ref.mbstring&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V122872" title="87% like this...">
+    6
+    </div>
+  </div>
+  <a href="ref.mbstring.php.html#122872" class="name">
+  <strong class="user"><em>Hayley Watson</em></strong></a><a class="genanchor" href="ref.mbstring.php.html#122872"> &para;</a><div class="date" title="2018-06-23 01:06"><strong>5 years ago</strong></div>
+  <div class="text" id="Hcom122872">
+<div class="phpcode"><code><span class="html">SOME multibyte encodings can safely be used in str_replace() and the like, others cannot. It's not enough to ensure that all the strings involved use the same encoding: obviously they have to, but it's not enough. It has to be the right sort of encoding.<br /><br />UTF-8 is one of the safe ones, because it was designed to be unambiguous about where each encoded character begins and ends in the string of bytes that makes up the encoded text. Some encodings are not safe: the last bytes of one character in a text followed by the first bytes of the next character may together make a valid character. str_replace() knows nothing about "characters", "character encodings" or "encoded text". It only knows about the string of bytes. To str_replace(), two adjacent characters with two-byte encodings just looks like a sequence of four bytes and it's not going to know it shouldn't try to match the middle two bytes.<br /><br />While real-world examples can be found of str_replace() mangling text, it can be illustrated by using the HTML-ENTITIES encoding. It's not one of the safe ones. All of the strings being passed to str_replace() are valid HTML-ENTITIES-encoded text so the "all inputs use the same encoding" rule is satisfied.<br /><br />The text is "x&lt;y". It is represented by the byte string [78 26 6c 74 3b 79]. Note that the text has three characters, but the string has six bytes.<br /><br /><span class="default">&lt;?php<br /><br />$string </span><span class="keyword">= </span><span class="string">'x&amp;lt;y'</span><span class="keyword">;<br /></span><span class="default">mb_internal_encoding</span><span class="keyword">(</span><span class="string">'HTML-ENTITIES'</span><span class="keyword">);<br /><br />echo </span><span class="string">"Text length: "</span><span class="keyword">, </span><span class="default">mb_strlen</span><span class="keyword">(</span><span class="default">$string</span><span class="keyword">), </span><span class="string">"\tString length: "</span><span class="keyword">, </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$string</span><span class="keyword">), </span><span class="string">" ... "</span><span class="keyword">, </span><span class="default">$string</span><span class="keyword">, </span><span class="string">"\n"</span><span class="keyword">;<br /></span><span class="comment">// Three characters, six bytes; the text reads "x&lt;y".<br /><br /></span><span class="default">$newstring </span><span class="keyword">= </span><span class="default">str_replace</span><span class="keyword">(</span><span class="string">'l'</span><span class="keyword">, </span><span class="string">'g'</span><span class="keyword">, </span><span class="default">$string</span><span class="keyword">);<br />echo </span><span class="string">"Text length: "</span><span class="keyword">, </span><span class="default">mb_strlen</span><span class="keyword">(</span><span class="default">$newstring</span><span class="keyword">), </span><span class="string">"\tString length: "</span><span class="keyword">, </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$newstring</span><span class="keyword">), </span><span class="string">" ... "</span><span class="keyword">, </span><span class="default">$newstring</span><span class="keyword">, </span><span class="string">"\n"</span><span class="keyword">;<br /></span><span class="comment">// Three characters, six bytes, but now the text reads "x&gt;y"; the wrong characters have changed.<br /><br /></span><span class="default">$newstring </span><span class="keyword">= </span><span class="default">str_replace</span><span class="keyword">(</span><span class="string">';'</span><span class="keyword">, </span><span class="string">':'</span><span class="keyword">, </span><span class="default">$string</span><span class="keyword">);<br />echo </span><span class="string">"Text length: "</span><span class="keyword">, </span><span class="default">mb_strlen</span><span class="keyword">(</span><span class="default">$newstring</span><span class="keyword">), </span><span class="string">"\tString length: "</span><span class="keyword">, </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$newstring</span><span class="keyword">), </span><span class="string">" ... "</span><span class="keyword">, </span><span class="default">$newstring</span><span class="keyword">, </span><span class="string">"\n"</span><span class="keyword">;<br /></span><span class="comment">// Now even the length of the text is wrong and the text is trashed.<br /><br /></span><span class="default">?&gt;<br /></span><br />Even though neither 'l' nor ';' appear in the text "x&lt;y", str_replace() still found and changed bytes. In one case, it changed the text to "x&gt;y" and in the other it broke the encoding completely.<br /><br />One more reason to use UTF-8 if you can, I guess.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="115080">  <div class="votes">
+    <div id="Vu115080">
+    <a href="https://www.php.net/manual/vote-note.php?id=115080&amp;page=ref.mbstring&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd115080">
+    <a href="https://www.php.net/manual/vote-note.php?id=115080&amp;page=ref.mbstring&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V115080" title="87% like this...">
+    6
+    </div>
+  </div>
+  <a href="ref.mbstring.php.html#115080" class="name">
+  <strong class="user"><em>treilor at gmail dot com</em></strong></a><a class="genanchor" href="ref.mbstring.php.html#115080"> &para;</a><div class="date" title="2014-05-23 08:43"><strong>9 years ago</strong></div>
+  <div class="text" id="Hcom115080">
+<div class="phpcode"><code><span class="html">A small note for those who will follow rawsrc at gmail dot com's advice: mb_split uses regular expressions, in which case it may make sense to use built-in function mb_ereg_replace.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="73889">  <div class="votes">
+    <div id="Vu73889">
+    <a href="https://www.php.net/manual/vote-note.php?id=73889&amp;page=ref.mbstring&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd73889">
+    <a href="https://www.php.net/manual/vote-note.php?id=73889&amp;page=ref.mbstring&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V73889" title="80% like this...">
+    13
+    </div>
+  </div>
+  <a href="ref.mbstring.php.html#73889" class="name">
+  <strong class="user"><em>mdoocy at u dot washington dot edu</em></strong></a><a class="genanchor" href="ref.mbstring.php.html#73889"> &para;</a><div class="date" title="2007-03-14 10:30"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom73889">
+<div class="phpcode"><code><span class="html">Note that some of the multi-byte functions run in O(n) time, rather than constant time as is the case for their single-byte equivalents. This includes any functionality requiring access at a specific index, since random access is not possible in a string whose number of bytes will not necessarily match the number of characters. Affected functions include: mb_substr(), mb_strstr(), mb_strcut(), mb_strpos(), etc.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="90611">  <div class="votes">
+    <div id="Vu90611">
+    <a href="https://www.php.net/manual/vote-note.php?id=90611&amp;page=ref.mbstring&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd90611">
+    <a href="https://www.php.net/manual/vote-note.php?id=90611&amp;page=ref.mbstring&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V90611" title="78% like this...">
+    8
+    </div>
+  </div>
+  <a href="ref.mbstring.php.html#90611" class="name">
+  <strong class="user"><em>mitgath at gmail dot com</em></strong></a><a class="genanchor" href="ref.mbstring.php.html#90611"> &para;</a><div class="date" title="2009-04-30 06:26"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom90611">
+<div class="phpcode"><code><span class="html">according to:<br /><a href="http://bugs.php.net/bug.php?id=21317" rel="nofollow" target="_blank">http://bugs.php.net/bug.php?id=21317</a><br />here's missing function<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">mb_str_pad </span><span class="keyword">(</span><span class="default">$input</span><span class="keyword">, </span><span class="default">$pad_length</span><span class="keyword">, </span><span class="default">$pad_string</span><span class="keyword">, </span><span class="default">$pad_style</span><span class="keyword">, </span><span class="default">$encoding</span><span class="keyword">=</span><span class="string">"UTF-8"</span><span class="keyword">) {<br />   return </span><span class="default">str_pad</span><span class="keyword">(</span><span class="default">$input</span><span class="keyword">,<br /></span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$input</span><span class="keyword">)-</span><span class="default">mb_strlen</span><span class="keyword">(</span><span class="default">$input</span><span class="keyword">,</span><span class="default">$encoding</span><span class="keyword">)+</span><span class="default">$pad_length</span><span class="keyword">, </span><span class="default">$pad_string</span><span class="keyword">, </span><span class="default">$pad_style</span><span class="keyword">);<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="113569">  <div class="votes">
+    <div id="Vu113569">
+    <a href="https://www.php.net/manual/vote-note.php?id=113569&amp;page=ref.mbstring&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd113569">
+    <a href="https://www.php.net/manual/vote-note.php?id=113569&amp;page=ref.mbstring&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V113569" title="72% like this...">
+    10
+    </div>
+  </div>
+  <a href="ref.mbstring.php.html#113569" class="name">
+  <strong class="user"><em>Anonymous</em></strong></a><a class="genanchor" href="ref.mbstring.php.html#113569"> &para;</a><div class="date" title="2013-10-30 11:16"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom113569">
+<div class="phpcode"><code><span class="html">Yet another single-line mb_trim() function<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">mb_trim</span><span class="keyword">(</span><span class="default">$string</span><span class="keyword">, </span><span class="default">$trim_chars </span><span class="keyword">= </span><span class="string">'\s'</span><span class="keyword">){<br />    return </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'/^['</span><span class="keyword">.</span><span class="default">$trim_chars</span><span class="keyword">.</span><span class="string">']*(?U)(.*)['</span><span class="keyword">.</span><span class="default">$trim_chars</span><span class="keyword">.</span><span class="string">']*$/u'</span><span class="keyword">, </span><span class="string">'\\1'</span><span class="keyword">,</span><span class="default">$string</span><span class="keyword">);<br />}<br /></span><span class="default">$string </span><span class="keyword">= </span><span class="string">'           "some text."      '</span><span class="keyword">;<br />echo </span><span class="default">mb_trim</span><span class="keyword">(</span><span class="default">$string</span><span class="keyword">, </span><span class="string">'\s".'</span><span class="keyword">);<br /></span><span class="comment">//some text<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="94220">  <div class="votes">
+    <div id="Vu94220">
+    <a href="https://www.php.net/manual/vote-note.php?id=94220&amp;page=ref.mbstring&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd94220">
+    <a href="https://www.php.net/manual/vote-note.php?id=94220&amp;page=ref.mbstring&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V94220" title="73% like this...">
+    9
+    </div>
+  </div>
+  <a href="ref.mbstring.php.html#94220" class="name">
+  <strong class="user"><em>roydukkey at roydukkey dot com</em></strong></a><a class="genanchor" href="ref.mbstring.php.html#94220"> &para;</a><div class="date" title="2009-10-22 09:31"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom94220">
+<div class="phpcode"><code><span class="html">This would be one way to create a multibyte substr_replace function<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">mb_substr_replace</span><span class="keyword">(</span><span class="default">$output</span><span class="keyword">, </span><span class="default">$replace</span><span class="keyword">, </span><span class="default">$posOpen</span><span class="keyword">, </span><span class="default">$posClose</span><span class="keyword">) {<br />        return </span><span class="default">mb_substr</span><span class="keyword">(</span><span class="default">$output</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">$posOpen</span><span class="keyword">).</span><span class="default">$replace</span><span class="keyword">.</span><span class="default">mb_substr</span><span class="keyword">(</span><span class="default">$output</span><span class="keyword">, </span><span class="default">$posClose</span><span class="keyword">+</span><span class="default">1</span><span class="keyword">);<br />    }<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="120120">  <div class="votes">
+    <div id="Vu120120">
+    <a href="https://www.php.net/manual/vote-note.php?id=120120&amp;page=ref.mbstring&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd120120">
+    <a href="https://www.php.net/manual/vote-note.php?id=120120&amp;page=ref.mbstring&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V120120" title="72% like this...">
+    8
+    </div>
+  </div>
+  <a href="ref.mbstring.php.html#120120" class="name">
+  <strong class="user"><em>php at kamiware dot org</em></strong></a><a class="genanchor" href="ref.mbstring.php.html#120120"> &para;</a><div class="date" title="2016-11-05 10:23"><strong>7 years ago</strong></div>
+  <div class="text" id="Hcom120120">
+<div class="phpcode"><code><span class="html">str_replace is NOT multi-bite safe.<br /><br />This Ukrainian word gives a bug when used in the next code: відео<br /><br />$rubishcharacters='[#|\[{}\]´`≠,;.:-\\_&lt;&gt;=*+"\'?()!§$&amp;%';<br />$searchstring='відео';<br /><br />$result = str_replace(str_split($rubishcharacters), ' ', $searchstring);</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="87047">  <div class="votes">
+    <div id="Vu87047">
+    <a href="https://www.php.net/manual/vote-note.php?id=87047&amp;page=ref.mbstring&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd87047">
+    <a href="https://www.php.net/manual/vote-note.php?id=87047&amp;page=ref.mbstring&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V87047" title="73% like this...">
+    7
+    </div>
+  </div>
+  <a href="ref.mbstring.php.html#87047" class="name">
+  <strong class="user"><em>Ben XO</em></strong></a><a class="genanchor" href="ref.mbstring.php.html#87047"> &para;</a><div class="date" title="2008-11-16 05:14"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom87047">
+<div class="phpcode"><code><span class="html">PHP5 has no mb_trim(), so here's one I made. It work just as trim(), but with the added bonus of PCRE character classes (including, of course, all the useful Unicode ones such as \pZ).<br /><br />Unlike other approaches that I've seen to this problem, I wanted to emulate the full functionality of trim() - in particular, the ability to customise the character list.<br /><br /><span class="default">&lt;?php<br />    </span><span class="comment">/**<br />     * Trim characters from either (or both) ends of a string in a way that is<br />     * multibyte-friendly.<br />     *<br />     * Mostly, this behaves exactly like trim() would: for example supplying 'abc' as<br />     * the charlist will trim all 'a', 'b' and 'c' chars from the string, with, of<br />     * course, the added bonus that you can put unicode characters in the charlist.<br />     *<br />     * We are using a PCRE character-class to do the trimming in a unicode-aware<br />     * way, so we must escape ^, \, - and ] which have special meanings here.<br />     * As you would expect, a single \ in the charlist is interpretted as<br />     * "trim backslashes" (and duly escaped into a double-\ ). Under most circumstances<br />     * you can ignore this detail.<br />     *<br />     * As a bonus, however, we also allow PCRE special character-classes (such as '\s')<br />     * because they can be extremely useful when dealing with UCS. '\pZ', for example,<br />     * matches every 'separator' character defined in Unicode, including non-breaking<br />     * and zero-width spaces.<br />     *<br />     * It doesn't make sense to have two or more of the same character in a character<br />     * class, therefore we interpret a double \ in the character list to mean a<br />     * single \ in the regex, allowing you to safely mix normal characters with PCRE<br />     * special classes.<br />     *<br />     * *Be careful* when using this bonus feature, as PHP also interprets backslashes<br />     * as escape characters before they are even seen by the regex. Therefore, to<br />     * specify '\\s' in the regex (which will be converted to the special character<br />     * class '\s' for trimming), you will usually have to put *4* backslashes in the<br />     * PHP code - as you can see from the default value of $charlist.<br />     *<br />     * @param string <br />     * @param charlist list of characters to remove from the ends of this string.<br />     * @param boolean trim the left?<br />     * @param boolean trim the right?<br />     * @return String<br />     */<br />    </span><span class="keyword">function </span><span class="default">mb_trim</span><span class="keyword">(</span><span class="default">$string</span><span class="keyword">, </span><span class="default">$charlist</span><span class="keyword">=</span><span class="string">'\\\\s'</span><span class="keyword">, </span><span class="default">$ltrim</span><span class="keyword">=</span><span class="default">true</span><span class="keyword">, </span><span class="default">$rtrim</span><span class="keyword">=</span><span class="default">true</span><span class="keyword">)<br />    {<br />        </span><span class="default">$both_ends </span><span class="keyword">= </span><span class="default">$ltrim </span><span class="keyword">&amp;&amp; </span><span class="default">$rtrim</span><span class="keyword">;<br /><br />        </span><span class="default">$char_class_inner </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(<br />            array( </span><span class="string">'/[\^\-\]\\\]/S'</span><span class="keyword">, </span><span class="string">'/\\\{4}/S' </span><span class="keyword">),<br />            array( </span><span class="string">'\\\\\\0'</span><span class="keyword">, </span><span class="string">'\\' </span><span class="keyword">),<br />            </span><span class="default">$charlist<br />        </span><span class="keyword">);<br /><br />        </span><span class="default">$work_horse </span><span class="keyword">= </span><span class="string">'[' </span><span class="keyword">. </span><span class="default">$char_class_inner </span><span class="keyword">. </span><span class="string">']+'</span><span class="keyword">;<br />        </span><span class="default">$ltrim </span><span class="keyword">&amp;&amp; </span><span class="default">$left_pattern </span><span class="keyword">= </span><span class="string">'^' </span><span class="keyword">. </span><span class="default">$work_horse</span><span class="keyword">;<br />        </span><span class="default">$rtrim </span><span class="keyword">&amp;&amp; </span><span class="default">$right_pattern </span><span class="keyword">= </span><span class="default">$work_horse </span><span class="keyword">. </span><span class="string">'$'</span><span class="keyword">;<br /><br />        if(</span><span class="default">$both_ends</span><span class="keyword">)<br />        {<br />            </span><span class="default">$pattern_middle </span><span class="keyword">= </span><span class="default">$left_pattern </span><span class="keyword">. </span><span class="string">'|' </span><span class="keyword">. </span><span class="default">$right_pattern</span><span class="keyword">;<br />        }<br />        elseif(</span><span class="default">$ltrim</span><span class="keyword">)<br />        {<br />            </span><span class="default">$pattern_middle </span><span class="keyword">= </span><span class="default">$left_pattern</span><span class="keyword">;<br />        }<br />        else<br />        {<br />            </span><span class="default">$pattern_middle </span><span class="keyword">= </span><span class="default">$right_pattern</span><span class="keyword">;<br />        }<br /><br />        return </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">"/</span><span class="default">$pattern_middle</span><span class="string">/usSD"</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">, </span><span class="default">$string</span><span class="keyword">) );<br />    }<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="62787">  <div class="votes">
+    <div id="Vu62787">
+    <a href="https://www.php.net/manual/vote-note.php?id=62787&amp;page=ref.mbstring&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd62787">
+    <a href="https://www.php.net/manual/vote-note.php?id=62787&amp;page=ref.mbstring&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V62787" title="75% like this...">
+    2
+    </div>
+  </div>
+  <a href="ref.mbstring.php.html#62787" class="name">
+  <strong class="user"><em>peter kehl</em></strong></a><a class="genanchor" href="ref.mbstring.php.html#62787"> &para;</a><div class="date" title="2006-03-09 08:34"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom62787">
+<div class="phpcode"><code><span class="html">UTF-16LE solution for CSV for Excel by Eugene Murai works well:<br />$unicode_str_for_Excel = chr(255).chr(254).mb_convert_encoding( $utf8_str, 'UTF-16LE', 'UTF-8');<br /><br />However, then Excel on Mac OS X doesn't identify columns properly and its puts each whole row in its own cell. In order to fix that, use TAB "\\t" character as CSV delimiter rather than comma or colon.<br /><br />You may also want to use HTTP encoding header, such as<br />header( "Content-type: application/vnd.ms-excel; charset=UTF-16LE" );</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="113238">  <div class="votes">
+    <div id="Vu113238">
+    <a href="https://www.php.net/manual/vote-note.php?id=113238&amp;page=ref.mbstring&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd113238">
+    <a href="https://www.php.net/manual/vote-note.php?id=113238&amp;page=ref.mbstring&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V113238" title="66% like this...">
+    3
+    </div>
+  </div>
+  <a href="ref.mbstring.php.html#113238" class="name">
+  <strong class="user"><em>Daniel Rhodes</em></strong></a><a class="genanchor" href="ref.mbstring.php.html#113238"> &para;</a><div class="date" title="2013-09-16 02:55"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom113238">
+<div class="phpcode"><code><span class="html">Here's a cheap and cheeky function to remove leading and trailing *punctuation* (or more specifically "non-word characters") from a UTF-8 string in whatever language. (At least it works well enough for Japanese and English.)<br /><br />/**<br /> * Trim singlebyte and multibyte punctuation from the start and end of a string<br /> * <br /> * @author Daniel Rhodes<br /> * @note we want the first non-word grabbing to be greedy but then<br /> * @note we want the dot-star grabbing (before the last non-word grabbing)<br /> * @note to be ungreedy<br /> * <br /> * @param string $string input string in UTF-8<br /> * @return string as $string but with leading and trailing punctuation removed<br /> */<br />function mb_punctuation_trim($string)<br />{<br />    preg_match('/^[^\w]{0,}(.*?)[^\w]{0,}$/iu', $string, $matches); //case-'i'nsensitive and 'u'ngreedy<br />    <br />    if(count($matches) &lt; 2)<br />    {<br />        //some strange error so just return the original input<br />        return $string;<br />    }<br />    <br />    return $matches[1];<br />}<br /><br />Hope you like it!</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="115050">  <div class="votes">
+    <div id="Vu115050">
+    <a href="https://www.php.net/manual/vote-note.php?id=115050&amp;page=ref.mbstring&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd115050">
+    <a href="https://www.php.net/manual/vote-note.php?id=115050&amp;page=ref.mbstring&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V115050" title="66% like this...">
+    2
+    </div>
+  </div>
+  <a href="ref.mbstring.php.html#115050" class="name">
+  <strong class="user"><em>mattr at telebody dot com</em></strong></a><a class="genanchor" href="ref.mbstring.php.html#115050"> &para;</a><div class="date" title="2014-05-19 07:29"><strong>9 years ago</strong></div>
+  <div class="text" id="Hcom115050">
+<div class="phpcode"><code><span class="html">A brief note on Daniel Rhodes' mb_punctuation_trim().<br />The regular expression modifier u does not mean ungreedy, rather it means the pattern is in UTF-8 encoding. Instead the U modifier should be used to get ungreedy behavior. (I have not otherwise tested his code.)<br />See <a href="http://php.net/manual/en/reference.pcre.pattern.modifiers.php" rel="nofollow" target="_blank">http://php.net/manual/en/reference.pcre.pattern.modifiers.php</a></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="105328">  <div class="votes">
+    <div id="Vu105328">
+    <a href="https://www.php.net/manual/vote-note.php?id=105328&amp;page=ref.mbstring&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd105328">
+    <a href="https://www.php.net/manual/vote-note.php?id=105328&amp;page=ref.mbstring&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V105328" title="59% like this...">
+    7
+    </div>
+  </div>
+  <a href="ref.mbstring.php.html#105328" class="name">
+  <strong class="user"><em>rawsrc at gmail dot com</em></strong></a><a class="genanchor" href="ref.mbstring.php.html#105328"> &para;</a><div class="date" title="2011-08-09 02:36"><strong>12 years ago</strong></div>
+  <div class="text" id="Hcom105328">
+<div class="phpcode"><code><span class="html">Hi,<br /><br />For those who are looking for mb_str_replace, here's a simple function :<br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">mb_str_replace</span><span class="keyword">(</span><span class="default">$needle</span><span class="keyword">, </span><span class="default">$replacement</span><span class="keyword">, </span><span class="default">$haystack</span><span class="keyword">) {<br />   return </span><span class="default">implode</span><span class="keyword">(</span><span class="default">$replacement</span><span class="keyword">, </span><span class="default">mb_split</span><span class="keyword">(</span><span class="default">$needle</span><span class="keyword">, </span><span class="default">$haystack</span><span class="keyword">));<br />}<br /></span><span class="default">?&gt;<br /></span>I haven't found a simpliest way to proceed :-)</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="121807">  <div class="votes">
+    <div id="Vu121807">
+    <a href="https://www.php.net/manual/vote-note.php?id=121807&amp;page=ref.mbstring&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd121807">
+    <a href="https://www.php.net/manual/vote-note.php?id=121807&amp;page=ref.mbstring&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V121807" title="60% like this...">
+    2
+    </div>
+  </div>
+  <a href="ref.mbstring.php.html#121807" class="name">
+  <strong class="user"><em>v dot r dot sanaty at gmail dot com</em></strong></a><a class="genanchor" href="ref.mbstring.php.html#121807"> &para;</a><div class="date" title="2017-10-29 05:24"><strong>6 years ago</strong></div>
+  <div class="text" id="Hcom121807">
+<div class="phpcode"><code><span class="html">The multibyte version of substr_replace function:<br />(Inspired by roydukkey's note with some corrections)<br /><br />function mb_substr_replace($string, $replacement, $start, $length){<br />    return mb_substr($string, 0, $start).$replacement.mb_substr($string, $start+$length);<br />}</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="123948">  <div class="votes">
+    <div id="Vu123948">
+    <a href="https://www.php.net/manual/vote-note.php?id=123948&amp;page=ref.mbstring&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd123948">
+    <a href="https://www.php.net/manual/vote-note.php?id=123948&amp;page=ref.mbstring&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V123948" title="60% like this...">
+    1
+    </div>
+  </div>
+  <a href="ref.mbstring.php.html#123948" class="name">
+  <strong class="user"><em>abidul dot rmdn at gmail dot com</em></strong></a><a class="genanchor" href="ref.mbstring.php.html#123948"> &para;</a><div class="date" title="2019-06-18 10:16"><strong>4 years ago</strong></div>
+  <div class="text" id="Hcom123948">
+<div class="phpcode"><code><span class="html">Having to migrate to MB functions can be a bit of pain if you have a big project. it took us a while at my company but then we made a small script and explained it in a small blog.<br /><a href="https://link.medium.com/25w1LronCX" rel="nofollow" target="_blank">https://link.medium.com/25w1LronCX</a><br /><br />which makes it really easy to migrate to mb_ functions.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="120332">  <div class="votes">
+    <div id="Vu120332">
+    <a href="https://www.php.net/manual/vote-note.php?id=120332&amp;page=ref.mbstring&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd120332">
+    <a href="https://www.php.net/manual/vote-note.php?id=120332&amp;page=ref.mbstring&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V120332" title="60% like this...">
+    1
+    </div>
+  </div>
+  <a href="ref.mbstring.php.html#120332" class="name">
+  <strong class="user"><em>rr_news at live dot de</em></strong></a><a class="genanchor" href="ref.mbstring.php.html#120332"> &para;</a><div class="date" title="2016-12-14 01:36"><strong>7 years ago</strong></div>
+  <div class="text" id="Hcom120332">
+<div class="phpcode"><code><span class="html">The suggestion from "mt at mediamedics dot nl" is not that bad like the down votes indicate. There is only one small bug which can be easily fixed to make it work. <br />The head of the "for" need to be modified by replacing $i + $split_length by $i += $split_length.<br /><br />Here is the full working code, with additional check to verify that the method doesn't exists already:<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">if ( !</span><span class="default">function_exists</span><span class="keyword">(</span><span class="string">'mb_str_split'</span><span class="keyword">) )<br />{<br />    function </span><span class="default">mb_str_split</span><span class="keyword">(</span><span class="default">$string</span><span class="keyword">, </span><span class="default">$split_length </span><span class="keyword">= </span><span class="default">1</span><span class="keyword">)<br />    {<br />        </span><span class="default">mb_internal_encoding</span><span class="keyword">(</span><span class="string">'UTF-8'</span><span class="keyword">); <br />        </span><span class="default">mb_regex_encoding</span><span class="keyword">(</span><span class="string">'UTF-8'</span><span class="keyword">);  <br /><br />        </span><span class="default">$split_length </span><span class="keyword">= (</span><span class="default">$split_length </span><span class="keyword">&lt;= </span><span class="default">0</span><span class="keyword">) ? </span><span class="default">1 </span><span class="keyword">: </span><span class="default">$split_length</span><span class="keyword">;<br /><br />        </span><span class="default">$mb_strlen </span><span class="keyword">= </span><span class="default">mb_strlen</span><span class="keyword">(</span><span class="default">$string</span><span class="keyword">, </span><span class="string">'utf-8'</span><span class="keyword">);<br /><br />        </span><span class="default">$array </span><span class="keyword">= array();<br /><br />        for(</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">$mb_strlen</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">+= </span><span class="default">$split_length</span><span class="keyword">)<br />        {<br />            </span><span class="default">$array</span><span class="keyword">[] = </span><span class="default">mb_substr</span><span class="keyword">(</span><span class="default">$string</span><span class="keyword">, </span><span class="default">$i</span><span class="keyword">, </span><span class="default">$split_length</span><span class="keyword">);<br />        }<br /><br />        return </span><span class="default">$array</span><span class="keyword">;<br />    }<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="113245">  <div class="votes">
+    <div id="Vu113245">
+    <a href="https://www.php.net/manual/vote-note.php?id=113245&amp;page=ref.mbstring&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd113245">
+    <a href="https://www.php.net/manual/vote-note.php?id=113245&amp;page=ref.mbstring&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V113245" title="60% like this...">
+    2
+    </div>
+  </div>
+  <a href="ref.mbstring.php.html#113245" class="name">
+  <strong class="user"><em>Daniel Rhodes</em></strong></a><a class="genanchor" href="ref.mbstring.php.html#113245"> &para;</a><div class="date" title="2013-09-17 01:24"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom113245">
+<div class="phpcode"><code><span class="html">Here's a cheap and cheeky function to remove leading and trailing *punctuation* (or more specifically "non-word characters") from a UTF-8 string in whatever language. (At least it works well enough for Japanese and English.)<br /><br />/**<br /> * Trim singlebyte and multibyte punctuation from the start and end of a string<br /> * <br /> * @author Daniel Rhodes<br /> * @note we want the first non-word grabbing to be greedy but then<br /> * @note we want the dot-star grabbing (before the last non-word grabbing)<br /> * @note to be ungreedy<br /> * <br /> * @param string $string input string in UTF-8<br /> * @return string as $string but with leading and trailing punctuation removed<br /> */<br />function mb_punctuation_trim($string)<br />{<br />    preg_match('/^[^\w]{0,}(.*?)[^\w]{0,}$/iu', $string, $matches); //case-'i'nsensitive and 'u'ngreedy<br />    <br />    if(count($matches) &lt; 2)<br />    {<br />        //some strange error so just return the original input<br />        return $string;<br />    }<br />    <br />    return $matches[1];<br />}<br /><br />Hope you like it!</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="91810">  <div class="votes">
+    <div id="Vu91810">
+    <a href="https://www.php.net/manual/vote-note.php?id=91810&amp;page=ref.mbstring&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd91810">
+    <a href="https://www.php.net/manual/vote-note.php?id=91810&amp;page=ref.mbstring&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V91810" title="60% like this...">
+    1
+    </div>
+  </div>
+  <a href="ref.mbstring.php.html#91810" class="name">
+  <strong class="user"><em>sakai at d4k dot net</em></strong></a><a class="genanchor" href="ref.mbstring.php.html#91810"> &para;</a><div class="date" title="2009-06-26 05:46"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom91810">
+<div class="phpcode"><code><span class="html">I hope this mb_str_replace will work for arrays.  Please use mb_internal_encoding() beforehand, if you need to change the encoding.<br /><br />Thanks to marc at ermshaus dot org for the original.<br /><br /><span class="default">&lt;?php<br /><br /></span><span class="keyword">if(!</span><span class="default">function_exists</span><span class="keyword">(</span><span class="string">'mb_str_replace'</span><span class="keyword">)) {<br /><br />    function </span><span class="default">mb_str_replace</span><span class="keyword">(</span><span class="default">$search</span><span class="keyword">, </span><span class="default">$replace</span><span class="keyword">, </span><span class="default">$subject</span><span class="keyword">) {<br /><br />        if(</span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$subject</span><span class="keyword">)) {<br />            </span><span class="default">$ret </span><span class="keyword">= array();<br />            foreach(</span><span class="default">$subject </span><span class="keyword">as </span><span class="default">$key </span><span class="keyword">=&gt; </span><span class="default">$val</span><span class="keyword">) {<br />                </span><span class="default">$ret</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">] = </span><span class="default">mb_str_replace</span><span class="keyword">(</span><span class="default">$search</span><span class="keyword">, </span><span class="default">$replace</span><span class="keyword">, </span><span class="default">$val</span><span class="keyword">);<br />            }<br />            return </span><span class="default">$ret</span><span class="keyword">;<br />        }<br /><br />        foreach((array) </span><span class="default">$search </span><span class="keyword">as </span><span class="default">$key </span><span class="keyword">=&gt; </span><span class="default">$s</span><span class="keyword">) {<br />            if(</span><span class="default">$s </span><span class="keyword">== </span><span class="string">''</span><span class="keyword">) {<br />                continue;<br />            }<br />            </span><span class="default">$r </span><span class="keyword">= !</span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$replace</span><span class="keyword">) ? </span><span class="default">$replace </span><span class="keyword">: (</span><span class="default">array_key_exists</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">, </span><span class="default">$replace</span><span class="keyword">) ? </span><span class="default">$replace</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">] : </span><span class="string">''</span><span class="keyword">);<br />            </span><span class="default">$pos </span><span class="keyword">= </span><span class="default">mb_strpos</span><span class="keyword">(</span><span class="default">$subject</span><span class="keyword">, </span><span class="default">$s</span><span class="keyword">);<br />            while(</span><span class="default">$pos </span><span class="keyword">!== </span><span class="default">false</span><span class="keyword">) {<br />                </span><span class="default">$subject </span><span class="keyword">= </span><span class="default">mb_substr</span><span class="keyword">(</span><span class="default">$subject</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">$pos</span><span class="keyword">) . </span><span class="default">$r </span><span class="keyword">. </span><span class="default">mb_substr</span><span class="keyword">(</span><span class="default">$subject</span><span class="keyword">, </span><span class="default">$pos </span><span class="keyword">+ </span><span class="default">mb_strlen</span><span class="keyword">(</span><span class="default">$s</span><span class="keyword">));<br />                </span><span class="default">$pos </span><span class="keyword">= </span><span class="default">mb_strpos</span><span class="keyword">(</span><span class="default">$subject</span><span class="keyword">, </span><span class="default">$s</span><span class="keyword">, </span><span class="default">$pos </span><span class="keyword">+ </span><span class="default">mb_strlen</span><span class="keyword">(</span><span class="default">$r</span><span class="keyword">));<br />            }<br />        }<br /><br />        return </span><span class="default">$subject</span><span class="keyword">;<br /><br />    }<br /><br />}<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="51887">  <div class="votes">
+    <div id="Vu51887">
+    <a href="https://www.php.net/manual/vote-note.php?id=51887&amp;page=ref.mbstring&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd51887">
+    <a href="https://www.php.net/manual/vote-note.php?id=51887&amp;page=ref.mbstring&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V51887" title="57% like this...">
+    1
+    </div>
+  </div>
+  <a href="ref.mbstring.php.html#51887" class="name">
+  <strong class="user"><em>nzkiwi at NOSPAMmte dot biglobe dot ne dot jp</em></strong></a><a class="genanchor" href="ref.mbstring.php.html#51887"> &para;</a><div class="date" title="2005-04-13 04:37"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom51887">
+<div class="phpcode"><code><span class="html">A friend has pointed out that the entry <br />"mbstring.http_input PHP_INI_ALL" in Table 1 on the mbstring page appears to be wrong: above Example 4 it says that "There is no way to control HTTP input character conversion from PHP script. To disable HTTP input character conversion, it has to be done in php.ini". <br />Also the table shows the old-PHP-version defaults: <br />;; Disable HTTP Input conversion <br />mbstring.http_input = pass  *BUT* (for PHP 4.3.0 or higher) <br />;; Disable HTTP Input conversion <br />mbstring.encoding_translation = Off</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="68349">  <div class="votes">
+    <div id="Vu68349">
+    <a href="https://www.php.net/manual/vote-note.php?id=68349&amp;page=ref.mbstring&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd68349">
+    <a href="https://www.php.net/manual/vote-note.php?id=68349&amp;page=ref.mbstring&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V68349" title="55% like this...">
+    1
+    </div>
+  </div>
+  <a href="ref.mbstring.php.html#68349" class="name">
+  <strong class="user"><em>daniel at softel dot jp</em></strong></a><a class="genanchor" href="ref.mbstring.php.html#68349"> &para;</a><div class="date" title="2006-07-24 04:41"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom68349">
+<div class="phpcode"><code><span class="html">Note that although "multi-byte" hints at total internationalization, the mb_ API was designed by a Japanese person to support the Japanese language.<br /><br />Some of the functions, for example mb_convert_kana(), make absolutely no sense outside of a Japanese language environment.<br /><br />It should perhaps be considered "lucky" if the functions work with non-Japanese multi-byte languages.<br /><br />I don't mean any disrespect to the mb_ API because I'm using it everyday and I appreciate its usefulness, but maybe a better name would be the jp_ API.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="102141">  <div class="votes">
+    <div id="Vu102141">
+    <a href="https://www.php.net/manual/vote-note.php?id=102141&amp;page=ref.mbstring&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd102141">
+    <a href="https://www.php.net/manual/vote-note.php?id=102141&amp;page=ref.mbstring&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V102141" title="53% like this...">
+    1
+    </div>
+  </div>
+  <a href="ref.mbstring.php.html#102141" class="name">
+  <strong class="user"><em>efesar</em></strong></a><a class="genanchor" href="ref.mbstring.php.html#102141"> &para;</a><div class="date" title="2011-01-28 02:21"><strong>13 years ago</strong></div>
+  <div class="text" id="Hcom102141">
+<div class="phpcode"><code><span class="html">This small mb_trim function works for me. <br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">mb_trim</span><span class="keyword">( </span><span class="default">$string </span><span class="keyword">)<br />{<br />    </span><span class="default">$string </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">( </span><span class="string">"/(^\s+)|(\s+$)/us"</span><span class="keyword">, </span><span class="string">""</span><span class="keyword">, </span><span class="default">$string </span><span class="keyword">);<br />    <br />    return </span><span class="default">$string</span><span class="keyword">;<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="100459">  <div class="votes">
+    <div id="Vu100459">
+    <a href="https://www.php.net/manual/vote-note.php?id=100459&amp;page=ref.mbstring&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd100459">
+    <a href="https://www.php.net/manual/vote-note.php?id=100459&amp;page=ref.mbstring&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V100459" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="ref.mbstring.php.html#100459" class="name">
+  <strong class="user"><em>johannesponader at dontspamme dot googlemail dot co</em></strong></a><a class="genanchor" href="ref.mbstring.php.html#100459"> &para;</a><div class="date" title="2010-10-17 09:46"><strong>13 years ago</strong></div>
+  <div class="text" id="Hcom100459">
+<div class="phpcode"><code><span class="html">Please note that when migrating code to handle UTF-8 encoding, not only the functions mentioned here are useful, but also the function htmlentities() has to be changed to htmlentities($var, ENT_COMPAT, "UTF-8") or similar. I didn't scan the manual for it, but there could be some more functions that need adjustments like this.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="86120">  <div class="votes">
+    <div id="Vu86120">
+    <a href="https://www.php.net/manual/vote-note.php?id=86120&amp;page=ref.mbstring&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd86120">
+    <a href="https://www.php.net/manual/vote-note.php?id=86120&amp;page=ref.mbstring&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V86120" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="ref.mbstring.php.html#86120" class="name">
+  <strong class="user"><em>marc at ermshaus dot org</em></strong></a><a class="genanchor" href="ref.mbstring.php.html#86120"> &para;</a><div class="date" title="2008-10-03 03:05"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom86120">
+<div class="phpcode"><code><span class="html">A small correction to patrick at hexane dot org's mb_str_replace function. The original function does not work as intended in case $replacement contains $needle.<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">mb_str_replace</span><span class="keyword">(</span><span class="default">$needle</span><span class="keyword">, </span><span class="default">$replacement</span><span class="keyword">, </span><span class="default">$haystack</span><span class="keyword">)<br />{<br />    </span><span class="default">$needle_len </span><span class="keyword">= </span><span class="default">mb_strlen</span><span class="keyword">(</span><span class="default">$needle</span><span class="keyword">);<br />    </span><span class="default">$replacement_len </span><span class="keyword">= </span><span class="default">mb_strlen</span><span class="keyword">(</span><span class="default">$replacement</span><span class="keyword">);<br />    </span><span class="default">$pos </span><span class="keyword">= </span><span class="default">mb_strpos</span><span class="keyword">(</span><span class="default">$haystack</span><span class="keyword">, </span><span class="default">$needle</span><span class="keyword">);<br />    while (</span><span class="default">$pos </span><span class="keyword">!== </span><span class="default">false</span><span class="keyword">)<br />    {<br />        </span><span class="default">$haystack </span><span class="keyword">= </span><span class="default">mb_substr</span><span class="keyword">(</span><span class="default">$haystack</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">$pos</span><span class="keyword">) . </span><span class="default">$replacement<br />                </span><span class="keyword">. </span><span class="default">mb_substr</span><span class="keyword">(</span><span class="default">$haystack</span><span class="keyword">, </span><span class="default">$pos </span><span class="keyword">+ </span><span class="default">$needle_len</span><span class="keyword">);<br />        </span><span class="default">$pos </span><span class="keyword">= </span><span class="default">mb_strpos</span><span class="keyword">(</span><span class="default">$haystack</span><span class="keyword">, </span><span class="default">$needle</span><span class="keyword">, </span><span class="default">$pos </span><span class="keyword">+ </span><span class="default">$replacement_len</span><span class="keyword">);<br />    }<br />    return </span><span class="default">$haystack</span><span class="keyword">;<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="84099">  <div class="votes">
+    <div id="Vu84099">
+    <a href="https://www.php.net/manual/vote-note.php?id=84099&amp;page=ref.mbstring&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd84099">
+    <a href="https://www.php.net/manual/vote-note.php?id=84099&amp;page=ref.mbstring&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V84099" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="ref.mbstring.php.html#84099" class="name">
+  <strong class="user"><em>patrick at hexane dot org</em></strong></a><a class="genanchor" href="ref.mbstring.php.html#84099"> &para;</a><div class="date" title="2008-06-27 08:18"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom84099">
+<div class="phpcode"><code><span class="html">I wonder why there isn't a mb_str_replace().  Here's one for now:<br /><br />function mb_str_replace( $needle, $replacement, $haystack ) {<br />  $needle_len = mb_strlen($needle);<br />  $pos = mb_strpos( $haystack, $needle);<br />  while (!($pos ===false)) {<br />    $front = mb_substr( $haystack, 0, $pos );<br />    $back  = mb_substr( $haystack, $pos + $needle_len);<br />    $haystack = $front.$replacement.$back;<br />    $pos = mb_strpos( $haystack, $needle);<br />  }<br />  return $haystack;<br />}</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="74722">  <div class="votes">
+    <div id="Vu74722">
+    <a href="https://www.php.net/manual/vote-note.php?id=74722&amp;page=ref.mbstring&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd74722">
+    <a href="https://www.php.net/manual/vote-note.php?id=74722&amp;page=ref.mbstring&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V74722" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="ref.mbstring.php.html#74722" class="name">
+  <strong class="user"><em>chris at maedata dot com</em></strong></a><a class="genanchor" href="ref.mbstring.php.html#74722"> &para;</a><div class="date" title="2007-04-24 09:50"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom74722">
+<div class="phpcode"><code><span class="html">The opposite of what Eugene Murai wrote in a previous comment is true when importing/uploading a file. For instance, if you export an Excel spreadsheet using the Save As Unicode Text option, you can use the following to convert it to UTF-8 after uploading:<br /><br />//Convert file to UTF-8 in case Windows mucked it up<br />$file = explode( "\n", mb_convert_encoding( trim( file_get_contents( $_FILES['file']['tmp_name'] ) ), 'UTF-8', 'UTF-16' ) );</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="70294">  <div class="votes">
+    <div id="Vu70294">
+    <a href="https://www.php.net/manual/vote-note.php?id=70294&amp;page=ref.mbstring&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd70294">
+    <a href="https://www.php.net/manual/vote-note.php?id=70294&amp;page=ref.mbstring&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V70294" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="ref.mbstring.php.html#70294" class="name">
+  <strong class="user"><em>pdezwart .at. snocap</em></strong></a><a class="genanchor" href="ref.mbstring.php.html#70294"> &para;</a><div class="date" title="2006-10-10 11:28"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom70294">
+<div class="phpcode"><code><span class="html">If you are trying to emulate the UnicodeEncoding.Unicode.GetBytes() function in .NET, the encoding you want to use is: UCS-2LE</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="55832">  <div class="votes">
+    <div id="Vu55832">
+    <a href="https://www.php.net/manual/vote-note.php?id=55832&amp;page=ref.mbstring&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd55832">
+    <a href="https://www.php.net/manual/vote-note.php?id=55832&amp;page=ref.mbstring&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V55832" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="ref.mbstring.php.html#55832" class="name"><strong class="user"><em>Anonymous</em></strong></a><a class="genanchor" href="ref.mbstring.php.html#55832"> &para;</a><div class="date" title="2005-08-14 07:24"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom55832">
+<div class="phpcode"><code><span class="html">get the string octet-size, when mbstring.func_overload is set to 2 :<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">str_sizeof</span><span class="keyword">(</span><span class="default">$string</span><span class="keyword">) {<br />    return </span><span class="default">count</span><span class="keyword">(</span><span class="default">preg_split</span><span class="keyword">(</span><span class="string">"`.`"</span><span class="keyword">, </span><span class="default">$string</span><span class="keyword">)) - </span><span class="default">1 </span><span class="keyword">;<br />}<br /></span><span class="default">?&gt;<br /></span><br />answering to peter albertsson, once you got your data octet-size, you can access each octet with something<br />$string[0] ... $string[$size-1], since the [ operator doesn't complies with multibytes strings.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="113235">  <div class="votes">
+    <div id="Vu113235">
+    <a href="https://www.php.net/manual/vote-note.php?id=113235&amp;page=ref.mbstring&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd113235">
+    <a href="https://www.php.net/manual/vote-note.php?id=113235&amp;page=ref.mbstring&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V113235" title="44% like this...">
+    -1
+    </div>
+  </div>
+  <a href="ref.mbstring.php.html#113235" class="name">
+  <strong class="user"><em>Daniel Rhodes</em></strong></a><a class="genanchor" href="ref.mbstring.php.html#113235"> &para;</a><div class="date" title="2013-09-16 12:11"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom113235">
+<div class="phpcode"><code><span class="html">Here's a cheap and cheeky function to remove leading and trailing *punctuation* (or more specifically "non-word characters") from a UTF-8 string in whatever language. (At least it works well enough for Japanese and English.)<br /><br />/**<br /> * Trim singlebyte and multibyte punctuation from the start and end of a string<br /> * <br /> * @author Daniel Rhodes<br /> * @note we want the first non-word grabbing to be greedy but then<br /> * @note we want the dot-star grabbing (before the last non-word grabbing)<br /> * @note to be ungreedy<br /> * <br /> * @param string $string input string in UTF-8<br /> * @return string as $string but with leading and trailing punctuation removed<br /> */<br />function mb_punctuation_trim($string)<br />{<br />    preg_match('/^[^\w]{0,}(.*?)[^\w]{0,}$/iu', $string, $matches); //case-'i'nsensitive and 'u'ngreedy<br />    <br />    if(count($matches) &lt; 2)<br />    {<br />        //some strange error so just return the original input<br />        return $string;<br />    }<br />    <br />    return $matches[1];<br />}<br /><br />Hope you like it!</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="68976">  <div class="votes">
+    <div id="Vu68976">
+    <a href="https://www.php.net/manual/vote-note.php?id=68976&amp;page=ref.mbstring&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd68976">
+    <a href="https://www.php.net/manual/vote-note.php?id=68976&amp;page=ref.mbstring&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V68976" title="44% like this...">
+    -1
+    </div>
+  </div>
+  <a href="ref.mbstring.php.html#68976" class="name">
+  <strong class="user"><em>hayk at mail dot ru</em></strong></a><a class="genanchor" href="ref.mbstring.php.html#68976"> &para;</a><div class="date" title="2006-08-17 12:36"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom68976">
+<div class="phpcode"><code><span class="html">Since PHP 5.1.0 and PHP 4.4.2 there is an Armenian ArmSCII-8 (ArmSCII-8, ArmSCII8, ARMSCII-8, ARMSCII8) encoding avaliable.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="95192">  <div class="votes">
+    <div id="Vu95192">
+    <a href="https://www.php.net/manual/vote-note.php?id=95192&amp;page=ref.mbstring&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd95192">
+    <a href="https://www.php.net/manual/vote-note.php?id=95192&amp;page=ref.mbstring&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V95192" title="41% like this...">
+    -2
+    </div>
+  </div>
+  <a href="ref.mbstring.php.html#95192" class="name">
+  <strong class="user"><em>mt at mediamedics dot nl</em></strong></a><a class="genanchor" href="ref.mbstring.php.html#95192"> &para;</a><div class="date" title="2009-12-17 05:52"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom95192">
+<div class="phpcode"><code><span class="html">A multibyte one-to-one alternative for the str_split function (<a href="http://php.net/manual/en/function.str-split.php" rel="nofollow" target="_blank">http://php.net/manual/en/function.str-split.php</a>):<br /><br /><span class="default">&lt;?php<br />    </span><span class="keyword">function </span><span class="default">mb_str_split</span><span class="keyword">(</span><span class="default">$string</span><span class="keyword">, </span><span class="default">$split_length </span><span class="keyword">= </span><span class="default">1</span><span class="keyword">){<br />            <br />        </span><span class="default">mb_internal_encoding</span><span class="keyword">(</span><span class="string">'UTF-8'</span><span class="keyword">); <br />        </span><span class="default">mb_regex_encoding</span><span class="keyword">(</span><span class="string">'UTF-8'</span><span class="keyword">);  <br />        <br />        </span><span class="default">$split_length </span><span class="keyword">= (</span><span class="default">$split_length </span><span class="keyword">&lt;= </span><span class="default">0</span><span class="keyword">) ? </span><span class="default">1 </span><span class="keyword">: </span><span class="default">$split_length</span><span class="keyword">;<br />        <br />        </span><span class="default">$mb_strlen </span><span class="keyword">= </span><span class="default">mb_strlen</span><span class="keyword">(</span><span class="default">$string</span><span class="keyword">, </span><span class="string">'utf-8'</span><span class="keyword">);<br />        <br />        </span><span class="default">$array </span><span class="keyword">= array();<br />                <br />        for(</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">$mb_strlen</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">+ </span><span class="default">$split_length</span><span class="keyword">){<br />        <br />            </span><span class="default">$array</span><span class="keyword">[] = </span><span class="default">mb_substr</span><span class="keyword">(</span><span class="default">$string</span><span class="keyword">, </span><span class="default">$i</span><span class="keyword">, </span><span class="default">$split_length</span><span class="keyword">); <br />        }<br /><br />        return </span><span class="default">$array</span><span class="keyword">;<br />    <br />    }<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="53032">  <div class="votes">
+    <div id="Vu53032">
+    <a href="https://www.php.net/manual/vote-note.php?id=53032&amp;page=ref.mbstring&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd53032">
+    <a href="https://www.php.net/manual/vote-note.php?id=53032&amp;page=ref.mbstring&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V53032" title="41% like this...">
+    -2
+    </div>
+  </div>
+  <a href="ref.mbstring.php.html#53032" class="name">
+  <strong class="user"><em>peter dot albertsson at spray dot se</em></strong></a><a class="genanchor" href="ref.mbstring.php.html#53032"> &para;</a><div class="date" title="2005-05-21 03:43"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom53032">
+<div class="phpcode"><code><span class="html">Setting mbstring.func_overload = 2 may break your applications that deal with binary data.<br /><br />After having set mbstring.func_overload = 2 and  mbstring.internal_encoding = UTF-8 I can't even read a binary file and print/echo it to output without corrupting it.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="94356">  <div class="votes">
+    <div id="Vu94356">
+    <a href="https://www.php.net/manual/vote-note.php?id=94356&amp;page=ref.mbstring&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd94356">
+    <a href="https://www.php.net/manual/vote-note.php?id=94356&amp;page=ref.mbstring&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V94356" title="40% like this...">
+    -1
+    </div>
+  </div>
+  <a href="ref.mbstring.php.html#94356" class="name">
+  <strong class="user"><em>peter AT(no spam) dezzignz dot com</em></strong></a><a class="genanchor" href="ref.mbstring.php.html#94356"> &para;</a><div class="date" title="2009-10-29 04:26"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom94356">
+<div class="phpcode"><code><span class="html">The function trim() has not failed me so far in my multibyte applications, but in case one needs a truly multibyte function, here it is. The nice thing is that the character to remove can be whitespace or any other specified character, even a multibyte character.<br /><br /><span class="default">&lt;?php<br /><br /></span><span class="comment">// multibyte string split<br /><br /></span><span class="keyword">function </span><span class="default">mbStringToArray </span><span class="keyword">(</span><span class="default">$str</span><span class="keyword">) {<br />    if (empty(</span><span class="default">$str</span><span class="keyword">)) return </span><span class="default">false</span><span class="keyword">;<br />    </span><span class="default">$len </span><span class="keyword">= </span><span class="default">mb_strlen</span><span class="keyword">(</span><span class="default">$str</span><span class="keyword">);<br />    </span><span class="default">$array </span><span class="keyword">= array();<br />    for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">$len</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++) {<br />        </span><span class="default">$array</span><span class="keyword">[] = </span><span class="default">mb_substr</span><span class="keyword">(</span><span class="default">$str</span><span class="keyword">, </span><span class="default">$i</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">);<br />        }<br />    return </span><span class="default">$array</span><span class="keyword">;<br />    }<br /><br /></span><span class="comment">// removes $rem at both ends<br /><br /></span><span class="keyword">function </span><span class="default">mb_trim </span><span class="keyword">(</span><span class="default">$str</span><span class="keyword">, </span><span class="default">$rem </span><span class="keyword">= </span><span class="string">' '</span><span class="keyword">) {<br />    if (empty(</span><span class="default">$str</span><span class="keyword">)) return </span><span class="default">false</span><span class="keyword">;<br />    </span><span class="comment">// convert to array<br />    </span><span class="default">$arr </span><span class="keyword">= </span><span class="default">mbStringToArray</span><span class="keyword">(</span><span class="default">$str</span><span class="keyword">);<br />    </span><span class="default">$len </span><span class="keyword">= </span><span class="default">count</span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">);<br />    </span><span class="comment">// left side<br />    </span><span class="keyword">for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">$len</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++) {<br />        if (</span><span class="default">$arr</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">] === </span><span class="default">$rem</span><span class="keyword">) </span><span class="default">$arr</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">] = </span><span class="string">''</span><span class="keyword">;<br />        else break;<br />        }<br />    </span><span class="comment">// right side<br />    </span><span class="keyword">for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">$len</span><span class="keyword">-</span><span class="default">1</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&gt;= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">--) {<br />        if (</span><span class="default">$arr</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">] === </span><span class="default">$rem</span><span class="keyword">) </span><span class="default">$arr</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">] = </span><span class="string">''</span><span class="keyword">;<br />        else break;<br />        }<br />    </span><span class="comment">// convert to string<br />    </span><span class="keyword">return </span><span class="default">implode </span><span class="keyword">(</span><span class="string">''</span><span class="keyword">, </span><span class="default">$arr</span><span class="keyword">);<br />    }<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="63113">  <div class="votes">
+    <div id="Vu63113">
+    <a href="https://www.php.net/manual/vote-note.php?id=63113&amp;page=ref.mbstring&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd63113">
+    <a href="https://www.php.net/manual/vote-note.php?id=63113&amp;page=ref.mbstring&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V63113" title="40% like this...">
+    -1
+    </div>
+  </div>
+  <a href="ref.mbstring.php.html#63113" class="name">
+  <strong class="user"><em>Aardvark</em></strong></a><a class="genanchor" href="ref.mbstring.php.html#63113"> &para;</a><div class="date" title="2006-03-13 11:37"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom63113">
+<div class="phpcode"><code><span class="html">Since not all hosted servces currently support the multi-byte function set, it may still be necessary to process Unicode strings using standard single byte functions.  The function at the following link - <a href="http://www.kanolife.com/escape/2006/03/php-unicode-processing.html" rel="nofollow" target="_blank">http://www.kanolife.com/escape/2006/03/php-unicode-processing.html</a> - shows by example how to do this.  While this only covers UTF-8, the standard PHP function "iconv" allows conversion into and out of UTF-8 if strings need to be input or output in other encodings.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="72472">  <div class="votes">
+    <div id="Vu72472">
+    <a href="https://www.php.net/manual/vote-note.php?id=72472&amp;page=ref.mbstring&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd72472">
+    <a href="https://www.php.net/manual/vote-note.php?id=72472&amp;page=ref.mbstring&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V72472" title="28% like this...">
+    -3
+    </div>
+  </div>
+  <a href="ref.mbstring.php.html#72472" class="name">
+  <strong class="user"><em>motin at demomusic dot nu</em></strong></a><a class="genanchor" href="ref.mbstring.php.html#72472"> &para;</a><div class="date" title="2007-01-19 05:12"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom72472">
+<div class="phpcode"><code><span class="html">As peter dot albertsson at spray dot se already pointed out, overloading strlen may break code that handles binary data and relies upon strlen for bytelengths. <br /><br />The problem occurs when a file is filled with a string using fwrite in the following manner:<br /><br />$len = strlen($data);<br />fwrite($fp, $data, $len);<br /><br />fwrite takes amount of bytes as the third parameter, but mb_strlen returns the amount of characters in the string. Since multibyte characters are possibly more than one byte in length each - this will result in that the last characters of $data never gets written to the file. <br /><br />After hours of investigating why PEAR::Cache_Lite didn't work - the above is what I found. <br /><br />I made an attempt at using single byte functions, but it doesn't work. Posting here anyway in case it helps someone else:<br /><br />/**<br />* PHP Singe byte functions simulation (non successful)<br />* <br />* Usage: sb_string(functionname, arg1, arg2, etc);<br />* Example: sb_string("strlen", "tuöéä"); returns 8 (should...)<br />*/<br />function sb_string() {<br /><br />  $arguments = func_get_args(); <br /><br />  $func_overloading = ini_get("mbstring.func_overload");<br /><br />  ini_set("mbstring.func_overload", 0);<br /><br />  $ret = call_user_func_array(array_shift($arguments), $arguments);<br /><br />  ini_set("mbstring.func_overload", $func_overloading);<br /><br />  return $ret;<br /><br />}</span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=ref.mbstring&amp;redirect=https://www.php.net/manual/ru/ref.mbstring.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="book.mbstring.php.html">Многобайтовые строки</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="intro.mbstring.php.html" title="Введение">Введение</a>
+                        </li>
+                                                <li class="">
+                            <a href="mbstring.setup.php.html" title="Установка и настройка">Установка и настройка</a>
+                        </li>
+                                                <li class="">
+                            <a href="mbstring.constants.php.html" title="Предопределённые константы">Предопределённые константы</a>
+                        </li>
+                                                <li class="">
+                            <a href="mbstring.encodings.php.html" title="Краткий обзор поддерживаемых кодировок">Краткий обзор поддерживаемых кодировок</a>
+                        </li>
+                                                <li class="">
+                            <a href="mbstring.ja-basic.php.html" title="Основы японских многобайтных кодировок">Основы японских многобайтных кодировок</a>
+                        </li>
+                                                <li class="">
+                            <a href="mbstring.http.php.html" title="Ввод и вывод HTTP">Ввод и вывод HTTP</a>
+                        </li>
+                                                <li class="">
+                            <a href="mbstring.supported-encodings.php.html" title="Поддерживаемые кодировки символов">Поддерживаемые кодировки символов</a>
+                        </li>
+                                                <li class="">
+                            <a href="mbstring.overload.php.html" title="Механизм перегрузки функций">Механизм перегрузки функций</a>
+                        </li>
+                                                <li class="">
+                            <a href="mbstring.php4.req.php.html" title="Требования, предъявляемые к кодировкам символов в PHP">Требования, предъявляемые к кодировкам символов в PHP</a>
+                        </li>
+                                                <li class="current">
+                            <a href="ref.mbstring.php.html" title="Функции для работы с многобайтовыми строками">Функции для работы с многобайтовыми строками</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

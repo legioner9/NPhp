@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: Closure::bindTo - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="closure.bindto.php.html">
+ <link rel="shorturl" href="closure.bindto.php.html">
+ <link rel="alternate" href="closure.bindto.php.html" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="class.closure.php.html">
+ <link rel="prev" href="closure.bind.php.html">
+ <link rel="next" href="closure.call.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/closure.bindto.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/closure.bindto.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/closure.bindto.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/closure.bindto.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/closure.bindto.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/closure.bindto.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/closure.bindto.php" hreflang="pt_BR">
+ <link rel="alternate" href="closure.bindto.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/closure.bindto.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/closure.bindto.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="closure.call.php.html">
+          Closure::call &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="closure.bind.php.html">
+          &laquo; Closure::bind        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='langref.php.html'>Справочник языка</a></li>      <li><a href='reserved.interfaces.php.html'>Встроенные интерфейсы и классы</a></li>      <li><a href='class.closure.php.html'>Closure</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/closure.bindto.php'>English</option>
+            <option value='de/closure.bindto.php'>German</option>
+            <option value='es/closure.bindto.php'>Spanish</option>
+            <option value='fr/closure.bindto.php'>French</option>
+            <option value='it/closure.bindto.php'>Italian</option>
+            <option value='ja/closure.bindto.php'>Japanese</option>
+            <option value='pt_BR/closure.bindto.php'>Brazilian Portuguese</option>
+            <option value='ru/closure.bindto.php' selected="selected">Russian</option>
+            <option value='tr/closure.bindto.php'>Turkish</option>
+            <option value='zh/closure.bindto.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/language/predefined/closure/bindto.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Fclosure.bindto%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="closure.bindto" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">Closure::bindTo</h1>
+  <p class="verinfo">(PHP 5 &gt;= 5.4.0, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">Closure::bindTo</span> &mdash; <span class="dc-title">
+   Дублирует замыкание с указанием связанного объекта и области видимости класса
+  </span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-closure.bindto-description">
+  <h3 class="title">Описание</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="methodname"><strong>Closure::bindTo</strong></span>(<span class="methodparam"><span class="type">?</span><span class="type"><span class="type">object</span><span class="type"></span></span> <code class="parameter">$newThis</code></span>, <span class="methodparam"><span class="type"><span class="type">object</span>|<span class="type">string</span>|<span class="type">null</span></span> <code class="parameter">$newScope</code><span class="initializer"> = &quot;static&quot;</span></span>): <span class="type"><span class="type">?</span><span class="type"><a href="class.closure.php.html" class="type Closure">Closure</a></span></span></div>
+
+  <p class="para rdfs-comment">
+   Создаёт и возвращает новую <a href="functions.anonymous.php.html" class="link">анонимную
+   функцию</a> с тем же телом функции и связанными переменными, но
+   с другим связанным объектом или новой областью видимости класса.
+  </p>
+
+  <p class="para">
+   &quot;Связанный объект&quot; определяет значение <code class="literal">$this</code>,
+   которое будет доступно в теле функции, а &quot;область видимости класса&quot;
+   представляет собой класс, который определяет к каким protected (защищённым)
+   и private (закрытым) элементам этого объекта будет иметь доступ анонимная функция.
+   Если точнее, то это те элементы, как если бы анонимная функция была бы
+   методом класса, переданного в параметре <code class="parameter">newScope</code>.
+  </p>
+
+  <p class="para">
+   Статические замыкания не могут иметь привязанный объект (значение параметра
+   <code class="parameter">newThis</code> должно быть равно <strong><code>null</code></strong>), но эта функция может всё равно
+   использоваться для изменения его области видимости класса.
+  </p>
+
+  <p class="para">
+   Данный метод гарантирует, что у нестатического замыкания с привязанным
+   объектом будет задана область видимости и наоборот.
+   Для выполнения этого условия применяются следующие правила:
+   Для нестатического замыкания с указанной областью видимости и с <strong><code>null</code></strong>
+   вместо объекта, будет создано статическое замыкание.
+   Для нестатического замыкания с незаданной областью видимости, но с указанием
+   объекта, создаётся замыкание с неуказанной областью видимости.
+  </p>
+
+  <blockquote class="note"><p><strong class="note">Замечание</strong>: 
+   <p class="para">
+    Если вам необходимо только дублировать анонимную функцию, то
+    вы можете вместо данного метода использовать <a href="language.oop5.cloning.php.html" class="link">клонирование</a>.
+   </p>
+  </p></blockquote>
+
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-closure.bindto-parameters">
+  <h3 class="title">Список параметров</h3>
+  <dl>
+   
+    <dt>
+<code class="parameter">newThis</code></dt>
+
+    <dd>
+
+     <p class="para">
+      Объект, к которому будет привязана переданная анонимная функция, или
+      <strong><code>null</code></strong> для отсоединения замыкания от её текущего объекта.
+     </p>
+    </dd>
+
+   
+   
+    <dt>
+<code class="parameter">newScope</code></dt>
+
+    <dd>
+
+     <p class="para">
+      Область видимости класса, с которой должно быть связано замыкание или &#039;static&#039;
+      для сохранения текущей области видимости. Если передан объект, то будет
+      использован его класс. Этот параметр определяет видимость protected (защищённых)
+      и private (закрытых) методов привязанного объекта.
+      Запрещается передавать в этот параметр внутренний класс (объект класса).
+     </p>
+    </dd>
+
+   
+  </dl>
+
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-closure.bindto-returnvalues">
+  <h3 class="title">Возвращаемые значения</h3>
+  <p class="para">
+   Возвращает новый объект <span class="classname"><a href="class.closure.php.html" class="classname">Closure</a></span>
+   или <strong><code>null</code></strong> в случае возникновения ошибки.
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-closure.bindto-examples">
+  <h3 class="title">Примеры</h3>
+  <div class="example" id="example-1183">
+   <p><strong>Пример #1 Пример <span class="function"><strong>Closure::bindTo()</strong></span></strong></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">class </span><span style="color: #0000BB">A </span><span style="color: #007700">{<br />    private </span><span style="color: #0000BB">$val</span><span style="color: #007700">;<br /><br />    function </span><span style="color: #0000BB">__construct</span><span style="color: #007700">(</span><span style="color: #0000BB">$val</span><span style="color: #007700">) {<br />        </span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">val </span><span style="color: #007700">= </span><span style="color: #0000BB">$val</span><span style="color: #007700">;<br />    }<br /><br />    function </span><span style="color: #0000BB">getClosure</span><span style="color: #007700">() {<br />        </span><span style="color: #FF8000">//возвращает замыкание, связанное с текущими объектом и областью видимости<br />        </span><span style="color: #007700">return function() { return </span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">val</span><span style="color: #007700">; };<br />    }<br />}<br /><br /></span><span style="color: #0000BB">$ob1 </span><span style="color: #007700">= new </span><span style="color: #0000BB">A</span><span style="color: #007700">(</span><span style="color: #0000BB">1</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$ob2 </span><span style="color: #007700">= new </span><span style="color: #0000BB">A</span><span style="color: #007700">(</span><span style="color: #0000BB">2</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$cl </span><span style="color: #007700">= </span><span style="color: #0000BB">$ob1</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getClosure</span><span style="color: #007700">();<br />echo </span><span style="color: #0000BB">$cl</span><span style="color: #007700">(), </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$cl </span><span style="color: #007700">= </span><span style="color: #0000BB">$cl</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">bindTo</span><span style="color: #007700">(</span><span style="color: #0000BB">$ob2</span><span style="color: #007700">);<br />echo </span><span style="color: #0000BB">$cl</span><span style="color: #007700">(), </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+   </div>
+
+   
+<div class="example-contents"><p>
+ Вывод приведённого примера будет похож на:
+</p></div>
+
+   <div class="example-contents screen">
+<div class="cdata"><pre>
+1
+2
+</pre></div>
+   </div>
+  </div>
+ </div>
+
+
+
+ <div class="refsect1 seealso" id="refsect1-closure.bindto-seealso">
+  <h3 class="title">Смотрите также</h3>
+  <ul class="simplelist">
+   <li class="member"><a href="functions.anonymous.php.html" class="link">Анонимные функции</a></li>
+   <li class="member"><span class="methodname"><a href="closure.bind.php.html" class="methodname" rel="rdfs-seeAlso">Closure::bind()</a> - Дублирует замыкание с указанием конкретного связанного объекта и области видимости класса</span></li>
+  </ul>
+ </div>
+
+
+</div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=closure.bindto&amp;redirect=https://www.php.net/manual/ru/closure.bindto.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">9 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="111379">  <div class="votes">
+    <div id="Vu111379">
+    <a href="https://www.php.net/manual/vote-note.php?id=111379&amp;page=closure.bindto&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd111379">
+    <a href="https://www.php.net/manual/vote-note.php?id=111379&amp;page=closure.bindto&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V111379" title="92% like this...">
+    35
+    </div>
+  </div>
+  <a href="closure.bindto.php.html#111379" class="name">
+  <strong class="user"><em>tatarynowicz at gmail dot com</em></strong></a><a class="genanchor" href="closure.bindto.php.html#111379"> &para;</a><div class="date" title="2013-02-14 09:30"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom111379">
+<div class="phpcode"><code><span class="html">You can do pretty Javascript-like things with objects using closure binding:<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">trait </span><span class="default">DynamicDefinition </span><span class="keyword">{<br />    <br />    public function </span><span class="default">__call</span><span class="keyword">(</span><span class="default">$name</span><span class="keyword">, </span><span class="default">$args</span><span class="keyword">) {<br />        if (</span><span class="default">is_callable</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">$name</span><span class="keyword">)) {<br />            return </span><span class="default">call_user_func</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">$name</span><span class="keyword">, </span><span class="default">$args</span><span class="keyword">);<br />        }<br />        else {<br />            throw new </span><span class="default">\RuntimeException</span><span class="keyword">(</span><span class="string">"Method </span><span class="keyword">{</span><span class="default">$name</span><span class="keyword">}</span><span class="string"> does not exist"</span><span class="keyword">);<br />        }<br />    }<br />    <br />    public function </span><span class="default">__set</span><span class="keyword">(</span><span class="default">$name</span><span class="keyword">, </span><span class="default">$value</span><span class="keyword">) {<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">$name </span><span class="keyword">= </span><span class="default">is_callable</span><span class="keyword">(</span><span class="default">$value</span><span class="keyword">)? <br />            </span><span class="default">$value</span><span class="keyword">-&gt;</span><span class="default">bindTo</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">, </span><span class="default">$this</span><span class="keyword">): <br />            </span><span class="default">$value</span><span class="keyword">;<br />    }<br />}<br /><br />class </span><span class="default">Foo </span><span class="keyword">{<br />    use </span><span class="default">DynamicDefinition</span><span class="keyword">;<br />    private </span><span class="default">$privateValue </span><span class="keyword">= </span><span class="string">'I am private'</span><span class="keyword">;<br />}<br /><br /></span><span class="default">$foo </span><span class="keyword">= new </span><span class="default">Foo</span><span class="keyword">;<br /></span><span class="default">$foo</span><span class="keyword">-&gt;</span><span class="default">bar </span><span class="keyword">= function() {<br />    return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">privateValue</span><span class="keyword">;<br />};<br /><br /></span><span class="comment">// prints 'I am private'<br /></span><span class="keyword">print </span><span class="default">$foo</span><span class="keyword">-&gt;</span><span class="default">bar</span><span class="keyword">();<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="116527">  <div class="votes">
+    <div id="Vu116527">
+    <a href="https://www.php.net/manual/vote-note.php?id=116527&amp;page=closure.bindto&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd116527">
+    <a href="https://www.php.net/manual/vote-note.php?id=116527&amp;page=closure.bindto&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V116527" title="87% like this...">
+    41
+    </div>
+  </div>
+  <a href="closure.bindto.php.html#116527" class="name">
+  <strong class="user"><em>Nezar Fadle</em></strong></a><a class="genanchor" href="closure.bindto.php.html#116527"> &para;</a><div class="date" title="2015-01-19 10:40"><strong>9 years ago</strong></div>
+  <div class="text" id="Hcom116527">
+<div class="phpcode"><code><span class="html">We can use the concept of bindTo to write a very small Template Engine:<br /><br />#############<br />index.php<br />############<br /><br /><span class="default">&lt;?php<br /><br /></span><span class="keyword">class </span><span class="default">Article</span><span class="keyword">{<br />    private </span><span class="default">$title </span><span class="keyword">= </span><span class="string">"This is an article"</span><span class="keyword">;<br />}<br /><br />class </span><span class="default">Post</span><span class="keyword">{<br />    private </span><span class="default">$title </span><span class="keyword">= </span><span class="string">"This is a post"</span><span class="keyword">;<br />}<br /><br />class </span><span class="default">Template</span><span class="keyword">{<br /><br />    function </span><span class="default">render</span><span class="keyword">(</span><span class="default">$context</span><span class="keyword">, </span><span class="default">$tpl</span><span class="keyword">){<br /><br />        </span><span class="default">$closure </span><span class="keyword">= function(</span><span class="default">$tpl</span><span class="keyword">){<br />            </span><span class="default">ob_start</span><span class="keyword">();<br />            include </span><span class="default">$tpl</span><span class="keyword">;<br />            return </span><span class="default">ob_end_flush</span><span class="keyword">();<br />        };<br /><br />        </span><span class="default">$closure </span><span class="keyword">= </span><span class="default">$closure</span><span class="keyword">-&gt;</span><span class="default">bindTo</span><span class="keyword">(</span><span class="default">$context</span><span class="keyword">, </span><span class="default">$context</span><span class="keyword">);<br />        </span><span class="default">$closure</span><span class="keyword">(</span><span class="default">$tpl</span><span class="keyword">);<br /><br />    }<br /><br />}<br /><br /></span><span class="default">$art </span><span class="keyword">= new </span><span class="default">Article</span><span class="keyword">();<br /></span><span class="default">$post </span><span class="keyword">= new </span><span class="default">Post</span><span class="keyword">();<br /></span><span class="default">$template </span><span class="keyword">= new </span><span class="default">Template</span><span class="keyword">();<br /><br /></span><span class="default">$template</span><span class="keyword">-&gt;</span><span class="default">render</span><span class="keyword">(</span><span class="default">$art</span><span class="keyword">, </span><span class="string">'tpl.php'</span><span class="keyword">);<br /></span><span class="default">$template</span><span class="keyword">-&gt;</span><span class="default">render</span><span class="keyword">(</span><span class="default">$post</span><span class="keyword">, </span><span class="string">'tpl.php'</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />#############<br />tpl.php<br />############<br />&lt;h1&gt;<span class="default">&lt;?php </span><span class="keyword">echo </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">title</span><span class="keyword">;</span><span class="default">?&gt;</span>&lt;/h1&gt;</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="107848">  <div class="votes">
+    <div id="Vu107848">
+    <a href="https://www.php.net/manual/vote-note.php?id=107848&amp;page=closure.bindto&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd107848">
+    <a href="https://www.php.net/manual/vote-note.php?id=107848&amp;page=closure.bindto&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V107848" title="88% like this...">
+    19
+    </div>
+  </div>
+  <a href="closure.bindto.php.html#107848" class="name">
+  <strong class="user"><em>safakozpinar at gmail dot com</em></strong></a><a class="genanchor" href="closure.bindto.php.html#107848"> &para;</a><div class="date" title="2012-03-09 01:35"><strong>11 years ago</strong></div>
+  <div class="text" id="Hcom107848">
+<div class="phpcode"><code><span class="html">Private/protected members are accessible if you set the "newscope" argument (as the manual says).<br /><br /><span class="default">&lt;?php<br />$fn </span><span class="keyword">= function(){<br />    return ++</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">foo</span><span class="keyword">; </span><span class="comment">// increase the value<br /></span><span class="keyword">};<br /><br />class </span><span class="default">Bar</span><span class="keyword">{<br />    private </span><span class="default">$foo </span><span class="keyword">= </span><span class="default">1</span><span class="keyword">; </span><span class="comment">// initial value<br /></span><span class="keyword">}<br /><br /></span><span class="default">$bar </span><span class="keyword">= new </span><span class="default">Bar</span><span class="keyword">();<br /><br /></span><span class="default">$fn1 </span><span class="keyword">= </span><span class="default">$fn</span><span class="keyword">-&gt;</span><span class="default">bindTo</span><span class="keyword">(</span><span class="default">$bar</span><span class="keyword">, </span><span class="string">'Bar'</span><span class="keyword">); </span><span class="comment">// specify class name<br /></span><span class="default">$fn2 </span><span class="keyword">= </span><span class="default">$fn</span><span class="keyword">-&gt;</span><span class="default">bindTo</span><span class="keyword">(</span><span class="default">$bar</span><span class="keyword">,  </span><span class="default">$bar</span><span class="keyword">); </span><span class="comment">// or object<br /><br /></span><span class="keyword">echo </span><span class="default">$fn1</span><span class="keyword">(); </span><span class="comment">// 2<br /></span><span class="keyword">echo </span><span class="default">$fn2</span><span class="keyword">(); </span><span class="comment">// 3</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="122641">  <div class="votes">
+    <div id="Vu122641">
+    <a href="https://www.php.net/manual/vote-note.php?id=122641&amp;page=closure.bindto&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd122641">
+    <a href="https://www.php.net/manual/vote-note.php?id=122641&amp;page=closure.bindto&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V122641" title="83% like this...">
+    4
+    </div>
+  </div>
+  <a href="closure.bindto.php.html#122641" class="name">
+  <strong class="user"><em>Anonymous</em></strong></a><a class="genanchor" href="closure.bindto.php.html#122641"> &para;</a><div class="date" title="2018-04-19 03:31"><strong>5 years ago</strong></div>
+  <div class="text" id="Hcom122641">
+<div class="phpcode"><code><span class="html">If you want to unbind completely the closure and the scope you need to set both to null:<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">class </span><span class="default">MyClass<br /></span><span class="keyword">{<br />    public </span><span class="default">$foo </span><span class="keyword">= </span><span class="string">'a'</span><span class="keyword">;<br />    protected </span><span class="default">$bar </span><span class="keyword">= </span><span class="string">'b'</span><span class="keyword">;<br />    private </span><span class="default">$baz </span><span class="keyword">= </span><span class="string">'c'</span><span class="keyword">;<br /><br />    </span><span class="comment">/**<br />     * @return array<br />     */<br />    </span><span class="keyword">public function </span><span class="default">toArray</span><span class="keyword">()<br />    {<br />        </span><span class="comment">// Only public variables<br />        </span><span class="keyword">return (function (</span><span class="default">$obj</span><span class="keyword">) {<br />            return </span><span class="default">get_object_vars</span><span class="keyword">(</span><span class="default">$obj</span><span class="keyword">);<br />        })-&gt;</span><span class="default">bindTo</span><span class="keyword">(</span><span class="default">null</span><span class="keyword">, </span><span class="default">null</span><span class="keyword">)(</span><span class="default">$this</span><span class="keyword">);<br />    }<br />}<br /></span><span class="default">?&gt;<br /></span><br />In this example, only the public variables of the class are exported (foo).<br /><br />If you use the default scope (-&gt;bindTo(null)) also protected and private variables are exported (foo, bar and baz).<br /><br />It was hard to figure it out because there is nowhere mentioned in the documentation that you can use null as a scope.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="106912">  <div class="votes">
+    <div id="Vu106912">
+    <a href="https://www.php.net/manual/vote-note.php?id=106912&amp;page=closure.bindto&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd106912">
+    <a href="https://www.php.net/manual/vote-note.php?id=106912&amp;page=closure.bindto&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V106912" title="75% like this...">
+    8
+    </div>
+  </div>
+  <a href="closure.bindto.php.html#106912" class="name">
+  <strong class="user"><em>amica at php-resource dot de</em></strong></a><a class="genanchor" href="closure.bindto.php.html#106912"> &para;</a><div class="date" title="2011-12-18 04:23"><strong>12 years ago</strong></div>
+  <div class="text" id="Hcom106912">
+<div class="phpcode"><code><span class="html">With rebindable $this at hand it's possible to do evil stuff:<br /><br /><span class="default">&lt;?php<br />    </span><span class="keyword">class </span><span class="default">A </span><span class="keyword">{<br />        private </span><span class="default">$a </span><span class="keyword">= </span><span class="default">12</span><span class="keyword">;<br />        private function </span><span class="default">getA </span><span class="keyword">() {<br />            return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">a</span><span class="keyword">;<br />        }<br />    }<br />    class </span><span class="default">B </span><span class="keyword">{<br />        private </span><span class="default">$b </span><span class="keyword">= </span><span class="default">34</span><span class="keyword">;<br />        private function </span><span class="default">getB </span><span class="keyword">() {<br />            return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">b</span><span class="keyword">;<br />        }<br />    }<br />    </span><span class="default">$a </span><span class="keyword">= new </span><span class="default">A</span><span class="keyword">();<br />    </span><span class="default">$b </span><span class="keyword">= new </span><span class="default">B</span><span class="keyword">();<br />    </span><span class="default">$c </span><span class="keyword">= function () {<br />        if (</span><span class="default">property_exists</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">, </span><span class="string">"a"</span><span class="keyword">) &amp;&amp; </span><span class="default">method_exists</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">, </span><span class="string">"getA"</span><span class="keyword">)) {<br />            </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">a</span><span class="keyword">++;<br />            return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">getA</span><span class="keyword">();<br />        }<br />        if (</span><span class="default">property_exists</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">, </span><span class="string">"b"</span><span class="keyword">) &amp;&amp; </span><span class="default">method_exists</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">, </span><span class="string">"getB"</span><span class="keyword">)) {<br />            </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">b</span><span class="keyword">++;<br />            return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">getB</span><span class="keyword">();<br />        }<br />    };<br />    </span><span class="default">$ca </span><span class="keyword">= </span><span class="default">$c</span><span class="keyword">-&gt;</span><span class="default">bindTo</span><span class="keyword">(</span><span class="default">$a</span><span class="keyword">, </span><span class="default">$a</span><span class="keyword">);<br />    </span><span class="default">$cb </span><span class="keyword">= </span><span class="default">$c</span><span class="keyword">-&gt;</span><span class="default">bindTo</span><span class="keyword">(</span><span class="default">$b</span><span class="keyword">, </span><span class="default">$b</span><span class="keyword">);<br />    echo </span><span class="default">$ca</span><span class="keyword">(), </span><span class="string">"\n"</span><span class="keyword">; </span><span class="comment">// =&gt; 13<br />    </span><span class="keyword">echo </span><span class="default">$cb</span><span class="keyword">(), </span><span class="string">"\n"</span><span class="keyword">; </span><span class="comment">// =&gt; 35<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="119410">  <div class="votes">
+    <div id="Vu119410">
+    <a href="https://www.php.net/manual/vote-note.php?id=119410&amp;page=closure.bindto&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd119410">
+    <a href="https://www.php.net/manual/vote-note.php?id=119410&amp;page=closure.bindto&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V119410" title="75% like this...">
+    2
+    </div>
+  </div>
+  <a href="closure.bindto.php.html#119410" class="name">
+  <strong class="user"><em>luc at s dot illi dot be</em></strong></a><a class="genanchor" href="closure.bindto.php.html#119410"> &para;</a><div class="date" title="2016-05-31 04:44"><strong>7 years ago</strong></div>
+  <div class="text" id="Hcom119410">
+<div class="phpcode"><code><span class="html">Access private members of parent classes; playing with the scopes:<br /><span class="default">&lt;?PHP<br /></span><span class="keyword">class </span><span class="default">Grandparents</span><span class="keyword">{ private </span><span class="default">$__status1 </span><span class="keyword">= </span><span class="string">'married'</span><span class="keyword">; }<br />class </span><span class="default">Parents </span><span class="keyword">extends </span><span class="default">Grandparents</span><span class="keyword">{ private </span><span class="default">$__status2 </span><span class="keyword">= </span><span class="string">'divorced'</span><span class="keyword">; }<br />class </span><span class="default">Me </span><span class="keyword">extends </span><span class="default">Parents</span><span class="keyword">{ private </span><span class="default">$__status3 </span><span class="keyword">= </span><span class="string">'single'</span><span class="keyword">; }<br /><br /></span><span class="default">$status1_3 </span><span class="keyword">= function()<br />{<br />    </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">__status1 </span><span class="keyword">= </span><span class="string">'happy'</span><span class="keyword">;<br />    </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">__status2 </span><span class="keyword">= </span><span class="string">'happy'</span><span class="keyword">;<br />    </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">__status3 </span><span class="keyword">= </span><span class="string">'happy'</span><span class="keyword">;<br />};<br /><br /></span><span class="default">$status1_2 </span><span class="keyword">= function()<br />{<br />    </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">__status1 </span><span class="keyword">= </span><span class="string">'happy'</span><span class="keyword">;<br />    </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">__status2 </span><span class="keyword">= </span><span class="string">'happy'</span><span class="keyword">;<br />};<br /><br /></span><span class="comment">// test 1:<br /></span><span class="default">$c </span><span class="keyword">= </span><span class="default">$status1_3</span><span class="keyword">-&gt;</span><span class="default">bindTo</span><span class="keyword">(</span><span class="default">$R </span><span class="keyword">= new </span><span class="default">Me</span><span class="keyword">, </span><span class="default">Parents</span><span class="keyword">::class);            <br /></span><span class="comment">#$c();    // Fatal: Cannot access private property Me::$__status3<br /><br />// test 2:<br /></span><span class="default">$d </span><span class="keyword">= </span><span class="default">$status1_2</span><span class="keyword">-&gt;</span><span class="default">bindTo</span><span class="keyword">(</span><span class="default">$R </span><span class="keyword">= new </span><span class="default">Me</span><span class="keyword">, </span><span class="default">Parents</span><span class="keyword">::class);<br /></span><span class="default">$d</span><span class="keyword">();<br /></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$R</span><span class="keyword">);<br /></span><span class="comment">/*<br />object(Me)#5 (4) {<br />  ["__status3":"Me":private]=&gt;<br />  string(6) "single"<br />  ["__status2":"Parents":private]=&gt;<br />  string(5) "happy"<br />  ["__status1":"Grandparents":private]=&gt;<br />  string(7) "married"<br />  ["__status1"]=&gt;<br />  string(5) "happy"<br />}<br />*/<br /><br />// test 3:<br /></span><span class="default">$e </span><span class="keyword">= </span><span class="default">$status1_3</span><span class="keyword">-&gt;</span><span class="default">bindTo</span><span class="keyword">(</span><span class="default">$R </span><span class="keyword">= new </span><span class="default">Me</span><span class="keyword">, </span><span class="default">Grandparents</span><span class="keyword">::class);    <br /></span><span class="comment">#$e(); // Fatal: Cannot access private property Me::$__status3<br /><br />// test 4:<br /></span><span class="default">$f </span><span class="keyword">= </span><span class="default">$status1_2</span><span class="keyword">-&gt;</span><span class="default">bindTo</span><span class="keyword">(</span><span class="default">$R </span><span class="keyword">= new </span><span class="default">Me</span><span class="keyword">, </span><span class="default">Grandparents</span><span class="keyword">::class);    <br /></span><span class="default">$f</span><span class="keyword">();<br /></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$R</span><span class="keyword">);<br /></span><span class="comment">/*<br />object(Me)#9 (4) {<br />  ["__status3":"Me":private]=&gt;<br />  string(6) "single"<br />  ["__status2":"Parents":private]=&gt;<br />  string(8) "divorced"<br />  ["__status1":"Grandparents":private]=&gt;<br />  string(5) "happy"<br />  ["__status2"]=&gt;<br />  string(5) "happy"<br />}<br />*/<br /></span><span class="default">?&gt;<br /></span><br />Clear the stack trace:<br /><span class="default">&lt;?PHP<br /></span><span class="keyword">use </span><span class="default">Exception</span><span class="keyword">;<br />use </span><span class="default">ReflectionException</span><span class="keyword">;<br /><br /></span><span class="default">$c </span><span class="keyword">= function()<br />{<br />    </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">trace </span><span class="keyword">= [];<br />};<br /><br /></span><span class="default">$c </span><span class="keyword">= </span><span class="default">$c</span><span class="keyword">-&gt;</span><span class="default">bindTo</span><span class="keyword">(</span><span class="default">$R </span><span class="keyword">= new </span><span class="default">ReflectionException</span><span class="keyword">, </span><span class="default">Exception</span><span class="keyword">::class);<br /></span><span class="default">$c</span><span class="keyword">();<br /><br />try<br />{<br />    throw </span><span class="default">$R</span><span class="keyword">;<br />}<br />catch(</span><span class="default">ReflectionException $R</span><span class="keyword">)<br />{<br />    </span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$R</span><span class="keyword">-&gt;</span><span class="default">getTrace</span><span class="keyword">());<br />}<br /></span><span class="comment">/*<br />array(0) {<br />}<br />*/<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="129057">  <div class="votes">
+    <div id="Vu129057">
+    <a href="https://www.php.net/manual/vote-note.php?id=129057&amp;page=closure.bindto&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd129057">
+    <a href="https://www.php.net/manual/vote-note.php?id=129057&amp;page=closure.bindto&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V129057" title="100% like this...">
+    1
+    </div>
+  </div>
+  <a href="closure.bindto.php.html#129057" class="name">
+  <strong class="user"><em>malferov at gmail dot com</em></strong></a><a class="genanchor" href="closure.bindto.php.html#129057"> &para;</a><div class="date" title="2023-11-20 07:09"><strong>2 months ago</strong></div>
+  <div class="text" id="Hcom129057">
+<div class="phpcode"><code><span class="html">If you, like me, did not immediately understand what exactly "(an object of) an internal class" in the documentation about the 'newScope' parameter:<br /><br />The documentation is about the object of the Closure itself:<br /><br /><span class="default">&lt;?php<br /><br /></span><span class="keyword">class </span><span class="default">A </span><span class="keyword">{}<br /><br /></span><span class="default">$a </span><span class="keyword">= new </span><span class="default">A</span><span class="keyword">();<br /><br /></span><span class="default">$closure </span><span class="keyword">= fn() =&gt; </span><span class="default">null</span><span class="keyword">;<br /><br /></span><span class="default">$binded </span><span class="keyword">= </span><span class="default">$closure</span><span class="keyword">-&gt;</span><span class="default">bindTo</span><span class="keyword">(</span><span class="default">$a</span><span class="keyword">, </span><span class="default">$closure</span><span class="keyword">,); </span><span class="comment">// Warning: Cannot bind closure to scope of internal class Closure</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="126847">  <div class="votes">
+    <div id="Vu126847">
+    <a href="https://www.php.net/manual/vote-note.php?id=126847&amp;page=closure.bindto&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd126847">
+    <a href="https://www.php.net/manual/vote-note.php?id=126847&amp;page=closure.bindto&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V126847" title="no votes...">
+    0
+    </div>
+  </div>
+  <a href="closure.bindto.php.html#126847" class="name">
+  <strong class="user"><em>Olexandr Kalaidzhy</em></strong></a><a class="genanchor" href="closure.bindto.php.html#126847"> &para;</a><div class="date" title="2022-02-12 11:56"><strong>2 years ago</strong></div>
+  <div class="text" id="Hcom126847">
+<div class="phpcode"><code><span class="html">Get all object vars without using Reflection:<br /><br /><span class="default">&lt;?php<br /><br /></span><span class="keyword">declare(</span><span class="default">strict_types</span><span class="keyword">=</span><span class="default">1</span><span class="keyword">);<br /><br />class </span><span class="default">A<br /></span><span class="keyword">{<br />    private </span><span class="default">$foo </span><span class="keyword">= </span><span class="string">'foo'</span><span class="keyword">;<br />    protected </span><span class="default">$bar </span><span class="keyword">= </span><span class="string">'bar'</span><span class="keyword">;<br />    public </span><span class="default">$buz </span><span class="keyword">= </span><span class="string">'buz'</span><span class="keyword">;<br />}<br /><br />function </span><span class="default">get_object_vars_all</span><span class="keyword">(</span><span class="default">$object</span><span class="keyword">): array<br />{<br />    if (!</span><span class="default">\is_object</span><span class="keyword">(</span><span class="default">$object</span><span class="keyword">)) {<br />        throw new </span><span class="default">\InvalidArgumentException</span><span class="keyword">(</span><span class="default">sprintf</span><span class="keyword">(</span><span class="string">'The argument should be an object, "%s" given.'</span><span class="keyword">, </span><span class="default">get_debug_type</span><span class="keyword">(</span><span class="default">$object</span><span class="keyword">)));<br />    }<br /><br />    </span><span class="default">$closure </span><span class="keyword">= function () {<br />        return </span><span class="default">get_object_vars</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">);<br />    };<br /><br />    return </span><span class="default">$closure</span><span class="keyword">-&gt;</span><span class="default">bindTo</span><span class="keyword">(</span><span class="default">$object</span><span class="keyword">, </span><span class="default">$object</span><span class="keyword">)();<br />}<br /><br /></span><span class="default">$a </span><span class="keyword">= new </span><span class="default">A</span><span class="keyword">();<br /><br /></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">get_object_vars</span><span class="keyword">(</span><span class="default">$a</span><span class="keyword">));<br /></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">get_object_vars_all</span><span class="keyword">(</span><span class="default">$a</span><span class="keyword">));<br /><br /></span><span class="default">?&gt;<br /></span><br />The output: <br /><br />array(1) {<br />  ["buz"]=&gt;<br />  string(3) "buz"<br />}<br />array(3) {<br />  ["foo"]=&gt;<br />  string(3) "foo"<br />  ["bar"]=&gt;<br />  string(3) "bar"<br />  ["buz"]=&gt;<br />  string(3) "buz"<br />}</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="107770">  <div class="votes">
+    <div id="Vu107770">
+    <a href="https://www.php.net/manual/vote-note.php?id=107770&amp;page=closure.bindto&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd107770">
+    <a href="https://www.php.net/manual/vote-note.php?id=107770&amp;page=closure.bindto&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V107770" title="20% like this...">
+    -31
+    </div>
+  </div>
+  <a href="closure.bindto.php.html#107770" class="name">
+  <strong class="user"><em>anthony bishopric</em></strong></a><a class="genanchor" href="closure.bindto.php.html#107770"> &para;</a><div class="date" title="2012-03-03 01:00"><strong>11 years ago</strong></div>
+  <div class="text" id="Hcom107770">
+<div class="phpcode"><code><span class="html">Closures can rebind their $this variable, but private/protected methods and functions of $this are not accessible to the closures. <br /><br /><span class="default">&lt;?php<br />$fn </span><span class="keyword">= function(){<br />    return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">foo</span><span class="keyword">;<br />};<br /><br />class </span><span class="default">Bar</span><span class="keyword">{<br />    private </span><span class="default">$foo </span><span class="keyword">= </span><span class="default">3</span><span class="keyword">;<br />}<br /><br /></span><span class="default">$bar </span><span class="keyword">= new </span><span class="default">Bar</span><span class="keyword">();<br /><br /></span><span class="default">$fn </span><span class="keyword">= </span><span class="default">$fn</span><span class="keyword">-&gt;</span><span class="default">bindTo</span><span class="keyword">(</span><span class="default">$bar</span><span class="keyword">);<br /><br />echo </span><span class="default">$fn</span><span class="keyword">(); </span><span class="comment">// Fatal error: Cannot access private property Bar::$foo</span></span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=closure.bindto&amp;redirect=https://www.php.net/manual/ru/closure.bindto.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="class.closure.php.html">Closure</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="closure.construct.php.html" title="_&#8203;_&#8203;construct">_&#8203;_&#8203;construct</a>
+                        </li>
+                                                <li class="">
+                            <a href="closure.bind.php.html" title="bind">bind</a>
+                        </li>
+                                                <li class="current">
+                            <a href="closure.bindto.php.html" title="bindTo">bindTo</a>
+                        </li>
+                                                <li class="">
+                            <a href="closure.call.php.html" title="call">call</a>
+                        </li>
+                                                <li class="">
+                            <a href="closure.fromcallable.php.html" title="fromCallable">fromCallable</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

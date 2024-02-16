@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: Интерактивная консоль - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="features.commandline.interactive.php.html">
+ <link rel="shorturl" href="https://www.php.net/commandline.interactive">
+ <link rel="alternate" href="https://www.php.net/commandline.interactive" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="features.commandline.php.html">
+ <link rel="prev" href="features.commandline.io-streams.php.html">
+ <link rel="next" href="features.commandline.webserver.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/features.commandline.interactive.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/features.commandline.interactive.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/features.commandline.interactive.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/features.commandline.interactive.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/features.commandline.interactive.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/features.commandline.interactive.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/features.commandline.interactive.php" hreflang="pt_BR">
+ <link rel="alternate" href="features.commandline.interactive.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/features.commandline.interactive.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/features.commandline.interactive.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="features.commandline.webserver.php.html">
+          Встроенный веб-сервер &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="features.commandline.io-streams.php.html">
+          &laquo; Потоки ввода-вывода        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='features.php.html'>Особенности</a></li>      <li><a href='features.commandline.php.html'>Работа с PHP из командной строки</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/features.commandline.interactive.php'>English</option>
+            <option value='de/features.commandline.interactive.php'>German</option>
+            <option value='es/features.commandline.interactive.php'>Spanish</option>
+            <option value='fr/features.commandline.interactive.php'>French</option>
+            <option value='it/features.commandline.interactive.php'>Italian</option>
+            <option value='ja/features.commandline.interactive.php'>Japanese</option>
+            <option value='pt_BR/features.commandline.interactive.php'>Brazilian Portuguese</option>
+            <option value='ru/features.commandline.interactive.php' selected="selected">Russian</option>
+            <option value='tr/features.commandline.interactive.php'>Turkish</option>
+            <option value='zh/features.commandline.interactive.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/features/commandline.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Ffeatures.commandline.interactive%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="features.commandline.interactive" class="section">
+  <h2 class="title">Интерактивная консоль</h2>
+
+  <p class="para">
+   Модуль <abbr title="Command Line Interpreter/Interface">CLI</abbr> <abbr title="Server Application Programming Interface">SAPI</abbr> предоставляет
+   интерактивную консоль, используя опцию
+   <strong class="option unknown">-a</strong>, если PHP был скомпилирован с опцией
+   <strong class="option configure">--with-readline</strong>.
+   Начиная с PHP PHP 7.1.0, интерактивная консоль также доступна на Windows, если
+   <a href="book.readline.php.html" class="link">модуль readline</a> включён.
+  </p>
+
+  <p class="para">
+   Используя интерактивную консоль, можно ввести и выполнить
+   непосредственно PHP-код.
+  </p>
+
+  <div class="example" id="example-1435">
+   <p><strong>Пример #1 Запуск кода в интерактивной консоли</strong></p>
+   <div class="example-contents">
+<div class="shellcode"><pre class="shellcode">$ php -a
+Interactive shell
+
+php &gt; echo 5+8;
+13
+php &gt; function addTwo($n)
+php &gt; {
+php { return $n + 2;
+php { }
+php &gt; var_dump(addtwo(2));
+int(4)
+php &gt;</pre>
+</div>
+   </div>
+
+  </div>
+
+  <p class="para">
+   Интерактивная консоль также автодополняет (с помощью клавиши Tab)
+   имена функций, констант, классов, переменных, вызовы
+   статических методов и константы классов.
+  </p>
+
+  <div class="example" id="example-1438">
+   <p><strong>Пример #2 Автодополнение по Tab</strong></p>
+   <div class="example-contents"><p>
+    Двойное нажатие клавиши Tab при наличии нескольких вариантов
+    дополнения покажет список этих вариантов:
+   </p></div>
+   <div class="example-contents">
+<div class="shellcode"><pre class="shellcode">php &gt; strp[TAB][TAB]
+strpbrk   strpos    strptime
+php &gt; strp</pre>
+</div>
+   </div>
+
+   <div class="example-contents"><p>
+    Когда есть только одно дополнение, одиночное нажатие
+    Tab дополнит оставшийся текст на той же самой строке:
+   </p></div>
+   <div class="example-contents">
+<div class="shellcode"><pre class="shellcode">php &gt; strpt[TAB]ime(</pre>
+</div>
+   </div>
+
+   <div class="example-contents"><p>
+    Дополнение также работает для имён, которые были объявлены
+    в течение данной интерактивной сессии:
+   </p></div>
+   <div class="example-contents">
+<div class="shellcode"><pre class="shellcode">php &gt; $fooThisIsAReallyLongVariableName = 42;
+php &gt; $foo[TAB]ThisIsAReallyLongVariableName</pre>
+</div>
+   </div>
+
+  </div>
+
+  <p class="para">
+   Интерактивная консоль хранит историю команд, для доступа к которой
+   можно использовать стрелки вверх и вниз.
+   История хранится в файле <var class="filename">~/.php_history</var>.
+  </p>
+
+  <p class="para">
+   Модуль <abbr title="Command Line Interpreter/Interface">CLI</abbr> <abbr title="Server Application Programming Interface">SAPI</abbr> предоставляет
+   две новые настройки в <var class="filename">php.ini</var>: <code class="parameter">cli.pager</code> и
+   <code class="parameter">cli.prompt</code>. Настройка <code class="parameter">cli.pager</code>
+   позволяет использовать внешнюю программу (такую как <var class="filename">less</var>)
+   для постраничного просмотра данных вместо их прямого вывода на экран.
+   Настройка <code class="parameter">cli.prompt</code> позволяет задавать
+   приглашение <code class="literal">php &gt;</code> на ввод команды.
+  </p>
+
+  <p class="para">
+   Также можно устанавливать настройки <var class="filename">php.ini</var> в интерактивной
+   консоли, используя специальное сокращение.
+  </p>
+
+  <div class="example" id="example-1441">
+   <p><strong>Пример #3 Установка настройки <var class="filename">php.ini</var> в интерактивной консоли</strong></p>
+   <div class="example-contents"><p>
+    Настройка <code class="parameter">cli.prompt</code>:
+   </p></div>
+   <div class="example-contents">
+<div class="shellcode"><pre class="shellcode">php &gt; #cli.prompt=hello world :&gt;
+hello world :&gt;</pre>
+</div>
+   </div>
+
+   <div class="example-contents"><p>
+    Используя обратные апострофы можно задать PHP-код, который
+    выполнится в приглашении на ввод команды:
+   </p></div>
+   <div class="example-contents">
+<div class="shellcode"><pre class="shellcode">php &gt; #cli.prompt=`echo date(&#039;H:i:s&#039;);` php &gt;
+15:49:35 php &gt; echo &#039;hi&#039;;
+hi
+15:49:43 php &gt; sleep(2);
+15:49:45 php &gt;</pre>
+</div>
+   </div>
+
+   <div class="example-contents"><p>
+    Установка <var class="filename">less</var> для постраничного вывода данных:
+   </p></div>
+   <div class="example-contents">
+<div class="shellcode"><pre class="shellcode">php &gt; #cli.pager=less
+php &gt; phpinfo();
+(output displayed in less)
+php &gt;</pre>
+</div>
+   </div>
+
+  </div>
+
+  <p class="para">
+   Настройка <code class="parameter">cli.prompt</code> поддерживает
+   несколько управляющих последовательностей:
+   <table class="doctable table">
+    <caption><strong>Управляющие последовательности <code class="parameter">cli.prompt</code></strong></caption>
+    
+     <thead>
+      <tr>
+       <th>Управляющая последовательность</th>
+       <th>Описание</th>
+      </tr>
+
+     </thead>
+
+     <tbody class="tbody">
+      <tr>
+       <td><code class="literal">\e</code></td>
+       <td>
+        Используется для добавления цветов в приглашение на ввод команды.
+        Пример: <code class="literal">\e[032m\v \e[031m\b \e[34m\&gt; \e[0m</code>
+       </td>
+      </tr>
+
+      <tr>
+       <td><code class="literal">\v</code></td>
+       <td>Версия PHP.</td>
+      </tr>
+
+      <tr>
+       <td><code class="literal">\b</code></td>
+       <td>
+        Отображает в какой части PHP мы находимся. Для примера <code class="literal">/*</code>
+        показывает, что мы находимся в многострочном комментарии. Внешняя область
+        видимости обозначается как <code class="literal">php</code>.
+       </td>
+      </tr>
+
+      <tr>
+       <td><code class="literal">\&gt;</code></td>
+       <td>
+        Указывает символ приглашения. По умолчанию это символ <code class="literal">&gt;</code>,
+        но можно изменить, когда оболочка находится внутри незакрытого блока или строки.
+        Возможные символы: <code class="literal">&#039; &quot; { ( &gt;</code>
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+
+  <blockquote class="note"><p><strong class="note">Замечание</strong>: 
+   <p class="para">
+    Файлы, подключённые с помощью опций
+    <a href="ini.core.php.html#ini.auto-prepend-file" class="link">auto_prepend_file</a> и
+    <a href="ini.core.php.html#ini.auto-append-file" class="link">auto_append_file</a>
+    обрабатываются в этом режиме с некоторыми ограничениями,
+    например, функции должны быть объявлены до их использования.
+   </p>
+  </p></blockquote>
+
+  <div class="section" id="features.commandline.interactive.mode">
+   <h2 class="title">Интерактивный режим</h2>
+   <p class="para">
+    Если модуль readline недоступен, то до PHP 8.1.0 вызов файла <abbr title="Command Line Interpreter/Interface">CLI</abbr> <abbr title="Server Application Programming Interface">SAPI</abbr> с параметром <strong class="option unknown">-a</strong> обеспечивал интерактивный режим.
+    В этом режиме предполагается, что полный скрипт PHP передаётся через STDIN, а после завершения скрипт оценивается с помощью <code class="literal">CRTL+d</code> (POSIX) или <code class="literal">CTRL+z</code> с последующим <code class="literal">ENTER</code> (Windows).
+    По сути это то же самое, что и вызов <abbr title="Command Line Interpreter/Interface">CLI</abbr> <abbr title="Server Application Programming Interface">SAPI</abbr> без параметра <strong class="option unknown">-a</strong>.
+    option.
+   </p>
+   <p class="para">
+    Начиная с PHP 8.1.0, вызов <abbr title="Command Line Interpreter/Interface">CLI</abbr> <abbr title="Server Application Programming Interface">SAPI</abbr> с параметром <strong class="option unknown">-a</strong> завершается ошибкой, если модуль readline недоступен.
+   </p>
+  </div>
+ </div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=features.commandline.interactive&amp;redirect=https://www.php.net/manual/ru/features.commandline.interactive.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">6 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="108006">  <div class="votes">
+    <div id="Vu108006">
+    <a href="https://www.php.net/manual/vote-note.php?id=108006&amp;page=features.commandline.interactive&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd108006">
+    <a href="https://www.php.net/manual/vote-note.php?id=108006&amp;page=features.commandline.interactive&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V108006" title="85% like this...">
+    174
+    </div>
+  </div>
+  <a href="features.commandline.interactive.php.html#108006" class="name">
+  <strong class="user"><em>Ryan P</em></strong></a><a class="genanchor" href="features.commandline.interactive.php.html#108006"> &para;</a><div class="date" title="2012-03-21 10:03"><strong>11 years ago</strong></div>
+  <div class="text" id="Hcom108006">
+<div class="phpcode"><code><span class="html">Interactive Shell and Interactive Mode are not the same thing, despite the similar names and functionality.<br /><br />If you type 'php -a' and get a response of 'Interactive Shell' followed by a 'php&gt;' prompt, you have interactive shell available (PHP was compiled with readline support). If instead you get a response of 'Interactive mode enabled', you DO NOT have interactive shell available and this article does not apply to you.<br /><br />You can also check 'php -m' and see if readline is listed in the output - if not, you don't have interactive shell.<br /><br />Interactive mode is essentially like running php with stdin as the file input. You just type code, and when you're done (Ctrl-D), php executes whatever you typed as if it were a normal PHP (PHTML) file - hence you start in interactive mode with '&lt;?php' in order to execute code.<br /><br />Interactive shell evaluates every expression as you complete it (with ; or }), reports errors without terminating execution, and supports standard shell functionality via readline (history, tab completion, etc). It's an enhanced version of interactive mode that is ONLY available if you have the required libraries, and is an actual PHP shell that interprets everything you type as PHP code - using '&lt;?php' will cause a parse error.<br /><br />Finally, if you're running on Windows, you're probably screwed. From what I'm seeing in other comments here, you don't have readline, and without readline there is no interactive shell.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="105729">  <div class="votes">
+    <div id="Vu105729">
+    <a href="https://www.php.net/manual/vote-note.php?id=105729&amp;page=features.commandline.interactive&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd105729">
+    <a href="https://www.php.net/manual/vote-note.php?id=105729&amp;page=features.commandline.interactive&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V105729" title="78% like this...">
+    59
+    </div>
+  </div>
+  <a href="features.commandline.interactive.php.html#105729" class="name">
+  <strong class="user"><em>spencer at aninternetpresence dot net</em></strong></a><a class="genanchor" href="features.commandline.interactive.php.html#105729"> &para;</a><div class="date" title="2011-09-09 10:45"><strong>12 years ago</strong></div>
+  <div class="text" id="Hcom105729">
+<div class="phpcode"><code><span class="html">In Windows, press Enter after your ending PHP tag and then hit Ctrl-Z to denote the end-of-file:<br /><br />C:\&gt;php -a<br />Interactive mode enabled<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">echo </span><span class="string">"Hello, world!"</span><span class="keyword">;<br /></span><span class="default">?&gt;<br /></span>^Z<br />Hello, world!<br /><br />You can use the up and down arrows in interactive mode to recall previous code you ran.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="124558">  <div class="votes">
+    <div id="Vu124558">
+    <a href="https://www.php.net/manual/vote-note.php?id=124558&amp;page=features.commandline.interactive&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd124558">
+    <a href="https://www.php.net/manual/vote-note.php?id=124558&amp;page=features.commandline.interactive&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V124558" title="80% like this...">
+    3
+    </div>
+  </div>
+  <a href="features.commandline.interactive.php.html#124558" class="name">
+  <strong class="user"><em>Gray</em></strong></a><a class="genanchor" href="features.commandline.interactive.php.html#124558"> &para;</a><div class="date" title="2020-01-02 11:53"><strong>4 years ago</strong></div>
+  <div class="text" id="Hcom124558">
+<div class="phpcode"><code><span class="html">When adding colours, don't forget that PHP uses the same 'readline' as Bash does, so it has the same need to wrap all colour codes in special marker characters.<br /><br />If you simply add raw colour codes to the prompt, you will notice that long lines no longer get wrapped correctly -- Readline no longer knows how wide the prompt is.<br /><br />To fix this, you need to start each colour code with an '0x01' byte (aka Ctrl-A aka SOH) and end it with the '0x02' byte (aka Ctrl-B aka STX). There are no escapes for these -- you have to literally put the control characters in your php-cli.ini.<br /><br />For example:<br /><br /><span class="default">&lt;?php<br /><br /></span><span class="comment">// cli.prompt = &lt;SOH&gt;\e[1m&lt;STX&gt; PHP! \&gt; &lt;SOH&gt;\e[m&lt;STX&gt;<br /><br /></span><span class="keyword">echo </span><span class="string">"cli.prompt = \x01\\e[1m\x02 PHP! \x01\\e[m\x02\n"</span><span class="keyword">;<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="121614">  <div class="votes">
+    <div id="Vu121614">
+    <a href="https://www.php.net/manual/vote-note.php?id=121614&amp;page=features.commandline.interactive&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd121614">
+    <a href="https://www.php.net/manual/vote-note.php?id=121614&amp;page=features.commandline.interactive&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V121614" title="68% like this...">
+    11
+    </div>
+  </div>
+  <a href="features.commandline.interactive.php.html#121614" class="name">
+  <strong class="user"><em>#linuxmint-es</em></strong></a><a class="genanchor" href="features.commandline.interactive.php.html#121614"> &para;</a><div class="date" title="2017-09-06 02:50"><strong>6 years ago</strong></div>
+  <div class="text" id="Hcom121614">
+<div class="phpcode"><code><span class="html">For use interactive mode enabled on GNU/Linux on distros Debian/Ubuntu/LinuxMint you must install "php*-cli" and "php*-readline" packages from official repository.<br />Example:<br /> &gt;$sudo aptitude install php5-cli php5-readline<br /><br />After that you can use interactive mode.<br />Example:<br />~ $ php -a<br />Interactive mode enabled<br /><br />php &gt;echo "hola mundo!\n";<br />hola mundo!<br />php &gt;<br /><br />I hope somebody help it!</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="98520">  <div class="votes">
+    <div id="Vu98520">
+    <a href="https://www.php.net/manual/vote-note.php?id=98520&amp;page=features.commandline.interactive&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd98520">
+    <a href="https://www.php.net/manual/vote-note.php?id=98520&amp;page=features.commandline.interactive&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V98520" title="68% like this...">
+    15
+    </div>
+  </div>
+  <a href="features.commandline.interactive.php.html#98520" class="name">
+  <strong class="user"><em>Anonymous</em></strong></a><a class="genanchor" href="features.commandline.interactive.php.html#98520"> &para;</a><div class="date" title="2010-06-20 12:56"><strong>13 years ago</strong></div>
+  <div class="text" id="Hcom98520">
+<div class="phpcode"><code><span class="html">Just a few more notes to add...<br /><br />1) Hitting return does literally mean "execute this command".  Semicolon to note end of line is still required.  Meaning, doing the following will produce a parse error:<br /><br />php &gt; print "test"<br />php &gt; print "asdf";<br /><br />Whereas doing the following is just fine:<br /><br />php &gt; print "test"<br />php &gt; ."asdf";<br /><br />2) Fatal errors may eject you from the shell:<br /><br />name@local:~$ php -a<br />php &gt; asdf();<br /><br />Fatal Error: call to undefined function...<br />name@local:~$<br /><br />3) User defined functions are not saved in history from shell session to shell session.<br /><br />4) Should be obvious, but to quit the shell, just type "quit" at the php prompt.<br /><br />5) In a sense, the shell interaction can be thought of as linearly following a regular php file, except it's live and dynamic.  If you define a function that you've already defined earlier in your current shell, you will receive a fatal "function already defined" error only upon entering that closing bracket.  And, although "including" a toolset of custom functions or a couple of script addon php files is rather handy, should you edit those files and wish to "reinclude" it again, you'll cause a fatal "function x already defined" error.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="122503">  <div class="votes">
+    <div id="Vu122503">
+    <a href="https://www.php.net/manual/vote-note.php?id=122503&amp;page=features.commandline.interactive&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd122503">
+    <a href="https://www.php.net/manual/vote-note.php?id=122503&amp;page=features.commandline.interactive&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V122503" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="features.commandline.interactive.php.html#122503" class="name">
+  <strong class="user"><em>John</em></strong></a><a class="genanchor" href="features.commandline.interactive.php.html#122503"> &para;</a><div class="date" title="2018-03-13 12:54"><strong>5 years ago</strong></div>
+  <div class="text" id="Hcom122503">
+<div class="phpcode"><code><span class="html">If you delete your "~/.php_history", you MUST re-create the file manually!<br /><br />Because after I deleted my history file, "php -a" (interactive mode) never saved any history anymore.<br /><br />It only started working after I ran "touch ~/.php_history" to create an empty file. From then on, PHP is saving history again!<br /><br />I thought this was a bit unusual. Normally, applications recreate their history files themselves. But just be aware of the fact that PHP works this way instead, guys and girls! :-)</span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=features.commandline.interactive&amp;redirect=https://www.php.net/manual/ru/features.commandline.interactive.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="features.commandline.php.html">Работа с PHP из командной строки</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="features.commandline.introduction.php.html" title="Введение">Введение</a>
+                        </li>
+                                                <li class="">
+                            <a href="features.commandline.differences.php.html" title="Основные отличия от остальных реализаций SAPI">Основные отличия от остальных реализаций SAPI</a>
+                        </li>
+                                                <li class="">
+                            <a href="features.commandline.options.php.html" title="Опции">Опции</a>
+                        </li>
+                                                <li class="">
+                            <a href="features.commandline.usage.php.html" title="Использование">Использование</a>
+                        </li>
+                                                <li class="">
+                            <a href="features.commandline.io-streams.php.html" title="Потоки ввода-&#8203;вывода">Потоки ввода-&#8203;вывода</a>
+                        </li>
+                                                <li class="current">
+                            <a href="features.commandline.interactive.php.html" title="Интерактивная консоль">Интерактивная консоль</a>
+                        </li>
+                                                <li class="">
+                            <a href="features.commandline.webserver.php.html" title="Встроенный веб-&#8203;сервер">Встроенный веб-&#8203;сервер</a>
+                        </li>
+                                                <li class="">
+                            <a href="features.commandline.ini.php.html" title="Опции конфигурации">Опции конфигурации</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: mysqli_result::fetch_assoc - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="mysqli-result.fetch-assoc.php.html">
+ <link rel="shorturl" href="mysqli-result.fetch-assoc.php.html">
+ <link rel="alternate" href="mysqli-result.fetch-assoc.php.html" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="class.mysqli-result.php.html">
+ <link rel="prev" href="mysqli-result.fetch-array.php.html">
+ <link rel="next" href="mysqli-result.fetch-column.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/mysqli-result.fetch-assoc.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/mysqli-result.fetch-assoc.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/mysqli-result.fetch-assoc.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/mysqli-result.fetch-assoc.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/mysqli-result.fetch-assoc.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/mysqli-result.fetch-assoc.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/mysqli-result.fetch-assoc.php" hreflang="pt_BR">
+ <link rel="alternate" href="mysqli-result.fetch-assoc.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/mysqli-result.fetch-assoc.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/mysqli-result.fetch-assoc.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="mysqli-result.fetch-column.php.html">
+          mysqli_result::fetch_column &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="mysqli-result.fetch-array.php.html">
+          &laquo; mysqli_result::fetch_array        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.database.php.html'>Модули для работы с базами данных</a></li>      <li><a href='refs.database.vendors.php.html'>Модули для работы с базами данных отдельных производителей</a></li>      <li><a href='set.mysqlinfo.php.html'>MySQL</a></li>      <li><a href='book.mysqli.php.html'>MySQLi</a></li>      <li><a href='class.mysqli-result.php.html'>mysqli_result</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/mysqli-result.fetch-assoc.php'>English</option>
+            <option value='de/mysqli-result.fetch-assoc.php'>German</option>
+            <option value='es/mysqli-result.fetch-assoc.php'>Spanish</option>
+            <option value='fr/mysqli-result.fetch-assoc.php'>French</option>
+            <option value='it/mysqli-result.fetch-assoc.php'>Italian</option>
+            <option value='ja/mysqli-result.fetch-assoc.php'>Japanese</option>
+            <option value='pt_BR/mysqli-result.fetch-assoc.php'>Brazilian Portuguese</option>
+            <option value='ru/mysqli-result.fetch-assoc.php' selected="selected">Russian</option>
+            <option value='tr/mysqli-result.fetch-assoc.php'>Turkish</option>
+            <option value='zh/mysqli-result.fetch-assoc.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/mysqli/mysqli_result/fetch-assoc.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Fmysqli-result.fetch-assoc%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="mysqli-result.fetch-assoc" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">mysqli_result::fetch_assoc</h1>
+  <h1 class="refname">mysqli_fetch_assoc</h1>
+  <p class="verinfo">(PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">mysqli_result::fetch_assoc</span> -- <span class="refname">mysqli_fetch_assoc</span> &mdash; <span class="dc-title">Выбирает следующую строку из набора результатов и помещает её в ассоциативный массив</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-mysqli-result.fetch-assoc-description">
+  <h3 class="title">Описание</h3>
+  <p class="para">Объектно-ориентированный стиль</p>
+  <div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="methodname"><strong>mysqli_result::fetch_assoc</strong></span>(): <span class="type"><span class="type">array</span>|<span class="type">null</span>|<span class="type"><span class="type false">false</span></span></span></div>
+
+  <p class="para rdfs-comment">Процедурный стиль</p>
+  <div class="methodsynopsis dc-description"><span class="methodname"><strong>mysqli_fetch_assoc</strong></span>(<span class="methodparam"><span class="type"><a href="class.mysqli-result.php.html" class="type mysqli_result">mysqli_result</a></span> <code class="parameter">$result</code></span>): <span class="type"><span class="type">array</span>|<span class="type">null</span>|<span class="type"><span class="type false">false</span></span></span></div>
+
+  <p class="para rdfs-comment">
+   Выбирает одну строку данных из набора результатов и возвращает её в виде ассоциативного массива.
+   Каждый последующий вызов этой функции будет возвращать следующую строку в наборе результатов
+   или <strong><code>null</code></strong>, если строк больше нет.
+  </p>
+  <p class="para">
+   Если у двух и более столбцов в наборе результатов одинаковое имя, последний столбец будет иметь приоритет и перезапишет любые предыдущие данные.
+   Для доступа к нескольким столбцам с одинаковым именем можно использовать
+   функцию <span class="function"><a href="mysqli-result.fetch-row.php.html" class="function">mysqli_fetch_row()</a></span> для выборки массива с числовым индексом или в списке выбора SQL-запроса можно использовать псевдонимы, чтобы задать столбцам разные имена.
+  </p>
+  <blockquote class="note"><p><strong class="note">Замечание</strong>: <span class="simpara">Имена полей, возвращаемые этой
+функцией являются <em>зависимыми от регистра</em>.</span></p></blockquote>
+  <blockquote class="note"><p><strong class="note">Замечание</strong>: <span class="simpara">Эта функция устанавливает NULL-поля
+в значение <strong><code>null</code></strong> PHP.</span></p></blockquote>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-mysqli-result.fetch-assoc-parameters">
+  <h3 class="title">Список параметров</h3>
+  <p class="para">
+   <dl>
+    <dt>
+
+<code class="parameter">result</code></dt>
+<dd>
+<p class="para">Только для процедурного стиля: объект <span class="classname"><a href="class.mysqli-result.php.html" class="classname">mysqli_result</a></span>, который вернула функция
+<span class="function"><a href="mysqli.query.php.html" class="function">mysqli_query()</a></span>, <span class="function"><a href="mysqli.store-result.php.html" class="function">mysqli_store_result()</a></span>,
+<span class="function"><a href="mysqli.use-result.php.html" class="function">mysqli_use_result()</a></span> или <span class="function"><a href="mysqli-stmt.get-result.php.html" class="function">mysqli_stmt_get_result()</a></span>.</p></dd>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-mysqli-result.fetch-assoc-returnvalues">
+  <h3 class="title">Возвращаемые значения</h3>
+  <p class="para">
+   Возвращает ассоциативный массив, представляющий выбранную строку,
+   где каждое свойство представляет имя столбца набора результатов,
+   <strong><code>null</code></strong>, если в наборе результатов больше нет строк или <strong><code>false</code></strong> в случае возникновения ошибки.
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-mysqli-result.fetch-assoc-examples">
+  <h3 class="title">Примеры</h3>
+  <div class="example" id="snmp.get.example.oidarray">
+   <p><strong>Пример #1 Пример использования <span class="methodname"><strong>mysqli_result::fetch_assoc()</strong></span></strong></p>
+   <div class="example-contents"><p>Объектно-ориентированный стиль</p></div>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br />mysqli_report</span><span style="color: #007700">(</span><span style="color: #0000BB">MYSQLI_REPORT_ERROR </span><span style="color: #007700">| </span><span style="color: #0000BB">MYSQLI_REPORT_STRICT</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$mysqli </span><span style="color: #007700">= new </span><span style="color: #0000BB">mysqli</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">, </span><span style="color: #DD0000">"my_user"</span><span style="color: #007700">, </span><span style="color: #DD0000">"my_password"</span><span style="color: #007700">, </span><span style="color: #DD0000">"world"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$query </span><span style="color: #007700">= </span><span style="color: #DD0000">"SELECT Name, CountryCode FROM City ORDER BY ID DESC"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$result </span><span style="color: #007700">= </span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">query</span><span style="color: #007700">(</span><span style="color: #0000BB">$query</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* извлечение ассоциативного массива */<br /></span><span style="color: #007700">while (</span><span style="color: #0000BB">$row </span><span style="color: #007700">= </span><span style="color: #0000BB">$result</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fetch_assoc</span><span style="color: #007700">()) {<br />    </span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%s (%s)\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #DD0000">"Name"</span><span style="color: #007700">], </span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #DD0000">"CountryCode"</span><span style="color: #007700">]);<br />}</span></span></code></div>
+   </div>
+
+   <div class="example-contents"><p>Процедурный стиль</p></div>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br />mysqli_report</span><span style="color: #007700">(</span><span style="color: #0000BB">MYSQLI_REPORT_ERROR </span><span style="color: #007700">| </span><span style="color: #0000BB">MYSQLI_REPORT_STRICT</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$mysqli </span><span style="color: #007700">= </span><span style="color: #0000BB">mysqli_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">, </span><span style="color: #DD0000">"my_user"</span><span style="color: #007700">, </span><span style="color: #DD0000">"my_password"</span><span style="color: #007700">, </span><span style="color: #DD0000">"world"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$query </span><span style="color: #007700">= </span><span style="color: #DD0000">"SELECT Name, CountryCode FROM City ORDER BY ID DESC"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$result </span><span style="color: #007700">= </span><span style="color: #0000BB">mysqli_query</span><span style="color: #007700">(</span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">, </span><span style="color: #0000BB">$query</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* извлечение ассоциативного массива */<br /></span><span style="color: #007700">while (</span><span style="color: #0000BB">$row </span><span style="color: #007700">= </span><span style="color: #0000BB">mysqli_fetch_assoc</span><span style="color: #007700">(</span><span style="color: #0000BB">$result</span><span style="color: #007700">)) {<br />    </span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%s (%s)\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #DD0000">"Name"</span><span style="color: #007700">], </span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #DD0000">"CountryCode"</span><span style="color: #007700">]);<br />}</span></span></code></div>
+   </div>
+
+   
+<div class="example-contents"><p>
+ Вывод приведённых примеров будет похож на:
+</p></div>
+
+   <div class="example-contents screen">
+<div class="cdata"><pre>
+Pueblo (USA)
+Arvada (USA)
+Cape Coral (USA)
+Green Bay (USA)
+Santa Clara (USA)
+</pre></div>
+   </div>
+  </div>
+  <div class="example" id="snmp.getnext.example.singleoid">
+   <p><strong>Пример #2 Сравнение использования <span class="classname"><a href="class.mysqli-result.php.html" class="classname">mysqli_result</a></span> <span class="classname"><a href="class.iterator.php.html" class="classname">iterator</a></span> и <span class="methodname"><strong>mysqli_result::fetch_assoc()</strong></span></strong></p>
+   <div class="example-contents"><p>
+    <span class="classname"><a href="class.mysqli-result.php.html" class="classname">mysqli_result</a></span> можно повторить с помощью <a href="control-structures.foreach.php.html" class="link">foreach</a>.
+    Результирующий набор всегда будет повторяться с первой строки, независимо от текущей позиции.
+   </p></div>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br />mysqli_report</span><span style="color: #007700">(</span><span style="color: #0000BB">MYSQLI_REPORT_ERROR </span><span style="color: #007700">| </span><span style="color: #0000BB">MYSQLI_REPORT_STRICT</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$mysqli </span><span style="color: #007700">= new </span><span style="color: #0000BB">mysqli</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">, </span><span style="color: #DD0000">"my_user"</span><span style="color: #007700">, </span><span style="color: #DD0000">"my_password"</span><span style="color: #007700">, </span><span style="color: #DD0000">"world"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$query </span><span style="color: #007700">= </span><span style="color: #DD0000">'SELECT Name, CountryCode FROM City ORDER BY ID DESC'</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">// Используем итераторы<br /></span><span style="color: #0000BB">$result </span><span style="color: #007700">= </span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">query</span><span style="color: #007700">(</span><span style="color: #0000BB">$query</span><span style="color: #007700">);<br />foreach (</span><span style="color: #0000BB">$result </span><span style="color: #007700">as </span><span style="color: #0000BB">$row</span><span style="color: #007700">) {<br />    </span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%s (%s)\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #DD0000">"Name"</span><span style="color: #007700">], </span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #DD0000">"CountryCode"</span><span style="color: #007700">]);<br />}<br /><br />echo </span><span style="color: #DD0000">"\n==================\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">// Не используем итераторы<br /></span><span style="color: #0000BB">$result </span><span style="color: #007700">= </span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">query</span><span style="color: #007700">(</span><span style="color: #0000BB">$query</span><span style="color: #007700">);<br />while (</span><span style="color: #0000BB">$row </span><span style="color: #007700">= </span><span style="color: #0000BB">$result</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fetch_assoc</span><span style="color: #007700">()) {<br />    </span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%s (%s)\n"</span><span style="color: #007700">, </span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #DD0000">"Name"</span><span style="color: #007700">], </span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #DD0000">"CountryCode"</span><span style="color: #007700">]);<br />}</span></span></code></div>
+   </div>
+
+   
+<div class="example-contents"><p>
+ Вывод приведённого примера будет похож на:
+</p></div>
+
+   <div class="example-contents screen">
+<div class="cdata"><pre>
+Pueblo (USA)
+Arvada (USA)
+Cape Coral (USA)
+Green Bay (USA)
+Santa Clara (USA)
+
+==================
+Pueblo (USA)
+Arvada (USA)
+Cape Coral (USA)
+Green Bay (USA)
+Santa Clara (USA)
+
+</pre></div>
+   </div>
+  </div>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-mysqli-result.fetch-assoc-seealso">
+  <h3 class="title">Смотрите также</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="mysqli-result.fetch-array.php.html" class="function" rel="rdfs-seeAlso">mysqli_fetch_array()</a> - Выбирает следующую строку из набора результатов и помещает её в ассоциативный
+   массив, обычный массив или в оба</span></li>
+    <li class="member"><span class="function"><a href="mysqli-result.fetch-column.php.html" class="function" rel="rdfs-seeAlso">mysqli_fetch_column()</a> - Получает один столбец из следующей строки набора результатов</span></li>
+    <li class="member"><span class="function"><a href="mysqli-result.fetch-row.php.html" class="function" rel="rdfs-seeAlso">mysqli_fetch_row()</a> - Выбирает следующую строку из набора результатов и помещает её в обычный массив</span></li>
+    <li class="member"><span class="function"><a href="mysqli-result.fetch-object.php.html" class="function" rel="rdfs-seeAlso">mysqli_fetch_object()</a> - Выбирает следующую строку из набора результатов в виде объекта</span></li>
+    <li class="member"><span class="function"><a href="mysqli.query.php.html" class="function" rel="rdfs-seeAlso">mysqli_query()</a> - Выполняет запрос к базе данных</span></li>
+    <li class="member"><span class="function"><a href="mysqli-result.data-seek.php.html" class="function" rel="rdfs-seeAlso">mysqli_data_seek()</a> - Перемещает указатель результата на выбранную строку</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=mysqli-result.fetch-assoc&amp;redirect=https://www.php.net/manual/ru/mysqli-result.fetch-assoc.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">6 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="112924">  <div class="votes">
+    <div id="Vu112924">
+    <a href="https://www.php.net/manual/vote-note.php?id=112924&amp;page=mysqli-result.fetch-assoc&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd112924">
+    <a href="https://www.php.net/manual/vote-note.php?id=112924&amp;page=mysqli-result.fetch-assoc&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V112924" title="72% like this...">
+    86
+    </div>
+  </div>
+  <a href="mysqli-result.fetch-assoc.php.html#112924" class="name">
+  <strong class="user"><em>Miller</em></strong></a><a class="genanchor" href="mysqli-result.fetch-assoc.php.html#112924"> &para;</a><div class="date" title="2013-08-07 05:26"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom112924">
+<div class="phpcode"><code><span class="html">I often like to have my results sent elsewhere in the format of an array (although keep in mind that if you just plan on traversing through the array in another part of the script, this extra step is just a waste of time).<br /><br />This is my one-liner for transforming a mysqli_result set into an array.<br /><span class="default">&lt;?php<br />$sql </span><span class="keyword">= new </span><span class="default">MySQLi</span><span class="keyword">(</span><span class="default">$host</span><span class="keyword">, </span><span class="default">$username</span><span class="keyword">, </span><span class="default">$password</span><span class="keyword">, </span><span class="default">$database</span><span class="keyword">);<br /><br /></span><span class="default">$result </span><span class="keyword">= </span><span class="default">$sql</span><span class="keyword">-&gt;</span><span class="default">query</span><span class="keyword">(</span><span class="string">"SELECT * FROM `</span><span class="default">$table</span><span class="string">`;"</span><span class="keyword">);<br />for (</span><span class="default">$set </span><span class="keyword">= array (); </span><span class="default">$row </span><span class="keyword">= </span><span class="default">$result</span><span class="keyword">-&gt;</span><span class="default">fetch_assoc</span><span class="keyword">(); </span><span class="default">$set</span><span class="keyword">[] = </span><span class="default">$row</span><span class="keyword">);<br /></span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$set</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />Outputs:<br />Array<br />(<br />    [0] =&gt; Array<br />        (<br />            [id] =&gt; 1<br />            [field2] =&gt; a<br />            [field3] =&gt; b<br />        ),<br />    [1] =&gt; Array<br />        (<br />            [id] =&gt; 2<br />            [field2] =&gt; c<br />            [field3] =&gt; d<br />        )<br />)<br /><br />I use other variations to adapt to the situation, i.e. if I am selecting only one field:<br /><span class="default">&lt;?php<br />$sql </span><span class="keyword">= new </span><span class="default">MySQLi</span><span class="keyword">(</span><span class="default">$host</span><span class="keyword">, </span><span class="default">$username</span><span class="keyword">, </span><span class="default">$password</span><span class="keyword">, </span><span class="default">$database</span><span class="keyword">);<br /></span><span class="default">$result </span><span class="keyword">= </span><span class="default">$sql</span><span class="keyword">-&gt;</span><span class="default">query</span><span class="keyword">(</span><span class="string">"SELECT `field2` FROM `</span><span class="default">$table</span><span class="string">`;"</span><span class="keyword">);<br />for (</span><span class="default">$set </span><span class="keyword">= array (); </span><span class="default">$row </span><span class="keyword">= </span><span class="default">$result</span><span class="keyword">-&gt;</span><span class="default">fetch_assoc</span><span class="keyword">(); </span><span class="default">$set</span><span class="keyword">[] = </span><span class="default">$row</span><span class="keyword">[</span><span class="string">'field2'</span><span class="keyword">]);<br /></span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$set</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span>Outputs:<br />Array<br />(<br />    [0] =&gt; a<br />    [1] =&gt; c<br />)<br /><br />Or, to make the array associative with the primary index (code assumes primary index is the first field in the table):<br /><span class="default">&lt;?php<br />$sql </span><span class="keyword">= new </span><span class="default">MySQLi</span><span class="keyword">(</span><span class="default">$host</span><span class="keyword">, </span><span class="default">$username</span><span class="keyword">, </span><span class="default">$password</span><span class="keyword">, </span><span class="default">$database</span><span class="keyword">);<br /></span><span class="default">$result </span><span class="keyword">= </span><span class="default">$sql</span><span class="keyword">-&gt;</span><span class="default">query</span><span class="keyword">(</span><span class="string">"SELECT * FROM `</span><span class="default">$table</span><span class="string">`;"</span><span class="keyword">);<br />for (</span><span class="default">$set </span><span class="keyword">= array (); </span><span class="default">$row </span><span class="keyword">= </span><span class="default">$result</span><span class="keyword">-&gt;</span><span class="default">fetch_assoc</span><span class="keyword">(); </span><span class="default">$set</span><span class="keyword">[</span><span class="default">array_shift</span><span class="keyword">(</span><span class="default">$row</span><span class="keyword">)] = </span><span class="default">$row</span><span class="keyword">);<br /></span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$set</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span>Outputs:<br />Array<br />(<br />    [1] =&gt; Array<br />        (<br />            [field2] =&gt; a<br />            [field3] =&gt; b<br />        ),<br />    [2] =&gt; Array<br />        (<br />            [field2] =&gt; c<br />            [field3] =&gt; d<br />        )<br />)</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="128432">  <div class="votes">
+    <div id="Vu128432">
+    <a href="https://www.php.net/manual/vote-note.php?id=128432&amp;page=mysqli-result.fetch-assoc&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd128432">
+    <a href="https://www.php.net/manual/vote-note.php?id=128432&amp;page=mysqli-result.fetch-assoc&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V128432" title="75% like this...">
+    2
+    </div>
+  </div>
+  <a href="mysqli-result.fetch-assoc.php.html#128432" class="name">
+  <strong class="user"><em>Enrique Garcia</em></strong></a><a class="genanchor" href="mysqli-result.fetch-assoc.php.html#128432"> &para;</a><div class="date" title="2023-04-26 08:35"><strong>9 months ago</strong></div>
+  <div class="text" id="Hcom128432">
+<div class="phpcode"><code><span class="html">There is a difference between MariaDB and MySQL(&gt;5.4) whether the input parameter (mysqli object) has data or is empty (it comes from a previus query).<br />-MariaDB:  you get an exception:<br />Fatal error: Uncaught TypeError: mysqli_fetch_assoc(): Argument #1 ($result) must be of type mysqli_result<br />-MySQL: you can continue, in spite of not having data in the mysqli object.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="105365">  <div class="votes">
+    <div id="Vu105365">
+    <a href="https://www.php.net/manual/vote-note.php?id=105365&amp;page=mysqli-result.fetch-assoc&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd105365">
+    <a href="https://www.php.net/manual/vote-note.php?id=105365&amp;page=mysqli-result.fetch-assoc&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V105365" title="65% like this...">
+    28
+    </div>
+  </div>
+  <a href="mysqli-result.fetch-assoc.php.html#105365" class="name">
+  <strong class="user"><em>james dot phx at gmail dot com</em></strong></a><a class="genanchor" href="mysqli-result.fetch-assoc.php.html#105365"> &para;</a><div class="date" title="2011-08-11 05:58"><strong>12 years ago</strong></div>
+  <div class="text" id="Hcom105365">
+<div class="phpcode"><code><span class="html">IMPORTANT NOTE:<br /><br />If you were used to using code like this:<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">while(</span><span class="default">false </span><span class="keyword">!== (</span><span class="default">$row </span><span class="keyword">= </span><span class="default">mysql_fetch_assoc</span><span class="keyword">(</span><span class="default">$result</span><span class="keyword">)))<br />{<br />    </span><span class="comment">//...<br /></span><span class="keyword">}<br /></span><span class="default">?&gt;<br /></span><br />You must change it to this for mysqli:<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">while(</span><span class="default">null </span><span class="keyword">!== (</span><span class="default">$row </span><span class="keyword">= </span><span class="default">mysqli_fetch_assoc</span><span class="keyword">(</span><span class="default">$result</span><span class="keyword">)))<br />{<br />    </span><span class="comment">//...<br /></span><span class="keyword">}<br /></span><span class="default">?&gt;<br /></span><br />The former will cause your script to run until max_execution_time is reached.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="121997">  <div class="votes">
+    <div id="Vu121997">
+    <a href="https://www.php.net/manual/vote-note.php?id=121997&amp;page=mysqli-result.fetch-assoc&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd121997">
+    <a href="https://www.php.net/manual/vote-note.php?id=121997&amp;page=mysqli-result.fetch-assoc&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V121997" title="31% like this...">
+    -21
+    </div>
+  </div>
+  <a href="mysqli-result.fetch-assoc.php.html#121997" class="name">
+  <strong class="user"><em>gilles dot falquet at unige dot ch</em></strong></a><a class="genanchor" href="mysqli-result.fetch-assoc.php.html#121997"> &para;</a><div class="date" title="2017-12-07 08:24"><strong>6 years ago</strong></div>
+  <div class="text" id="Hcom121997">
+<div class="phpcode"><code><span class="html">Be careful when using fetch_assoc instead of fetch_row. If two columns of the result have the same column name, even if they are prefixed with different table names in the query, only one of them will be retained in the result. This is because the prefix is dropped (either by mysql or by this function)<br /><br />For example if the query is <br /><br />     select p1.name, p2.name <br />     from person p1, friend, person p2<br />     where p1.id = friend.person1 and p2.id = friend.person2<br /><br />the arrays returned by fetch_assoc will be of the form<br /><br />{'name' =&gt; 'bob'}<br />{'name' =&gt; 'anna'}<br /><br />and not (as expected)<br /><br />{'p1.name' =&gt; 'bob', 'p2.name' =&gt; 'alice'}<br />{'p1.name' =&gt; 'anna', 'p2.name' =&gt; 'irla'}</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="117161">  <div class="votes">
+    <div id="Vu117161">
+    <a href="https://www.php.net/manual/vote-note.php?id=117161&amp;page=mysqli-result.fetch-assoc&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd117161">
+    <a href="https://www.php.net/manual/vote-note.php?id=117161&amp;page=mysqli-result.fetch-assoc&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V117161" title="32% like this...">
+    -32
+    </div>
+  </div>
+  <a href="mysqli-result.fetch-assoc.php.html#117161" class="name">
+  <strong class="user"><em>Hesham Mohamed Sediek</em></strong></a><a class="genanchor" href="mysqli-result.fetch-assoc.php.html#117161"> &para;</a><div class="date" title="2015-04-24 02:02"><strong>8 years ago</strong></div>
+  <div class="text" id="Hcom117161">
+<div class="phpcode"><code><span class="html">when you fetch the data from the query variable <br />and try to fetch it again in another part of the script<br />from the same query variable , <br />when you try to echo all data you have fetched,<br />it will not echo the data you have used in the first fetch <br />(it will exceed the results you have used in the first fetch).......<br /><br />Example :<br /><span class="default">&lt;?php<br />$connect </span><span class="keyword">= new </span><span class="default">mysqli</span><span class="keyword">(</span><span class="string">"localhost"</span><span class="keyword">,</span><span class="string">"root"</span><span class="keyword">,</span><span class="string">"root"</span><span class="keyword">,</span><span class="string">"elshamy"</span><span class="keyword">)<br /> or die (</span><span class="default">mysqli_error</span><span class="keyword">());<br /><br /></span><span class="default">$query</span><span class="keyword">=</span><span class="default">$connect</span><span class="keyword">-&gt;</span><span class="default">query</span><span class="keyword">(</span><span class="string">"SELECT * FROM users ORDER BY id ASC"</span><span class="keyword">);<br /><br /></span><span class="default">$first_fetch</span><span class="keyword">=</span><span class="default">$query</span><span class="keyword">-&gt;</span><span class="default">fetch_array</span><span class="keyword">(</span><span class="default">MYSQLI_ASSOC</span><span class="keyword">);<br />echo </span><span class="default">$first_fetch</span><span class="keyword">[</span><span class="string">'id'</span><span class="keyword">].</span><span class="string">"===&gt;"</span><span class="keyword">.</span><span class="default">$first_fetch</span><span class="keyword">[</span><span class="string">'user_name'</span><span class="keyword">].</span><span class="string">"\n--------------------\n"</span><span class="keyword">;<br /><br />while(</span><span class="default">$row</span><span class="keyword">=</span><span class="default">$query</span><span class="keyword">-&gt;</span><span class="default">fetch_array</span><span class="keyword">(</span><span class="default">MYSQLI_ASSOC</span><span class="keyword">)){<br /><br /></span><span class="comment">/*it will exceed the first <br />id&amp;user_name value that <br />you have use in the first fetch*/<br /><br /></span><span class="keyword">echo </span><span class="default">$row</span><span class="keyword">[</span><span class="string">'id'</span><span class="keyword">].</span><span class="string">"  "</span><span class="keyword">.</span><span class="default">$row</span><span class="keyword">[</span><span class="string">'user_name'</span><span class="keyword">].</span><span class="string">"&lt;br/&gt;"</span><span class="keyword">; <br />}<br /></span><span class="default">?&gt;<br /></span><br />above example will echo :<br />1===&gt;userA <br />------------------------<br />2===&gt;userB<br />3===&gt;userC<br />4===&gt;userD</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="120997">  <div class="votes">
+    <div id="Vu120997">
+    <a href="https://www.php.net/manual/vote-note.php?id=120997&amp;page=mysqli-result.fetch-assoc&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd120997">
+    <a href="https://www.php.net/manual/vote-note.php?id=120997&amp;page=mysqli-result.fetch-assoc&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V120997" title="23% like this...">
+    -25
+    </div>
+  </div>
+  <a href="mysqli-result.fetch-assoc.php.html#120997" class="name">
+  <strong class="user"><em>paul dot allsopp at inseego dot com</em></strong></a><a class="genanchor" href="mysqli-result.fetch-assoc.php.html#120997"> &para;</a><div class="date" title="2017-04-20 03:27"><strong>6 years ago</strong></div>
+  <div class="text" id="Hcom120997">
+<div class="phpcode"><code><span class="html">The official example given here breaks a cardinal rule, and should be rectified.<br /><br />while ($row = $result-&gt;fetch_assoc())...<br /><br />...breaks the rule of "assignment in condition".<br /><br />while (($x = $y-&gt;getZ()) !== false) or<br />while (($x = $y-&gt;getZ()) !== null)<br /><br />...is the correct syntax.<br /><br />Conditional statements should always check for a boolean</span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=mysqli-result.fetch-assoc&amp;redirect=https://www.php.net/manual/ru/mysqli-result.fetch-assoc.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="class.mysqli-result.php.html">mysqli_result</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="mysqli-result.construct.php.html" title="_&#8203;_&#8203;construct">_&#8203;_&#8203;construct</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli-result.current-field.php.html" title="$current_&#8203;field">$current_&#8203;field</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli-result.data-seek.php.html" title="data_&#8203;seek">data_&#8203;seek</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli-result.fetch-all.php.html" title="fetch_&#8203;all">fetch_&#8203;all</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli-result.fetch-array.php.html" title="fetch_&#8203;array">fetch_&#8203;array</a>
+                        </li>
+                                                <li class="current">
+                            <a href="mysqli-result.fetch-assoc.php.html" title="fetch_&#8203;assoc">fetch_&#8203;assoc</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli-result.fetch-column.php.html" title="fetch_&#8203;column">fetch_&#8203;column</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli-result.fetch-field-direct.php.html" title="fetch_&#8203;field_&#8203;direct">fetch_&#8203;field_&#8203;direct</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli-result.fetch-field.php.html" title="fetch_&#8203;field">fetch_&#8203;field</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli-result.fetch-fields.php.html" title="fetch_&#8203;fields">fetch_&#8203;fields</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli-result.fetch-object.php.html" title="fetch_&#8203;object">fetch_&#8203;object</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli-result.fetch-row.php.html" title="fetch_&#8203;row">fetch_&#8203;row</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli-result.field-count.php.html" title="$field_&#8203;count">$field_&#8203;count</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli-result.field-seek.php.html" title="field_&#8203;seek">field_&#8203;seek</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli-result.free.php.html" title="free">free</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli-result.getiterator.php.html" title="getIterator">getIterator</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli-result.lengths.php.html" title="$lengths">$lengths</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli-result.num-rows.php.html" title="$num_&#8203;rows">$num_&#8203;rows</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

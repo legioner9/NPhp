@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: Фильтры валидации данных - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="filter.filters.validate.php.html">
+ <link rel="shorturl" href="filter.filters.validate.php.html">
+ <link rel="alternate" href="filter.filters.validate.php.html" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="filter.filters.php.html">
+ <link rel="prev" href="filter.filters.php.html">
+ <link rel="next" href="filter.filters.sanitize.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/filter.filters.validate.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/filter.filters.validate.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/filter.filters.validate.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/filter.filters.validate.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/filter.filters.validate.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/filter.filters.validate.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/filter.filters.validate.php" hreflang="pt_BR">
+ <link rel="alternate" href="filter.filters.validate.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/filter.filters.validate.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/filter.filters.validate.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="filter.filters.sanitize.php.html">
+          Очищающие фильтры &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="filter.filters.php.html">
+          &laquo; Типы фильтров        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.basic.vartype.php.html'>Модули, относящиеся к переменным и типам</a></li>      <li><a href='book.filter.php.html'>Filter</a></li>      <li><a href='filter.filters.php.html'>Типы фильтров</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/filter.filters.validate.php'>English</option>
+            <option value='de/filter.filters.validate.php'>German</option>
+            <option value='es/filter.filters.validate.php'>Spanish</option>
+            <option value='fr/filter.filters.validate.php'>French</option>
+            <option value='it/filter.filters.validate.php'>Italian</option>
+            <option value='ja/filter.filters.validate.php'>Japanese</option>
+            <option value='pt_BR/filter.filters.validate.php'>Brazilian Portuguese</option>
+            <option value='ru/filter.filters.validate.php' selected="selected">Russian</option>
+            <option value='tr/filter.filters.validate.php'>Turkish</option>
+            <option value='zh/filter.filters.validate.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/filter/filters.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Ffilter.filters.validate%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="filter.filters.validate" class="section">
+  <h2 class="title">Фильтры валидации данных</h2>
+  <p class="para">
+   <table class="doctable table">
+    <caption><strong>Список фильтров валидации данных</strong></caption>
+    
+     <thead>
+      <tr>
+       <th>Идентификатор</th>
+       <th>Имя</th>
+       <th>Параметры</th>
+       <th>Флаги</th>
+       <th>Описание</th>
+      </tr>
+
+     </thead>
+
+     <tbody class="tbody">
+      <tr>
+       <td>
+        <strong><code>FILTER_VALIDATE_BOOLEAN</code></strong>,
+        <strong><code>FILTER_VALIDATE_BOOL</code></strong>
+       </td>
+       <td>&quot;boolean&quot;</td>
+       <td>
+        <code class="parameter">default</code>
+       </td>
+       <td>
+        <strong><code>FILTER_NULL_ON_FAILURE</code></strong>
+       </td>
+       <td>
+        <p class="para">
+         Возвращает <strong><code>true</code></strong> для значений «1», «true», «on» и «yes».
+         Иначе возвращает <strong><code>false</code></strong>.
+        </p>
+        <p class="para">
+         Если установлен флаг <strong><code>FILTER_NULL_ON_FAILURE</code></strong>, то <strong><code>false</code></strong>
+         возвращается только для значений «0», «false», «off», «no» и «»,
+         а значение <strong><code>null</code></strong> будет возвращёно для нелогических значений.
+        </p>
+        <p class="para">
+         Перед сравнением строковые значения обрезаются функцией <span class="function"><a href="function.trim.php.html" class="function">trim()</a></span>.
+        </p>
+       </td>
+      </tr>
+
+      <tr>
+       <td><strong><code>FILTER_VALIDATE_DOMAIN</code></strong></td>
+       <td>&quot;validate_domain&quot;</td>
+       <td>
+        <code class="parameter">default</code>
+       </td>
+       <td>
+         <strong><code>FILTER_FLAG_HOSTNAME</code></strong>,
+         <strong><code>FILTER_NULL_ON_FAILURE</code></strong>
+       </td>
+       <td>
+        <p class="para">
+         Проверяет, допустимы ли длины меток доменного имени.
+        </p>
+        <p class="para">
+         Проверяет доменные имена на соответствие стандартам RFC 1034, RFC 1035, RFC 952,
+         RFC 1123, RFC 2732, RFC 2181 и RFC 1123. Необязательный флаг
+         <strong><code>FILTER_FLAG_HOSTNAME</code></strong> отдельно
+         проверяет имена хостов (стандарты разрешают именам начинаться
+         с буквенно-цифрового символа и содержать только буквенно-цифровые символы или дефисы).
+        </p>
+       </td>
+      </tr>
+
+      <tr>
+       <td><strong><code>FILTER_VALIDATE_EMAIL</code></strong></td>
+       <td>&quot;validate_email&quot;</td>
+       <td>
+        <code class="parameter">default</code>
+       </td>
+       <td>
+         <strong><code>FILTER_FLAG_EMAIL_UNICODE</code></strong>,
+         <strong><code>FILTER_NULL_ON_FAILURE</code></strong>
+       </td>
+       <td>
+        <p class="para">
+         Проверяет, представляет ли собой значение действительный адрес электронной почты.
+        </p>
+        <p class="para">
+         В общем, проверяет <code class="literal">addr-spec</code>-синтаксис адреса
+         на соответствие стандарту с <a href="http://www.faqs.org/rfcs/rfc822" class="link external">&raquo;&nbsp;RFC 822</a>, за исключением того,
+         что не поддерживаются комментарии, схлопывание пробельных
+         символов и доменные имена без точек.
+        </p>
+       </td>
+      </tr>
+
+      <tr>
+       <td><strong><code>FILTER_VALIDATE_FLOAT</code></strong></td>
+       <td>&quot;float&quot;</td>
+       <td>
+        <code class="parameter">default</code>,
+        <code class="parameter">decimal</code>,
+        <code class="parameter">min_range</code>,
+        <code class="parameter">max_range</code>
+       </td>
+       <td>
+         <strong><code>FILTER_FLAG_ALLOW_THOUSAND</code></strong>,
+         <strong><code>FILTER_NULL_ON_FAILURE</code></strong>
+       </td>
+       <td>
+        <p class="para">
+         Проверяет значение на соответствие корректному числу с плавающей точкой, и, если нужно,
+         входит в определённый диапазон, в случае успешной проверки преобразовывает в число с плавающей точкой.
+        </p>
+        <p class="para">
+         Перед сравнением строковые значения обрезаются функцией <span class="function"><a href="function.trim.php.html" class="function">trim()</a></span>.
+        </p>
+       </td>
+      </tr>
+
+      <tr>
+       <td><strong><code>FILTER_VALIDATE_INT</code></strong></td>
+       <td>&quot;int&quot;</td>
+       <td>
+        <code class="parameter">default</code>,
+        <code class="parameter">min_range</code>,
+        <code class="parameter">max_range</code>
+       </td>
+       <td>
+        <strong><code>FILTER_FLAG_ALLOW_OCTAL</code></strong>,
+         <strong><code>FILTER_FLAG_ALLOW_HEX</code></strong>,
+         <strong><code>FILTER_NULL_ON_FAILURE</code></strong>
+       </td>
+       <td>
+        <p class="para">
+         Проверяет значение на соответствие корректному целому числу, и, если нужно,
+         входит в определённый диапазон, в случае успешной проверки преобразовывает в целое число.
+        </p>
+        <p class="para">
+         Перед сравнением строковые значения обрезаются функцией <span class="function"><a href="function.trim.php.html" class="function">trim()</a></span>.
+        </p>
+       </td>
+      </tr>
+
+      <tr>
+       <td><strong><code>FILTER_VALIDATE_IP</code></strong></td>
+       <td>&quot;validate_ip&quot;</td>
+       <td>
+        <code class="parameter">default</code>
+       </td>
+       <td>
+        <strong><code>FILTER_FLAG_IPV4</code></strong>,
+        <strong><code>FILTER_FLAG_IPV6</code></strong>,
+        <strong><code>FILTER_FLAG_NO_PRIV_RANGE</code></strong>,
+         <strong><code>FILTER_FLAG_NO_RES_RANGE</code></strong>,
+        <strong><code>FILTER_FLAG_GLOBAL_RANGE</code></strong>,
+        <strong><code>FILTER_NULL_ON_FAILURE</code></strong>
+       </td>
+       <td>
+        Проверяет значение на соответствие корректному IP-адресу, и, если нужно, то только
+        для протоколов IPv4 или IPv6, а также то, не входит ли адрес
+        в частные или зарезервированные диапазоны.
+       </td>
+      </tr>
+
+      <tr>
+       <td><strong><code>FILTER_VALIDATE_MAC</code></strong></td>
+       <td>&quot;validate_mac_address&quot;</td>
+       <td>
+        <code class="parameter">default</code>
+       </td>
+        <td>
+         <strong><code>FILTER_NULL_ON_FAILURE</code></strong>
+        </td>
+       <td>Проверяет значение на соответствие корректному MAC-адресу.</td>
+      </tr>
+
+      <tr>
+       <td><strong><code>FILTER_VALIDATE_REGEXP</code></strong></td>
+       <td>&quot;validate_regexp&quot;</td>
+       <td>
+        <code class="parameter">default</code>,
+        <code class="parameter">regexp</code>
+       </td>
+        <td>
+         <strong><code>FILTER_NULL_ON_FAILURE</code></strong>
+        </td>
+       <td>
+        Проверяет значение на соответствие регулярному выражению <code class="parameter">regexp</code>,
+        <a href="book.pcre.php.html" class="link">Perl-совместимому</a> регулярному выражению.
+       </td>
+      </tr>
+
+      <tr>
+       <td><strong><code>FILTER_VALIDATE_URL</code></strong></td>
+       <td>&quot;validate_url&quot;</td>
+       <td>
+        <code class="parameter">default</code>
+       </td>
+       <td>
+        <strong><code>FILTER_FLAG_SCHEME_REQUIRED</code></strong>,
+        <strong><code>FILTER_FLAG_HOST_REQUIRED</code></strong>,
+        <strong><code>FILTER_FLAG_PATH_REQUIRED</code></strong>,
+         <strong><code>FILTER_FLAG_QUERY_REQUIRED</code></strong>,
+         <strong><code>FILTER_NULL_ON_FAILURE</code></strong>
+       </td>
+       <td>Проверяет значение на соответствие корректному URL-адресу (по правилам стандарта
+        <a href="http://www.faqs.org/rfcs/rfc2396" class="link external">&raquo;&nbsp;http://www.faqs.org/rfcs/rfc2396</a>), если нужно, с необходимыми флагами.
+        Осторожно, URL-адрес без протокола <code class="literal">http://</code>
+        признаётся допустимым, поэтому иногда требуется дополнительная проверка,
+        которая определит, использует ли URL необходимый протокол, например <code class="literal">ssh://</code>
+        или <code class="literal">mailto:</code>. Функция признаёт допустимыми
+        URL-адреса, которые состоят только из символов ASCII; интернациональные доменные имена
+        не пройдут проверку.
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+  <blockquote class="note"><p><strong class="note">Замечание</strong>: 
+   <p class="para">
+    Вместо значения, которое не прошло проверку,
+    функция подставит значение по умолчанию,
+    если в массиве параметров определена опция <code class="parameter">default</code>.
+   </p>
+  </p></blockquote>
+
+  <div class="simplesect">
+   <h3 class="title">Список изменений</h3>
+   <p class="para">
+    <table class="doctable informaltable">
+     
+      <thead>
+       <tr>
+        <th>Версия</th>
+        <th>Описание</th>
+       </tr>
+
+      </thead>
+
+      <tbody class="tbody">
+       <tr>
+        <td>8.0.0</td>
+        <td>
+         Флаги <strong><code>FILTER_FLAG_SCHEME_REQUIRED</code></strong> и
+         <strong><code>FILTER_FLAG_HOST_REQUIRED</code></strong> для фильтра
+         <strong><code>FILTER_VALIDATE_URL</code></strong> были удалены.
+         Флаги <code class="literal">scheme</code> и <code class="literal">host</code>
+         были и остаются обязательными.
+        </td>
+       </tr>
+
+       <tr>
+        <td>8.0.0</td>
+        <td>
+         Добавлена константа <strong><code>FILTER_VALIDATE_BOOL</code></strong>
+         как псевдоним <strong><code>FILTER_VALIDATE_BOOLEAN</code></strong>.
+         Лучше предпочесть <strong><code>FILTER_VALIDATE_BOOL</code></strong>.
+        </td>
+       </tr>
+
+       <tr>
+        <td>7.4.0</td>
+        <td>
+         Добавлены опции <code class="parameter">min_range</code> и <code class="parameter">max_range</code>
+         для фильтра <strong><code>FILTER_VALIDATE_FLOAT</code></strong>.
+        </td>
+       </tr>
+
+       <tr>
+        <td>7.0.0</td>
+        <td>
+         Добавлен флаг <strong><code>FILTER_FLAG_HOSTNAME</code></strong>
+         и фильтр <strong><code>FILTER_VALIDATE_DOMAIN</code></strong>.
+        </td>
+       </tr>
+
+      </tbody>
+     
+    </table>
+
+   </p>
+  </div>
+ </div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=filter.filters.validate&amp;redirect=https://www.php.net/manual/ru/filter.filters.validate.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">26 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="110411">  <div class="votes">
+    <div id="Vu110411">
+    <a href="https://www.php.net/manual/vote-note.php?id=110411&amp;page=filter.filters.validate&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd110411">
+    <a href="https://www.php.net/manual/vote-note.php?id=110411&amp;page=filter.filters.validate&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V110411" title="64% like this...">
+    47
+    </div>
+  </div>
+  <a href="filter.filters.validate.php.html#110411" class="name">
+  <strong class="user"><em>boy at relaxnow dot nl</em></strong></a><a class="genanchor" href="filter.filters.validate.php.html#110411"> &para;</a><div class="date" title="2012-10-19 02:06"><strong>11 years ago</strong></div>
+  <div class="text" id="Hcom110411">
+<div class="phpcode"><code><span class="html">FILTER_VALIDATE_URL does not work with URNs, examples of valid URIs according to RFC3986 and if they are accepted by FILTER_VALIDATE_URL:<br /><br />[PASS] <a href="ftp://ftp.is.co.za.example.org/rfc/rfc1808.txt" rel="nofollow" target="_blank">ftp://ftp.is.co.za.example.org/rfc/rfc1808.txt</a><br />[PASS] gopher://spinaltap.micro.umn.example.edu/00/Weather/California/Los%20Angeles<br />[PASS] <a href="http://www.math.uio.no.example.net/faq/compression-faq/part1.html" rel="nofollow" target="_blank">http://www.math.uio.no.example.net/faq/compression-faq/part1.html</a><br />[PASS] <a href="mailto:mduerst@ifi.unizh.example.gov" rel="nofollow" target="_blank">mailto:mduerst@ifi.unizh.example.gov</a><br />[PASS] news:comp.infosystems.www.servers.unix<br />[PASS] telnet://melvyl.ucop.example.edu/<br />[PASS] <a href="http://www.ietf.org/rfc/rfc2396.txt" rel="nofollow" target="_blank">http://www.ietf.org/rfc/rfc2396.txt</a><br />[PASS] ldap://[2001:db8::7]/c=GB?objectClass?one<br />[PASS] <a href="mailto:John.Doe@example.com" rel="nofollow" target="_blank">mailto:John.Doe@example.com</a><br />[PASS] news:comp.infosystems.www.servers.unix<br />[FAIL] tel:+1-816-555-1212<br />[PASS] telnet://192.0.2.16:80/<br />[FAIL] urn:oasis:names:specification:docbook:dtd:xml:4.1.2</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="124876">  <div class="votes">
+    <div id="Vu124876">
+    <a href="https://www.php.net/manual/vote-note.php?id=124876&amp;page=filter.filters.validate&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd124876">
+    <a href="https://www.php.net/manual/vote-note.php?id=124876&amp;page=filter.filters.validate&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V124876" title="72% like this...">
+    11
+    </div>
+  </div>
+  <a href="filter.filters.validate.php.html#124876" class="name">
+  <strong class="user"><em>MR Yekta</em></strong></a><a class="genanchor" href="filter.filters.validate.php.html#124876"> &para;</a><div class="date" title="2020-04-02 10:17"><strong>3 years ago</strong></div>
+  <div class="text" id="Hcom124876">
+<div class="phpcode"><code><span class="html">since php 7.4 <br />you can use these 3 beautiful conditions for from validation for validation less, great or in range<br /><br /><span class="default">&lt;?php<br /></span><span class="comment">/**<br /> * less_than_equal_to<br /> */<br /></span><span class="default">$x </span><span class="keyword">= </span><span class="default">50</span><span class="keyword">;<br />if (</span><span class="default">filter_var</span><span class="keyword">(</span><span class="default">$x</span><span class="keyword">, </span><span class="default">FILTER_VALIDATE_FLOAT</span><span class="keyword">, [</span><span class="string">"options" </span><span class="keyword">=&gt; [</span><span class="string">"max_range" </span><span class="keyword">=&gt; </span><span class="default">100</span><span class="keyword">]]) !== </span><span class="default">false</span><span class="keyword">) {<br />    echo </span><span class="string">"result : </span><span class="default">$x</span><span class="string"> is less than OR equal to 100"</span><span class="keyword">;<br />} else {<br />    echo </span><span class="string">"result : </span><span class="default">$x</span><span class="string"> is NOT less than OR equal to 100"</span><span class="keyword">;<br />}<br /></span><span class="default">?&gt;<br /></span>result : 50 is less than OR equal to 100<br /><br /><span class="default">&lt;?php<br /></span><span class="comment">/**<br /> * greater_than_equal_to <br /> */<br /></span><span class="default">$x </span><span class="keyword">= </span><span class="default">50</span><span class="keyword">;<br />if (</span><span class="default">filter_var</span><span class="keyword">(</span><span class="default">$x</span><span class="keyword">, </span><span class="default">FILTER_VALIDATE_FLOAT</span><span class="keyword">, [</span><span class="string">"options" </span><span class="keyword">=&gt; [</span><span class="string">"min_range" </span><span class="keyword">=&gt; </span><span class="default">100</span><span class="keyword">]]) !== </span><span class="default">false</span><span class="keyword">) {<br />    echo </span><span class="string">"result : </span><span class="default">$x</span><span class="string"> is greater than OR equal to 100"</span><span class="keyword">;<br />} else {<br />    echo </span><span class="string">"result : </span><span class="default">$x</span><span class="string"> is NOT greater than OR equal to 100"</span><span class="keyword">;<br />}<br /></span><span class="default">?&gt;<br /></span>result : 50 is NOT greater than OR equal to 100<br /><br /><span class="default">&lt;?php<br /></span><span class="comment">/**<br /> * less_than_equal_to &amp;&amp; greater_than_equal_to<br /> */<br /></span><span class="default">$x </span><span class="keyword">= </span><span class="default">50</span><span class="keyword">;<br />if (</span><span class="default">filter_var</span><span class="keyword">(</span><span class="default">$x</span><span class="keyword">, </span><span class="default">FILTER_VALIDATE_FLOAT</span><span class="keyword">, [</span><span class="string">"options" </span><span class="keyword">=&gt; [</span><span class="string">"min_range" </span><span class="keyword">=&gt; </span><span class="default">0 </span><span class="keyword">, </span><span class="string">"max_range"</span><span class="keyword">=&gt; </span><span class="default">100</span><span class="keyword">]]) !== </span><span class="default">false</span><span class="keyword">) {<br />    echo </span><span class="string">"result : </span><span class="default">$x</span><span class="string"> is in range of 0 to 100"</span><span class="keyword">;<br />} else {<br />    echo </span><span class="string">"result : </span><span class="default">$x</span><span class="string"> in NOT range of 0 to 100"</span><span class="keyword">;<br />}<br /></span><span class="default">?&gt;<br /></span>result : 50 is in range of 0 to 100</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="108551">  <div class="votes">
+    <div id="Vu108551">
+    <a href="https://www.php.net/manual/vote-note.php?id=108551&amp;page=filter.filters.validate&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd108551">
+    <a href="https://www.php.net/manual/vote-note.php?id=108551&amp;page=filter.filters.validate&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V108551" title="61% like this...">
+    25
+    </div>
+  </div>
+  <a href="filter.filters.validate.php.html#108551" class="name">
+  <strong class="user"><em>bee kay two at em ee dot com</em></strong></a><a class="genanchor" href="filter.filters.validate.php.html#108551"> &para;</a><div class="date" title="2012-05-06 04:45"><strong>11 years ago</strong></div>
+  <div class="text" id="Hcom108551">
+<div class="phpcode"><code><span class="html">Notably missing is a way to validate text entry as printable,<br />printable multiline,<br />or printable and safe (tag free)<br /><br />FILTER_VALIDATE_TEXT, which validates no special characters<br />perhaps with FILTER_FLAG_ALLOW_NEWLINE<br />and FILTER_FLAG_NOTAG to disallow tag starters</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="111692">  <div class="votes">
+    <div id="Vu111692">
+    <a href="https://www.php.net/manual/vote-note.php?id=111692&amp;page=filter.filters.validate&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd111692">
+    <a href="https://www.php.net/manual/vote-note.php?id=111692&amp;page=filter.filters.validate&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V111692" title="60% like this...">
+    11
+    </div>
+  </div>
+  <a href="filter.filters.validate.php.html#111692" class="name">
+  <strong class="user"><em>rowan dot collins at gmail dot com</em></strong></a><a class="genanchor" href="filter.filters.validate.php.html#111692"> &para;</a><div class="date" title="2013-03-17 08:22"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom111692">
+<div class="phpcode"><code><span class="html">Regarding "partial" addresses with no . in the domain part, a comment in the source code (in ext/filter/logical_filters.c) justifies this rejection thus:<br /><br />     * The regex below is based on a regex by Michael Rushton.<br />     * However, it is not identical.  I changed it to only consider routeable<br />     * addresses as valid.  Michael's regex considers a@b a valid address<br />     * which conflicts with section 2.3.5 of RFC 5321 which states that:<br />     *<br />     *   Only resolvable, fully-qualified domain names (FQDNs) are permitted<br />     *   when domain names are used in SMTP.  In other words, names that can<br />     *   be resolved to MX RRs or address (i.e., A or AAAA) RRs (as discussed<br />     *   in Section 5) are permitted, as are CNAME RRs whose targets can be<br />     *   resolved, in turn, to MX or address RRs.  Local nicknames or<br />     *   unqualified names MUST NOT be used.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="101693">  <div class="votes">
+    <div id="Vu101693">
+    <a href="https://www.php.net/manual/vote-note.php?id=101693&amp;page=filter.filters.validate&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd101693">
+    <a href="https://www.php.net/manual/vote-note.php?id=101693&amp;page=filter.filters.validate&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V101693" title="57% like this...">
+    13
+    </div>
+  </div>
+  <a href="filter.filters.validate.php.html#101693" class="name">
+  <strong class="user"><em>Clifton</em></strong></a><a class="genanchor" href="filter.filters.validate.php.html#101693"> &para;</a><div class="date" title="2011-01-05 08:00"><strong>13 years ago</strong></div>
+  <div class="text" id="Hcom101693">
+<div class="phpcode"><code><span class="html">FILTER_VALIDATE_EMAIL does NOT allow incomplete e-mail addresses to be validated as mentioned by Tomas.<br /><br />Using the following code:<br /><br /><span class="default">&lt;?php<br />$email </span><span class="keyword">= </span><span class="string">"clifton@example"</span><span class="keyword">; </span><span class="comment">//Note the .com missing<br /></span><span class="keyword">echo </span><span class="string">"PHP Version: "</span><span class="keyword">.</span><span class="default">phpversion</span><span class="keyword">().</span><span class="string">'&lt;br&gt;'</span><span class="keyword">;<br />if(</span><span class="default">filter_var</span><span class="keyword">(</span><span class="default">$email</span><span class="keyword">, </span><span class="default">FILTER_VALIDATE_EMAIL</span><span class="keyword">)){<br />    echo </span><span class="default">$email</span><span class="keyword">.</span><span class="string">'&lt;br&gt;'</span><span class="keyword">;<br />    </span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">filter_var</span><span class="keyword">(</span><span class="default">$email</span><span class="keyword">, </span><span class="default">FILTER_VALIDATE_EMAIL</span><span class="keyword">));<br />}else{<br />    </span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">filter_var</span><span class="keyword">(</span><span class="default">$email</span><span class="keyword">, </span><span class="default">FILTER_VALIDATE_EMAIL</span><span class="keyword">));    <br />}<br /></span><span class="default">?&gt;<br /></span><br />Returns:<br />PHP Version: 5.2.14 //On MY server, may be different depending on which version you have installed.<br />bool(false)<br /><br />While the following code:<br /><br /><span class="default">&lt;?php<br />$email </span><span class="keyword">= </span><span class="string">"clifton@example.com"</span><span class="keyword">; </span><span class="comment">//Note the .com added<br /></span><span class="keyword">echo </span><span class="string">"PHP Version: "</span><span class="keyword">.</span><span class="default">phpversion</span><span class="keyword">().</span><span class="string">'&lt;br&gt;'</span><span class="keyword">;<br />if(</span><span class="default">filter_var</span><span class="keyword">(</span><span class="default">$email</span><span class="keyword">, </span><span class="default">FILTER_VALIDATE_EMAIL</span><span class="keyword">)){<br />    echo </span><span class="default">$email</span><span class="keyword">.</span><span class="string">'&lt;br&gt;'</span><span class="keyword">;<br />    </span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">filter_var</span><span class="keyword">(</span><span class="default">$email</span><span class="keyword">, </span><span class="default">FILTER_VALIDATE_EMAIL</span><span class="keyword">));<br />}else{<br />    </span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">filter_var</span><span class="keyword">(</span><span class="default">$email</span><span class="keyword">, </span><span class="default">FILTER_VALIDATE_EMAIL</span><span class="keyword">));    <br />}<br /></span><span class="default">?&gt;<br /></span><br />Returns:<br />PHP Version: 5.2.14 //On MY server, may be different depending on which version you have installed.<br />clifton@example.com<br />string(16) "clifton@example.com"<br /><br />This feature is only available for PHP Versions (PHP 5 &gt;= 5.2.0) according to documentation. So make sure your version is correct.<br /><br />Cheers,<br />Clifton</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="124979">  <div class="votes">
+    <div id="Vu124979">
+    <a href="https://www.php.net/manual/vote-note.php?id=124979&amp;page=filter.filters.validate&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd124979">
+    <a href="https://www.php.net/manual/vote-note.php?id=124979&amp;page=filter.filters.validate&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V124979" title="62% like this...">
+    2
+    </div>
+  </div>
+  <a href="filter.filters.validate.php.html#124979" class="name">
+  <strong class="user"><em>carlosv775 at gmail dot com</em></strong></a><a class="genanchor" href="filter.filters.validate.php.html#124979"> &para;</a><div class="date" title="2020-05-05 07:47"><strong>3 years ago</strong></div>
+  <div class="text" id="Hcom124979">
+<div class="phpcode"><code><span class="html">Looks like FILTER_VALIDATE_DOMAIN isn't available on PHP &lt; 7:<br /><br /><a href="https://3v4l.org/eOPLM" rel="nofollow" target="_blank">https://3v4l.org/eOPLM</a></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="116924">  <div class="votes">
+    <div id="Vu116924">
+    <a href="https://www.php.net/manual/vote-note.php?id=116924&amp;page=filter.filters.validate&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd116924">
+    <a href="https://www.php.net/manual/vote-note.php?id=116924&amp;page=filter.filters.validate&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V116924" title="60% like this...">
+    6
+    </div>
+  </div>
+  <a href="filter.filters.validate.php.html#116924" class="name">
+  <strong class="user"><em>bryanwayb at gmail dot com</em></strong></a><a class="genanchor" href="filter.filters.validate.php.html#116924"> &para;</a><div class="date" title="2015-03-22 04:18"><strong>8 years ago</strong></div>
+  <div class="text" id="Hcom116924">
+<div class="phpcode"><code><span class="html">It's good to remember that using filter_var is primarily for filtering input values when doing boolean logic comparisons. Take the following:<br /><br />$value = "12";<br />if(filter_var($value, FILTER_VALIDATE_INT))<br />{<br />    // validated as an int<br />}<br /><br />The above works as intended, except when $value = "0". In which case filter_var returns a 0, aka false when used as a boolean.<br /><br />For the correct behavior, do a zero check.<br /><br />$value = " 0 ";<br />$filtered = filter_var($value, FILTER_VALIDATE_INT);<br />if($filtered || $filtered === 0)<br />{<br />    // validated as an int<br />}</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="122336">  <div class="votes">
+    <div id="Vu122336">
+    <a href="https://www.php.net/manual/vote-note.php?id=122336&amp;page=filter.filters.validate&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd122336">
+    <a href="https://www.php.net/manual/vote-note.php?id=122336&amp;page=filter.filters.validate&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V122336" title="58% like this...">
+    2
+    </div>
+  </div>
+  <a href="filter.filters.validate.php.html#122336" class="name">
+  <strong class="user"><em>gee2711 at googlemail dot com</em></strong></a><a class="genanchor" href="filter.filters.validate.php.html#122336"> &para;</a><div class="date" title="2018-01-30 06:36"><strong>6 years ago</strong></div>
+  <div class="text" id="Hcom122336">
+<div class="phpcode"><code><span class="html">FILTER_FLAG_QUERY_REQUIRED is failing URLs that are encoded e.g.<br /><br /><a href="http://example.com/page.php?q=growing+big" rel="nofollow" target="_blank">http://example.com/page.php?q=growing+big</a><br /><br />Fails whilst<br /><br /><a href="http://example.com/page.php?q=big" rel="nofollow" target="_blank">http://example.com/page.php?q=big</a><br /><br />So anything more than one word encoded fails.<br /><br />Tested on PHP version 7.1</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="117950">  <div class="votes">
+    <div id="Vu117950">
+    <a href="https://www.php.net/manual/vote-note.php?id=117950&amp;page=filter.filters.validate&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd117950">
+    <a href="https://www.php.net/manual/vote-note.php?id=117950&amp;page=filter.filters.validate&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V117950" title="54% like this...">
+    4
+    </div>
+  </div>
+  <a href="filter.filters.validate.php.html#117950" class="name">
+  <strong class="user"><em>Lech</em></strong></a><a class="genanchor" href="filter.filters.validate.php.html#117950"> &para;</a><div class="date" title="2015-09-05 08:41"><strong>8 years ago</strong></div>
+  <div class="text" id="Hcom117950">
+<div class="phpcode"><code><span class="html">The description for FILTER_VALIDATE_URL seems incorrect/misleading. "Beware a valid URL may not specify the HTTP protocol" implies a valid URL cannot specify the HTTP protocol. I think "Beware a valid URL need not specify..." would be better.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="118591">  <div class="votes">
+    <div id="Vu118591">
+    <a href="https://www.php.net/manual/vote-note.php?id=118591&amp;page=filter.filters.validate&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd118591">
+    <a href="https://www.php.net/manual/vote-note.php?id=118591&amp;page=filter.filters.validate&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V118591" title="55% like this...">
+    3
+    </div>
+  </div>
+  <a href="filter.filters.validate.php.html#118591" class="name">
+  <strong class="user"><em>sebastian dot piskorski at gmail dot com</em></strong></a><a class="genanchor" href="filter.filters.validate.php.html#118591"> &para;</a><div class="date" title="2016-01-05 12:48"><strong>8 years ago</strong></div>
+  <div class="text" id="Hcom118591">
+<div class="phpcode"><code><span class="html">FILTER_VALIDATE_EMAIL not only doesn't support whitespace folding and comments. It only checks Addr-spec part of email address. Otherwise it should mark such address as valid: 'Test Example &lt;test@example.com&gt;' because it is valid according to RFC 822.<br /><br />Also address "test@localhost" should be valid. Which is mentioned in another note.<br /><br />You can test it with this code:<br /><span class="default">&lt;?php<br /><br />$emails </span><span class="keyword">= array(<br />    </span><span class="string">'Test Example &lt;test@example.com&gt;'</span><span class="keyword">,<br />    </span><span class="string">'test@localhost'</span><span class="keyword">,<br />    </span><span class="string">'test@localhost.com'<br /></span><span class="keyword">);<br /><br />foreach (</span><span class="default">$emails </span><span class="keyword">as </span><span class="default">$email</span><span class="keyword">) {<br />    echo (</span><span class="default">filter_var</span><span class="keyword">(</span><span class="default">$email</span><span class="keyword">, </span><span class="default">FILTER_VALIDATE_EMAIL</span><span class="keyword">)) ? <br />        </span><span class="string">"[+] Email '</span><span class="default">$email</span><span class="string">' is valid\n" </span><span class="keyword">: <br />        </span><span class="string">"[-] Email '</span><span class="default">$email</span><span class="string">' is NOT valid\n"</span><span class="keyword">;<br />}<br /></span><span class="default">?&gt;<br /></span><br />Output for PHP 5.3.21 - 7.0.1 :<br />[-] Email 'Test Example &lt;test@example.com&gt;' is NOT valid<br />[-] Email 'test@localhost' is NOT valid<br />[+] Email 'test@localhost.com' is valid</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="118383">  <div class="votes">
+    <div id="Vu118383">
+    <a href="https://www.php.net/manual/vote-note.php?id=118383&amp;page=filter.filters.validate&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd118383">
+    <a href="https://www.php.net/manual/vote-note.php?id=118383&amp;page=filter.filters.validate&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V118383" title="55% like this...">
+    2
+    </div>
+  </div>
+  <a href="filter.filters.validate.php.html#118383" class="name">
+  <strong class="user"><em>rsnell at usgs dot gov</em></strong></a><a class="genanchor" href="filter.filters.validate.php.html#118383"> &para;</a><div class="date" title="2015-11-25 05:18"><strong>8 years ago</strong></div>
+  <div class="text" id="Hcom118383">
+<div class="phpcode"><code><span class="html">Note that if using FILTER_NULL_ON_FAILURE as a flag with the FILTER_VALIDATE_BOOLEAN id then NULL is no longer returned if the variable name is not set in the external variable array. It will instead return FALSE. In the description is says that when using the FILTER_NULL_ON_FAILURE flag that ' FALSE is returned only for "0", "false", "off", "no", and ""' an makes no mention of this additional state that can also return false. The behavior is mentioned on the filter_input documentation page under Return Values but that is not overly helpful if one is just looking here.<br /><br />If FILTER_NULL_ON_FAILURE is not used then NULL is returned when the variable name is not set in the external variable array, TRUE is returned for "1", "true", "on" and "yes" and FALSE is returned for everything else.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="102398">  <div class="votes">
+    <div id="Vu102398">
+    <a href="https://www.php.net/manual/vote-note.php?id=102398&amp;page=filter.filters.validate&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd102398">
+    <a href="https://www.php.net/manual/vote-note.php?id=102398&amp;page=filter.filters.validate&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V102398" title="54% like this...">
+    4
+    </div>
+  </div>
+  <a href="filter.filters.validate.php.html#102398" class="name">
+  <strong class="user"><em>php dot net at piskvor dot org</em></strong></a><a class="genanchor" href="filter.filters.validate.php.html#102398"> &para;</a><div class="date" title="2011-02-11 08:57"><strong>13 years ago</strong></div>
+  <div class="text" id="Hcom102398">
+<div class="phpcode"><code><span class="html">FILTER_VALIDATE_EMAIL is discarding valid e-mail addresses containing IDN. Since there are real, live IDNs on the Internet, that means the filtered output is too strict, leading to false negatives.<br /><br />Punycode-encoded IDN addresses pass the filter correctly; so before checking for validity, it is necessary to convert the e-mail address to punycode.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="117330">  <div class="votes">
+    <div id="Vu117330">
+    <a href="https://www.php.net/manual/vote-note.php?id=117330&amp;page=filter.filters.validate&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd117330">
+    <a href="https://www.php.net/manual/vote-note.php?id=117330&amp;page=filter.filters.validate&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V117330" title="52% like this...">
+    2
+    </div>
+  </div>
+  <a href="filter.filters.validate.php.html#117330" class="name">
+  <strong class="user"><em>Anonymous</em></strong></a><a class="genanchor" href="filter.filters.validate.php.html#117330"> &para;</a><div class="date" title="2015-05-22 08:02"><strong>8 years ago</strong></div>
+  <div class="text" id="Hcom117330">
+<div class="phpcode"><code><span class="html">FILTER_VALIDATE_FLOAT, decimal option mean decimal notation['.', ','].</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="113306">  <div class="votes">
+    <div id="Vu113306">
+    <a href="https://www.php.net/manual/vote-note.php?id=113306&amp;page=filter.filters.validate&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd113306">
+    <a href="https://www.php.net/manual/vote-note.php?id=113306&amp;page=filter.filters.validate&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V113306" title="52% like this...">
+    2
+    </div>
+  </div>
+  <a href="filter.filters.validate.php.html#113306" class="name">
+  <strong class="user"><em>Bastien</em></strong></a><a class="genanchor" href="filter.filters.validate.php.html#113306"> &para;</a><div class="date" title="2013-09-24 08:05"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom113306">
+<div class="phpcode"><code><span class="html">Rejection of so-called partial domains because of "missing" dot is not following section 2.3.5 of RFC 5321.<br /><br />It says FQDNs are permitted, and com, org, or va are (well, may be) valids FQDNs. It depends on DNS, not on syntax.<br /><br />Some TDLs (although few of them) have MX RRs, the for example "abuse@va" is correct.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="116961">  <div class="votes">
+    <div id="Vu116961">
+    <a href="https://www.php.net/manual/vote-note.php?id=116961&amp;page=filter.filters.validate&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd116961">
+    <a href="https://www.php.net/manual/vote-note.php?id=116961&amp;page=filter.filters.validate&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V116961" title="51% like this...">
+    1
+    </div>
+  </div>
+  <a href="filter.filters.validate.php.html#116961" class="name">
+  <strong class="user"><em>maruerru at gmail dot com</em></strong></a><a class="genanchor" href="filter.filters.validate.php.html#116961"> &para;</a><div class="date" title="2015-03-26 11:09"><strong>8 years ago</strong></div>
+  <div class="text" id="Hcom116961">
+<div class="phpcode"><code><span class="html">Often I see some code like the following:<br />$value = "12";<br />if( filter_var($value, FILTER_VALIDATE_INT) )<br />{<br />    // validated as an int<br />}<br /><br />The above works as intended, except when $value is "0". In the above case it will be interpreted as FALSE.<br /><br />For the correct behavior,  you have not only to check if it is equal (==) to false, but also identic (===) to FALSE:<br />$value = " 0 ";<br />if( filter_var($value, FILTER_VALIDATE_INT)  === FALSE )<br />{<br />    // validated as an int<br />}<br /><br />I hope, I could help.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="127922">  <div class="votes">
+    <div id="Vu127922">
+    <a href="https://www.php.net/manual/vote-note.php?id=127922&amp;page=filter.filters.validate&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd127922">
+    <a href="https://www.php.net/manual/vote-note.php?id=127922&amp;page=filter.filters.validate&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V127922" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="filter.filters.validate.php.html#127922" class="name">
+  <strong class="user"><em>Andrew Rump</em></strong></a><a class="genanchor" href="filter.filters.validate.php.html#127922"> &para;</a><div class="date" title="2022-11-13 08:17"><strong>1 year ago</strong></div>
+  <div class="text" id="Hcom127922">
+<div class="phpcode"><code><span class="html">FILTER_VALIDATE_URL do not support IDN in any form, i.e., neither rødgrød.dk nor xn--rdgrd-vuad.dk even though the domain is active.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="126576">  <div class="votes">
+    <div id="Vu126576">
+    <a href="https://www.php.net/manual/vote-note.php?id=126576&amp;page=filter.filters.validate&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd126576">
+    <a href="https://www.php.net/manual/vote-note.php?id=126576&amp;page=filter.filters.validate&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V126576" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="filter.filters.validate.php.html#126576" class="name">
+  <strong class="user"><em>boan at jfmedier dot dk</em></strong></a><a class="genanchor" href="filter.filters.validate.php.html#126576"> &para;</a><div class="date" title="2021-11-11 09:42"><strong>2 years ago</strong></div>
+  <div class="text" id="Hcom126576">
+<div class="phpcode"><code><span class="html">Note that some flags are removed in PHP 8. E.g. FILTER_FLAG_HOST_REQUIRED</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="124109">  <div class="votes">
+    <div id="Vu124109">
+    <a href="https://www.php.net/manual/vote-note.php?id=124109&amp;page=filter.filters.validate&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd124109">
+    <a href="https://www.php.net/manual/vote-note.php?id=124109&amp;page=filter.filters.validate&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V124109" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="filter.filters.validate.php.html#124109" class="name">
+  <strong class="user"><em>Vee W.</em></strong></a><a class="genanchor" href="filter.filters.validate.php.html#124109"> &para;</a><div class="date" title="2019-08-12 10:09"><strong>4 years ago</strong></div>
+  <div class="text" id="Hcom124109">
+<div class="phpcode"><code><span class="html">`FILTER_FLAG_EMAIL_UNICODE` was added in PHP 7.1</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="119528">  <div class="votes">
+    <div id="Vu119528">
+    <a href="https://www.php.net/manual/vote-note.php?id=119528&amp;page=filter.filters.validate&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd119528">
+    <a href="https://www.php.net/manual/vote-note.php?id=119528&amp;page=filter.filters.validate&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V119528" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="filter.filters.validate.php.html#119528" class="name">
+  <strong class="user"><em>kizge</em></strong></a><a class="genanchor" href="filter.filters.validate.php.html#119528"> &para;</a><div class="date" title="2016-06-30 08:18"><strong>7 years ago</strong></div>
+  <div class="text" id="Hcom119528">
+<div class="phpcode"><code><span class="html">FILTER_VALIDATE_INT first casts its value to string which produces unexpected result for bool and float (<a href="https://bugs.php.net/bug.php?id=72490" rel="nofollow" target="_blank">https://bugs.php.net/bug.php?id=72490</a>):<br /><br /><span class="default">&lt;?php<br /><br /></span><span class="comment">// Prints int(1).<br /></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">filter_var</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">, </span><span class="default">FILTER_VALIDATE_INT</span><span class="keyword">));<br /><br /></span><span class="comment">// ...but this prints bool(false).<br /></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">filter_var</span><span class="keyword">(</span><span class="default">false</span><span class="keyword">, </span><span class="default">FILTER_VALIDATE_INT</span><span class="keyword">));<br /><br /></span><span class="comment">// --------<br /><br />// Prints bool(false).<br /></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">filter_var</span><span class="keyword">(</span><span class="default">1.1</span><span class="keyword">, </span><span class="default">FILTER_VALIDATE_INT</span><span class="keyword">));<br /><br /></span><span class="comment">// ...but this prints int(0).<br /></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">filter_var</span><span class="keyword">(</span><span class="default">0.0</span><span class="keyword">, </span><span class="default">FILTER_VALIDATE_INT</span><span class="keyword">));<br /><br /></span><span class="comment">// ...but this again is bool(false).<br /></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">filter_var</span><span class="keyword">(</span><span class="string">'0.0'</span><span class="keyword">, </span><span class="default">FILTER_VALIDATE_INT</span><span class="keyword">));<br /><br /></span><span class="comment">// Also bool(false).<br /></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">filter_var</span><span class="keyword">(</span><span class="string">'-0.0'</span><span class="keyword">, </span><span class="default">FILTER_VALIDATE_INT</span><span class="keyword">));<br /><br /></span><span class="default">?&gt;<br /></span><br />Live sample: <a href="https://3v4l.org/CZW0W" rel="nofollow" target="_blank">https://3v4l.org/CZW0W</a><br /><br />The docs are not clear on how exactly this casting affects the result for certain input values.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="117387">  <div class="votes">
+    <div id="Vu117387">
+    <a href="https://www.php.net/manual/vote-note.php?id=117387&amp;page=filter.filters.validate&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd117387">
+    <a href="https://www.php.net/manual/vote-note.php?id=117387&amp;page=filter.filters.validate&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V117387" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="filter.filters.validate.php.html#117387" class="name">
+  <strong class="user"><em>Darth Killer</em></strong></a><a class="genanchor" href="filter.filters.validate.php.html#117387"> &para;</a><div class="date" title="2015-06-02 08:54"><strong>8 years ago</strong></div>
+  <div class="text" id="Hcom117387">
+<div class="phpcode"><code><span class="html">Contrary to what documentation implies, the FILTER_NULL_ON_FAILURE seem to affect any validation filter, not just FILTER_VALIDATE_BOOLEAN. I've been using that since PHP 5.2, and as of PHP 5.6.8 it still works. I have no clue if it's a blug or if it is as intended, in which case the documentation needs to be fixed.<br /><br />When the flag is used on a validation filter other than FILTER_VALIDATE_BOOLEAN, as expected the filter will return NULL instead of FALSE upon failure. This is quite useful when filtering a POST form with filter_input_array(), where you don't want to check what field is invalid and what field is missing. Just check if NULL is among the returned elements and you're done.<br /><br /><span class="default">&lt;?php<br />$definition </span><span class="keyword">= array(<br />   </span><span class="string">'login' </span><span class="keyword">=&gt; array(<br />      </span><span class="string">'filter' </span><span class="keyword">=&gt; </span><span class="default">FILTER_VALIDATE_STRING</span><span class="keyword">,<br />      </span><span class="string">'flags' </span><span class="keyword">=&gt; </span><span class="default">FILTER_NULL_ON_FAILURE<br />   </span><span class="keyword">),<br />   </span><span class="string">'pwd' </span><span class="keyword">=&gt; </span><span class="default">FILTER_UNSAFE_RAW<br /></span><span class="keyword">);<br /></span><span class="default">$form_data </span><span class="keyword">= </span><span class="default">filter_input_array</span><span class="keyword">(</span><span class="default">INPUT_POST</span><span class="keyword">, </span><span class="default">$definition</span><span class="keyword">);<br />if(</span><span class="default">in_array</span><span class="keyword">(</span><span class="default">null</span><span class="keyword">, </span><span class="default">$form_data</span><span class="keyword">, </span><span class="default">true</span><span class="keyword">)) {<br />   </span><span class="comment">// invalid form<br /></span><span class="keyword">} else {<br />   </span><span class="comment">// valid form, let's proceed<br /></span><span class="keyword">}<br /></span><span class="default">?&gt;<br /></span><br />Of course, if you want more precise error messages that approach won't work. But it's still good to know, i believe.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="121047">  <div class="votes">
+    <div id="Vu121047">
+    <a href="https://www.php.net/manual/vote-note.php?id=121047&amp;page=filter.filters.validate&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd121047">
+    <a href="https://www.php.net/manual/vote-note.php?id=121047&amp;page=filter.filters.validate&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V121047" title="45% like this...">
+    -2
+    </div>
+  </div>
+  <a href="filter.filters.validate.php.html#121047" class="name">
+  <strong class="user"><em>luca at accomazzi dot net</em></strong></a><a class="genanchor" href="filter.filters.validate.php.html#121047"> &para;</a><div class="date" title="2017-05-04 02:47"><strong>6 years ago</strong></div>
+  <div class="text" id="Hcom121047">
+<div class="phpcode"><code><span class="html">A word to the wise regarding floats.<br /><br />$t = '312041.25 &amp;euro; instead of 896.70 &amp;euro;';<br />echo filter_var ($t, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);<br /><br />will return<br />312041.25896.70<br />which is likely not what you were expecting. In 2007 someone suggested it's not acceptable (see <a href="https://bugs.php.net/bug.php?id=40156&amp;edit=2" rel="nofollow" target="_blank">https://bugs.php.net/bug.php?id=40156&amp;edit=2</a>) but it was flagged "not a bug" because these kind of filters are only supposed to filter out illegal characters.<br />Of course if you were to use FILTER_VALIDATE_FLOAT it would just return that the input is not valid.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="103334">  <div class="votes">
+    <div id="Vu103334">
+    <a href="https://www.php.net/manual/vote-note.php?id=103334&amp;page=filter.filters.validate&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd103334">
+    <a href="https://www.php.net/manual/vote-note.php?id=103334&amp;page=filter.filters.validate&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V103334" title="46% like this...">
+    -4
+    </div>
+  </div>
+  <a href="filter.filters.validate.php.html#103334" class="name">
+  <strong class="user"><em>php at sethsyberg dot com</em></strong></a><a class="genanchor" href="filter.filters.validate.php.html#103334"> &para;</a><div class="date" title="2011-04-07 01:00"><strong>12 years ago</strong></div>
+  <div class="text" id="Hcom103334">
+<div class="phpcode"><code><span class="html">When validating floats, you must use the Identical/Not identical operators for proper validation of zeros:<br /><br />This will not work as expected:<br /><span class="default">&lt;?php<br />$x </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br />if (!</span><span class="default">filter_var</span><span class="keyword">(</span><span class="default">$x</span><span class="keyword">, </span><span class="default">FILTER_VALIDATE_FLOAT</span><span class="keyword">)) {<br />    echo </span><span class="string">"</span><span class="default">$x</span><span class="string"> is a valid float"</span><span class="keyword">;<br />} else {<br />    echo </span><span class="string">"</span><span class="default">$x</span><span class="string"> is NOT a valid float"</span><span class="keyword">;<br />}<br /></span><span class="default">?&gt;<br /></span><br />This will work as expected:<br /><span class="default">&lt;?php<br />$x </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br />if (</span><span class="default">filter_var</span><span class="keyword">(</span><span class="default">$x</span><span class="keyword">, </span><span class="default">FILTER_VALIDATE_FLOAT</span><span class="keyword">)!== </span><span class="default">false</span><span class="keyword">) {<br />    echo </span><span class="string">"</span><span class="default">$x</span><span class="string"> is a valid float"</span><span class="keyword">;<br />} else {<br />    echo </span><span class="string">"</span><span class="default">$x</span><span class="string"> is NOT a valid float"</span><span class="keyword">;<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="117425">  <div class="votes">
+    <div id="Vu117425">
+    <a href="https://www.php.net/manual/vote-note.php?id=117425&amp;page=filter.filters.validate&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd117425">
+    <a href="https://www.php.net/manual/vote-note.php?id=117425&amp;page=filter.filters.validate&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V117425" title="41% like this...">
+    -3
+    </div>
+  </div>
+  <a href="filter.filters.validate.php.html#117425" class="name">
+  <strong class="user"><em>Wrinkled Cheese</em></strong></a><a class="genanchor" href="filter.filters.validate.php.html#117425"> &para;</a><div class="date" title="2015-06-09 03:33"><strong>8 years ago</strong></div>
+  <div class="text" id="Hcom117425">
+<div class="phpcode"><code><span class="html">When validating a URL, as documented, the protocol is not validated.  However, it is required to be present.<br /><br />For example:<br /><br />I don't expect a protocol to be present.  To validate expected input I have to add a "protocol" as a prefix, and return true or false, and further validate the input.<br /><br />$r = filter_var(''this.doesnt.matter.so.why.is.it.required://'.$host, FILTER_VALIDATE_URL);<br />return ($r != '' &amp;&amp; $r !== false) ? true : false;</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="117347">  <div class="votes">
+    <div id="Vu117347">
+    <a href="https://www.php.net/manual/vote-note.php?id=117347&amp;page=filter.filters.validate&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd117347">
+    <a href="https://www.php.net/manual/vote-note.php?id=117347&amp;page=filter.filters.validate&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V117347" title="40% like this...">
+    -7
+    </div>
+  </div>
+  <a href="filter.filters.validate.php.html#117347" class="name">
+  <strong class="user"><em>Luuk</em></strong></a><a class="genanchor" href="filter.filters.validate.php.html#117347"> &para;</a><div class="date" title="2015-05-25 10:23"><strong>8 years ago</strong></div>
+  <div class="text" id="Hcom117347">
+<div class="phpcode"><code><span class="html">@2:<br />$value = " 0 ";<br />$filtered = filter_var($value, FILTER_VALIDATE_INT);<br />if($filtered || $filtered === 0)<br />{<br />    // validated as an int<br />} <br /><br />I think next code is better:<br /><br />$value = "0";<br />if(filter_var($value, FILTER_VALIDATE_INT) !== false)<br />{<br />  .....</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="125006">  <div class="votes">
+    <div id="Vu125006">
+    <a href="https://www.php.net/manual/vote-note.php?id=125006&amp;page=filter.filters.validate&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd125006">
+    <a href="https://www.php.net/manual/vote-note.php?id=125006&amp;page=filter.filters.validate&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V125006" title="33% like this...">
+    -2
+    </div>
+  </div>
+  <a href="filter.filters.validate.php.html#125006" class="name">
+  <strong class="user"><em>andrew dot purkett at gmail dot com</em></strong></a><a class="genanchor" href="filter.filters.validate.php.html#125006"> &para;</a><div class="date" title="2020-05-13 05:20"><strong>3 years ago</strong></div>
+  <div class="text" id="Hcom125006">
+<div class="phpcode"><code><span class="html">Please note that the FILTER_FLAG_NO_PRIV_RANGE flag does not exclude IPv4 private addresses in the IPv6 namespace, such as ::ffff:169.254.169.254.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="126903">  <div class="votes">
+    <div id="Vu126903">
+    <a href="https://www.php.net/manual/vote-note.php?id=126903&amp;page=filter.filters.validate&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd126903">
+    <a href="https://www.php.net/manual/vote-note.php?id=126903&amp;page=filter.filters.validate&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V126903" title="20% like this...">
+    -3
+    </div>
+  </div>
+  <a href="filter.filters.validate.php.html#126903" class="name">
+  <strong class="user"><em>holger dot ahrens at rittec dot de</em></strong></a><a class="genanchor" href="filter.filters.validate.php.html#126903"> &para;</a><div class="date" title="2022-03-07 08:12"><strong>1 year ago</strong></div>
+  <div class="text" id="Hcom126903">
+<div class="phpcode"><code><span class="html">FILTER_VALIDATE_FLOAT Security Risk CVE-2021-21708 High Risk from <br /><br />Warning from MITRE Corporation, Common Vulnerabilities and Exposures:<br /><br />In PHP versions 7.4.x below 7.4.28, 8.0.x below 8.0.16, and 8.1.x below 8.1.3, when using filter functions with FILTER_VALIDATE_FLOAT filter and min/max limits, if the filter fails, there is a possibility to trigger use of allocated memory after free, which can result it crashes, and potentially in overwrite of other memory chunks and RCE. This issue affects: code that uses FILTER_VALIDATE_FLOAT with min/max limits.<br /><br />(Source: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-21708" rel="nofollow" target="_blank">https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-21708</a>)</span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=filter.filters.validate&amp;redirect=https://www.php.net/manual/ru/filter.filters.validate.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="filter.filters.php.html">Типы фильтров</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="current">
+                            <a href="filter.filters.validate.php.html" title="Фильтры валидации данных">Фильтры валидации данных</a>
+                        </li>
+                                                <li class="">
+                            <a href="filter.filters.sanitize.php.html" title="Очищающие фильтры">Очищающие фильтры</a>
+                        </li>
+                                                <li class="">
+                            <a href="filter.filters.misc.php.html" title="Остальные фильтры">Остальные фильтры</a>
+                        </li>
+                                                <li class="">
+                            <a href="filter.filters.flags.php.html" title="Флаги для фильтров">Флаги для фильтров</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

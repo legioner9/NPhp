@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: Mailparse - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="ref.mailparse.php.html">
+ <link rel="shorturl" href="https://www.php.net/mailparse">
+ <link rel="alternate" href="https://www.php.net/mailparse" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="book.mailparse.php.html">
+ <link rel="prev" href="mailparse.constants.php.html">
+ <link rel="next" href="function.mailparse-determine-best-xfer-encoding.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/ref.mailparse.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/ref.mailparse.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/ref.mailparse.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/ref.mailparse.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/ref.mailparse.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/ref.mailparse.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/ref.mailparse.php" hreflang="pt_BR">
+ <link rel="alternate" href="ref.mailparse.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/ref.mailparse.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/ref.mailparse.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="function.mailparse-determine-best-xfer-encoding.php.html">
+          mailparse_determine_best_xfer_encoding &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="mailparse.constants.php.html">
+          &laquo; Предопределённые константы        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.remote.mail.php.html'>Модули для работы с почтой</a></li>      <li><a href='book.mailparse.php.html'>Mailparse</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/ref.mailparse.php'>English</option>
+            <option value='de/ref.mailparse.php'>German</option>
+            <option value='es/ref.mailparse.php'>Spanish</option>
+            <option value='fr/ref.mailparse.php'>French</option>
+            <option value='it/ref.mailparse.php'>Italian</option>
+            <option value='ja/ref.mailparse.php'>Japanese</option>
+            <option value='pt_BR/ref.mailparse.php'>Brazilian Portuguese</option>
+            <option value='ru/ref.mailparse.php' selected="selected">Russian</option>
+            <option value='tr/ref.mailparse.php'>Turkish</option>
+            <option value='zh/ref.mailparse.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/mailparse/reference.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Fref.mailparse%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="ref.mailparse" class="reference">
+  <h1 class="title">Mailparse</h1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ <h2>Содержание</h2><ul class="chunklist chunklist_reference"><li><a href="function.mailparse-determine-best-xfer-encoding.php.html">mailparse_determine_best_xfer_encoding</a> — Определить наилучший путь декодирования</li><li><a href="function.mailparse-msg-create.php.html">mailparse_msg_create</a> — Создаёт почтовый MIME-ресурс</li><li><a href="function.mailparse-msg-extract-part-file.php.html">mailparse_msg_extract_part_file</a> — Извлечь/декодировать секцию с сообщением из файла</li><li><a href="function.mailparse-msg-extract-part.php.html">mailparse_msg_extract_part</a> — Извлечь/декодировать секцию с сообщением</li><li><a href="function.mailparse-msg-extract-whole-part-file.php.html">mailparse_msg_extract_whole_part_file</a> — Извлечь секцию сообщения вместе с заголовками без декодирования</li><li><a href="function.mailparse-msg-free.php.html">mailparse_msg_free</a> — Высвободить MIME-ресурс</li><li><a href="function.mailparse-msg-get-part-data.php.html">mailparse_msg_get_part_data</a> — Вернуть ассоциативный массив с информацией о сообщении</li><li><a href="function.mailparse-msg-get-part.php.html">mailparse_msg_get_part</a> — Возвращает указатель на заданную секцию в mime-сообщении</li><li><a href="function.mailparse-msg-get-structure.php.html">mailparse_msg_get_structure</a> — Получить массив имён mime-секций в заданном сообщении</li><li><a href="function.mailparse-msg-parse-file.php.html">mailparse_msg_parse_file</a> — Разобрать файл</li><li><a href="function.mailparse-msg-parse.php.html">mailparse_msg_parse</a> — Инкрементальное разбирает данные в буфер</li><li><a href="function.mailparse-rfc822-parse-addresses.php.html">mailparse_rfc822_parse_addresses</a> — Разобрать адреса в соответствии с RFC 822</li><li><a href="function.mailparse-stream-encode.php.html">mailparse_stream_encode</a> — Кодирует поток из файла источника и пишет в файл получатель.</li><li><a href="function.mailparse-uudecode-all.php.html">mailparse_uudecode_all</a> — Сканирует данные из указанного файла и извлекает все вложенные файлы, кодированные в uuencode</li></ul>
+</div>
+<section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=ref.mailparse&amp;redirect=https://www.php.net/manual/ru/ref.mailparse.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">3 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="35727">  <div class="votes">
+    <div id="Vu35727">
+    <a href="https://www.php.net/manual/vote-note.php?id=35727&amp;page=ref.mailparse&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd35727">
+    <a href="https://www.php.net/manual/vote-note.php?id=35727&amp;page=ref.mailparse&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V35727" title="87% like this...">
+    6
+    </div>
+  </div>
+  <a href="ref.mailparse.php.html#35727" class="name">
+  <strong class="user"><em>boris at gamate dot com</em></strong></a><a class="genanchor" href="ref.mailparse.php.html#35727"> &para;</a><div class="date" title="2003-09-12 06:11"><strong>20 years ago</strong></div>
+  <div class="text" id="Hcom35727">
+<div class="phpcode"><code><span class="html">Example how to handle mail content from a variable:<br /><br /><span class="default">&lt;?php<br /><br />$buffer </span><span class="keyword">= [...] </span><span class="comment">// Mail Content from pipe or whatever<br /><br /></span><span class="default">$mail </span><span class="keyword">= </span><span class="default">mailparse_msg_create</span><span class="keyword">();<br /></span><span class="default">mailparse_msg_parse</span><span class="keyword">(</span><span class="default">$mail</span><span class="keyword">,</span><span class="default">$buffer</span><span class="keyword">);<br /></span><span class="default">$struct </span><span class="keyword">= </span><span class="default">mailparse_msg_get_structure</span><span class="keyword">(</span><span class="default">$mail</span><span class="keyword">); <br /><br />foreach(</span><span class="default">$struct </span><span class="keyword">as </span><span class="default">$st</span><span class="keyword">) { <br />    </span><span class="default">$section </span><span class="keyword">= </span><span class="default">mailparse_msg_get_part</span><span class="keyword">(</span><span class="default">$mail</span><span class="keyword">, </span><span class="default">$st</span><span class="keyword">); <br />    </span><span class="default">$info </span><span class="keyword">= </span><span class="default">mailparse_msg_get_part_data</span><span class="keyword">(</span><span class="default">$section</span><span class="keyword">); <br />    <br />    </span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$info</span><span class="keyword">);<br />}<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="42563">  <div class="votes">
+    <div id="Vu42563">
+    <a href="https://www.php.net/manual/vote-note.php?id=42563&amp;page=ref.mailparse&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd42563">
+    <a href="https://www.php.net/manual/vote-note.php?id=42563&amp;page=ref.mailparse&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V42563" title="63% like this...">
+    3
+    </div>
+  </div>
+  <a href="ref.mailparse.php.html#42563" class="name">
+  <strong class="user"><em>iwarner at triangle-solutions dot com</em></strong></a><a class="genanchor" href="ref.mailparse.php.html#42563"> &para;</a><div class="date" title="2004-05-21 08:31"><strong>19 years ago</strong></div>
+  <div class="text" id="Hcom42563">
+<div class="phpcode"><code><span class="html">Also dont forget to LOAD mbstring before you load mailparse<br /><br />example in the php.ini place in this order:<br /><br />extension=php_mbstring.dll<br />extension=php_mailparse.dll<br /><br />Or you will get an error.<br /><br />Ian</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="23081">  <div class="votes">
+    <div id="Vu23081">
+    <a href="https://www.php.net/manual/vote-note.php?id=23081&amp;page=ref.mailparse&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd23081">
+    <a href="https://www.php.net/manual/vote-note.php?id=23081&amp;page=ref.mailparse&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V23081" title="63% like this...">
+    3
+    </div>
+  </div>
+  <a href="ref.mailparse.php.html#23081" class="name">
+  <strong class="user"><em>wberrier at yahoo dot com</em></strong></a><a class="genanchor" href="ref.mailparse.php.html#23081"> &para;</a><div class="date" title="2002-07-09 12:45"><strong>21 years ago</strong></div>
+  <div class="text" id="Hcom23081">
+<div class="phpcode"><code><span class="html">[Authors note:<br />The tarball for 4.2.x can be found here:<br /><a href="http://thebrainroom.com/opensource/php/mailparse.php" rel="nofollow" target="_blank">http://thebrainroom.com/opensource/php/mailparse.php</a><br />and contains a script called try.php that demonstrates the usage of these functions.<br />]<br /><br />I've pasted the contents of the file below:<br /><br /><span class="default">&lt;?php<br /></span><span class="comment">/*<br /> * This is a simple email viewer.<br /> * make sure that $filename points to a file containing an email message and<br /> * load this page in your browser.<br /> * You will be able to choose a part to view.<br /> * */<br /><br /></span><span class="default">$filename </span><span class="keyword">= </span><span class="string">"uumsg"</span><span class="keyword">;<br /><br /></span><span class="comment">/* parse the message and return a mime message resource */<br /></span><span class="default">$mime </span><span class="keyword">= </span><span class="default">mailparse_msg_parse_file</span><span class="keyword">(</span><span class="default">$filename</span><span class="keyword">);<br /></span><span class="comment">/* return an array of message parts - this contsists of the names of the parts<br /> * only */<br /></span><span class="default">$struct </span><span class="keyword">= </span><span class="default">mailparse_msg_get_structure</span><span class="keyword">(</span><span class="default">$mime</span><span class="keyword">);<br /><br />echo </span><span class="string">"&lt;table&gt;\n"</span><span class="keyword">;<br /></span><span class="comment">/* print a choice of sections */<br /></span><span class="keyword">foreach(</span><span class="default">$struct </span><span class="keyword">as </span><span class="default">$st</span><span class="keyword">) {<br />        echo </span><span class="string">"&lt;tr&gt;\n"</span><span class="keyword">;<br />        echo </span><span class="string">"&lt;td&gt;&lt;a href=\"</span><span class="default">$PHP_SELF</span><span class="string">?showpart=</span><span class="default">$st</span><span class="string">\"&gt;</span><span class="default">$st</span><span class="string">&lt;/a&gt;&lt;/td&gt;\n"</span><span class="keyword">;<br />        </span><span class="comment">/* get a handle on the message resource for a subsection */<br />        </span><span class="default">$section </span><span class="keyword">= </span><span class="default">mailparse_msg_get_part</span><span class="keyword">(</span><span class="default">$mime</span><span class="keyword">, </span><span class="default">$st</span><span class="keyword">);<br />        </span><span class="comment">/* get content-type, encoding and header information for that section */<br />        </span><span class="default">$info </span><span class="keyword">= </span><span class="default">mailparse_msg_get_part_data</span><span class="keyword">(</span><span class="default">$section</span><span class="keyword">);<br />        echo </span><span class="string">"\n"</span><span class="keyword">;<br />        echo </span><span class="string">"&lt;td&gt;" </span><span class="keyword">. </span><span class="default">$info</span><span class="keyword">[</span><span class="string">"content-type"</span><span class="keyword">] . </span><span class="string">"&lt;/td&gt;\n"</span><span class="keyword">;<br />        echo </span><span class="string">"&lt;td&gt;" </span><span class="keyword">. </span><span class="default">$info</span><span class="keyword">[</span><span class="string">"content-disposition"</span><span class="keyword">] . </span><span class="string">"&lt;/td&gt;\n"</span><span class="keyword">;<br />        echo </span><span class="string">"&lt;td&gt;" </span><span class="keyword">. </span><span class="default">$info</span><span class="keyword">[</span><span class="string">"disposition-filename"</span><span class="keyword">] . </span><span class="string">"&lt;/td&gt;\n"</span><span class="keyword">;<br />        echo </span><span class="string">"&lt;td&gt;" </span><span class="keyword">. </span><span class="default">$info</span><span class="keyword">[</span><span class="string">"charset"</span><span class="keyword">] . </span><span class="string">"&lt;/td&gt;\n"</span><span class="keyword">;<br />        echo </span><span class="string">"&lt;/tr&gt;"</span><span class="keyword">;<br />}<br />echo </span><span class="string">"&lt;/table&gt;"</span><span class="keyword">;<br /><br /></span><span class="comment">/* if we were called to display a part, do so now */<br /></span><span class="keyword">if (</span><span class="default">$showpart</span><span class="keyword">)  {<br />        </span><span class="comment">/* get a handle on the message resource for the desired part */<br />        </span><span class="default">$sec </span><span class="keyword">= </span><span class="default">mailparse_msg_get_part</span><span class="keyword">(</span><span class="default">$mime</span><span class="keyword">, </span><span class="default">$showpart</span><span class="keyword">);<br /><br />        echo </span><span class="string">"&lt;table border=1&gt;&lt;tr&gt;&lt;th&gt;Section </span><span class="default">$showpart</span><span class="string">&lt;/th&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;"</span><span class="keyword">;<br />        </span><span class="default">ob_start</span><span class="keyword">();<br />        </span><span class="comment">/* extract the part from the message file and dump it to the output buff<br />er<br />         * */<br />        </span><span class="default">mailparse_msg_extract_part_file</span><span class="keyword">(</span><span class="default">$sec</span><span class="keyword">, </span><span class="default">$filename</span><span class="keyword">);<br />        </span><span class="default">$contents </span><span class="keyword">= </span><span class="default">ob_get_contents</span><span class="keyword">();<br />        </span><span class="default">ob_end_clean</span><span class="keyword">();<br />        </span><span class="comment">/* quote the message for safe display in a browser */<br />        </span><span class="keyword">echo </span><span class="default">nl2br</span><span class="keyword">(</span><span class="default">htmlentities</span><span class="keyword">(</span><span class="default">$contents</span><span class="keyword">)) . </span><span class="string">"&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;"</span><span class="keyword">;;<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=ref.mailparse&amp;redirect=https://www.php.net/manual/ru/ref.mailparse.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="book.mailparse.php.html">Mailparse</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="intro.mailparse.php.html" title="Введение">Введение</a>
+                        </li>
+                                                <li class="">
+                            <a href="mailparse.setup.php.html" title="Установка и настройка">Установка и настройка</a>
+                        </li>
+                                                <li class="">
+                            <a href="mailparse.constants.php.html" title="Предопределённые константы">Предопределённые константы</a>
+                        </li>
+                                                <li class="current">
+                            <a href="ref.mailparse.php.html" title="Mailparse">Mailparse</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: set_error_handler - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="function.set-error-handler.php.html">
+ <link rel="shorturl" href="https://www.php.net/set-error-handler">
+ <link rel="alternate" href="https://www.php.net/set-error-handler" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="ref.errorfunc.php.html">
+ <link rel="prev" href="function.restore-exception-handler.php.html">
+ <link rel="next" href="function.set-exception-handler.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/function.set-error-handler.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/function.set-error-handler.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/function.set-error-handler.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/function.set-error-handler.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/function.set-error-handler.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/function.set-error-handler.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/function.set-error-handler.php" hreflang="pt_BR">
+ <link rel="alternate" href="function.set-error-handler.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/function.set-error-handler.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/function.set-error-handler.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="function.set-exception-handler.php.html">
+          set_exception_handler &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="function.restore-exception-handler.php.html">
+          &laquo; restore_exception_handler        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.basic.php.php.html'>Изменение поведения PHP</a></li>      <li><a href='book.errorfunc.php.html'>Обработка ошибок</a></li>      <li><a href='ref.errorfunc.php.html'>Функции обработки ошибок</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/function.set-error-handler.php'>English</option>
+            <option value='de/function.set-error-handler.php'>German</option>
+            <option value='es/function.set-error-handler.php'>Spanish</option>
+            <option value='fr/function.set-error-handler.php'>French</option>
+            <option value='it/function.set-error-handler.php'>Italian</option>
+            <option value='ja/function.set-error-handler.php'>Japanese</option>
+            <option value='pt_BR/function.set-error-handler.php'>Brazilian Portuguese</option>
+            <option value='ru/function.set-error-handler.php' selected="selected">Russian</option>
+            <option value='tr/function.set-error-handler.php'>Turkish</option>
+            <option value='zh/function.set-error-handler.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/errorfunc/functions/set-error-handler.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Ffunction.set-error-handler%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="function.set-error-handler" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">set_error_handler</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.0.1, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">set_error_handler</span> &mdash; <span class="dc-title">
+   Задаёт пользовательский обработчик ошибок
+  </span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.set-error-handler-description">
+  <h3 class="title">Описание</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="methodname"><strong>set_error_handler</strong></span>(<span class="methodparam"><span class="type">?</span><span class="type"><span class="type"><a href="language.types.callable.php.html" class="type callable">callable</a></span><span class="type"></span></span> <code class="parameter">$callback</code></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter">$error_levels</code><span class="initializer"> = <strong><code>E_ALL</code></strong></span></span>): <span class="type"><span class="type">?</span><span class="type"><a href="language.types.callable.php.html" class="type callable">callable</a></span></span></div>
+
+  <p class="para rdfs-comment">
+   Задаёт пользовательскую функцию (<code class="parameter">callback</code>),
+   как обработчик ошибок в скрипте.
+  </p>
+  <p class="para">
+   Функция может быть использована для определения пользовательских обработчиков
+   ошибок во время выполнения, например, в приложениях, которые должны выполнять
+   очистку файлов/данных в случае возникновения критической ошибки
+   или при инициировании ошибки в ответ на определённые условия
+   (используя функцию <span class="function"><a href="function.trigger-error.php.html" class="function">trigger_error()</a></span>).
+  </p>
+  <p class="para">
+   Важно помнить, что стандартный обработчик ошибок PHP не будет обрабатывать
+   никакие типы ошибок, определённые в <code class="parameter">error_levels</code>,
+   пока callback-функция не вернёт <strong><code>false</code></strong>. Пользовательский обработчик будет
+   вызываться в случае возникновения любой ошибки, независимо от настроек, заданных функцией
+   <a href="errorfunc.configuration.php.html#ini.error-reporting" class="link">error_reporting</a>.
+  </p>
+
+  <p class="para">
+   Также обратите внимание, что обработчик обязан при необходимости остановить
+   выполнение скрипта, вызвав функцию <span class="function"><a href="function.exit.php.html" class="function">exit()</a></span>.
+   Если происходит возврат из обработчика ошибок,
+   управление передаётся следующему выражению, стоящему за тем, что вызвало ошибку.
+  </p>
+  <p class="para">
+   Ошибки следующих типов не могут быть обработаны пользователем:
+   <strong><code>E_ERROR</code></strong>, <strong><code>E_PARSE</code></strong>,
+   <strong><code>E_CORE_ERROR</code></strong>, <strong><code>E_CORE_WARNING</code></strong>,
+   <strong><code>E_COMPILE_ERROR</code></strong>,
+   <strong><code>E_COMPILE_WARNING</code></strong> независимо от того, где они были сгенерированы и большинство
+   ошибок <strong><code>E_STRICT</code></strong>, произошедших в файле, где вызвана
+   функция <span class="function"><strong>set_error_handler()</strong></span>.
+  </p>
+  <p class="para">
+   Если ошибки возникают до запуска скрипта (например, пока файл загружается),
+   пользовательский обработчик не будет вызываться, если на этот момент он
+   ещё не зарегистрирован.
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.set-error-handler-parameters">
+  <h3 class="title">Список параметров</h3>
+  <p class="para">
+   <dl>
+    
+     <dt>
+<code class="parameter">callback</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Если передано значение <strong><code>null</code></strong>, обработчик сбрасывается в состояние по умолчанию.
+       В противном случае обработчик представляет собой callback-функцию со следующей сигнатурой:
+      </p>
+      <p class="para">
+       <div class="methodsynopsis dc-description">
+        <span class="methodname"><span class="replaceable">handler</span></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$errno</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$errstr</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$errfile</code><span class="initializer"> = ?</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$errline</code><span class="initializer"> = ?</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">array</span> <code class="parameter">$errcontext</code><span class="initializer"> = ?</span></span><br>): <span class="type">bool</span></div>
+
+       <dl>
+        
+         <dt>
+<code class="parameter">errno</code></dt>
+
+         <dd>
+
+          <span class="simpara">
+           В первый аргумент <code class="parameter">errno</code> будет передан уровень
+           ошибки в виде целого числа.
+          </span>
+         </dd>
+
+        
+        
+         <dt>
+<code class="parameter">errstr</code></dt>
+
+         <dd>
+
+          <span class="simpara">
+           Во второй аргумент <code class="parameter">errstr</code> будет передано сообщение
+           об ошибке в виде строки.
+          </span>
+         </dd>
+
+        
+        
+         <dt>
+<code class="parameter">errfile</code></dt>
+
+         <dd>
+
+          <span class="simpara">
+           Если функция обратного вызова принимает третий параметр
+           <code class="parameter">errfile</code>, то в него будет передано
+           имя файла, в котором произошла ошибка, в виде строки.
+          </span>
+         </dd>
+
+        
+        
+         <dt>
+<code class="parameter">errline</code></dt>
+
+         <dd>
+
+          <span class="simpara">
+           Если функция обратного вызова принимает четвёртый параметр
+           <code class="parameter">errline</code>, то в него будет передан
+           номер строки, в которой произошла ошибка, в виде целого
+           числа.
+          </span>
+         </dd>
+
+        
+        
+         <dt>
+<code class="parameter">errcontext</code></dt>
+
+         <dd>
+
+          <span class="simpara">
+           Если функция обратного вызова принимает пятый параметр
+           <code class="parameter">errcontext</code>, то в него будет передан
+           массив указателей на активную таблицу символов в точке, где
+           произошла ошибка. Другими словами, <code class="parameter">errcontext</code>
+           будет содержать массив всех переменных, существующих в области
+           видимости, где произошла ошибка. Пользовательские обработчики ошибок не
+           должны изменять этот контекст.
+          </span>
+          <div class="warning"><strong class="warning">Внимание</strong>
+           <p class="simpara">
+            Этот параметр объявлен <em>УСТАРЕВШИМ</em> начиная с PHP 7.2.0 и
+            был <em>УДАЛЁН</em> в PHP 8.0.0. Если в вашей функции этот
+            параметр используется и для него не задано значение по умолчанию, то при
+            вызове функции обработчика будет выдана ошибка &quot;too few arguments&quot;.
+           </p>
+          </div>
+         </dd>
+
+        
+       </dl>
+
+      </p>
+      <p class="para">
+       Если функция возвращает <strong><code>false</code></strong>, управление передаётся встроенному
+       обработчику ошибок.
+      </p>
+     </dd>
+
+    
+    
+     <dt>
+<code class="parameter">error_levels</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Может использоваться для задания маски, в соответствии с которой будет
+       вызываться <code class="parameter">callback</code>, по аналогии с
+       ini-настройкой <a href="errorfunc.configuration.php.html#ini.error-reporting" class="link">error_reporting</a>,
+       которая отвечает за то, какие ошибки будут показаны в отчёте. Без этой
+       маски <code class="parameter">callback</code> будет вызываться для
+       обработки всех происходящих ошибок, вне зависимости от настроек в
+       <a href="errorfunc.configuration.php.html#ini.error-reporting" class="link">error_reporting</a>.
+      </p>
+     </dd>
+
+    
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.set-error-handler-returnvalues">
+  <h3 class="title">Возвращаемые значения</h3>
+  <p class="para">
+   Возвращает ранее определённый обработчик ошибок (если есть) Если на данный момент используется встроенный обработчик, функция
+   вернёт <strong><code>null</code></strong>. Если предыдущий определённый обработчик является методом класса, функция вернёт массив,
+   содержащий имя класса и имя метода.
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.set-error-handler-changelog">
+  <h3 class="title">Список изменений</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead>
+      <tr>
+       <th>Версия</th>
+       <th>Описание</th>
+      </tr>
+
+     </thead>
+
+     <tbody class="tbody">
+      <tr>
+       <td>8.0.0</td>
+       <td>
+        Параметр <code class="parameter">errcontext</code> был удалён и больше не передаётся в
+        пользовательскую функцию обработки ошибок.
+       </td>
+      </tr>
+
+      <tr>
+       <td>7.2.0</td>
+       <td>
+        Параметр <code class="parameter">errcontext</code> объявлен устаревшим. Теперь при его
+        использовании будет вызываться ошибка уровня <strong><code>E_DEPRECATED</code></strong>.
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.set-error-handler-examples">
+  <h3 class="title">Примеры</h3>
+  <p class="para">
+   <div class="example" id="example-1576">
+    <p><strong>Пример #1 
+     Обработка ошибок с помощью функций <span class="function"><strong>set_error_handler()</strong></span>
+     и <span class="function"><a href="function.trigger-error.php.html" class="function">trigger_error()</a></span>
+    </strong></p>
+    <div class="example-contents"><p>
+     Пример ниже демонстрирует обработку внутренних исключений путём
+     вызова ошибок разных типов и их обработки пользовательской функцией:
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// функция обработки ошибок<br /></span><span style="color: #007700">function </span><span style="color: #0000BB">myErrorHandler</span><span style="color: #007700">(</span><span style="color: #0000BB">$errno</span><span style="color: #007700">, </span><span style="color: #0000BB">$errstr</span><span style="color: #007700">, </span><span style="color: #0000BB">$errfile</span><span style="color: #007700">, </span><span style="color: #0000BB">$errline</span><span style="color: #007700">)<br />{<br />    if (!(</span><span style="color: #0000BB">error_reporting</span><span style="color: #007700">() &amp; </span><span style="color: #0000BB">$errno</span><span style="color: #007700">)) {<br />        </span><span style="color: #FF8000">// Этот код ошибки не включён в error_reporting,<br />        // так что пусть обрабатываются стандартным обработчиком ошибок PHP<br />        </span><span style="color: #007700">return </span><span style="color: #0000BB">false</span><span style="color: #007700">;<br />    }<br /><br />    </span><span style="color: #FF8000">// может потребоваться экранирование $errstr:<br />    </span><span style="color: #0000BB">$errstr </span><span style="color: #007700">= </span><span style="color: #0000BB">htmlspecialchars</span><span style="color: #007700">(</span><span style="color: #0000BB">$errstr</span><span style="color: #007700">);<br /><br />    switch (</span><span style="color: #0000BB">$errno</span><span style="color: #007700">) {<br />    case </span><span style="color: #0000BB">E_USER_ERROR</span><span style="color: #007700">:<br />        echo </span><span style="color: #DD0000">"&lt;b&gt;Пользовательская ОШИБКА&lt;/b&gt; [</span><span style="color: #0000BB">$errno</span><span style="color: #DD0000">] </span><span style="color: #0000BB">$errstr</span><span style="color: #DD0000">&lt;br /&gt;\n"</span><span style="color: #007700">;<br />        echo </span><span style="color: #DD0000">"  Фатальная ошибка в строке </span><span style="color: #0000BB">$errline</span><span style="color: #DD0000"> файла </span><span style="color: #0000BB">$errfile</span><span style="color: #DD0000">"</span><span style="color: #007700">;<br />        echo </span><span style="color: #DD0000">", PHP " </span><span style="color: #007700">. </span><span style="color: #0000BB">PHP_VERSION </span><span style="color: #007700">. </span><span style="color: #DD0000">" (" </span><span style="color: #007700">. </span><span style="color: #0000BB">PHP_OS </span><span style="color: #007700">. </span><span style="color: #DD0000">")&lt;br /&gt;\n"</span><span style="color: #007700">;<br />        echo </span><span style="color: #DD0000">"Завершение работы...&lt;br /&gt;\n"</span><span style="color: #007700">;<br />        exit(</span><span style="color: #0000BB">1</span><span style="color: #007700">);<br /><br />    case </span><span style="color: #0000BB">E_USER_WARNING</span><span style="color: #007700">:<br />        echo </span><span style="color: #DD0000">"&lt;b&gt;Пользовательское ПРЕДУПРЕЖДЕНИЕ&lt;/b&gt; [</span><span style="color: #0000BB">$errno</span><span style="color: #DD0000">] </span><span style="color: #0000BB">$errstr</span><span style="color: #DD0000">&lt;br /&gt;\n"</span><span style="color: #007700">;<br />        break;<br /><br />    case </span><span style="color: #0000BB">E_USER_NOTICE</span><span style="color: #007700">:<br />        echo </span><span style="color: #DD0000">"&lt;b&gt;Пользовательское УВЕДОМЛЕНИЕ&lt;/b&gt; [</span><span style="color: #0000BB">$errno</span><span style="color: #DD0000">] </span><span style="color: #0000BB">$errstr</span><span style="color: #DD0000">&lt;br /&gt;\n"</span><span style="color: #007700">;<br />        break;<br /><br />    default:<br />        echo </span><span style="color: #DD0000">"Неизвестная ошибка: [</span><span style="color: #0000BB">$errno</span><span style="color: #DD0000">] </span><span style="color: #0000BB">$errstr</span><span style="color: #DD0000">&lt;br /&gt;\n"</span><span style="color: #007700">;<br />        break;<br />    }<br /><br />    </span><span style="color: #FF8000">/* Не запускаем внутренний обработчик ошибок PHP */<br />    </span><span style="color: #007700">return </span><span style="color: #0000BB">true</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #FF8000">// функция для тестирования обработчика ошибок<br /></span><span style="color: #007700">function </span><span style="color: #0000BB">scale_by_log</span><span style="color: #007700">(</span><span style="color: #0000BB">$vect</span><span style="color: #007700">, </span><span style="color: #0000BB">$scale</span><span style="color: #007700">)<br />{<br />    if (!</span><span style="color: #0000BB">is_numeric</span><span style="color: #007700">(</span><span style="color: #0000BB">$scale</span><span style="color: #007700">) || </span><span style="color: #0000BB">$scale </span><span style="color: #007700">&lt;= </span><span style="color: #0000BB">0</span><span style="color: #007700">) {<br />        </span><span style="color: #0000BB">trigger_error</span><span style="color: #007700">(</span><span style="color: #DD0000">"log(x) для x &lt;= 0 не определён, вы используете: scale = </span><span style="color: #0000BB">$scale</span><span style="color: #DD0000">"</span><span style="color: #007700">, </span><span style="color: #0000BB">E_USER_ERROR</span><span style="color: #007700">);<br />    }<br /><br />    if (!</span><span style="color: #0000BB">is_array</span><span style="color: #007700">(</span><span style="color: #0000BB">$vect</span><span style="color: #007700">)) {<br />        </span><span style="color: #0000BB">trigger_error</span><span style="color: #007700">(</span><span style="color: #DD0000">"Некорректный входной вектор, пропущен массив значений"</span><span style="color: #007700">, </span><span style="color: #0000BB">E_USER_WARNING</span><span style="color: #007700">);<br />        return </span><span style="color: #0000BB">null</span><span style="color: #007700">;<br />    }<br /><br />    </span><span style="color: #0000BB">$temp </span><span style="color: #007700">= array();<br />    foreach(</span><span style="color: #0000BB">$vect </span><span style="color: #007700">as </span><span style="color: #0000BB">$pos </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">$value</span><span style="color: #007700">) {<br />        if (!</span><span style="color: #0000BB">is_numeric</span><span style="color: #007700">(</span><span style="color: #0000BB">$value</span><span style="color: #007700">)) {<br />            </span><span style="color: #0000BB">trigger_error</span><span style="color: #007700">(</span><span style="color: #DD0000">"Значение на позиции </span><span style="color: #0000BB">$pos</span><span style="color: #DD0000"> не является числом, будет использован 0 (ноль)"</span><span style="color: #007700">, </span><span style="color: #0000BB">E_USER_NOTICE</span><span style="color: #007700">);<br />            </span><span style="color: #0000BB">$value </span><span style="color: #007700">= </span><span style="color: #0000BB">0</span><span style="color: #007700">;<br />        }<br />        </span><span style="color: #0000BB">$temp</span><span style="color: #007700">[</span><span style="color: #0000BB">$pos</span><span style="color: #007700">] = </span><span style="color: #0000BB">log</span><span style="color: #007700">(</span><span style="color: #0000BB">$scale</span><span style="color: #007700">) * </span><span style="color: #0000BB">$value</span><span style="color: #007700">;<br />    }<br /><br />    return </span><span style="color: #0000BB">$temp</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #FF8000">// переключаемся на пользовательский обработчик<br /></span><span style="color: #0000BB">$old_error_handler </span><span style="color: #007700">= </span><span style="color: #0000BB">set_error_handler</span><span style="color: #007700">(</span><span style="color: #DD0000">"myErrorHandler"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// вызовем несколько ошибок, во-первых, определим массив с нечисловым элементом<br /></span><span style="color: #007700">echo </span><span style="color: #DD0000">"vector a\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$a </span><span style="color: #007700">= array(</span><span style="color: #0000BB">2</span><span style="color: #007700">, </span><span style="color: #0000BB">3</span><span style="color: #007700">, </span><span style="color: #DD0000">"foo"</span><span style="color: #007700">, </span><span style="color: #0000BB">5.5</span><span style="color: #007700">, </span><span style="color: #0000BB">43.3</span><span style="color: #007700">, </span><span style="color: #0000BB">21.11</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$a</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// теперь создадим ещё один массив<br /></span><span style="color: #007700">echo </span><span style="color: #DD0000">"----\nvector b - a notice (b = log(PI) * a)\n"</span><span style="color: #007700">;<br /></span><span style="color: #FF8000">/* Значение на позиции $pos не является числом, будет использован 0 (ноль)*/<br /></span><span style="color: #0000BB">$b </span><span style="color: #007700">= </span><span style="color: #0000BB">scale_by_log</span><span style="color: #007700">(</span><span style="color: #0000BB">$a</span><span style="color: #007700">, </span><span style="color: #0000BB">M_PI</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$b</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// проблема, мы передаём строку вместо массива<br /></span><span style="color: #007700">echo </span><span style="color: #DD0000">"----\nvector c - a warning\n"</span><span style="color: #007700">;<br /></span><span style="color: #FF8000">/* Некорректный входной вектор, пропущен массив значений */<br /></span><span style="color: #0000BB">$c </span><span style="color: #007700">= </span><span style="color: #0000BB">scale_by_log</span><span style="color: #007700">(</span><span style="color: #DD0000">"not array"</span><span style="color: #007700">, </span><span style="color: #0000BB">2.3</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$c</span><span style="color: #007700">); </span><span style="color: #FF8000">// NULL<br /><br />// критическая ошибка, логарифм от неположительного числа не определён<br /></span><span style="color: #007700">echo </span><span style="color: #DD0000">"----\nvector d - fatal error\n"</span><span style="color: #007700">;<br /></span><span style="color: #FF8000">/* log(x) для x &lt;= 0 не определён, вы используете: scale = $scale */<br /></span><span style="color: #0000BB">$d </span><span style="color: #007700">= </span><span style="color: #0000BB">scale_by_log</span><span style="color: #007700">(</span><span style="color: #0000BB">$a</span><span style="color: #007700">, -</span><span style="color: #0000BB">2.5</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$d</span><span style="color: #007700">); </span><span style="color: #FF8000">// До сюда не дойдём никогда<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+    </div>
+
+    
+<div class="example-contents"><p>
+ Вывод приведённого примера будет похож на:
+</p></div>
+
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+vector a
+Array
+(
+    [0] =&gt; 2
+    [1] =&gt; 3
+    [2] =&gt; foo
+    [3] =&gt; 5.5
+    [4] =&gt; 43.3
+    [5] =&gt; 21.11
+)
+----
+vector b - a notice (b = log(PI) * a)
+&lt;b&gt;Пользовательское УВЕДОМЛЕНИЕ&lt;/b&gt; [1024]  Значение на позиции 2 не является числом, будет использован 0 (ноль)&lt;br /&gt;
+Array
+(
+    [0] =&gt; 2.2894597716988
+    [1] =&gt; 3.4341896575482
+    [2] =&gt; 0
+    [3] =&gt; 6.2960143721717
+    [4] =&gt; 49.566804057279
+    [5] =&gt; 24.165247890281
+)
+----
+vector c - a warning
+&lt;b&gt;Пользовательское ПРЕДУПРЕЖДЕНИЕ&lt;/b&gt; [512] Некорректный входной вектор, пропущен массив значений&lt;br /&gt;
+NULL
+----
+vector d - fatal error
+&lt;b&gt;Пользовательская ОШИБКА&lt;/b&gt; [256] log(x) for x &lt;= 0 is undefined, you used: scale = -2.5&lt;br /&gt;
+  Фатальная ошибка в строке 35 файла trigger_error.php, PHP 5.2.1 (FreeBSD)&lt;br /&gt;
+Завершение работы...&lt;br /&gt;
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.set-error-handler-seealso">
+  <h3 class="title">Смотрите также</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="classname"><a href="class.errorexception.php.html" class="classname">ErrorException</a></span></li>
+    <li class="member"><span class="function"><a href="function.error-reporting.php.html" class="function" rel="rdfs-seeAlso">error_reporting()</a> - Устанавливает, какие ошибки PHP попадут в отчёт</span></li>
+    <li class="member"><span class="function"><a href="function.restore-error-handler.php.html" class="function" rel="rdfs-seeAlso">restore_error_handler()</a> - Восстанавливает предыдущий обработчик ошибок</span></li>
+    <li class="member"><span class="function"><a href="function.trigger-error.php.html" class="function" rel="rdfs-seeAlso">trigger_error()</a> - Вызывает пользовательскую ошибку/предупреждение/уведомление</span></li>
+    <li class="member"><a href="errorfunc.constants.php.html" class="link">Константы уровней ошибок</a></li>
+   </ul>
+  </p>
+ </div>
+
+</div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=function.set-error-handler&amp;redirect=https://www.php.net/manual/ru/function.set-error-handler.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">34 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="112291">  <div class="votes">
+    <div id="Vu112291">
+    <a href="https://www.php.net/manual/vote-note.php?id=112291&amp;page=function.set-error-handler&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd112291">
+    <a href="https://www.php.net/manual/vote-note.php?id=112291&amp;page=function.set-error-handler&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V112291" title="75% like this...">
+    75
+    </div>
+  </div>
+  <a href="function.set-error-handler.php.html#112291" class="name">
+  <strong class="user"><em>Philip</em></strong></a><a class="genanchor" href="function.set-error-handler.php.html#112291"> &para;</a><div class="date" title="2013-05-28 07:10"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom112291">
+<div class="phpcode"><code><span class="html">By this function alone you can not catch fatal errors, there is a simple work around. Below is part of my error.php file which handles errors and exceptions in the application. Before someone complains I'll add that I do not care that I am using globals, this file is part of my mini framework and without the 'config' variable the application would crash anyways.<br /><br /><span class="default">&lt;?php<br /><br /></span><span class="comment">/**<br /> * Error handler, passes flow over the exception logger with new ErrorException.<br /> */<br /></span><span class="keyword">function </span><span class="default">log_error</span><span class="keyword">( </span><span class="default">$num</span><span class="keyword">, </span><span class="default">$str</span><span class="keyword">, </span><span class="default">$file</span><span class="keyword">, </span><span class="default">$line</span><span class="keyword">, </span><span class="default">$context </span><span class="keyword">= </span><span class="default">null </span><span class="keyword">)<br />{<br />    </span><span class="default">log_exception</span><span class="keyword">( new </span><span class="default">ErrorException</span><span class="keyword">( </span><span class="default">$str</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">$num</span><span class="keyword">, </span><span class="default">$file</span><span class="keyword">, </span><span class="default">$line </span><span class="keyword">) );<br />}<br /><br /></span><span class="comment">/**<br /> * Uncaught exception handler.<br /> */<br /></span><span class="keyword">function </span><span class="default">log_exception</span><span class="keyword">( </span><span class="default">Exception $e </span><span class="keyword">)<br />{<br />    global </span><span class="default">$config</span><span class="keyword">;<br />    <br />    if ( </span><span class="default">$config</span><span class="keyword">[</span><span class="string">"debug"</span><span class="keyword">] == </span><span class="default">true </span><span class="keyword">)<br />    {<br />        print </span><span class="string">"&lt;div style='text-align: center;'&gt;"</span><span class="keyword">;<br />        print </span><span class="string">"&lt;h2 style='color: rgb(190, 50, 50);'&gt;Exception Occured:&lt;/h2&gt;"</span><span class="keyword">;<br />        print </span><span class="string">"&lt;table style='width: 800px; display: inline-block;'&gt;"</span><span class="keyword">;<br />        print </span><span class="string">"&lt;tr style='background-color:rgb(230,230,230);'&gt;&lt;th style='width: 80px;'&gt;Type&lt;/th&gt;&lt;td&gt;" </span><span class="keyword">. </span><span class="default">get_class</span><span class="keyword">( </span><span class="default">$e </span><span class="keyword">) . </span><span class="string">"&lt;/td&gt;&lt;/tr&gt;"</span><span class="keyword">;<br />        print </span><span class="string">"&lt;tr style='background-color:rgb(240,240,240);'&gt;&lt;th&gt;Message&lt;/th&gt;&lt;td&gt;</span><span class="keyword">{</span><span class="default">$e</span><span class="keyword">-&gt;</span><span class="default">getMessage</span><span class="keyword">()}</span><span class="string">&lt;/td&gt;&lt;/tr&gt;"</span><span class="keyword">;<br />        print </span><span class="string">"&lt;tr style='background-color:rgb(230,230,230);'&gt;&lt;th&gt;File&lt;/th&gt;&lt;td&gt;</span><span class="keyword">{</span><span class="default">$e</span><span class="keyword">-&gt;</span><span class="default">getFile</span><span class="keyword">()}</span><span class="string">&lt;/td&gt;&lt;/tr&gt;"</span><span class="keyword">;<br />        print </span><span class="string">"&lt;tr style='background-color:rgb(240,240,240);'&gt;&lt;th&gt;Line&lt;/th&gt;&lt;td&gt;</span><span class="keyword">{</span><span class="default">$e</span><span class="keyword">-&gt;</span><span class="default">getLine</span><span class="keyword">()}</span><span class="string">&lt;/td&gt;&lt;/tr&gt;"</span><span class="keyword">;<br />        print </span><span class="string">"&lt;/table&gt;&lt;/div&gt;"</span><span class="keyword">;<br />    }<br />    else<br />    {<br />        </span><span class="default">$message </span><span class="keyword">= </span><span class="string">"Type: " </span><span class="keyword">. </span><span class="default">get_class</span><span class="keyword">( </span><span class="default">$e </span><span class="keyword">) . </span><span class="string">"; Message: </span><span class="keyword">{</span><span class="default">$e</span><span class="keyword">-&gt;</span><span class="default">getMessage</span><span class="keyword">()}</span><span class="string">; File: </span><span class="keyword">{</span><span class="default">$e</span><span class="keyword">-&gt;</span><span class="default">getFile</span><span class="keyword">()}</span><span class="string">; Line: </span><span class="keyword">{</span><span class="default">$e</span><span class="keyword">-&gt;</span><span class="default">getLine</span><span class="keyword">()}</span><span class="string">;"</span><span class="keyword">;<br />        </span><span class="default">file_put_contents</span><span class="keyword">( </span><span class="default">$config</span><span class="keyword">[</span><span class="string">"app_dir"</span><span class="keyword">] . </span><span class="string">"/tmp/logs/exceptions.log"</span><span class="keyword">, </span><span class="default">$message </span><span class="keyword">. </span><span class="default">PHP_EOL</span><span class="keyword">, </span><span class="default">FILE_APPEND </span><span class="keyword">);<br />        </span><span class="default">header</span><span class="keyword">( </span><span class="string">"Location: </span><span class="keyword">{</span><span class="default">$config</span><span class="keyword">[</span><span class="string">"error_page"</span><span class="keyword">]}</span><span class="string">" </span><span class="keyword">);<br />    }<br />    <br />    exit();<br />}<br /><br /></span><span class="comment">/**<br /> * Checks for a fatal error, work around for set_error_handler not working on fatal errors.<br /> */<br /></span><span class="keyword">function </span><span class="default">check_for_fatal</span><span class="keyword">()<br />{<br />    </span><span class="default">$error </span><span class="keyword">= </span><span class="default">error_get_last</span><span class="keyword">();<br />    if ( </span><span class="default">$error</span><span class="keyword">[</span><span class="string">"type"</span><span class="keyword">] == </span><span class="default">E_ERROR </span><span class="keyword">)<br />        </span><span class="default">log_error</span><span class="keyword">( </span><span class="default">$error</span><span class="keyword">[</span><span class="string">"type"</span><span class="keyword">], </span><span class="default">$error</span><span class="keyword">[</span><span class="string">"message"</span><span class="keyword">], </span><span class="default">$error</span><span class="keyword">[</span><span class="string">"file"</span><span class="keyword">], </span><span class="default">$error</span><span class="keyword">[</span><span class="string">"line"</span><span class="keyword">] );<br />}<br /><br /></span><span class="default">register_shutdown_function</span><span class="keyword">( </span><span class="string">"check_for_fatal" </span><span class="keyword">);<br /></span><span class="default">set_error_handler</span><span class="keyword">( </span><span class="string">"log_error" </span><span class="keyword">);<br /></span><span class="default">set_exception_handler</span><span class="keyword">( </span><span class="string">"log_exception" </span><span class="keyword">);<br /></span><span class="default">ini_set</span><span class="keyword">( </span><span class="string">"display_errors"</span><span class="keyword">, </span><span class="string">"off" </span><span class="keyword">);<br /></span><span class="default">error_reporting</span><span class="keyword">( </span><span class="default">E_ALL </span><span class="keyword">);</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="112881">  <div class="votes">
+    <div id="Vu112881">
+    <a href="https://www.php.net/manual/vote-note.php?id=112881&amp;page=function.set-error-handler&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd112881">
+    <a href="https://www.php.net/manual/vote-note.php?id=112881&amp;page=function.set-error-handler&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V112881" title="72% like this...">
+    45
+    </div>
+  </div>
+  <a href="function.set-error-handler.php.html#112881" class="name">
+  <strong class="user"><em>elad dot yosifon at gmail dot com</em></strong></a><a class="genanchor" href="function.set-error-handler.php.html#112881"> &para;</a><div class="date" title="2013-08-01 11:42"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom112881">
+<div class="phpcode"><code><span class="html"><span class="default">&lt;?php<br /></span><span class="comment">/**<br /> * throw exceptions based on E_* error types<br /> */<br /></span><span class="default">set_error_handler</span><span class="keyword">(function (</span><span class="default">$err_severity</span><span class="keyword">, </span><span class="default">$err_msg</span><span class="keyword">, </span><span class="default">$err_file</span><span class="keyword">, </span><span class="default">$err_line</span><span class="keyword">, array </span><span class="default">$err_context</span><span class="keyword">)<br />{<br />    </span><span class="comment">// error was suppressed with the @-operator<br />    </span><span class="keyword">if (</span><span class="default">0 </span><span class="keyword">=== </span><span class="default">error_reporting</span><span class="keyword">()) { return </span><span class="default">false</span><span class="keyword">;}<br />    switch(</span><span class="default">$err_severity</span><span class="keyword">)<br />    {<br />        case </span><span class="default">E_ERROR</span><span class="keyword">:               throw new </span><span class="default">ErrorException            </span><span class="keyword">(</span><span class="default">$err_msg</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">$err_severity</span><span class="keyword">, </span><span class="default">$err_file</span><span class="keyword">, </span><span class="default">$err_line</span><span class="keyword">);<br />        case </span><span class="default">E_WARNING</span><span class="keyword">:             throw new </span><span class="default">WarningException          </span><span class="keyword">(</span><span class="default">$err_msg</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">$err_severity</span><span class="keyword">, </span><span class="default">$err_file</span><span class="keyword">, </span><span class="default">$err_line</span><span class="keyword">);<br />        case </span><span class="default">E_PARSE</span><span class="keyword">:               throw new </span><span class="default">ParseException            </span><span class="keyword">(</span><span class="default">$err_msg</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">$err_severity</span><span class="keyword">, </span><span class="default">$err_file</span><span class="keyword">, </span><span class="default">$err_line</span><span class="keyword">);<br />        case </span><span class="default">E_NOTICE</span><span class="keyword">:              throw new </span><span class="default">NoticeException           </span><span class="keyword">(</span><span class="default">$err_msg</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">$err_severity</span><span class="keyword">, </span><span class="default">$err_file</span><span class="keyword">, </span><span class="default">$err_line</span><span class="keyword">);<br />        case </span><span class="default">E_CORE_ERROR</span><span class="keyword">:          throw new </span><span class="default">CoreErrorException        </span><span class="keyword">(</span><span class="default">$err_msg</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">$err_severity</span><span class="keyword">, </span><span class="default">$err_file</span><span class="keyword">, </span><span class="default">$err_line</span><span class="keyword">);<br />        case </span><span class="default">E_CORE_WARNING</span><span class="keyword">:        throw new </span><span class="default">CoreWarningException      </span><span class="keyword">(</span><span class="default">$err_msg</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">$err_severity</span><span class="keyword">, </span><span class="default">$err_file</span><span class="keyword">, </span><span class="default">$err_line</span><span class="keyword">);<br />        case </span><span class="default">E_COMPILE_ERROR</span><span class="keyword">:       throw new </span><span class="default">CompileErrorException     </span><span class="keyword">(</span><span class="default">$err_msg</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">$err_severity</span><span class="keyword">, </span><span class="default">$err_file</span><span class="keyword">, </span><span class="default">$err_line</span><span class="keyword">);<br />        case </span><span class="default">E_COMPILE_WARNING</span><span class="keyword">:     throw new </span><span class="default">CoreWarningException      </span><span class="keyword">(</span><span class="default">$err_msg</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">$err_severity</span><span class="keyword">, </span><span class="default">$err_file</span><span class="keyword">, </span><span class="default">$err_line</span><span class="keyword">);<br />        case </span><span class="default">E_USER_ERROR</span><span class="keyword">:          throw new </span><span class="default">UserErrorException        </span><span class="keyword">(</span><span class="default">$err_msg</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">$err_severity</span><span class="keyword">, </span><span class="default">$err_file</span><span class="keyword">, </span><span class="default">$err_line</span><span class="keyword">);<br />        case </span><span class="default">E_USER_WARNING</span><span class="keyword">:        throw new </span><span class="default">UserWarningException      </span><span class="keyword">(</span><span class="default">$err_msg</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">$err_severity</span><span class="keyword">, </span><span class="default">$err_file</span><span class="keyword">, </span><span class="default">$err_line</span><span class="keyword">);<br />        case </span><span class="default">E_USER_NOTICE</span><span class="keyword">:         throw new </span><span class="default">UserNoticeException       </span><span class="keyword">(</span><span class="default">$err_msg</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">$err_severity</span><span class="keyword">, </span><span class="default">$err_file</span><span class="keyword">, </span><span class="default">$err_line</span><span class="keyword">);<br />        case </span><span class="default">E_STRICT</span><span class="keyword">:              throw new </span><span class="default">StrictException           </span><span class="keyword">(</span><span class="default">$err_msg</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">$err_severity</span><span class="keyword">, </span><span class="default">$err_file</span><span class="keyword">, </span><span class="default">$err_line</span><span class="keyword">);<br />        case </span><span class="default">E_RECOVERABLE_ERROR</span><span class="keyword">:   throw new </span><span class="default">RecoverableErrorException </span><span class="keyword">(</span><span class="default">$err_msg</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">$err_severity</span><span class="keyword">, </span><span class="default">$err_file</span><span class="keyword">, </span><span class="default">$err_line</span><span class="keyword">);<br />        case </span><span class="default">E_DEPRECATED</span><span class="keyword">:          throw new </span><span class="default">DeprecatedException       </span><span class="keyword">(</span><span class="default">$err_msg</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">$err_severity</span><span class="keyword">, </span><span class="default">$err_file</span><span class="keyword">, </span><span class="default">$err_line</span><span class="keyword">);<br />        case </span><span class="default">E_USER_DEPRECATED</span><span class="keyword">:     throw new </span><span class="default">UserDeprecatedException   </span><span class="keyword">(</span><span class="default">$err_msg</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">$err_severity</span><span class="keyword">, </span><span class="default">$err_file</span><span class="keyword">, </span><span class="default">$err_line</span><span class="keyword">);<br />    }<br />});<br /><br />class </span><span class="default">WarningException              </span><span class="keyword">extends </span><span class="default">ErrorException </span><span class="keyword">{}<br />class </span><span class="default">ParseException                </span><span class="keyword">extends </span><span class="default">ErrorException </span><span class="keyword">{}<br />class </span><span class="default">NoticeException               </span><span class="keyword">extends </span><span class="default">ErrorException </span><span class="keyword">{}<br />class </span><span class="default">CoreErrorException            </span><span class="keyword">extends </span><span class="default">ErrorException </span><span class="keyword">{}<br />class </span><span class="default">CoreWarningException          </span><span class="keyword">extends </span><span class="default">ErrorException </span><span class="keyword">{}<br />class </span><span class="default">CompileErrorException         </span><span class="keyword">extends </span><span class="default">ErrorException </span><span class="keyword">{}<br />class </span><span class="default">CompileWarningException       </span><span class="keyword">extends </span><span class="default">ErrorException </span><span class="keyword">{}<br />class </span><span class="default">UserErrorException            </span><span class="keyword">extends </span><span class="default">ErrorException </span><span class="keyword">{}<br />class </span><span class="default">UserWarningException          </span><span class="keyword">extends </span><span class="default">ErrorException </span><span class="keyword">{}<br />class </span><span class="default">UserNoticeException           </span><span class="keyword">extends </span><span class="default">ErrorException </span><span class="keyword">{}<br />class </span><span class="default">StrictException               </span><span class="keyword">extends </span><span class="default">ErrorException </span><span class="keyword">{}<br />class </span><span class="default">RecoverableErrorException     </span><span class="keyword">extends </span><span class="default">ErrorException </span><span class="keyword">{}<br />class </span><span class="default">DeprecatedException           </span><span class="keyword">extends </span><span class="default">ErrorException </span><span class="keyword">{}<br />class </span><span class="default">UserDeprecatedException       </span><span class="keyword">extends </span><span class="default">ErrorException </span><span class="keyword">{}</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="122518">  <div class="votes">
+    <div id="Vu122518">
+    <a href="https://www.php.net/manual/vote-note.php?id=122518&amp;page=function.set-error-handler&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd122518">
+    <a href="https://www.php.net/manual/vote-note.php?id=122518&amp;page=function.set-error-handler&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V122518" title="81% like this...">
+    7
+    </div>
+  </div>
+  <a href="function.set-error-handler.php.html#122518" class="name">
+  <strong class="user"><em>steve962 at gmail dot com</em></strong></a><a class="genanchor" href="function.set-error-handler.php.html#122518"> &para;</a><div class="date" title="2018-03-16 04:06"><strong>5 years ago</strong></div>
+  <div class="text" id="Hcom122518">
+<div class="phpcode"><code><span class="html">Be careful when using the return value to this function.   Because it returns the old handler, you may be tempted to do something like:<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">do_something</span><span class="keyword">()<br />    {<br />    </span><span class="default">$old </span><span class="keyword">= </span><span class="default">set_error_handler</span><span class="keyword">(</span><span class="default">“my_error_handler”</span><span class="keyword">);<br />    </span><span class="comment">// Do something you want handled by my_error_handler<br />    </span><span class="default">set_error_handler</span><span class="keyword">(</span><span class="default">$old</span><span class="keyword">);<br />    }<br /></span><span class="default">?&gt;<br /></span><br />This will work, but it will bite you because each time you do this, it will cause a memory leak as the old error handler is put on a stack for the restore_error_handler() function to use.<br /><br />So always restore the old error handler using that function instead:<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">do_something</span><span class="keyword">()<br />    {<br />    </span><span class="default">set_error_handler</span><span class="keyword">(</span><span class="default">“my_error_handler”</span><span class="keyword">);<br />    </span><span class="comment">// Do something you want handled by my_error_handler<br />    </span><span class="default">restore_error_handler</span><span class="keyword">();<br />    }<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="118630">  <div class="votes">
+    <div id="Vu118630">
+    <a href="https://www.php.net/manual/vote-note.php?id=118630&amp;page=function.set-error-handler&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd118630">
+    <a href="https://www.php.net/manual/vote-note.php?id=118630&amp;page=function.set-error-handler&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V118630" title="73% like this...">
+    18
+    </div>
+  </div>
+  <a href="function.set-error-handler.php.html#118630" class="name">
+  <strong class="user"><em>aditycse at gmail dot com</em></strong></a><a class="genanchor" href="function.set-error-handler.php.html#118630"> &para;</a><div class="date" title="2016-01-12 07:36"><strong>8 years ago</strong></div>
+  <div class="text" id="Hcom118630">
+<div class="phpcode"><code><span class="html"><span class="default">&lt;?php<br /></span><span class="comment">/**<br /> * Used for logging all php notices,warings and etc in a file when error reporting<br /> * is set and display_errors is off<br /> * @uses used in prod env for logging all type of error of php code in a file for further debugging<br /> * and code performance<br /> * @author Aditya Mehrotra&lt;aditycse@gmail.com&gt;<br /> */<br /></span><span class="default">error_reporting</span><span class="keyword">(</span><span class="default">E_ALL</span><span class="keyword">);<br /></span><span class="default">ini_set</span><span class="keyword">(</span><span class="string">"display_errors"</span><span class="keyword">, </span><span class="string">"off"</span><span class="keyword">);<br /></span><span class="default">define</span><span class="keyword">(</span><span class="string">'ERROR_LOG_FILE'</span><span class="keyword">, </span><span class="string">'/var/www/error.log'</span><span class="keyword">);<br /><br /></span><span class="comment">/**<br /> * Custom error handler<br /> * @param integer $code<br /> * @param string $description<br /> * @param string $file<br /> * @param interger $line<br /> * @param mixed $context<br /> * @return boolean<br /> */<br /></span><span class="keyword">function </span><span class="default">handleError</span><span class="keyword">(</span><span class="default">$code</span><span class="keyword">, </span><span class="default">$description</span><span class="keyword">, </span><span class="default">$file </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">, </span><span class="default">$line </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">, </span><span class="default">$context </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">) {<br />    </span><span class="default">$displayErrors </span><span class="keyword">= </span><span class="default">ini_get</span><span class="keyword">(</span><span class="string">"display_errors"</span><span class="keyword">);<br />    </span><span class="default">$displayErrors </span><span class="keyword">= </span><span class="default">strtolower</span><span class="keyword">(</span><span class="default">$displayErrors</span><span class="keyword">);<br />    if (</span><span class="default">error_reporting</span><span class="keyword">() === </span><span class="default">0 </span><span class="keyword">|| </span><span class="default">$displayErrors </span><span class="keyword">=== </span><span class="string">"on"</span><span class="keyword">) {<br />        return </span><span class="default">false</span><span class="keyword">;<br />    }<br />    list(</span><span class="default">$error</span><span class="keyword">, </span><span class="default">$log</span><span class="keyword">) = </span><span class="default">mapErrorCode</span><span class="keyword">(</span><span class="default">$code</span><span class="keyword">);<br />    </span><span class="default">$data </span><span class="keyword">= array(<br />        </span><span class="string">'level' </span><span class="keyword">=&gt; </span><span class="default">$log</span><span class="keyword">,<br />        </span><span class="string">'code' </span><span class="keyword">=&gt; </span><span class="default">$code</span><span class="keyword">,<br />        </span><span class="string">'error' </span><span class="keyword">=&gt; </span><span class="default">$error</span><span class="keyword">,<br />        </span><span class="string">'description' </span><span class="keyword">=&gt; </span><span class="default">$description</span><span class="keyword">,<br />        </span><span class="string">'file' </span><span class="keyword">=&gt; </span><span class="default">$file</span><span class="keyword">,<br />        </span><span class="string">'line' </span><span class="keyword">=&gt; </span><span class="default">$line</span><span class="keyword">,<br />        </span><span class="string">'context' </span><span class="keyword">=&gt; </span><span class="default">$context</span><span class="keyword">,<br />        </span><span class="string">'path' </span><span class="keyword">=&gt; </span><span class="default">$file</span><span class="keyword">,<br />        </span><span class="string">'message' </span><span class="keyword">=&gt; </span><span class="default">$error </span><span class="keyword">. </span><span class="string">' (' </span><span class="keyword">. </span><span class="default">$code </span><span class="keyword">. </span><span class="string">'): ' </span><span class="keyword">. </span><span class="default">$description </span><span class="keyword">. </span><span class="string">' in [' </span><span class="keyword">. </span><span class="default">$file </span><span class="keyword">. </span><span class="string">', line ' </span><span class="keyword">. </span><span class="default">$line </span><span class="keyword">. </span><span class="string">']'<br />    </span><span class="keyword">);<br />    return </span><span class="default">fileLog</span><span class="keyword">(</span><span class="default">$data</span><span class="keyword">);<br />}<br /><br /></span><span class="comment">/**<br /> * This method is used to write data in file<br /> * @param mixed $logData<br /> * @param string $fileName<br /> * @return boolean<br /> */<br /></span><span class="keyword">function </span><span class="default">fileLog</span><span class="keyword">(</span><span class="default">$logData</span><span class="keyword">, </span><span class="default">$fileName </span><span class="keyword">= </span><span class="default">ERROR_LOG_FILE</span><span class="keyword">) {<br />    </span><span class="default">$fh </span><span class="keyword">= </span><span class="default">fopen</span><span class="keyword">(</span><span class="default">$fileName</span><span class="keyword">, </span><span class="string">'a+'</span><span class="keyword">);<br />    if (</span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$logData</span><span class="keyword">)) {<br />        </span><span class="default">$logData </span><span class="keyword">= </span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$logData</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">);<br />    }<br />    </span><span class="default">$status </span><span class="keyword">= </span><span class="default">fwrite</span><span class="keyword">(</span><span class="default">$fh</span><span class="keyword">, </span><span class="default">$logData</span><span class="keyword">);<br />    </span><span class="default">fclose</span><span class="keyword">(</span><span class="default">$fh</span><span class="keyword">);<br />    return (</span><span class="default">$status</span><span class="keyword">) ? </span><span class="default">true </span><span class="keyword">: </span><span class="default">false</span><span class="keyword">;<br />}<br /><br /></span><span class="comment">/**<br /> * Map an error code into an Error word, and log location.<br /> *<br /> * @param int $code Error code to map<br /> * @return array Array of error word, and log location.<br /> */<br /></span><span class="keyword">function </span><span class="default">mapErrorCode</span><span class="keyword">(</span><span class="default">$code</span><span class="keyword">) {<br />    </span><span class="default">$error </span><span class="keyword">= </span><span class="default">$log </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">;<br />    switch (</span><span class="default">$code</span><span class="keyword">) {<br />        case </span><span class="default">E_PARSE</span><span class="keyword">:<br />        case </span><span class="default">E_ERROR</span><span class="keyword">:<br />        case </span><span class="default">E_CORE_ERROR</span><span class="keyword">:<br />        case </span><span class="default">E_COMPILE_ERROR</span><span class="keyword">:<br />        case </span><span class="default">E_USER_ERROR</span><span class="keyword">:<br />            </span><span class="default">$error </span><span class="keyword">= </span><span class="string">'Fatal Error'</span><span class="keyword">;<br />            </span><span class="default">$log </span><span class="keyword">= </span><span class="default">LOG_ERR</span><span class="keyword">;<br />            break;<br />        case </span><span class="default">E_WARNING</span><span class="keyword">:<br />        case </span><span class="default">E_USER_WARNING</span><span class="keyword">:<br />        case </span><span class="default">E_COMPILE_WARNING</span><span class="keyword">:<br />        case </span><span class="default">E_RECOVERABLE_ERROR</span><span class="keyword">:<br />            </span><span class="default">$error </span><span class="keyword">= </span><span class="string">'Warning'</span><span class="keyword">;<br />            </span><span class="default">$log </span><span class="keyword">= </span><span class="default">LOG_WARNING</span><span class="keyword">;<br />            break;<br />        case </span><span class="default">E_NOTICE</span><span class="keyword">:<br />        case </span><span class="default">E_USER_NOTICE</span><span class="keyword">:<br />            </span><span class="default">$error </span><span class="keyword">= </span><span class="string">'Notice'</span><span class="keyword">;<br />            </span><span class="default">$log </span><span class="keyword">= </span><span class="default">LOG_NOTICE</span><span class="keyword">;<br />            break;<br />        case </span><span class="default">E_STRICT</span><span class="keyword">:<br />            </span><span class="default">$error </span><span class="keyword">= </span><span class="string">'Strict'</span><span class="keyword">;<br />            </span><span class="default">$log </span><span class="keyword">= </span><span class="default">LOG_NOTICE</span><span class="keyword">;<br />            break;<br />        case </span><span class="default">E_DEPRECATED</span><span class="keyword">:<br />        case </span><span class="default">E_USER_DEPRECATED</span><span class="keyword">:<br />            </span><span class="default">$error </span><span class="keyword">= </span><span class="string">'Deprecated'</span><span class="keyword">;<br />            </span><span class="default">$log </span><span class="keyword">= </span><span class="default">LOG_NOTICE</span><span class="keyword">;<br />            break;<br />        default :<br />            break;<br />    }<br />    return array(</span><span class="default">$error</span><span class="keyword">, </span><span class="default">$log</span><span class="keyword">);<br />}<br /><br /></span><span class="comment">//calling custom error handler<br /></span><span class="default">set_error_handler</span><span class="keyword">(</span><span class="string">"handleError"</span><span class="keyword">);<br /><br /></span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$arra</span><span class="keyword">); </span><span class="comment">//undefined variable<br /></span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$dssdfdfgg</span><span class="keyword">); </span><span class="comment">//undefined variable<br /></span><span class="keyword">include_once </span><span class="string">'file.php'</span><span class="keyword">; </span><span class="comment">//No such file or directory<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="91535">  <div class="votes">
+    <div id="Vu91535">
+    <a href="https://www.php.net/manual/vote-note.php?id=91535&amp;page=function.set-error-handler&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd91535">
+    <a href="https://www.php.net/manual/vote-note.php?id=91535&amp;page=function.set-error-handler&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V91535" title="80% like this...">
+    6
+    </div>
+  </div>
+  <a href="function.set-error-handler.php.html#91535" class="name">
+  <strong class="user"><em>nizamgok at gmail dot com</em></strong></a><a class="genanchor" href="function.set-error-handler.php.html#91535"> &para;</a><div class="date" title="2009-06-15 07:27"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom91535">
+<div class="phpcode"><code><span class="html">I have realized that a few people here mentioned that you cannot capture parse errors (type 4, E_PARSE). This is not true. Here is how I do. I hope this helps someone.<br /><br />1) Create a "auto_prepend.php" file in the web root and add this:<br /><br /><span class="default">&lt;?php<br />register_shutdown_function</span><span class="keyword">(</span><span class="string">'error_alert'</span><span class="keyword">);<br /><br />function </span><span class="default">error_alert</span><span class="keyword">()<br />{<br />        if(</span><span class="default">is_null</span><span class="keyword">(</span><span class="default">$e </span><span class="keyword">= </span><span class="default">error_get_last</span><span class="keyword">()) === </span><span class="default">false</span><span class="keyword">)<br />        {<br />                </span><span class="default">mail</span><span class="keyword">(</span><span class="string">'your.email@example.com'</span><span class="keyword">, </span><span class="string">'Error from auto_prepend'</span><span class="keyword">, </span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$e</span><span class="keyword">, </span><span class="default">true</span><span class="keyword">));<br />        }<br />}<br /></span><span class="default">?&gt;<br /></span><br />2) Then add this "php_value auto_prepend_file /www/auto_prepend.php" to your .htaccess file in the web root.<br /><br />* make sure you change the email address and the path to the file.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="114399">  <div class="votes">
+    <div id="Vu114399">
+    <a href="https://www.php.net/manual/vote-note.php?id=114399&amp;page=function.set-error-handler&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd114399">
+    <a href="https://www.php.net/manual/vote-note.php?id=114399&amp;page=function.set-error-handler&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V114399" title="73% like this...">
+    9
+    </div>
+  </div>
+  <a href="function.set-error-handler.php.html#114399" class="name">
+  <strong class="user"><em>dannykopping at gmail dot com</em></strong></a><a class="genanchor" href="function.set-error-handler.php.html#114399"> &para;</a><div class="date" title="2014-02-16 09:52"><strong>9 years ago</strong></div>
+  <div class="text" id="Hcom114399">
+<div class="phpcode"><code><span class="html">Keep in mind that, when attempting to set a statically-defined error handler on a namespaced class in PHP &gt;= 5.3, you need to use the class namespace:<br /><br /><span class="default">&lt;?php<br />set_error_handler</span><span class="keyword">(</span><span class="string">'\\My\\Namespace\\Bob::errorHandler'</span><span class="keyword">);<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="112348">  <div class="votes">
+    <div id="Vu112348">
+    <a href="https://www.php.net/manual/vote-note.php?id=112348&amp;page=function.set-error-handler&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd112348">
+    <a href="https://www.php.net/manual/vote-note.php?id=112348&amp;page=function.set-error-handler&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V112348" title="73% like this...">
+    7
+    </div>
+  </div>
+  <a href="function.set-error-handler.php.html#112348" class="name">
+  <strong class="user"><em>Jacob Slomp</em></strong></a><a class="genanchor" href="function.set-error-handler.php.html#112348"> &para;</a><div class="date" title="2013-06-04 10:56"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom112348">
+<div class="phpcode"><code><span class="html">This might be handy if you don't want your clients to see the errors, and you do want to be one step ahead of them.<br /><br />It emails you the errors even if it's a parse error.<br /><br />set_error_handler() doesn't work for what I wanted.<br /><br /><span class="default">&lt;?php<br />ini_set</span><span class="keyword">(</span><span class="string">'log_errors'</span><span class="keyword">,</span><span class="default">TRUE</span><span class="keyword">);<br /></span><span class="default">ini_set</span><span class="keyword">(</span><span class="string">'error_log'</span><span class="keyword">,</span><span class="string">'tiny_uploads/errors.txt'</span><span class="keyword">);<br /><br />if(</span><span class="default">$_SERVER</span><span class="keyword">[</span><span class="string">'REMOTE_ADDR'</span><span class="keyword">] != </span><span class="string">"YOUR IP ADDRESS"</span><span class="keyword">){<br />    </span><span class="default">ini_set</span><span class="keyword">(</span><span class="string">'display_errors'</span><span class="keyword">,</span><span class="default">false</span><span class="keyword">);<br />}<br />   <br />function </span><span class="default">byebye</span><span class="keyword">(){<br /><br />        </span><span class="default">$dir </span><span class="keyword">= </span><span class="default">dirname</span><span class="keyword">(</span><span class="default">__FILE__</span><span class="keyword">);<br />        if(</span><span class="default">file_exists</span><span class="keyword">(</span><span class="default">$dir</span><span class="keyword">.</span><span class="string">"/tiny_uploads/errors.txt"</span><span class="keyword">)){<br />        <br />            </span><span class="default">$errors </span><span class="keyword">= </span><span class="default">file_get_contents</span><span class="keyword">(</span><span class="default">$dir</span><span class="keyword">.</span><span class="string">"/tiny_uploads/errors.txt"</span><span class="keyword">);<br />            <br />            if(</span><span class="default">trim</span><span class="keyword">(</span><span class="default">$errors</span><span class="keyword">)){<br />            <br />                </span><span class="default">$head </span><span class="keyword">= </span><span class="string">"From: php_errors@"</span><span class="keyword">.</span><span class="default">str_replace</span><span class="keyword">(</span><span class="string">'www.'</span><span class="keyword">,</span><span class="string">''</span><span class="keyword">,</span><span class="default">$_SERVER</span><span class="keyword">[</span><span class="string">'HTTP_HOST'</span><span class="keyword">]).</span><span class="string">"\r\n"</span><span class="keyword">;<br />                <br />                </span><span class="default">$errors </span><span class="keyword">.= </span><span class="string">"---------------------------------------------\n\n"</span><span class="keyword">;<br />                <br />                </span><span class="default">$errors </span><span class="keyword">.= </span><span class="string">"\n\nServer Info:\n\n"</span><span class="keyword">.</span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$_SERVER</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">).</span><span class="string">"\n\n"</span><span class="keyword">;<br />                </span><span class="default">$errors </span><span class="keyword">.= </span><span class="string">"---------------------------------------------\n\n"</span><span class="keyword">;<br />                <br />                </span><span class="default">$errors </span><span class="keyword">.= </span><span class="string">"\n\nCOOKIE:\n\n"</span><span class="keyword">.</span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$_COOKIE</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">).</span><span class="string">"\n\n"</span><span class="keyword">;<br />                </span><span class="default">$errors </span><span class="keyword">.= </span><span class="string">"---------------------------------------------\n\n"</span><span class="keyword">;<br />                <br />                </span><span class="default">$errors </span><span class="keyword">.= </span><span class="string">"\n\nPOST:\n\n"</span><span class="keyword">.</span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$_POST</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">).</span><span class="string">"\n\n"</span><span class="keyword">;<br />                </span><span class="default">$errors </span><span class="keyword">.= </span><span class="string">"---------------------------------------------\n\n"</span><span class="keyword">;<br />                <br />                </span><span class="default">$errors </span><span class="keyword">.= </span><span class="string">"\n\nGET:\n\n"</span><span class="keyword">.</span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$_GET</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">).</span><span class="string">"\n\n"</span><span class="keyword">;<br />                <br />                <br />                </span><span class="default">mail</span><span class="keyword">(</span><span class="string">"YOUR@EMAIL.COM"</span><span class="keyword">,</span><span class="string">"PHP Error "</span><span class="keyword">.</span><span class="default">$_SERVER</span><span class="keyword">[</span><span class="string">'HTTP_HOST'</span><span class="keyword">].</span><span class="string">""</span><span class="keyword">, </span><span class="default">$errors </span><span class="keyword">, </span><span class="default">$head</span><span class="keyword">);<br />                <br />                </span><span class="default">$fp </span><span class="keyword">= </span><span class="default">fopen</span><span class="keyword">(</span><span class="default">$dir</span><span class="keyword">.</span><span class="string">"/tiny_uploads/errors.txt"</span><span class="keyword">,</span><span class="string">"w+"</span><span class="keyword">);<br />                </span><span class="default">fputs</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">, </span><span class="string">""</span><span class="keyword">);<br />                </span><span class="default">fclose</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">);    <br />            }    <br />        }<br />}<br /></span><span class="default">register_shutdown_function</span><span class="keyword">(</span><span class="string">"byebye"</span><span class="keyword">);<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="80205">  <div class="votes">
+    <div id="Vu80205">
+    <a href="https://www.php.net/manual/vote-note.php?id=80205&amp;page=function.set-error-handler&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd80205">
+    <a href="https://www.php.net/manual/vote-note.php?id=80205&amp;page=function.set-error-handler&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V80205" title="71% like this...">
+    3
+    </div>
+  </div>
+  <a href="function.set-error-handler.php.html#80205" class="name">
+  <strong class="user"><em>webmaster at paramiliar dot com</em></strong></a><a class="genanchor" href="function.set-error-handler.php.html#80205"> &para;</a><div class="date" title="2008-01-03 11:03"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom80205">
+<div class="phpcode"><code><span class="html">We needed to use an error handler to handle SQL errors while passing the query along so the query is also logged and this is what we came up with, its kind of an ugly bridge but it works 100%<br /><br /><span class="default">&lt;?php<br /><br /></span><span class="keyword">function </span><span class="default">myErrorHandler</span><span class="keyword">(</span><span class="default">$errno</span><span class="keyword">, </span><span class="default">$errstr</span><span class="keyword">, </span><span class="default">$errfile</span><span class="keyword">, </span><span class="default">$errline</span><span class="keyword">){<br />    switch (</span><span class="default">$errno</span><span class="keyword">) {<br />    case </span><span class="default">E_USER_ERROR</span><span class="keyword">:<br />        if (</span><span class="default">$errstr </span><span class="keyword">== </span><span class="string">"(SQL)"</span><span class="keyword">){<br />            </span><span class="comment">// handling an sql error<br />            </span><span class="keyword">echo </span><span class="string">"&lt;b&gt;SQL Error&lt;/b&gt; [</span><span class="default">$errno</span><span class="string">] " </span><span class="keyword">. </span><span class="default">SQLMESSAGE </span><span class="keyword">. </span><span class="string">"&lt;br /&gt;\n"</span><span class="keyword">;<br />            echo </span><span class="string">"Query : " </span><span class="keyword">. </span><span class="default">SQLQUERY </span><span class="keyword">. </span><span class="string">"&lt;br /&gt;\n"</span><span class="keyword">;<br />            echo </span><span class="string">"On line " </span><span class="keyword">. </span><span class="default">SQLERRORLINE </span><span class="keyword">. </span><span class="string">" in file " </span><span class="keyword">. </span><span class="default">SQLERRORFILE </span><span class="keyword">. </span><span class="string">" "</span><span class="keyword">;<br />            echo </span><span class="string">", PHP " </span><span class="keyword">. </span><span class="default">PHP_VERSION </span><span class="keyword">. </span><span class="string">" (" </span><span class="keyword">. </span><span class="default">PHP_OS </span><span class="keyword">. </span><span class="string">")&lt;br /&gt;\n"</span><span class="keyword">;<br />            echo </span><span class="string">"Aborting...&lt;br /&gt;\n"</span><span class="keyword">;<br />        } else {<br />            echo </span><span class="string">"&lt;b&gt;My ERROR&lt;/b&gt; [</span><span class="default">$errno</span><span class="string">] </span><span class="default">$errstr</span><span class="string">&lt;br /&gt;\n"</span><span class="keyword">;<br />            echo </span><span class="string">"  Fatal error on line </span><span class="default">$errline</span><span class="string"> in file </span><span class="default">$errfile</span><span class="string">"</span><span class="keyword">;<br />            echo </span><span class="string">", PHP " </span><span class="keyword">. </span><span class="default">PHP_VERSION </span><span class="keyword">. </span><span class="string">" (" </span><span class="keyword">. </span><span class="default">PHP_OS </span><span class="keyword">. </span><span class="string">")&lt;br /&gt;\n"</span><span class="keyword">;<br />            echo </span><span class="string">"Aborting...&lt;br /&gt;\n"</span><span class="keyword">;<br />        }<br />        exit(</span><span class="default">1</span><span class="keyword">);<br />        break;<br /><br />    case </span><span class="default">E_USER_WARNING</span><span class="keyword">:<br />    case </span><span class="default">E_USER_NOTICE</span><span class="keyword">:<br />    }<br />    </span><span class="comment">/* Don't execute PHP internal error handler */<br />    </span><span class="keyword">return </span><span class="default">true</span><span class="keyword">;<br />}<br /><br /></span><span class="comment">// function to test the error handling<br /><br /></span><span class="keyword">function </span><span class="default">sqlerrorhandler</span><span class="keyword">(</span><span class="default">$ERROR</span><span class="keyword">, </span><span class="default">$QUERY</span><span class="keyword">, </span><span class="default">$PHPFILE</span><span class="keyword">, </span><span class="default">$LINE</span><span class="keyword">){<br />    </span><span class="default">define</span><span class="keyword">(</span><span class="string">"SQLQUERY"</span><span class="keyword">, </span><span class="default">$QUERY</span><span class="keyword">);<br />    </span><span class="default">define</span><span class="keyword">(</span><span class="string">"SQLMESSAGE"</span><span class="keyword">, </span><span class="default">$ERROR</span><span class="keyword">);<br />    </span><span class="default">define</span><span class="keyword">(</span><span class="string">"SQLERRORLINE"</span><span class="keyword">, </span><span class="default">$LINE</span><span class="keyword">);<br />    </span><span class="default">define</span><span class="keyword">(</span><span class="string">"SQLERRORFILE"</span><span class="keyword">, </span><span class="default">$PHPFILE</span><span class="keyword">);<br />    </span><span class="default">trigger_error</span><span class="keyword">(</span><span class="string">"(SQL)"</span><span class="keyword">, </span><span class="default">E_USER_ERROR</span><span class="keyword">);<br />}<br /><br /></span><span class="default">set_error_handler</span><span class="keyword">(</span><span class="string">"myErrorHandler"</span><span class="keyword">);<br /><br /></span><span class="comment">// trigger an sql error<br /></span><span class="default">$query </span><span class="keyword">= </span><span class="string">"SELECT * FROM tbl LIMIT 1"</span><span class="keyword">;<br /></span><span class="default">$sql </span><span class="keyword">= @</span><span class="default">mysql_query</span><span class="keyword">(</span><span class="default">$query</span><span class="keyword">)<br />    or </span><span class="default">sqlerrorhandler</span><span class="keyword">(</span><span class="string">"("</span><span class="keyword">.</span><span class="default">mysql_errno</span><span class="keyword">().</span><span class="string">") "</span><span class="keyword">.</span><span class="default">mysql_error</span><span class="keyword">(), </span><span class="default">$query</span><span class="keyword">, </span><span class="default">$_SERVER</span><span class="keyword">[</span><span class="string">'PHP_SELF'</span><span class="keyword">], </span><span class="default">__LINE__</span><span class="keyword">);<br />    <br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="74881">  <div class="votes">
+    <div id="Vu74881">
+    <a href="https://www.php.net/manual/vote-note.php?id=74881&amp;page=function.set-error-handler&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd74881">
+    <a href="https://www.php.net/manual/vote-note.php?id=74881&amp;page=function.set-error-handler&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V74881" title="68% like this...">
+    7
+    </div>
+  </div>
+  <a href="function.set-error-handler.php.html#74881" class="name">
+  <strong class="user"><em>silkensedai at online dot fr</em></strong></a><a class="genanchor" href="function.set-error-handler.php.html#74881"> &para;</a><div class="date" title="2007-05-02 12:37"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom74881">
+<div class="phpcode"><code><span class="html">i made an error handler that print also the backtrace and that can die on some errors. It can be useful if you want to die on every error you find.<br /><br /><span class="default">&lt;?php<br /><br /></span><span class="keyword">function </span><span class="default">my_error_handler</span><span class="keyword">(</span><span class="default">$errno</span><span class="keyword">, </span><span class="default">$errstr</span><span class="keyword">, </span><span class="default">$errfile</span><span class="keyword">, </span><span class="default">$errline</span><span class="keyword">){<br />    </span><span class="default">$errno </span><span class="keyword">= </span><span class="default">$errno </span><span class="keyword">&amp; </span><span class="default">error_reporting</span><span class="keyword">();<br />    if(</span><span class="default">$errno </span><span class="keyword">== </span><span class="default">0</span><span class="keyword">) return;<br />    if(!</span><span class="default">defined</span><span class="keyword">(</span><span class="string">'E_STRICT'</span><span class="keyword">))            </span><span class="default">define</span><span class="keyword">(</span><span class="string">'E_STRICT'</span><span class="keyword">, </span><span class="default">2048</span><span class="keyword">);<br />    if(!</span><span class="default">defined</span><span class="keyword">(</span><span class="string">'E_RECOVERABLE_ERROR'</span><span class="keyword">)) </span><span class="default">define</span><span class="keyword">(</span><span class="string">'E_RECOVERABLE_ERROR'</span><span class="keyword">, </span><span class="default">4096</span><span class="keyword">);<br />    print </span><span class="string">"&lt;pre&gt;\n&lt;b&gt;"</span><span class="keyword">;<br />    switch(</span><span class="default">$errno</span><span class="keyword">){<br />        case </span><span class="default">E_ERROR</span><span class="keyword">:               print </span><span class="string">"Error"</span><span class="keyword">;                  break;<br />        case </span><span class="default">E_WARNING</span><span class="keyword">:             print </span><span class="string">"Warning"</span><span class="keyword">;                break;<br />        case </span><span class="default">E_PARSE</span><span class="keyword">:               print </span><span class="string">"Parse Error"</span><span class="keyword">;            break;<br />        case </span><span class="default">E_NOTICE</span><span class="keyword">:              print </span><span class="string">"Notice"</span><span class="keyword">;                 break;<br />        case </span><span class="default">E_CORE_ERROR</span><span class="keyword">:          print </span><span class="string">"Core Error"</span><span class="keyword">;             break;<br />        case </span><span class="default">E_CORE_WARNING</span><span class="keyword">:        print </span><span class="string">"Core Warning"</span><span class="keyword">;           break;<br />        case </span><span class="default">E_COMPILE_ERROR</span><span class="keyword">:       print </span><span class="string">"Compile Error"</span><span class="keyword">;          break;<br />        case </span><span class="default">E_COMPILE_WARNING</span><span class="keyword">:     print </span><span class="string">"Compile Warning"</span><span class="keyword">;        break;<br />        case </span><span class="default">E_USER_ERROR</span><span class="keyword">:          print </span><span class="string">"User Error"</span><span class="keyword">;             break;<br />        case </span><span class="default">E_USER_WARNING</span><span class="keyword">:        print </span><span class="string">"User Warning"</span><span class="keyword">;           break;<br />        case </span><span class="default">E_USER_NOTICE</span><span class="keyword">:         print </span><span class="string">"User Notice"</span><span class="keyword">;            break;<br />        case </span><span class="default">E_STRICT</span><span class="keyword">:              print </span><span class="string">"Strict Notice"</span><span class="keyword">;          break;<br />        case </span><span class="default">E_RECOVERABLE_ERROR</span><span class="keyword">:   print </span><span class="string">"Recoverable Error"</span><span class="keyword">;      break;<br />        default:                    print </span><span class="string">"Unknown error (</span><span class="default">$errno</span><span class="string">)"</span><span class="keyword">; break;<br />    }<br />    print </span><span class="string">":&lt;/b&gt; &lt;i&gt;</span><span class="default">$errstr</span><span class="string">&lt;/i&gt; in &lt;b&gt;</span><span class="default">$errfile</span><span class="string">&lt;/b&gt; on line &lt;b&gt;</span><span class="default">$errline</span><span class="string">&lt;/b&gt;\n"</span><span class="keyword">;<br />    if(</span><span class="default">function_exists</span><span class="keyword">(</span><span class="string">'debug_backtrace'</span><span class="keyword">)){<br />        </span><span class="comment">//print "backtrace:\n";<br />        </span><span class="default">$backtrace </span><span class="keyword">= </span><span class="default">debug_backtrace</span><span class="keyword">();<br />        </span><span class="default">array_shift</span><span class="keyword">(</span><span class="default">$backtrace</span><span class="keyword">);<br />        foreach(</span><span class="default">$backtrace </span><span class="keyword">as </span><span class="default">$i</span><span class="keyword">=&gt;</span><span class="default">$l</span><span class="keyword">){<br />            print </span><span class="string">"[</span><span class="default">$i</span><span class="string">] in function &lt;b&gt;</span><span class="keyword">{</span><span class="default">$l</span><span class="keyword">[</span><span class="string">'class'</span><span class="keyword">]}{</span><span class="default">$l</span><span class="keyword">[</span><span class="string">'type'</span><span class="keyword">]}{</span><span class="default">$l</span><span class="keyword">[</span><span class="string">'function'</span><span class="keyword">]}</span><span class="string">&lt;/b&gt;"</span><span class="keyword">;<br />            if(</span><span class="default">$l</span><span class="keyword">[</span><span class="string">'file'</span><span class="keyword">]) print </span><span class="string">" in &lt;b&gt;</span><span class="keyword">{</span><span class="default">$l</span><span class="keyword">[</span><span class="string">'file'</span><span class="keyword">]}</span><span class="string">&lt;/b&gt;"</span><span class="keyword">;<br />            if(</span><span class="default">$l</span><span class="keyword">[</span><span class="string">'line'</span><span class="keyword">]) print </span><span class="string">" on line &lt;b&gt;</span><span class="keyword">{</span><span class="default">$l</span><span class="keyword">[</span><span class="string">'line'</span><span class="keyword">]}</span><span class="string">&lt;/b&gt;"</span><span class="keyword">;<br />            print </span><span class="string">"\n"</span><span class="keyword">;<br />        }<br />    }<br />    print </span><span class="string">"\n&lt;/pre&gt;"</span><span class="keyword">;<br />    if(isset(</span><span class="default">$GLOBALS</span><span class="keyword">[</span><span class="string">'error_fatal'</span><span class="keyword">])){<br />        if(</span><span class="default">$GLOBALS</span><span class="keyword">[</span><span class="string">'error_fatal'</span><span class="keyword">] &amp; </span><span class="default">$errno</span><span class="keyword">) die(</span><span class="string">'fatal'</span><span class="keyword">);<br />    }<br />}<br /><br />function </span><span class="default">error_fatal</span><span class="keyword">(</span><span class="default">$mask </span><span class="keyword">= </span><span class="default">NULL</span><span class="keyword">){<br />    if(!</span><span class="default">is_null</span><span class="keyword">(</span><span class="default">$mask</span><span class="keyword">)){<br />        </span><span class="default">$GLOBALS</span><span class="keyword">[</span><span class="string">'error_fatal'</span><span class="keyword">] = </span><span class="default">$mask</span><span class="keyword">;<br />    }elseif(!isset(</span><span class="default">$GLOBALS</span><span class="keyword">[</span><span class="string">'die_on'</span><span class="keyword">])){<br />        </span><span class="default">$GLOBALS</span><span class="keyword">[</span><span class="string">'error_fatal'</span><span class="keyword">] = </span><span class="default">0</span><span class="keyword">;<br />    }<br />    return </span><span class="default">$GLOBALS</span><span class="keyword">[</span><span class="string">'error_fatal'</span><span class="keyword">];<br />}<br /><br /></span><span class="default">?&gt;<br /></span><br />Usage :<br /><br /><span class="default">&lt;?php<br />error_reporting</span><span class="keyword">(</span><span class="default">E_ALL</span><span class="keyword">);      </span><span class="comment">// will report all errors<br /></span><span class="default">set_error_handler</span><span class="keyword">(</span><span class="string">'my_error_handler'</span><span class="keyword">);<br /></span><span class="default">error_fatal</span><span class="keyword">(</span><span class="default">E_ALL</span><span class="keyword">^</span><span class="default">E_NOTICE</span><span class="keyword">); </span><span class="comment">// will die on any error except E_NOTICE<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="84345">  <div class="votes">
+    <div id="Vu84345">
+    <a href="https://www.php.net/manual/vote-note.php?id=84345&amp;page=function.set-error-handler&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd84345">
+    <a href="https://www.php.net/manual/vote-note.php?id=84345&amp;page=function.set-error-handler&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V84345" title="68% like this...">
+    6
+    </div>
+  </div>
+  <a href="function.set-error-handler.php.html#84345" class="name">
+  <strong class="user"><em>wfinn at riverbed dot com</em></strong></a><a class="genanchor" href="function.set-error-handler.php.html#84345"> &para;</a><div class="date" title="2008-07-09 06:15"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom84345">
+<div class="phpcode"><code><span class="html">"The following error types cannot be handled with a user defined function: E_ERROR, E_PARSE, E_CORE_ERROR, E_CORE_WARNING, E_COMPILE_ERROR, E_COMPILE_WARNING, and most of E_STRICT raised in the file where set_error_handler() is called."<br /><br />This is not exactly true.  set_error_handler() can't handle them, but ob_start() can handle at least E_ERROR.<br /><br /><span class="default">&lt;?php<br /><br /></span><span class="keyword">function </span><span class="default">error_handler</span><span class="keyword">(</span><span class="default">$output</span><span class="keyword">)<br />{<br />    </span><span class="default">$error </span><span class="keyword">= </span><span class="default">error_get_last</span><span class="keyword">();<br />    </span><span class="default">$output </span><span class="keyword">= </span><span class="string">""</span><span class="keyword">;<br />    foreach (</span><span class="default">$error </span><span class="keyword">as </span><span class="default">$info </span><span class="keyword">=&gt; </span><span class="default">$string</span><span class="keyword">)<br />        </span><span class="default">$output </span><span class="keyword">.= </span><span class="string">"</span><span class="keyword">{</span><span class="default">$info</span><span class="keyword">}</span><span class="string">: </span><span class="keyword">{</span><span class="default">$string</span><span class="keyword">}</span><span class="string">\n"</span><span class="keyword">;<br />    return </span><span class="default">$output</span><span class="keyword">;<br />}<br /><br /></span><span class="default">ob_start</span><span class="keyword">(</span><span class="string">'error_handler'</span><span class="keyword">);<br /><br /></span><span class="default">will_this_undefined_function_raise_an_error</span><span class="keyword">();<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="95206">  <div class="votes">
+    <div id="Vu95206">
+    <a href="https://www.php.net/manual/vote-note.php?id=95206&amp;page=function.set-error-handler&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd95206">
+    <a href="https://www.php.net/manual/vote-note.php?id=95206&amp;page=function.set-error-handler&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V95206" title="66% like this...">
+    8
+    </div>
+  </div>
+  <a href="function.set-error-handler.php.html#95206" class="name">
+  <strong class="user"><em>kalle at meizo dot com</em></strong></a><a class="genanchor" href="function.set-error-handler.php.html#95206"> &para;</a><div class="date" title="2009-12-18 06:11"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom95206">
+<div class="phpcode"><code><span class="html">This may be of help to someone, who is/was looking for a way to get a backtrace of fatal errors such as maximum memory allocation issues, which can not be handled with user-defined functions, to pin-point the problem:<br /><br />On a server hosting many sites that share common PHP includes, I set in one spot:<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">@</span><span class="default">ini_set </span><span class="keyword">(</span><span class="string">"error_log"</span><span class="keyword">, </span><span class="string">"/my/path/php.err-" </span><span class="keyword">. </span><span class="default">$_SERVER </span><span class="keyword">[</span><span class="string">"HTTP_HOST"</span><span class="keyword">] . </span><span class="string">"-" </span><span class="keyword">. </span><span class="default">$_SERVER </span><span class="keyword">[</span><span class="string">"REMOTE_ADDR"</span><span class="keyword">] . </span><span class="string">"-" </span><span class="keyword">. </span><span class="default">$_SERVER </span><span class="keyword">[</span><span class="string">"REQUEST_METHOD"</span><span class="keyword">] . </span><span class="string">"-" </span><span class="keyword">. </span><span class="default">str_replace </span><span class="keyword">(</span><span class="string">"/"</span><span class="keyword">, </span><span class="string">"|"</span><span class="keyword">, </span><span class="default">$_SERVER </span><span class="keyword">[</span><span class="string">"REQUEST_URI"</span><span class="keyword">]));<br /></span><span class="default">?&gt;<br /></span><br />I actually used some additional information too from my software that I omitted, but that way, you'll find errors sorted more neatly in for example:-<br /><br />/my/path/php.err-website.com-127.0.0.1-GET-path|index.html?xyz <br /><br />And that at least helped me tremendously to then further pin-point where the problem is, as opposed to before just seeing the out of memory and not knowing which site/page it was on (as the PHP error only contains the very latest PHP code where it ran out of memory, which usually is just a shared included file, not the actual page).</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="101533">  <div class="votes">
+    <div id="Vu101533">
+    <a href="https://www.php.net/manual/vote-note.php?id=101533&amp;page=function.set-error-handler&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd101533">
+    <a href="https://www.php.net/manual/vote-note.php?id=101533&amp;page=function.set-error-handler&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V101533" title="66% like this...">
+    2
+    </div>
+  </div>
+  <a href="function.set-error-handler.php.html#101533" class="name">
+  <strong class="user"><em>francois vespa</em></strong></a><a class="genanchor" href="function.set-error-handler.php.html#101533"> &para;</a><div class="date" title="2010-12-22 03:27"><strong>13 years ago</strong></div>
+  <div class="text" id="Hcom101533">
+<div class="phpcode"><code><span class="html">This is a note when using php from the terminal (the CLI interface). From the command line, even if you have some kind of error user handler function so STDERR will not display, fatal errors will still cause the PHP interpreter to display error text. There is nothing you can do about that php-wise. If using UNIX/Linux, you can add " 2&gt;/dev/null" at the end of your command to force STDERR not to show</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="106061">  <div class="votes">
+    <div id="Vu106061">
+    <a href="https://www.php.net/manual/vote-note.php?id=106061&amp;page=function.set-error-handler&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd106061">
+    <a href="https://www.php.net/manual/vote-note.php?id=106061&amp;page=function.set-error-handler&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V106061" title="64% like this...">
+    5
+    </div>
+  </div>
+  <a href="function.set-error-handler.php.html#106061" class="name">
+  <strong class="user"><em>dorphalsig at NOSPAMgmail dot com</em></strong></a><a class="genanchor" href="function.set-error-handler.php.html#106061"> &para;</a><div class="date" title="2011-10-06 11:25"><strong>12 years ago</strong></div>
+  <div class="text" id="Hcom106061">
+<div class="phpcode"><code><span class="html">This actually works to catch Fatal errors...<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">shutdown</span><span class="keyword">()<br />{<br />    </span><span class="default">$a</span><span class="keyword">=</span><span class="default">error_get_last</span><span class="keyword">();<br />    if(</span><span class="default">$a</span><span class="keyword">==</span><span class="default">null</span><span class="keyword">)   <br />        echo </span><span class="string">"No errors"</span><span class="keyword">;<br />    else<br />         </span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$a</span><span class="keyword">);<br />    <br />}<br /></span><span class="default">register_shutdown_function</span><span class="keyword">(</span><span class="string">'shutdown'</span><span class="keyword">);<br /></span><span class="default">ini_set</span><span class="keyword">(</span><span class="string">'max_execution_time'</span><span class="keyword">,</span><span class="default">1 </span><span class="keyword">);<br /></span><span class="default">sleep</span><span class="keyword">(</span><span class="default">3</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />it will output<br />Array ( [type] =&gt; 1 [message] =&gt; Maximum execution time of 1 second exceeded [file] =&gt; /path/to/file_name.php [line] =&gt; 136 )</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="88401">  <div class="votes">
+    <div id="Vu88401">
+    <a href="https://www.php.net/manual/vote-note.php?id=88401&amp;page=function.set-error-handler&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd88401">
+    <a href="https://www.php.net/manual/vote-note.php?id=88401&amp;page=function.set-error-handler&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V88401" title="66% like this...">
+    2
+    </div>
+  </div>
+  <a href="function.set-error-handler.php.html#88401" class="name">
+  <strong class="user"><em>Marcelius</em></strong></a><a class="genanchor" href="function.set-error-handler.php.html#88401"> &para;</a><div class="date" title="2009-01-22 05:41"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom88401">
+<div class="phpcode"><code><span class="html">Another way to catch PHP's fatal errors:<br /><br /><span class="default">&lt;?php<br />    error_reporting</span><span class="keyword">(</span><span class="default">E_ALL</span><span class="keyword">);<br />    </span><span class="default">ini_set</span><span class="keyword">(</span><span class="string">'display_errors'</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">);<br /><br />    function </span><span class="default">shutdown</span><span class="keyword">(){<br />        </span><span class="default">$isError </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;<br />        if (</span><span class="default">$error </span><span class="keyword">= </span><span class="default">error_get_last</span><span class="keyword">()){<br />            switch(</span><span class="default">$error</span><span class="keyword">[</span><span class="string">'type'</span><span class="keyword">]){<br />                case </span><span class="default">E_ERROR</span><span class="keyword">:<br />                case </span><span class="default">E_CORE_ERROR</span><span class="keyword">:<br />                case </span><span class="default">E_COMPILE_ERROR</span><span class="keyword">:<br />                case </span><span class="default">E_USER_ERROR</span><span class="keyword">:<br />                    </span><span class="default">$isError </span><span class="keyword">= </span><span class="default">true</span><span class="keyword">;<br />                    break;<br />            }<br />        }<br /><br />        if (</span><span class="default">$isError</span><span class="keyword">){<br />            echo </span><span class="string">"Script execution halted (</span><span class="keyword">{</span><span class="default">$error</span><span class="keyword">[</span><span class="string">'message'</span><span class="keyword">]}</span><span class="string">)"</span><span class="keyword">;<br />        } else {<br />            echo </span><span class="string">"Script completed"</span><span class="keyword">;<br />        }<br />    }<br /><br />    </span><span class="default">register_shutdown_function</span><span class="keyword">(</span><span class="string">'shutdown'</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />Note that this will only catch runtime errors. So calling a method in a non existing class, or declaring a function twice does not trigger the shutdown handler.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="22282">  <div class="votes">
+    <div id="Vu22282">
+    <a href="https://www.php.net/manual/vote-note.php?id=22282&amp;page=function.set-error-handler&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd22282">
+    <a href="https://www.php.net/manual/vote-note.php?id=22282&amp;page=function.set-error-handler&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V22282" title="66% like this...">
+    3
+    </div>
+  </div>
+  <a href="function.set-error-handler.php.html#22282" class="name">
+  <strong class="user"><em>roy</em></strong></a><a class="genanchor" href="function.set-error-handler.php.html#22282"> &para;</a><div class="date" title="2002-06-12 04:08"><strong>21 years ago</strong></div>
+  <div class="text" id="Hcom22282">
+<div class="phpcode"><code><span class="html">Useful thing to note - if your error handler throws an error in itself, PHP is smart enough to use the deault error handler to handle it. This way, you don't end up in infinite flaming loops of death. This seems to be true, at least, in PHP 4.2. <br /><br />('Course, there are ways to create your handler to handle even this situation, but it's probably best left this way for general purposes.)</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="61043">  <div class="votes">
+    <div id="Vu61043">
+    <a href="https://www.php.net/manual/vote-note.php?id=61043&amp;page=function.set-error-handler&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd61043">
+    <a href="https://www.php.net/manual/vote-note.php?id=61043&amp;page=function.set-error-handler&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V61043" title="66% like this...">
+    2
+    </div>
+  </div>
+  <a href="function.set-error-handler.php.html#61043" class="name"><strong class="user"><em>Anonymous</em></strong></a><a class="genanchor" href="function.set-error-handler.php.html#61043"> &para;</a><div class="date" title="2006-01-24 01:19"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom61043">
+<div class="phpcode"><code><span class="html">To honor the value of PHP's error_reporting() function, use:<br /><br />&lt;?<br />  if( ($level &amp; error_reporting()) == 0 ) return;<br />?&gt;</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="37459">  <div class="votes">
+    <div id="Vu37459">
+    <a href="https://www.php.net/manual/vote-note.php?id=37459&amp;page=function.set-error-handler&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd37459">
+    <a href="https://www.php.net/manual/vote-note.php?id=37459&amp;page=function.set-error-handler&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V37459" title="62% like this...">
+    7
+    </div>
+  </div>
+  <a href="function.set-error-handler.php.html#37459" class="name">
+  <strong class="user"><em>phpmanual at NO_SPHAMnetebb dot com</em></strong></a><a class="genanchor" href="function.set-error-handler.php.html#37459"> &para;</a><div class="date" title="2003-11-15 08:19"><strong>20 years ago</strong></div>
+  <div class="text" id="Hcom37459">
+<div class="phpcode"><code><span class="html">Given this code:<br /><br />class CallbackClass {<br />    function CallbackFunction() {<br />        // refers to $this<br />    }<br /><br />    function StaticFunction() {<br />        // doesn't refer to $this<br />    }<br />}<br /><br />function NonClassFunction() {<br />}<br /><br />there appear to be 3 ways to set a callback function in PHP (using set_error_handler() as an example):<br /><br />1: set_error_handler('NonClassFunction');<br /><br />2: set_error_handler(array('CallbackClass', 'StaticFunction'));<br /><br />3: $o =&amp; new CallbackClass();<br />   set_error_handler(array($o, 'CallbackFunction'));<br /><br />The following may also prove useful:<br /><br />class CallbackClass {<br />    function CallbackClass() {<br />        set_error_handler(array(&amp;$this, 'CallbackFunction')); // the &amp; is important<br />    }<br />    <br />    function CallbackFunction() {<br />        // refers to $this<br />    }<br />}<br /><br />The documentation is not clear in outlining these three examples.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="113567">  <div class="votes">
+    <div id="Vu113567">
+    <a href="https://www.php.net/manual/vote-note.php?id=113567&amp;page=function.set-error-handler&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd113567">
+    <a href="https://www.php.net/manual/vote-note.php?id=113567&amp;page=function.set-error-handler&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V113567" title="63% like this...">
+    3
+    </div>
+  </div>
+  <a href="function.set-error-handler.php.html#113567" class="name">
+  <strong class="user"><em>jtrick77 at gmail dot com</em></strong></a><a class="genanchor" href="function.set-error-handler.php.html#113567"> &para;</a><div class="date" title="2013-10-30 09:13"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom113567">
+<div class="phpcode"><code><span class="html">For anyone interested in the actual translated error codes and their meanings:<br /><br />1    E_ERROR (integer)     Fatal run-time errors. These indicate errors that can not be recovered from, such as a memory allocation problem. Execution of the script is halted.     <br />2    E_WARNING (integer)     Run-time warnings (non-fatal errors). Execution of the script is not halted.     <br />4    E_PARSE (integer)     Compile-time parse errors. Parse errors should only be generated by the parser.     <br />8    E_NOTICE (integer)     Run-time notices. Indicate that the script encountered something that could indicate an error, but could also happen in the normal course of running a script.     <br />16    E_CORE_ERROR (integer)     Fatal errors that occur during PHP's initial startup. This is like an E_ERROR, except it is generated by the core of PHP.     <br />32    E_CORE_WARNING (integer)     Warnings (non-fatal errors) that occur during PHP's initial startup. This is like an E_WARNING, except it is generated by the core of PHP.     <br />64    E_COMPILE_ERROR (integer)     Fatal compile-time errors. This is like an E_ERROR, except it is generated by the Zend Scripting Engine.     <br />128    E_COMPILE_WARNING (integer)     Compile-time warnings (non-fatal errors). This is like an E_WARNING, except it is generated by the Zend Scripting Engine.     <br />256    E_USER_ERROR (integer)     User-generated error message. This is like an E_ERROR, except it is generated in PHP code by using the PHP function trigger_error().     <br />512    E_USER_WARNING (integer)     User-generated warning message. This is like an E_WARNING, except it is generated in PHP code by using the PHP function trigger_error().     <br />1024    E_USER_NOTICE (integer)     User-generated notice message. This is like an E_NOTICE, except it is generated in PHP code by using the PHP function trigger_error().     <br />2048    E_STRICT (integer)     Enable to have PHP suggest changes to your code which will ensure the best interoperability and forward compatibility of your code.    Since PHP 5 but not included in E_ALL until PHP 5.4.0<br />4096    E_RECOVERABLE_ERROR (integer)     Catchable fatal error. It indicates that a probably dangerous error occurred, but did not leave the Engine in an unstable state. If the error is not caught by a user defined handle (see also set_error_handler()), the application aborts as it was an E_ERROR.    Since PHP 5.2.0<br />8192    E_DEPRECATED (integer)     Run-time notices. Enable this to receive warnings about code that will not work in future versions.    Since PHP 5.3.0<br />16384    E_USER_DEPRECATED (integer)     User-generated warning message. This is like an E_DEPRECATED, except it is generated in PHP code by using the PHP function trigger_error().    Since PHP 5.3.0<br />32767    E_ALL (integer)     All errors and warnings, as supported, except of level E_STRICT prior to PHP 5.4.0.     32767 in PHP 5.4.x, 30719 in PHP 5.3.x, 6143 in PHP 5.2.x, 2047 previously<br /><br />(Copied from <a href="http://php.net/manual/en/errorfunc.constants.php" rel="nofollow" target="_blank">http://php.net/manual/en/errorfunc.constants.php</a>)</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="113517">  <div class="votes">
+    <div id="Vu113517">
+    <a href="https://www.php.net/manual/vote-note.php?id=113517&amp;page=function.set-error-handler&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd113517">
+    <a href="https://www.php.net/manual/vote-note.php?id=113517&amp;page=function.set-error-handler&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V113517" title="63% like this...">
+    3
+    </div>
+  </div>
+  <a href="function.set-error-handler.php.html#113517" class="name">
+  <strong class="user"><em>nicolas dot grekas+php at gmail dot com</em></strong></a><a class="genanchor" href="function.set-error-handler.php.html#113517"> &para;</a><div class="date" title="2013-10-23 09:34"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom113517">
+<div class="phpcode"><code><span class="html">If you want to be sure that the native PHP error handler is called without resetting the handler stack (as set_error_handler(null) does), you can simply call set_error_handler with $error_types set to zero. This can be especially use full in conjunction with e.g. error_get_last():<br /><br /><span class="default">&lt;?php<br /><br /></span><span class="comment">// var_dump or anything else, as this will never be called because of the 0<br /></span><span class="default">set_error_handler</span><span class="keyword">(</span><span class="string">'var_dump'</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">);<br />@</span><span class="default">$undef_var</span><span class="keyword">;<br /></span><span class="default">restore_error_handler</span><span class="keyword">();<br /><br /></span><span class="comment">// error_get_last() is now in a well known state:<br />// Undefined variable: undef_var<br /><br /></span><span class="keyword">... </span><span class="comment">// Do something<br /><br /></span><span class="default">$e </span><span class="keyword">= </span><span class="default">error_get_last</span><span class="keyword">();<br /><br />...<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="113252">  <div class="votes">
+    <div id="Vu113252">
+    <a href="https://www.php.net/manual/vote-note.php?id=113252&amp;page=function.set-error-handler&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd113252">
+    <a href="https://www.php.net/manual/vote-note.php?id=113252&amp;page=function.set-error-handler&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V113252" title="62% like this...">
+    2
+    </div>
+  </div>
+  <a href="function.set-error-handler.php.html#113252" class="name">
+  <strong class="user"><em>phil at propcom dot co dot uk</em></strong></a><a class="genanchor" href="function.set-error-handler.php.html#113252"> &para;</a><div class="date" title="2013-09-18 08:38"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom113252">
+<div class="phpcode"><code><span class="html">It is important to note that the registered SPL autoloader will NOT be called if an E_STRICT error triggers the error handler which, in turn, tries to use classes which are not yet loaded. <br /><br />In this instance, you should manually load classes required by the error handler.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="76025">  <div class="votes">
+    <div id="Vu76025">
+    <a href="https://www.php.net/manual/vote-note.php?id=76025&amp;page=function.set-error-handler&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd76025">
+    <a href="https://www.php.net/manual/vote-note.php?id=76025&amp;page=function.set-error-handler&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V76025" title="62% like this...">
+    2
+    </div>
+  </div>
+  <a href="function.set-error-handler.php.html#76025" class="name">
+  <strong class="user"><em>stepheneliotdewey at GmailDotCom</em></strong></a><a class="genanchor" href="function.set-error-handler.php.html#76025"> &para;</a><div class="date" title="2007-06-26 08:48"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom76025">
+<div class="phpcode"><code><span class="html">The manual states:<br /><br />"errcontext will contain an array of every variable that existed in the scope the error was triggered in. User error handler must not modify error context."<br /><br />But do you know WHY you must not modify the error context? It appears that errcontext is (in effect if not literally) created by taking $GLOBALS and adding the non-global local variables as additional entries in that array, then passing the whole thing *by reference*.<br /><br />(You can prove this to be true if you set up a custom error handler and then print_r($errcontext) within it, because $GLOBALS will be printed as a recursive array).<br /><br />In other words, the language in the manual is misleading, because errcontext is NOT a copy of the variables that existed when the error WAS triggered, but rather is a reference to the *existing LIVE variables* in the calling script.<br /><br />This includes superglobal variables like $_SERVER, $_POST, $_GET, etc., as well as all user-defined variables in scope.<br /><br />The significance of that is that if you modify errcontext, you will be modifying those other variables, not just for the life of your error handling function, but for the life of the calling script as well.<br /><br />That doesn't matter if you plan to halt execution in your error handling function, but it will lead to unexpected behavior if you modify $errcontext and then return to the program's normal flow after handling the error, because the variables will stay modified. For example, if you unset $_SERVER in your custom error handling function, it will remain unset once the function is over and you have returned to the page that generated the error.<br /><br />This should be made clearer in the manual, starting by marking errhandler with an ampersand (&amp;) for passage by reference in the "Parameters" section above, like so:<br /><br />handler ( int $errno, string $errstr [, string $errfile [, int $errline [, array &amp;$errcontext]]] )</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="48933">  <div class="votes">
+    <div id="Vu48933">
+    <a href="https://www.php.net/manual/vote-note.php?id=48933&amp;page=function.set-error-handler&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd48933">
+    <a href="https://www.php.net/manual/vote-note.php?id=48933&amp;page=function.set-error-handler&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V48933" title="62% like this...">
+    2
+    </div>
+  </div>
+  <a href="function.set-error-handler.php.html#48933" class="name">
+  <strong class="user"><em>Steffen Staehle</em></strong></a><a class="genanchor" href="function.set-error-handler.php.html#48933"> &para;</a><div class="date" title="2005-01-12 02:29"><strong>19 years ago</strong></div>
+  <div class="text" id="Hcom48933">
+<div class="phpcode"><code><span class="html">Two notes on using set_error_handler() on behaviour that I noticed when migrating an application from php 4.2.1 to php 4.3.9 (I do not yet have php 5.0 available, this might not apply there!).<br /><br />1. setting the system error handler<br /><br />If you want to set the standard php error handler again, after having set your own error handler, this works in php 4.2.1 by passing in an empty string:<br /><br /><span class="default">&lt;?php<br /><br />   </span><span class="keyword">function </span><span class="default">my_handler</span><span class="keyword">(</span><span class="default">$log_level</span><span class="keyword">, </span><span class="default">$log_text</span><span class="keyword">, </span><span class="default">$error_file</span><span class="keyword">, </span><span class="default">$error_line</span><span class="keyword">)<br />   {<br />      </span><span class="comment">// if an error occurs here, the standard error<br />      // would be called (to avoid recursion)<br /><br />      // do something useful<br />      // ...<br />   </span><span class="keyword">}<br /><br />   </span><span class="default">$last_handler </span><span class="keyword">= </span><span class="default">set_error_handler</span><span class="keyword">(</span><span class="string">"my_handler"</span><span class="keyword">);<br /><br />   </span><span class="comment">// after this, $last_handler == ""<br /><br />   // restore standard error handler<br /><br />   </span><span class="default">$last_handler </span><span class="keyword">= </span><span class="default">set_error_handler</span><span class="keyword">(</span><span class="string">""</span><span class="keyword">);<br /><br />   </span><span class="comment">// after this, $last_handler == "my_handler"<br /><br /></span><span class="default">?&gt;<br /></span><br />The very same code now raises an error in php 4.3.9:<br /><br />   set_error_handler() expects argument 1, '', to be a valid callback<br /><br />(Since the return value of the first call to set_error_handler() is still the empty string "", I don't see how this can be done any more. I don't really need this, because I use my own handlers as shown below, but it might be good to be aware of this.)<br /><br />2. setting your own 'second level' handler<br /><br />If you have set your own error handler, and want to replace it by another one (other than the standard php error handler) while it is being executed, note that the return value of set_error_handler when used INSIDE the error handler is "" instead of the name of the previous handler! This is not too surprising, because during execution of your self defined error handler, php replaces it with the standard php error handler to avoid infinite loops in case of problems inside the handler. This is only interesting if you want nested handlers as I do. Background of my design:<br /><br />   1st level handler: log into DB<br />   2nd level handler: log into flat file (if log into DB fails)<br />   3rd level handler: print to stdout (if log into flat file fails) (this is the sytem handler, finally).<br /><br /><span class="default">&lt;?php<br /><br />   </span><span class="keyword">function </span><span class="default">my_fallback_handler</span><span class="keyword">(</span><span class="default">$log_level</span><span class="keyword">, </span><span class="default">$log_text</span><span class="keyword">, </span><span class="default">$error_file</span><span class="keyword">, </span><span class="default">$error_line</span><span class="keyword">)<br />   {<br />      </span><span class="comment">// if an error occurs here, the standard error<br />      // would be called (to avoid recursion)<br /><br />      // do something useful<br />      // ...<br /><br />   </span><span class="keyword">} </span><span class="comment">// my_fallback_handler<br /><br />   </span><span class="keyword">function </span><span class="default">my_handler</span><span class="keyword">(</span><span class="default">$log_level</span><span class="keyword">, </span><span class="default">$log_text</span><span class="keyword">, </span><span class="default">$error_file</span><span class="keyword">, </span><span class="default">$error_line</span><span class="keyword">)<br />   {<br />      </span><span class="comment">// if an error occurs here, the standard error<br />      // would be called (to avoid recursion)<br /><br />      // but we want to have a fallback handler different<br />      // to the standard error handler<br /><br />      </span><span class="default">$last_handler </span><span class="keyword">= </span><span class="default">set_error_handler</span><span class="keyword">(</span><span class="string">"my_fallback_handler"</span><span class="keyword">);<br /><br />      </span><span class="comment">// I expected $last_handler == "my_handler" <br />      // (which it would outside my_handler())<br />      // but here it is the empty string ""<br /><br />      // do something useful<br />      // ...<br /><br />      // now set the 1st level handler again:<br />      // (do NOT use $last_handler as argument,<br />      // because it equals "")<br /><br />      </span><span class="default">$last_handler </span><span class="keyword">= </span><span class="default">set_error_handler</span><span class="keyword">(</span><span class="string">"my_handler"</span><span class="keyword">);<br /><br />   } </span><span class="comment">// my_handler<br /><br />   </span><span class="default">$last_handler </span><span class="keyword">= </span><span class="default">set_error_handler</span><span class="keyword">(</span><span class="string">"my_handler"</span><span class="keyword">);<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="41085">  <div class="votes">
+    <div id="Vu41085">
+    <a href="https://www.php.net/manual/vote-note.php?id=41085&amp;page=function.set-error-handler&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd41085">
+    <a href="https://www.php.net/manual/vote-note.php?id=41085&amp;page=function.set-error-handler&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V41085" title="62% like this...">
+    2
+    </div>
+  </div>
+  <a href="function.set-error-handler.php.html#41085" class="name"><strong class="user"><em>Anonymous</em></strong></a><a class="genanchor" href="function.set-error-handler.php.html#41085"> &para;</a><div class="date" title="2004-03-29 04:13"><strong>19 years ago</strong></div>
+  <div class="text" id="Hcom41085">
+<div class="phpcode"><code><span class="html">It seems that when you're letting PHP know that you have a custom  error handler, you're not able to -update/set new- variables inside the class. Example:<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">class </span><span class="default">error </span><span class="keyword">{<br />   var </span><span class="default">$error</span><span class="keyword">;<br /><br />   function </span><span class="default">error</span><span class="keyword">() {<br />       </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">setIni</span><span class="keyword">();    </span><span class="comment">// this causes PHP to ignore all other changes to the class.<br />   </span><span class="keyword">}<br /><br />   function </span><span class="default">handler</span><span class="keyword">() {<br />       echo </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">error</span><span class="keyword">.</span><span class="string">'!!'</span><span class="keyword">;<br />   }<br /><br />   function </span><span class="default">setText</span><span class="keyword">(</span><span class="default">$text</span><span class="keyword">) {<br />         </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">error </span><span class="keyword">= </span><span class="default">$text</span><span class="keyword">;<br />   }<br /><br />   function </span><span class="default">setIni</span><span class="keyword">() {<br />       </span><span class="default">set_error_handler</span><span class="keyword">(array(</span><span class="default">$this</span><span class="keyword">, </span><span class="string">'handler'</span><span class="keyword">));<br />   }<br />}<br /><br /></span><span class="default">$eh </span><span class="keyword">= new </span><span class="default">error</span><span class="keyword">;<br /></span><span class="default">$eh</span><span class="keyword">-&gt;</span><span class="default">setText</span><span class="keyword">(</span><span class="string">'Error! &lt;br&gt;'</span><span class="keyword">);  </span><span class="comment">// this will not be saved<br /><br /></span><span class="default">trigger_error</span><span class="keyword">(</span><span class="string">'text'</span><span class="keyword">, </span><span class="default">E_USER_ERROR</span><span class="keyword">);<br /></span><span class="comment">// prints '!!'<br /></span><span class="default">?&gt;<br /></span><br />How it should be done:<br /><span class="default">&lt;?php<br /></span><span class="keyword">class </span><span class="default">error </span><span class="keyword">{<br />   var </span><span class="default">$error</span><span class="keyword">;<br /><br />   function </span><span class="default">error</span><span class="keyword">() {<br />         </span><span class="comment">// dont let PHP know of our error handler yet<br />   </span><span class="keyword">}<br /><br />   function </span><span class="default">handler</span><span class="keyword">() {<br />       echo </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">error</span><span class="keyword">.</span><span class="string">'!!'</span><span class="keyword">;<br />   }<br /><br />   function </span><span class="default">setText</span><span class="keyword">(</span><span class="default">$text</span><span class="keyword">) {<br />         </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">error </span><span class="keyword">= </span><span class="default">$text</span><span class="keyword">;<br />   }<br /><br />   function </span><span class="default">setIni</span><span class="keyword">() {<br />       </span><span class="default">set_error_handler</span><span class="keyword">(array(</span><span class="default">$this</span><span class="keyword">, </span><span class="string">'handler'</span><span class="keyword">));<br />   }<br />}<br /><br /></span><span class="default">$eh </span><span class="keyword">= new </span><span class="default">error</span><span class="keyword">;<br /></span><span class="default">$eh</span><span class="keyword">-&gt;</span><span class="default">setText</span><span class="keyword">(</span><span class="string">'Error! &lt;br&gt;'</span><span class="keyword">);  </span><span class="comment">// this WILL work<br /></span><span class="default">$eh</span><span class="keyword">-&gt;</span><span class="default">setIni</span><span class="keyword">();  </span><span class="comment">// call this method when you're ready with configuring the class. All other methods that will be called will have no effect on the errorHandling by PHP<br /><br /></span><span class="default">trigger_error</span><span class="keyword">(</span><span class="string">'text'</span><span class="keyword">, </span><span class="default">E_USER_ERROR</span><span class="keyword">);<br /></span><span class="comment">// prints 'Error! &lt;br&gt;!!'<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="99193">  <div class="votes">
+    <div id="Vu99193">
+    <a href="https://www.php.net/manual/vote-note.php?id=99193&amp;page=function.set-error-handler&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd99193">
+    <a href="https://www.php.net/manual/vote-note.php?id=99193&amp;page=function.set-error-handler&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V99193" title="58% like this...">
+    2
+    </div>
+  </div>
+  <a href="function.set-error-handler.php.html#99193" class="name">
+  <strong class="user"><em>periklis</em></strong></a><a class="genanchor" href="function.set-error-handler.php.html#99193"> &para;</a><div class="date" title="2010-08-02 08:09"><strong>13 years ago</strong></div>
+  <div class="text" id="Hcom99193">
+<div class="phpcode"><code><span class="html">How to handle fatal errors in php 5.2:<br /><br /><span class="default">&lt;?php<br />register_shutdown_function</span><span class="keyword">(</span><span class="string">'shutdownFunction'</span><span class="keyword">);<br />function </span><span class="default">shutDownFunction</span><span class="keyword">() { <br />    </span><span class="default">$error </span><span class="keyword">= </span><span class="default">error_get_last</span><span class="keyword">();<br />    if (</span><span class="default">$error</span><span class="keyword">[</span><span class="string">'type'</span><span class="keyword">] == </span><span class="default">1</span><span class="keyword">) {<br />        </span><span class="comment">//do your stuff     <br />    </span><span class="keyword">} <br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="121630">  <div class="votes">
+    <div id="Vu121630">
+    <a href="https://www.php.net/manual/vote-note.php?id=121630&amp;page=function.set-error-handler&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd121630">
+    <a href="https://www.php.net/manual/vote-note.php?id=121630&amp;page=function.set-error-handler&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V121630" title="100% like this...">
+    2
+    </div>
+  </div>
+  <a href="function.set-error-handler.php.html#121630" class="name">
+  <strong class="user"><em>Klauss</em></strong></a><a class="genanchor" href="function.set-error-handler.php.html#121630"> &para;</a><div class="date" title="2017-09-12 04:36"><strong>6 years ago</strong></div>
+  <div class="text" id="Hcom121630">
+<div class="phpcode"><code><span class="html">Hi everyone. I don't know if it is an old behavior of previous versions, but currently you can set exception and error handlers as private or protected methos, if, only if, you call `set_exception_handler()` or `set_error_handler()` within a context that can access the method.<br /><br />Example:<br />    <span class="default">&lt;?PHP<br />        $Handler </span><span class="keyword">= new class ()<br />        {<br />            public function </span><span class="default">__construct </span><span class="keyword">()<br />            {<br />                </span><span class="default">set_error_handler</span><span class="keyword">([&amp;</span><span class="default">$this</span><span class="keyword">, </span><span class="string">'HandleError'</span><span class="keyword">]);<br />                </span><span class="default">set_exception_handler</span><span class="keyword">([&amp;</span><span class="default">$this</span><span class="keyword">, </span><span class="string">'HandleException'</span><span class="keyword">]);<br />            }<br />            protected function </span><span class="default">HandleError </span><span class="keyword">( </span><span class="default">$Code</span><span class="keyword">, </span><span class="default">$Message</span><span class="keyword">, </span><span class="default">$File </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">, </span><span class="default">$Line </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">, </span><span class="default">$Context </span><span class="keyword">= [] )<br />            {<br />                </span><span class="comment">// Handle error here.<br />            </span><span class="keyword">}<br />            private function </span><span class="default">HandleException </span><span class="keyword">( </span><span class="default">$Exception </span><span class="keyword">)<br />            {<br />                </span><span class="comment">// Handle exception here.<br />            </span><span class="keyword">}<br />        }<br />    </span><span class="default">?&gt;<br /></span><br />NOTE: these methods must match the callbacks parameters signatures.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="128250">  <div class="votes">
+    <div id="Vu128250">
+    <a href="https://www.php.net/manual/vote-note.php?id=128250&amp;page=function.set-error-handler&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd128250">
+    <a href="https://www.php.net/manual/vote-note.php?id=128250&amp;page=function.set-error-handler&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V128250" title="no votes...">
+    0
+    </div>
+  </div>
+  <a href="function.set-error-handler.php.html#128250" class="name">
+  <strong class="user"><em>RGraph</em></strong></a><a class="genanchor" href="function.set-error-handler.php.html#128250"> &para;</a><div class="date" title="2023-02-25 10:20"><strong>11 months ago</strong></div>
+  <div class="text" id="Hcom128250">
+<div class="phpcode"><code><span class="html">A simple error handler that makes errors far more visible:<br /><br />    //<br />    // Set the error handler to one that prints out more<br />    // visible errors<br />    //<br />    set_error_handler(function ($errno, $errstr)<br />    {<br />        $str = '&lt;div style="margin: 20px; background-color: #fdd; border: 3px solid red; padding: 10px; border-radius: 15px; line-height: 25px"&gt;&lt;b&gt;Error: &lt;/b&gt;%s (error level: %s)&lt;/div&gt;';<br />        <br />        printf($str, $errstr, $errno);<br />    });</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="123459">  <div class="votes">
+    <div id="Vu123459">
+    <a href="https://www.php.net/manual/vote-note.php?id=123459&amp;page=function.set-error-handler&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd123459">
+    <a href="https://www.php.net/manual/vote-note.php?id=123459&amp;page=function.set-error-handler&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V123459" title="100% like this...">
+    1
+    </div>
+  </div>
+  <a href="function.set-error-handler.php.html#123459" class="name">
+  <strong class="user"><em>a dot ross at amdev dot eu</em></strong></a><a class="genanchor" href="function.set-error-handler.php.html#123459"> &para;</a><div class="date" title="2018-12-20 01:54"><strong>5 years ago</strong></div>
+  <div class="text" id="Hcom123459">
+<div class="phpcode"><code><span class="html">I'm missing a way to chain error handlers. It's not something offered by set_error_handler. You have to jump through some hoops to get it to work, but it *is* quite possible, by making use of the return value of the function. Here's an example:<br /><br />&lt;?<br />$previous = set_error_handler(function ($errno, $errstr, $errfile, $errline, $errcontext) use (&amp;$previous) {<br />    /* Your custom error handling code here. */<br /><br />    // If another error handler was defined, call it.<br />    if ($previous) {<br />        return $previous($errno, $errstr, $errfile, $errline, $errcontext);<br />    } else {<br />        // Use the standard PHP error handler.<br />        return false;<br />    }<br />});<br />?&gt;</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="126651">  <div class="votes">
+    <div id="Vu126651">
+    <a href="https://www.php.net/manual/vote-note.php?id=126651&amp;page=function.set-error-handler&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd126651">
+    <a href="https://www.php.net/manual/vote-note.php?id=126651&amp;page=function.set-error-handler&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V126651" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="function.set-error-handler.php.html#126651" class="name">
+  <strong class="user"><em>kaioker</em></strong></a><a class="genanchor" href="function.set-error-handler.php.html#126651"> &para;</a><div class="date" title="2021-12-01 11:20"><strong>2 years ago</strong></div>
+  <div class="text" id="Hcom126651">
+<div class="phpcode"><code><span class="html">super simple error code to human readable conversion:<br /><br />function prettycode($code){<br />    return $code == 0 ? "FATAL" : array_search($code, get_defined_constants(true)['Core']);<br />}</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="126115">  <div class="votes">
+    <div id="Vu126115">
+    <a href="https://www.php.net/manual/vote-note.php?id=126115&amp;page=function.set-error-handler&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd126115">
+    <a href="https://www.php.net/manual/vote-note.php?id=126115&amp;page=function.set-error-handler&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V126115" title="no votes...">
+    0
+    </div>
+  </div>
+  <a href="function.set-error-handler.php.html#126115" class="name">
+  <strong class="user"><em>Alex M</em></strong></a><a class="genanchor" href="function.set-error-handler.php.html#126115"> &para;</a><div class="date" title="2021-05-27 11:37"><strong>2 years ago</strong></div>
+  <div class="text" id="Hcom126115">
+<div class="phpcode"><code><span class="html">If you are new to programming and you would like to know how to add a combination of those error reporting values to .htaccess file. Here's a small guide.<br /><br />With PHP function error_reporting we can add together option with bitwise add operator | . But we can't use those constants in htaccess file and in my case I have no idea how to add bitwise number.<br /><br />So, solution can be casting selected options to int:<br /><br />echo (int)(E_ERROR | E_WARNING | E_PARSE | E_USER_ERROR) ;<br />-&gt;263<br /><br />Then you can use 263 in .htaccess<br /><br />php_value error_reporting 263<br /><br />In my case I needed those errors to be displayed for my debugging server. But the combination can be different from mine.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="125430">  <div class="votes">
+    <div id="Vu125430">
+    <a href="https://www.php.net/manual/vote-note.php?id=125430&amp;page=function.set-error-handler&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd125430">
+    <a href="https://www.php.net/manual/vote-note.php?id=125430&amp;page=function.set-error-handler&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V125430" title="no votes...">
+    0
+    </div>
+  </div>
+  <a href="function.set-error-handler.php.html#125430" class="name">
+  <strong class="user"><em>David Spector</em></strong></a><a class="genanchor" href="function.set-error-handler.php.html#125430"> &para;</a><div class="date" title="2020-10-11 01:02"><strong>3 years ago</strong></div>
+  <div class="text" id="Hcom125430">
+<div class="phpcode"><code><span class="html">The PHP manual is not very clear about how to handle @ operator error messages.<br /><br />Here is working code:<br /><br />    // Do nothing if @ operator<br />    $errLevel=error_reporting(E_ALL);<br />    if ($errLevel===0)<br />        return true; // ignore @ prefixed expression errors</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="119696">  <div class="votes">
+    <div id="Vu119696">
+    <a href="https://www.php.net/manual/vote-note.php?id=119696&amp;page=function.set-error-handler&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd119696">
+    <a href="https://www.php.net/manual/vote-note.php?id=119696&amp;page=function.set-error-handler&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V119696" title="100% like this...">
+    1
+    </div>
+  </div>
+  <a href="function.set-error-handler.php.html#119696" class="name">
+  <strong class="user"><em>chris at ocproducts dot com</em></strong></a><a class="genanchor" href="function.set-error-handler.php.html#119696"> &para;</a><div class="date" title="2016-08-04 10:53"><strong>7 years ago</strong></div>
+  <div class="text" id="Hcom119696">
+<div class="phpcode"><code><span class="html">Note that error handlers don't run recursively. If you have an error while an error handler is running (in the error handler itself or code called from it) then you won't get the error handler called again.<br /><br />This has subtle ramifications for $php_errormsg. If you are relying on your error handler to suppress certain kinds of error message from going into $php_errormsg (via return true; because error_reporting doesn't affect $php_errormsg setting) then this will not work for any code called within that error handler.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="29315">  <div class="votes">
+    <div id="Vu29315">
+    <a href="https://www.php.net/manual/vote-note.php?id=29315&amp;page=function.set-error-handler&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd29315">
+    <a href="https://www.php.net/manual/vote-note.php?id=29315&amp;page=function.set-error-handler&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V29315" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="function.set-error-handler.php.html#29315" class="name">
+  <strong class="user"><em>mmtache at yahoo dot com</em></strong></a><a class="genanchor" href="function.set-error-handler.php.html#29315"> &para;</a><div class="date" title="2003-02-09 01:06"><strong>21 years ago</strong></div>
+  <div class="text" id="Hcom29315">
+<div class="phpcode"><code><span class="html">The @ operator sets the error_reporting() value to 0.<br />This means you can use it with your own Error Handler too. for example:<br /><br />function userErrorHandler($errno, $errmsg, $filename, $linenum, $vars) {<br />   if (error_reporting())<br />echo $errmsg;<br />    }<br />set_error_handler("userErrorHandler");<br /><br />function test(){<br />trigger_error("Error Message", E_USER_WARNING);<br />}<br /><br />@test(); // doesn't output anything</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="76900">  <div class="votes">
+    <div id="Vu76900">
+    <a href="https://www.php.net/manual/vote-note.php?id=76900&amp;page=function.set-error-handler&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd76900">
+    <a href="https://www.php.net/manual/vote-note.php?id=76900&amp;page=function.set-error-handler&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V76900" title="46% like this...">
+    -1
+    </div>
+  </div>
+  <a href="function.set-error-handler.php.html#76900" class="name">
+  <strong class="user"><em>ash</em></strong></a><a class="genanchor" href="function.set-error-handler.php.html#76900"> &para;</a><div class="date" title="2007-08-04 03:38"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom76900">
+<div class="phpcode"><code><span class="html">error handling function that handles both errors and exceptions; also features a backtrace including possible function arguments.<br /><br /><span class="default">&lt;?php<br /><br />$cfg </span><span class="keyword">= array();<br /></span><span class="default">$cfg</span><span class="keyword">[</span><span class="string">'debug'</span><span class="keyword">] = </span><span class="default">1</span><span class="keyword">;<br /></span><span class="default">$cfg</span><span class="keyword">[</span><span class="string">'adminEmail'</span><span class="keyword">] = </span><span class="string">'name@domain.tld'</span><span class="keyword">;<br /><br />function </span><span class="default">errorHandler</span><span class="keyword">(</span><span class="default">$errno</span><span class="keyword">, </span><span class="default">$errstr</span><span class="keyword">=</span><span class="string">''</span><span class="keyword">, </span><span class="default">$errfile</span><span class="keyword">=</span><span class="string">''</span><span class="keyword">, </span><span class="default">$errline</span><span class="keyword">=</span><span class="string">''</span><span class="keyword">)<br />{<br />    </span><span class="comment">// if error has been supressed with an @<br />    </span><span class="keyword">if (</span><span class="default">error_reporting</span><span class="keyword">() == </span><span class="default">0</span><span class="keyword">) {<br />        return;<br />    }<br /><br />    global </span><span class="default">$cfg</span><span class="keyword">;<br /><br />    </span><span class="comment">// check if function has been called by an exception<br />    </span><span class="keyword">if(</span><span class="default">func_num_args</span><span class="keyword">() == </span><span class="default">5</span><span class="keyword">) {<br />        </span><span class="comment">// called by trigger_error()<br />        </span><span class="default">$exception </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">;<br />        list(</span><span class="default">$errno</span><span class="keyword">, </span><span class="default">$errstr</span><span class="keyword">, </span><span class="default">$errfile</span><span class="keyword">, </span><span class="default">$errline</span><span class="keyword">) = </span><span class="default">func_get_args</span><span class="keyword">();<br /><br />        </span><span class="default">$backtrace </span><span class="keyword">= </span><span class="default">array_reverse</span><span class="keyword">(</span><span class="default">debug_backtrace</span><span class="keyword">());<br /><br />    }else {<br />        </span><span class="comment">// caught exception<br />        </span><span class="default">$exc </span><span class="keyword">= </span><span class="default">func_get_arg</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">);<br />        </span><span class="default">$errno </span><span class="keyword">= </span><span class="default">$exc</span><span class="keyword">-&gt;</span><span class="default">getCode</span><span class="keyword">();<br />        </span><span class="default">$errstr </span><span class="keyword">= </span><span class="default">$exc</span><span class="keyword">-&gt;</span><span class="default">getMessage</span><span class="keyword">();<br />        </span><span class="default">$errfile </span><span class="keyword">= </span><span class="default">$exc</span><span class="keyword">-&gt;</span><span class="default">getFile</span><span class="keyword">();<br />        </span><span class="default">$errline </span><span class="keyword">= </span><span class="default">$exc</span><span class="keyword">-&gt;</span><span class="default">getLine</span><span class="keyword">();<br /><br />        </span><span class="default">$backtrace </span><span class="keyword">= </span><span class="default">$exc</span><span class="keyword">-&gt;</span><span class="default">getTrace</span><span class="keyword">();<br />    }<br /><br />    </span><span class="default">$errorType </span><span class="keyword">= array (<br />               </span><span class="default">E_ERROR            </span><span class="keyword">=&gt; </span><span class="string">'ERROR'</span><span class="keyword">,<br />               </span><span class="default">E_WARNING        </span><span class="keyword">=&gt; </span><span class="string">'WARNING'</span><span class="keyword">,<br />               </span><span class="default">E_PARSE          </span><span class="keyword">=&gt; </span><span class="string">'PARSING ERROR'</span><span class="keyword">,<br />               </span><span class="default">E_NOTICE         </span><span class="keyword">=&gt; </span><span class="string">'NOTICE'</span><span class="keyword">,<br />               </span><span class="default">E_CORE_ERROR     </span><span class="keyword">=&gt; </span><span class="string">'CORE ERROR'</span><span class="keyword">,<br />               </span><span class="default">E_CORE_WARNING   </span><span class="keyword">=&gt; </span><span class="string">'CORE WARNING'</span><span class="keyword">,<br />               </span><span class="default">E_COMPILE_ERROR  </span><span class="keyword">=&gt; </span><span class="string">'COMPILE ERROR'</span><span class="keyword">,<br />               </span><span class="default">E_COMPILE_WARNING </span><span class="keyword">=&gt; </span><span class="string">'COMPILE WARNING'</span><span class="keyword">,<br />               </span><span class="default">E_USER_ERROR     </span><span class="keyword">=&gt; </span><span class="string">'USER ERROR'</span><span class="keyword">,<br />               </span><span class="default">E_USER_WARNING   </span><span class="keyword">=&gt; </span><span class="string">'USER WARNING'</span><span class="keyword">,<br />               </span><span class="default">E_USER_NOTICE    </span><span class="keyword">=&gt; </span><span class="string">'USER NOTICE'</span><span class="keyword">,<br />               </span><span class="default">E_STRICT         </span><span class="keyword">=&gt; </span><span class="string">'STRICT NOTICE'</span><span class="keyword">,<br />               </span><span class="default">E_RECOVERABLE_ERROR  </span><span class="keyword">=&gt; </span><span class="string">'RECOVERABLE ERROR'<br />               </span><span class="keyword">);<br /><br />    </span><span class="comment">// create error message<br />    </span><span class="keyword">if (</span><span class="default">array_key_exists</span><span class="keyword">(</span><span class="default">$errno</span><span class="keyword">, </span><span class="default">$errorType</span><span class="keyword">)) {<br />        </span><span class="default">$err </span><span class="keyword">= </span><span class="default">$errorType</span><span class="keyword">[</span><span class="default">$errno</span><span class="keyword">];<br />    } else {<br />        </span><span class="default">$err </span><span class="keyword">= </span><span class="string">'CAUGHT EXCEPTION'</span><span class="keyword">;<br />    }<br /><br />    </span><span class="default">$errMsg </span><span class="keyword">= </span><span class="string">"</span><span class="default">$err</span><span class="string">: </span><span class="default">$errstr</span><span class="string"> in </span><span class="default">$errfile</span><span class="string"> on line </span><span class="default">$errline</span><span class="string">"</span><span class="keyword">;<br /><br />    </span><span class="comment">// start backtrace<br />    </span><span class="keyword">foreach (</span><span class="default">$backtrace </span><span class="keyword">as </span><span class="default">$v</span><span class="keyword">) {<br /><br />        if (isset(</span><span class="default">$v</span><span class="keyword">[</span><span class="string">'class'</span><span class="keyword">])) {<br /><br />            </span><span class="default">$trace </span><span class="keyword">= </span><span class="string">'in class '</span><span class="keyword">.</span><span class="default">$v</span><span class="keyword">[</span><span class="string">'class'</span><span class="keyword">].</span><span class="string">'::'</span><span class="keyword">.</span><span class="default">$v</span><span class="keyword">[</span><span class="string">'function'</span><span class="keyword">].</span><span class="string">'('</span><span class="keyword">;<br /><br />            if (isset(</span><span class="default">$v</span><span class="keyword">[</span><span class="string">'args'</span><span class="keyword">])) {<br />                </span><span class="default">$separator </span><span class="keyword">= </span><span class="string">''</span><span class="keyword">;<br /><br />                foreach(</span><span class="default">$v</span><span class="keyword">[</span><span class="string">'args'</span><span class="keyword">] as </span><span class="default">$arg </span><span class="keyword">) {<br />                    </span><span class="default">$trace </span><span class="keyword">.= </span><span class="string">"</span><span class="default">$separator</span><span class="string">"</span><span class="keyword">.</span><span class="default">getArgument</span><span class="keyword">(</span><span class="default">$arg</span><span class="keyword">);<br />                    </span><span class="default">$separator </span><span class="keyword">= </span><span class="string">', '</span><span class="keyword">;<br />                }<br />            }<br />            </span><span class="default">$trace </span><span class="keyword">.= </span><span class="string">')'</span><span class="keyword">;<br />        }<br /><br />        elseif (isset(</span><span class="default">$v</span><span class="keyword">[</span><span class="string">'function'</span><span class="keyword">]) &amp;&amp; empty(</span><span class="default">$trace</span><span class="keyword">)) {<br />            </span><span class="default">$trace </span><span class="keyword">= </span><span class="string">'in function '</span><span class="keyword">.</span><span class="default">$v</span><span class="keyword">[</span><span class="string">'function'</span><span class="keyword">].</span><span class="string">'('</span><span class="keyword">;<br />            if (!empty(</span><span class="default">$v</span><span class="keyword">[</span><span class="string">'args'</span><span class="keyword">])) {<br /><br />                </span><span class="default">$separator </span><span class="keyword">= </span><span class="string">''</span><span class="keyword">;<br /><br />                foreach(</span><span class="default">$v</span><span class="keyword">[</span><span class="string">'args'</span><span class="keyword">] as </span><span class="default">$arg </span><span class="keyword">) {<br />                    </span><span class="default">$trace </span><span class="keyword">.= </span><span class="string">"</span><span class="default">$separator</span><span class="string">"</span><span class="keyword">.</span><span class="default">getArgument</span><span class="keyword">(</span><span class="default">$arg</span><span class="keyword">);<br />                    </span><span class="default">$separator </span><span class="keyword">= </span><span class="string">', '</span><span class="keyword">;<br />                }<br />            }<br />            </span><span class="default">$trace </span><span class="keyword">.= </span><span class="string">')'</span><span class="keyword">;<br />        }<br />    }<br /><br />    </span><span class="comment">// display error msg, if debug is enabled<br />    </span><span class="keyword">if(</span><span class="default">$cfg</span><span class="keyword">[</span><span class="string">'debug'</span><span class="keyword">] == </span><span class="default">1</span><span class="keyword">) {<br />        echo </span><span class="string">'&lt;h2&gt;Debug Msg&lt;/h2&gt;'</span><span class="keyword">.</span><span class="default">nl2br</span><span class="keyword">(</span><span class="default">$errMsg</span><span class="keyword">).</span><span class="string">'&lt;br /&gt;<br />            Trace: '</span><span class="keyword">.</span><span class="default">nl2br</span><span class="keyword">(</span><span class="default">$trace</span><span class="keyword">).</span><span class="string">'&lt;br /&gt;'</span><span class="keyword">;<br />    }<br /><br />    </span><span class="comment">// what to do<br />    </span><span class="keyword">switch (</span><span class="default">$errno</span><span class="keyword">) {<br />        case </span><span class="default">E_NOTICE</span><span class="keyword">:<br />        case </span><span class="default">E_USER_NOTICE</span><span class="keyword">:<br />            return;<br />            break;<br /><br />        default:<br />            if(</span><span class="default">$cfg</span><span class="keyword">[</span><span class="string">'debug'</span><span class="keyword">] == </span><span class="default">0</span><span class="keyword">){<br />                </span><span class="comment">// send email to admin<br />                </span><span class="keyword">if(!empty(</span><span class="default">$cfg</span><span class="keyword">[</span><span class="string">'adminEmail'</span><span class="keyword">])) {<br />                    @</span><span class="default">mail</span><span class="keyword">(</span><span class="default">$cfg</span><span class="keyword">[</span><span class="string">'adminEmail'</span><span class="keyword">],</span><span class="string">'critical error on '</span><span class="keyword">.</span><span class="default">$_SERVER</span><span class="keyword">[</span><span class="string">'HTTP_HOST'</span><span class="keyword">], </span><span class="default">$errorText</span><span class="keyword">,<br />                            </span><span class="string">'From: Error Handler'</span><span class="keyword">);<br />                }<br />                </span><span class="comment">// end and display error msg<br />                </span><span class="keyword">exit(</span><span class="default">displayClientMessage</span><span class="keyword">());<br />            }<br />            else<br />                exit(</span><span class="string">'&lt;p&gt;aborting.&lt;/p&gt;'</span><span class="keyword">);<br />            break;<br /><br />    }<br /><br />} </span><span class="comment">// end of errorHandler()<br /><br /></span><span class="keyword">function </span><span class="default">displayClientMessage</span><span class="keyword">()<br />{<br />    echo </span><span class="string">'some html page with error message'</span><span class="keyword">;<br /><br />}<br /><br />function </span><span class="default">getArgument</span><span class="keyword">(</span><span class="default">$arg</span><span class="keyword">)<br />{<br />    switch (</span><span class="default">strtolower</span><span class="keyword">(</span><span class="default">gettype</span><span class="keyword">(</span><span class="default">$arg</span><span class="keyword">))) {<br /><br />        case </span><span class="string">'string'</span><span class="keyword">:<br />            return( </span><span class="string">'"'</span><span class="keyword">.</span><span class="default">str_replace</span><span class="keyword">( array(</span><span class="string">"\n"</span><span class="keyword">), array(</span><span class="string">''</span><span class="keyword">), </span><span class="default">$arg </span><span class="keyword">).</span><span class="string">'"' </span><span class="keyword">);<br /><br />        case </span><span class="string">'boolean'</span><span class="keyword">:<br />            return (bool)</span><span class="default">$arg</span><span class="keyword">;<br /><br />        case </span><span class="string">'object'</span><span class="keyword">:<br />            return </span><span class="string">'object('</span><span class="keyword">.</span><span class="default">get_class</span><span class="keyword">(</span><span class="default">$arg</span><span class="keyword">).</span><span class="string">')'</span><span class="keyword">;<br /><br />        case </span><span class="string">'array'</span><span class="keyword">:<br />            </span><span class="default">$ret </span><span class="keyword">= </span><span class="string">'array('</span><span class="keyword">;<br />            </span><span class="default">$separtor </span><span class="keyword">= </span><span class="string">''</span><span class="keyword">;<br /><br />            foreach (</span><span class="default">$arg </span><span class="keyword">as </span><span class="default">$k </span><span class="keyword">=&gt; </span><span class="default">$v</span><span class="keyword">) {<br />                </span><span class="default">$ret </span><span class="keyword">.= </span><span class="default">$separtor</span><span class="keyword">.</span><span class="default">getArgument</span><span class="keyword">(</span><span class="default">$k</span><span class="keyword">).</span><span class="string">' =&gt; '</span><span class="keyword">.</span><span class="default">getArgument</span><span class="keyword">(</span><span class="default">$v</span><span class="keyword">);<br />                </span><span class="default">$separtor </span><span class="keyword">= </span><span class="string">', '</span><span class="keyword">;<br />            }<br />            </span><span class="default">$ret </span><span class="keyword">.= </span><span class="string">')'</span><span class="keyword">;<br /><br />            return </span><span class="default">$ret</span><span class="keyword">;<br /><br />        case </span><span class="string">'resource'</span><span class="keyword">:<br />            return </span><span class="string">'resource('</span><span class="keyword">.</span><span class="default">get_resource_type</span><span class="keyword">(</span><span class="default">$arg</span><span class="keyword">).</span><span class="string">')'</span><span class="keyword">;<br /><br />        default:<br />            return </span><span class="default">var_export</span><span class="keyword">(</span><span class="default">$arg</span><span class="keyword">, </span><span class="default">true</span><span class="keyword">);<br />    }<br />}<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="98051">  <div class="votes">
+    <div id="Vu98051">
+    <a href="https://www.php.net/manual/vote-note.php?id=98051&amp;page=function.set-error-handler&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd98051">
+    <a href="https://www.php.net/manual/vote-note.php?id=98051&amp;page=function.set-error-handler&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V98051" title="40% like this...">
+    -1
+    </div>
+  </div>
+  <a href="function.set-error-handler.php.html#98051" class="name">
+  <strong class="user"><em>devermin at ti0n dot net</em></strong></a><a class="genanchor" href="function.set-error-handler.php.html#98051"> &para;</a><div class="date" title="2010-05-23 03:46"><strong>13 years ago</strong></div>
+  <div class="text" id="Hcom98051">
+<div class="phpcode"><code><span class="html">At work I have some code with errors that uncatched are the causes of integrity loss (people calling web services with file_get_contents that fails silently and afterwards insert garbage in the database). <br /><br />here is the solution I found to transform a specific set of errors into exception and afterwards be able to selectively act (with the error code) regarding categories :  <br /><br /><span class="default">&lt;?php<br />ini_set</span><span class="keyword">(</span><span class="string">'error_reporting'</span><span class="keyword">,</span><span class="default">E_ALL</span><span class="keyword">^</span><span class="default">E_NOTICE</span><span class="keyword">);<br /><br /></span><span class="comment">## first 10 bits reserved for the initial error number<br /></span><span class="default">define</span><span class="keyword">(</span><span class="string">'EMASK'</span><span class="keyword">,(~</span><span class="default">0</span><span class="keyword">)&lt;&lt;</span><span class="default">10</span><span class="keyword">);<br /></span><span class="default">define</span><span class="keyword">(</span><span class="string">'ECODEMASK'</span><span class="keyword">,~</span><span class="default">EMASK</span><span class="keyword">);<br /></span><span class="comment">## categories <br /></span><span class="default">define</span><span class="keyword">(</span><span class="string">'IOERROR'</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">&lt;&lt;</span><span class="default">10</span><span class="keyword">);<br /></span><span class="default">define</span><span class="keyword">(</span><span class="string">'EMPTYPARMS'</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">&lt;&lt;</span><span class="default">11</span><span class="keyword">);<br /></span><span class="default">define</span><span class="keyword">(</span><span class="string">'FAILURE'</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">&lt;&lt;</span><span class="default">12</span><span class="keyword">);<br /></span><span class="comment">## string error patterns =&gt; code <br /><br /></span><span class="default">$catch_me</span><span class="keyword">=array(<br />    </span><span class="string">"/^(file_get_contents)\((.*)\).*failed to open stream: (.*)/ " </span><span class="keyword">=&gt; <br />        array ( </span><span class="string">'mesg' </span><span class="keyword">=&gt; </span><span class="string">"IO::Failed to open stream with"</span><span class="keyword">,<br />                </span><span class="string">'code' </span><span class="keyword">=&gt; </span><span class="default">IOERROR </span><span class="keyword">| </span><span class="default">FAILURE<br />        </span><span class="keyword">),<br />    </span><span class="string">"/^fopen\(.*\): Filename cannot be empty/" </span><span class="keyword">=&gt; <br />        array( </span><span class="string">'msg' </span><span class="keyword">=&gt; </span><span class="string">"Parameters::empty"</span><span class="keyword">,<br />                </span><span class="string">'code' </span><span class="keyword">=&gt; </span><span class="default">EMPTYPARMS<br />        </span><span class="keyword">)<br />    );<br />function </span><span class="default">error_2_exception</span><span class="keyword">(</span><span class="default">$errno</span><span class="keyword">, </span><span class="default">$errstr</span><span class="keyword">, </span><span class="default">$errfile</span><span class="keyword">, </span><span class="default">$errline</span><span class="keyword">,</span><span class="default">$context</span><span class="keyword">) {<br />    global </span><span class="default">$catch_me</span><span class="keyword">;<br />    foreach (</span><span class="default">$catch_me </span><span class="keyword">as </span><span class="default">$regexp  </span><span class="keyword">=&gt; </span><span class="default">$res</span><span class="keyword">) {<br />        if(</span><span class="default">preg_match</span><span class="keyword">(</span><span class="default">$regexp</span><span class="keyword">,</span><span class="default">$errstr</span><span class="keyword">,</span><span class="default">$match</span><span class="keyword">)){<br />            throw new </span><span class="default">Exception</span><span class="keyword">(</span><span class="default">$res</span><span class="keyword">[</span><span class="string">'mesg'</span><span class="keyword">],</span><span class="default">$res</span><span class="keyword">[</span><span class="string">'code'</span><span class="keyword">]|( </span><span class="default">$errno </span><span class="keyword">&amp; </span><span class="default">EMASK </span><span class="keyword">) );<br />        }<br />    }<br />    </span><span class="comment">/* switch back to PHP internal error handler  */<br />    </span><span class="keyword">return </span><span class="default">false</span><span class="keyword">;<br />}<br /></span><span class="comment">## =&gt; want to catch this one<br /></span><span class="default">$f</span><span class="keyword">=</span><span class="default">file_get_contents</span><span class="keyword">(</span><span class="string">"mlsdkfm"</span><span class="keyword">);<br /></span><span class="comment">## dont want to break existing wrong behaviour yet (so not caught)<br /></span><span class="default">$f</span><span class="keyword">=</span><span class="default">file_get_contents</span><span class="keyword">(</span><span class="string">''</span><span class="keyword">);<br /></span><span class="comment">## magic<br /></span><span class="default">set_error_handler</span><span class="keyword">(</span><span class="string">"error_2_exception"</span><span class="keyword">);<br /></span><span class="comment">## behaviour remains the same<br /></span><span class="default">$f</span><span class="keyword">=</span><span class="default">file_get_contents</span><span class="keyword">(</span><span class="string">''</span><span class="keyword">);<br />try { <br /></span><span class="comment">## web services that dont work now raise an exception \o/<br /></span><span class="default">$f</span><span class="keyword">=</span><span class="default">file_get_contents</span><span class="keyword">(</span><span class="string">"mlsdkfm"</span><span class="keyword">);<br />} catch(</span><span class="default">Exception $e</span><span class="keyword">) {<br /></span><span class="comment">## and I can group my exception by category<br />    </span><span class="keyword">echo ( </span><span class="default">$e</span><span class="keyword">-&gt;</span><span class="default">getCode</span><span class="keyword">() &amp; </span><span class="default">FAILURE </span><span class="keyword">)  ? </span><span class="string">"\nEPIC FAIL\n" </span><span class="keyword">: </span><span class="string">"\nbegnine"</span><span class="keyword">;<br />}<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=function.set-error-handler&amp;redirect=https://www.php.net/manual/ru/function.set-error-handler.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="ref.errorfunc.php.html">Функции обработки ошибок</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="function.debug-backtrace.php.html" title="debug_&#8203;backtrace">debug_&#8203;backtrace</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.debug-print-backtrace.php.html" title="debug_&#8203;print_&#8203;backtrace">debug_&#8203;print_&#8203;backtrace</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.error-clear-last.php.html" title="error_&#8203;clear_&#8203;last">error_&#8203;clear_&#8203;last</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.error-get-last.php.html" title="error_&#8203;get_&#8203;last">error_&#8203;get_&#8203;last</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.error-log.php.html" title="error_&#8203;log">error_&#8203;log</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.error-reporting.php.html" title="error_&#8203;reporting">error_&#8203;reporting</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.restore-error-handler.php.html" title="restore_&#8203;error_&#8203;handler">restore_&#8203;error_&#8203;handler</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.restore-exception-handler.php.html" title="restore_&#8203;exception_&#8203;handler">restore_&#8203;exception_&#8203;handler</a>
+                        </li>
+                                                <li class="current">
+                            <a href="function.set-error-handler.php.html" title="set_&#8203;error_&#8203;handler">set_&#8203;error_&#8203;handler</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.set-exception-handler.php.html" title="set_&#8203;exception_&#8203;handler">set_&#8203;exception_&#8203;handler</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.trigger-error.php.html" title="trigger_&#8203;error">trigger_&#8203;error</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.user-error.php.html" title="user_&#8203;error">user_&#8203;error</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

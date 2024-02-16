@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: Перегрузка - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="language.oop5.overloading.php.html">
+ <link rel="shorturl" href="https://www.php.net/oop5.overloading">
+ <link rel="alternate" href="https://www.php.net/oop5.overloading" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="language.oop5.php.html">
+ <link rel="prev" href="language.oop5.anonymous.php.html">
+ <link rel="next" href="language.oop5.iterations.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/language.oop5.overloading.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/language.oop5.overloading.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/language.oop5.overloading.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/language.oop5.overloading.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/language.oop5.overloading.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/language.oop5.overloading.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/language.oop5.overloading.php" hreflang="pt_BR">
+ <link rel="alternate" href="language.oop5.overloading.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/language.oop5.overloading.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/language.oop5.overloading.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="language.oop5.iterations.php.html">
+          Итераторы объектов &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="language.oop5.anonymous.php.html">
+          &laquo; Анонимные классы        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='langref.php.html'>Справочник языка</a></li>      <li><a href='language.oop5.php.html'>Классы и объекты</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/language.oop5.overloading.php'>English</option>
+            <option value='de/language.oop5.overloading.php'>German</option>
+            <option value='es/language.oop5.overloading.php'>Spanish</option>
+            <option value='fr/language.oop5.overloading.php'>French</option>
+            <option value='it/language.oop5.overloading.php'>Italian</option>
+            <option value='ja/language.oop5.overloading.php'>Japanese</option>
+            <option value='pt_BR/language.oop5.overloading.php'>Brazilian Portuguese</option>
+            <option value='ru/language.oop5.overloading.php' selected="selected">Russian</option>
+            <option value='tr/language.oop5.overloading.php'>Turkish</option>
+            <option value='zh/language.oop5.overloading.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/language/oop5/overloading.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Flanguage.oop5.overloading%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="language.oop5.overloading" class="sect1">
+ <h2 class="title">Перегрузка</h2>
+
+ <p class="para">
+  Перегрузка в PHP означает возможность динамически <q class="quote">создавать</q>
+  свойства и методы. Эти динамические сущности обрабатываются с
+  помощью магических методов, которые можно создать в классе для
+  различных видов действий.
+ </p>
+
+ <p class="para">
+  Методы перегрузки вызываются при взаимодействии со свойствами
+  или методами, которые не были объявлены или не <a href="language.oop5.visibility.php.html" class="link">видны</a> в текущей области
+  видимости. Далее в этом разделе будут использоваться термины
+  <q class="quote">недоступные свойства</q> или <q class="quote">недоступные методы</q>
+  для обозначения этой комбинации объявления и области видимости.
+ </p>
+
+ <p class="para">
+  Все методы перегрузки должны быть объявлены как <code class="literal">public</code>.
+ </p>
+
+ <blockquote class="note"><p><strong class="note">Замечание</strong>: 
+  <p class="para">
+   Ни один из аргументов этих магических методов не может быть передан
+   <a href="functions.arguments.php.html#functions.arguments.by-reference" class="link">по ссылке</a>.
+  </p>
+ </p></blockquote>
+
+ <blockquote class="note"><p><strong class="note">Замечание</strong>: 
+  <p class="para">
+   Интерпретация <q class="quote">перегрузки</q> в PHP отличается
+   от большинства объектно-ориентированных языков. Традиционно
+   перегрузка означает возможность иметь несколько одноимённых методов
+   с разным количеством и типами аргументов.
+  </p>
+ </p></blockquote>
+
+ <div class="sect2" id="language.oop5.overloading.members">
+  <h3 class="title">Перегрузка свойств</h3>
+
+  <div class="methodsynopsis dc-description" id="object.set">
+   <span class="modifier">public</span> <span class="methodname"><strong>__set</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$name</code></span>, <span class="methodparam"><span class="type"><a href="language.types.declarations.php.html#language.types.declarations.mixed" class="type mixed">mixed</a></span> <code class="parameter">$value</code></span>): <span class="type"><span class="type void">void</span></span></div>
+
+  <div class="methodsynopsis dc-description" id="object.get"><span class="modifier">public</span> <span class="methodname"><strong>__get</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$name</code></span>): <span class="type"><a href="language.types.declarations.php.html#language.types.declarations.mixed" class="type mixed">mixed</a></span></div>
+
+  <div class="methodsynopsis dc-description" id="object.isset"><span class="modifier">public</span> <span class="methodname"><strong>__isset</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$name</code></span>): <span class="type">bool</span></div>
+
+  <div class="methodsynopsis dc-description" id="object.unset"><span class="modifier">public</span> <span class="methodname"><strong>__unset</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$name</code></span>): <span class="type"><span class="type void">void</span></span></div>
+
+
+  <p class="para">
+   Метод <a href="language.oop5.overloading.php.html#object.set" class="link">__set()</a> будет выполнен при записи
+   данных в недоступные (защищённые или приватные) или несуществующие свойства.
+  </p>
+
+  <p class="para">
+   Метод <a href="language.oop5.overloading.php.html#object.get" class="link">__get()</a> будет выполнен при чтении
+   данных из недоступных (защищённых или приватных) или несуществующих свойств.
+  </p>
+
+  <p class="para">
+   Метод <a href="language.oop5.overloading.php.html#object.isset" class="link">__isset()</a> будет выполнен при
+   использовании <span class="function"><a href="function.isset.php.html" class="function">isset()</a></span> или <span class="function"><a href="function.empty.php.html" class="function">empty()</a></span>
+   на недоступных (защищённых или приватных) или несуществующих свойствах.
+  </p>
+
+  <p class="para">
+   Метод <a href="language.oop5.overloading.php.html#object.unset" class="link">__unset()</a> будет выполнен при вызове
+   <span class="function"><a href="function.unset.php.html" class="function">unset()</a></span> на недоступном (защищённом или приватном) или несуществующем свойстве.
+  </p>
+
+  <p class="para">
+   Аргумент <var class="varname">$name</var> представляет собой имя
+   вызываемого свойства. Метод <a href="language.oop5.overloading.php.html#object.set" class="link">__set()</a>
+   содержит аргумент <var class="varname">$value</var>, представляющий
+   собой значение, которое будет записано в свойство с именем
+   <var class="varname">$name</var>.
+  </p>
+
+  <p class="para">
+   Перегрузка свойств работает только в контексте объекта.
+   Данные магические методы не будут вызваны в статическом контексте.
+   Поэтому эти методы не должны объявляться
+   <a href="language.oop5.static.php.html" class="link">статическими</a>.
+   При объявлении любого магического метода как
+   <code class="literal">static</code> будет выдано предупреждение.
+  </p>
+
+  <blockquote class="note"><p><strong class="note">Замечание</strong>: 
+   <p class="para">
+    Возвращаемое значение <a href="language.oop5.overloading.php.html#object.set" class="link">__set()</a> будет
+    проигнорировано из-за способа обработки в PHP оператора присваивания.
+    Аналогично, <a href="language.oop5.overloading.php.html#object.get" class="link">__get()</a> никогда не вызывается при
+    объединении присваиваний, например, подобным образом:
+<code class="literal"><div class="cdata"><pre> $a = $obj-&gt;b = 8;</pre></div></code>
+   </p>
+  </p></blockquote>
+
+  <blockquote class="note"><p><strong class="note">Замечание</strong>: 
+   <p class="para">
+    PHP не будет вызывать перегруженный метод изнутри того же перегруженного метода.
+    Это означает, что, например, написание <code class="code">return $this-&gt;foo</code> внутри
+    <a href="language.oop5.overloading.php.html#object.get" class="link">__get()</a> вернёт <code class="literal">null</code>
+    и вызовет ошибку уровня <strong><code>E_WARNING</code></strong>, если не определено свойство <code class="literal">foo</code>,
+    вместо того, чтобы вызвать метод <a href="language.oop5.overloading.php.html#object.get" class="link">__get()</a> во второй раз.
+    Однако методы перегрузки могут неявно вызывать другие методы перегрузки (например,
+    метод <a href="language.oop5.overloading.php.html#object.set" class="link">__set()</a> вызывает метод <a href="language.oop5.overloading.php.html#object.get" class="link">__get()</a>).
+   </p>
+  </p></blockquote>
+
+  <div class="example" id="example-814">
+   <p><strong>Пример #1 
+    Перегрузка свойств с помощью методов <a href="language.oop5.overloading.php.html#object.get" class="link">__get()</a>,
+    <a href="language.oop5.overloading.php.html#object.set" class="link">__set()</a>, <a href="language.oop5.overloading.php.html#object.isset" class="link">__isset()</a>
+    и <a href="language.oop5.overloading.php.html#object.unset" class="link">__unset()</a>
+   </strong></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class </span><span style="color: #0000BB">PropertyTest<br /></span><span style="color: #007700">{<br />    </span><span style="color: #FF8000">/**  Место хранения перегружаемых данных.  */<br />    </span><span style="color: #007700">private </span><span style="color: #0000BB">$data </span><span style="color: #007700">= array();<br /><br />    </span><span style="color: #FF8000">/**  Перегрузка не применяется к объявленным свойствам.  */<br />    </span><span style="color: #007700">public </span><span style="color: #0000BB">$declared </span><span style="color: #007700">= </span><span style="color: #0000BB">1</span><span style="color: #007700">;<br /><br />    </span><span style="color: #FF8000">/**  Здесь перегрузка будет использована только при доступе вне класса.  */<br />    </span><span style="color: #007700">private </span><span style="color: #0000BB">$hidden </span><span style="color: #007700">= </span><span style="color: #0000BB">2</span><span style="color: #007700">;<br /><br />    public function </span><span style="color: #0000BB">__set</span><span style="color: #007700">(</span><span style="color: #0000BB">$name</span><span style="color: #007700">, </span><span style="color: #0000BB">$value</span><span style="color: #007700">)<br />    {<br />        echo </span><span style="color: #DD0000">"Установка '</span><span style="color: #0000BB">$name</span><span style="color: #DD0000">' в '</span><span style="color: #0000BB">$value</span><span style="color: #DD0000">'\n"</span><span style="color: #007700">;<br />        </span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">data</span><span style="color: #007700">[</span><span style="color: #0000BB">$name</span><span style="color: #007700">] = </span><span style="color: #0000BB">$value</span><span style="color: #007700">;<br />    }<br /><br />    public function </span><span style="color: #0000BB">__get</span><span style="color: #007700">(</span><span style="color: #0000BB">$name</span><span style="color: #007700">)<br />    {<br />        echo </span><span style="color: #DD0000">"Получение '</span><span style="color: #0000BB">$name</span><span style="color: #DD0000">'\n"</span><span style="color: #007700">;<br />        if (</span><span style="color: #0000BB">array_key_exists</span><span style="color: #007700">(</span><span style="color: #0000BB">$name</span><span style="color: #007700">, </span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">data</span><span style="color: #007700">)) {<br />            return </span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">data</span><span style="color: #007700">[</span><span style="color: #0000BB">$name</span><span style="color: #007700">];<br />        }<br /><br />        </span><span style="color: #0000BB">$trace </span><span style="color: #007700">= </span><span style="color: #0000BB">debug_backtrace</span><span style="color: #007700">();<br />        </span><span style="color: #0000BB">trigger_error</span><span style="color: #007700">(<br />            </span><span style="color: #DD0000">'Неопределённое свойство в __get(): ' </span><span style="color: #007700">. </span><span style="color: #0000BB">$name </span><span style="color: #007700">.<br />            </span><span style="color: #DD0000">' в файле ' </span><span style="color: #007700">. </span><span style="color: #0000BB">$trace</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">][</span><span style="color: #DD0000">'file'</span><span style="color: #007700">] .<br />            </span><span style="color: #DD0000">' на строке ' </span><span style="color: #007700">. </span><span style="color: #0000BB">$trace</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">][</span><span style="color: #DD0000">'line'</span><span style="color: #007700">],<br />            </span><span style="color: #0000BB">E_USER_NOTICE</span><span style="color: #007700">);<br />        return </span><span style="color: #0000BB">null</span><span style="color: #007700">;<br />    }<br /><br />    public function </span><span style="color: #0000BB">__isset</span><span style="color: #007700">(</span><span style="color: #0000BB">$name</span><span style="color: #007700">)<br />    {<br />        echo </span><span style="color: #DD0000">"Установлено ли '</span><span style="color: #0000BB">$name</span><span style="color: #DD0000">'?\n"</span><span style="color: #007700">;<br />        return isset(</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">data</span><span style="color: #007700">[</span><span style="color: #0000BB">$name</span><span style="color: #007700">]);<br />    }<br /><br />    public function </span><span style="color: #0000BB">__unset</span><span style="color: #007700">(</span><span style="color: #0000BB">$name</span><span style="color: #007700">)<br />    {<br />        echo </span><span style="color: #DD0000">"Уничтожение '</span><span style="color: #0000BB">$name</span><span style="color: #DD0000">'\n"</span><span style="color: #007700">;<br />        unset(</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">data</span><span style="color: #007700">[</span><span style="color: #0000BB">$name</span><span style="color: #007700">]);<br />    }<br /><br />    </span><span style="color: #FF8000">/**  Не магический метод, просто для примера. */<br />    </span><span style="color: #007700">public function </span><span style="color: #0000BB">getHidden</span><span style="color: #007700">()<br />    {<br />        return </span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">hidden</span><span style="color: #007700">;<br />    }<br />}<br /><br /><br />echo </span><span style="color: #DD0000">"&lt;pre&gt;\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$obj </span><span style="color: #007700">= new </span><span style="color: #0000BB">PropertyTest</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$obj</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">a </span><span style="color: #007700">= </span><span style="color: #0000BB">1</span><span style="color: #007700">;<br />echo </span><span style="color: #0000BB">$obj</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">a </span><span style="color: #007700">. </span><span style="color: #DD0000">"\n\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(isset(</span><span style="color: #0000BB">$obj</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">a</span><span style="color: #007700">));<br />unset(</span><span style="color: #0000BB">$obj</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">a</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(isset(</span><span style="color: #0000BB">$obj</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">a</span><span style="color: #007700">));<br />echo </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br />echo </span><span style="color: #0000BB">$obj</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">declared </span><span style="color: #007700">. </span><span style="color: #DD0000">"\n\n"</span><span style="color: #007700">;<br /><br />echo </span><span style="color: #DD0000">"Давайте поэкспериментируем с закрытым свойством 'hidden':\n"</span><span style="color: #007700">;<br />echo </span><span style="color: #DD0000">"Закрытые свойства видны внутри класса, поэтому __get() не используется...\n"</span><span style="color: #007700">;<br />echo </span><span style="color: #0000BB">$obj</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getHidden</span><span style="color: #007700">() . </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />echo </span><span style="color: #DD0000">"Закрытые свойства не видны вне класса, поэтому __get() используется...\n"</span><span style="color: #007700">;<br />echo </span><span style="color: #0000BB">$obj</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">hidden </span><span style="color: #007700">. </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+   </div>
+
+   
+<div class="example-contents"><p>
+ Результат выполнения приведённого примера:
+</p></div>
+
+   <div class="example-contents screen">
+<div class="cdata"><pre>
+Установка &#039;a&#039; в &#039;1&#039;
+Получение &#039;a&#039;
+1
+
+Установлено ли &#039;a&#039;?
+bool(true)
+Уничтожение &#039;a&#039;
+Установлено ли &#039;a&#039;?
+bool(false)
+
+1
+
+Давайте поэкспериментируем с закрытым свойством &#039;hidden&#039;:
+Закрытые свойства видны внутри класса, поэтому __get() не используется...
+2
+Закрытые свойства не видны вне класса, поэтому __get() используется...
+Получение &#039;hidden&#039;
+
+
+Notice: Неопределённое свойство в __get(): hidden в &lt;file&gt; on line 70 in &lt;file&gt; on line 29
+</pre></div>
+    </div>
+
+   </div>
+  </div>
+
+  <div class="sect2" id="language.oop5.overloading.methods">
+   <h3 class="title">Перегрузка методов</h3>
+
+   <div class="methodsynopsis dc-description" id="object.call">
+    <span class="modifier">public</span> <span class="methodname"><strong>__call</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$name</code></span>, <span class="methodparam"><span class="type">array</span> <code class="parameter">$arguments</code></span>): <span class="type"><a href="language.types.declarations.php.html#language.types.declarations.mixed" class="type mixed">mixed</a></span></div>
+
+   <div class="methodsynopsis dc-description" id="object.callstatic"><span class="modifier">public static</span> <span class="methodname"><strong>__callStatic</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$name</code></span>, <span class="methodparam"><span class="type">array</span> <code class="parameter">$arguments</code></span>): <span class="type"><a href="language.types.declarations.php.html#language.types.declarations.mixed" class="type mixed">mixed</a></span></div>
+
+
+   <p class="para">
+    <a href="language.oop5.overloading.php.html#object.call" class="link">__call()</a> запускается при вызове
+    недоступных методов в контексте объект.
+   </p>
+
+   <p class="para">
+    <a href="language.oop5.overloading.php.html#object.callstatic" class="link">__callStatic()</a> запускается
+    при вызове недоступных методов в статическом контексте.
+   </p>
+
+   <p class="para">
+    Аргумент <var class="varname">$name</var> представляет собой имя
+    вызываемого метода. Аргумент <var class="varname">$arguments</var>
+    представляет собой нумерованный массив, содержащий параметры,
+    переданные в вызываемый метод <var class="varname">$name</var>.
+   </p>
+
+   <div class="example" id="example-817">
+    <p><strong>Пример #2 
+     Перегрузка методов с помощью методов <a href="language.oop5.overloading.php.html#object.call" class="link">__call()</a>
+     и <a href="language.oop5.overloading.php.html#object.callstatic" class="link">__callStatic()</a>
+    </strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class </span><span style="color: #0000BB">MethodTest </span><span style="color: #007700">{<br />    public function </span><span style="color: #0000BB">__call</span><span style="color: #007700">(</span><span style="color: #0000BB">$name</span><span style="color: #007700">, </span><span style="color: #0000BB">$arguments</span><span style="color: #007700">) {<br />        </span><span style="color: #FF8000">// Замечание: значение $name регистрозависимо.<br />        </span><span style="color: #007700">echo </span><span style="color: #DD0000">"Вызов метода '</span><span style="color: #0000BB">$name</span><span style="color: #DD0000">' "<br />             </span><span style="color: #007700">. </span><span style="color: #0000BB">implode</span><span style="color: #007700">(</span><span style="color: #DD0000">', '</span><span style="color: #007700">, </span><span style="color: #0000BB">$arguments</span><span style="color: #007700">). </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />    }<br /><br />    public static function </span><span style="color: #0000BB">__callStatic</span><span style="color: #007700">(</span><span style="color: #0000BB">$name</span><span style="color: #007700">, </span><span style="color: #0000BB">$arguments</span><span style="color: #007700">) {<br />        </span><span style="color: #FF8000">// Замечание: значение $name регистрозависимо.<br />        </span><span style="color: #007700">echo </span><span style="color: #DD0000">"Вызов статического метода '</span><span style="color: #0000BB">$name</span><span style="color: #DD0000">' "<br />             </span><span style="color: #007700">. </span><span style="color: #0000BB">implode</span><span style="color: #007700">(</span><span style="color: #DD0000">', '</span><span style="color: #007700">, </span><span style="color: #0000BB">$arguments</span><span style="color: #007700">). </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />    }<br />}<br /><br /></span><span style="color: #0000BB">$obj </span><span style="color: #007700">= new </span><span style="color: #0000BB">MethodTest</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$obj</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">runTest</span><span style="color: #007700">(</span><span style="color: #DD0000">'в контексте объекта'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">MethodTest</span><span style="color: #007700">::</span><span style="color: #0000BB">runTest</span><span style="color: #007700">(</span><span style="color: #DD0000">'в статическом контексте'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+    </div>
+
+    
+<div class="example-contents"><p>
+ Результат выполнения приведённого примера:
+</p></div>
+
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Вызов метода &#039;runTest&#039; в контексте объекта
+Вызов статического метода &#039;runTest&#039; в статическом контексте
+</pre></div>
+    </div>
+   </div>
+
+  </div>
+
+</div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=language.oop5.overloading&amp;redirect=https://www.php.net/manual/ru/language.oop5.overloading.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">27 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="108040">  <div class="votes">
+    <div id="Vu108040">
+    <a href="https://www.php.net/manual/vote-note.php?id=108040&amp;page=language.oop5.overloading&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd108040">
+    <a href="https://www.php.net/manual/vote-note.php?id=108040&amp;page=language.oop5.overloading&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V108040" title="84% like this...">
+    358
+    </div>
+  </div>
+  <a href="language.oop5.overloading.php.html#108040" class="name">
+  <strong class="user"><em>theaceofthespade at gmail dot com</em></strong></a><a class="genanchor" href="language.oop5.overloading.php.html#108040"> &para;</a><div class="date" title="2012-03-23 09:35"><strong>11 years ago</strong></div>
+  <div class="text" id="Hcom108040">
+<div class="phpcode"><code><span class="html">A word of warning!  It may seem obvious, but remember, when deciding whether to use __get, __set, and __call as a way to access the data in your class (as opposed to hard-coding getters and setters), keep in mind that this will prevent any sort of autocomplete, highlighting, or documentation that your ide mite do.<br /><br />Furthermore, it beyond personal preference when working with other people.  Even without an ide, it can be much easier to go through and look at hardcoded member and method definitions in code, than having to sift through code and piece together the method/member names that are assembled in __get and __set.<br /><br />If you still decide to use __get and __set for everything in your class, be sure to include detailed comments and documenting, so that the people you are working with (or the people who inherit the code from you at a later date) don't have to waste time interpreting your code just to be able to use it.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="119407">  <div class="votes">
+    <div id="Vu119407">
+    <a href="https://www.php.net/manual/vote-note.php?id=119407&amp;page=language.oop5.overloading&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd119407">
+    <a href="https://www.php.net/manual/vote-note.php?id=119407&amp;page=language.oop5.overloading&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V119407" title="82% like this...">
+    256
+    </div>
+  </div>
+  <a href="language.oop5.overloading.php.html#119407" class="name">
+  <strong class="user"><em>Anonymous</em></strong></a><a class="genanchor" href="language.oop5.overloading.php.html#119407"> &para;</a><div class="date" title="2016-05-29 10:13"><strong>7 years ago</strong></div>
+  <div class="text" id="Hcom119407">
+<div class="phpcode"><code><span class="html">First off all, if you read this, please upvote the first comment on this list that states that “overloading” is a bad term for this behaviour. Because it REALLY is a bad name. You’re giving new definition to an already accepted IT-branch terminology.<br /><br />Second, I concur with all criticism you will read about this functionality. Just as naming it “overloading”, the functionality is also very bad practice. Please don’t use this in a production environment. To be honest, avoid to use it at all. Especially if you are a beginner at PHP. It can make your code react very unexpectedly. In which case you MIGHT be learning invalid coding!<br /><br />And last, because of __get, __set and __call the following code executes. Which is abnormal behaviour. And can cause a lot of problems/bugs.<br /><br /><span class="default">&lt;?php<br /><br /></span><span class="keyword">class </span><span class="default">BadPractice </span><span class="keyword">{<br />  </span><span class="comment">// Two real properties<br />  </span><span class="keyword">public </span><span class="default">$DontAllowVariableNameWithTypos </span><span class="keyword">= </span><span class="default">true</span><span class="keyword">;<br />  protected </span><span class="default">$Number </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br />  </span><span class="comment">// One private method<br />  </span><span class="keyword">private function </span><span class="default">veryPrivateMethod</span><span class="keyword">() { }<br />  </span><span class="comment">// And three very magic methods that will make everything look inconsistent<br />  // with all you have ever learned about PHP.<br />  </span><span class="keyword">public function </span><span class="default">__get</span><span class="keyword">(</span><span class="default">$n</span><span class="keyword">) {}<br />  public function </span><span class="default">__set</span><span class="keyword">(</span><span class="default">$n</span><span class="keyword">, </span><span class="default">$v</span><span class="keyword">) {}<br />  public function </span><span class="default">__call</span><span class="keyword">(</span><span class="default">$n</span><span class="keyword">, </span><span class="default">$v</span><span class="keyword">) {}<br />}<br /><br /></span><span class="comment">// Let's see our BadPractice in a production environment!<br /></span><span class="default">$UnexpectedBehaviour </span><span class="keyword">= new </span><span class="default">BadPractice</span><span class="keyword">;<br /><br /></span><span class="comment">// No syntax highlighting on most IDE's<br /></span><span class="default">$UnexpectedBehaviour</span><span class="keyword">-&gt;</span><span class="default">SynTaxHighlighting </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;<br /><br /></span><span class="comment">// No autocompletion on most IDE's<br /></span><span class="default">$UnexpectedBehaviour</span><span class="keyword">-&gt;</span><span class="default">AutoCompletion </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;<br /><br /></span><span class="comment">// Which will lead to problems waiting to happen<br /></span><span class="default">$UnexpectedBehaviour</span><span class="keyword">-&gt;</span><span class="default">DontAllowVariableNameWithTyphos </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">; </span><span class="comment">// see if below<br /><br />// Get, Set and Call anything you want!<br /></span><span class="default">$UnexpectedBehaviour</span><span class="keyword">-&gt;</span><span class="default">EveryPosibleMethodCallAllowed</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">, </span><span class="string">'Why Not?'</span><span class="keyword">);<br /><br /></span><span class="comment">// And sure, why not use the most illegal property names you can think off<br /></span><span class="default">$UnexpectedBehaviour</span><span class="keyword">-&gt;{</span><span class="string">'100%Illegal+Names'</span><span class="keyword">} = </span><span class="string">'allowed'</span><span class="keyword">;<br /><br /></span><span class="comment">// This Very confusing syntax seems to allow access to $Number but because of<br />// the lowered visibility it goes to __set()<br /></span><span class="default">$UnexpectedBehaviour</span><span class="keyword">-&gt;</span><span class="default">Number </span><span class="keyword">= </span><span class="default">10</span><span class="keyword">;<br /><br /></span><span class="comment">// We can SEEM to increment it too! (that's really dynamic! :-) NULL++ LMAO<br /></span><span class="default">$UnexpectedBehaviour</span><span class="keyword">-&gt;</span><span class="default">Number</span><span class="keyword">++;<br /><br /></span><span class="comment">// this ofcourse outputs NULL (through __get) and not the PERHAPS expected 11<br /></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$UnexpectedBehaviour</span><span class="keyword">-&gt;</span><span class="default">Number</span><span class="keyword">);<br /><br /></span><span class="comment">// and sure, private method calls LOOK valid now!<br />// (this goes to __call, so no fatal error)<br /></span><span class="default">$UnexpectedBehaviour</span><span class="keyword">-&gt;</span><span class="default">veryPrivateMethod</span><span class="keyword">();<br /><br /></span><span class="comment">// Because the previous was __set to false, next expression is true<br />// if we didn't had __set, the previous assignment would have failed<br />// then you would have corrected the typho and this code will not have<br />// been executed. (This can really be a BIG PAIN)<br /></span><span class="keyword">if (</span><span class="default">$UnexpectedBehaviour</span><span class="keyword">-&gt;</span><span class="default">DontAllowVariableNameWithTypos</span><span class="keyword">) {<br />  </span><span class="comment">// if this code block would have deleted a file, or do a deletion on<br />  // a database, you could really be VERY SAD for a long time!<br />  </span><span class="default">$UnexpectedBehaviour</span><span class="keyword">-&gt;</span><span class="default">executeStuffYouDontWantHere</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">);<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="77843">  <div class="votes">
+    <div id="Vu77843">
+    <a href="https://www.php.net/manual/vote-note.php?id=77843&amp;page=language.oop5.overloading&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd77843">
+    <a href="https://www.php.net/manual/vote-note.php?id=77843&amp;page=language.oop5.overloading&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V77843" title="83% like this...">
+    172
+    </div>
+  </div>
+  <a href="language.oop5.overloading.php.html#77843" class="name">
+  <strong class="user"><em>egingell at sisna dot com</em></strong></a><a class="genanchor" href="language.oop5.overloading.php.html#77843"> &para;</a><div class="date" title="2007-09-15 05:12"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom77843">
+<div class="phpcode"><code><span class="html">Small vocabulary note: This is *not* "overloading", this is "overriding".<br /><br />Overloading: Declaring a function multiple times with a different set of parameters like this:<br /><span class="default">&lt;?php<br /><br /></span><span class="keyword">function </span><span class="default">foo</span><span class="keyword">(</span><span class="default">$a</span><span class="keyword">) {<br />    return </span><span class="default">$a</span><span class="keyword">;<br />}<br /><br />function </span><span class="default">foo</span><span class="keyword">(</span><span class="default">$a</span><span class="keyword">, </span><span class="default">$b</span><span class="keyword">) {<br />    return </span><span class="default">$a </span><span class="keyword">+ </span><span class="default">$b</span><span class="keyword">;<br />}<br /><br />echo </span><span class="default">foo</span><span class="keyword">(</span><span class="default">5</span><span class="keyword">); </span><span class="comment">// Prints "5"<br /></span><span class="keyword">echo </span><span class="default">foo</span><span class="keyword">(</span><span class="default">5</span><span class="keyword">, </span><span class="default">2</span><span class="keyword">); </span><span class="comment">// Prints "7"<br /><br /></span><span class="default">?&gt;<br /></span><br />Overriding: Replacing the parent class's method(s) with a new method by redeclaring it like this:<br /><span class="default">&lt;?php<br /><br /></span><span class="keyword">class </span><span class="default">foo </span><span class="keyword">{<br />    function new(</span><span class="default">$args</span><span class="keyword">) {<br />        </span><span class="comment">// Do something.<br />    </span><span class="keyword">}<br />}<br /><br />class </span><span class="default">bar </span><span class="keyword">extends </span><span class="default">foo </span><span class="keyword">{<br />    function new(</span><span class="default">$args</span><span class="keyword">) {<br />        </span><span class="comment">// Do something different.<br />    </span><span class="keyword">}<br />}<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="117060">  <div class="votes">
+    <div id="Vu117060">
+    <a href="https://www.php.net/manual/vote-note.php?id=117060&amp;page=language.oop5.overloading&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd117060">
+    <a href="https://www.php.net/manual/vote-note.php?id=117060&amp;page=language.oop5.overloading&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V117060" title="77% like this...">
+    62
+    </div>
+  </div>
+  <a href="language.oop5.overloading.php.html#117060" class="name">
+  <strong class="user"><em>Anonymous</em></strong></a><a class="genanchor" href="language.oop5.overloading.php.html#117060"> &para;</a><div class="date" title="2015-04-08 03:34"><strong>8 years ago</strong></div>
+  <div class="text" id="Hcom117060">
+<div class="phpcode"><code><span class="html">Using magic methods, especially __get(), __set(), and __call() will effectively disable autocomplete in most IDEs (eg.: IntelliSense) for the affected classes.<br /><br />To overcome this inconvenience, use phpDoc to let the IDE know about these magic methods and properties: @method, @property, @property-read, @property-write.<br /><br />/**<br /> * @property-read name<br /> * @property-read price<br /> */<br />class MyClass<br />{<br />    private $properties = array('name' =&gt; 'IceFruit', 'price' =&gt; 2.49)<br />    <br />    public function __get($name)<br />    {<br />        return $this-&gt;properties($name);<br />    }<br />}</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="119898">  <div class="votes">
+    <div id="Vu119898">
+    <a href="https://www.php.net/manual/vote-note.php?id=119898&amp;page=language.oop5.overloading&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd119898">
+    <a href="https://www.php.net/manual/vote-note.php?id=119898&amp;page=language.oop5.overloading&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V119898" title="76% like this...">
+    69
+    </div>
+  </div>
+  <a href="language.oop5.overloading.php.html#119898" class="name">
+  <strong class="user"><em>pogregoire##live.fr</em></strong></a><a class="genanchor" href="language.oop5.overloading.php.html#119898"> &para;</a><div class="date" title="2016-09-16 04:17"><strong>7 years ago</strong></div>
+  <div class="text" id="Hcom119898">
+<div class="phpcode"><code><span class="html">It is important to understand that encapsulation can be very easily violated in PHP. for example :<br />class Object{<br /><br />}<br /><br />$Object = new Object();<br />$Objet-&gt;barbarianProperties  = 'boom';<br /><br />var_dump($Objet);// object(Objet)#1 (1) { ["barbarianProperties"]=&gt; string(7) "boom" }<br /><br />Hence it is possible to add a propertie out form the class definition.<br />It is then a necessity in order to protect encapsulation to introduce __set() in the class :<br /><br />class Objet{<br />    public function __set($name,$value){<br />        throw new Exception ('no');<br />    }<br />}</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="126434">  <div class="votes">
+    <div id="Vu126434">
+    <a href="https://www.php.net/manual/vote-note.php?id=126434&amp;page=language.oop5.overloading&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd126434">
+    <a href="https://www.php.net/manual/vote-note.php?id=126434&amp;page=language.oop5.overloading&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V126434" title="71% like this...">
+    3
+    </div>
+  </div>
+  <a href="language.oop5.overloading.php.html#126434" class="name">
+  <strong class="user"><em>johannes dot kingma at gmail dot com</em></strong></a><a class="genanchor" href="language.oop5.overloading.php.html#126434"> &para;</a><div class="date" title="2021-09-18 11:35"><strong>2 years ago</strong></div>
+  <div class="text" id="Hcom126434">
+<div class="phpcode"><code><span class="html">One interesting use of the __get function is property / function colaescence, using the same name for a property and a function. <br /><br />Example:<br /><span class="default">&lt;?php<br /></span><span class="keyword">class </span><span class="default">prop_fun </span><span class="keyword">{<br />    private </span><span class="default">$prop </span><span class="keyword">= </span><span class="default">123</span><span class="keyword">;<br /><br />    public function </span><span class="default">__get</span><span class="keyword">( </span><span class="default">$property </span><span class="keyword">) {<br />        if( </span><span class="default">property_exists</span><span class="keyword">( </span><span class="default">$this</span><span class="keyword">, </span><span class="default">$property </span><span class="keyword">) ){<br />            return </span><span class="default">$this</span><span class="keyword">-&gt; </span><span class="default">$property</span><span class="keyword">;<br />        }<br />        throw new </span><span class="default">Exception</span><span class="keyword">( </span><span class="string">"no such property </span><span class="default">$property</span><span class="string">." </span><span class="keyword">);<br />    }<br />    public function </span><span class="default">prop</span><span class="keyword">() {<br />        return </span><span class="default">456</span><span class="keyword">;<br />    }<br />}<br /><br /></span><span class="default">$o </span><span class="keyword">= new </span><span class="default">prop_fun</span><span class="keyword">();<br /><br />echo </span><span class="default">$o</span><span class="keyword">-&gt; </span><span class="default">prop </span><span class="keyword">. </span><span class="string">'&lt;br&gt;' </span><span class="keyword">. </span><span class="default">PHP_EOL</span><span class="keyword">;<br />echo </span><span class="default">$o</span><span class="keyword">-&gt; </span><span class="default">prop</span><span class="keyword">() . </span><span class="string">'&lt;br&gt;' </span><span class="keyword">. </span><span class="default">PHP_EOL</span><span class="keyword">;<br /></span><span class="default">?&gt;<br /></span><br />This will output 123 and 456. This does look like a funy cludge but I used it of a class containing a date type property and function allowing me to write<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">class </span><span class="default">date_class </span><span class="keyword">{<br />    </span><span class="comment">/** @property int $date */<br />    </span><span class="keyword">private </span><span class="default">$the_date</span><span class="keyword">;<br /><br />    public function </span><span class="default">__get</span><span class="keyword">( </span><span class="default">$property </span><span class="keyword">) {<br />        if( </span><span class="default">property_exists</span><span class="keyword">( </span><span class="default">$this</span><span class="keyword">, </span><span class="default">$property </span><span class="keyword">) ){<br />            return </span><span class="default">$this</span><span class="keyword">-&gt; </span><span class="default">$property</span><span class="keyword">;<br />        }<br />        throw new </span><span class="default">Exception</span><span class="keyword">( </span><span class="string">"no such property </span><span class="default">$property</span><span class="string">." </span><span class="keyword">);<br />    }<br />    public function </span><span class="default">the_date</span><span class="keyword">( </span><span class="default">$datetime </span><span class="keyword">) {<br />        return </span><span class="default">strtotime</span><span class="keyword">( </span><span class="default">$datetime</span><span class="keyword">, </span><span class="default">$this</span><span class="keyword">-&gt; </span><span class="default">the_date </span><span class="keyword">);<br />    }<br /><br />    public function </span><span class="default">__construct</span><span class="keyword">()    {<br />        </span><span class="default">$this</span><span class="keyword">-&gt; </span><span class="default">the_date </span><span class="keyword">= </span><span class="default">time</span><span class="keyword">();<br />    }<br />}<br /><br /></span><span class="default">$date_object </span><span class="keyword">= new </span><span class="default">date_class</span><span class="keyword">();<br /><br /></span><span class="default">$today </span><span class="keyword">= </span><span class="default">$date_object</span><span class="keyword">-&gt; </span><span class="default">the_date</span><span class="keyword">;<br /></span><span class="default">$nextyear </span><span class="keyword">= </span><span class="default">$date_object</span><span class="keyword">-&gt; </span><span class="default">the_date</span><span class="keyword">(</span><span class="string">"+1 year"</span><span class="keyword">);<br /><br />echo </span><span class="default">date</span><span class="keyword">( </span><span class="string">"d/m/Y"</span><span class="keyword">, </span><span class="default">$today</span><span class="keyword">) . </span><span class="string">'&lt;br&gt;'</span><span class="keyword">;<br />echo </span><span class="default">date</span><span class="keyword">( </span><span class="string">"d/m/Y"</span><span class="keyword">, </span><span class="default">$nextyear </span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />Which I like because its self documenting properties. I used this in a utility class for user input.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="87785">  <div class="votes">
+    <div id="Vu87785">
+    <a href="https://www.php.net/manual/vote-note.php?id=87785&amp;page=language.oop5.overloading&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd87785">
+    <a href="https://www.php.net/manual/vote-note.php?id=87785&amp;page=language.oop5.overloading&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V87785" title="69% like this...">
+    15
+    </div>
+  </div>
+  <a href="language.oop5.overloading.php.html#87785" class="name">
+  <strong class="user"><em>Ant P.</em></strong></a><a class="genanchor" href="language.oop5.overloading.php.html#87785"> &para;</a><div class="date" title="2008-12-21 08:40"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom87785">
+<div class="phpcode"><code><span class="html">Be extra careful when using __call():  if you typo a function call somewhere it won't trigger an undefined function error, but get passed to __call() instead, possibly causing all sorts of bizarre side effects.<br />In versions before 5.3 without __callStatic, static calls to nonexistent functions also fall through to __call!<br />This caused me hours of confusion, hopefully this comment will save someone else from the same.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="97918">  <div class="votes">
+    <div id="Vu97918">
+    <a href="https://www.php.net/manual/vote-note.php?id=97918&amp;page=language.oop5.overloading&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd97918">
+    <a href="https://www.php.net/manual/vote-note.php?id=97918&amp;page=language.oop5.overloading&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V97918" title="66% like this...">
+    24
+    </div>
+  </div>
+  <a href="language.oop5.overloading.php.html#97918" class="name">
+  <strong class="user"><em>navarr at gtaero dot net</em></strong></a><a class="genanchor" href="language.oop5.overloading.php.html#97918"> &para;</a><div class="date" title="2010-05-15 01:25"><strong>13 years ago</strong></div>
+  <div class="text" id="Hcom97918">
+<div class="phpcode"><code><span class="html">If you want to make it work more naturally for arrays $obj-&gt;variable[] etc you'll need to return __get by reference.<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">class </span><span class="default">Variables<br /></span><span class="keyword">{<br />        public function </span><span class="default">__construct</span><span class="keyword">()<br />        {<br />                if(</span><span class="default">session_id</span><span class="keyword">() === </span><span class="string">""</span><span class="keyword">)<br />                {<br />                        </span><span class="default">session_start</span><span class="keyword">();<br />                }<br />        }<br />        public function </span><span class="default">__set</span><span class="keyword">(</span><span class="default">$name</span><span class="keyword">,</span><span class="default">$value</span><span class="keyword">)<br />        {<br />                </span><span class="default">$_SESSION</span><span class="keyword">[</span><span class="string">"Variables"</span><span class="keyword">][</span><span class="default">$name</span><span class="keyword">] = </span><span class="default">$value</span><span class="keyword">;<br />        }<br />        public function &amp;</span><span class="default">__get</span><span class="keyword">(</span><span class="default">$name</span><span class="keyword">)<br />        {<br />                return </span><span class="default">$_SESSION</span><span class="keyword">[</span><span class="string">"Variables"</span><span class="keyword">][</span><span class="default">$name</span><span class="keyword">];<br />        }<br />        public function </span><span class="default">__isset</span><span class="keyword">(</span><span class="default">$name</span><span class="keyword">)<br />        {<br />                return isset(</span><span class="default">$_SESSION</span><span class="keyword">[</span><span class="string">"Variables"</span><span class="keyword">][</span><span class="default">$name</span><span class="keyword">]);<br />        }<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="125965">  <div class="votes">
+    <div id="Vu125965">
+    <a href="https://www.php.net/manual/vote-note.php?id=125965&amp;page=language.oop5.overloading&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd125965">
+    <a href="https://www.php.net/manual/vote-note.php?id=125965&amp;page=language.oop5.overloading&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V125965" title="66% like this...">
+    1
+    </div>
+  </div>
+  <a href="language.oop5.overloading.php.html#125965" class="name">
+  <strong class="user"><em>turabgarip at gmail dot com</em></strong></a><a class="genanchor" href="language.oop5.overloading.php.html#125965"> &para;</a><div class="date" title="2021-03-27 11:02"><strong>2 years ago</strong></div>
+  <div class="text" id="Hcom125965">
+<div class="phpcode"><code><span class="html">I concur that "overloading" is a wrong term for this functionality. But I disagree that this functionality is completely wrong. You can do "bad practice" with right code too.<br /><br />For example __call() is very well applicable to external integration implementations which I am using to relay calls to SOAP methods which doesn't need local implementation. So you don't have to write "empty body" functions. Consider the SOAP service you connect has a "stock update" method. All you have to do is passing product code and stock count to SOAP.<br /><br /><span class="default">&lt;?php<br /><br /></span><span class="keyword">class </span><span class="default">Inventory </span><span class="keyword">{<br /><br />  public </span><span class="default">__construct</span><span class="keyword">() {<br />    </span><span class="comment">// configure and connect to SOAP service<br />    </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">soap </span><span class="keyword">= new </span><span class="default">SoapClient</span><span class="keyword">();<br />  }<br /><br />  public </span><span class="default">__call</span><span class="keyword">(</span><span class="default">$soapMethod</span><span class="keyword">, </span><span class="default">$params</span><span class="keyword">) {<br />    </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">soap</span><span class="keyword">-&gt;{</span><span class="default">$soapMethod</span><span class="keyword">}(</span><span class="default">params</span><span class="keyword">);<br />  }<br />}<br /><br /> </span><span class="comment">// Now you can use any SOAP method without needing a wrapper<br /> </span><span class="default">$stock </span><span class="keyword">= new </span><span class="default">Inventory</span><span class="keyword">();<br /> </span><span class="default">$stock</span><span class="keyword">-&gt;</span><span class="default">updatePrice</span><span class="keyword">(</span><span class="default">$product_id</span><span class="keyword">, </span><span class="default">20</span><span class="keyword">);<br /> </span><span class="default">$stock</span><span class="keyword">-&gt;</span><span class="default">saveProduct</span><span class="keyword">(</span><span class="default">$product_info</span><span class="keyword">);<br /> <br /></span><span class="default">?&gt;<br /></span><br />Of course you'd need a parameter mapping but it's in my honest opinion a lot better then having a plenty of mirror methods like:<br /><br /><span class="default">&lt;?php<br /><br /></span><span class="keyword">class </span><span class="default">Inventory </span><span class="keyword">{<br /><br />  public function </span><span class="default">updateStock</span><span class="keyword">(</span><span class="default">$product_id</span><span class="keyword">, </span><span class="default">$stock</span><span class="keyword">) {<br />    </span><span class="default">$soapClient</span><span class="keyword">-&gt;</span><span class="default">updateStock</span><span class="keyword">(</span><span class="default">$product_id</span><span class="keyword">, </span><span class="default">$stock</span><span class="keyword">;<br />  }<br />  public function </span><span class="default">updatePrice</span><span class="keyword">(</span><span class="default">$product_id</span><span class="keyword">, </span><span class="default">$price</span><span class="keyword">) {<br />    </span><span class="default">$soapClient</span><span class="keyword">-&gt;</span><span class="default">updateStock</span><span class="keyword">(</span><span class="default">$product_id</span><span class="keyword">, </span><span class="default">$price</span><span class="keyword">;<br />  }<br />  </span><span class="comment">// ...<br /></span><span class="keyword">}<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="116236">  <div class="votes">
+    <div id="Vu116236">
+    <a href="https://www.php.net/manual/vote-note.php?id=116236&amp;page=language.oop5.overloading&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd116236">
+    <a href="https://www.php.net/manual/vote-note.php?id=116236&amp;page=language.oop5.overloading&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V116236" title="66% like this...">
+    9
+    </div>
+  </div>
+  <a href="language.oop5.overloading.php.html#116236" class="name">
+  <strong class="user"><em>gabe at fijiwebdesign dot com</em></strong></a><a class="genanchor" href="language.oop5.overloading.php.html#116236"> &para;</a><div class="date" title="2014-11-27 11:33"><strong>9 years ago</strong></div>
+  <div class="text" id="Hcom116236">
+<div class="phpcode"><code><span class="html">Note that you can enable "overloading" on a class instance at runtime for an existing property by unset()ing that property. <br /><br />eg: <br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">class </span><span class="default">Test </span><span class="keyword">{ <br /><br />    public </span><span class="default">$property1</span><span class="keyword">;<br /><br />    public function </span><span class="default">__get</span><span class="keyword">(</span><span class="default">$name</span><span class="keyword">) <br />    {<br />        return </span><span class="string">"Get called for " </span><span class="keyword">. </span><span class="default">get_class</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">) . </span><span class="string">"-&gt;\$</span><span class="default">$name</span><span class="string"> \n"</span><span class="keyword">;<br />    }<br /><br />}<br /></span><span class="default">?&gt;<br /></span><br />The public property $property1 can be unset() so that it can be dynamically handled via __get(). <br /><br /><span class="default">&lt;?php <br />$Test </span><span class="keyword">= new </span><span class="default">Test</span><span class="keyword">();<br />unset(</span><span class="default">$Test</span><span class="keyword">-&gt;</span><span class="default">property1</span><span class="keyword">); </span><span class="comment">// enable overloading<br /></span><span class="keyword">echo </span><span class="default">$Test</span><span class="keyword">-&gt;</span><span class="default">property1</span><span class="keyword">; </span><span class="comment">// Get called for Test-&gt;$property1<br /></span><span class="default">?&gt;<br /></span><br />Useful if you want to proxy or lazy load properties yet want to have documentation and visibility in the code and debugging compared to __get(), __isset(), __set() on non-existent inaccessible properties.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="98402">  <div class="votes">
+    <div id="Vu98402">
+    <a href="https://www.php.net/manual/vote-note.php?id=98402&amp;page=language.oop5.overloading&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd98402">
+    <a href="https://www.php.net/manual/vote-note.php?id=98402&amp;page=language.oop5.overloading&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V98402" title="65% like this...">
+    11
+    </div>
+  </div>
+  <a href="language.oop5.overloading.php.html#98402" class="name">
+  <strong class="user"><em>php at lanar dot com dot au</em></strong></a><a class="genanchor" href="language.oop5.overloading.php.html#98402"> &para;</a><div class="date" title="2010-06-12 05:39"><strong>13 years ago</strong></div>
+  <div class="text" id="Hcom98402">
+<div class="phpcode"><code><span class="html">Note that __isset is not called on chained checks. <br />If isset( $x-&gt;a-&gt;b ) is executed where $x is a class with __isset() declared, __isset() is not called.<br /><br /><span class="default">&lt;?php<br /><br /></span><span class="keyword">class </span><span class="default">demo<br /></span><span class="keyword">{<br />    var </span><span class="default">$id </span><span class="keyword">;<br />    function </span><span class="default">__construct</span><span class="keyword">( </span><span class="default">$id </span><span class="keyword">= </span><span class="string">'who knows' </span><span class="keyword">)<br />    {<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">id </span><span class="keyword">= </span><span class="default">$id </span><span class="keyword">;<br />    }<br />    function </span><span class="default">__get</span><span class="keyword">( </span><span class="default">$prop </span><span class="keyword">)<br />    {<br />        echo </span><span class="string">"\n"</span><span class="keyword">, </span><span class="default">__FILE__</span><span class="keyword">, </span><span class="string">':'</span><span class="keyword">, </span><span class="default">__LINE__</span><span class="keyword">, </span><span class="string">' '</span><span class="keyword">, </span><span class="default">__METHOD__</span><span class="keyword">, </span><span class="string">'('</span><span class="keyword">, </span><span class="default">$prop</span><span class="keyword">, </span><span class="string">') instance '</span><span class="keyword">, </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">id </span><span class="keyword">;<br />        return new </span><span class="default">demo</span><span class="keyword">( </span><span class="string">'autocreated' </span><span class="keyword">) ; </span><span class="comment">// return a class anyway for the demo<br />    </span><span class="keyword">}<br />    function </span><span class="default">__isset</span><span class="keyword">( </span><span class="default">$prop </span><span class="keyword">)<br />    {<br />        echo </span><span class="string">"\n"</span><span class="keyword">, </span><span class="default">__FILE__</span><span class="keyword">, </span><span class="string">':'</span><span class="keyword">, </span><span class="default">__LINE__</span><span class="keyword">, </span><span class="string">' '</span><span class="keyword">, </span><span class="default">__METHOD__</span><span class="keyword">, </span><span class="string">'('</span><span class="keyword">, </span><span class="default">$prop</span><span class="keyword">, </span><span class="string">') instance '</span><span class="keyword">, </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">id </span><span class="keyword">;<br />        return </span><span class="default">FALSE </span><span class="keyword">;<br />    }<br />}<br /></span><span class="default">$x </span><span class="keyword">= new </span><span class="default">demo</span><span class="keyword">( </span><span class="string">'demo' </span><span class="keyword">) ;<br />echo </span><span class="string">"\n"</span><span class="keyword">, </span><span class="string">'Calls __isset() on demo as expected when executing isset( $x-&gt;a )' </span><span class="keyword">;<br /></span><span class="default">$ret </span><span class="keyword">= isset( </span><span class="default">$x</span><span class="keyword">-&gt;</span><span class="default">a </span><span class="keyword">) ;<br />echo </span><span class="string">"\n"</span><span class="keyword">, </span><span class="string">'Calls __get() on demo without call to __isset()  when executing isset( $x-&gt;a-&gt;b )' </span><span class="keyword">;<br /></span><span class="default">$ret </span><span class="keyword">= isset( </span><span class="default">$x</span><span class="keyword">-&gt;</span><span class="default">a</span><span class="keyword">-&gt;</span><span class="default">b </span><span class="keyword">) ;<br /></span><span class="default">?&gt;<br /></span><br />Outputs<br /><br />Calls __isset() on demo as expected when executing isset( $x-&gt;a )<br />C:\htdocs\test.php:31 demo::__isset(a) instance demo<br />Calls __get() on demo without call to __isset()  when executing isset( $x-&gt;a-&gt;b )<br />C:\htdocs\test.php:26 demo::__get(a) instance demo<br />C:\htdocs\test.php:31 demo::__isset(b) instance autocreated</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="60009">  <div class="votes">
+    <div id="Vu60009">
+    <a href="https://www.php.net/manual/vote-note.php?id=60009&amp;page=language.oop5.overloading&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd60009">
+    <a href="https://www.php.net/manual/vote-note.php?id=60009&amp;page=language.oop5.overloading&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V60009" title="65% like this...">
+    9
+    </div>
+  </div>
+  <a href="language.oop5.overloading.php.html#60009" class="name">
+  <strong class="user"><em>PHP at jyopp dotKomm</em></strong></a><a class="genanchor" href="language.oop5.overloading.php.html#60009"> &para;</a><div class="date" title="2005-12-22 11:01"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom60009">
+<div class="phpcode"><code><span class="html">Here's a useful class for logging function calls.  It stores a sequence of calls and arguments which can then be applied to objects later.  This can be used to script common sequences of operations, or to make "pluggable" operation sequences in header files that can be replayed on objects later.<br /><br />If it is instantiated with an object to shadow, it behaves as a mediator and executes the calls on this object as they come in, passing back the values from the execution.<br /><br />This is a very general implementation; it should be changed if error codes or exceptions need to be handled during the Replay process.<br /><span class="default">&lt;?php<br /></span><span class="keyword">class </span><span class="default">MethodCallLog </span><span class="keyword">{<br />    private </span><span class="default">$callLog </span><span class="keyword">= array();<br />    private </span><span class="default">$object</span><span class="keyword">;<br />    <br />    public function </span><span class="default">__construct</span><span class="keyword">(</span><span class="default">$object </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">) {<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">object </span><span class="keyword">= </span><span class="default">$object</span><span class="keyword">;<br />    }<br />    public function </span><span class="default">__call</span><span class="keyword">(</span><span class="default">$m</span><span class="keyword">, </span><span class="default">$a</span><span class="keyword">) {<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">callLog</span><span class="keyword">[] = array(</span><span class="default">$m</span><span class="keyword">, </span><span class="default">$a</span><span class="keyword">);<br />        if (</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">object</span><span class="keyword">) return </span><span class="default">call_user_func_array</span><span class="keyword">(array(&amp;</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">object</span><span class="keyword">,</span><span class="default">$m</span><span class="keyword">),</span><span class="default">$a</span><span class="keyword">);<br />        return </span><span class="default">true</span><span class="keyword">;<br />    }<br />    public function </span><span class="default">Replay</span><span class="keyword">(&amp;</span><span class="default">$object</span><span class="keyword">) {<br />        foreach (</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">callLog </span><span class="keyword">as </span><span class="default">$c</span><span class="keyword">) {<br />            </span><span class="default">call_user_func_array</span><span class="keyword">(array(&amp;</span><span class="default">$object</span><span class="keyword">,</span><span class="default">$c</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">]), </span><span class="default">$c</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">]);<br />        }<br />    }<br />    public function </span><span class="default">GetEntries</span><span class="keyword">() {<br />        </span><span class="default">$rVal </span><span class="keyword">= array();<br />        foreach (</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">callLog </span><span class="keyword">as </span><span class="default">$c</span><span class="keyword">) {<br />            </span><span class="default">$rVal</span><span class="keyword">[] = </span><span class="string">"</span><span class="default">$c</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">]</span><span class="string">("</span><span class="keyword">.</span><span class="default">implode</span><span class="keyword">(</span><span class="string">', '</span><span class="keyword">, </span><span class="default">$c</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">]).</span><span class="string">");"</span><span class="keyword">;<br />        }<br />        return </span><span class="default">$rVal</span><span class="keyword">;<br />    }<br />    public function </span><span class="default">Clear</span><span class="keyword">() {<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">callLog </span><span class="keyword">= array();<br />    }<br />}<br /><br /></span><span class="default">$log </span><span class="keyword">= new </span><span class="default">MethodCallLog</span><span class="keyword">();<br /></span><span class="default">$log</span><span class="keyword">-&gt;</span><span class="default">Method1</span><span class="keyword">();<br /></span><span class="default">$log</span><span class="keyword">-&gt;</span><span class="default">Method2</span><span class="keyword">(</span><span class="string">"Value"</span><span class="keyword">);<br /></span><span class="default">$log</span><span class="keyword">-&gt;</span><span class="default">Method1</span><span class="keyword">(</span><span class="default">$a</span><span class="keyword">, </span><span class="default">$b</span><span class="keyword">, </span><span class="default">$c</span><span class="keyword">);<br /></span><span class="comment">// Execute these method calls on a set of objects...<br /></span><span class="keyword">foreach (</span><span class="default">$array </span><span class="keyword">as </span><span class="default">$o</span><span class="keyword">) </span><span class="default">$log</span><span class="keyword">-&gt;</span><span class="default">Replay</span><span class="keyword">(</span><span class="default">$o</span><span class="keyword">);<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="115728">  <div class="votes">
+    <div id="Vu115728">
+    <a href="https://www.php.net/manual/vote-note.php?id=115728&amp;page=language.oop5.overloading&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd115728">
+    <a href="https://www.php.net/manual/vote-note.php?id=115728&amp;page=language.oop5.overloading&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V115728" title="62% like this...">
+    4
+    </div>
+  </div>
+  <a href="language.oop5.overloading.php.html#115728" class="name">
+  <strong class="user"><em>cottton at i-stats dot net</em></strong></a><a class="genanchor" href="language.oop5.overloading.php.html#115728"> &para;</a><div class="date" title="2014-09-13 02:58"><strong>9 years ago</strong></div>
+  <div class="text" id="Hcom115728">
+<div class="phpcode"><code><span class="html">Actually you dont need __set ect imo.  <br />You could use it to set (pre-defined) protected (and in "some" cases private) properties . But who wants that? <br />(test it by uncommenting private or protected)<br />(pastebin because long ...) =&gt; <a href="http://pastebin.com/By4gHrt5" rel="nofollow" target="_blank">http://pastebin.com/By4gHrt5</a></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="69370">  <div class="votes">
+    <div id="Vu69370">
+    <a href="https://www.php.net/manual/vote-note.php?id=69370&amp;page=language.oop5.overloading&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd69370">
+    <a href="https://www.php.net/manual/vote-note.php?id=69370&amp;page=language.oop5.overloading&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V69370" title="63% like this...">
+    6
+    </div>
+  </div>
+  <a href="language.oop5.overloading.php.html#69370" class="name">
+  <strong class="user"><em>jstubbs at work-at dot co dot jp</em></strong></a><a class="genanchor" href="language.oop5.overloading.php.html#69370"> &para;</a><div class="date" title="2006-09-02 09:12"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom69370">
+<div class="phpcode"><code><span class="html"><span class="default">&lt;?php $myclass</span><span class="keyword">-&gt;</span><span class="default">foo</span><span class="keyword">[</span><span class="string">'bar'</span><span class="keyword">] = </span><span class="string">'baz'</span><span class="keyword">; </span><span class="default">?&gt;<br /></span> <br />When overriding __get and __set, the above code can work (as expected) but it depends on your __get implementation rather than your __set. In fact, __set is never called with the above code. It appears that PHP (at least as of 5.1) uses a reference to whatever was returned by __get. To be more verbose, the above code is essentially identical to:<br /> <br /><span class="default">&lt;?php<br />$tmp_array </span><span class="keyword">= &amp;</span><span class="default">$myclass</span><span class="keyword">-&gt;</span><span class="default">foo</span><span class="keyword">;<br /></span><span class="default">$tmp_array</span><span class="keyword">[</span><span class="string">'bar'</span><span class="keyword">] = </span><span class="string">'baz'</span><span class="keyword">;<br />unset(</span><span class="default">$tmp_array</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />Therefore, the above won't do anything if your __get implementation resembles this:<br /><br /><span class="default">&lt;?php <br /></span><span class="keyword">function </span><span class="default">__get</span><span class="keyword">(</span><span class="default">$name</span><span class="keyword">) {<br />    return </span><span class="default">array_key_exists</span><span class="keyword">(</span><span class="default">$name</span><span class="keyword">, </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">values</span><span class="keyword">)<br />        ? </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">values</span><span class="keyword">[</span><span class="default">$name</span><span class="keyword">] : </span><span class="default">null</span><span class="keyword">;<br />}<br /></span><span class="default">?&gt;<br /></span><br />You will actually need to set the value in __get and return that, as in the following code:<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">__get</span><span class="keyword">(</span><span class="default">$name</span><span class="keyword">) {<br />    if (!</span><span class="default">array_key_exists</span><span class="keyword">(</span><span class="default">$name</span><span class="keyword">, </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">values</span><span class="keyword">))<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">values</span><span class="keyword">[</span><span class="default">$name</span><span class="keyword">] = </span><span class="default">null</span><span class="keyword">;<br />    return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">values</span><span class="keyword">[</span><span class="default">$name</span><span class="keyword">];<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="124368">  <div class="votes">
+    <div id="Vu124368">
+    <a href="https://www.php.net/manual/vote-note.php?id=124368&amp;page=language.oop5.overloading&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd124368">
+    <a href="https://www.php.net/manual/vote-note.php?id=124368&amp;page=language.oop5.overloading&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V124368" title="59% like this...">
+    4
+    </div>
+  </div>
+  <a href="language.oop5.overloading.php.html#124368" class="name">
+  <strong class="user"><em>justmyoponion at gmail dot com</em></strong></a><a class="genanchor" href="language.oop5.overloading.php.html#124368"> &para;</a><div class="date" title="2019-11-05 07:35"><strong>4 years ago</strong></div>
+  <div class="text" id="Hcom124368">
+<div class="phpcode"><code><span class="html">If you are not focused enough, then don't use it. <br />Otherwise it is very powerful and you can build very complex code that handle a lot of things like zend framework did.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="79864">  <div class="votes">
+    <div id="Vu79864">
+    <a href="https://www.php.net/manual/vote-note.php?id=79864&amp;page=language.oop5.overloading&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd79864">
+    <a href="https://www.php.net/manual/vote-note.php?id=79864&amp;page=language.oop5.overloading&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V79864" title="61% like this...">
+    4
+    </div>
+  </div>
+  <a href="language.oop5.overloading.php.html#79864" class="name">
+  <strong class="user"><em>matthijs at yourmediafactory dot com</em></strong></a><a class="genanchor" href="language.oop5.overloading.php.html#79864"> &para;</a><div class="date" title="2007-12-16 11:09"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom79864">
+<div class="phpcode"><code><span class="html">While PHP does not support true overloading natively, I have to disagree with those that state this can't be achieved trough __call. <br /><br />Yes, it's not pretty but it is definately possible to overload a member based on the type of its argument. An example:<br /><span class="default">&lt;?php <br /></span><span class="keyword">class </span><span class="default">A </span><span class="keyword">{ <br />   <br />  public function </span><span class="default">__call </span><span class="keyword">(</span><span class="default">$member</span><span class="keyword">, </span><span class="default">$arguments</span><span class="keyword">) { <br />    if(</span><span class="default">is_object</span><span class="keyword">(</span><span class="default">$arguments</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">])) <br />      </span><span class="default">$member </span><span class="keyword">= </span><span class="default">$member </span><span class="keyword">. </span><span class="string">'Object'</span><span class="keyword">; <br />    if(</span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$arguments</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">])) <br />      </span><span class="default">$member </span><span class="keyword">= </span><span class="default">$member </span><span class="keyword">. </span><span class="string">'Array'</span><span class="keyword">; <br />    </span><span class="default">$this </span><span class="keyword">-&gt; </span><span class="default">$member</span><span class="keyword">(</span><span class="default">$arguments</span><span class="keyword">); <br />  } <br />   <br />  private function </span><span class="default">testArray </span><span class="keyword">() { <br />    echo </span><span class="string">"Array."</span><span class="keyword">; <br />  } <br />   <br />  private function </span><span class="default">testObject </span><span class="keyword">() { <br />    echo </span><span class="string">"Object."</span><span class="keyword">; <br />  } <br />} <br /><br />class </span><span class="default">B </span><span class="keyword">{ <br />} <br /><br /></span><span class="default">$class </span><span class="keyword">= new </span><span class="default">A</span><span class="keyword">; <br /></span><span class="default">$class </span><span class="keyword">-&gt; </span><span class="default">test</span><span class="keyword">(array()); </span><span class="comment">// echo's 'Array.' <br /></span><span class="default">$class </span><span class="keyword">-&gt; </span><span class="default">test</span><span class="keyword">(new </span><span class="default">B</span><span class="keyword">); </span><span class="comment">// echo's 'Object.' <br /></span><span class="default">?&gt;<br /></span><br />Of course, the use of this is questionable (I have never needed it myself, but then again, I only have a very minimalistic C++ &amp; JAVA background). However, using this general principle and optionally building forth on other suggestions a 'form' of overloading is definately possible, provided you have some strict naming conventions in your functions. <br /><br />It would of course become a LOT easier once PHP'd let you declare the same member several times but with different arguments, since if you combine that with the reflection class 'real' overloading comes into the grasp of a good OO programmer. Lets keep our fingers crossed!</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="76259">  <div class="votes">
+    <div id="Vu76259">
+    <a href="https://www.php.net/manual/vote-note.php?id=76259&amp;page=language.oop5.overloading&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd76259">
+    <a href="https://www.php.net/manual/vote-note.php?id=76259&amp;page=language.oop5.overloading&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V76259" title="60% like this...">
+    10
+    </div>
+  </div>
+  <a href="language.oop5.overloading.php.html#76259" class="name">
+  <strong class="user"><em>alexandre at nospam dot gaigalas dot net</em></strong></a><a class="genanchor" href="language.oop5.overloading.php.html#76259"> &para;</a><div class="date" title="2007-07-07 10:59"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom76259">
+<div class="phpcode"><code><span class="html">PHP 5.2.1<br /><br />Its possible to call magic methods with invalid names using variable method/property names:<br /><br /><span class="default">&lt;?php<br /><br /></span><span class="keyword">class </span><span class="default">foo<br /></span><span class="keyword">{<br />    function </span><span class="default">__get</span><span class="keyword">(</span><span class="default">$n</span><span class="keyword">)<br />    {<br />        </span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$n</span><span class="keyword">);<br />    }<br />    function </span><span class="default">__call</span><span class="keyword">(</span><span class="default">$m</span><span class="keyword">, </span><span class="default">$a</span><span class="keyword">)<br />    {<br />        </span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$m</span><span class="keyword">);<br />    }<br />}<br /><br /></span><span class="default">$test </span><span class="keyword">= new </span><span class="default">foo</span><span class="keyword">;<br /></span><span class="default">$varname </span><span class="keyword">= </span><span class="string">'invalid,variable+name'</span><span class="keyword">;<br /></span><span class="default">$test</span><span class="keyword">-&gt;</span><span class="default">$varname</span><span class="keyword">;<br /></span><span class="default">$test</span><span class="keyword">-&gt;</span><span class="default">$varname</span><span class="keyword">();<br /><br /></span><span class="default">?&gt;<br /></span><br />I just don't know if it is a bug or a feature :)</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="80686">  <div class="votes">
+    <div id="Vu80686">
+    <a href="https://www.php.net/manual/vote-note.php?id=80686&amp;page=language.oop5.overloading&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd80686">
+    <a href="https://www.php.net/manual/vote-note.php?id=80686&amp;page=language.oop5.overloading&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V80686" title="60% like this...">
+    4
+    </div>
+  </div>
+  <a href="language.oop5.overloading.php.html#80686" class="name">
+  <strong class="user"><em>timshaw at mail dot NOSPAMusa dot com</em></strong></a><a class="genanchor" href="language.oop5.overloading.php.html#80686"> &para;</a><div class="date" title="2008-01-28 09:47"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom80686">
+<div class="phpcode"><code><span class="html">The __get overload method will be called on a declared public member of an object if that member has been unset.<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">class </span><span class="default">c </span><span class="keyword">{<br />  public </span><span class="default">$p </span><span class="keyword">;<br />  public function </span><span class="default">__get</span><span class="keyword">(</span><span class="default">$name</span><span class="keyword">) { return </span><span class="string">"__get of </span><span class="default">$name</span><span class="string">" </span><span class="keyword">; }<br />}<br /><br /></span><span class="default">$c </span><span class="keyword">= new </span><span class="default">c </span><span class="keyword">;<br />echo </span><span class="default">$c</span><span class="keyword">-&gt;</span><span class="default">p</span><span class="keyword">, </span><span class="string">"\n" </span><span class="keyword">;    </span><span class="comment">// declared public member value is empty<br /></span><span class="default">$c</span><span class="keyword">-&gt;</span><span class="default">p </span><span class="keyword">= </span><span class="default">5 </span><span class="keyword">;<br />echo </span><span class="default">$c</span><span class="keyword">-&gt;</span><span class="default">p</span><span class="keyword">, </span><span class="string">"\n" </span><span class="keyword">;    </span><span class="comment">// declared public member value is 5<br /></span><span class="keyword">unset(</span><span class="default">$c</span><span class="keyword">-&gt;</span><span class="default">p</span><span class="keyword">) ;<br />echo </span><span class="default">$c</span><span class="keyword">-&gt;</span><span class="default">p</span><span class="keyword">, </span><span class="string">"\n" </span><span class="keyword">;    </span><span class="comment">// after unset, value is "__get of p"<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="52453">  <div class="votes">
+    <div id="Vu52453">
+    <a href="https://www.php.net/manual/vote-note.php?id=52453&amp;page=language.oop5.overloading&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd52453">
+    <a href="https://www.php.net/manual/vote-note.php?id=52453&amp;page=language.oop5.overloading&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V52453" title="58% like this...">
+    3
+    </div>
+  </div>
+  <a href="language.oop5.overloading.php.html#52453" class="name">
+  <strong class="user"><em>Marius</em></strong></a><a class="genanchor" href="language.oop5.overloading.php.html#52453"> &para;</a><div class="date" title="2005-05-02 02:15"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom52453">
+<div class="phpcode"><code><span class="html">for anyone who's thinking about traversing some variable tree<br />by using __get() and __set(). i tried to do this and found one<br />problem: you can handle couple of __get() in a row by returning<br />an object which can handle consequential __get(), but you can't<br />handle __get() and __set() that way.<br />i.e. if you want to:<br /><span class="default">&lt;?php<br />    </span><span class="keyword">print(</span><span class="default">$obj</span><span class="keyword">-&gt;</span><span class="default">val1</span><span class="keyword">-&gt;</span><span class="default">val2</span><span class="keyword">-&gt;</span><span class="default">val3</span><span class="keyword">); </span><span class="comment">// three __get() calls<br /></span><span class="default">?&gt;</span> - this will work,<br />but if you want to:<br /><span class="default">&lt;?php<br />    $obj</span><span class="keyword">-&gt;</span><span class="default">val1</span><span class="keyword">-&gt;</span><span class="default">val2 </span><span class="keyword">= </span><span class="default">$val</span><span class="keyword">; </span><span class="comment">// one __get() and one __set() call<br /></span><span class="default">?&gt;</span> - this will fail with message:<br />"Fatal error: Cannot access undefined property for object with<br /> overloaded property access"<br />however if you don't mix __get() and __set() in one expression,<br />it will work:<br /><span class="default">&lt;?php<br />    $obj</span><span class="keyword">-&gt;</span><span class="default">val1 </span><span class="keyword">= </span><span class="default">$val</span><span class="keyword">; </span><span class="comment">// only one __set() call<br />    </span><span class="default">$val2 </span><span class="keyword">= </span><span class="default">$obj</span><span class="keyword">-&gt;</span><span class="default">val1</span><span class="keyword">-&gt;</span><span class="default">val2</span><span class="keyword">; </span><span class="comment">// two __get() calls<br />    </span><span class="default">$val2</span><span class="keyword">-&gt;</span><span class="default">val3 </span><span class="keyword">= </span><span class="default">$val</span><span class="keyword">; </span><span class="comment">// one __set() call<br /></span><span class="default">?&gt;<br /></span><br />as you can see you can split __get() and __set() parts of<br />expression into two expressions to make it work.<br /><br />by the way, this seems like a bug to me, will have to report it.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="90896">  <div class="votes">
+    <div id="Vu90896">
+    <a href="https://www.php.net/manual/vote-note.php?id=90896&amp;page=language.oop5.overloading&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd90896">
+    <a href="https://www.php.net/manual/vote-note.php?id=90896&amp;page=language.oop5.overloading&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V90896" title="57% like this...">
+    4
+    </div>
+  </div>
+  <a href="language.oop5.overloading.php.html#90896" class="name">
+  <strong class="user"><em>daevid at daevid dot com</em></strong></a><a class="genanchor" href="language.oop5.overloading.php.html#90896"> &para;</a><div class="date" title="2009-05-14 09:16"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom90896">
+<div class="phpcode"><code><span class="html">Here's a handy little routine to suggest properties you're trying to set that don't exist. For example:<br /><br />Attempted to __get() non-existant property/variable 'operator_id' in class 'User'.<br /><br />checking for operator and suggesting the following:<br /><br />    * id_operator<br />    * operator_name<br />    * operator_code<br /><br />enjoy.<br /><br /><span class="default">&lt;?php<br />    </span><span class="comment">/**<br />     * Suggests alternative properties should a __get() or __set() fail<br />     *<br />     * @param     string $property<br />     * @return string<br />     * @author Daevid Vincent [daevid@daevid.com]<br />     * @date    05/12/09<br />     * @see        __get(), __set(), __call()<br />     */<br />    </span><span class="keyword">public function </span><span class="default">suggest_alternative</span><span class="keyword">(</span><span class="default">$property</span><span class="keyword">)<br />    {<br />        </span><span class="default">$parts </span><span class="keyword">= </span><span class="default">explode</span><span class="keyword">(</span><span class="string">'_'</span><span class="keyword">,</span><span class="default">$property</span><span class="keyword">);<br />        foreach(</span><span class="default">$parts </span><span class="keyword">as </span><span class="default">$i </span><span class="keyword">=&gt; </span><span class="default">$p</span><span class="keyword">) if (</span><span class="default">$p </span><span class="keyword">== </span><span class="string">'_' </span><span class="keyword">|| </span><span class="default">$p </span><span class="keyword">== </span><span class="string">'id'</span><span class="keyword">) unset(</span><span class="default">$parts</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">]);<br /><br />        echo </span><span class="string">'checking for &lt;b&gt;'</span><span class="keyword">.</span><span class="default">implode</span><span class="keyword">(</span><span class="string">', '</span><span class="keyword">,</span><span class="default">$parts</span><span class="keyword">).</span><span class="string">"&lt;/b&gt; and suggesting the following:&lt;br/&gt;\n"</span><span class="keyword">;<br /><br />        echo </span><span class="string">"&lt;ul&gt;"</span><span class="keyword">;<br />        foreach(</span><span class="default">$this </span><span class="keyword">as </span><span class="default">$key </span><span class="keyword">=&gt; </span><span class="default">$value</span><span class="keyword">)<br />            foreach(</span><span class="default">$parts </span><span class="keyword">as </span><span class="default">$p</span><span class="keyword">)<br />                if (</span><span class="default">stripos</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">, </span><span class="default">$p</span><span class="keyword">) !== </span><span class="default">false</span><span class="keyword">) print </span><span class="string">'&lt;li&gt;'</span><span class="keyword">.</span><span class="default">$key</span><span class="keyword">.</span><span class="string">"&lt;/li&gt;\n"</span><span class="keyword">;<br />        echo </span><span class="string">"&lt;/ul&gt;"</span><span class="keyword">;<br />    }<br /><br /></span><span class="default">just put it in your __get</span><span class="keyword">() or </span><span class="default">__set</span><span class="keyword">() </span><span class="default">like so</span><span class="keyword">:<br /><br />    public function </span><span class="default">__get</span><span class="keyword">(</span><span class="default">$property</span><span class="keyword">)<br />    {<br />            echo </span><span class="string">"&lt;p&gt;&lt;font color='#ff0000'&gt;Attempted to __get() non-existant property/variable '"</span><span class="keyword">.</span><span class="default">$property</span><span class="keyword">.</span><span class="string">"' in class '"</span><span class="keyword">.</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">get_class_name</span><span class="keyword">().</span><span class="string">"'.&lt;/font&gt;&lt;p&gt;\n"</span><span class="keyword">;<br />            </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">suggest_alternative</span><span class="keyword">(</span><span class="default">$property</span><span class="keyword">);<br />            exit;<br />    }<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="76325">  <div class="votes">
+    <div id="Vu76325">
+    <a href="https://www.php.net/manual/vote-note.php?id=76325&amp;page=language.oop5.overloading&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd76325">
+    <a href="https://www.php.net/manual/vote-note.php?id=76325&amp;page=language.oop5.overloading&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V76325" title="55% like this...">
+    4
+    </div>
+  </div>
+  <a href="language.oop5.overloading.php.html#76325" class="name">
+  <strong class="user"><em>Adeel Khan</em></strong></a><a class="genanchor" href="language.oop5.overloading.php.html#76325"> &para;</a><div class="date" title="2007-07-10 01:18"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom76325">
+<div class="phpcode"><code><span class="html">Observe:<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">class </span><span class="default">Foo </span><span class="keyword">{<br />    function </span><span class="default">__call</span><span class="keyword">(</span><span class="default">$m</span><span class="keyword">, </span><span class="default">$a</span><span class="keyword">) {<br />        die(</span><span class="default">$m</span><span class="keyword">);<br />    }<br />}<br /><br /></span><span class="default">$foo </span><span class="keyword">= new </span><span class="default">Foo</span><span class="keyword">;<br />print </span><span class="default">$foo</span><span class="keyword">-&gt;{</span><span class="string">'wow!'</span><span class="keyword">}();<br /><br /></span><span class="comment">// outputs 'wow!'<br /></span><span class="default">?&gt;<br /></span><br />This method allows you to call functions with invalid characters.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="104110">  <div class="votes">
+    <div id="Vu104110">
+    <a href="https://www.php.net/manual/vote-note.php?id=104110&amp;page=language.oop5.overloading&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd104110">
+    <a href="https://www.php.net/manual/vote-note.php?id=104110&amp;page=language.oop5.overloading&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V104110" title="54% like this...">
+    4
+    </div>
+  </div>
+  <a href="language.oop5.overloading.php.html#104110" class="name">
+  <strong class="user"><em>Daniel Smith</em></strong></a><a class="genanchor" href="language.oop5.overloading.php.html#104110"> &para;</a><div class="date" title="2011-05-23 04:15"><strong>12 years ago</strong></div>
+  <div class="text" id="Hcom104110">
+<div class="phpcode"><code><span class="html">Be careful of __call in case you have a protected/private method. Doing this:<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">class </span><span class="default">TestMagicCallMethod </span><span class="keyword">{<br />    public function </span><span class="default">foo</span><span class="keyword">()<br />    {<br />        echo </span><span class="default">__METHOD__</span><span class="keyword">.</span><span class="default">PHP_EOL</span><span class="keyword">;<br />    }<br /><br />    public function </span><span class="default">__call</span><span class="keyword">(</span><span class="default">$method</span><span class="keyword">, </span><span class="default">$args</span><span class="keyword">)<br />    {<br />        echo </span><span class="default">__METHOD__</span><span class="keyword">.</span><span class="default">PHP_EOL</span><span class="keyword">;<br />        if(</span><span class="default">method_exists</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">, </span><span class="default">$method</span><span class="keyword">))<br />        {<br />            </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">$method</span><span class="keyword">();<br />        }<br />    }<br />    <br />    protected function </span><span class="default">bar</span><span class="keyword">()<br />    {<br />        echo </span><span class="default">__METHOD__</span><span class="keyword">.</span><span class="default">PHP_EOL</span><span class="keyword">;<br />    }<br /><br />    private function </span><span class="default">baz</span><span class="keyword">()<br />    {<br />        echo </span><span class="default">__METHOD__</span><span class="keyword">.</span><span class="default">PHP_EOL</span><span class="keyword">;<br />    }<br />}<br /><br /></span><span class="default">$test    </span><span class="keyword">=    new </span><span class="default">TestMagicCallMethod</span><span class="keyword">();<br /></span><span class="default">$test</span><span class="keyword">-&gt;</span><span class="default">foo</span><span class="keyword">();<br /></span><span class="comment">/**<br /> * Outputs: <br /> * TestMagicCallMethod::foo<br /> */<br /><br /></span><span class="default">$test</span><span class="keyword">-&gt;</span><span class="default">bar</span><span class="keyword">();<br /></span><span class="comment">/**<br /> * Outputs: <br /> * TestMagicCallMethod::__call<br /> * TestMagicCallMethod::bar<br /> */<br /><br /></span><span class="default">$test</span><span class="keyword">-&gt;</span><span class="default">baz</span><span class="keyword">();<br /></span><span class="comment">/**<br /> * Outputs:<br /> * TestMagicCallMethod::__call<br /> * TestMagicCallMethod::baz<br /> */<br /></span><span class="default">?&gt;<br /></span><br />..is probably not what you should be doing. Always make sure that the methods you call in __call are allowed as you probably dont want all the private/protected methods to be accessed by a typo or something.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="114160">  <div class="votes">
+    <div id="Vu114160">
+    <a href="https://www.php.net/manual/vote-note.php?id=114160&amp;page=language.oop5.overloading&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd114160">
+    <a href="https://www.php.net/manual/vote-note.php?id=114160&amp;page=language.oop5.overloading&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V114160" title="53% like this...">
+    2
+    </div>
+  </div>
+  <a href="language.oop5.overloading.php.html#114160" class="name">
+  <strong class="user"><em>Nanhe Kumar</em></strong></a><a class="genanchor" href="language.oop5.overloading.php.html#114160"> &para;</a><div class="date" title="2014-01-17 10:47"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom114160">
+<div class="phpcode"><code><span class="html"><span class="default">&lt;?php<br /></span><span class="comment">//How can implement __call function you understand better<br /></span><span class="keyword">class </span><span class="default">Employee </span><span class="keyword">{<br /><br />    protected </span><span class="default">$_name</span><span class="keyword">;<br />    protected </span><span class="default">$_email</span><span class="keyword">;<br />    protected </span><span class="default">$_compony</span><span class="keyword">;<br /><br />    public function </span><span class="default">__call</span><span class="keyword">(</span><span class="default">$name</span><span class="keyword">, </span><span class="default">$arguments</span><span class="keyword">) {<br />        </span><span class="default">$action </span><span class="keyword">= </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$name</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">3</span><span class="keyword">);<br />        switch (</span><span class="default">$action</span><span class="keyword">) {<br />            case </span><span class="string">'get'</span><span class="keyword">:<br />                </span><span class="default">$property </span><span class="keyword">= </span><span class="string">'_' </span><span class="keyword">. </span><span class="default">strtolower</span><span class="keyword">(</span><span class="default">substr</span><span class="keyword">(</span><span class="default">$name</span><span class="keyword">, </span><span class="default">3</span><span class="keyword">));<br />                if(</span><span class="default">property_exists</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">,</span><span class="default">$property</span><span class="keyword">)){<br />                    return </span><span class="default">$this</span><span class="keyword">-&gt;{</span><span class="default">$property</span><span class="keyword">};<br />                }else{<br />                    </span><span class="default">$trace </span><span class="keyword">= </span><span class="default">debug_backtrace</span><span class="keyword">();<br />                    </span><span class="default">trigger_error</span><span class="keyword">(</span><span class="string">'Undefined property  ' </span><span class="keyword">. </span><span class="default">$name </span><span class="keyword">. </span><span class="string">' in ' </span><span class="keyword">. </span><span class="default">$trace</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">][</span><span class="string">'file'</span><span class="keyword">] . </span><span class="string">' on line ' </span><span class="keyword">. </span><span class="default">$trace</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">][</span><span class="string">'line'</span><span class="keyword">], </span><span class="default">E_USER_NOTICE</span><span class="keyword">);<br />                    return </span><span class="default">null</span><span class="keyword">;<br />                }<br />                break;<br />            case </span><span class="string">'set'</span><span class="keyword">:<br />                </span><span class="default">$property </span><span class="keyword">= </span><span class="string">'_' </span><span class="keyword">. </span><span class="default">strtolower</span><span class="keyword">(</span><span class="default">substr</span><span class="keyword">(</span><span class="default">$name</span><span class="keyword">, </span><span class="default">3</span><span class="keyword">));<br />                if(</span><span class="default">property_exists</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">,</span><span class="default">$property</span><span class="keyword">)){<br />                    </span><span class="default">$this</span><span class="keyword">-&gt;{</span><span class="default">$property</span><span class="keyword">} = </span><span class="default">$arguments</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">];<br />                }else{<br />                    </span><span class="default">$trace </span><span class="keyword">= </span><span class="default">debug_backtrace</span><span class="keyword">();<br />                    </span><span class="default">trigger_error</span><span class="keyword">(</span><span class="string">'Undefined property  ' </span><span class="keyword">. </span><span class="default">$name </span><span class="keyword">. </span><span class="string">' in ' </span><span class="keyword">. </span><span class="default">$trace</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">][</span><span class="string">'file'</span><span class="keyword">] . </span><span class="string">' on line ' </span><span class="keyword">. </span><span class="default">$trace</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">][</span><span class="string">'line'</span><span class="keyword">], </span><span class="default">E_USER_NOTICE</span><span class="keyword">);<br />                    return </span><span class="default">null</span><span class="keyword">;<br />                }<br />                <br />                break;<br />            default :<br />                return </span><span class="default">FALSE</span><span class="keyword">;<br />        }<br />    }<br /><br />}<br /><br /></span><span class="default">$s </span><span class="keyword">= new </span><span class="default">Employee</span><span class="keyword">();<br /></span><span class="default">$s</span><span class="keyword">-&gt;</span><span class="default">setName</span><span class="keyword">(</span><span class="string">'Nanhe Kumar'</span><span class="keyword">);<br /></span><span class="default">$s</span><span class="keyword">-&gt;</span><span class="default">setEmail</span><span class="keyword">(</span><span class="string">'nanhe.kumar@gmail.com'</span><span class="keyword">);<br />echo </span><span class="default">$s</span><span class="keyword">-&gt;</span><span class="default">getName</span><span class="keyword">(); </span><span class="comment">//Nanhe Kumar<br /></span><span class="keyword">echo </span><span class="default">$s</span><span class="keyword">-&gt;</span><span class="default">getEmail</span><span class="keyword">(); </span><span class="comment">// nanhe.kumar@gmail.com<br /></span><span class="default">$s</span><span class="keyword">-&gt;</span><span class="default">setAge</span><span class="keyword">(</span><span class="default">10</span><span class="keyword">); </span><span class="comment">//Notice: Undefined property setAge in<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="93939">  <div class="votes">
+    <div id="Vu93939">
+    <a href="https://www.php.net/manual/vote-note.php?id=93939&amp;page=language.oop5.overloading&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd93939">
+    <a href="https://www.php.net/manual/vote-note.php?id=93939&amp;page=language.oop5.overloading&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V93939" title="54% like this...">
+    2
+    </div>
+  </div>
+  <a href="language.oop5.overloading.php.html#93939" class="name">
+  <strong class="user"><em>strata_ranger at hotmail dot com</em></strong></a><a class="genanchor" href="language.oop5.overloading.php.html#93939"> &para;</a><div class="date" title="2009-10-07 09:56"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom93939">
+<div class="phpcode"><code><span class="html">Combining two things noted previously:<br /><br />1 - Unsetting an object member removes it from the object completely, subsequent uses of that member will be handled by magic methods.<br />2 - PHP will not recursively call one magic method from within itself (at least for the same $name).<br /><br />This means that if an object member has been unset(), it IS possible to re-declare that object member (as public) by creating it within your object's __set() method, like this:<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">class </span><span class="default">Foo<br /></span><span class="keyword">{<br />  function </span><span class="default">__set</span><span class="keyword">(</span><span class="default">$name</span><span class="keyword">, </span><span class="default">$value</span><span class="keyword">)<br />  {<br />    </span><span class="comment">// Add a new (public) member to this object.<br />    // This works because __set() will not recursively call itself.<br />    </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">$name</span><span class="keyword">= </span><span class="default">$value</span><span class="keyword">;<br />  }<br />}<br /><br /></span><span class="default">$foo </span><span class="keyword">= new </span><span class="default">Foo</span><span class="keyword">();<br /><br /></span><span class="comment">// $foo has zero members at this point<br /></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$foo</span><span class="keyword">);<br /><br /></span><span class="comment">// __set() will be called here<br /></span><span class="default">$foo</span><span class="keyword">-&gt;</span><span class="default">bar </span><span class="keyword">= </span><span class="string">'something'</span><span class="keyword">; </span><span class="comment">// Calls __set()<br /><br />// $foo now contains one member<br /></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$foo</span><span class="keyword">);<br /><br /></span><span class="comment">// Won't call __set() because 'bar' is now declared<br /></span><span class="default">$foo</span><span class="keyword">-&gt;</span><span class="default">bar </span><span class="keyword">= </span><span class="string">'other thing'</span><span class="keyword">;<br /><br /></span><span class="default">?&gt;<br /></span><br />Also be mindful that if you want to break a reference involving an object member without triggering magic functionality, DO NOT unset() the object member directly.  Instead use =&amp; to bind the object member to any convenient null variable.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="45905">  <div class="votes">
+    <div id="Vu45905">
+    <a href="https://www.php.net/manual/vote-note.php?id=45905&amp;page=language.oop5.overloading&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd45905">
+    <a href="https://www.php.net/manual/vote-note.php?id=45905&amp;page=language.oop5.overloading&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V45905" title="54% like this...">
+    2
+    </div>
+  </div>
+  <a href="language.oop5.overloading.php.html#45905" class="name">
+  <strong class="user"><em>DevilDude at darkmaker dot com</em></strong></a><a class="genanchor" href="language.oop5.overloading.php.html#45905"> &para;</a><div class="date" title="2004-09-22 07:57"><strong>19 years ago</strong></div>
+  <div class="text" id="Hcom45905">
+<div class="phpcode"><code><span class="html">Php 5 has a simple recursion system that stops you from using overloading within an overloading function, this means you cannot get an overloaded variable within the __get method, or within any functions/methods called by the _get method, you can however call __get manualy within itself to do the same thing.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="105176">  <div class="votes">
+    <div id="Vu105176">
+    <a href="https://www.php.net/manual/vote-note.php?id=105176&amp;page=language.oop5.overloading&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd105176">
+    <a href="https://www.php.net/manual/vote-note.php?id=105176&amp;page=language.oop5.overloading&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V105176" title="52% like this...">
+    1
+    </div>
+  </div>
+  <a href="language.oop5.overloading.php.html#105176" class="name">
+  <strong class="user"><em>dans at dansheps dot com</em></strong></a><a class="genanchor" href="language.oop5.overloading.php.html#105176"> &para;</a><div class="date" title="2011-08-01 08:38"><strong>12 years ago</strong></div>
+  <div class="text" id="Hcom105176">
+<div class="phpcode"><code><span class="html">Since this was getting me for a little bit, I figure I better pipe in here...<br /><br />For nested calls to private/protected variables(probably functions too) what it does is call a __get()  on the first object, and if you return the nested object, it then calls a __get() on the nested object because, well it is protected as well.<br /><br />EG:<br /><span class="default">&lt;?php<br /></span><span class="keyword">class </span><span class="default">A<br /></span><span class="keyword">{<br />protected </span><span class="default">$B<br /><br /></span><span class="keyword">public function </span><span class="default">__construct</span><span class="keyword">()<br />{<br /></span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">B </span><span class="keyword">= new </span><span class="default">B</span><span class="keyword">();<br />}<br /><br />public function </span><span class="default">__get</span><span class="keyword">(</span><span class="default">$variable</span><span class="keyword">)<br />{<br />echo </span><span class="string">"Class A::Variable " </span><span class="keyword">. </span><span class="default">$variable </span><span class="keyword">. </span><span class="string">"\n\r"</span><span class="keyword">;<br /></span><span class="default">$retval </span><span class="keyword">= </span><span class="default">$this</span><span class="keyword">-&gt;{</span><span class="default">$variable</span><span class="keyword">};<br />return </span><span class="default">$retval</span><span class="keyword">;<br />}<br />}<br /><br />class </span><span class="default">B<br /></span><span class="keyword">{<br />protected </span><span class="default">$val<br /><br /></span><span class="keyword">public function </span><span class="default">__construct</span><span class="keyword">()<br />{<br /></span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">val </span><span class="keyword">= </span><span class="default">1</span><span class="keyword">;<br />}<br /><br />public function </span><span class="default">__get</span><span class="keyword">(</span><span class="default">$variable</span><span class="keyword">)<br />{<br />echo </span><span class="string">"Class B::Variable " </span><span class="keyword">. </span><span class="default">$variable </span><span class="keyword">. </span><span class="string">"\n\r"</span><span class="keyword">;<br /></span><span class="default">$retval </span><span class="keyword">= </span><span class="default">$this</span><span class="keyword">-&gt;{</span><span class="default">$variable</span><span class="keyword">};<br />return </span><span class="default">$retval</span><span class="keyword">;<br />}<br />}<br /><br /></span><span class="default">$A </span><span class="keyword">= new </span><span class="default">A</span><span class="keyword">();<br /><br />echo </span><span class="string">"Final Value: " </span><span class="keyword">. </span><span class="default">$A</span><span class="keyword">-&gt;</span><span class="default">B</span><span class="keyword">-&gt;</span><span class="default">val</span><span class="keyword">;<br /></span><span class="default">?&gt;<br /></span><br />That will return something like...<br /><br />Class A::Variable B<br />Class B::Variable val<br />Final Value: 1<br /><br />It seperates the calls into $A-&gt;B and $B-&gt;val<br /><br />Hope this helps someone</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="76622">  <div class="votes">
+    <div id="Vu76622">
+    <a href="https://www.php.net/manual/vote-note.php?id=76622&amp;page=language.oop5.overloading&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd76622">
+    <a href="https://www.php.net/manual/vote-note.php?id=76622&amp;page=language.oop5.overloading&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V76622" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="language.oop5.overloading.php.html#76622" class="name">
+  <strong class="user"><em>php at sleep is the enemy dot co dot uk</em></strong></a><a class="genanchor" href="language.oop5.overloading.php.html#76622"> &para;</a><div class="date" title="2007-07-23 07:23"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom76622">
+<div class="phpcode"><code><span class="html">Just to reinforce and elaborate on what DevilDude at darkmaker dot com said way down there on 22-Sep-2004 07:57.<br /><br />The recursion detection feature can prove especially perilous when using __set. When PHP comes across a statement that would usually call __set but would lead to recursion, rather than firing off a warning or simply not executing the statement it will act as though there is no __set method defined at all. The default behaviour in this instance is to dynamically add the specified property to the object thus breaking the desired functionality of all further calls to __set or __get for that property.<br /><br />Example:<br /><br /><span class="default">&lt;?php<br /><br /></span><span class="keyword">class </span><span class="default">TestClass</span><span class="keyword">{<br /><br />    public </span><span class="default">$values </span><span class="keyword">= array();<br />    <br />    public function </span><span class="default">__get</span><span class="keyword">(</span><span class="default">$name</span><span class="keyword">){<br />        return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">values</span><span class="keyword">[</span><span class="default">$name</span><span class="keyword">];<br />    }<br />    <br />    public function </span><span class="default">__set</span><span class="keyword">(</span><span class="default">$name</span><span class="keyword">, </span><span class="default">$value</span><span class="keyword">){<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">values</span><span class="keyword">[</span><span class="default">$name</span><span class="keyword">] = </span><span class="default">$value</span><span class="keyword">;<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">validate</span><span class="keyword">(</span><span class="default">$name</span><span class="keyword">);<br />    }<br /><br />    public function </span><span class="default">validate</span><span class="keyword">(</span><span class="default">$name</span><span class="keyword">){<br />        </span><span class="comment">/*<br />        __get will be called on the following line<br />        but as soon as we attempt to call __set <br />        again PHP will refuse and simply add a <br />        property called $name to $this <br />        */<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">$name </span><span class="keyword">= </span><span class="default">trim</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">$name</span><span class="keyword">);<br />    }<br />}<br /><br /></span><span class="default">$tc </span><span class="keyword">= new </span><span class="default">TestClass</span><span class="keyword">();<br /><br /></span><span class="default">$tc</span><span class="keyword">-&gt;</span><span class="default">foo </span><span class="keyword">= </span><span class="string">'bar'</span><span class="keyword">;<br /></span><span class="default">$tc</span><span class="keyword">-&gt;</span><span class="default">values</span><span class="keyword">[</span><span class="string">'foo'</span><span class="keyword">] = </span><span class="string">'boing'</span><span class="keyword">;<br /><br />echo </span><span class="string">'$tc-&gt;foo == ' </span><span class="keyword">. </span><span class="default">$tc</span><span class="keyword">-&gt;</span><span class="default">foo </span><span class="keyword">. </span><span class="string">'&lt;br&gt;'</span><span class="keyword">;<br />echo </span><span class="string">'$tc ' </span><span class="keyword">. (</span><span class="default">property_exists</span><span class="keyword">(</span><span class="default">$tc</span><span class="keyword">, </span><span class="string">'foo'</span><span class="keyword">) ? </span><span class="string">'now has' </span><span class="keyword">: </span><span class="string">'still does not have'</span><span class="keyword">) . </span><span class="string">' a property called "foo"&lt;br&gt;'</span><span class="keyword">;<br /><br /></span><span class="comment">/*<br />OUPUTS:<br />$tc-&gt;foo == bar<br />$tc now has a property called "foo"<br />*/<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=language.oop5.overloading&amp;redirect=https://www.php.net/manual/ru/language.oop5.overloading.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="language.oop5.php.html">Классы и объекты</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="oop5.intro.php.html" title="Введение">Введение</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.basic.php.html" title="Основы">Основы</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.properties.php.html" title="Свойства">Свойства</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.constants.php.html" title="Константы классов">Константы классов</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.autoload.php.html" title="Автоматическая загрузка классов">Автоматическая загрузка классов</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.decon.php.html" title="Конструкторы и деструкторы">Конструкторы и деструкторы</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.visibility.php.html" title="Область видимости">Область видимости</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.inheritance.php.html" title="Наследование">Наследование</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.paamayim-nekudotayim.php.html" title="Оператор разрешения области видимости (::)">Оператор разрешения области видимости (::)</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.static.php.html" title="Ключевое слово static">Ключевое слово static</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.abstract.php.html" title="Абстрактные классы">Абстрактные классы</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.interfaces.php.html" title="Интерфейсы объектов">Интерфейсы объектов</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.traits.php.html" title="Трейты">Трейты</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.anonymous.php.html" title="Анонимные классы">Анонимные классы</a>
+                        </li>
+                                                <li class="current">
+                            <a href="language.oop5.overloading.php.html" title="Перегрузка">Перегрузка</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.iterations.php.html" title="Итераторы объектов">Итераторы объектов</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.magic.php.html" title="Магические методы">Магические методы</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.final.php.html" title="Ключевое слово final">Ключевое слово final</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.cloning.php.html" title="Клонирование объектов">Клонирование объектов</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.object-comparison.php.html" title="Сравнение объектов">Сравнение объектов</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.late-static-bindings.php.html" title="Позднее статическое связывание">Позднее статическое связывание</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.references.php.html" title="Объекты и ссылки">Объекты и ссылки</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.serialization.php.html" title="Сериализация объектов">Сериализация объектов</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.variance.php.html" title="Ковариантность и контравариантность">Ковариантность и контравариантность</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.changelog.php.html" title="Журнал изменений ООП">Журнал изменений ООП</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

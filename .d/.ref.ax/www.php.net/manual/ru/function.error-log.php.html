@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: error_log - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="function.error-log.php.html">
+ <link rel="shorturl" href="https://www.php.net/error-log">
+ <link rel="alternate" href="https://www.php.net/error-log" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="ref.errorfunc.php.html">
+ <link rel="prev" href="function.error-get-last.php.html">
+ <link rel="next" href="function.error-reporting.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/function.error-log.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/function.error-log.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/function.error-log.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/function.error-log.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/function.error-log.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/function.error-log.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/function.error-log.php" hreflang="pt_BR">
+ <link rel="alternate" href="function.error-log.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/function.error-log.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/function.error-log.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="function.error-reporting.php.html">
+          error_reporting &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="function.error-get-last.php.html">
+          &laquo; error_get_last        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.basic.php.php.html'>Изменение поведения PHP</a></li>      <li><a href='book.errorfunc.php.html'>Обработка ошибок</a></li>      <li><a href='ref.errorfunc.php.html'>Функции обработки ошибок</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/function.error-log.php'>English</option>
+            <option value='de/function.error-log.php'>German</option>
+            <option value='es/function.error-log.php'>Spanish</option>
+            <option value='fr/function.error-log.php'>French</option>
+            <option value='it/function.error-log.php'>Italian</option>
+            <option value='ja/function.error-log.php'>Japanese</option>
+            <option value='pt_BR/function.error-log.php'>Brazilian Portuguese</option>
+            <option value='ru/function.error-log.php' selected="selected">Russian</option>
+            <option value='tr/function.error-log.php'>Turkish</option>
+            <option value='zh/function.error-log.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/errorfunc/functions/error-log.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Ffunction.error-log%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="function.error-log" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">error_log</h1>
+  <p class="verinfo">(PHP 4, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">error_log</span> &mdash; <span class="dc-title">Отправляет сообщение об ошибке заданному обработчику ошибок</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.error-log-description">
+  <h3 class="title">Описание</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="methodname"><strong>error_log</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$message</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$message_type</code><span class="initializer"> = 0</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">?</span><span class="type"><span class="type">string</span><span class="type"></span></span> <code class="parameter">$destination</code><span class="initializer"> = <strong><code>null</code></strong></span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">?</span><span class="type"><span class="type">string</span><span class="type"></span></span> <code class="parameter">$additional_headers</code><span class="initializer"> = <strong><code>null</code></strong></span></span><br>): <span class="type">bool</span></div>
+
+  <p class="para rdfs-comment">
+   Отправляет сообщение об ошибке в лог веб-сервера или в пользовательский файл.
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.error-log-parameters">
+  <h3 class="title">Список параметров</h3>
+  <p class="para">
+   <dl>
+    
+     <dt>
+<code class="parameter">message</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Сообщение об ошибке, которое должно быть логировано.
+      </p>
+     </dd>
+
+    
+    
+     <dt>
+<code class="parameter">message_type</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Определяет куда отправлять ошибку.
+    Возможны следующие значения:
+      </p>
+      <p class="para">
+       <table class="doctable table">
+        <caption><strong>Типы журналов <span class="function"><strong>error_log()</strong></span></strong></caption>
+        
+         <tbody class="tbody">
+          <tr>
+           <td>0</td>
+           <td>
+            Сообщение <code class="parameter">message</code> отправляется в системный регистратор PHP, используя
+            механизм логирования операционной системы, или файл, в зависимости от значения директивы
+            <a href="errorfunc.configuration.php.html#ini.error-log" class="link">error_log</a>
+            в конфигурационном файле.  Это значение по умолчанию.
+           </td>
+          </tr>
+
+          <tr>
+           <td>1</td>
+           <td>
+            Сообщение <code class="parameter">message</code> отправляется электронной почтой на адрес, установленный в параметре
+            <code class="parameter">destination</code>.  Это единственный тип сообщения, где используется четвёртый параметр
+            <code class="parameter">additional_headers</code>.
+           </td>
+          </tr>
+
+          <tr>
+           <td>2</td>
+           <td>
+            Больше не используется.
+           </td>
+          </tr>
+
+          <tr>
+           <td>3</td>
+           <td>
+            <code class="parameter">message</code> применяется к указанному в
+            <code class="parameter">destination</code> файлу. Перенос строки автоматически не добавляется в конец
+            <code class="parameter">message</code>.
+           </td>
+          </tr>
+
+          <tr>
+           <td>4</td>
+           <td>
+            Сообщение <code class="parameter">message</code> отправляется напрямую в обработчик
+   логера SAPI.
+           </td>
+          </tr>
+
+         </tbody>
+        
+       </table>
+
+      </p>
+     </dd>
+
+    
+    
+     <dt>
+<code class="parameter">destination</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Назначение. Устанавливается в зависимости от параметра
+       <code class="parameter">message_type</code>.
+      </p>
+     </dd>
+
+    
+    
+     <dt>
+<code class="parameter">additional_headers</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Дополнительные заголовки. Используется, когда значение параметра <code class="parameter">message_type</code>
+       - <code class="literal">1</code>.
+       Данный тип сообщения использует ту же внутреннюю функцию, что и
+       <span class="function"><a href="function.mail.php.html" class="function">mail()</a></span>.
+      </p>
+     </dd>
+
+    
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.error-log-returnvalues">
+  <h3 class="title">Возвращаемые значения</h3>
+  <p class="para">
+   Возвращает <strong><code>true</code></strong> в случае успешного выполнения или <strong><code>false</code></strong> в случае возникновения ошибки.
+   Если <code class="parameter">message_type</code> равен нулю, функция всегда возвращает <strong><code>true</code></strong>,
+   независимо от того, может ли ошибка логироваться или нет.
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.error-log-changelog">
+  <h3 class="title">Список изменений</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>Версия</th>
+      <th>Описание</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+      <td>8.0.0</td>
+      <td>
+       Параметр <code class="parameter">destination</code> и
+       <code class="parameter">additional_headers</code> теперь допускают значение null.
+      </td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.error-log-examples">
+  <h3 class="title">Примеры</h3>
+  <p class="para">
+   <div class="example" id="example-1564">
+    <p><strong>Пример #1 Примеры использования <span class="function"><strong>error_log()</strong></span></strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// Отправляет уведомление посредством серверного лога, если мы не можем<br />// подключиться к базе данных.<br /></span><span style="color: #007700">if (!</span><span style="color: #0000BB">Ora_Logon</span><span style="color: #007700">(</span><span style="color: #0000BB">$username</span><span style="color: #007700">, </span><span style="color: #0000BB">$password</span><span style="color: #007700">)) {<br />    </span><span style="color: #0000BB">error_log</span><span style="color: #007700">(</span><span style="color: #DD0000">"База данных Oracle недоступна!"</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #FF8000">// Уведомить администратора по электронной почте, если невозможно выделить ресурсы для FOO<br /></span><span style="color: #007700">if (!(</span><span style="color: #0000BB">$foo </span><span style="color: #007700">= </span><span style="color: #0000BB">allocate_new_foo</span><span style="color: #007700">())) {<br />    </span><span style="color: #0000BB">error_log</span><span style="color: #007700">(</span><span style="color: #DD0000">"Большая проблема, мы выпали из FOO!"</span><span style="color: #007700">, </span><span style="color: #0000BB">1</span><span style="color: #007700">,<br />               </span><span style="color: #DD0000">"operator@example.com"</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #FF8000">// другой способ вызвать error_log():<br /></span><span style="color: #0000BB">error_log</span><span style="color: #007700">(</span><span style="color: #DD0000">"Вы ошиблись!"</span><span style="color: #007700">, </span><span style="color: #0000BB">3</span><span style="color: #007700">, </span><span style="color: #DD0000">"/var/tmp/my-errors.log"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.error-log-notes">
+  <h3 class="title">Примечания</h3>
+  <div class="warning"><strong class="warning">Внимание</strong>
+   <p class="simpara">
+    <span class="function"><strong>error_log()</strong></span> не является бинарно-безопасной функцией. <code class="parameter">message</code> обрезается по null-символу.
+   </p>
+  </div>
+  <div class="tip"><strong class="tip">Подсказка</strong>
+   <p class="simpara">
+    <code class="parameter">message</code> не должен содержать null-символ. Учтите, что <code class="parameter">message</code> может передаваться в файл, по почте, в syslog и т.д. Используйте подходящую преобразующую или экранирующую функцию, <span class="function"><a href="function.base64-encode.php.html" class="function">base64_encode()</a></span>, <span class="function"><a href="function.rawurlencode.php.html" class="function">rawurlencode()</a></span> или <span class="function"><a href="function.addslashes.php.html" class="function">addslashes()</a></span> перед вызовом <span class="function"><strong>error_log()</strong></span>.
+   </p>
+  </div>
+ </div>
+
+
+</div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=function.error-log&amp;redirect=https://www.php.net/manual/ru/function.error-log.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">21 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="96383">  <div class="votes">
+    <div id="Vu96383">
+    <a href="https://www.php.net/manual/vote-note.php?id=96383&amp;page=function.error-log&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd96383">
+    <a href="https://www.php.net/manual/vote-note.php?id=96383&amp;page=function.error-log&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V96383" title="81% like this...">
+    181
+    </div>
+  </div>
+  <a href="function.error-log.php.html#96383" class="name">
+  <strong class="user"><em>kevindougans at gmail dot com</em></strong></a><a class="genanchor" href="function.error-log.php.html#96383"> &para;</a><div class="date" title="2010-02-24 02:19"><strong>13 years ago</strong></div>
+  <div class="text" id="Hcom96383">
+<div class="phpcode"><code><span class="html">Advice to novices: This function works great along with "tail" which is a unix command to watch a log file live. There are versions of Tail for Windows too, like Tail for Win32 or Kiwi Log Viewer.<br /><br />Using both error_log() and tail to view the php_error.log you can debug code without having to worry so much about printing debug messages to the screen and who they might be seen by.<br /><br />Further Note: This works even better when you have two monitors setup. One for your browser and IDE and the other for viewing the log files update live as you go.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="123241">  <div class="votes">
+    <div id="Vu123241">
+    <a href="https://www.php.net/manual/vote-note.php?id=123241&amp;page=function.error-log&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd123241">
+    <a href="https://www.php.net/manual/vote-note.php?id=123241&amp;page=function.error-log&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V123241" title="76% like this...">
+    28
+    </div>
+  </div>
+  <a href="function.error-log.php.html#123241" class="name">
+  <strong class="user"><em>Sion</em></strong></a><a class="genanchor" href="function.error-log.php.html#123241"> &para;</a><div class="date" title="2018-10-18 02:48"><strong>5 years ago</strong></div>
+  <div class="text" id="Hcom123241">
+<div class="phpcode"><code><span class="html">DO NOT try to output TOO LARGE texts in the error_log();<br /><br />if you try to output massive amounts of texts it will either cut of the text at about 8ooo characters (for reasonable massive strings, &lt; 32 K characters) or (for insanely massive strings, about 1.6 million characters) totally crash without even throwing an error or anything (I even put it in a try/catch without getting any result from the catch).<br /><br />I had this problem when I tried to debug a response from a wp_remote_get(); all of my error_log() worked as they should, except for ONE of them... (-_-)<br />After about a day of debugging I finally found out why &amp; that's why I type this.<br /><br />Apparently the response contained a body with over 1.6 million chars (or bytes? (whatever strlen() returns)).<br /><br />If you have a string of unknown length, use this:<br />$start_index = 0;<br />$end_index = 8000;<br />error_log( substr( $output_text , $start_index , $end_index ) );</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="97546">  <div class="votes">
+    <div id="Vu97546">
+    <a href="https://www.php.net/manual/vote-note.php?id=97546&amp;page=function.error-log&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd97546">
+    <a href="https://www.php.net/manual/vote-note.php?id=97546&amp;page=function.error-log&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V97546" title="72% like this...">
+    46
+    </div>
+  </div>
+  <a href="function.error-log.php.html#97546" class="name">
+  <strong class="user"><em>roychri at php dot net</em></strong></a><a class="genanchor" href="function.error-log.php.html#97546"> &para;</a><div class="date" title="2010-04-25 09:02"><strong>13 years ago</strong></div>
+  <div class="text" id="Hcom97546">
+<div class="phpcode"><code><span class="html">There is a limit on the maximum length that you can pass as the $message.<br /><br />The default seem to be 1024 but can be changed by adjusting the value of the runtime configuration value of 'log_errors_max_len'.<br /><br />More details here:<br /><a href="http://www.php.net/manual/en/errorfunc.configuration.php" rel="nofollow" target="_blank">http://www.php.net/manual/en/errorfunc.configuration.php</a></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="70889">  <div class="votes">
+    <div id="Vu70889">
+    <a href="https://www.php.net/manual/vote-note.php?id=70889&amp;page=function.error-log&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd70889">
+    <a href="https://www.php.net/manual/vote-note.php?id=70889&amp;page=function.error-log&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V70889" title="72% like this...">
+    26
+    </div>
+  </div>
+  <a href="function.error-log.php.html#70889" class="name">
+  <strong class="user"><em>frank at booksku dot com</em></strong></a><a class="genanchor" href="function.error-log.php.html#70889"> &para;</a><div class="date" title="2006-11-02 03:28"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom70889">
+<div class="phpcode"><code><span class="html">Beware!  If multiple scripts share the same log file, but run as different users, whichever script logs an error first owns the file, and calls to error_log() run as a different user will fail *silently*!<br /><br />Nothing more frustrating than trying to figure out why all your error_log calls aren't actually writing, than to find it was due to a *silent* permission denied error!</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="81166">  <div class="votes">
+    <div id="Vu81166">
+    <a href="https://www.php.net/manual/vote-note.php?id=81166&amp;page=function.error-log&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd81166">
+    <a href="https://www.php.net/manual/vote-note.php?id=81166&amp;page=function.error-log&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V81166" title="69% like this...">
+    16
+    </div>
+  </div>
+  <a href="function.error-log.php.html#81166" class="name">
+  <strong class="user"><em>i dot buttinoni at intandtel dot com</em></strong></a><a class="genanchor" href="function.error-log.php.html#81166"> &para;</a><div class="date" title="2008-02-16 03:32"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom81166">
+<div class="phpcode"><code><span class="html">Be carefull. Unexpected PHP dies when 2GByte of file log reached (on systems having upper file size limit). <br />A work aorund is rotate logs :)</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="55106">  <div class="votes">
+    <div id="Vu55106">
+    <a href="https://www.php.net/manual/vote-note.php?id=55106&amp;page=function.error-log&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd55106">
+    <a href="https://www.php.net/manual/vote-note.php?id=55106&amp;page=function.error-log&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V55106" title="64% like this...">
+    13
+    </div>
+  </div>
+  <a href="function.error-log.php.html#55106" class="name">
+  <strong class="user"><em>php at kennel17 dot NOSPAM dot co dot uk</em></strong></a><a class="genanchor" href="function.error-log.php.html#55106"> &para;</a><div class="date" title="2005-07-25 02:04"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom55106">
+<div class="phpcode"><code><span class="html">It appears that the system log = stderr if you are running PHP from the command line, and that often stderr = stdout.  This means that if you are using a custom error to both display the error and log it to syslog, then a command-line user will see the same error reported twice.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="124369">  <div class="votes">
+    <div id="Vu124369">
+    <a href="https://www.php.net/manual/vote-note.php?id=124369&amp;page=function.error-log&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd124369">
+    <a href="https://www.php.net/manual/vote-note.php?id=124369&amp;page=function.error-log&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V124369" title="61% like this...">
+    4
+    </div>
+  </div>
+  <a href="function.error-log.php.html#124369" class="name">
+  <strong class="user"><em>Matthew Swift</em></strong></a><a class="genanchor" href="function.error-log.php.html#124369"> &para;</a><div class="date" title="2019-11-05 01:32"><strong>4 years ago</strong></div>
+  <div class="text" id="Hcom124369">
+<div class="phpcode"><code><span class="html">Relative paths are accepted as the destination of message_type 3, but beware that the root directory is determined by the context of the call to error_log(), which can change, so that one instance of error_log () in your code can lead to the creation of multiple log files in different locations.<br /><br />In a WordPress context, the root directory will be the site's root in many cases, but it will be /wp-admin/ for AJAX calls, and a plugin's directory in other cases. If you want all your output to go to one file, use an absolute path.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="80152">  <div class="votes">
+    <div id="Vu80152">
+    <a href="https://www.php.net/manual/vote-note.php?id=80152&amp;page=function.error-log&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd80152">
+    <a href="https://www.php.net/manual/vote-note.php?id=80152&amp;page=function.error-log&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V80152" title="59% like this...">
+    5
+    </div>
+  </div>
+  <a href="function.error-log.php.html#80152" class="name">
+  <strong class="user"><em>SJL</em></strong></a><a class="genanchor" href="function.error-log.php.html#80152"> &para;</a><div class="date" title="2007-12-31 06:16"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom80152">
+<div class="phpcode"><code><span class="html">"It appears that the system log = stderr if you are running PHP from the command line"<br /><br />Actually, it seems that PHP logs to stderr if it can't write to the log file. Command line PHP falls back to stderr because the log file is (usually) only writable by the webserver.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="76024">  <div class="votes">
+    <div id="Vu76024">
+    <a href="https://www.php.net/manual/vote-note.php?id=76024&amp;page=function.error-log&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd76024">
+    <a href="https://www.php.net/manual/vote-note.php?id=76024&amp;page=function.error-log&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V76024" title="59% like this...">
+    5
+    </div>
+  </div>
+  <a href="function.error-log.php.html#76024" class="name">
+  <strong class="user"><em>stepheneliotdewey at GmailDotCom</em></strong></a><a class="genanchor" href="function.error-log.php.html#76024"> &para;</a><div class="date" title="2007-06-26 06:05"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom76024">
+<div class="phpcode"><code><span class="html">Note that since typical email is unencrypted, sending data about your errors over email using this function could be considered a security risk. How much of a risk it is depends on how much and what type of information you are sending, but the mere act of sending an email when something happens (even if it cannot be read) could itself imply to a sophisticated hacker observing your site over time that they have managed to cause an error.<br /><br />Of course, security through obscurity is the weakest kind of security, as most open source supporters will agree. This is just something that you should keep in mind. <br /><br />And of course, whatever you do, make sure that such emails don't contain sensitive user data.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="30792">  <div class="votes">
+    <div id="Vu30792">
+    <a href="https://www.php.net/manual/vote-note.php?id=30792&amp;page=function.error-log&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd30792">
+    <a href="https://www.php.net/manual/vote-note.php?id=30792&amp;page=function.error-log&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V30792" title="58% like this...">
+    8
+    </div>
+  </div>
+  <a href="function.error-log.php.html#30792" class="name"><strong class="user"><em>Anonymous</em></strong></a><a class="genanchor" href="function.error-log.php.html#30792"> &para;</a><div class="date" title="2003-03-28 02:14"><strong>20 years ago</strong></div>
+  <div class="text" id="Hcom30792">
+<div class="phpcode"><code><span class="html">when using error_log to send email, not all elements of an extra_headers string are handled the same way.  "From: " and "Reply-To: " header values will replace the default header values. "Subject: " header values won't: they are *added* to the mail header but don't replace the default, leading to mail messages with two Subject fields.<br /><br /><span class="default">&lt;?php<br /><br />error_log</span><span class="keyword">(</span><span class="string">"sometext"</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">, </span><span class="string">"zigzag@my.domain"</span><span class="keyword">, <br />  </span><span class="string">"Subject: Foo\nFrom: Rizzlas@my.domain\n"</span><span class="keyword">);<br /><br /></span><span class="default">?&gt;<br /></span><br />---------------%&lt;-----------------------<br />To: zigzag@my.domain<br />Envelope-to: zigzag@my.domain<br />Date: Fri, 28 Mar 2003 13:29:02 -0500<br />From: Rizzlas@my.domain<br />Subject: PHP error_log message<br />Subject: Foo<br />Delivery-date: Fri, 28 Mar 2003 13:29:03 -0500<br /><br />sometext<br />---------------%&lt;---------------------<br /><br />quoth the docs: "This message type uses the same internal function as mail() does."  <br /><br />mail() will also fail to set a Subject field based on extra_header data - instead it takes a seperate argument to specify a "Subject: " string.<br /><br />php v.4.2.3, SunOS 5.8</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="83891">  <div class="votes">
+    <div id="Vu83891">
+    <a href="https://www.php.net/manual/vote-note.php?id=83891&amp;page=function.error-log&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd83891">
+    <a href="https://www.php.net/manual/vote-note.php?id=83891&amp;page=function.error-log&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V83891" title="57% like this...">
+    4
+    </div>
+  </div>
+  <a href="function.error-log.php.html#83891" class="name">
+  <strong class="user"><em>paul dot chubb at abs dot gov dot au</em></strong></a><a class="genanchor" href="function.error-log.php.html#83891"> &para;</a><div class="date" title="2008-06-16 10:37"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom83891">
+<div class="phpcode"><code><span class="html">When logging to apache on windows, both error_log and also trigger_error result in an apache status of error on the front of the message. This is bad if all you want to do is log information. However you can simply log to stderr however you will have to do all message assembly:<br /><br />LogToApache($Message) {<br />        $stderr = fopen('php://stderr', 'w'); <br />        fwrite($stderr,$Message); <br />        fclose($stderr); <br />}</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="124427">  <div class="votes">
+    <div id="Vu124427">
+    <a href="https://www.php.net/manual/vote-note.php?id=124427&amp;page=function.error-log&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd124427">
+    <a href="https://www.php.net/manual/vote-note.php?id=124427&amp;page=function.error-log&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V124427" title="53% like this...">
+    1
+    </div>
+  </div>
+  <a href="function.error-log.php.html#124427" class="name">
+  <strong class="user"><em>russ at russtanner dot com</em></strong></a><a class="genanchor" href="function.error-log.php.html#124427"> &para;</a><div class="date" title="2019-11-22 09:10"><strong>4 years ago</strong></div>
+  <div class="text" id="Hcom124427">
+<div class="phpcode"><code><span class="html">You can easily filter messages sent to error_log() using "tail" and "grep" on *nix systems. This makes monitoring debug messages easy to see during development.<br /><br />Be sure to "tag" your error message with a unique string so you can filter it using "grep":<br /><br />In your code:<br /><br />error_log("DevSys1 - FirstName: $FirstName - LastName: $Lastname");<br /><br />On your command line:<br /><br />tail -f /var/log/httpd/error_log | grep DevSys1<br /><br />In this example, we pipe apache log output to grep (STDIN) which filters it for you only showing messages that contain "DevSys1".<br /><br />The "-f" option means "follow" which streams all new log entries to your terminal or to any piped command that follows, in this case "grep".</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="69233">  <div class="votes">
+    <div id="Vu69233">
+    <a href="https://www.php.net/manual/vote-note.php?id=69233&amp;page=function.error-log&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd69233">
+    <a href="https://www.php.net/manual/vote-note.php?id=69233&amp;page=function.error-log&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V69233" title="55% like this...">
+    2
+    </div>
+  </div>
+  <a href="function.error-log.php.html#69233" class="name">
+  <strong class="user"><em>p dot lhonorey at nospam-laposte dot net</em></strong></a><a class="genanchor" href="function.error-log.php.html#69233"> &para;</a><div class="date" title="2006-08-28 03:33"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom69233">
+<div class="phpcode"><code><span class="html">Hi !<br /><br />Another trick to post "HTML" mail body. Just add "Content-Type: text/html; charset=ISO-8859-1" into extra_header string. Of course you can set charset according to your country or Env or content.<br /><br />EG: Error_log("&lt;html&gt;&lt;h2&gt;stuff&lt;/h2&gt;&lt;/html&gt;",1,"eat@joe.com","subject  :lunch\nContent-Type: text/html; charset=ISO-8859-1");<br /><br />Enjoy !</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="128965">  <div class="votes">
+    <div id="Vu128965">
+    <a href="https://www.php.net/manual/vote-note.php?id=128965&amp;page=function.error-log&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd128965">
+    <a href="https://www.php.net/manual/vote-note.php?id=128965&amp;page=function.error-log&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V128965" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="function.error-log.php.html#128965" class="name">
+  <strong class="user"><em>ccb2357 at gmail dot com</em></strong></a><a class="genanchor" href="function.error-log.php.html#128965"> &para;</a><div class="date" title="2023-10-17 07:48"><strong>3 months ago</strong></div>
+  <div class="text" id="Hcom128965">
+<div class="phpcode"><code><span class="html">// Pretty function to log info<br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">logger</span><span class="keyword">(</span><span class="default">$log</span><span class="keyword">, </span><span class="default">$clear </span><span class="keyword">= </span><span class="default">true</span><span class="keyword">){<br />  </span><span class="default">file_put_contents</span><span class="keyword">(</span><span class="string">'/path/log/logger.log'</span><span class="keyword">, (</span><span class="default">is_object</span><span class="keyword">(</span><span class="default">$log</span><span class="keyword">) || </span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$log</span><span class="keyword">) || </span><span class="default">is_resource</span><span class="keyword">(</span><span class="default">$log</span><span class="keyword">) ? </span><span class="default">json_encode</span><span class="keyword">(</span><span class="default">$log</span><span class="keyword">, </span><span class="default">JSON_PRETTY_PRINT </span><span class="keyword">| </span><span class="default">JSON_UNESCAPED_SLASHES </span><span class="keyword">| </span><span class="default">JSON_UNESCAPED_UNICODE</span><span class="keyword">) : </span><span class="default">$log</span><span class="keyword">), (!</span><span class="default">$clear</span><span class="keyword">) ? </span><span class="default">FILE_APPEND </span><span class="keyword">: </span><span class="default">0</span><span class="keyword">);<br />}</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="52078">  <div class="votes">
+    <div id="Vu52078">
+    <a href="https://www.php.net/manual/vote-note.php?id=52078&amp;page=function.error-log&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd52078">
+    <a href="https://www.php.net/manual/vote-note.php?id=52078&amp;page=function.error-log&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V52078" title="52% like this...">
+    1
+    </div>
+  </div>
+  <a href="function.error-log.php.html#52078" class="name">
+  <strong class="user"><em>franz at fholzinger dot com</em></strong></a><a class="genanchor" href="function.error-log.php.html#52078"> &para;</a><div class="date" title="2005-04-20 09:21"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom52078">
+<div class="phpcode"><code><span class="html">In the case of missing your entries in the error_log file:<br />When you use error_log in a script that does not produce any output, which means that you cannot see anything during the execution of the script, and when you wonder why there are no error_log entries produced in your error_log file, the reasons can be:<br />- you did not configure error_log output in php.ini<br />- the script has a syntax error and did therefore not execute</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="86651">  <div class="votes">
+    <div id="Vu86651">
+    <a href="https://www.php.net/manual/vote-note.php?id=86651&amp;page=function.error-log&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd86651">
+    <a href="https://www.php.net/manual/vote-note.php?id=86651&amp;page=function.error-log&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V86651" title="50% like this...">
+    1
+    </div>
+  </div>
+  <a href="function.error-log.php.html#86651" class="name">
+  <strong class="user"><em>eguvenc at gmail dot com</em></strong></a><a class="genanchor" href="function.error-log.php.html#86651"> &para;</a><div class="date" title="2008-10-28 08:03"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom86651">
+<div class="phpcode"><code><span class="html"><span class="default">&lt;?php<br /></span><span class="comment">//Multiline error log class<br />// ersin güvenç 2008 eguvenc@gmail.com<br />//For break use "\n" instead '\n'<br /><br /></span><span class="keyword">Class </span><span class="default">log </span><span class="keyword">{<br />  </span><span class="comment">//<br />  </span><span class="keyword">const </span><span class="default">USER_ERROR_DIR </span><span class="keyword">= </span><span class="string">'/home/site/error_log/Site_User_errors.log'</span><span class="keyword">;<br />  const </span><span class="default">GENERAL_ERROR_DIR </span><span class="keyword">= </span><span class="string">'/home/site/error_log/Site_General_errors.log'</span><span class="keyword">;<br /><br />  </span><span class="comment">/*<br />   User Errors...<br />  */<br />    </span><span class="keyword">public function </span><span class="default">user</span><span class="keyword">(</span><span class="default">$msg</span><span class="keyword">,</span><span class="default">$username</span><span class="keyword">)<br />    {<br />    </span><span class="default">$date </span><span class="keyword">= </span><span class="default">date</span><span class="keyword">(</span><span class="string">'d.m.Y h:i:s'</span><span class="keyword">);<br />    </span><span class="default">$log </span><span class="keyword">= </span><span class="default">$msg</span><span class="keyword">.</span><span class="string">"   |  Date:  "</span><span class="keyword">.</span><span class="default">$date</span><span class="keyword">.</span><span class="string">"  |  User:  "</span><span class="keyword">.</span><span class="default">$username</span><span class="keyword">.</span><span class="string">"\n"</span><span class="keyword">;<br />    </span><span class="default">error_log</span><span class="keyword">(</span><span class="default">$log</span><span class="keyword">, </span><span class="default">3</span><span class="keyword">, </span><span class="default">self</span><span class="keyword">::</span><span class="default">USER_ERROR_DIR</span><span class="keyword">);<br />    }<br />    </span><span class="comment">/*<br />   General Errors...<br />  */<br />    </span><span class="keyword">public function </span><span class="default">general</span><span class="keyword">(</span><span class="default">$msg</span><span class="keyword">)<br />    {<br />    </span><span class="default">$date </span><span class="keyword">= </span><span class="default">date</span><span class="keyword">(</span><span class="string">'d.m.Y h:i:s'</span><span class="keyword">);<br />    </span><span class="default">$log </span><span class="keyword">= </span><span class="default">$msg</span><span class="keyword">.</span><span class="string">"   |  Date:  "</span><span class="keyword">.</span><span class="default">$date</span><span class="keyword">.</span><span class="string">"\n"</span><span class="keyword">;<br />    </span><span class="default">error_log</span><span class="keyword">(</span><span class="default">$msg</span><span class="keyword">.</span><span class="string">"   |  Tarih:  "</span><span class="keyword">.</span><span class="default">$date</span><span class="keyword">, </span><span class="default">3</span><span class="keyword">, </span><span class="default">self</span><span class="keyword">::</span><span class="default">GENERAL_ERROR_DIR</span><span class="keyword">);<br />    }<br /><br />}<br /><br /></span><span class="default">$log </span><span class="keyword">= new </span><span class="default">log</span><span class="keyword">();<br /></span><span class="default">$log</span><span class="keyword">-&gt;</span><span class="default">user</span><span class="keyword">(</span><span class="default">$msg</span><span class="keyword">,</span><span class="default">$username</span><span class="keyword">); </span><span class="comment">//use for user errors<br />//$log-&gt;general($msg); //use for general errors<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="93286">  <div class="votes">
+    <div id="Vu93286">
+    <a href="https://www.php.net/manual/vote-note.php?id=93286&amp;page=function.error-log&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd93286">
+    <a href="https://www.php.net/manual/vote-note.php?id=93286&amp;page=function.error-log&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V93286" title="47% like this...">
+    -1
+    </div>
+  </div>
+  <a href="function.error-log.php.html#93286" class="name">
+  <strong class="user"><em>daniel dot fukuda at gmail dot com</em></strong></a><a class="genanchor" href="function.error-log.php.html#93286"> &para;</a><div class="date" title="2009-09-01 05:42"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom93286">
+<div class="phpcode"><code><span class="html">If you have a problem with log file permission *silently*<br />it's best to leave error_log directive unset so errors will be written in your Apache log file for current VirtualHost.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="125494">  <div class="votes">
+    <div id="Vu125494">
+    <a href="https://www.php.net/manual/vote-note.php?id=125494&amp;page=function.error-log&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd125494">
+    <a href="https://www.php.net/manual/vote-note.php?id=125494&amp;page=function.error-log&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V125494" title="33% like this...">
+    -2
+    </div>
+  </div>
+  <a href="function.error-log.php.html#125494" class="name">
+  <strong class="user"><em>Anonymous</em></strong></a><a class="genanchor" href="function.error-log.php.html#125494"> &para;</a><div class="date" title="2020-11-06 08:41"><strong>3 years ago</strong></div>
+  <div class="text" id="Hcom125494">
+<div class="phpcode"><code><span class="html">Depending on the error, you may also want to add an error 500 header, and a message for the user:<br /><br />$message =  'Description of the error.';<br />error_log($message);<br />header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500);<br />exit($message);</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="54988">  <div class="votes">
+    <div id="Vu54988">
+    <a href="https://www.php.net/manual/vote-note.php?id=54988&amp;page=function.error-log&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd54988">
+    <a href="https://www.php.net/manual/vote-note.php?id=54988&amp;page=function.error-log&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V54988" title="34% like this...">
+    -9
+    </div>
+  </div>
+  <a href="function.error-log.php.html#54988" class="name">
+  <strong class="user"><em>kazezb at nospam dot carleton dot edu</em></strong></a><a class="genanchor" href="function.error-log.php.html#54988"> &para;</a><div class="date" title="2005-07-21 10:39"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom54988">
+<div class="phpcode"><code><span class="html">It appears that error_log() only logs the first line of multi-line log messages. To log a multi-line message, either log each line individually or write the message to another file.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="123192">  <div class="votes">
+    <div id="Vu123192">
+    <a href="https://www.php.net/manual/vote-note.php?id=123192&amp;page=function.error-log&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd123192">
+    <a href="https://www.php.net/manual/vote-note.php?id=123192&amp;page=function.error-log&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V123192" title="28% like this...">
+    -6
+    </div>
+  </div>
+  <a href="function.error-log.php.html#123192" class="name">
+  <strong class="user"><em>Robert Chapin</em></strong></a><a class="genanchor" href="function.error-log.php.html#123192"> &para;</a><div class="date" title="2018-10-03 11:31"><strong>5 years ago</strong></div>
+  <div class="text" id="Hcom123192">
+<div class="phpcode"><code><span class="html">When error_log() unexpectedly uses stdout, you should check if the php.ini value for error_log is empty in your CLI environment.  Something as simple as this might restore expected behavior:<br /><br /><span class="default">&lt;?php ini_set</span><span class="keyword">(</span><span class="string">'error_log'</span><span class="keyword">, </span><span class="string">'error_log'</span><span class="keyword">); </span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="93164">  <div class="votes">
+    <div id="Vu93164">
+    <a href="https://www.php.net/manual/vote-note.php?id=93164&amp;page=function.error-log&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd93164">
+    <a href="https://www.php.net/manual/vote-note.php?id=93164&amp;page=function.error-log&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V93164" title="30% like this...">
+    -20
+    </div>
+  </div>
+  <a href="function.error-log.php.html#93164" class="name">
+  <strong class="user"><em>Anonymous</em></strong></a><a class="genanchor" href="function.error-log.php.html#93164"> &para;</a><div class="date" title="2009-08-26 10:22"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom93164">
+<div class="phpcode"><code><span class="html">After scouring the internet for getting event logging to <br />work in syslog on Windows 2003, I found the following <br />from this post and was able to successfully get Windows <br />Event Viewer to log PHP errors/notices:<br /><br /><a href="http://forums.iis.net/p/1159662/1912015.aspx#1913338" rel="nofollow" target="_blank">http://forums.iis.net/p/1159662/1912015.aspx#1913338</a><br /><br />   1. Copy the PHP 5 binaries to "C:\php".<br />   2. Right-click My Computer and select Properties to bring <br />up the Computer Properties dialog. Switch to the Advanced <br />tab and click Environment Variables. Find the system <br />environment variable PATH, edit it and add ";C:\php" <br />(without the quotes) to the end.<br />   3. Make sure that the configuration file "php.ini" resides <br />in the directory "C:\php" and contains the correct path <br />settings.<br />   4. DELETE any old "php.ini" files from "C:\WINDOWS" <br />and other directories.<br />   5. Open REGEDIT, navigate to the key <br />"HKLM\SOFTWARE\PHP" and DELETE the string value <br />"IniFilePath" from there. It is outdated and no longer <br />necessary!<br />   6. Modify NTFS security permissions of the directory <br />"C:\php" to give Read and Execute permissions to (1) the <br />IIS Guest Account and (2) the group IIS_WPG.<br />   7. Modify NTFS security permissions of the directories <br />"C:\php\session" and "C:\php\upload" to give additional <br />Modify permissions to (1) the IIS Guest Account and (2) <br />the group IIS_WPG.<br />   8. Navigate to the registry key <br />"HKLM\SYSTEM\CurrentControlSet\Services\Eventlog<br />\Application" and edit the value "CustomSD" there. Find <br />the substring "(D;;0xf0007;;;BG)" which Denies access to <br />the application event log for Builtin Guest accounts (like <br />the IIS Web User account) and replace this substring with <br />"(A;;0x3;;;BG)" which allows read and write access. Please <br />pay attention to leave the rest of the security string intact. <br />Damaging this value can have dangerous effects!<br />   9. Create or update the registry key <br />"HKLM\SYSTEM\CurrentControlSet\Services\Eventlog\Application\<br />PHP-5.2.0" (adapt the last to your version part <br />if necessary) with the following values:<br /><br />          * "EventMessageFile" (REG_EXPAND_SZ) = "C:\php\php5ts.dll"<br /><br />          * "TypesSupported" (REG_DWORD) = 7</span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=function.error-log&amp;redirect=https://www.php.net/manual/ru/function.error-log.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="ref.errorfunc.php.html">Функции обработки ошибок</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="function.debug-backtrace.php.html" title="debug_&#8203;backtrace">debug_&#8203;backtrace</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.debug-print-backtrace.php.html" title="debug_&#8203;print_&#8203;backtrace">debug_&#8203;print_&#8203;backtrace</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.error-clear-last.php.html" title="error_&#8203;clear_&#8203;last">error_&#8203;clear_&#8203;last</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.error-get-last.php.html" title="error_&#8203;get_&#8203;last">error_&#8203;get_&#8203;last</a>
+                        </li>
+                                                <li class="current">
+                            <a href="function.error-log.php.html" title="error_&#8203;log">error_&#8203;log</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.error-reporting.php.html" title="error_&#8203;reporting">error_&#8203;reporting</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.restore-error-handler.php.html" title="restore_&#8203;error_&#8203;handler">restore_&#8203;error_&#8203;handler</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.restore-exception-handler.php.html" title="restore_&#8203;exception_&#8203;handler">restore_&#8203;exception_&#8203;handler</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.set-error-handler.php.html" title="set_&#8203;error_&#8203;handler">set_&#8203;error_&#8203;handler</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.set-exception-handler.php.html" title="set_&#8203;exception_&#8203;handler">set_&#8203;exception_&#8203;handler</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.trigger-error.php.html" title="trigger_&#8203;error">trigger_&#8203;error</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.user-error.php.html" title="user_&#8203;error">user_&#8203;error</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

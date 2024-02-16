@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: socket_connect - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="function.socket-connect.php.html">
+ <link rel="shorturl" href="https://www.php.net/socket-connect">
+ <link rel="alternate" href="https://www.php.net/socket-connect" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="ref.sockets.php.html">
+ <link rel="prev" href="function.socket-cmsg-space.php.html">
+ <link rel="next" href="function.socket-create-listen.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/function.socket-connect.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/function.socket-connect.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/function.socket-connect.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/function.socket-connect.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/function.socket-connect.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/function.socket-connect.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/function.socket-connect.php" hreflang="pt_BR">
+ <link rel="alternate" href="function.socket-connect.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/function.socket-connect.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/function.socket-connect.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="function.socket-create-listen.php.html">
+          socket_create_listen &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="function.socket-cmsg-space.php.html">
+          &laquo; socket_cmsg_space        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.remote.other.php.html'>Другие службы</a></li>      <li><a href='book.sockets.php.html'>Сокеты</a></li>      <li><a href='ref.sockets.php.html'>Функции сокета</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/function.socket-connect.php'>English</option>
+            <option value='de/function.socket-connect.php'>German</option>
+            <option value='es/function.socket-connect.php'>Spanish</option>
+            <option value='fr/function.socket-connect.php'>French</option>
+            <option value='it/function.socket-connect.php'>Italian</option>
+            <option value='ja/function.socket-connect.php'>Japanese</option>
+            <option value='pt_BR/function.socket-connect.php'>Brazilian Portuguese</option>
+            <option value='ru/function.socket-connect.php' selected="selected">Russian</option>
+            <option value='tr/function.socket-connect.php'>Turkish</option>
+            <option value='zh/function.socket-connect.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/sockets/functions/socket-connect.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Ffunction.socket-connect%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="function.socket-connect" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">socket_connect</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.1.0, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">socket_connect</span> &mdash; <span class="dc-title">Начинает соединение с сокетом</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.socket-connect-description">
+  <h3 class="title">Описание</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="methodname"><strong>socket_connect</strong></span>(<span class="methodparam"><span class="type"><a href="class.socket.php.html" class="type Socket">Socket</a></span> <code class="parameter">$socket</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$address</code></span>, <span class="methodparam"><span class="type">?</span><span class="type"><span class="type">int</span><span class="type"></span></span> <code class="parameter">$port</code><span class="initializer"> = <strong><code>null</code></strong></span></span>): <span class="type">bool</span></div>
+
+  <p class="para rdfs-comment">
+   Инициализирует соединение с адресом <code class="parameter">address</code>, используя экземпляр <span class="classname"><a href="class.socket.php.html" class="classname">Socket</a></span>
+   <code class="parameter">socket</code>, который должен быть экземпляром <span class="classname"><a href="class.socket.php.html" class="classname">Socket</a></span>, созданным при помощи функции <span class="function"><a href="function.socket-create.php.html" class="function">socket_create()</a></span>.
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.socket-connect-parameters">
+  <h3 class="title">Список параметров</h3>
+  <p class="para">
+   <dl>
+    
+     <dt>
+<code class="parameter">socket</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Экземпляр <span class="classname"><a href="class.socket.php.html" class="classname">Socket</a></span>, созданный с помощью
+       <span class="function"><a href="function.socket-create.php.html" class="function">socket_create()</a></span>.
+      </p>
+     </dd>
+
+    
+    
+     <dt>
+<code class="parameter">address</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Параметр <code class="parameter">address</code> может быть IPv4-адресом
+       в записи, разделённой точками (например, <code class="literal">127.0.0.1</code>), если параметр
+       <code class="parameter">socket</code> равен <strong><code>AF_INET</code></strong>, правильный
+       IPv6-адрес (например, <code class="literal">::1</code>), если включена поддержка IPv6 и параметр
+       <code class="parameter">socket</code> равен <strong><code>AF_INET6</code></strong>
+       или путь к файлу доменного сокета Unix, если используется семейство сокетов
+       <strong><code>AF_UNIX</code></strong>.
+      </p>
+     </dd>
+
+    
+    
+     <dt>
+<code class="parameter">port</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Параметр <code class="parameter">port</code> используется и обязателен только в том случае,
+       если происходит соединение с сокетом <strong><code>AF_INET</code></strong> или
+       <strong><code>AF_INET6</code></strong>, и он указывает
+       порт на удалённом хосте, к которому должно быть создано соединение.
+      </p>
+     </dd>
+
+    
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.socket-connect-returnvalues">
+  <h3 class="title">Возвращаемые значения</h3>
+  <p class="para">
+   Возвращает <strong><code>true</code></strong> в случае успешного выполнения или <strong><code>false</code></strong> в случае возникновения ошибки. Код ошибки может быть получен при помощи функции
+   <span class="function"><a href="function.socket-last-error.php.html" class="function">socket_last_error()</a></span>. Этот код может быть затем передан функции
+   <span class="function"><a href="function.socket-strerror.php.html" class="function">socket_strerror()</a></span> для получения текстового описания ошибки.
+  </p>
+  <blockquote class="note"><p><strong class="note">Замечание</strong>: 
+   <p class="para">
+    Если сокет неблокирующий, то эта функция возвращает <strong><code>false</code></strong> с ошибкой
+    <code class="literal">Operation now in progress</code>.
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.socket-connect-changelog">
+  <h3 class="title">Список изменений</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>Версия</th>
+      <th>Описание</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+  <td>8.0.0</td>
+  <td>
+   <code class="parameter">socket</code> теперь экземпляр класса <span class="classname"><a href="class.socket.php.html" class="classname">Socket</a></span>;
+   ранее был ресурсом (<span class="type">resource</span>).
+  </td>
+ </tr>
+
+     <tr>
+      <td>8.0.0</td>
+      <td>
+       <code class="parameter">port</code> теперь допускает значение null.
+      </td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.socket-connect-seealso">
+  <h3 class="title">Смотрите также</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.socket-bind.php.html" class="function" rel="rdfs-seeAlso">socket_bind()</a> - Привязывает имя к сокету</span></li>
+    <li class="member"><span class="function"><a href="function.socket-listen.php.html" class="function" rel="rdfs-seeAlso">socket_listen()</a> - Прослушивает входящие соединения на сокете</span></li>
+    <li class="member"><span class="function"><a href="function.socket-create.php.html" class="function" rel="rdfs-seeAlso">socket_create()</a> - Создаёт сокет (конечную точку для обмена информацией)</span></li>
+    <li class="member"><span class="function"><a href="function.socket-last-error.php.html" class="function" rel="rdfs-seeAlso">socket_last_error()</a> - Возвращает последнюю ошибку на сокете</span></li>
+    <li class="member"><span class="function"><a href="function.socket-strerror.php.html" class="function" rel="rdfs-seeAlso">socket_strerror()</a> - Возвращает строку, описывающую ошибку сокета</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=function.socket-connect&amp;redirect=https://www.php.net/manual/ru/function.socket-connect.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">14 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="93310">  <div class="votes">
+    <div id="Vu93310">
+    <a href="https://www.php.net/manual/vote-note.php?id=93310&amp;page=function.socket-connect&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd93310">
+    <a href="https://www.php.net/manual/vote-note.php?id=93310&amp;page=function.socket-connect&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V93310" title="71% like this...">
+    6
+    </div>
+  </div>
+  <a href="function.socket-connect.php.html#93310" class="name">
+  <strong class="user"><em>jerrywilborn at gmail dot com</em></strong></a><a class="genanchor" href="function.socket-connect.php.html#93310"> &para;</a><div class="date" title="2009-09-02 09:40"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom93310">
+<div class="phpcode"><code><span class="html">This will print the banner from a true 'telnet' server (router, switch, host, etc).<br /><br />$socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);<br />socket_connect($socket, '127.0.0.1', 23);<br /><br />while (TRUE) {<br />        $r = array($socket);<br />        $c = socket_select($r, $w = NULL, $e = NULL, 5);<br /><br />        foreach ($r as $read_socket) {<br />                if ($r = negotiate($read_socket)) {<br />                        var_dump($r);<br />                        exit;<br />                }<br />        }<br />}<br /><br />function negotiate ($socket) {<br />        socket_recv($socket, $buffer, 1024, 0);<br /><br />        for ($chr = 0; $chr &lt; strlen($buffer); $chr++) {<br />                if ($buffer[$chr] == chr(255)) {<br /><br />                        $send = (isset($send) ? $send . $buffer[$chr] : $buffer[$chr]);<br /><br />                        $chr++;<br />                        if (in_array($buffer[$chr], array(chr(251), chr(252)))) $send .= chr(254);<br />                        if (in_array($buffer[$chr], array(chr(253), chr(254)))) $send .= chr(252);<br /><br />                        $chr++;<br />                        $send .= $buffer[$chr];<br />                } else {<br />                        break;<br />                }<br />        }<br /><br />        if (isset($send)) socket_send($socket, $send, strlen($send), 0);<br />        if ($chr - 1 &lt; strlen($buffer)) return substr($buffer, $chr);<br /><br />}</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="33512">  <div class="votes">
+    <div id="Vu33512">
+    <a href="https://www.php.net/manual/vote-note.php?id=33512&amp;page=function.socket-connect&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd33512">
+    <a href="https://www.php.net/manual/vote-note.php?id=33512&amp;page=function.socket-connect&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V33512" title="62% like this...">
+    6
+    </div>
+  </div>
+  <a href="function.socket-connect.php.html#33512" class="name">
+  <strong class="user"><em>w at ff dot st</em></strong></a><a class="genanchor" href="function.socket-connect.php.html#33512"> &para;</a><div class="date" title="2003-06-28 02:20"><strong>20 years ago</strong></div>
+  <div class="text" id="Hcom33512">
+<div class="phpcode"><code><span class="html">man page for connect :<br /> EINPROGRESS<br />The socket is non-blocking and the connection cannot be completed immediately.  It is possible to select(2) or poll(2) for completion by selecting the socket for writing. After select indicates  writability,  use  getsockopt(2)  to read the SO_ERROR option at level SOL_SOCKET to determine whether connect completed successfully (SO_ERROR is zero) or unsuccessfully (SO_ERROR is one of the usual error codes listed here, explaining the reason for the failure).<br /><br />use socket_getoption($socket,SOL_SOCKET,SO_ERROR) . If you get value 115, it is connecting. If you get value different than 115 and 0, that means that an error has occured (see what error with socket_strerror()).<br /><br />However, I don't know how does that works under Windows, maybe it wont work at all. It is supposed to work under Linux (man pages said that).</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="31701">  <div class="votes">
+    <div id="Vu31701">
+    <a href="https://www.php.net/manual/vote-note.php?id=31701&amp;page=function.socket-connect&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd31701">
+    <a href="https://www.php.net/manual/vote-note.php?id=31701&amp;page=function.socket-connect&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V31701" title="55% like this...">
+    5
+    </div>
+  </div>
+  <a href="function.socket-connect.php.html#31701" class="name">
+  <strong class="user"><em>greg at mtechsolutions dot ca</em></strong></a><a class="genanchor" href="function.socket-connect.php.html#31701"> &para;</a><div class="date" title="2003-04-30 02:12"><strong>20 years ago</strong></div>
+  <div class="text" id="Hcom31701">
+<div class="phpcode"><code><span class="html">If you're using non-blocking, be sure not to turn it on until after you connect, otherwise you will get the mesasge:<br /><br />PHP Warning:  socket_connect() unable to connect [115]: Operation now in progress in file.php on line 123<br /><br />and socket_connect() will return false (even though it will connect).</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="85795">  <div class="votes">
+    <div id="Vu85795">
+    <a href="https://www.php.net/manual/vote-note.php?id=85795&amp;page=function.socket-connect&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd85795">
+    <a href="https://www.php.net/manual/vote-note.php?id=85795&amp;page=function.socket-connect&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V85795" title="60% like this...">
+    2
+    </div>
+  </div>
+  <a href="function.socket-connect.php.html#85795" class="name">
+  <strong class="user"><em>maganap</em></strong></a><a class="genanchor" href="function.socket-connect.php.html#85795"> &para;</a><div class="date" title="2008-09-18 12:15"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom85795">
+<div class="phpcode"><code><span class="html">Hi there!<br /><br />For the TCP connections: socket_create(AF_INET, SOCK_STREAM, SOL_TCP);<br />In case you're having problems in socket_connect() with socket_strerror() = "Permission denied", you may be having a SELinux config issue.<br /><br />Check if SELinux is enabled:<br /># /usr/sbin/sestatus -v<br />In case it is, you can just type the command:<br /># setsebool httpd_can_network_connect=1<br /><br />That's it... I read you had to reboot, but I didn't and it worked fine anyway. More info, you may check:<br /><a href="http://arkiv.netbsd.se/?ml=squirrelmail-users&amp;a=2005-11&amp;t=1523021" rel="nofollow" target="_blank">http://arkiv.netbsd.se/?ml=squirrelmail-users&amp;a=2005-11&amp;t=1523021</a></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="94350">  <div class="votes">
+    <div id="Vu94350">
+    <a href="https://www.php.net/manual/vote-note.php?id=94350&amp;page=function.socket-connect&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd94350">
+    <a href="https://www.php.net/manual/vote-note.php?id=94350&amp;page=function.socket-connect&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V94350" title="55% like this...">
+    2
+    </div>
+  </div>
+  <a href="function.socket-connect.php.html#94350" class="name">
+  <strong class="user"><em>peter at videoripper dot org</em></strong></a><a class="genanchor" href="function.socket-connect.php.html#94350"> &para;</a><div class="date" title="2009-10-29 11:29"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom94350">
+<div class="phpcode"><code><span class="html">This will give you a simple port-checker.<br /><br />Note that on production-machines, you might want to alter the error reporting-level, <br />since unsuccessful connects will give you a "No connection could be made because <br />the target machine actively refused it"-error in the log.<br /><br />Under Windows, make sure you enable the php_sockets.dll extension in your php.ini.<br /><br /><span class="default">&lt;?php  <br />  $address</span><span class="keyword">=</span><span class="default">$_SERVER</span><span class="keyword">[</span><span class="string">'REMOTE_ADDR'</span><span class="keyword">];<br />  <br />  if (isset(</span><span class="default">$_REQUEST</span><span class="keyword">[</span><span class="string">'port'</span><span class="keyword">]) and<br />      (!</span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$_REQUEST</span><span class="keyword">[</span><span class="string">'port'</span><span class="keyword">])==</span><span class="default">0</span><span class="keyword">))<br />    </span><span class="default">$port</span><span class="keyword">=</span><span class="default">$_REQUEST</span><span class="keyword">[</span><span class="string">'port'</span><span class="keyword">];<br />  else<br />    unset(</span><span class="default">$port</span><span class="keyword">);<br />    <br />  if (isset(</span><span class="default">$port</span><span class="keyword">) and<br />      (</span><span class="default">$socket</span><span class="keyword">=</span><span class="default">socket_create</span><span class="keyword">(</span><span class="default">AF_INET</span><span class="keyword">, </span><span class="default">SOCK_STREAM</span><span class="keyword">, </span><span class="default">SOL_TCP</span><span class="keyword">)) and<br />      (</span><span class="default">socket_connect</span><span class="keyword">(</span><span class="default">$socket</span><span class="keyword">, </span><span class="default">$address</span><span class="keyword">, </span><span class="default">$port</span><span class="keyword">)))<br />    {<br />      </span><span class="default">$text</span><span class="keyword">=</span><span class="string">"Connection successful on IP </span><span class="default">$address</span><span class="string">, port </span><span class="default">$port</span><span class="string">"</span><span class="keyword">;<br />      </span><span class="default">socket_close</span><span class="keyword">(</span><span class="default">$socket</span><span class="keyword">);<br />    }<br />  else<br />    </span><span class="default">$text</span><span class="keyword">=</span><span class="string">"Unable to connect&lt;pre&gt;"</span><span class="keyword">.</span><span class="default">socket_strerror</span><span class="keyword">(</span><span class="default">socket_last_error</span><span class="keyword">()).</span><span class="string">"&lt;/pre&gt;"</span><span class="keyword">;<br />    <br />  echo </span><span class="string">"&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;"</span><span class="keyword">.<br />       </span><span class="default">$text</span><span class="keyword">.<br />       </span><span class="string">"&lt;/body&gt;&lt;/html&gt;"</span><span class="keyword">;<br /></span><span class="default">?&gt;<br /></span><br />Greetz,<br /><br />Peter.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="103492">  <div class="votes">
+    <div id="Vu103492">
+    <a href="https://www.php.net/manual/vote-note.php?id=103492&amp;page=function.socket-connect&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd103492">
+    <a href="https://www.php.net/manual/vote-note.php?id=103492&amp;page=function.socket-connect&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V103492" title="52% like this...">
+    1
+    </div>
+  </div>
+  <a href="function.socket-connect.php.html#103492" class="name">
+  <strong class="user"><em>Cedar Myers</em></strong></a><a class="genanchor" href="function.socket-connect.php.html#103492"> &para;</a><div class="date" title="2011-04-15 10:23"><strong>12 years ago</strong></div>
+  <div class="text" id="Hcom103492">
+<div class="phpcode"><code><span class="html">It seems that timeout values can be specified by setting the SO_SNDTIMEO option before calling socket_connect():<br /><br /><span class="default">&lt;?php<br />socket_set_option</span><span class="keyword">(</span><span class="default">$socket</span><span class="keyword">, </span><span class="default">SOL_SOCKET</span><span class="keyword">, </span><span class="default">SO_SNDTIMEO</span><span class="keyword">, array(</span><span class="string">'sec' </span><span class="keyword">=&gt; </span><span class="default">$seconds</span><span class="keyword">, </span><span class="string">'usec' </span><span class="keyword">=&gt; </span><span class="default">$milliseconds</span><span class="keyword">));<br /></span><span class="default">socket_connect</span><span class="keyword">(</span><span class="default">$socket</span><span class="keyword">, </span><span class="default">$address</span><span class="keyword">, </span><span class="default">$port</span><span class="keyword">)</span><span class="comment">//...<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="120981">  <div class="votes">
+    <div id="Vu120981">
+    <a href="https://www.php.net/manual/vote-note.php?id=120981&amp;page=function.socket-connect&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd120981">
+    <a href="https://www.php.net/manual/vote-note.php?id=120981&amp;page=function.socket-connect&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V120981" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="function.socket-connect.php.html#120981" class="name">
+  <strong class="user"><em>tacapi at canela dot com</em></strong></a><a class="genanchor" href="function.socket-connect.php.html#120981"> &para;</a><div class="date" title="2017-04-13 12:35"><strong>6 years ago</strong></div>
+  <div class="text" id="Hcom120981">
+<div class="phpcode"><code><span class="html">Just a heads up guys: make sure you're passing a properly formatted IP to your ping and socket functions.<br /><br />E.g.: 192.168.0.18 -&gt; OK<br />      192.168.0.018 -&gt; Will result in "Unkwown host"<br /><br />I was getting a 11004 error and could not solve it until I realized that was the problem.<br /><br />(Pode ser que seja útil para alguém: verifique que o IP passado por parâmetro para o seu ping e funções socket é um endereço de IP corretamente formatado)</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="90286">  <div class="votes">
+    <div id="Vu90286">
+    <a href="https://www.php.net/manual/vote-note.php?id=90286&amp;page=function.socket-connect&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd90286">
+    <a href="https://www.php.net/manual/vote-note.php?id=90286&amp;page=function.socket-connect&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V90286" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="function.socket-connect.php.html#90286" class="name">
+  <strong class="user"><em>vshih at yahoo</em></strong></a><a class="genanchor" href="function.socket-connect.php.html#90286"> &para;</a><div class="date" title="2009-04-14 12:52"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom90286">
+<div class="phpcode"><code><span class="html">rbarnes' tip is helpful, but I found that I needed to add a check for SOCKET_EISCONN in the while loop:<br /><br />    ...<br />    $error = socket_last_error();<br /><br />    if ($error == SOCKET_EISCONN) {<br />        $connected = true;<br />        break;<br />    }<br />    ...<br /><br />At least on Mac OS X 10.5.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="84465">  <div class="votes">
+    <div id="Vu84465">
+    <a href="https://www.php.net/manual/vote-note.php?id=84465&amp;page=function.socket-connect&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd84465">
+    <a href="https://www.php.net/manual/vote-note.php?id=84465&amp;page=function.socket-connect&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V84465" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="function.socket-connect.php.html#84465" class="name">
+  <strong class="user"><em>rbarnes at fake dot com</em></strong></a><a class="genanchor" href="function.socket-connect.php.html#84465"> &para;</a><div class="date" title="2008-07-15 10:04"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom84465">
+<div class="phpcode"><code><span class="html">Here is an example of a non-blocking connect which should perform quite a bit faster than the one posted by Seymour below:<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">msConnectSocket</span><span class="keyword">(</span><span class="default">$remote</span><span class="keyword">, </span><span class="default">$port</span><span class="keyword">, </span><span class="default">$timeout </span><span class="keyword">= </span><span class="default">30</span><span class="keyword">) {<br />        </span><span class="comment"># this works whether $remote is a hostname or IP<br />        </span><span class="default">$ip </span><span class="keyword">= </span><span class="string">""</span><span class="keyword">;<br />        if( !</span><span class="default">preg_match</span><span class="keyword">(</span><span class="string">'/^\d+\.\d+\.\d+\.\d+$/'</span><span class="keyword">, </span><span class="default">$remote</span><span class="keyword">) ) {<br />            </span><span class="default">$ip </span><span class="keyword">= </span><span class="default">gethostbyname</span><span class="keyword">(</span><span class="default">$remote</span><span class="keyword">);<br />            if (</span><span class="default">$ip </span><span class="keyword">== </span><span class="default">$remote</span><span class="keyword">) {<br />                </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">errstr </span><span class="keyword">= </span><span class="string">"Error Connecting Socket: Unknown host"</span><span class="keyword">;<br />                return </span><span class="default">NULL</span><span class="keyword">;<br />            }<br />        } else </span><span class="default">$ip </span><span class="keyword">= </span><span class="default">$remote</span><span class="keyword">;<br /><br />        if (!(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_SOCK </span><span class="keyword">= @</span><span class="default">socket_create</span><span class="keyword">(</span><span class="default">AF_INET</span><span class="keyword">, </span><span class="default">SOCK_STREAM</span><span class="keyword">, </span><span class="default">SOL_TCP</span><span class="keyword">))) {<br />            </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">errstr </span><span class="keyword">= </span><span class="string">"Error Creating Socket: "</span><span class="keyword">.</span><span class="default">socket_strerror</span><span class="keyword">(</span><span class="default">socket_last_error</span><span class="keyword">());<br />            return </span><span class="default">NULL</span><span class="keyword">;<br />        }<br /><br />        </span><span class="default">socket_set_nonblock</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_SOCK</span><span class="keyword">);<br /><br />        </span><span class="default">$error </span><span class="keyword">= </span><span class="default">NULL</span><span class="keyword">;<br />        </span><span class="default">$attempts </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br />        </span><span class="default">$timeout </span><span class="keyword">*= </span><span class="default">1000</span><span class="keyword">;  </span><span class="comment">// adjust because we sleeping in 1 millisecond increments<br />        </span><span class="default">$connected</span><span class="keyword">;<br />        while (!(</span><span class="default">$connected </span><span class="keyword">= @</span><span class="default">socket_connect</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_SOCK</span><span class="keyword">, </span><span class="default">$remote</span><span class="keyword">, </span><span class="default">$port</span><span class="keyword">+</span><span class="default">0</span><span class="keyword">)) &amp;&amp; </span><span class="default">$attempts</span><span class="keyword">++ &lt; </span><span class="default">$timeout</span><span class="keyword">) {<br />            </span><span class="default">$error </span><span class="keyword">= </span><span class="default">socket_last_error</span><span class="keyword">();<br />            if (</span><span class="default">$error </span><span class="keyword">!= </span><span class="default">SOCKET_EINPROGRESS </span><span class="keyword">&amp;&amp; </span><span class="default">$error </span><span class="keyword">!= </span><span class="default">SOCKET_EALREADY</span><span class="keyword">) {<br />                </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">errstr </span><span class="keyword">= </span><span class="string">"Error Connecting Socket: "</span><span class="keyword">.</span><span class="default">socket_strerror</span><span class="keyword">(</span><span class="default">$error</span><span class="keyword">);<br />                </span><span class="default">socket_close</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_SOCK</span><span class="keyword">);<br />                return </span><span class="default">NULL</span><span class="keyword">;<br />            }<br />            </span><span class="default">usleep</span><span class="keyword">(</span><span class="default">1000</span><span class="keyword">);<br />        }<br /><br />        if (!</span><span class="default">$connected</span><span class="keyword">) {<br />            </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">errstr </span><span class="keyword">= </span><span class="string">"Error Connecting Socket: Connect Timed Out After </span><span class="default">$timeout</span><span class="string"> seconds. "</span><span class="keyword">.</span><span class="default">socket_strerror</span><span class="keyword">(</span><span class="default">socket_last_error</span><span class="keyword">());<br />            </span><span class="default">socket_close</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_SOCK</span><span class="keyword">);<br />            return </span><span class="default">NULL</span><span class="keyword">;<br />        }<br />        <br />        </span><span class="default">socket_set_block</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_SOCK</span><span class="keyword">);<br /><br />        return </span><span class="default">1</span><span class="keyword">;      <br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="101909">  <div class="votes">
+    <div id="Vu101909">
+    <a href="https://www.php.net/manual/vote-note.php?id=101909&amp;page=function.socket-connect&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd101909">
+    <a href="https://www.php.net/manual/vote-note.php?id=101909&amp;page=function.socket-connect&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V101909" title="41% like this...">
+    -2
+    </div>
+  </div>
+  <a href="function.socket-connect.php.html#101909" class="name">
+  <strong class="user"><em>thewanderer</em></strong></a><a class="genanchor" href="function.socket-connect.php.html#101909"> &para;</a><div class="date" title="2011-01-17 10:55"><strong>13 years ago</strong></div>
+  <div class="text" id="Hcom101909">
+<div class="phpcode"><code><span class="html">Note that as of PHP5.3 it is not possible to send IPv6 multicast to link-local addresses, because socket_connect() is just a trimmed-down version of connect() and does not support passing sin6_scope_id - the scope ID is required when sending packets to ff02::1 (all-nodes), for example.<br />At first I thought I needed to bind the socket to the device using SO_BINDTODEVICE option (undefined constant in PHP - use numeric value 25), but it makes no difference, only requires root privileges to produce no usable results.<br />Also, if you think you are sending multicast packets to link local addresses just because socket_sendto() returns a positive number of bytes, you might be wrong - just returning success does not mean that packets are sent over any link at all. In my test case I was sending to ff02::1, I could detect no errors, but Wireshark showed no packets. They end up in void.<br />This is irrelevant to the handling of local reception sockets, so UDP listeners should still work as usual with IPv6/UDP. You might want to resort to C for implementing multicasters, though.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="36223">  <div class="votes">
+    <div id="Vu36223">
+    <a href="https://www.php.net/manual/vote-note.php?id=36223&amp;page=function.socket-connect&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd36223">
+    <a href="https://www.php.net/manual/vote-note.php?id=36223&amp;page=function.socket-connect&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V36223" title="38% like this...">
+    -3
+    </div>
+  </div>
+  <a href="function.socket-connect.php.html#36223" class="name">
+  <strong class="user"><em>seymour@itsyourdomain</em></strong></a><a class="genanchor" href="function.socket-connect.php.html#36223"> &para;</a><div class="date" title="2003-10-01 12:43"><strong>20 years ago</strong></div>
+  <div class="text" id="Hcom36223">
+<div class="phpcode"><code><span class="html">here's how you can implement timeouts with the socket functions. <br /><br />this example works for blocking sockets but will work for both blocking and nonblocking with minor modifications. first call to connect in nonblocking mode returns 115 EINPROGRESS, additional calls return 114 EALREADY if the connection has not already failed or succeeded. once the connection succeeds, the socket resource will be returned.<br /><br />&lt;?<br />    $host = "127.0.0.1";<br />    $port = "80";<br />    $timeout = 15;  //timeout in seconds<br /><br />    $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP)<br />      or die("Unable to create socket\n");<br /><br />    socket_set_nonblock($socket)<br />      or die("Unable to set nonblock on socket\n");<br /><br />    $time = time();<br />    while (!@socket_connect($socket, $host, $port))<br />    {<br />      $err = socket_last_error($socket);<br />      if ($err == 115 || $err == 114)<br />      {<br />        if ((time() - $time) &gt;= $timeout)<br />        {<br />          socket_close($socket);<br />          die("Connection timed out.\n");<br />        }<br />        sleep(1);<br />        continue;<br />      }<br />      die(socket_strerror($err) . "\n");<br />    }<br /><br />    socket_set_block($this-&gt;socket)<br />      or die("Unable to set block on socket\n");<br />?&gt;</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="23668">  <div class="votes">
+    <div id="Vu23668">
+    <a href="https://www.php.net/manual/vote-note.php?id=23668&amp;page=function.socket-connect&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd23668">
+    <a href="https://www.php.net/manual/vote-note.php?id=23668&amp;page=function.socket-connect&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V23668" title="26% like this...">
+    -7
+    </div>
+  </div>
+  <a href="function.socket-connect.php.html#23668" class="name">
+  <strong class="user"><em>logan at voerthegame dot com</em></strong></a><a class="genanchor" href="function.socket-connect.php.html#23668"> &para;</a><div class="date" title="2002-07-24 11:24"><strong>21 years ago</strong></div>
+  <div class="text" id="Hcom23668">
+<div class="phpcode"><code><span class="html">I had the same problem with the timeout, and i applied this solution.<br /><br />It works only on linux PHP, i make a ping to the ip before connect the socket.....<br /><br /><span class="default">&lt;?php<br />$address </span><span class="keyword">= </span><span class="default">gethostbyname </span><span class="keyword">(</span><span class="default">$ip</span><span class="keyword">);<br />        </span><span class="default">$command </span><span class="keyword">= </span><span class="string">"ping -c 1 " </span><span class="keyword">. </span><span class="default">$address</span><span class="keyword">;  <br />        </span><span class="default">$r </span><span class="keyword">= </span><span class="default">exec</span><span class="keyword">(</span><span class="default">$command</span><span class="keyword">);  <br />          if (</span><span class="default">$r</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">]==</span><span class="string">"r"</span><span class="keyword">)<br />          {        <br />            </span><span class="default">$socket </span><span class="keyword">= </span><span class="default">socket_create </span><span class="keyword">(</span><span class="default">AF_INET</span><span class="keyword">, </span><span class="default">SOCK_STREAM</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">);<br />            if (</span><span class="default">$socket </span><span class="keyword">&lt; </span><span class="default">0</span><span class="keyword">) {<br />                echo </span><span class="string">"socket_create() failed: reason: " </span><span class="keyword">. </span><span class="default">socket_strerror </span><span class="keyword">(</span><span class="default">$socket</span><span class="keyword">) . </span><span class="string">"\n"</span><span class="keyword">;<br />            } else {<br />                echo </span><span class="string">"OK.\n"</span><span class="keyword">;<br />            }<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="81332">  <div class="votes">
+    <div id="Vu81332">
+    <a href="https://www.php.net/manual/vote-note.php?id=81332&amp;page=function.socket-connect&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd81332">
+    <a href="https://www.php.net/manual/vote-note.php?id=81332&amp;page=function.socket-connect&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V81332" title="18% like this...">
+    -10
+    </div>
+  </div>
+  <a href="function.socket-connect.php.html#81332" class="name">
+  <strong class="user"><em>mike at fserve dot us</em></strong></a><a class="genanchor" href="function.socket-connect.php.html#81332"> &para;</a><div class="date" title="2008-02-22 02:14"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom81332">
+<div class="phpcode"><code><span class="html">This probably sounds like common sense, but it is something nobody i asked thought of... you can't bind the socket to localhost, you must bind it to either the IP your router assigns you, or your public IP address. If you bind to localhost, it will give an invalid resource error.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="37685">  <div class="votes">
+    <div id="Vu37685">
+    <a href="https://www.php.net/manual/vote-note.php?id=37685&amp;page=function.socket-connect&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd37685">
+    <a href="https://www.php.net/manual/vote-note.php?id=37685&amp;page=function.socket-connect&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V37685" title="11% like this...">
+    -7
+    </div>
+  </div>
+  <a href="function.socket-connect.php.html#37685" class="name">
+  <strong class="user"><em>telefoontoestel at home</em></strong></a><a class="genanchor" href="function.socket-connect.php.html#37685"> &para;</a><div class="date" title="2003-11-23 12:05"><strong>20 years ago</strong></div>
+  <div class="text" id="Hcom37685">
+<div class="phpcode"><code><span class="html">In reply to the function socket_raw_connect posted by "net_del at freemail dot ru". In the function you give a return value and afterwords you try to close the connection. That won't ever work. I think you want to alter your code ;-)</span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=function.socket-connect&amp;redirect=https://www.php.net/manual/ru/function.socket-connect.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="ref.sockets.php.html">Функции сокета</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="function.socket-accept.php.html" title="socket_&#8203;accept">socket_&#8203;accept</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-addrinfo-bind.php.html" title="socket_&#8203;addrinfo_&#8203;bind">socket_&#8203;addrinfo_&#8203;bind</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-addrinfo-connect.php.html" title="socket_&#8203;addrinfo_&#8203;connect">socket_&#8203;addrinfo_&#8203;connect</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-addrinfo-explain.php.html" title="socket_&#8203;addrinfo_&#8203;explain">socket_&#8203;addrinfo_&#8203;explain</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-addrinfo-lookup.php.html" title="socket_&#8203;addrinfo_&#8203;lookup">socket_&#8203;addrinfo_&#8203;lookup</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-atmark.php.html" title="socket_&#8203;atmark">socket_&#8203;atmark</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-bind.php.html" title="socket_&#8203;bind">socket_&#8203;bind</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-clear-error.php.html" title="socket_&#8203;clear_&#8203;error">socket_&#8203;clear_&#8203;error</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-close.php.html" title="socket_&#8203;close">socket_&#8203;close</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-cmsg-space.php.html" title="socket_&#8203;cmsg_&#8203;space">socket_&#8203;cmsg_&#8203;space</a>
+                        </li>
+                                                <li class="current">
+                            <a href="function.socket-connect.php.html" title="socket_&#8203;connect">socket_&#8203;connect</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-create-listen.php.html" title="socket_&#8203;create_&#8203;listen">socket_&#8203;create_&#8203;listen</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-create-pair.php.html" title="socket_&#8203;create_&#8203;pair">socket_&#8203;create_&#8203;pair</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-create.php.html" title="socket_&#8203;create">socket_&#8203;create</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-export-stream.php.html" title="socket_&#8203;export_&#8203;stream">socket_&#8203;export_&#8203;stream</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-get-option.php.html" title="socket_&#8203;get_&#8203;option">socket_&#8203;get_&#8203;option</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-getopt.php.html" title="socket_&#8203;getopt">socket_&#8203;getopt</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-getpeername.php.html" title="socket_&#8203;getpeername">socket_&#8203;getpeername</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-getsockname.php.html" title="socket_&#8203;getsockname">socket_&#8203;getsockname</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-import-stream.php.html" title="socket_&#8203;import_&#8203;stream">socket_&#8203;import_&#8203;stream</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-last-error.php.html" title="socket_&#8203;last_&#8203;error">socket_&#8203;last_&#8203;error</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-listen.php.html" title="socket_&#8203;listen">socket_&#8203;listen</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-read.php.html" title="socket_&#8203;read">socket_&#8203;read</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-recv.php.html" title="socket_&#8203;recv">socket_&#8203;recv</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-recvfrom.php.html" title="socket_&#8203;recvfrom">socket_&#8203;recvfrom</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-recvmsg.php.html" title="socket_&#8203;recvmsg">socket_&#8203;recvmsg</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-select.php.html" title="socket_&#8203;select">socket_&#8203;select</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-send.php.html" title="socket_&#8203;send">socket_&#8203;send</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-sendmsg.php.html" title="socket_&#8203;sendmsg">socket_&#8203;sendmsg</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-sendto.php.html" title="socket_&#8203;sendto">socket_&#8203;sendto</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-set-block.php.html" title="socket_&#8203;set_&#8203;block">socket_&#8203;set_&#8203;block</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-set-nonblock.php.html" title="socket_&#8203;set_&#8203;nonblock">socket_&#8203;set_&#8203;nonblock</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-set-option.php.html" title="socket_&#8203;set_&#8203;option">socket_&#8203;set_&#8203;option</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-setopt.php.html" title="socket_&#8203;setopt">socket_&#8203;setopt</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-shutdown.php.html" title="socket_&#8203;shutdown">socket_&#8203;shutdown</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-strerror.php.html" title="socket_&#8203;strerror">socket_&#8203;strerror</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-write.php.html" title="socket_&#8203;write">socket_&#8203;write</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-wsaprotocol-info-export.php.html" title="socket_&#8203;wsaprotocol_&#8203;info_&#8203;export">socket_&#8203;wsaprotocol_&#8203;info_&#8203;export</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-wsaprotocol-info-import.php.html" title="socket_&#8203;wsaprotocol_&#8203;info_&#8203;import">socket_&#8203;wsaprotocol_&#8203;info_&#8203;import</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-wsaprotocol-info-release.php.html" title="socket_&#8203;wsaprotocol_&#8203;info_&#8203;release">socket_&#8203;wsaprotocol_&#8203;info_&#8203;release</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

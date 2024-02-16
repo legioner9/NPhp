@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: Подключения и управление подключениями - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="pdo.connections.php.html">
+ <link rel="shorturl" href="pdo.connections.php.html">
+ <link rel="alternate" href="pdo.connections.php.html" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="book.pdo.php.html">
+ <link rel="prev" href="pdo.constants.php.html">
+ <link rel="next" href="pdo.transactions.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/pdo.connections.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/pdo.connections.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/pdo.connections.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/pdo.connections.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/pdo.connections.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/pdo.connections.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/pdo.connections.php" hreflang="pt_BR">
+ <link rel="alternate" href="pdo.connections.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/pdo.connections.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/pdo.connections.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="pdo.transactions.php.html">
+          Транзакции и автоматическая фиксация изменений &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="pdo.constants.php.html">
+          &laquo; Предопределённые константы        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.database.php.html'>Модули для работы с базами данных</a></li>      <li><a href='refs.database.abstract.php.html'>Уровни абстракции</a></li>      <li><a href='book.pdo.php.html'>PDO</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/pdo.connections.php'>English</option>
+            <option value='de/pdo.connections.php'>German</option>
+            <option value='es/pdo.connections.php'>Spanish</option>
+            <option value='fr/pdo.connections.php'>French</option>
+            <option value='it/pdo.connections.php'>Italian</option>
+            <option value='ja/pdo.connections.php'>Japanese</option>
+            <option value='pt_BR/pdo.connections.php'>Brazilian Portuguese</option>
+            <option value='ru/pdo.connections.php' selected="selected">Russian</option>
+            <option value='tr/pdo.connections.php'>Turkish</option>
+            <option value='zh/pdo.connections.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/pdo/connections.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Fpdo.connections%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="pdo.connections" class="chapter">
+ <h1>Подключения и управление подключениями</h1>
+
+ <p class="para">
+  Для установки соединений создают экземпляры базового класса PDO.
+  Неважно, какой драйвер хотелось использовать;
+  всё равно будет использовано имя класса PDO. Конструктор класса принимает
+  параметры для задания источника базы данных (DSN), а также необязательные
+  имя пользователя и пароль (если есть).
+ </p>
+ <p class="para">
+  <div class="example" id="example-3082">
+   <p><strong>Пример #1 Подключение к MySQL</strong></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$dbh </span><span style="color: #007700">= new </span><span style="color: #0000BB">PDO</span><span style="color: #007700">(</span><span style="color: #DD0000">'mysql:host=localhost;dbname=test'</span><span style="color: #007700">, </span><span style="color: #0000BB">$user</span><span style="color: #007700">, </span><span style="color: #0000BB">$pass</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+   </div>
+
+  </div>
+ </p>
+ <p class="para">
+  Если при подключении произошла ошибка, будет выброшено исключение
+  <code class="literal">PDOException</code>. Его можно перехватить и обработать, либо
+  оставить на откуп глобальному обработчику ошибок, который задан
+  функцией <span class="function"><a href="function.set-exception-handler.php.html" class="function">set_exception_handler()</a></span>.
+ </p>
+ <p class="para">
+  <div class="example" id="example-3085"><p><strong>Пример #2 Обработка ошибок подключения</strong></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">try {<br />    </span><span style="color: #0000BB">$dbh </span><span style="color: #007700">= new </span><span style="color: #0000BB">PDO</span><span style="color: #007700">(</span><span style="color: #DD0000">'mysql:host=localhost;dbname=test'</span><span style="color: #007700">, </span><span style="color: #0000BB">$user</span><span style="color: #007700">, </span><span style="color: #0000BB">$pass</span><span style="color: #007700">);<br />} catch (</span><span style="color: #0000BB">PDOException $e</span><span style="color: #007700">) {<br />    </span><span style="color: #FF8000">// Например, через какое-то время повторить попытку соединения<br /></span><span style="color: #007700">}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+   </div>
+
+  </div>
+ </p>
+ <div class="warning"><strong class="warning">Внимание</strong>
+  <p class="para">
+   Как и остальные <a href="language.exceptions.php.html" class="link">исключения</a>,
+   исключение <span class="classname"><a href="class.pdoexception.php.html" class="classname">PDOException</a></span> можно отловить явно — через
+   блок <a href="pdo.connections.php.html" class="link"><code class="literal">catch</code></a> или неявно — через функцию <span class="function"><a href="function.set-exception-handler.php.html" class="function">set_exception_handler()</a></span>.
+   По умолчанию же непойманное исключение будет преобразовано в фатальную ошибку уровня
+   <strong><code>E_FATAL_ERROR</code></strong>.
+   Фатальня ошибка будет содержать стек вызовов, появляется риск утечки информации о соединении.
+   Поэтому на сервере, который работает в производственной среде, в файле <var class="filename">php.ini</var> для опции
+   <a href="errorfunc.configuration.php.html#ini.display-errors" class="link"><code class="literal">display_errors</code></a>
+   должо быть установлено значение <code class="literal">0</code>.
+  </p>
+ </div>
+ <p class="para">
+  При успешном подключении к базе данных в скрипт будет возвращён созданный
+  объект PDO. Соединение остаётся активным в течение жизни
+  объекта. Чтобы закрыть соединение, необходимо уничтожить объект путём удаления
+  всех ссылок на него (этого можно добиться, присваивая <strong><code>null</code></strong> всем переменным,
+  указывающим на объект). Если не сделать этого явно, PHP автоматически
+  закроет соединение по окончании работы скрипта.
+ </p>
+ <blockquote class="note"><p><strong class="note">Замечание</strong>: 
+  <span class="simpara">
+   Если существуют другие ссылки на данный экземпляр PDO (например, из объекта PDOStatement
+   или другие переменные, ссылающиеся на него), они также должны быть удалены
+   (например, присвоением <strong><code>null</code></strong> переменной, ссылающейся на PDOStatement).
+  </span>
+ </p></blockquote>
+ <p class="para">
+  <div class="example" id="example-3088">
+   <p><strong>Пример #3 Закрытие соединения</strong></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$dbh </span><span style="color: #007700">= new </span><span style="color: #0000BB">PDO</span><span style="color: #007700">(</span><span style="color: #DD0000">'mysql:host=localhost;dbname=test'</span><span style="color: #007700">, </span><span style="color: #0000BB">$user</span><span style="color: #007700">, </span><span style="color: #0000BB">$pass</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">// здесь мы каким-то образом используем соединение<br /></span><span style="color: #0000BB">$sth </span><span style="color: #007700">= </span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">query</span><span style="color: #007700">(</span><span style="color: #DD0000">'SELECT * FROM foo'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// соединение больше не нужно, закрываем<br /></span><span style="color: #0000BB">$sth </span><span style="color: #007700">= </span><span style="color: #0000BB">null</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$dbh </span><span style="color: #007700">= </span><span style="color: #0000BB">null</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+   </div>
+
+  </div>
+ </p>
+ <p class="para">
+  Во многих приложениях может оказаться полезным использование постоянных
+  соединений к базам данных. Постоянные соединения не закрываются при
+  завершении работы скрипта, они кешируются и используются повторно,
+  когда другой скрипт запрашивает соединение с теми же учётными данными.
+  Постоянные соединения позволяют избежать создания новых подключений каждый
+  раз, когда требуется обмен данными с базой, что в результате даёт прирост
+  скорости работы таких приложений.
+ </p>
+ <p class="para">
+  <div class="example" id="example-3091">
+   <p><strong>Пример #4 Постоянные соединения</strong></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$dbh </span><span style="color: #007700">= new </span><span style="color: #0000BB">PDO</span><span style="color: #007700">(</span><span style="color: #DD0000">'mysql:host=localhost;dbname=test'</span><span style="color: #007700">, </span><span style="color: #0000BB">$user</span><span style="color: #007700">, </span><span style="color: #0000BB">$pass</span><span style="color: #007700">, array(<br />    </span><span style="color: #0000BB">PDO</span><span style="color: #007700">::</span><span style="color: #0000BB">ATTR_PERSISTENT </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">true<br /></span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+   </div>
+
+  </div>
+ </p>
+ <p class="para">
+  Значение параметра <strong><code>PDO::ATTR_PERSISTENT</code></strong> преобразовывается
+  в логическое значение (<span class="type">bool</span>) (включить/отключить постоянные подключения),
+  если это не числовая строка (<span class="type">string</span>), которая в этом случае позволяет использовать несколько пулов постоянных подключений.
+  Это полезно, если разные соединения используют несовместимые настройки,
+  например, разные значения <strong><code>PDO::MYSQL_ATTR_USE_BUFFERED_QUERY</code></strong>.
+ </p>
+ <blockquote class="note"><p><strong class="note">Замечание</strong>: 
+  <p class="para">
+   Чтобы использовать постоянные соединения, необходимо добавить константу
+   <strong><code>PDO::ATTR_PERSISTENT</code></strong> в массив параметров драйвера,
+   который передаётся конструктору PDO. Если просто задать этот атрибут
+   функцией <span class="methodname"><a href="pdo.setattribute.php.html" class="methodname">PDO::setAttribute()</a></span> уже после создания объекта,
+   драйвер не будет использовать постоянные соединения.
+  </p>
+ </p></blockquote>
+ <blockquote class="note"><p><strong class="note">Замечание</strong>: 
+  <p class="para">
+   Если вы используете PDO ODBC драйвер и ваши ODBC библиотеки поддерживают
+   объединение подключений в пул (ODBC Connection Pooling) (unixODBC и Windows
+   точно поддерживают, но могут быть и другие), то рекомендуется вместо постоянных
+   соединений пользоваться этим пулом. Пул подключений ODBC доступен всем модулям
+   текущего процесса; если PDO сам кеширует соединение, то это соединение
+   будет недоступно другим модулям и не попадёт в пул. В результате каждый модуль
+   будет создавать дополнительные подключения для своих нужд.
+  </p>
+ </p></blockquote>
+</div>
+<section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=pdo.connections&amp;redirect=https://www.php.net/manual/ru/pdo.connections.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes </h3>
+ </div>
+ <div class="note">There are no user contributed notes for this page.</div></section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="book.pdo.php.html">PDO</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="intro.pdo.php.html" title="Введение">Введение</a>
+                        </li>
+                                                <li class="">
+                            <a href="pdo.setup.php.html" title="Установка и настройка">Установка и настройка</a>
+                        </li>
+                                                <li class="">
+                            <a href="pdo.constants.php.html" title="Предопределённые константы">Предопределённые константы</a>
+                        </li>
+                                                <li class="current">
+                            <a href="pdo.connections.php.html" title="Подключения и управление подключениями">Подключения и управление подключениями</a>
+                        </li>
+                                                <li class="">
+                            <a href="pdo.transactions.php.html" title="Транзакции и автоматическая фиксация изменений">Транзакции и автоматическая фиксация изменений</a>
+                        </li>
+                                                <li class="">
+                            <a href="pdo.prepared-statements.php.html" title="Подготовленные запросы и хранимые процедуры">Подготовленные запросы и хранимые процедуры</a>
+                        </li>
+                                                <li class="">
+                            <a href="pdo.error-handling.php.html" title="Ошибки и их обработка">Ошибки и их обработка</a>
+                        </li>
+                                                <li class="">
+                            <a href="pdo.lobs.php.html" title="Большие объекты (LOB)">Большие объекты (LOB)</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.pdo.php.html" title="PDO">PDO</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.pdostatement.php.html" title="PDOStatement">PDOStatement</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.pdorow.php.html" title="PDORow">PDORow</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.pdoexception.php.html" title="PDOException">PDOException</a>
+                        </li>
+                                                <li class="">
+                            <a href="pdo.drivers.php.html" title="Драйверы PDO">Драйверы PDO</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

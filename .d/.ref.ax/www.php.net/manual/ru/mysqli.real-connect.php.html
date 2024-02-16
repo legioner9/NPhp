@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: mysqli::real_connect - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="mysqli.real-connect.php.html">
+ <link rel="shorturl" href="mysqli.real-connect.php.html">
+ <link rel="alternate" href="mysqli.real-connect.php.html" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="class.mysqli.php.html">
+ <link rel="prev" href="mysqli.query.php.html">
+ <link rel="next" href="mysqli.real-escape-string.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/mysqli.real-connect.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/mysqli.real-connect.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/mysqli.real-connect.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/mysqli.real-connect.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/mysqli.real-connect.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/mysqli.real-connect.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/mysqli.real-connect.php" hreflang="pt_BR">
+ <link rel="alternate" href="mysqli.real-connect.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/mysqli.real-connect.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/mysqli.real-connect.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="mysqli.real-escape-string.php.html">
+          mysqli::real_escape_string &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="mysqli.query.php.html">
+          &laquo; mysqli::query        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.database.php.html'>Модули для работы с базами данных</a></li>      <li><a href='refs.database.vendors.php.html'>Модули для работы с базами данных отдельных производителей</a></li>      <li><a href='set.mysqlinfo.php.html'>MySQL</a></li>      <li><a href='book.mysqli.php.html'>MySQLi</a></li>      <li><a href='class.mysqli.php.html'>mysqli</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/mysqli.real-connect.php'>English</option>
+            <option value='de/mysqli.real-connect.php'>German</option>
+            <option value='es/mysqli.real-connect.php'>Spanish</option>
+            <option value='fr/mysqli.real-connect.php'>French</option>
+            <option value='it/mysqli.real-connect.php'>Italian</option>
+            <option value='ja/mysqli.real-connect.php'>Japanese</option>
+            <option value='pt_BR/mysqli.real-connect.php'>Brazilian Portuguese</option>
+            <option value='ru/mysqli.real-connect.php' selected="selected">Russian</option>
+            <option value='tr/mysqli.real-connect.php'>Turkish</option>
+            <option value='zh/mysqli.real-connect.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/mysqli/mysqli/real-connect.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Fmysqli.real-connect%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="mysqli.real-connect" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">mysqli::real_connect</h1>
+  <h1 class="refname">mysqli_real_connect</h1>
+  <p class="verinfo">(PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">mysqli::real_connect</span> -- <span class="refname">mysqli_real_connect</span> &mdash; <span class="dc-title">Устанавливает соединение с сервером mysql</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-mysqli.real-connect-description">
+  <h3 class="title">Описание</h3>
+  <p class="para">Объектно-ориентированный стиль</p>
+  <div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="methodname"><strong>mysqli::real_connect</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">?</span><span class="type"><span class="type">string</span><span class="type"></span></span> <code class="parameter">$hostname</code><span class="initializer"> = <strong><code>null</code></strong></span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">?</span><span class="type"><span class="type">string</span><span class="type"></span></span> <code class="parameter">$username</code><span class="initializer"> = <strong><code>null</code></strong></span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">?</span><span class="type"><span class="type">string</span><span class="type"></span></span> <code class="parameter">$password</code><span class="initializer"> = <strong><code>null</code></strong></span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">?</span><span class="type"><span class="type">string</span><span class="type"></span></span> <code class="parameter">$database</code><span class="initializer"> = <strong><code>null</code></strong></span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">?</span><span class="type"><span class="type">int</span><span class="type"></span></span> <code class="parameter">$port</code><span class="initializer"> = <strong><code>null</code></strong></span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">?</span><span class="type"><span class="type">string</span><span class="type"></span></span> <code class="parameter">$socket</code><span class="initializer"> = <strong><code>null</code></strong></span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$flags</code><span class="initializer"> = 0</span></span><br>): <span class="type">bool</span></div>
+
+  <p class="para rdfs-comment">Процедурный стиль</p>
+  <div class="methodsynopsis dc-description"><span class="methodname"><strong>mysqli_real_connect</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><a href="class.mysqli.php.html" class="type mysqli">mysqli</a></span> <code class="parameter">$mysql</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">?</span><span class="type"><span class="type">string</span><span class="type"></span></span> <code class="parameter">$hostname</code><span class="initializer"> = <strong><code>null</code></strong></span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">?</span><span class="type"><span class="type">string</span><span class="type"></span></span> <code class="parameter">$username</code><span class="initializer"> = <strong><code>null</code></strong></span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">?</span><span class="type"><span class="type">string</span><span class="type"></span></span> <code class="parameter">$password</code><span class="initializer"> = <strong><code>null</code></strong></span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">?</span><span class="type"><span class="type">string</span><span class="type"></span></span> <code class="parameter">$database</code><span class="initializer"> = <strong><code>null</code></strong></span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">?</span><span class="type"><span class="type">int</span><span class="type"></span></span> <code class="parameter">$port</code><span class="initializer"> = <strong><code>null</code></strong></span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">?</span><span class="type"><span class="type">string</span><span class="type"></span></span> <code class="parameter">$socket</code><span class="initializer"> = <strong><code>null</code></strong></span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$flags</code><span class="initializer"> = 0</span></span><br>): <span class="type">bool</span></div>
+
+  <p class="para rdfs-comment">
+   Устанавливает соединение с СУБД MySQL.
+  </p>
+  <p class="para">
+   Эта функция отличается от <span class="function"><a href="function.mysqli-connect.php.html" class="function">mysqli_connect()</a></span>:
+  </p>
+  <ul class="itemizedlist">
+   <li class="listitem">
+    <p class="para">
+     Для работы <span class="function"><strong>mysqli_real_connect()</strong></span> необходим действительный
+     объект, созданный функцией <span class="function"><a href="mysqli.init.php.html" class="function">mysqli_init()</a></span>.
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     С помощью функции <span class="function"><a href="mysqli.options.php.html" class="function">mysqli_options()</a></span> можно задать различные
+     настройки подключения.
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     Параметр <code class="parameter">flags</code>.
+    </p>
+   </li>
+  </ul>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-mysqli.real-connect-parameters">
+  <h3 class="title">Список параметров</h3>
+  <p class="para">
+   <dl>
+    <dt>
+
+<code class="parameter">mysql</code></dt>
+<dd>
+<p class="para">Только для процедурного стиля: объект <span class="classname"><a href="class.mysqli.php.html" class="classname">mysqli</a></span>, который вернула функция
+<span class="function"><a href="function.mysqli-connect.php.html" class="function">mysqli_connect()</a></span> или функция <span class="function"><a href="mysqli.init.php.html" class="function">mysqli_init()</a></span>.
+</p></dd>
+
+    
+     <dt>
+<code class="parameter">hostname</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Может быть либо именем хоста, либо IP-адресом.
+       При передаче <strong><code>null</code></strong>, значение извлекается из <a href="mysqli.configuration.php.html#ini.mysqli.default-host" class="link">mysqli.default_host</a>.
+       По возможности вместо протокола TCP/IP будут использоваться каналы.
+       Протокол TCP/IP используется, если указаны и имя хоста и номер порта, например, <code class="literal">localhost:3308</code>.
+      </p>
+     </dd>
+
+    
+    
+     <dt>
+<code class="parameter">username</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Имя пользователя MySQL или <strong><code>null</code></strong> для принятия имени пользователя
+       на основе ini-опции <a href="mysqli.configuration.php.html#ini.mysqli.default-user" class="link">mysqli.default_user</a>.
+      </p>
+     </dd>
+
+    
+    
+     <dt>
+<code class="parameter">password</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Пароль MySQL или <strong><code>null</code></strong> для принятия пароля
+       на основе ini-опции <a href="mysqli.configuration.php.html#ini.mysqli.default-pw" class="link">mysqli.default_pw</a>.
+      </p>
+     </dd>
+
+    
+    
+     <dt>
+<code class="parameter">database</code></dt>
+
+     <dd>
+
+      <p class="para">
+       База данных по умолчанию, которая будет использоваться при выполнении запросов
+       или <strong><code>null</code></strong>.
+      </p>
+     </dd>
+
+    
+    
+     <dt>
+<code class="parameter">port</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Номер порта для попытки подключения к серверу MySQL
+       или <strong><code>null</code></strong> для принятия порта на основе ini-опции <a href="mysqli.configuration.php.html#ini.mysqli.default-port" class="link">mysqli.default_port</a>.
+      </p>
+     </dd>
+
+    
+    
+     <dt>
+<code class="parameter">socket</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Задаёт номер порта для подключения к серверу MySQL.
+      </p>
+      <blockquote class="note"><p><strong class="note">Замечание</strong>: 
+       <p class="para">
+        Передача параметра <code class="parameter">socket</code> не будет явно
+        задавать тип соединения при подключении к серверу MySQL. То, как будет
+        устанавливаться соединение с MySQL-сервером, определяется параметром
+        <code class="parameter">hostname</code>.
+       </p>
+      </p></blockquote>
+     </dd>
+
+    
+    
+     <dt>
+<code class="parameter">flags</code></dt>
+
+     <dd>
+
+      <p class="para">
+       С помощью параметра <code class="parameter">flags</code> можно задать некоторые
+       настройки соединения:
+      </p>
+      <table id="mysqli.real-connect.flags" class="doctable table">
+       <caption><strong>Поддерживаемые флаги</strong></caption>
+       
+        <thead>
+         <tr>
+          <th>Имя</th>
+          <th>Описание</th>
+         </tr>
+
+        </thead>
+
+        <tbody class="tbody">
+         <tr>
+          <td><strong><code>MYSQLI_CLIENT_COMPRESS</code></strong></td>
+          <td>Использовать протокол сжатия</td>
+         </tr>
+
+         <tr>
+          <td><strong><code>MYSQLI_CLIENT_FOUND_ROWS</code></strong></td>
+          <td>
+           Возвращать количество строк, подошедших условиям выборки, вместо
+           количества затронутых запросом строк
+          </td>
+         </tr>
+
+         <tr>
+          <td><strong><code>MYSQLI_CLIENT_IGNORE_SPACE</code></strong></td>
+          <td>
+           Допускать пробелы после имён функций. Делает все имена функций
+           зарезервированными словами.
+          </td>
+         </tr>
+
+         <tr>
+          <td><strong><code>MYSQLI_CLIENT_INTERACTIVE</code></strong></td>
+          <td>
+           Допускать <code class="literal">interactive_timeout</code> секунд (вместо
+           <code class="literal">wait_timeout</code>) простоя, прежде чем закрыть соединение
+          </td>
+         </tr>
+
+         <tr>
+          <td><strong><code>MYSQLI_CLIENT_SSL</code></strong></td>
+          <td>Использовать SSL (шифрование)</td>
+         </tr>
+
+         <tr>
+          <td><strong><code>MYSQLI_CLIENT_SSL_DONT_VERIFY_SERVER_CERT</code></strong></td>
+          <td>
+           Аналогично <strong><code>MYSQLI_CLIENT_SSL</code></strong>, но запрещает проверку
+           SSL сертификата. Работает только с MySQL Native Driver и MySQL 5.6 и выше.
+          </td>
+         </tr>
+
+        </tbody>
+       
+      </table>
+
+      <blockquote class="note"><p><strong class="note">Замечание</strong>: 
+       <p class="para">
+        По причинам безопасности, флаг <strong><code>MULTI_STATEMENT</code></strong>
+        не поддерживается в PHP. Если необходимо выполнять мультизапросы,
+        используйте функцию <span class="function"><a href="mysqli.multi-query.php.html" class="function">mysqli_multi_query()</a></span>.
+       </p>
+      </p></blockquote>
+     </dd>
+
+    
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-mysqli.real-connect-returnvalues">
+  <h3 class="title">Возвращаемые значения</h3>
+  <p class="para">
+   Возвращает <strong><code>true</code></strong> в случае успешного выполнения или <strong><code>false</code></strong> в случае возникновения ошибки.
+  </p>
+ </div>
+
+
+ <div class="refsect1 errors" id="refsect1-mysqli.real-connect-errors">
+  <h3 class="title">Ошибки</h3>
+  <p class="para">
+Если уведомления об ошибках mysqli включены (<strong><code>MYSQLI_REPORT_ERROR</code></strong>) и запрошенная операция не удалась,
+выдаётся предупреждение. Если, кроме того, установлен режим <strong><code>MYSQLI_REPORT_STRICT</code></strong>,
+вместо этого будет выброшено исключение <span class="classname"><a href="class.mysqli-sql-exception.php.html" class="classname">mysqli_sql_exception</a></span>.</p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-mysqli.real-connect-changelog">
+  <h3 class="title">Список изменений</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead>
+      <tr>
+       <th>Версия</th>
+       <th>Описание</th>
+      </tr>
+
+     </thead>
+
+     <tbody class="tbody">
+      <tr>
+       <td>7.4.0</td>
+       <td>
+        Все параметры теперь допускают значение <strong><code>null</code></strong>
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-mysqli.real-connect-examples">
+  <h3 class="title">Примеры</h3>
+  <div class="example" id="example-4459">
+   <p><strong>Пример #1 Пример использования <span class="methodname"><strong>mysqli::real_connect()</strong></span></strong></p>
+   <div class="example-contents"><p>Объектно-ориентированный стиль</p></div>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br />$mysqli </span><span style="color: #007700">= </span><span style="color: #0000BB">mysqli_init</span><span style="color: #007700">();<br />if (!</span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">) {<br />    die(</span><span style="color: #DD0000">'mysqli_init завершилась провалом'</span><span style="color: #007700">);<br />}<br /><br />if (!</span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">options</span><span style="color: #007700">(</span><span style="color: #0000BB">MYSQLI_INIT_COMMAND</span><span style="color: #007700">, </span><span style="color: #DD0000">'SET AUTOCOMMIT = 0'</span><span style="color: #007700">)) {<br />    die(</span><span style="color: #DD0000">'Установка MYSQLI_INIT_COMMAND завершилась провалом'</span><span style="color: #007700">);<br />}<br /><br />if (!</span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">options</span><span style="color: #007700">(</span><span style="color: #0000BB">MYSQLI_OPT_CONNECT_TIMEOUT</span><span style="color: #007700">, </span><span style="color: #0000BB">5</span><span style="color: #007700">)) {<br />    die(</span><span style="color: #DD0000">'Установка MYSQLI_OPT_CONNECT_TIMEOUT завершилась провалом'</span><span style="color: #007700">);<br />}<br /><br />if (!</span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">real_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">'localhost'</span><span style="color: #007700">, </span><span style="color: #DD0000">'my_user'</span><span style="color: #007700">, </span><span style="color: #DD0000">'my_password'</span><span style="color: #007700">, </span><span style="color: #DD0000">'my_db'</span><span style="color: #007700">)) {<br />    die(</span><span style="color: #DD0000">'Ошибка подключения (' </span><span style="color: #007700">. </span><span style="color: #0000BB">mysqli_connect_errno</span><span style="color: #007700">() . </span><span style="color: #DD0000">') '<br />            </span><span style="color: #007700">. </span><span style="color: #0000BB">mysqli_connect_error</span><span style="color: #007700">());<br />}<br /><br />echo </span><span style="color: #DD0000">'Выполнено... ' </span><span style="color: #007700">. </span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">host_info </span><span style="color: #007700">. </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">close</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+   </div>
+
+   <div class="example-contents"><p>Объектно-ориентированный стиль при расширении класса mysqli</p></div>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">class </span><span style="color: #0000BB">foo_mysqli </span><span style="color: #007700">extends </span><span style="color: #0000BB">mysqli </span><span style="color: #007700">{<br />    public function </span><span style="color: #0000BB">__construct</span><span style="color: #007700">(</span><span style="color: #0000BB">$host</span><span style="color: #007700">, </span><span style="color: #0000BB">$user</span><span style="color: #007700">, </span><span style="color: #0000BB">$pass</span><span style="color: #007700">, </span><span style="color: #0000BB">$db</span><span style="color: #007700">) {<br />        </span><span style="color: #0000BB">parent</span><span style="color: #007700">::</span><span style="color: #0000BB">__construct</span><span style="color: #007700">();<br /><br />        if (!</span><span style="color: #0000BB">parent</span><span style="color: #007700">::</span><span style="color: #0000BB">options</span><span style="color: #007700">(</span><span style="color: #0000BB">MYSQLI_INIT_COMMAND</span><span style="color: #007700">, </span><span style="color: #DD0000">'SET AUTOCOMMIT = 0'</span><span style="color: #007700">)) {<br />            die(</span><span style="color: #DD0000">'Установка MYSQLI_INIT_COMMAND завершилась провалом'</span><span style="color: #007700">);<br />        }<br /><br />        if (!</span><span style="color: #0000BB">parent</span><span style="color: #007700">::</span><span style="color: #0000BB">options</span><span style="color: #007700">(</span><span style="color: #0000BB">MYSQLI_OPT_CONNECT_TIMEOUT</span><span style="color: #007700">, </span><span style="color: #0000BB">5</span><span style="color: #007700">)) {<br />            die(</span><span style="color: #DD0000">'Установка MYSQLI_OPT_CONNECT_TIMEOUT завершилась провалом'</span><span style="color: #007700">);<br />        }<br /><br />        if (!</span><span style="color: #0000BB">parent</span><span style="color: #007700">::</span><span style="color: #0000BB">real_connect</span><span style="color: #007700">(</span><span style="color: #0000BB">$host</span><span style="color: #007700">, </span><span style="color: #0000BB">$user</span><span style="color: #007700">, </span><span style="color: #0000BB">$pass</span><span style="color: #007700">, </span><span style="color: #0000BB">$db</span><span style="color: #007700">)) {<br />            die(</span><span style="color: #DD0000">'Ошибка подключения (' </span><span style="color: #007700">. </span><span style="color: #0000BB">mysqli_connect_errno</span><span style="color: #007700">() . </span><span style="color: #DD0000">') '<br />                    </span><span style="color: #007700">. </span><span style="color: #0000BB">mysqli_connect_error</span><span style="color: #007700">());<br />        }<br />    }<br />}<br /><br /></span><span style="color: #0000BB">$db </span><span style="color: #007700">= new </span><span style="color: #0000BB">foo_mysqli</span><span style="color: #007700">(</span><span style="color: #DD0000">'localhost'</span><span style="color: #007700">, </span><span style="color: #DD0000">'my_user'</span><span style="color: #007700">, </span><span style="color: #DD0000">'my_password'</span><span style="color: #007700">, </span><span style="color: #DD0000">'my_db'</span><span style="color: #007700">);<br /><br />echo </span><span style="color: #DD0000">'Выполнено... ' </span><span style="color: #007700">. </span><span style="color: #0000BB">$db</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">host_info </span><span style="color: #007700">. </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$db</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">close</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+   </div>
+
+   <div class="example-contents"><p>Процедурный стиль</p></div>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br />$link </span><span style="color: #007700">= </span><span style="color: #0000BB">mysqli_init</span><span style="color: #007700">();<br />if (!</span><span style="color: #0000BB">$link</span><span style="color: #007700">) {<br />    die(</span><span style="color: #DD0000">'mysqli_init завершилась провалом'</span><span style="color: #007700">);<br />}<br /><br />if (!</span><span style="color: #0000BB">mysqli_options</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">, </span><span style="color: #0000BB">MYSQLI_INIT_COMMAND</span><span style="color: #007700">, </span><span style="color: #DD0000">'SET AUTOCOMMIT = 0'</span><span style="color: #007700">)) {<br />    die(</span><span style="color: #DD0000">'Установка MYSQLI_INIT_COMMAND завершилась провалом'</span><span style="color: #007700">);<br />}<br /><br />if (!</span><span style="color: #0000BB">mysqli_options</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">, </span><span style="color: #0000BB">MYSQLI_OPT_CONNECT_TIMEOUT</span><span style="color: #007700">, </span><span style="color: #0000BB">5</span><span style="color: #007700">)) {<br />    die(</span><span style="color: #DD0000">'Установка MYSQLI_OPT_CONNECT_TIMEOUT завершилась провалом'</span><span style="color: #007700">);<br />}<br /><br />if (!</span><span style="color: #0000BB">mysqli_real_connect</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">, </span><span style="color: #DD0000">'localhost'</span><span style="color: #007700">, </span><span style="color: #DD0000">'my_user'</span><span style="color: #007700">, </span><span style="color: #DD0000">'my_password'</span><span style="color: #007700">, </span><span style="color: #DD0000">'my_db'</span><span style="color: #007700">)) {<br />    die(</span><span style="color: #DD0000">'Ошибка подключения (' </span><span style="color: #007700">. </span><span style="color: #0000BB">mysqli_connect_errno</span><span style="color: #007700">() . </span><span style="color: #DD0000">') '<br />            </span><span style="color: #007700">. </span><span style="color: #0000BB">mysqli_connect_error</span><span style="color: #007700">());<br />}<br /><br />echo </span><span style="color: #DD0000">'Выполнено... ' </span><span style="color: #007700">. </span><span style="color: #0000BB">mysqli_get_host_info</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">) . </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">mysqli_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+   </div>
+
+   
+<div class="example-contents"><p>
+ Результат выполнения приведённых примеров:
+</p></div>
+
+   <div class="example-contents screen">
+<div class="cdata"><pre>
+Выполнено... MySQL host info: localhost via TCP/IP
+</pre></div>
+   </div>
+  </div>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-mysqli.real-connect-notes">
+  <h3 class="title">Примечания</h3>
+  <blockquote class="note"><p><strong class="note">Замечание</strong>: 
+<p class="para">MySQLnd всегда подразумевает кодировку, которую использует по умолчанию сервер. Эта кодировка передаётся во время
+установки соединения/авторизации, которые использует mysqlnd.</p><p class="para">Libmysqlclient по умолчанию использует
+кодировку, установленную в файле <var class="filename">my.cnf</var> или явным вызовом функции <span class="function"><a href="mysqli.options.php.html" class="function">mysqli_options()</a></span> до
+вызова функции <span class="function"><strong>mysqli_real_connect()</strong></span>, но после вызова функции <span class="function"><a href="function.mysqli-connect.php.html" class="function">mysqli_connect()</a></span>.</p></p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-mysqli.real-connect-seealso">
+  <h3 class="title">Смотрите также</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.mysqli-connect.php.html" class="function" rel="rdfs-seeAlso">mysqli_connect()</a> - Псевдоним mysqli::__construct</span></li>
+    <li class="member"><span class="function"><a href="mysqli.init.php.html" class="function" rel="rdfs-seeAlso">mysqli_init()</a> - Инициализирует MySQLi и возвращает объект для использования в функции
+   mysqli_real_connect()</span></li>
+    <li class="member"><span class="function"><a href="mysqli.options.php.html" class="function" rel="rdfs-seeAlso">mysqli_options()</a> - Установка настроек</span></li>
+    <li class="member"><span class="function"><a href="mysqli.ssl-set.php.html" class="function" rel="rdfs-seeAlso">mysqli_ssl_set()</a> - Используется для установления безопасных соединений, используя SSL</span></li>
+    <li class="member"><span class="function"><a href="mysqli.close.php.html" class="function" rel="rdfs-seeAlso">mysqli_close()</a> - Закрывает ранее открытое соединение с базой данных</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=mysqli.real-connect&amp;redirect=https://www.php.net/manual/ru/mysqli.real-connect.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">2 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="94890">  <div class="votes">
+    <div id="Vu94890">
+    <a href="https://www.php.net/manual/vote-note.php?id=94890&amp;page=mysqli.real-connect&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd94890">
+    <a href="https://www.php.net/manual/vote-note.php?id=94890&amp;page=mysqli.real-connect&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V94890" title="41% like this...">
+    -10
+    </div>
+  </div>
+  <a href="mysqli.real-connect.php.html#94890" class="name">
+  <strong class="user"><em>Pom</em></strong></a><a class="genanchor" href="mysqli.real-connect.php.html#94890"> &para;</a><div class="date" title="2009-12-01 03:47"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom94890">
+<div class="phpcode"><code><span class="html">Notice that when using "localhost" as hostname the port option might be ignored. <br /><br />If you wish to connect thru a different port than default, substitute "127.0.0.1" for localhost.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="101222">  <div class="votes">
+    <div id="Vu101222">
+    <a href="https://www.php.net/manual/vote-note.php?id=101222&amp;page=mysqli.real-connect&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd101222">
+    <a href="https://www.php.net/manual/vote-note.php?id=101222&amp;page=mysqli.real-connect&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V101222" title="32% like this...">
+    -17
+    </div>
+  </div>
+  <a href="mysqli.real-connect.php.html#101222" class="name">
+  <strong class="user"><em>php-nospam325123 at brainpower dot no-ip dot org</em></strong></a><a class="genanchor" href="mysqli.real-connect.php.html#101222"> &para;</a><div class="date" title="2010-12-03 03:29"><strong>13 years ago</strong></div>
+  <div class="text" id="Hcom101222">
+<div class="phpcode"><code><span class="html">this is because it tries to use sockets with the string localhost this is documented en known</span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=mysqli.real-connect&amp;redirect=https://www.php.net/manual/ru/mysqli.real-connect.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="class.mysqli.php.html">mysqli</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="mysqli.affected-rows.php.html" title="$affected_&#8203;rows">$affected_&#8203;rows</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.autocommit.php.html" title="autocommit">autocommit</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.begin-transaction.php.html" title="begin_&#8203;transaction">begin_&#8203;transaction</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.change-user.php.html" title="change_&#8203;user">change_&#8203;user</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.character-set-name.php.html" title="character_&#8203;set_&#8203;name">character_&#8203;set_&#8203;name</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.close.php.html" title="close">close</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.commit.php.html" title="commit">commit</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.connect-errno.php.html" title="$connect_&#8203;errno">$connect_&#8203;errno</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.connect-error.php.html" title="$connect_&#8203;error">$connect_&#8203;error</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.construct.php.html" title="_&#8203;_&#8203;construct">_&#8203;_&#8203;construct</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.debug.php.html" title="debug">debug</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.dump-debug-info.php.html" title="dump_&#8203;debug_&#8203;info">dump_&#8203;debug_&#8203;info</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.errno.php.html" title="$errno">$errno</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.error-list.php.html" title="$error_&#8203;list">$error_&#8203;list</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.error.php.html" title="$error">$error</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.execute-query.php.html" title="execute_&#8203;query">execute_&#8203;query</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.field-count.php.html" title="$field_&#8203;count">$field_&#8203;count</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.get-charset.php.html" title="get_&#8203;charset">get_&#8203;charset</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.get-client-info.php.html" title="$client_&#8203;info">$client_&#8203;info</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.get-client-version.php.html" title="$client_&#8203;version">$client_&#8203;version</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.get-connection-stats.php.html" title="get_&#8203;connection_&#8203;stats">get_&#8203;connection_&#8203;stats</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.get-host-info.php.html" title="$host_&#8203;info">$host_&#8203;info</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.get-proto-info.php.html" title="$protocol_&#8203;version">$protocol_&#8203;version</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.get-server-info.php.html" title="$server_&#8203;info">$server_&#8203;info</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.get-server-version.php.html" title="$server_&#8203;version">$server_&#8203;version</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.get-warnings.php.html" title="get_&#8203;warnings">get_&#8203;warnings</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.info.php.html" title="$info">$info</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.insert-id.php.html" title="$insert_&#8203;id">$insert_&#8203;id</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.kill.php.html" title="kill">kill</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.more-results.php.html" title="more_&#8203;results">more_&#8203;results</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.multi-query.php.html" title="multi_&#8203;query">multi_&#8203;query</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.next-result.php.html" title="next_&#8203;result">next_&#8203;result</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.options.php.html" title="options">options</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.ping.php.html" title="ping">ping</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.poll.php.html" title="poll">poll</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.prepare.php.html" title="prepare">prepare</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.query.php.html" title="query">query</a>
+                        </li>
+                                                <li class="current">
+                            <a href="mysqli.real-connect.php.html" title="real_&#8203;connect">real_&#8203;connect</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.real-escape-string.php.html" title="real_&#8203;escape_&#8203;string">real_&#8203;escape_&#8203;string</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.real-query.php.html" title="real_&#8203;query">real_&#8203;query</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.reap-async-query.php.html" title="reap_&#8203;async_&#8203;query">reap_&#8203;async_&#8203;query</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.refresh.php.html" title="refresh">refresh</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.release-savepoint.php.html" title="release_&#8203;savepoint">release_&#8203;savepoint</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.rollback.php.html" title="rollback">rollback</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.savepoint.php.html" title="savepoint">savepoint</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.select-db.php.html" title="select_&#8203;db">select_&#8203;db</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.set-charset.php.html" title="set_&#8203;charset">set_&#8203;charset</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.sqlstate.php.html" title="$sqlstate">$sqlstate</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.ssl-set.php.html" title="ssl_&#8203;set">ssl_&#8203;set</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.stat.php.html" title="stat">stat</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.stmt-init.php.html" title="stmt_&#8203;init">stmt_&#8203;init</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.store-result.php.html" title="store_&#8203;result">store_&#8203;result</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.thread-id.php.html" title="$thread_&#8203;id">$thread_&#8203;id</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.thread-safe.php.html" title="thread_&#8203;safe">thread_&#8203;safe</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.use-result.php.html" title="use_&#8203;result">use_&#8203;result</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.warning-count.php.html" title="$warning_&#8203;count">$warning_&#8203;count</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                        <li>
+                <span class="header">Deprecated</span>
+                <ul class="child-menu-list">
+                                    <li class="">
+                        <a href="mysqli.init.php.html" title="init">init</a>
+                    </li>
+                                </ul>
+            </li>
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

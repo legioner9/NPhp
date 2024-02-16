@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: mysqli::debug - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="mysqli.debug.php.html">
+ <link rel="shorturl" href="mysqli.debug.php.html">
+ <link rel="alternate" href="mysqli.debug.php.html" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="class.mysqli.php.html">
+ <link rel="prev" href="mysqli.construct.php.html">
+ <link rel="next" href="mysqli.dump-debug-info.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/mysqli.debug.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/mysqli.debug.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/mysqli.debug.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/mysqli.debug.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/mysqli.debug.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/mysqli.debug.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/mysqli.debug.php" hreflang="pt_BR">
+ <link rel="alternate" href="mysqli.debug.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/mysqli.debug.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/mysqli.debug.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="mysqli.dump-debug-info.php.html">
+          mysqli::dump_debug_info &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="mysqli.construct.php.html">
+          &laquo; mysqli::__construct        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.database.php.html'>Модули для работы с базами данных</a></li>      <li><a href='refs.database.vendors.php.html'>Модули для работы с базами данных отдельных производителей</a></li>      <li><a href='set.mysqlinfo.php.html'>MySQL</a></li>      <li><a href='book.mysqli.php.html'>MySQLi</a></li>      <li><a href='class.mysqli.php.html'>mysqli</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/mysqli.debug.php'>English</option>
+            <option value='de/mysqli.debug.php'>German</option>
+            <option value='es/mysqli.debug.php'>Spanish</option>
+            <option value='fr/mysqli.debug.php'>French</option>
+            <option value='it/mysqli.debug.php'>Italian</option>
+            <option value='ja/mysqli.debug.php'>Japanese</option>
+            <option value='pt_BR/mysqli.debug.php'>Brazilian Portuguese</option>
+            <option value='ru/mysqli.debug.php' selected="selected">Russian</option>
+            <option value='tr/mysqli.debug.php'>Turkish</option>
+            <option value='zh/mysqli.debug.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/mysqli/mysqli/debug.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Fmysqli.debug%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="mysqli.debug" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">mysqli::debug</h1>
+  <h1 class="refname">mysqli_debug</h1>
+  <p class="verinfo">(PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">mysqli::debug</span> -- <span class="refname">mysqli_debug</span> &mdash; <span class="dc-title">Выполняет процедуры отладки</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-mysqli.debug-description">
+  <h3 class="title">Описание</h3>
+  <p class="para">Объектно-ориентированный стиль</p>
+  <div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="methodname"><strong>mysqli::debug</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$options</code></span>): <span class="type"><span class="type true">true</span></span></div>
+
+  <p class="para rdfs-comment">Процедурный стиль</p>
+  <div class="methodsynopsis dc-description"><span class="methodname"><strong>mysqli_debug</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$options</code></span>): <span class="type"><span class="type true">true</span></span></div>
+
+  <p class="para rdfs-comment">
+   Выполняет процедуры отладки, используя библиотеку Fred Fish.
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-mysqli.debug-parameters">
+  <h3 class="title">Список параметров</h3>
+  <p class="para">
+   <dl>
+    
+     <dt>
+<code class="parameter">options</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Строка, содержащая выполняемую процедуру отладки
+      </p>
+      <p class="para">
+       Строка управления отладкой — это последовательность полей, разделённых двоеточиями, как показано ниже:
+       <code class="literal"><div class="cdata"><pre>&lt;field_1&gt;:&lt;field_2&gt;:&lt;field_N&gt;</pre></div></code>
+       Каждое поле состоит из обязательного символа флага, за которым следует необязательный символ <code class="literal">,</code> и список модификаторов, разделённый запятыми:
+       <code class="literal">flag[,modifier,modifier,...,modifier]</code>
+      </p>
+      <p class="para">
+       <table class="doctable table">
+        <caption><strong>Допустимые символы флагов</strong></caption>
+          
+            <thead>
+              <tr>
+                <th>Символ <code class="parameter">options</code></th>
+                <th>Описание</th>
+              </tr>
+
+            </thead>
+
+            <tbody class="tbody">
+              <tr>
+                <td>O</td>
+                <td><strong><code>MYSQLND_DEBUG_FLUSH</code></strong></td>
+              </tr>
+
+              <tr>
+                <td>A/a</td>
+                <td><strong><code>MYSQLND_DEBUG_APPEND</code></strong></td>
+              </tr>
+
+              <tr>
+                <td>F</td>
+                <td><strong><code>MYSQLND_DEBUG_DUMP_FILE</code></strong></td>
+              </tr>
+
+              <tr>
+                <td>i</td>
+                <td><strong><code>MYSQLND_DEBUG_DUMP_PID</code></strong></td>
+              </tr>
+
+              <tr>
+                <td>L</td>
+                <td><strong><code>MYSQLND_DEBUG_DUMP_LINE</code></strong></td>
+              </tr>
+
+              <tr>
+                <td>m</td>
+                <td><strong><code>MYSQLND_DEBUG_TRACE_MEMORY_CALLS</code></strong></td>
+              </tr>
+
+              <tr>
+                <td>n</td>
+                <td><strong><code>MYSQLND_DEBUG_DUMP_LEVEL</code></strong></td>
+              </tr>
+
+              <tr>
+                <td>o</td>
+                <td>вывод в файл</td>
+              </tr>
+
+              <tr>
+                <td>T</td>
+                <td><strong><code>MYSQLND_DEBUG_DUMP_TIME</code></strong></td>
+              </tr>
+
+              <tr>
+                <td>t</td>
+                <td><strong><code>MYSQLND_DEBUG_DUMP_TRACE</code></strong></td>
+              </tr>
+
+              <tr>
+                <td>x</td>
+                <td><strong><code>MYSQLND_DEBUG_PROFILE_CALLS</code></strong></td>
+              </tr>
+
+            </tbody>
+          
+        </table>
+
+       </p>
+     </dd>
+
+    
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-mysqli.debug-returnvalues">
+  <h3 class="title">Возвращаемые значения</h3>
+  <p class="para">
+   Функция всегда возвращает <strong><code>true</code></strong>.
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-mysqli.debug-changelog">
+  <h3 class="title">Список изменений</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead>
+      <tr>
+       <th>Версия</th>
+       <th>Описание</th>
+      </tr>
+
+     </thead>
+
+     <tbody class="tbody">
+      <tr>
+       <td>8.0.0</td>
+       <td>
+        Функция теперь возвращает значение <strong><code>true</code></strong>.
+        Ранее она возвращала значение <strong><code>false</code></strong> в случае возникновения ошибки.
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-mysqli.debug-examples">
+  <h3 class="title">Примеры</h3>
+  <p class="para">
+   <div class="example" id="example-4393">
+    <p><strong>Пример #1 Генерация файла трассировки</strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">/* Создать файл трассировки в '/tmp/client.trace' на локальной машине (клиенте): */<br /></span><span style="color: #0000BB">mysqli_debug</span><span style="color: #007700">(</span><span style="color: #DD0000">"d:t:o,/tmp/client.trace"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-mysqli.debug-notes">
+  <h3 class="title">Примечания</h3>
+  <blockquote class="note"><p><strong class="note">Замечание</strong>: 
+   <p class="para">
+    Чтобы функция <span class="function"><strong>mysqli_debug()</strong></span> была доступна, необходимо
+    скомпилировать клиентскую библиотеку MySQL с поддержкой отладки.
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-mysqli.debug-seealso">
+  <h3 class="title">Смотрите также</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="mysqli.dump-debug-info.php.html" class="function" rel="rdfs-seeAlso">mysqli_dump_debug_info()</a> - Журналирование отладочной информации</span></li>
+    <li class="member"><span class="function"><a href="function.mysqli-report.php.html" class="function" rel="rdfs-seeAlso">mysqli_report()</a> - Псевдоним mysqli_driver-&gt;report_mode</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=mysqli.debug&amp;redirect=https://www.php.net/manual/ru/mysqli.debug.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">3 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="114991">  <div class="votes">
+    <div id="Vu114991">
+    <a href="https://www.php.net/manual/vote-note.php?id=114991&amp;page=mysqli.debug&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd114991">
+    <a href="https://www.php.net/manual/vote-note.php?id=114991&amp;page=mysqli.debug&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V114991" title="75% like this...">
+    29
+    </div>
+  </div>
+  <a href="mysqli.debug.php.html#114991" class="name">
+  <strong class="user"><em>Peter</em></strong></a><a class="genanchor" href="mysqli.debug.php.html#114991"> &para;</a><div class="date" title="2014-05-10 10:59"><strong>9 years ago</strong></div>
+  <div class="text" id="Hcom114991">
+<div class="phpcode"><code><span class="html">can there be more documenation with a small (but working) example script on how to use this ?<br /><br />Some issues  (Ive seen the "same" code example in dozens of tutorials):-<br /><br />( I'll use capitals for emphasis only)<br /><br />QUESTION: what does D:T:O mean ? UNEXPLAINED.<br /><br />QUESTION: Do we *ONLY* use these 3 lines in a self-contained script ? Does this log ALL future MYSQL commands ?<br /><br />QUESTION :- Do we put that one line just<br /><br />- immediately after we connect to MYSQL ?<br />- before we connect to MYSQL ?<br />- before our suspected error ?</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="122219">  <div class="votes">
+    <div id="Vu122219">
+    <a href="https://www.php.net/manual/vote-note.php?id=122219&amp;page=mysqli.debug&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd122219">
+    <a href="https://www.php.net/manual/vote-note.php?id=122219&amp;page=mysqli.debug&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V122219" title="68% like this...">
+    6
+    </div>
+  </div>
+  <a href="mysqli.debug.php.html#122219" class="name">
+  <strong class="user"><em>riversnowchang at gmail dot com</em></strong></a><a class="genanchor" href="mysqli.debug.php.html#122219"> &para;</a><div class="date" title="2018-01-03 02:42"><strong>6 years ago</strong></div>
+  <div class="text" id="Hcom122219">
+<div class="phpcode"><code><span class="html">Here are the information about debug options on mysqli_debug()<br /><br />O,o:MYSQLND_DEBUG_FLUSH<br />A,a:MYSQLND_DEBUG_APPEND<br />F:MYSQLND_DEBUG_DUMP_FILE<br />L:MYSQLND_DEBUG_DUMP_LINE<br />m:MYSQLND_DEBUG_TRACE_MEMORY_CALLS<br />n:MYSQLND_DEBUG_DUMP_LEVEL<br />o:output to file<br />T:MYSQLND_DEBUG_DUMP_TIME<br />t:MYSQLND_DEBUG_DUMP_TRACE<br />x:MYSQLND_DEBUG_PROFILE_CALLS<br />f:? still investigating<br /><br />For example, mysqli_debug("T:n:t:m:x:F:L:o,/tmp/client.trace");<br />mysqlnd will write Time, Level, trace, memory calls, profile calls, File, Line to client.trace file.<br /><br />22:35:42.704501 ../mysqlnd_connection.c:  269   0:&gt;mysqlnd_connection_init<br />22:35:42.704538 ../mysqlnd_driver.c:   10   1:| &gt;mysqlnd_driver::get_connection<br />22:35:42.704549 ../mysqlnd_driver.c:   10   2:| | info : persistent=1<br />22:35:42.704558 ../mysqlnd_alloc.c:   21   2:| | &gt;_mysqlnd_pecalloc<br />22:35:42.704570 ../mysqlnd_alloc.c:   23   2:| | &lt;_mysqlnd_pecalloc (total=3 own=3 in_calls=0)<br />22:35:42.704602 ../mysqlnd_alloc.c:   21   2:| | &gt;_mysqlnd_pecalloc<br />22:35:42.704626 ../mysqlnd_alloc.c:   23   2:| | &lt;_mysqlnd_pecalloc (total=2 own=2 in_calls=0)<br />22:35:42.704650 ../mysqlnd_connection.c:   15   2:| | &gt;mysqlnd_error_info_init<br />22:35:42.704675 ../mysqlnd_connection.c:   10   3:| | | &gt;mysqlnd_error_info::reset<br />22:35:42.704697 ../mysqlnd_connection.c:   10   3:| | | &lt;mysqlnd_error_info::reset (total=1 own=1 in_calls=0)<br />22:35:42.704725 ../mysqlnd_connection.c:   16   2:| | &lt;mysqlnd_error_info_init (total=51 own=50 in_calls=1)<br />22:35:42.704744 ../mysqlnd_connection.c:   21   2:| | &gt;mysqlnd_connection_state_init<br /><br />If there is anything wrong, please let me know.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="122730">  <div class="votes">
+    <div id="Vu122730">
+    <a href="https://www.php.net/manual/vote-note.php?id=122730&amp;page=mysqli.debug&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd122730">
+    <a href="https://www.php.net/manual/vote-note.php?id=122730&amp;page=mysqli.debug&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V122730" title="33% like this...">
+    -1
+    </div>
+  </div>
+  <a href="mysqli.debug.php.html#122730" class="name">
+  <strong class="user"><em>Domenic</em></strong></a><a class="genanchor" href="mysqli.debug.php.html#122730"> &para;</a><div class="date" title="2018-05-14 10:17"><strong>5 years ago</strong></div>
+  <div class="text" id="Hcom122730">
+<div class="phpcode"><code><span class="html">Looks like this manual could be referred to:<br /><br /><a href="http://tiebing.blogspot.com.au/2011/10/cc-dbug-library.html" rel="nofollow" target="_blank">http://tiebing.blogspot.com.au/2011/10/cc-dbug-library.html</a><br /><br />(I haven't tested it)</span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=mysqli.debug&amp;redirect=https://www.php.net/manual/ru/mysqli.debug.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="class.mysqli.php.html">mysqli</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="mysqli.affected-rows.php.html" title="$affected_&#8203;rows">$affected_&#8203;rows</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.autocommit.php.html" title="autocommit">autocommit</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.begin-transaction.php.html" title="begin_&#8203;transaction">begin_&#8203;transaction</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.change-user.php.html" title="change_&#8203;user">change_&#8203;user</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.character-set-name.php.html" title="character_&#8203;set_&#8203;name">character_&#8203;set_&#8203;name</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.close.php.html" title="close">close</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.commit.php.html" title="commit">commit</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.connect-errno.php.html" title="$connect_&#8203;errno">$connect_&#8203;errno</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.connect-error.php.html" title="$connect_&#8203;error">$connect_&#8203;error</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.construct.php.html" title="_&#8203;_&#8203;construct">_&#8203;_&#8203;construct</a>
+                        </li>
+                                                <li class="current">
+                            <a href="mysqli.debug.php.html" title="debug">debug</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.dump-debug-info.php.html" title="dump_&#8203;debug_&#8203;info">dump_&#8203;debug_&#8203;info</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.errno.php.html" title="$errno">$errno</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.error-list.php.html" title="$error_&#8203;list">$error_&#8203;list</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.error.php.html" title="$error">$error</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.execute-query.php.html" title="execute_&#8203;query">execute_&#8203;query</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.field-count.php.html" title="$field_&#8203;count">$field_&#8203;count</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.get-charset.php.html" title="get_&#8203;charset">get_&#8203;charset</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.get-client-info.php.html" title="$client_&#8203;info">$client_&#8203;info</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.get-client-version.php.html" title="$client_&#8203;version">$client_&#8203;version</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.get-connection-stats.php.html" title="get_&#8203;connection_&#8203;stats">get_&#8203;connection_&#8203;stats</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.get-host-info.php.html" title="$host_&#8203;info">$host_&#8203;info</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.get-proto-info.php.html" title="$protocol_&#8203;version">$protocol_&#8203;version</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.get-server-info.php.html" title="$server_&#8203;info">$server_&#8203;info</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.get-server-version.php.html" title="$server_&#8203;version">$server_&#8203;version</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.get-warnings.php.html" title="get_&#8203;warnings">get_&#8203;warnings</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.info.php.html" title="$info">$info</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.insert-id.php.html" title="$insert_&#8203;id">$insert_&#8203;id</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.kill.php.html" title="kill">kill</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.more-results.php.html" title="more_&#8203;results">more_&#8203;results</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.multi-query.php.html" title="multi_&#8203;query">multi_&#8203;query</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.next-result.php.html" title="next_&#8203;result">next_&#8203;result</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.options.php.html" title="options">options</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.ping.php.html" title="ping">ping</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.poll.php.html" title="poll">poll</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.prepare.php.html" title="prepare">prepare</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.query.php.html" title="query">query</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.real-connect.php.html" title="real_&#8203;connect">real_&#8203;connect</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.real-escape-string.php.html" title="real_&#8203;escape_&#8203;string">real_&#8203;escape_&#8203;string</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.real-query.php.html" title="real_&#8203;query">real_&#8203;query</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.reap-async-query.php.html" title="reap_&#8203;async_&#8203;query">reap_&#8203;async_&#8203;query</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.refresh.php.html" title="refresh">refresh</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.release-savepoint.php.html" title="release_&#8203;savepoint">release_&#8203;savepoint</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.rollback.php.html" title="rollback">rollback</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.savepoint.php.html" title="savepoint">savepoint</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.select-db.php.html" title="select_&#8203;db">select_&#8203;db</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.set-charset.php.html" title="set_&#8203;charset">set_&#8203;charset</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.sqlstate.php.html" title="$sqlstate">$sqlstate</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.ssl-set.php.html" title="ssl_&#8203;set">ssl_&#8203;set</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.stat.php.html" title="stat">stat</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.stmt-init.php.html" title="stmt_&#8203;init">stmt_&#8203;init</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.store-result.php.html" title="store_&#8203;result">store_&#8203;result</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.thread-id.php.html" title="$thread_&#8203;id">$thread_&#8203;id</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.thread-safe.php.html" title="thread_&#8203;safe">thread_&#8203;safe</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.use-result.php.html" title="use_&#8203;result">use_&#8203;result</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.warning-count.php.html" title="$warning_&#8203;count">$warning_&#8203;count</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                        <li>
+                <span class="header">Deprecated</span>
+                <ul class="child-menu-list">
+                                    <li class="">
+                        <a href="mysqli.init.php.html" title="init">init</a>
+                    </li>
+                                </ul>
+            </li>
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

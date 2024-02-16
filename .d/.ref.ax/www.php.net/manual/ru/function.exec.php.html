@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: exec - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="function.exec.php.html">
+ <link rel="shorturl" href="https://www.php.net/exec">
+ <link rel="alternate" href="https://www.php.net/exec" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="ref.exec.php.html">
+ <link rel="prev" href="function.escapeshellcmd.php.html">
+ <link rel="next" href="function.passthru.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/function.exec.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/function.exec.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/function.exec.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/function.exec.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/function.exec.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/function.exec.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/function.exec.php" hreflang="pt_BR">
+ <link rel="alternate" href="function.exec.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/function.exec.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/function.exec.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="function.passthru.php.html">
+          passthru &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="function.escapeshellcmd.php.html">
+          &laquo; escapeshellcmd        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.fileprocess.process.php.html'>Модули для управления процессами программ</a></li>      <li><a href='book.exec.php.html'>Запуск программы</a></li>      <li><a href='ref.exec.php.html'>Функции запуска программ</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/function.exec.php'>English</option>
+            <option value='de/function.exec.php'>German</option>
+            <option value='es/function.exec.php'>Spanish</option>
+            <option value='fr/function.exec.php'>French</option>
+            <option value='it/function.exec.php'>Italian</option>
+            <option value='ja/function.exec.php'>Japanese</option>
+            <option value='pt_BR/function.exec.php'>Brazilian Portuguese</option>
+            <option value='ru/function.exec.php' selected="selected">Russian</option>
+            <option value='tr/function.exec.php'>Turkish</option>
+            <option value='zh/function.exec.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/exec/functions/exec.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Ffunction.exec%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="function.exec" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">exec</h1>
+  <p class="verinfo">(PHP 4, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">exec</span> &mdash; <span class="dc-title">Выполнить внешнюю программу</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.exec-description">
+  <h3 class="title">Описание</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="methodname"><strong>exec</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$command</code></span>, <span class="methodparam"><span class="type">array</span> <code class="parameter reference">&$output</code><span class="initializer"> = <strong><code>null</code></strong></span></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter reference">&$result_code</code><span class="initializer"> = <strong><code>null</code></strong></span></span>): <span class="type"><span class="type">string</span>|<span class="type"><span class="type false">false</span></span></span></div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><strong>exec()</strong></span> выполняет команду
+   <code class="parameter">command</code>.
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.exec-parameters">
+  <h3 class="title">Список параметров</h3>
+  <p class="para">
+   <dl>
+    
+     <dt>
+<code class="parameter">command</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Команда, которая будет исполнена.
+      </p>
+     </dd>
+
+    
+    
+     <dt>
+<code class="parameter">output</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Если параметр <code class="parameter">output</code> указан, то
+       массив будет заполнен строками вывода программы.
+       Завершающие пробелы, такие как <code class="literal">\n</code>,
+       не будут включены в массив. Обратите внимание, что если массив уже содержит
+       какие-либо элементы, то <span class="function"><strong>exec()</strong></span> добавит новые элементы в конец массива.
+       Если же вы не хотите, чтобы функция добавляла новые элементы в конец, вызовите
+       <span class="function"><a href="function.unset.php.html" class="function">unset()</a></span> на этом массиве, прежде чем передать его в <span class="function"><strong>exec()</strong></span>.
+      </p>
+     </dd>
+
+    
+    
+     <dt>
+<code class="parameter">result_code</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Если аргумент <code class="parameter">result_code</code> присутствует вместе с
+       <code class="parameter">output</code>, тогда статус возврата выполненной команды
+       будет записан в этой переменной.
+      </p>
+     </dd>
+
+    
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.exec-returnvalues">
+  <h3 class="title">Возвращаемые значения</h3>
+  <p class="para">
+   Последняя строка из результата команды. Если требуется
+   выполнить команду и получить все данные команды без какой-либо
+   обработки, используйте функцию <span class="function"><a href="function.passthru.php.html" class="function">passthru()</a></span>.
+  </p>
+  <p class="para">
+   Возвращает <strong><code>false</code></strong> в случае возникновения ошибки.
+  </p>
+  <p class="para">
+   Для получения результата выполнения команды, убедитесь, что параметр
+   <code class="parameter">output</code> инициализирован и используется.
+  </p>
+ </div>
+
+
+ <div class="refsect1 errors" id="refsect1-function.exec-errors">
+  <h3 class="title">Ошибки</h3>
+  <p class="para">
+   Выдаёт ошибку уровня <strong><code>E_WARNING</code></strong>, если функция <span class="function"><strong>exec()</strong></span>
+   не может выполнить команду <code class="parameter">command</code>.
+  </p>
+  <p class="para">
+   Выбрасывает исключение <span class="classname"><a href="class.valueerror.php.html" class="classname">ValueError</a></span>, если параметр <code class="parameter">command</code>
+   не указан или содержит нулевые байты.
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.exec-changelog">
+  <h3 class="title">Список изменений</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>Версия</th>
+      <th>Описание</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+      <td>8.0.0</td>
+      <td>
+       Если параметр <code class="parameter">command</code> не указан или содержит нулевые байты,
+       функция <span class="function"><strong>exec()</strong></span> теперь выбрасывает исключение <span class="classname"><a href="class.valueerror.php.html" class="classname">ValueError</a></span>;
+       ранее она выдавала ошибку уровня <strong><code>E_WARNING</code></strong> и возвращала <strong><code>false</code></strong>.
+      </td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.exec-examples">
+  <h3 class="title">Примеры</h3>
+  <p class="para">
+   <div class="example" id="">
+    <p><strong>Пример #1 Пример функции <span class="function"><strong>exec()</strong></span></strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// выводит имя пользователя, от имени которого запущен процесс php/httpd<br />// (применимо к системам с командой "whoami" в системном пути)<br /></span><span style="color: #0000BB">$output</span><span style="color: #007700">=</span><span style="color: #0000BB">null</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$retval</span><span style="color: #007700">=</span><span style="color: #0000BB">null</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">exec</span><span style="color: #007700">(</span><span style="color: #DD0000">'whoami'</span><span style="color: #007700">, </span><span style="color: #0000BB">$output</span><span style="color: #007700">, </span><span style="color: #0000BB">$retval</span><span style="color: #007700">);<br />echo </span><span style="color: #DD0000">"Вернёт статус </span><span style="color: #0000BB">$retval</span><span style="color: #DD0000"> и значение:\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$output</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+    </div>
+
+    
+<div class="example-contents"><p>
+ Вывод приведённого примера будет похож на:
+</p></div>
+
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Вернёт статус 0 и значение:
+Array
+(
+    [0] =&gt; cmb
+)
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.exec-notes">
+  <h3 class="title">Примечания</h3>
+  <div class="warning"><strong class="warning">Внимание</strong><p class="para">Если
+нужно передавать функции пользовательские данные,
+вызывают функции <span class="function"><a href="function.escapeshellarg.php.html" class="function">escapeshellarg()</a></span> или <span class="function"><a href="function.escapeshellcmd.php.html" class="function">escapeshellcmd()</a></span>,
+чтобы пользователи не смогли обмануть систему, запустив произвольную команду.</p></div>
+  <blockquote class="note"><p><strong class="note">Замечание</strong>: <p class="para">Если нужно
+вызвать эту функцию в программе, работающей в качестве демона, проверяют,
+что стандартный вывод функции направлен в файл или другой поток, иначе
+PHP зависнет вплоть до конца выполнения программы.</p></p></blockquote>
+  <blockquote class="note"><p><strong class="note">Замечание</strong>: <p class="para">В Windows
+функция <span class="function"><strong>exec()</strong></span> для запуска команды запускает командную строку cmd.exe. Если
+нужно запустить внешнюю программу без запуска командной строки cmd.exe,
+вызывают функцию <span class="function"><a href="function.proc-open.php.html" class="function">proc_open()</a></span> с установленной опцией
+<code class="parameter">bypass_shell</code>.</p></p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.exec-seealso">
+  <h3 class="title">Смотрите также</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.system.php.html" class="function" rel="rdfs-seeAlso">system()</a> - Выполнить внешнюю программу и отобразить вывод</span></li>
+    <li class="member"><span class="function"><a href="function.passthru.php.html" class="function" rel="rdfs-seeAlso">passthru()</a> - Выполнить внешнюю программу и отобразить необработанный вывод</span></li>
+    <li class="member"><span class="function"><a href="function.escapeshellcmd.php.html" class="function" rel="rdfs-seeAlso">escapeshellcmd()</a> - Экранировать метасимволы командной строки</span></li>
+    <li class="member"><span class="function"><a href="function.pcntl-exec.php.html" class="function" rel="rdfs-seeAlso">pcntl_exec()</a> - Запустить указанную программу в области текущего процесса</span></li>
+    <li class="member"><a href="language.operators.execution.php.html" class="link">Оператор исполнения</a></li>
+   </ul>
+  </p>
+ </div>
+
+</div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=function.exec&amp;redirect=https://www.php.net/manual/ru/function.exec.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">22 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="86329">  <div class="votes">
+    <div id="Vu86329">
+    <a href="https://www.php.net/manual/vote-note.php?id=86329&amp;page=function.exec&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd86329">
+    <a href="https://www.php.net/manual/vote-note.php?id=86329&amp;page=function.exec&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V86329" title="60% like this...">
+    187
+    </div>
+  </div>
+  <a href="function.exec.php.html#86329" class="name">
+  <strong class="user"><em>Arno van den Brink</em></strong></a><a class="genanchor" href="function.exec.php.html#86329"> &para;</a><div class="date" title="2008-10-13 08:04"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom86329">
+<div class="phpcode"><code><span class="html">This will execute $cmd in the background (no cmd window) without PHP waiting for it to finish, on both Windows and Unix.<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">execInBackground</span><span class="keyword">(</span><span class="default">$cmd</span><span class="keyword">) {<br />    if (</span><span class="default">substr</span><span class="keyword">(</span><span class="default">php_uname</span><span class="keyword">(), </span><span class="default">0</span><span class="keyword">, </span><span class="default">7</span><span class="keyword">) == </span><span class="string">"Windows"</span><span class="keyword">){<br />        </span><span class="default">pclose</span><span class="keyword">(</span><span class="default">popen</span><span class="keyword">(</span><span class="string">"start /B "</span><span class="keyword">. </span><span class="default">$cmd</span><span class="keyword">, </span><span class="string">"r"</span><span class="keyword">));  <br />    }<br />    else {<br />        </span><span class="default">exec</span><span class="keyword">(</span><span class="default">$cmd </span><span class="keyword">. </span><span class="string">" &gt; /dev/null &amp;"</span><span class="keyword">);   <br />    }<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="88704">  <div class="votes">
+    <div id="Vu88704">
+    <a href="https://www.php.net/manual/vote-note.php?id=88704&amp;page=function.exec&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd88704">
+    <a href="https://www.php.net/manual/vote-note.php?id=88704&amp;page=function.exec&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V88704" title="60% like this...">
+    84
+    </div>
+  </div>
+  <a href="function.exec.php.html#88704" class="name">
+  <strong class="user"><em>dell_petter at hotmail dot com</em></strong></a><a class="genanchor" href="function.exec.php.html#88704"> &para;</a><div class="date" title="2009-02-04 02:52"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom88704">
+<div class="phpcode"><code><span class="html">(This is for linux users only).<br /><br />We know now how we can fork a process in linux with the &amp; operator.<br />And by using command: nohup MY_COMMAND &gt; /dev/null 2&gt;&amp;1 &amp; echo $! we can return the pid of the process.<br /><br />This small class is made so you can keep in track of your created processes ( meaning start/stop/status ).<br /><br />You may use it to start a process or join an exisiting PID process.<br /><br /><span class="default">&lt;?php<br />    </span><span class="comment">// You may use status(), start(), and stop(). notice that start() method gets called automatically one time.<br />    </span><span class="default">$process </span><span class="keyword">= new </span><span class="default">Process</span><span class="keyword">(</span><span class="string">'ls -al'</span><span class="keyword">);<br /><br />    </span><span class="comment">// or if you got the pid, however here only the status() metod will work.<br />    </span><span class="default">$process </span><span class="keyword">= new </span><span class="default">Process</span><span class="keyword">();<br />    </span><span class="default">$process</span><span class="keyword">.</span><span class="default">setPid</span><span class="keyword">(</span><span class="default">my_pid</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br /><span class="default">&lt;?php<br />    </span><span class="comment">// Then you can start/stop/ check status of the job.<br />    </span><span class="default">$process</span><span class="keyword">.</span><span class="default">stop</span><span class="keyword">();<br />    </span><span class="default">$process</span><span class="keyword">.</span><span class="default">start</span><span class="keyword">();<br />    if (</span><span class="default">$process</span><span class="keyword">.</span><span class="default">status</span><span class="keyword">()){<br />        echo </span><span class="string">"The process is currently running"</span><span class="keyword">;<br />    }else{<br />        echo </span><span class="string">"The process is not running."</span><span class="keyword">;<br />    }<br /></span><span class="default">?&gt;<br /></span><br /><span class="default">&lt;?php<br /></span><span class="comment">/* An easy way to keep in track of external processes.<br /> * Ever wanted to execute a process in php, but you still wanted to have somewhat controll of the process ? Well.. This is a way of doing it.<br /> * @compability: Linux only. (Windows does not work).<br /> * @author: Peec<br /> */<br /></span><span class="keyword">class </span><span class="default">Process</span><span class="keyword">{<br />    private </span><span class="default">$pid</span><span class="keyword">;<br />    private </span><span class="default">$command</span><span class="keyword">;<br /><br />    public function </span><span class="default">__construct</span><span class="keyword">(</span><span class="default">$cl</span><span class="keyword">=</span><span class="default">false</span><span class="keyword">){<br />        if (</span><span class="default">$cl </span><span class="keyword">!= </span><span class="default">false</span><span class="keyword">){<br />            </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">command </span><span class="keyword">= </span><span class="default">$cl</span><span class="keyword">;<br />            </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">runCom</span><span class="keyword">();<br />        }<br />    }<br />    private function </span><span class="default">runCom</span><span class="keyword">(){<br />        </span><span class="default">$command </span><span class="keyword">= </span><span class="string">'nohup '</span><span class="keyword">.</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">command</span><span class="keyword">.</span><span class="string">' &gt; /dev/null 2&gt;&amp;1 &amp; echo $!'</span><span class="keyword">;<br />        </span><span class="default">exec</span><span class="keyword">(</span><span class="default">$command </span><span class="keyword">,</span><span class="default">$op</span><span class="keyword">);<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">pid </span><span class="keyword">= (int)</span><span class="default">$op</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">];<br />    }<br /><br />    public function </span><span class="default">setPid</span><span class="keyword">(</span><span class="default">$pid</span><span class="keyword">){<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">pid </span><span class="keyword">= </span><span class="default">$pid</span><span class="keyword">;<br />    }<br /><br />    public function </span><span class="default">getPid</span><span class="keyword">(){<br />        return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">pid</span><span class="keyword">;<br />    }<br /><br />    public function </span><span class="default">status</span><span class="keyword">(){<br />        </span><span class="default">$command </span><span class="keyword">= </span><span class="string">'ps -p '</span><span class="keyword">.</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">pid</span><span class="keyword">;<br />        </span><span class="default">exec</span><span class="keyword">(</span><span class="default">$command</span><span class="keyword">,</span><span class="default">$op</span><span class="keyword">);<br />        if (!isset(</span><span class="default">$op</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">]))return </span><span class="default">false</span><span class="keyword">;<br />        else return </span><span class="default">true</span><span class="keyword">;<br />    }<br /><br />    public function </span><span class="default">start</span><span class="keyword">(){<br />        if (</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">command </span><span class="keyword">!= </span><span class="string">''</span><span class="keyword">)</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">runCom</span><span class="keyword">();<br />        else return </span><span class="default">true</span><span class="keyword">;<br />    }<br /><br />    public function </span><span class="default">stop</span><span class="keyword">(){<br />        </span><span class="default">$command </span><span class="keyword">= </span><span class="string">'kill '</span><span class="keyword">.</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">pid</span><span class="keyword">;<br />        </span><span class="default">exec</span><span class="keyword">(</span><span class="default">$command</span><span class="keyword">);<br />        if (</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">status</span><span class="keyword">() == </span><span class="default">false</span><span class="keyword">)return </span><span class="default">true</span><span class="keyword">;<br />        else return </span><span class="default">false</span><span class="keyword">;<br />    }<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="116222">  <div class="votes">
+    <div id="Vu116222">
+    <a href="https://www.php.net/manual/vote-note.php?id=116222&amp;page=function.exec&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd116222">
+    <a href="https://www.php.net/manual/vote-note.php?id=116222&amp;page=function.exec&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V116222" title="65% like this...">
+    44
+    </div>
+  </div>
+  <a href="function.exec.php.html#116222" class="name">
+  <strong class="user"><em>Simon</em></strong></a><a class="genanchor" href="function.exec.php.html#116222"> &para;</a><div class="date" title="2014-11-24 05:07"><strong>9 years ago</strong></div>
+  <div class="text" id="Hcom116222">
+<div class="phpcode"><code><span class="html">Can’t get the output from your exec’d command to appear in the $output array?<br />Is it echo’ing all over your shell instead?<br /><br />Append "2&gt;&amp;1" to the end of your command, for example:<br /><br />exec("xmllint --noout ~/desktop/test.xml 2&gt;&amp;1", $retArr, $retVal);<br /><br />Will fill the array $retArr with the expected output; one line per array key.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="43917">  <div class="votes">
+    <div id="Vu43917">
+    <a href="https://www.php.net/manual/vote-note.php?id=43917&amp;page=function.exec&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd43917">
+    <a href="https://www.php.net/manual/vote-note.php?id=43917&amp;page=function.exec&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V43917" title="58% like this...">
+    27
+    </div>
+  </div>
+  <a href="function.exec.php.html#43917" class="name">
+  <strong class="user"><em>msheakoski @t yahoo d@t com</em></strong></a><a class="genanchor" href="function.exec.php.html#43917"> &para;</a><div class="date" title="2004-07-08 08:40"><strong>19 years ago</strong></div>
+  <div class="text" id="Hcom43917">
+<div class="phpcode"><code><span class="html">I too wrestled with getting a program to run in the background in Windows while the script continues to execute.  This method unlike the other solutions allows you to start any program minimized, maximized, or with no window at all.  llbra@phpbrasil's solution does work but it sometimes produces an unwanted window on the desktop when you really want the task to run hidden.<br /><br />start Notepad.exe minimized in the background:<br /><br /><span class="default">&lt;?php<br />$WshShell </span><span class="keyword">= new </span><span class="default">COM</span><span class="keyword">(</span><span class="string">"WScript.Shell"</span><span class="keyword">);<br /></span><span class="default">$oExec </span><span class="keyword">= </span><span class="default">$WshShell</span><span class="keyword">-&gt;</span><span class="default">Run</span><span class="keyword">(</span><span class="string">"notepad.exe"</span><span class="keyword">, </span><span class="default">7</span><span class="keyword">, </span><span class="default">false</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />start a shell command invisible in the background:<br /><span class="default">&lt;?php<br />$WshShell </span><span class="keyword">= new </span><span class="default">COM</span><span class="keyword">(</span><span class="string">"WScript.Shell"</span><span class="keyword">);<br /></span><span class="default">$oExec </span><span class="keyword">= </span><span class="default">$WshShell</span><span class="keyword">-&gt;</span><span class="default">Run</span><span class="keyword">(</span><span class="string">"cmd /C dir /S %windir%"</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">false</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />start MSPaint maximized and wait for you to close it before continuing the script:<br /><span class="default">&lt;?php<br />$WshShell </span><span class="keyword">= new </span><span class="default">COM</span><span class="keyword">(</span><span class="string">"WScript.Shell"</span><span class="keyword">);<br /></span><span class="default">$oExec </span><span class="keyword">= </span><span class="default">$WshShell</span><span class="keyword">-&gt;</span><span class="default">Run</span><span class="keyword">(</span><span class="string">"mspaint.exe"</span><span class="keyword">, </span><span class="default">3</span><span class="keyword">, </span><span class="default">true</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />For more info on the Run() method go to:<br /><a href="http://msdn.microsoft.com/library/en-us/script56/html/wsMthRun.asp" rel="nofollow" target="_blank">http://msdn.microsoft.com/library/en-us/script56/html/wsMthRun.asp</a></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="76687">  <div class="votes">
+    <div id="Vu76687">
+    <a href="https://www.php.net/manual/vote-note.php?id=76687&amp;page=function.exec&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd76687">
+    <a href="https://www.php.net/manual/vote-note.php?id=76687&amp;page=function.exec&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V76687" title="60% like this...">
+    9
+    </div>
+  </div>
+  <a href="function.exec.php.html#76687" class="name">
+  <strong class="user"><em>Farhad Malekpour</em></strong></a><a class="genanchor" href="function.exec.php.html#76687"> &para;</a><div class="date" title="2007-07-26 04:24"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom76687">
+<div class="phpcode"><code><span class="html">If you're trying to use exec in a script that uses signal SIGCHLD, (i.e. pcntl_signal(SIGCHLD,'sigHandler');) it will return -1 as the exit code of the command (although output is correct!). To resolve this remove the signal handler and add it again after exec. Code will be something like this:<br /><br />...<br />pcntl_signal(SIGCHLD, 'sigHandler');<br />...<br />...<br />(more codes, functions, classes, etc)<br />...<br />...<br />// Now executing the command via exec<br />// Clear the signal<br />pcntl_signal(SIGCHLD, SIG_DFL);<br />// Execute the command<br />exec('mycommand',$output,$retval);<br />// Set the signal back to our handler<br />pcntl_signal(SIGCHLD, 'sigHandler');<br />// At this point we have correct value of $retval.<br /><br />Same solution can apply to system and passthru as well.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="125957">  <div class="votes">
+    <div id="Vu125957">
+    <a href="https://www.php.net/manual/vote-note.php?id=125957&amp;page=function.exec&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd125957">
+    <a href="https://www.php.net/manual/vote-note.php?id=125957&amp;page=function.exec&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V125957" title="57% like this...">
+    2
+    </div>
+  </div>
+  <a href="function.exec.php.html#125957" class="name">
+  <strong class="user"><em>ivk</em></strong></a><a class="genanchor" href="function.exec.php.html#125957"> &para;</a><div class="date" title="2021-03-24 01:43"><strong>2 years ago</strong></div>
+  <div class="text" id="Hcom125957">
+<div class="phpcode"><code><span class="html">result_code -1 could mean "Maximum number of file descriptors reached". Check count(get_resources('stream')) and ulimit -Sn</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="124878">  <div class="votes">
+    <div id="Vu124878">
+    <a href="https://www.php.net/manual/vote-note.php?id=124878&amp;page=function.exec&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd124878">
+    <a href="https://www.php.net/manual/vote-note.php?id=124878&amp;page=function.exec&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V124878" title="54% like this...">
+    3
+    </div>
+  </div>
+  <a href="function.exec.php.html#124878" class="name">
+  <strong class="user"><em>Hypolite Petovan</em></strong></a><a class="genanchor" href="function.exec.php.html#124878"> &para;</a><div class="date" title="2020-04-03 03:48"><strong>3 years ago</strong></div>
+  <div class="text" id="Hcom124878">
+<div class="phpcode"><code><span class="html">On Unix, to execute a command $cmd in the background, the one and only allowed standard output redirection syntax is "&gt; /path/to/file &amp;". No other valid standard output redirection syntax will allow a command to be ran in the background.<br /><br /><span class="default">&lt;?php<br /></span><span class="comment">// The following will be ran in the background<br /></span><span class="default">exec</span><span class="keyword">(</span><span class="default">$cmd </span><span class="keyword">. </span><span class="string">" &gt; /path/to/file &amp;"</span><span class="keyword">); <br /><br /></span><span class="comment">// All the following will NOT be ran in the background<br /></span><span class="default">exec</span><span class="keyword">(</span><span class="default">$cmd </span><span class="keyword">. </span><span class="string">" &gt;&gt; /path/to/file &amp;"</span><span class="keyword">); <br /></span><span class="default">exec</span><span class="keyword">(</span><span class="default">$cmd </span><span class="keyword">. </span><span class="string">" &amp;&gt; /path/to/file &amp;"</span><span class="keyword">); <br /></span><span class="default">exec</span><span class="keyword">(</span><span class="default">$cmd </span><span class="keyword">. </span><span class="string">" &amp;&gt;&gt; /path/to/file &amp;"</span><span class="keyword">); <br /></span><span class="default">exec</span><span class="keyword">(</span><span class="default">$cmd </span><span class="keyword">. </span><span class="string">" 2&gt;&amp;1 &gt; /path/to/file &amp;"</span><span class="keyword">); <br /></span><span class="default">exec</span><span class="keyword">(</span><span class="default">$cmd </span><span class="keyword">. </span><span class="string">" 2&gt;&amp;1 &gt;&gt; /path/to/file &amp;"</span><span class="keyword">); <br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="57904">  <div class="votes">
+    <div id="Vu57904">
+    <a href="https://www.php.net/manual/vote-note.php?id=57904&amp;page=function.exec&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd57904">
+    <a href="https://www.php.net/manual/vote-note.php?id=57904&amp;page=function.exec&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V57904" title="55% like this...">
+    2
+    </div>
+  </div>
+  <a href="function.exec.php.html#57904" class="name">
+  <strong class="user"><em>Bob-PHP at HamsterRepublic dot com</em></strong></a><a class="genanchor" href="function.exec.php.html#57904"> &para;</a><div class="date" title="2005-10-18 11:00"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom57904">
+<div class="phpcode"><code><span class="html">exec strips trailing whitespace off the output of a command. This makes it impossible to capture signifigant whitespace. For example, suppose that a program outputs columns of tab-delimited text, and the last column contains empty fields on some lines. The trailing tabs are important, but get thrown away.<br /><br />If you need to preserve trialing whitespace, you must use popen() instead.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="119331">  <div class="votes">
+    <div id="Vu119331">
+    <a href="https://www.php.net/manual/vote-note.php?id=119331&amp;page=function.exec&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd119331">
+    <a href="https://www.php.net/manual/vote-note.php?id=119331&amp;page=function.exec&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V119331" title="53% like this...">
+    3
+    </div>
+  </div>
+  <a href="function.exec.php.html#119331" class="name">
+  <strong class="user"><em>Paul Sommer</em></strong></a><a class="genanchor" href="function.exec.php.html#119331"> &para;</a><div class="date" title="2016-05-14 01:33"><strong>7 years ago</strong></div>
+  <div class="text" id="Hcom119331">
+<div class="phpcode"><code><span class="html">I tried to execute a command in background under Windows.<br />After struggling for hours with all these half ready examples I would like to share the syntax I found working (for windows at least). This is not tested under Linux as there are more elegant ways to spawn a process.<br /><br />Based on  the function from Arno van den Brink.<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">execInBackground</span><span class="keyword">(</span><span class="default">$cmd</span><span class="keyword">) {<br />    if (</span><span class="default">substr</span><span class="keyword">(</span><span class="default">php_uname</span><span class="keyword">(), </span><span class="default">0</span><span class="keyword">, </span><span class="default">7</span><span class="keyword">) == </span><span class="string">"Windows"</span><span class="keyword">){<br />        </span><span class="default">pclose</span><span class="keyword">(</span><span class="default">popen</span><span class="keyword">(</span><span class="string">"start /B "</span><span class="keyword">. </span><span class="default">$cmd</span><span class="keyword">, </span><span class="string">"r"</span><span class="keyword">)); <br />    }<br />    else {<br />        </span><span class="default">exec</span><span class="keyword">(</span><span class="default">$cmd </span><span class="keyword">. </span><span class="string">" &gt; /dev/null &amp;"</span><span class="keyword">);  <br />    }<br />}<br /></span><span class="default">?&gt;<br /></span><br />This works perfectly with e.g.<br /><span class="default">&lt;?php<br />execInBackground</span><span class="keyword">(</span><span class="string">'del c:\tmp\*.*'</span><span class="keyword">) <br /></span><span class="default">?&gt;<br /></span><br />but the following does NOT work:<br /><span class="default">&lt;?php<br />execInBackground</span><span class="keyword">(</span><span class="string">'\"c:\path with spaces\my program.exe\"'</span><span class="keyword">) <br /></span><span class="default">?&gt;<br /></span><br />Why?<br />When windows sees quotation marks (\") it thinks this is the window title, not the command.<br />So, when your command needs quotation marks you HAVE TO provide a window name first, like<br />execInBackground("\"title\"" "\"c:\path with spaces\my program.exe\") <br /><br />Quotation marks are mandatiory for window title. Otherwise windows thinks this is the program name.<br /><br />Weired, but "Hey! it's Windows!" :)</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="99781">  <div class="votes">
+    <div id="Vu99781">
+    <a href="https://www.php.net/manual/vote-note.php?id=99781&amp;page=function.exec&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd99781">
+    <a href="https://www.php.net/manual/vote-note.php?id=99781&amp;page=function.exec&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V99781" title="54% like this...">
+    2
+    </div>
+  </div>
+  <a href="function.exec.php.html#99781" class="name">
+  <strong class="user"><em>elwiz at 3e dot pl</em></strong></a><a class="genanchor" href="function.exec.php.html#99781"> &para;</a><div class="date" title="2010-09-06 06:10"><strong>13 years ago</strong></div>
+  <div class="text" id="Hcom99781">
+<div class="phpcode"><code><span class="html">On Windows-Apache-PHP servers there is a problem with using the exec command more than once at the same time. If a script (with the exec command) is loaded more than once by the same user at the same time the server will freeze.<br />In my case the PHP script using the exec command was used as the source of an image tag. More than one image in one HTML made the server stop.<br />The problem is described here (<a href="http://bugs.php.net/bug.php?id=44942" rel="nofollow" target="_blank">http://bugs.php.net/bug.php?id=44942</a>) toghether with a solution - stop the session before the exec command and start it again after it.<br /><br /><span class="default">&lt;?php<br /><br />session_write_close</span><span class="keyword">();<br /></span><span class="default">exec</span><span class="keyword">(</span><span class="default">$cmd</span><span class="keyword">);<br /></span><span class="default">session_start</span><span class="keyword">();<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="18727">  <div class="votes">
+    <div id="Vu18727">
+    <a href="https://www.php.net/manual/vote-note.php?id=18727&amp;page=function.exec&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd18727">
+    <a href="https://www.php.net/manual/vote-note.php?id=18727&amp;page=function.exec&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V18727" title="53% like this...">
+    2
+    </div>
+  </div>
+  <a href="function.exec.php.html#18727" class="name">
+  <strong class="user"><em>hans at internit dot NO_SPAM dot com</em></strong></a><a class="genanchor" href="function.exec.php.html#18727"> &para;</a><div class="date" title="2002-02-02 02:25"><strong>22 years ago</strong></div>
+  <div class="text" id="Hcom18727">
+<div class="phpcode"><code><span class="html">From what I've gathered asking around, there is no way to pass back a perl array into a php script using the exec function. <br /><br />The suggestion is to just print out your perl array variables at the end of your script, and then grabbing each array member from the array returned by the exec function. If you will be passing multiple arrays, or if you need to keep track of array keys as well as values, then as you print each array or hash variable at the end of your perl script, you should concatenate the value with the key and array name, using an underscore, as in:<br /> <br />foreach (@array) print "(array name)_(member_key)_($_)" ;<br /><br />Then you would simply iterate through the array returned by the exec function, and split each variable along the underscore.<br /><br />Here I like to especially thank Marat for the knowledge. Hope this is useful to others in search for similar answer!</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="101506">  <div class="votes">
+    <div id="Vu101506">
+    <a href="https://www.php.net/manual/vote-note.php?id=101506&amp;page=function.exec&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd101506">
+    <a href="https://www.php.net/manual/vote-note.php?id=101506&amp;page=function.exec&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V101506" title="52% like this...">
+    3
+    </div>
+  </div>
+  <a href="function.exec.php.html#101506" class="name">
+  <strong class="user"><em>Martin Lakes</em></strong></a><a class="genanchor" href="function.exec.php.html#101506"> &para;</a><div class="date" title="2010-12-21 08:20"><strong>13 years ago</strong></div>
+  <div class="text" id="Hcom101506">
+<div class="phpcode"><code><span class="html">Took quite some time to figure out the line I am going to post next. If you want to execute a command in the background without having the script waiting for the result, you can do the following:<br /><br /><span class="default">&lt;?php<br />passthru</span><span class="keyword">(</span><span class="string">"/usr/bin/php /path/to/script.php "</span><span class="keyword">.</span><span class="default">$argv_parameter</span><span class="keyword">.</span><span class="string">" &gt;&gt; /path/to/log_file.log 2&gt;&amp;1 &amp;"</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />There are a few thing that are important here. <br /><br />First of all: put the full path to the php binary, because this command will run under the apache user, and you will probably not have command alias like php set in that user.<br /><br />Seccond: Note 2 things at the end of the command string: the '2&gt;&amp;1' and the '&amp;'. The '2&gt;&amp;1' is for redirecting errors to the standard IO. And the most important thing is the '&amp;' at the end of the command string, which tells the terminal not to wait for a response.<br /><br />Third: Make sure you have 777 permissions on the 'log_file.log' file<br /><br />Enojy!</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="49172">  <div class="votes">
+    <div id="Vu49172">
+    <a href="https://www.php.net/manual/vote-note.php?id=49172&amp;page=function.exec&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd49172">
+    <a href="https://www.php.net/manual/vote-note.php?id=49172&amp;page=function.exec&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V49172" title="52% like this...">
+    1
+    </div>
+  </div>
+  <a href="function.exec.php.html#49172" class="name">
+  <strong class="user"><em>layton at layton dot tk</em></strong></a><a class="genanchor" href="function.exec.php.html#49172"> &para;</a><div class="date" title="2005-01-18 03:52"><strong>19 years ago</strong></div>
+  <div class="text" id="Hcom49172">
+<div class="phpcode"><code><span class="html">This is the second time this one got me, I thought someone else might find this note useful too.<br /><br />I am creating a long running exec'd process that I can access with page submissions up to 2 hours later. The problem is this, the first time I access the page everything works like it should. The second time the web browser waits and waits and never gets any messages -- the CPU time is not affected so it is apparent that something is blocked.<br /><br />What is actually happening is that all of the open files are being copied to the exec'd process -- including the network connections. So the second time I try to access the web page, I am being given the old http network connection which is now being ignored.<br /><br />The solution is to scan all file handles from 3 on up and close them all. Remember that handles 0, 1, and 2 are standard input, standard output, and standard error.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="101837">  <div class="votes">
+    <div id="Vu101837">
+    <a href="https://www.php.net/manual/vote-note.php?id=101837&amp;page=function.exec&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd101837">
+    <a href="https://www.php.net/manual/vote-note.php?id=101837&amp;page=function.exec&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V101837" title="51% like this...">
+    2
+    </div>
+  </div>
+  <a href="function.exec.php.html#101837" class="name">
+  <strong class="user"><em>juan at laluca dot com</em></strong></a><a class="genanchor" href="function.exec.php.html#101837"> &para;</a><div class="date" title="2011-01-13 07:36"><strong>13 years ago</strong></div>
+  <div class="text" id="Hcom101837">
+<div class="phpcode"><code><span class="html">I was trying to get an acceslist from a remote computer by executing cacls and parse it in php, all in a  Windows environment with Apache. First i discovered psexec.exe from Windows SysInternals.<br /><br />But with the following line, I didn´t get anything, it get hunged, although from the command line it worked nice:<br /><br /><span class="default">&lt;?php exec </span><span class="keyword">(</span><span class="string">'c:\\WINDOWS\\system32\\psexec.exe \\192.168.1.224 -u myuser -p mypassword -accepteula cacls c:\\documents\\RRHH &amp;&amp; exit'</span><span class="keyword">, </span><span class="default">$arrACL </span><span class="keyword">); </span><span class="default">?&gt;<br /></span><br />To make it work I just followed the next steps:<br />- execute services.msc and find the apache service (In my case wampapache)<br />- Right button&gt;Log On tab and change from Local System Account to a user created account, enter the username and the password and restart the service.<br /><br />(I added this user to the administrators group to avoid permissions problems but its not recommended...)<br /><br />It worked! And it may work with IIS too so try it if you have the same poblem....<br /><br />Hope this helps someone, and sorry for my english</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="128899">  <div class="votes">
+    <div id="Vu128899">
+    <a href="https://www.php.net/manual/vote-note.php?id=128899&amp;page=function.exec&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd128899">
+    <a href="https://www.php.net/manual/vote-note.php?id=128899&amp;page=function.exec&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V128899" title="100% like this...">
+    1
+    </div>
+  </div>
+  <a href="function.exec.php.html#128899" class="name">
+  <strong class="user"><em>tsmtgdi at gmail dot com</em></strong></a><a class="genanchor" href="function.exec.php.html#128899"> &para;</a><div class="date" title="2023-09-19 02:23"><strong>4 months ago</strong></div>
+  <div class="text" id="Hcom128899">
+<div class="phpcode"><code><span class="html">Please be aware that EXEC ignore the stderr!<br /><br />So something like<br /><br />mkdir /impossible path<br /><br />Will fail, and show nothing, you must use<br /><br />mkdir /impossible 2&gt;&amp;1 <br /><br />to properly capture the error message<br /><br />ELSE<br />if executed in CLI, will just print on the terminal, if executed on a browser is lost.<br /><br />I strongly suggested those notes to be added in the main description, and not lost in a comment at the bottom.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="128294">  <div class="votes">
+    <div id="Vu128294">
+    <a href="https://www.php.net/manual/vote-note.php?id=128294&amp;page=function.exec&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd128294">
+    <a href="https://www.php.net/manual/vote-note.php?id=128294&amp;page=function.exec&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V128294" title="100% like this...">
+    1
+    </div>
+  </div>
+  <a href="function.exec.php.html#128294" class="name">
+  <strong class="user"><em>no at mail dot com</em></strong></a><a class="genanchor" href="function.exec.php.html#128294"> &para;</a><div class="date" title="2023-03-06 02:37"><strong>11 months ago</strong></div>
+  <div class="text" id="Hcom128294">
+<div class="phpcode"><code><span class="html">&lt;this note copied from system page&gt;<br />This is for WINDOWS users. I am running apache and I have been trying for hours now to capture the output of a command.<br /><br />I'd tried everything that is written here and then continued searching online with no luck at all. The output of the command was never captured. All I got was an empty array.<br /><br />Finally, I found a comment in a blog by a certain amazing guy that solved my problems.<br /><br />Adding the string ' 2&gt;&amp;1' to the command name finally returned the output!! This works in exec() as well as system() in PHP since it uses stream redirection to redirect the output to the correct place!<br /><span class="default">&lt;?php<br />exec</span><span class="keyword">(</span><span class="string">"yourCommandName 2&gt;&amp;1"</span><span class="keyword">, </span><span class="default">$output</span><span class="keyword">);<br /></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$output</span><span class="keyword">);<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="127532">  <div class="votes">
+    <div id="Vu127532">
+    <a href="https://www.php.net/manual/vote-note.php?id=127532&amp;page=function.exec&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd127532">
+    <a href="https://www.php.net/manual/vote-note.php?id=127532&amp;page=function.exec&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V127532" title="100% like this...">
+    1
+    </div>
+  </div>
+  <a href="function.exec.php.html#127532" class="name">
+  <strong class="user"><em>php dot reg at kjpetrie dot co dot uk</em></strong></a><a class="genanchor" href="function.exec.php.html#127532"> &para;</a><div class="date" title="2022-08-24 11:00"><strong>1 year ago</strong></div>
+  <div class="text" id="Hcom127532">
+<div class="phpcode"><code><span class="html">If you want to run the command in the background and also use escapeshellcmd() as recommended, ensure you do the redirection outside the brackets! These are things you do want the shell to interpret.<br /><br />E.g. exec(escapeshellcmd('mycommand and arguments').' &gt; /dev/null &amp;');</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="129008">  <div class="votes">
+    <div id="Vu129008">
+    <a href="https://www.php.net/manual/vote-note.php?id=129008&amp;page=function.exec&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd129008">
+    <a href="https://www.php.net/manual/vote-note.php?id=129008&amp;page=function.exec&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V129008" title="no votes...">
+    0
+    </div>
+  </div>
+  <a href="function.exec.php.html#129008" class="name">
+  <strong class="user"><em>mamedul.github.io</em></strong></a><a class="genanchor" href="function.exec.php.html#129008"> &para;</a><div class="date" title="2023-11-06 11:15"><strong>3 months ago</strong></div>
+  <div class="text" id="Hcom129008">
+<div class="phpcode"><code><span class="html">Cross function solutions for execute command using PHP-<br /><br />function php_exec( $cmd ){<br /><br />    if( function_exists('exec') ){<br />        $output = array();<br />        $return_var = 0;<br />        exec($cmd, $output, $return_var);<br />        return implode( " ", array_values($output) );<br />    }else if( function_exists('shell_exec') ){<br />        return shell_exec($cmd);<br />    }else if( function_exists('system') ){<br />        $return_var = 0;<br />        return system($cmd, $return_var);<br />    }else if( function_exists('passthru') ){<br />        $return_var = 0;<br />        ob_start();<br />        passthru($cmd, $return_var);<br />        $output = ob_get_contents();<br />        ob_end_clean(); //Use this instead of ob_flush()<br />        return $output;<br />    }else  if( function_exists('proc_open') ){<br />        $proc=proc_open($cmd,<br />            array(<br />                array("pipe","r"),<br />                array("pipe","w"),<br />                array("pipe","w")<br />            ),<br />            $pipes);<br />        return stream_get_contents($pipes[1]);<br />    }else{<br />        return "@PHP_COMMAND_NOT_SUPPORT";<br />    }    <br /><br />}</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="126521">  <div class="votes">
+    <div id="Vu126521">
+    <a href="https://www.php.net/manual/vote-note.php?id=126521&amp;page=function.exec&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd126521">
+    <a href="https://www.php.net/manual/vote-note.php?id=126521&amp;page=function.exec&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V126521" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="function.exec.php.html#126521" class="name">
+  <strong class="user"><em>krjdev at gmail dot com</em></strong></a><a class="genanchor" href="function.exec.php.html#126521"> &para;</a><div class="date" title="2021-10-20 09:26"><strong>2 years ago</strong></div>
+  <div class="text" id="Hcom126521">
+<div class="phpcode"><code><span class="html">Note for OpenBSD users:<br /><br />In the default configuration from OpenBSD, PHP runs into a chroot. So the exec() command will not work. You will get a 127 (command not found) result code. The reason is, the shell (/bin/sh) is missing in chroot, but the exec() command requires the shell.<br /><br />A quick and dirty solution is to copy /bin/sh (which is statically linked) in the chroot directory:<br /><span class="default">&lt;?php<br /></span><span class="keyword">$ </span><span class="default">cp </span><span class="keyword">/</span><span class="default">bin</span><span class="keyword">/</span><span class="default">sh </span><span class="keyword">/var/</span><span class="default">www</span><span class="keyword">/</span><span class="default">bin<br />?&gt;<br /></span><br />(I have noticed this on OpenBSD 7.0 with PHP 8.0.11.)</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="101579">  <div class="votes">
+    <div id="Vu101579">
+    <a href="https://www.php.net/manual/vote-note.php?id=101579&amp;page=function.exec&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd101579">
+    <a href="https://www.php.net/manual/vote-note.php?id=101579&amp;page=function.exec&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V101579" title="51% like this...">
+    1
+    </div>
+  </div>
+  <a href="function.exec.php.html#101579" class="name">
+  <strong class="user"><em>alvaro at demogracia dot com</em></strong></a><a class="genanchor" href="function.exec.php.html#101579"> &para;</a><div class="date" title="2010-12-27 05:27"><strong>13 years ago</strong></div>
+  <div class="text" id="Hcom101579">
+<div class="phpcode"><code><span class="html">In Windows, exec() issues an internal call to "cmd /c your_command". This implies that your command must follow the rules imposed by cmd.exe which includes an extra set of quotes around the full command:<br /><br />- <a href="http://ss64.com/nt/cmd.html" rel="nofollow" target="_blank">http://ss64.com/nt/cmd.html</a><br /><br />Current PHP versions take this into account and add the quotes automatically, but old versions didn't.<br /><br />Apparently, the change was made in PHP/5.3.0 yet not backported to 5.2.x because it's a backwards incompatible change. To sum up:<br /><br />- In PHP/5.2 and older you have to surround the full command plus arguments in double quotes<br />- In PHP/5.3 and greater you don't have to (if you do, your script will break)<br /><br />If you are interested in the internals, this is the source code:<br /><br />sprintf(cmd, "%s /c \"%s\"", TWG(comspec), command); <br /><br />It can be found at <a href="http://svn.php.net/viewvc/" rel="nofollow" target="_blank">http://svn.php.net/viewvc/</a> (please find php/php-src/trunk/TSRM/tsrm_win32.c, the comment system doesn't allow the direct link).</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="89716">  <div class="votes">
+    <div id="Vu89716">
+    <a href="https://www.php.net/manual/vote-note.php?id=89716&amp;page=function.exec&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd89716">
+    <a href="https://www.php.net/manual/vote-note.php?id=89716&amp;page=function.exec&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V89716" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="function.exec.php.html#89716" class="name">
+  <strong class="user"><em>bahri at bahri dot info</em></strong></a><a class="genanchor" href="function.exec.php.html#89716"> &para;</a><div class="date" title="2009-03-20 01:15"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom89716">
+<div class="phpcode"><code><span class="html">[NOTE BY danbrown AT php DOT net: The following is a Linux script that the contributor of this note suggests be placed in a file named 'pstools.inc.php' to execute a process, check if a process exists, and kill a process by ID.  Inspired by the Windows version at <a href="http://php.net/exec#59428" rel="nofollow" target="_blank">http://php.net/exec#59428</a> ]<br /><br /><br /><span class="default">&lt;?php<br />  </span><span class="keyword">function </span><span class="default">PsExecute</span><span class="keyword">(</span><span class="default">$command</span><span class="keyword">, </span><span class="default">$timeout </span><span class="keyword">= </span><span class="default">60</span><span class="keyword">, </span><span class="default">$sleep </span><span class="keyword">= </span><span class="default">2</span><span class="keyword">) {<br />        </span><span class="comment">// First, execute the process, get the process ID<br /><br />        </span><span class="default">$pid </span><span class="keyword">= </span><span class="default">PsExec</span><span class="keyword">(</span><span class="default">$command</span><span class="keyword">);<br /><br />        if( </span><span class="default">$pid </span><span class="keyword">=== </span><span class="default">false </span><span class="keyword">)<br />            return </span><span class="default">false</span><span class="keyword">;<br /><br />        </span><span class="default">$cur </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br />        </span><span class="comment">// Second, loop for $timeout seconds checking if process is running<br />        </span><span class="keyword">while( </span><span class="default">$cur </span><span class="keyword">&lt; </span><span class="default">$timeout </span><span class="keyword">) {<br />            </span><span class="default">sleep</span><span class="keyword">(</span><span class="default">$sleep</span><span class="keyword">);<br />            </span><span class="default">$cur </span><span class="keyword">+= </span><span class="default">$sleep</span><span class="keyword">;<br />            </span><span class="comment">// If process is no longer running, return true;<br /><br />           </span><span class="keyword">echo </span><span class="string">"\n ---- </span><span class="default">$cur</span><span class="string"> ------ \n"</span><span class="keyword">;<br /><br />            if( !</span><span class="default">PsExists</span><span class="keyword">(</span><span class="default">$pid</span><span class="keyword">) )<br />                return </span><span class="default">true</span><span class="keyword">; </span><span class="comment">// Process must have exited, success!<br />        </span><span class="keyword">}<br /><br />        </span><span class="comment">// If process is still running after timeout, kill the process and return false<br />        </span><span class="default">PsKill</span><span class="keyword">(</span><span class="default">$pid</span><span class="keyword">);<br />        return </span><span class="default">false</span><span class="keyword">;<br />    }<br /><br />    function </span><span class="default">PsExec</span><span class="keyword">(</span><span class="default">$commandJob</span><span class="keyword">) {<br /><br />        </span><span class="default">$command </span><span class="keyword">= </span><span class="default">$commandJob</span><span class="keyword">.</span><span class="string">' &gt; /dev/null 2&gt;&amp;1 &amp; echo $!'</span><span class="keyword">;<br />        </span><span class="default">exec</span><span class="keyword">(</span><span class="default">$command </span><span class="keyword">,</span><span class="default">$op</span><span class="keyword">);<br />        </span><span class="default">$pid </span><span class="keyword">= (int)</span><span class="default">$op</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">];<br /><br />        if(</span><span class="default">$pid</span><span class="keyword">!=</span><span class="string">""</span><span class="keyword">) return </span><span class="default">$pid</span><span class="keyword">;<br /><br />        return </span><span class="default">false</span><span class="keyword">;<br />    }<br /><br />    function </span><span class="default">PsExists</span><span class="keyword">(</span><span class="default">$pid</span><span class="keyword">) {<br /><br />        </span><span class="default">exec</span><span class="keyword">(</span><span class="string">"ps ax | grep </span><span class="default">$pid</span><span class="string"> 2&gt;&amp;1"</span><span class="keyword">, </span><span class="default">$output</span><span class="keyword">);<br /><br />        while( list(,</span><span class="default">$row</span><span class="keyword">) = </span><span class="default">each</span><span class="keyword">(</span><span class="default">$output</span><span class="keyword">) ) {<br /><br />                </span><span class="default">$row_array </span><span class="keyword">= </span><span class="default">explode</span><span class="keyword">(</span><span class="string">" "</span><span class="keyword">, </span><span class="default">$row</span><span class="keyword">);<br />                </span><span class="default">$check_pid </span><span class="keyword">= </span><span class="default">$row_array</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">];<br /><br />                if(</span><span class="default">$pid </span><span class="keyword">== </span><span class="default">$check_pid</span><span class="keyword">) {<br />                        return </span><span class="default">true</span><span class="keyword">;<br />                }<br /><br />        }<br /><br />        return </span><span class="default">false</span><span class="keyword">;<br />    }<br /><br />    function </span><span class="default">PsKill</span><span class="keyword">(</span><span class="default">$pid</span><span class="keyword">) {<br />        </span><span class="default">exec</span><span class="keyword">(</span><span class="string">"kill -9 </span><span class="default">$pid</span><span class="string">"</span><span class="keyword">, </span><span class="default">$output</span><span class="keyword">);<br />    }<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="80582">  <div class="votes">
+    <div id="Vu80582">
+    <a href="https://www.php.net/manual/vote-note.php?id=80582&amp;page=function.exec&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd80582">
+    <a href="https://www.php.net/manual/vote-note.php?id=80582&amp;page=function.exec&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V80582" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="function.exec.php.html#80582" class="name">
+  <strong class="user"><em>dr_jones153 at hotmail dot com</em></strong></a><a class="genanchor" href="function.exec.php.html#80582"> &para;</a><div class="date" title="2008-01-23 07:04"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom80582">
+<div class="phpcode"><code><span class="html">If SAFE_MODE is on, and you are trying to run a script in the background by appending "&gt; /dev/null 2&gt; /dev/null &amp; echo $!" to the command line, the browser will hang until the script is done. <br /><br />My solution:<br /><br />Create a shell script (ex. runscript.sh) which contains the execution line for the script you are trying to run in the background. <br />The runscript.sh is run by an exec() call without the redirect string, which is now placed in the runscript.sh. <br /><br />runscript.sh will return almost immediately because output of the original script is redirected, and so will not hang your browser and the script runs fine in the background.</span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=function.exec&amp;redirect=https://www.php.net/manual/ru/function.exec.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="ref.exec.php.html">Функции запуска программ</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="function.escapeshellarg.php.html" title="escapeshellarg">escapeshellarg</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.escapeshellcmd.php.html" title="escapeshellcmd">escapeshellcmd</a>
+                        </li>
+                                                <li class="current">
+                            <a href="function.exec.php.html" title="exec">exec</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.passthru.php.html" title="passthru">passthru</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.proc-close.php.html" title="proc_&#8203;close">proc_&#8203;close</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.proc-get-status.php.html" title="proc_&#8203;get_&#8203;status">proc_&#8203;get_&#8203;status</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.proc-nice.php.html" title="proc_&#8203;nice">proc_&#8203;nice</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.proc-open.php.html" title="proc_&#8203;open">proc_&#8203;open</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.proc-terminate.php.html" title="proc_&#8203;terminate">proc_&#8203;terminate</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.shell-exec.php.html" title="shell_&#8203;exec">shell_&#8203;exec</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.system.php.html" title="system">system</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

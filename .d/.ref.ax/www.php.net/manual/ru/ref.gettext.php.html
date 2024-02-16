@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: Функции gettext - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="ref.gettext.php.html">
+ <link rel="shorturl" href="https://www.php.net/gettext">
+ <link rel="alternate" href="https://www.php.net/gettext" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="book.gettext.php.html">
+ <link rel="prev" href="gettext.constants.php.html">
+ <link rel="next" href="function.bind-textdomain-codeset.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/ref.gettext.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/ref.gettext.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/ref.gettext.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/ref.gettext.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/ref.gettext.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/ref.gettext.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/ref.gettext.php" hreflang="pt_BR">
+ <link rel="alternate" href="ref.gettext.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/ref.gettext.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/ref.gettext.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="function.bind-textdomain-codeset.php.html">
+          bind_textdomain_codeset &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="gettext.constants.php.html">
+          &laquo; Предопределённые константы        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.international.php.html'>Поддержка языков и кодировок</a></li>      <li><a href='book.gettext.php.html'>Gettext</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/ref.gettext.php'>English</option>
+            <option value='de/ref.gettext.php'>German</option>
+            <option value='es/ref.gettext.php'>Spanish</option>
+            <option value='fr/ref.gettext.php'>French</option>
+            <option value='it/ref.gettext.php'>Italian</option>
+            <option value='ja/ref.gettext.php'>Japanese</option>
+            <option value='pt_BR/ref.gettext.php'>Brazilian Portuguese</option>
+            <option value='ru/ref.gettext.php' selected="selected">Russian</option>
+            <option value='tr/ref.gettext.php'>Turkish</option>
+            <option value='zh/ref.gettext.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/gettext/reference.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Fref.gettext%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="ref.gettext" class="reference">
+ <h1 class="title">Функции gettext</h1>
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2>Содержание</h2><ul class="chunklist chunklist_reference"><li><a href="function.bind-textdomain-codeset.php.html">bind_textdomain_codeset</a> — Устанавливает или получает кодировку, в которой будут возвращаться сообщения из каталога сообщений домена</li><li><a href="function.bindtextdomain.php.html">bindtextdomain</a> — Устанавливает или получает путь для домена</li><li><a href="function.dcgettext.php.html">dcgettext</a> — Переопределяет одно сообщение в домене</li><li><a href="function.dcngettext.php.html">dcngettext</a> — Версия dcgettext для множественного числа</li><li><a href="function.dgettext.php.html">dgettext</a> — Переопределяет текущий домен для одного сообщения</li><li><a href="function.dngettext.php.html">dngettext</a> — Версия dgettext для множественного числа</li><li><a href="function.gettext.php.html">gettext</a> — Ищет сообщение в текущем домене</li><li><a href="function.ngettext.php.html">ngettext</a> — Версия gettext для сообщений во множественном числе</li><li><a href="function.textdomain.php.html">textdomain</a> — Устанавливает домен по умолчанию</li></ul>
+</div>
+<section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=ref.gettext&amp;redirect=https://www.php.net/manual/ru/ref.gettext.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">37 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="73376">  <div class="votes">
+    <div id="Vu73376">
+    <a href="https://www.php.net/manual/vote-note.php?id=73376&amp;page=ref.gettext&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd73376">
+    <a href="https://www.php.net/manual/vote-note.php?id=73376&amp;page=ref.gettext&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V73376" title="63% like this...">
+    12
+    </div>
+  </div>
+  <a href="ref.gettext.php.html#73376" class="name">
+  <strong class="user"><em>jeremy at jeremy dot se dot nospam</em></strong></a><a class="genanchor" href="ref.gettext.php.html#73376"> &para;</a><div class="date" title="2007-02-20 11:27"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom73376">
+<div class="phpcode"><code><span class="html">As some of you have mentioned, you must have the locales compiled on your system first. How this is done is depending on your system/distribution *sigh*<br /><br />In every case you need to have gettext installed on your system. Users running a Linux with a recent version of libc will have gettext in libc already.<br /><br />Here's an example for those of you running Ubuntu Edgy.<br /><br />First of all, have a look in /usr/share/i18n/SUPPORTED, here are the locales that are supported on your system. To compile a locale we will use the command "locale-gen". ("man 8 locale-gen" is good reading)<br /><br />This command reads configuration from files in the folder /var/lib/locales/supported.d/ In these files the locales and charsets are defined.<br /><br />If we take swedish as an example, start by creating a file called "sv" in /var/lib/locales/supported.d/ and then put in something like "sv_SE.UTF8 UTF8" (without the " ") This says that we want the locale sv_SE to be built with charmap UTF-8. Check the file /usr/share/i18n/SUPPORTED for other alternatives.<br /><br />Now we run "locale-gen" which will compile all locales defined in /var/lib/locales/supported.d/ and put them in /usr/lib/locales (yes that's a lot of locations...)<br /><br />Now you're ready to go...<br /><br />Create a php-file (e.g. hello.php) where all strings you want to translate are surrounded with _("string here");<br /><br />next run "xgettext hello.php", this creates a file called messages.po, which is you translation-file (pot). Change the "Content-Type: text/plain; charset=CHARSET\n" in this file and replace CHARSET with UTF-8 in this case. Next translate all strings like this.<br /><br />#: hello.php:3<br />msgid "hello!"<br />msgstr "hej!"<br /><br />Save and use the command "msgfmt -o hello.mo messages.po" which will create a compiled .mo file called hello.mo<br /><br />This file is then placed in a directory structure somewhere your Apache can read it. The structure looks like this:<br /><br />"locale/sv/LC_MESSAGES/hello.mo"<br /><br />Next, let php know what we're doing. We point to where we have our translations. Add the following at the top of hello.php<br /><br />bindtextdomain('hello','/somepath/locale');<br /><br />This binds the file hello.mo to the locale/ directory you created.<br />Then set the locale. LC_ALL tells that we want everything translated. Might not be good at all times, as another person here suggested.<br /><br />setlocale(LC_ALL, "sv_SE.UTF-8");<br /><br />Finally select the that we want to use hello.mo <br /><br />textdomain('hello');<br /><br />That should be it! Try it out..<br /><br />If you get any problems try restarting Apache as it seems to cache the locales.<br /><br />If you are running command line you might have to set the environment variable LANGUAGE to your locale as well. I didn't have to do that to get it working in apache though, but you might...<br /><br />putenv("LANGUAGE=sv_SE.UTF-8");</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="68853">  <div class="votes">
+    <div id="Vu68853">
+    <a href="https://www.php.net/manual/vote-note.php?id=68853&amp;page=ref.gettext&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd68853">
+    <a href="https://www.php.net/manual/vote-note.php?id=68853&amp;page=ref.gettext&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V68853" title="75% like this...">
+    8
+    </div>
+  </div>
+  <a href="ref.gettext.php.html#68853" class="name">
+  <strong class="user"><em>C Snover</em></strong></a><a class="genanchor" href="ref.gettext.php.html#68853"> &para;</a><div class="date" title="2006-08-13 04:26"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom68853">
+<div class="phpcode"><code><span class="html">I think that it bears mentioning that most documentation and tutorials you will find say that you should setenv(LC_ALL, $locale), but this only works IF THE LOCALE IS VALID ON THE LOCAL MACHINE. If you are using a locale that does not exist on the system or is not valid (like something returned from the HTTP Accept-Language header, such as 'ja', which is never a valid locale because it does not include the country code JP), you will probably be pulling your hair out for HOURS trying to figure out why the damn thing isn't working.<br /><br />What I have found is that setting the LANGUAGE variable (eg. setenv("LANGUAGE=$locale")) will allow gettext to search inside your locale directories, even if the locale is not actually valid on the local system.<br /><br />So, to summarize:<br /><br />This will work:<br /><span class="default">&lt;?php<br />$locale </span><span class="keyword">= </span><span class="string">'ja'</span><span class="keyword">; </span><span class="comment">// Pretend this came from the Accept-Language header<br /></span><span class="default">$locale_dir </span><span class="keyword">= </span><span class="string">'./locale'</span><span class="keyword">; </span><span class="comment">// your .po and .mo files should be at $locale_dir/$locale/LC_MESSAGES/messages.{po,mo}<br /><br /></span><span class="default">putenv</span><span class="keyword">(</span><span class="string">"LANGUAGE=</span><span class="default">$locale</span><span class="string">"</span><span class="keyword">);<br /></span><span class="default">bindtextdomain</span><span class="keyword">(</span><span class="string">'messages'</span><span class="keyword">, </span><span class="default">$locale_dir</span><span class="keyword">);<br /></span><span class="default">textdomain</span><span class="keyword">(</span><span class="string">'messages'</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />This will not work:<br /><span class="default">&lt;?php<br />$locale </span><span class="keyword">= </span><span class="string">'ja'</span><span class="keyword">;<br /></span><span class="default">$locale_dir </span><span class="keyword">= </span><span class="string">'./locale'</span><span class="keyword">;<br /><br /></span><span class="default">putenv</span><span class="keyword">(</span><span class="string">"LC_ALL=</span><span class="default">$locale</span><span class="string">"</span><span class="keyword">);<br /></span><span class="default">bindtextdomain</span><span class="keyword">(</span><span class="string">'messages'</span><span class="keyword">, </span><span class="default">$locale_dir</span><span class="keyword">);<br /></span><span class="default">textdomain</span><span class="keyword">(</span><span class="string">'messages'</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />This will also not work:<br /><span class="default">&lt;?php<br />$locale </span><span class="keyword">= </span><span class="string">'ja'</span><span class="keyword">;<br /></span><span class="default">$locale_dir </span><span class="keyword">= </span><span class="string">'./locale'</span><span class="keyword">;<br /><br /></span><span class="default">setlocale</span><span class="keyword">(</span><span class="default">LC_ALL</span><span class="keyword">, </span><span class="default">$locale</span><span class="keyword">);<br /></span><span class="default">bindtextdomain</span><span class="keyword">(</span><span class="string">'messages'</span><span class="keyword">, </span><span class="default">$locale_dir</span><span class="keyword">);<br /></span><span class="default">textdomain</span><span class="keyword">(</span><span class="string">'messages'</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />Nor will this work:<br /><span class="default">&lt;?php<br />$locale </span><span class="keyword">= </span><span class="string">'ja'</span><span class="keyword">;<br /></span><span class="default">$locale_dir </span><span class="keyword">= </span><span class="string">'./locale'</span><span class="keyword">;<br /><br /></span><span class="default">setlocale</span><span class="keyword">(</span><span class="default">LC_MESSAGES</span><span class="keyword">, </span><span class="default">$locale</span><span class="keyword">);<br /></span><span class="default">bindtextdomain</span><span class="keyword">(</span><span class="string">'messages'</span><span class="keyword">, </span><span class="default">$locale_dir</span><span class="keyword">);<br /></span><span class="default">textdomain</span><span class="keyword">(</span><span class="string">'messages'</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />For reference, this was tested on PHP 5.1.2 + LigHTTPd 1.4.11 + gettext 0.14.5 on Ubuntu Dapper 6.06. It should be true for any variant of Linux, however, as well as older versions of these software packages.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="85411">  <div class="votes">
+    <div id="Vu85411">
+    <a href="https://www.php.net/manual/vote-note.php?id=85411&amp;page=ref.gettext&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd85411">
+    <a href="https://www.php.net/manual/vote-note.php?id=85411&amp;page=ref.gettext&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V85411" title="100% like this...">
+    2
+    </div>
+  </div>
+  <a href="ref.gettext.php.html#85411" class="name">
+  <strong class="user"><em>analpaper{gmail}</em></strong></a><a class="genanchor" href="ref.gettext.php.html#85411"> &para;</a><div class="date" title="2008-08-28 02:36"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom85411">
+<div class="phpcode"><code><span class="html">in response to richard:<br />i was using the wildcard * for sometime ago without problem, until today.<br /><br />i used:<br /><span class="default">&lt;?php bindtextdomain</span><span class="keyword">( </span><span class="string">'*'</span><span class="keyword">, </span><span class="string">'./locale' </span><span class="keyword">); </span><span class="default">?&gt;<br /></span>but it seems to fail under some environments (i dont know why, but in diff machines with same software the result is not always as expected)..<br /><br />then, with:<br /><span class="default">&lt;?php bindtextdomain</span><span class="keyword">( </span><span class="string">"*"</span><span class="keyword">, </span><span class="string">'./locale' </span><span class="keyword">); </span><span class="default">?&gt;<br /></span>all is nicely translated again.<br /><br />i use single quotes always if possible, now there are another think to remember.<br />---<br />live2code</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="70849">  <div class="votes">
+    <div id="Vu70849">
+    <a href="https://www.php.net/manual/vote-note.php?id=70849&amp;page=ref.gettext&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd70849">
+    <a href="https://www.php.net/manual/vote-note.php?id=70849&amp;page=ref.gettext&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V70849" title="100% like this...">
+    2
+    </div>
+  </div>
+  <a href="ref.gettext.php.html#70849" class="name">
+  <strong class="user"><em>djogopatrao at gmail dot com</em></strong></a><a class="genanchor" href="ref.gettext.php.html#70849"> &para;</a><div class="date" title="2006-10-31 03:57"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom70849">
+<div class="phpcode"><code><span class="html">Juan Liska, I found an alternative. Instead of renaming or adding a alias to the locale, I simply changed <br /><br />$language = 'pt_BR';<br /><br />to<br /><br />$language = 'pt_BR.UTF-8';<br />putenv("LANG=$language"); <br />setlocale(LC_ALL, $language)<br /><br />and it did work fine!</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="70316">  <div class="votes">
+    <div id="Vu70316">
+    <a href="https://www.php.net/manual/vote-note.php?id=70316&amp;page=ref.gettext&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd70316">
+    <a href="https://www.php.net/manual/vote-note.php?id=70316&amp;page=ref.gettext&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V70316" title="100% like this...">
+    2
+    </div>
+  </div>
+  <a href="ref.gettext.php.html#70316" class="name">
+  <strong class="user"><em>konrads/smelkovs/gmail/com</em></strong></a><a class="genanchor" href="ref.gettext.php.html#70316"> &para;</a><div class="date" title="2006-10-11 07:16"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom70316">
+<div class="phpcode"><code><span class="html">re LC_MESSAGES for windows users, LC_MESSAGES should be defi0ned as 5</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="52290">  <div class="votes">
+    <div id="Vu52290">
+    <a href="https://www.php.net/manual/vote-note.php?id=52290&amp;page=ref.gettext&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd52290">
+    <a href="https://www.php.net/manual/vote-note.php?id=52290&amp;page=ref.gettext&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V52290" title="100% like this...">
+    2
+    </div>
+  </div>
+  <a href="ref.gettext.php.html#52290" class="name">
+  <strong class="user"><em>Maxwel Leite -maxwelleite at gmail com-</em></strong></a><a class="genanchor" href="ref.gettext.php.html#52290"> &para;</a><div class="date" title="2005-04-27 12:36"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom52290">
+<div class="phpcode"><code><span class="html">PHP-gettext is developed to be able to read gettext MO files directly, without requiring anything other than PHP:<br /><a href="https://savannah.nongnu.org/projects/php-gettext/" rel="nofollow" target="_blank">https://savannah.nongnu.org/projects/php-gettext/</a></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="42109">  <div class="votes">
+    <div id="Vu42109">
+    <a href="https://www.php.net/manual/vote-note.php?id=42109&amp;page=ref.gettext&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd42109">
+    <a href="https://www.php.net/manual/vote-note.php?id=42109&amp;page=ref.gettext&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V42109" title="100% like this...">
+    2
+    </div>
+  </div>
+  <a href="ref.gettext.php.html#42109" class="name">
+  <strong class="user"><em>kocio at irc dot pl</em></strong></a><a class="genanchor" href="ref.gettext.php.html#42109"> &para;</a><div class="date" title="2004-05-03 03:26"><strong>19 years ago</strong></div>
+  <div class="text" id="Hcom42109">
+<div class="phpcode"><code><span class="html">Following three lines take about 0.5 second to execute (Debian, Celeron 2GHz, 256MB RAM):<br /><br />setlocale(LC_ALL, 'pl_PL'); <br />bindtextdomain('my_domain', '../dir/' . 'locale'); <br />textdomain('my_domain'); <br /><br />I think that such delay is important enough to be mentioned in the documentation. In my particular case, it means more than doubled execution time for the entire script.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="35304">  <div class="votes">
+    <div id="Vu35304">
+    <a href="https://www.php.net/manual/vote-note.php?id=35304&amp;page=ref.gettext&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd35304">
+    <a href="https://www.php.net/manual/vote-note.php?id=35304&amp;page=ref.gettext&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V35304" title="100% like this...">
+    2
+    </div>
+  </div>
+  <a href="ref.gettext.php.html#35304" class="name">
+  <strong class="user"><em>dev.php at tfelber.net</em></strong></a><a class="genanchor" href="ref.gettext.php.html#35304"> &para;</a><div class="date" title="2003-08-26 07:35"><strong>20 years ago</strong></div>
+  <div class="text" id="Hcom35304">
+<div class="phpcode"><code><span class="html">Check your <br /><br />/etc/locales.aliases for "english en_GB.ISO-8859-1" (mentioned before) <br /><br />and your<br /><br />/etc/locales.gen for en_GB.ISO-8859-15 ISO-8859-15 <br /><br />I'm not sure if only this entry solved the problem. In my case this entry was made by an dpkg-reconfigure locales (debian), where i created the locales.<br /><br />Translation only works with de_GE@euro and  en_GB.ISO-8859-15 (first column in you locales.gen)</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="68124">  <div class="votes">
+    <div id="Vu68124">
+    <a href="https://www.php.net/manual/vote-note.php?id=68124&amp;page=ref.gettext&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd68124">
+    <a href="https://www.php.net/manual/vote-note.php?id=68124&amp;page=ref.gettext&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V68124" title="100% like this...">
+    1
+    </div>
+  </div>
+  <a href="ref.gettext.php.html#68124" class="name">
+  <strong class="user"><em>richard at hirner dot at</em></strong></a><a class="genanchor" href="ref.gettext.php.html#68124"> &para;</a><div class="date" title="2006-07-13 04:43"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom68124">
+<div class="phpcode"><code><span class="html">the * wildcard doesn't work for me (php 5)... I have to use bindtextdomain for each textdomain</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="66405">  <div class="votes">
+    <div id="Vu66405">
+    <a href="https://www.php.net/manual/vote-note.php?id=66405&amp;page=ref.gettext&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd66405">
+    <a href="https://www.php.net/manual/vote-note.php?id=66405&amp;page=ref.gettext&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V66405" title="100% like this...">
+    1
+    </div>
+  </div>
+  <a href="ref.gettext.php.html#66405" class="name">
+  <strong class="user"><em>webmaster [at] ttw [dash] tool [dot] de</em></strong></a><a class="genanchor" href="ref.gettext.php.html#66405"> &para;</a><div class="date" title="2006-05-21 04:49"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom66405">
+<div class="phpcode"><code><span class="html">If you want to use messages from multiple domains with .mo-files residing in non-standard locations remember to place a bindtextdomain()-call for each domain as "unbound" domains will be looked for in the standard location (usually "/usr/share/locale" on *nix)<br /><br /><span class="default">&lt;?php<br /><br />    bindtextdomain</span><span class="keyword">(</span><span class="string">'foo'</span><span class="keyword">,</span><span class="string">'/some/dir/with/mo_files'</span><span class="keyword">);<br />    </span><span class="default">bindtextdomain</span><span class="keyword">(</span><span class="string">'bar'</span><span class="keyword">,</span><span class="string">'/another/mo_file/dir'</span><span class="keyword">);<br /><br />    echo </span><span class="default">dgettext</span><span class="keyword">(</span><span class="string">'foo'</span><span class="keyword">,</span><span class="string">'Text to be translated using the foo-catalog.'</span><span class="keyword">);<br />    echo </span><span class="default">dgettext</span><span class="keyword">(</span><span class="string">'bar'</span><span class="keyword">,</span><span class="string">'Text from a different catalog named bar.'</span><span class="keyword">);<br /><br /></span><span class="default">?&gt;<br /></span><br />If all the .mo-files you are using reside in one and the same directory, you may use the "*"-wildcard like this:<br /><br /><span class="default">&lt;?php<br /><br />    bindtextdomain</span><span class="keyword">(</span><span class="string">'*'</span><span class="keyword">,</span><span class="string">'/directory/with/all/mo_files'</span><span class="keyword">);<br /><br /></span><span class="default">?&gt;<br /></span><br />This code was tested on PHP 5.1.4</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="64693">  <div class="votes">
+    <div id="Vu64693">
+    <a href="https://www.php.net/manual/vote-note.php?id=64693&amp;page=ref.gettext&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd64693">
+    <a href="https://www.php.net/manual/vote-note.php?id=64693&amp;page=ref.gettext&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V64693" title="100% like this...">
+    1
+    </div>
+  </div>
+  <a href="ref.gettext.php.html#64693" class="name">
+  <strong class="user"><em>info at adaniels dot nl</em></strong></a><a class="genanchor" href="ref.gettext.php.html#64693"> &para;</a><div class="date" title="2006-04-19 12:19"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom64693">
+<div class="phpcode"><code><span class="html">As stated by robert at klugher dot com:<br />The environment setting 'LANGUAGE' gets priority above any local setting. This means that changing LC_ALL/LC_MESSAGES and LANG as done in almost all examples, won't do anything.<br /><br />So if you've done<br /><span class="default">&lt;?php    <br />    $language </span><span class="keyword">= </span><span class="string">"nl_NL"</span><span class="keyword">;<br />    </span><span class="default">putenv</span><span class="keyword">(</span><span class="string">"LANG=</span><span class="default">$language</span><span class="string">"</span><span class="keyword">);<br />    </span><span class="default">setlocale</span><span class="keyword">(</span><span class="default">LC_ALL</span><span class="keyword">, </span><span class="default">$language</span><span class="keyword">);<br />    ...<br /></span><span class="default">?&gt;<br /></span>but the text is still displayed in english. Try also setting the LANGUAGE variable.<br /><span class="default">&lt;?php    <br />    $language </span><span class="keyword">= </span><span class="string">"nl_NL"</span><span class="keyword">;<br />    </span><span class="default">putenv</span><span class="keyword">(</span><span class="string">"LANGUAGE=</span><span class="default">$language</span><span class="string">"</span><span class="keyword">);<br />    </span><span class="default">putenv</span><span class="keyword">(</span><span class="string">"LANG=</span><span class="default">$language</span><span class="string">"</span><span class="keyword">);<br />    </span><span class="default">setlocale</span><span class="keyword">(</span><span class="default">LC_ALL</span><span class="keyword">, </span><span class="default">$language</span><span class="keyword">);<br />    ...<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="63718">  <div class="votes">
+    <div id="Vu63718">
+    <a href="https://www.php.net/manual/vote-note.php?id=63718&amp;page=ref.gettext&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd63718">
+    <a href="https://www.php.net/manual/vote-note.php?id=63718&amp;page=ref.gettext&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V63718" title="100% like this...">
+    1
+    </div>
+  </div>
+  <a href="ref.gettext.php.html#63718" class="name">
+  <strong class="user"><em>birkholz at web dot de</em></strong></a><a class="genanchor" href="ref.gettext.php.html#63718"> &para;</a><div class="date" title="2006-03-28 09:52"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom63718">
+<div class="phpcode"><code><span class="html">&gt; stefan+usenet at froehlich dot priv dot at wrote at 5-May-2004 01:30:<br />&gt; Reading the line<br />&gt; <br />&gt; &lt;? php setlocale(LC_ALL, 'de_DE'); ?&gt;<br />&gt; <br />&gt; here over and over again, I have to warn using it, as there are severe caveats.<br />&gt; For certain locales, LC_NUMERIC swaps period and comma, which may e.g. lead to<br />&gt; decimals silently stripped of numbers, when inserting rows into an SQL database.<br />&gt;So DON'T do this, but use<br />&gt;<br />&gt; &lt;? php setlocale(LC_MESSAGES, 'de_DE'); ?&gt;<br />&gt;<br />&gt; instead, which does exactly what you want, without any nasty side effecs.<br /><br />For all Windows-Users:<br />Be warned the LC_MESSAGES seems to be NOT set on Windows with PHP 5.1.2, so if you develope applications for a Linux-System and want to make it multi-language using gettext, you will get problems using LC_MESSAGES on your Windows-Developement-Box.<br />You can try to solve this problem by putting a <br /><br /><span class="default">&lt;?php </span><span class="keyword">if (!</span><span class="default">defined</span><span class="keyword">(</span><span class="string">'LC_MESSAGES'</span><span class="keyword">)) </span><span class="default">define</span><span class="keyword">(</span><span class="string">'LC_MESSAGES'</span><span class="keyword">, </span><span class="default">6</span><span class="keyword">); </span><span class="default">?&gt;<br /></span><br />to your script to get no warning if you pass LC_MESSAGES to the setlocale()-function.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="58781">  <div class="votes">
+    <div id="Vu58781">
+    <a href="https://www.php.net/manual/vote-note.php?id=58781&amp;page=ref.gettext&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd58781">
+    <a href="https://www.php.net/manual/vote-note.php?id=58781&amp;page=ref.gettext&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V58781" title="100% like this...">
+    1
+    </div>
+  </div>
+  <a href="ref.gettext.php.html#58781" class="name">
+  <strong class="user"><em>Juan Liska</em></strong></a><a class="genanchor" href="ref.gettext.php.html#58781"> &para;</a><div class="date" title="2005-11-15 03:09"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom58781">
+<div class="phpcode"><code><span class="html">if you're having trouble with setlocale (if it's returning false) on ubuntu or debian:<br /><br />nano /etc/locale.gen<br /><br />make sure that the locales taht you want are in the list, if not, add them. for instance, i wanted es_GT (b/c i have an app that must run on redhat and debian, i cant change to es_GT.UTF-8) so, add:<br /><br />es_GT UTF-8<br /><br />then run:<br /><br />locale-gen <br /><br />you now have the locales you want, not just the ones the system magically came with</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="53693">  <div class="votes">
+    <div id="Vu53693">
+    <a href="https://www.php.net/manual/vote-note.php?id=53693&amp;page=ref.gettext&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd53693">
+    <a href="https://www.php.net/manual/vote-note.php?id=53693&amp;page=ref.gettext&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V53693" title="100% like this...">
+    1
+    </div>
+  </div>
+  <a href="ref.gettext.php.html#53693" class="name">
+  <strong class="user"><em>milky#users:sf/net</em></strong></a><a class="genanchor" href="ref.gettext.php.html#53693"> &para;</a><div class="date" title="2005-06-09 06:12"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom53693">
+<div class="phpcode"><code><span class="html">There exists an emulation for the gettext functions - obviously slower than the native binding, but can be used on shared servers which lack the extension. It is believed to be rather useful as fallback (comes already encapsulated with if-function_exists checks).<br />See the ext/ directory in the [ <a href="http://freshmeat.net/p/upgradephp" rel="nofollow" target="_blank">http://freshmeat.net/p/upgradephp</a> ] tarball.  Support for plural translations isn't there, because that is too hard to get reimplemented reliably.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="43165">  <div class="votes">
+    <div id="Vu43165">
+    <a href="https://www.php.net/manual/vote-note.php?id=43165&amp;page=ref.gettext&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd43165">
+    <a href="https://www.php.net/manual/vote-note.php?id=43165&amp;page=ref.gettext&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V43165" title="100% like this...">
+    1
+    </div>
+  </div>
+  <a href="ref.gettext.php.html#43165" class="name">
+  <strong class="user"><em>zixia at zixia dot net</em></strong></a><a class="genanchor" href="ref.gettext.php.html#43165"> &para;</a><div class="date" title="2004-06-11 02:42"><strong>19 years ago</strong></div>
+  <div class="text" id="Hcom43165">
+<div class="phpcode"><code><span class="html">If gettext does not work with your locale, ie 'zh_CN', just going to see if the output of command "localedef --list-archive" contains your locale('zh_CN' in this example).<br />If it not, try to use a exist locale or use "localedef" to create one: "localedef -f GBK -i zh_CN zh_CN" in my case.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="34967">  <div class="votes">
+    <div id="Vu34967">
+    <a href="https://www.php.net/manual/vote-note.php?id=34967&amp;page=ref.gettext&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd34967">
+    <a href="https://www.php.net/manual/vote-note.php?id=34967&amp;page=ref.gettext&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V34967" title="100% like this...">
+    1
+    </div>
+  </div>
+  <a href="ref.gettext.php.html#34967" class="name">
+  <strong class="user"><em>wouter at grep dot be</em></strong></a><a class="genanchor" href="ref.gettext.php.html#34967"> &para;</a><div class="date" title="2003-08-13 12:28"><strong>20 years ago</strong></div>
+  <div class="text" id="Hcom34967">
+<div class="phpcode"><code><span class="html">Of course, translation is only interesting if you provide the user with the language and encoding he asks for. Since there's part of the HTTP protocol that allows you to specify that, it's nice if one can use that information to pick the 'right' translation out of the ones you have available.<br /><br />I wrote something that does just that -- it parses the 'Accept-Language' and 'Accept-Charset' HTTP/1.1 headers, and tells you which one the user prefers out of a list you provide. You can download it at <a href="http://www.grep.be/articles/php-accept.php" rel="nofollow" target="_blank">http://www.grep.be/articles/php-accept.php</a><br /><br />Note that even if the user's browser may support this, the user may not know about it; as such, it's probably good practice not to remove links to other-languaged versions, so that people can still get a version of your site in another language if they so prefer.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="34022">  <div class="votes">
+    <div id="Vu34022">
+    <a href="https://www.php.net/manual/vote-note.php?id=34022&amp;page=ref.gettext&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd34022">
+    <a href="https://www.php.net/manual/vote-note.php?id=34022&amp;page=ref.gettext&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V34022" title="100% like this...">
+    1
+    </div>
+  </div>
+  <a href="ref.gettext.php.html#34022" class="name">
+  <strong class="user"><em>jc</em></strong></a><a class="genanchor" href="ref.gettext.php.html#34022"> &para;</a><div class="date" title="2003-07-14 01:15"><strong>20 years ago</strong></div>
+  <div class="text" id="Hcom34022">
+<div class="phpcode"><code><span class="html">I had a lot of problems getting gettext to work (RedHat 7.3). After reading ALL the comments in this manual, I got it to work OK.<br /><br />In summary, take care that:<br /><br />1) You use a full locale in the setlocale()<br />2) Your language_country exists in the /usr/share/locale/locale.alias<br />3) It seems that Apache needs to be restarted (a "graceful" did the trick for me)<br />4) Your .mo files must be named after the domain<br /><br />My code:<br /><br />$language = "es_ES";<br />$locale = setlocale(LC_ALL, $language);<br /><br />$gettext_domain = 'messages';<br />bindtextdomain($gettext_domain, "/full/path/to/locale");<br />textdomain($gettext_domain);</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="33159">  <div class="votes">
+    <div id="Vu33159">
+    <a href="https://www.php.net/manual/vote-note.php?id=33159&amp;page=ref.gettext&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd33159">
+    <a href="https://www.php.net/manual/vote-note.php?id=33159&amp;page=ref.gettext&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V33159" title="100% like this...">
+    1
+    </div>
+  </div>
+  <a href="ref.gettext.php.html#33159" class="name">
+  <strong class="user"><em>anim8</em></strong></a><a class="genanchor" href="ref.gettext.php.html#33159"> &para;</a><div class="date" title="2003-06-17 06:15"><strong>20 years ago</strong></div>
+  <div class="text" id="Hcom33159">
+<div class="phpcode"><code><span class="html">Even though in some cases setlocale() may require a country code in addition to the language code this does not mean that it is required for gettext. <br /><br />If setlocale() is set to either es_ES or es_MX gettext() will still get the text from a po file in the 'es' folder.<br /><br />It probably is not a good idea to go changing a systems alias file(s) just to avoid the verbosity of the ISO standard because:<br />  a) you might break something <br />  b) your code just lost it's portability<br /><br />.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="33021">  <div class="votes">
+    <div id="Vu33021">
+    <a href="https://www.php.net/manual/vote-note.php?id=33021&amp;page=ref.gettext&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd33021">
+    <a href="https://www.php.net/manual/vote-note.php?id=33021&amp;page=ref.gettext&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V33021" title="100% like this...">
+    1
+    </div>
+  </div>
+  <a href="ref.gettext.php.html#33021" class="name"><strong class="user"><em>Anonymous</em></strong></a><a class="genanchor" href="ref.gettext.php.html#33021"> &para;</a><div class="date" title="2003-06-13 07:41"><strong>20 years ago</strong></div>
+  <div class="text" id="Hcom33021">
+<div class="phpcode"><code><span class="html">The way I got gettext to work with just a standard "de" or "fr" instead of "de_DE" was I overwrote my /usr/share/locale/locale.alias with /usr/lib/X11/locale/locale.alias file.  The I restarted Apache.  Reason I did this was it appeared the X11 file was more up to date and more modernised!</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="32833">  <div class="votes">
+    <div id="Vu32833">
+    <a href="https://www.php.net/manual/vote-note.php?id=32833&amp;page=ref.gettext&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd32833">
+    <a href="https://www.php.net/manual/vote-note.php?id=32833&amp;page=ref.gettext&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V32833" title="100% like this...">
+    1
+    </div>
+  </div>
+  <a href="ref.gettext.php.html#32833" class="name">
+  <strong class="user"><em>Picco</em></strong></a><a class="genanchor" href="ref.gettext.php.html#32833"> &para;</a><div class="date" title="2003-06-08 10:45"><strong>20 years ago</strong></div>
+  <div class="text" id="Hcom32833">
+<div class="phpcode"><code><span class="html">Note to Chinese programmers....<br /><br />Took me hours to figure out you cannot use<br /><br />LANG=zh<br />but have to use<br />LANG=zh_TW <br />on some machines...<br /><br />a good way to test will be to check the return of setlocale()</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="29790">  <div class="votes">
+    <div id="Vu29790">
+    <a href="https://www.php.net/manual/vote-note.php?id=29790&amp;page=ref.gettext&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd29790">
+    <a href="https://www.php.net/manual/vote-note.php?id=29790&amp;page=ref.gettext&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V29790" title="100% like this...">
+    1
+    </div>
+  </div>
+  <a href="ref.gettext.php.html#29790" class="name">
+  <strong class="user"><em>robert at klugher dot com</em></strong></a><a class="genanchor" href="ref.gettext.php.html#29790"> &para;</a><div class="date" title="2003-02-25 05:24"><strong>20 years ago</strong></div>
+  <div class="text" id="Hcom29790">
+<div class="phpcode"><code><span class="html">One trick I found after HOURS of tries :<br /><br />when you use the setlocale(), PHP will use the locale info it will find in, for example, /usr/share/locale to set the language info for LC_ALL, LC_MESSAGES, ...<br /><br />You can check the exact info it will use by using putenv() with LANG=.... and looking at the return value of setlocale(LC_ALL, ""). The language value your gettext function will use to look for your translation file is the one given for LC_MESSAGES.<br /><br />Example :<br /><br />I was setting the LANG as fr_BE, and placed the translation file in dirxxx/locale/fr_BE/LC_MESSAGES/...<br />As it was locale info in my system for fr_BE but NOT LC_MESSAGES, PHP choosed to use the LC_MESSAGES settings for fr_FR instead and then, was looking for a translation file in dirxxx/locale/fr_FR/LC_MESSAGES/..., which wasn't found of course.<br /><br />So, just make sure to look at the return value of setlocale to see what language value is associated to LC_MESSAGES and, then, to know in which subdirectory the translation file will be looked for by gettext.<br /><br />Robert</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="28999">  <div class="votes">
+    <div id="Vu28999">
+    <a href="https://www.php.net/manual/vote-note.php?id=28999&amp;page=ref.gettext&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd28999">
+    <a href="https://www.php.net/manual/vote-note.php?id=28999&amp;page=ref.gettext&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V28999" title="100% like this...">
+    1
+    </div>
+  </div>
+  <a href="ref.gettext.php.html#28999" class="name">
+  <strong class="user"><em>php at zpod dot ca</em></strong></a><a class="genanchor" href="ref.gettext.php.html#28999"> &para;</a><div class="date" title="2003-01-29 07:24"><strong>21 years ago</strong></div>
+  <div class="text" id="Hcom28999">
+<div class="phpcode"><code><span class="html">For those of you just trying to get a script working and your provider doesn't support gettext, you can bypass the international stuff by adding this:<br /><br />function _($str) {<br />    return $str;<br />}</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="28542">  <div class="votes">
+    <div id="Vu28542">
+    <a href="https://www.php.net/manual/vote-note.php?id=28542&amp;page=ref.gettext&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd28542">
+    <a href="https://www.php.net/manual/vote-note.php?id=28542&amp;page=ref.gettext&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V28542" title="100% like this...">
+    1
+    </div>
+  </div>
+  <a href="ref.gettext.php.html#28542" class="name">
+  <strong class="user"><em>Eneko Lacunza enlar at enlar dot net</em></strong></a><a class="genanchor" href="ref.gettext.php.html#28542"> &para;</a><div class="date" title="2003-01-16 08:20"><strong>21 years ago</strong></div>
+  <div class="text" id="Hcom28542">
+<div class="phpcode"><code><span class="html">Some tips from my Red Hat Linux 7.3 system.<br /><br />It didn't work for me until I set a full locale (i.e. es_ES) with setlocale.<br /><br />I was trying with Michele Manzato's example (thank you!), but as it sets the language without the country, it was failing for me. Here is the example "fixed" with full locale:<br /><br />// Change to script directory<br />// (Not needed in RH 7.3)<br />$path = dirname(getenv(PATH_TRANSLATED));<br />chdir($path);<br /><br />// Set the language as full locale 'es_ES'<br />$language = 'es_ES';<br />putenv("LANG=$language");<br />setlocale(LC_ALL, $language);<br /><br />// Set the text domain as 'mydomain'<br />$domain = 'mydomain';<br />bindtextdomain("$domain", "./locale");<br />textdomain("$domain");<br /><br />// The .mo file searched is:<br />// ./locale/es_ES/LC_MESSAGES/mydomain.mo<br />// or if previous one doesn't exist:<br />// ./locale/es/LC_MESSAGES/mydomain.mo<br /><br />echo gettext("Hello world!"); <br /><br />Hope this helps!<br />Eneko.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="22052">  <div class="votes">
+    <div id="Vu22052">
+    <a href="https://www.php.net/manual/vote-note.php?id=22052&amp;page=ref.gettext&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd22052">
+    <a href="https://www.php.net/manual/vote-note.php?id=22052&amp;page=ref.gettext&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V22052" title="100% like this...">
+    1
+    </div>
+  </div>
+  <a href="ref.gettext.php.html#22052" class="name">
+  <strong class="user"><em>mgvNOSPAM at fx dot ro</em></strong></a><a class="genanchor" href="ref.gettext.php.html#22052"> &para;</a><div class="date" title="2002-06-04 07:47"><strong>21 years ago</strong></div>
+  <div class="text" id="Hcom22052">
+<div class="phpcode"><code><span class="html">If you're as clueless as I am, please note the following:<br />1. Although most comments list setlocal() in the code, that's not actually required for translations - read the docs under "string functions" for details (also, the official gettext() examples don't include it);<br />2. hace_x's example is really cool, except you need to know that all "n"'s at the end of his strings should have a backslash before - they're actually EOL characters, but they somehow got messed up and I needed two hours to find that out...</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="120159">  <div class="votes">
+    <div id="Vu120159">
+    <a href="https://www.php.net/manual/vote-note.php?id=120159&amp;page=ref.gettext&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd120159">
+    <a href="https://www.php.net/manual/vote-note.php?id=120159&amp;page=ref.gettext&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V120159" title="no votes...">
+    0
+    </div>
+  </div>
+  <a href="ref.gettext.php.html#120159" class="name">
+  <strong class="user"><em>richardbrinkman at hotmail dot com</em></strong></a><a class="genanchor" href="ref.gettext.php.html#120159"> &para;</a><div class="date" title="2016-11-14 11:28"><strong>7 years ago</strong></div>
+  <div class="text" id="Hcom120159">
+<div class="phpcode"><code><span class="html">Gettext caches the machine readable *.mo files. This makes it pretty fast but also impossible to change a .mo file while running an application. Since PHP is running as a server, you cannot update your .mo file and see your new translation immediately. There are two ways to overcome this caching problem:<br /><br />1. Restart your webserver. For example by a `systemctl restart apache2`. This will kill already running php processes and reload them afterwards.<br /><br />2. If you don't have rights to restart a webserver (for example you are using a shared host), you can change the domain. Use for example this PHP code to hard link the new domain to the changed .mo files:<br /><br />$locale = "nl_NL.utf8"; //set this to your language<br />setlocale(LC_ALL, $locale);<br />putenv('LANG=' . $locale);<br />$mtime = 0;<br />$translationDir = "locale"; //or where ever you store your translations<br />$originals = glob("$translationDir/*/LC_MESSAGES/messages.mo");<br />foreach ($originals as $file)<br />    $mtime = max($mtime, filemtime($file));<br />$domain = "messages_$mtime";<br />$current = glob("$translationDir/*/LC_MESSAGES/$domain.mo");<br />if (count($originals) != count($current)) {<br />    foreach (glob("$translationDir/*/LC_MESSAGES/messages_*.mo") as $file)<br />        unlink($file);<br />    foreach ($originals as $file)<br />        link($file, substr($file, 0, -3)."_$mtime.mo");<br />}<br />bindtextdomain($domain, $translationDir);<br />textdomain($domain);<br /><br />What this script does is check whether at least one of the translations is updated and if so remove all messages_*.so and hard link all messages.po to corresponding messages_$mtime.po, where $mtime is set to the latest modified translation file. Since it uses a new domain ("messages_$mtime") it is not cached.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="83335">  <div class="votes">
+    <div id="Vu83335">
+    <a href="https://www.php.net/manual/vote-note.php?id=83335&amp;page=ref.gettext&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd83335">
+    <a href="https://www.php.net/manual/vote-note.php?id=83335&amp;page=ref.gettext&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V83335" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="ref.gettext.php.html#83335" class="name">
+  <strong class="user"><em>Sbastien Ballest-Antich</em></strong></a><a class="genanchor" href="ref.gettext.php.html#83335"> &para;</a><div class="date" title="2008-05-21 06:08"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom83335">
+<div class="phpcode"><code><span class="html">A workaround to use heredoc and gettext strings with sprintf :<br /><span class="default">&lt;?php<br />$hd </span><span class="keyword">= &lt;&lt;&lt;EOD<br /></span><span class="string">   &lt;p&gt;%s&lt;/p&gt;<br />   &lt;p&gt;%s&lt;/p&gt;<br /></span><span class="keyword">EOD;<br /></span><span class="default">$hdgt </span><span class="keyword">= </span><span class="default">sprintf</span><span class="keyword">(</span><span class="default">$hd</span><span class="keyword">, </span><span class="default">_</span><span class="keyword">(</span><span class="string">'Heredoc'</span><span class="keyword">), </span><span class="default">_</span><span class="keyword">(</span><span class="string">'gettext'</span><span class="keyword">));<br /></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$hdgt</span><span class="keyword">);<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="81646">  <div class="votes">
+    <div id="Vu81646">
+    <a href="https://www.php.net/manual/vote-note.php?id=81646&amp;page=ref.gettext&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd81646">
+    <a href="https://www.php.net/manual/vote-note.php?id=81646&amp;page=ref.gettext&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V81646" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="ref.gettext.php.html#81646" class="name">
+  <strong class="user"><em>titan at phpdevshell dot org</em></strong></a><a class="genanchor" href="ref.gettext.php.html#81646"> &para;</a><div class="date" title="2008-03-07 11:25"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom81646">
+<div class="phpcode"><code><span class="html">If you would like to create a .po file with include heredoc scripts inside curly brackets {} solution is as follows;<br /><br />I want to translate what in here (test.php):<br />&lt;code&gt;<br /><span class="default">&lt;?php<br />$EOF </span><span class="keyword">= &lt;&lt;&lt;EOF<br />{</span><span class="default">$t</span><span class="keyword">-&gt;</span><span class="default">__</span><span class="keyword">(</span><span class="string">'I want to translate this string.'</span><span class="keyword">)}</span><span class="string"><br /></span><span class="keyword">EOF;<br /></span><span class="default">?&gt;<br /></span>&lt;/code&gt;<br /><br />You will have to use the xgettext (gnu utility) with the Python parser like so:<br />&lt;code&gt;<br />$ xgettext --default-domain=test --keyword=__ --keyword --language=Python test.php<br />&lt;/code&gt;<br /><br />The above terminal command might seem wrong with --keyword used twice, this is however correct.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="76680">  <div class="votes">
+    <div id="Vu76680">
+    <a href="https://www.php.net/manual/vote-note.php?id=76680&amp;page=ref.gettext&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd76680">
+    <a href="https://www.php.net/manual/vote-note.php?id=76680&amp;page=ref.gettext&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V76680" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="ref.gettext.php.html#76680" class="name">
+  <strong class="user"><em>SEWilco</em></strong></a><a class="genanchor" href="ref.gettext.php.html#76680"> &para;</a><div class="date" title="2007-07-25 02:21"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom76680">
+<div class="phpcode"><code><span class="html">People have suggested several combinations of configuration options.  Consider trying nested loops with various combinations of language names (with and without character set suffixes) and pathnames.  A gettext() call in the middle of the loops can test for success (a string being translated).<br /><br />"Of 4374 localization setup variations tested there were 0 successes."<br /><br />Sometimes one just has to fix the system and PHP configuration.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="74741">  <div class="votes">
+    <div id="Vu74741">
+    <a href="https://www.php.net/manual/vote-note.php?id=74741&amp;page=ref.gettext&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd74741">
+    <a href="https://www.php.net/manual/vote-note.php?id=74741&amp;page=ref.gettext&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V74741" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="ref.gettext.php.html#74741" class="name">
+  <strong class="user"><em>jon at nospam dot foo</em></strong></a><a class="genanchor" href="ref.gettext.php.html#74741"> &para;</a><div class="date" title="2007-04-25 03:37"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom74741">
+<div class="phpcode"><code><span class="html">I'm sure I'll confuse further, but I feel compelled to chime in.  I got stuck on this a bit...<br /><br />It's absolutely critical that your gettext installation supports the locale you are trying to use in your setlocale(LC_MESSAGES,$locale) call.<br /><br />This does not work:<br /><br />setlocale(LC_MESSAGES,"en");<br /><br />in OpenSUSE 10.2, because /usr/lib/locale does not contain the directory "en" (out of the box), even though your custom LC_MESSAGES domain location might.<br /><br />In OpenSUSE 10.2, at least, /usr/lib/locale contains for USA English:<br /><br />en_US<br />en_US.iso885915<br />en_US.utf8<br /><br />(again, not "en").<br /><br />It might be possible to set up an alias, I'm not sure (does anyone have a idea about this).<br /><br />My goal was to use HTTP_ACCEPT_LANGUAGE to set locale (I realize that locale != language, but it seems that gettext uses locale to assign language (scratches head) ).  Opera in OS X does not send "en_US".  However, Firefox does out of the box.  I'm not sure if it's supposed to work this way, but it seems like it should, and so the way Opera handles this appears to be an issue.  Incidentally, Safari simples send "en" in HTTP_ACCEPT_LANGUAGE, and will also not work.<br /><br />This compelled me to set a configurable default locale (e.g "en_US") in my PHP app, which one probably should do anyway, because HTTP_ACCEPT_LANGUAGE might be blank.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="52956">  <div class="votes">
+    <div id="Vu52956">
+    <a href="https://www.php.net/manual/vote-note.php?id=52956&amp;page=ref.gettext&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd52956">
+    <a href="https://www.php.net/manual/vote-note.php?id=52956&amp;page=ref.gettext&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V52956" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="ref.gettext.php.html#52956" class="name">
+  <strong class="user"><em>tucsi at c2 dot hu</em></strong></a><a class="genanchor" href="ref.gettext.php.html#52956"> &para;</a><div class="date" title="2005-05-18 04:09"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom52956">
+<div class="phpcode"><code><span class="html">If your gettext translation does not work in safe mode, than try to set this in the php.ini:<br />safe_mode_allowed_env_vars = PHP_,LANG</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="22615">  <div class="votes">
+    <div id="Vu22615">
+    <a href="https://www.php.net/manual/vote-note.php?id=22615&amp;page=ref.gettext&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd22615">
+    <a href="https://www.php.net/manual/vote-note.php?id=22615&amp;page=ref.gettext&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V22615" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="ref.gettext.php.html#22615" class="name">
+  <strong class="user"><em>php at dynaperl dot com</em></strong></a><a class="genanchor" href="ref.gettext.php.html#22615"> &para;</a><div class="date" title="2002-06-25 06:49"><strong>21 years ago</strong></div>
+  <div class="text" id="Hcom22615">
+<div class="phpcode"><code><span class="html">If you install from SuSE Dist. you need glibc-locale.rpm to let gettext work.<br /><br />mfg ralph.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="15502">  <div class="votes">
+    <div id="Vu15502">
+    <a href="https://www.php.net/manual/vote-note.php?id=15502&amp;page=ref.gettext&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd15502">
+    <a href="https://www.php.net/manual/vote-note.php?id=15502&amp;page=ref.gettext&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V15502" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="ref.gettext.php.html#15502" class="name">
+  <strong class="user"><em>Michele dot Manzato at verona dot miz dot it</em></strong></a><a class="genanchor" href="ref.gettext.php.html#15502"> &para;</a><div class="date" title="2001-09-14 03:52"><strong>22 years ago</strong></div>
+  <div class="text" id="Hcom15502">
+<div class="phpcode"><code><span class="html">Gettext is great, but there are a few caveats you have to consider in order to make it work. Unfortunately the gettext docs isn't so plain and clear...<br /><br />The .mo file created with the gettext utilities must be:<br /><br />[bindtextdomain's dir]/[language]/LC_MESSAGES/[domain].mo<br /><br />otherwise gettext() function will fail to find it (this is true in win32, don't know about Un*ces). By the way you don't get any error message, the strings will simply remain untranslated. <br /><br />Second, you must make sure which is the current directory if you use a relative path in bindtextdomain. On some systems the script directory isn't the current directory, so you have to chdir() there.<br /><br />Then, of course, make sure that the appropriate gettext extension are loaded by PHP by looking at the php configuration file.<br /><br />Here is some sample code:<br /><br />// Change to the script directory<br />$path = dirname(getenv(PATH_TRANSLATED));<br />chdir($path);<br /><br />// Set the language as 'it'<br />$language = 'it';<br />putenv("LANG=$language"); <br />setlocale(LC_ALL, $language);<br /><br />// Set the text domain as 'mydomain'<br />$domain = 'mydomain';<br />bindtextdomain("$domain", "./locale"); <br />textdomain("$domain");<br /><br />// The .mo file searched is:<br />// ./locale/it/LC_MESSAGES/mydomain.mo<br /><br />echo gettext("Hello world!");<br /><br />Have fun!<br />Michele</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="51413">  <div class="votes">
+    <div id="Vu51413">
+    <a href="https://www.php.net/manual/vote-note.php?id=51413&amp;page=ref.gettext&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd51413">
+    <a href="https://www.php.net/manual/vote-note.php?id=51413&amp;page=ref.gettext&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V51413" title="0% like this...">
+    -1
+    </div>
+  </div>
+  <a href="ref.gettext.php.html#51413" class="name">
+  <strong class="user"><em>elonen at iki dot fi</em></strong></a><a class="genanchor" href="ref.gettext.php.html#51413"> &para;</a><div class="date" title="2005-03-30 01:51"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom51413">
+<div class="phpcode"><code><span class="html">For making localized copies of PHP files (statical l10n), here's a GPL'd command line tool: <a href="http://iki.fi/elonen/code/pophorator/" rel="nofollow" target="_blank">http://iki.fi/elonen/code/pophorator/</a></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="50424">  <div class="votes">
+    <div id="Vu50424">
+    <a href="https://www.php.net/manual/vote-note.php?id=50424&amp;page=ref.gettext&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd50424">
+    <a href="https://www.php.net/manual/vote-note.php?id=50424&amp;page=ref.gettext&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V50424" title="0% like this...">
+    -1
+    </div>
+  </div>
+  <a href="ref.gettext.php.html#50424" class="name">
+  <strong class="user"><em>dpatton at confluence dot org</em></strong></a><a class="genanchor" href="ref.gettext.php.html#50424"> &para;</a><div class="date" title="2005-02-27 10:47"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom50424">
+<div class="phpcode"><code><span class="html">Make sure you check your webserver configuration before deciding to use gettext, because if you are running in a multi-threaded environment you should not use gettext, as it is not thread-safe.<br /><br />A future version of gettext(possibly 0.15) may be thread-safe.<br />Any gettext dependencies, such as glibc would also need to be thread-safe.<br /><br />Apache 1.3 on Unix generally is non-threaded, but on Windows it is multithreaded.<br />Apache 2.0 has support for MPMs(Multi-Processing Modules), some of which support multiple threads:<br /><a href="http://httpd.apache.org/docs-2.0/mpm.html" rel="nofollow" target="_blank">http://httpd.apache.org/docs-2.0/mpm.html</a></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="43127">  <div class="votes">
+    <div id="Vu43127">
+    <a href="https://www.php.net/manual/vote-note.php?id=43127&amp;page=ref.gettext&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd43127">
+    <a href="https://www.php.net/manual/vote-note.php?id=43127&amp;page=ref.gettext&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V43127" title="0% like this...">
+    -1
+    </div>
+  </div>
+  <a href="ref.gettext.php.html#43127" class="name">
+  <strong class="user"><em>mikolaj at webgate dot bg</em></strong></a><a class="genanchor" href="ref.gettext.php.html#43127"> &para;</a><div class="date" title="2004-06-10 04:54"><strong>19 years ago</strong></div>
+  <div class="text" id="Hcom43127">
+<div class="phpcode"><code><span class="html">winXP, PHP 4.3.5 as Apache1.3.29 module<br /><br />Two hints for Windows users.<br /><br />I found setting locale is neither sufficient nor nessecery. To get it work I needed to set either LC_ALL or LANG enviroment variable to my locale. Anyway this value must be proper for setlocale so it is good to test with it. In my case it was bgr_BGR for bulgarian according to <a href="http://www.unicode.org/onlinedat/countries.html" rel="nofollow" target="_blank">http://www.unicode.org/onlinedat/countries.html</a><br /><br />gettext checks for files once and keeps them in cashe. Especially it means that if it doesn't find your files it won't search again, so restart Apache after any directory changes!! <br /><br />My minimal working script:<br /><span class="default">&lt;?php<br /></span><span class="comment">// translation file: D:\Apache\htdocs\mypage\locale\bgr_BGR\LC_MESSAGES\messages.mo<br /></span><span class="default">putenv</span><span class="keyword">(</span><span class="string">"LC_ALL=bgr_BGR"</span><span class="keyword">);<br /></span><span class="default">bindtextdomain</span><span class="keyword">(</span><span class="string">'messages'</span><span class="keyword">, </span><span class="string">'D:\Apache\htdocs\mypage\locale\\'</span><span class="keyword">);<br />echo </span><span class="default">gettext</span><span class="keyword">(</span><span class="string">"Hello"</span><span class="keyword">);<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="42142">  <div class="votes">
+    <div id="Vu42142">
+    <a href="https://www.php.net/manual/vote-note.php?id=42142&amp;page=ref.gettext&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd42142">
+    <a href="https://www.php.net/manual/vote-note.php?id=42142&amp;page=ref.gettext&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V42142" title="0% like this...">
+    -1
+    </div>
+  </div>
+  <a href="ref.gettext.php.html#42142" class="name">
+  <strong class="user"><em>stefan+usenet at froehlich dot priv dot at</em></strong></a><a class="genanchor" href="ref.gettext.php.html#42142"> &para;</a><div class="date" title="2004-05-05 04:30"><strong>19 years ago</strong></div>
+  <div class="text" id="Hcom42142">
+<div class="phpcode"><code><span class="html">Reading the line<br /><br />&lt;? php setlocale(LC_ALL, 'de_DE'); ?&gt;<br /><br />here over and over again, I have to warn using it, as there are severe caveats. For certain locales, LC_NUMERIC swaps period and comma, which may e.g. lead to decimals silently stripped of numbers, when inserting rows into an SQL database. So DON'T do this, but use<br /><br />&lt;? php setlocale(LC_MESSAGES, 'de_DE'); ?&gt;<br /><br />instead, which does exactly what you want, without any nasty side effecs.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="13949">  <div class="votes">
+    <div id="Vu13949">
+    <a href="https://www.php.net/manual/vote-note.php?id=13949&amp;page=ref.gettext&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd13949">
+    <a href="https://www.php.net/manual/vote-note.php?id=13949&amp;page=ref.gettext&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V13949" title="0% like this...">
+    -1
+    </div>
+  </div>
+  <a href="ref.gettext.php.html#13949" class="name"><strong class="user"><em>Anonymous</em></strong></a><a class="genanchor" href="ref.gettext.php.html#13949"> &para;</a><div class="date" title="2001-07-11 05:40"><strong>22 years ago</strong></div>
+  <div class="text" id="Hcom13949">
+<div class="phpcode"><code><span class="html">It is probably obvious to many of you,  but I thought it was worth mentioning that the domain is the name of the .mo files that contain the string catalogue (without the extension).<br /><br />so if you have a catalogue myPage.mo for each page in './locale/lg/LC_MESSAGE' and some generic catalogues (e.g. errorMsg.mo) in '/global/locale/lg/LC_MESSAGE', you can do<br /><br />bindTextDomain("$myPage", './locale');<br />bindTextDomain('errorMsg','/global/locale' );<br />textDomain('myPage');<br />print(getText('Welcome'));<br />/.../<br />if($err)printf(dGetText('errorMsg','you have an error here'));<br /><br />Ivan</span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=ref.gettext&amp;redirect=https://www.php.net/manual/ru/ref.gettext.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="book.gettext.php.html">Gettext</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="intro.gettext.php.html" title="Введение">Введение</a>
+                        </li>
+                                                <li class="">
+                            <a href="gettext.setup.php.html" title="Установка и настройка">Установка и настройка</a>
+                        </li>
+                                                <li class="">
+                            <a href="gettext.constants.php.html" title="Предопределённые константы">Предопределённые константы</a>
+                        </li>
+                                                <li class="current">
+                            <a href="ref.gettext.php.html" title="Функции gettext">Функции gettext</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

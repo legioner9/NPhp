@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: ReflectionParameter - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="class.reflectionparameter.php.html">
+ <link rel="shorturl" href="https://www.php.net/reflectionparameter">
+ <link rel="alternate" href="https://www.php.net/reflectionparameter" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="book.reflection.php.html">
+ <link rel="prev" href="reflectionobject.export.php.html">
+ <link rel="next" href="reflectionparameter.allowsnull.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/class.reflectionparameter.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/class.reflectionparameter.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/class.reflectionparameter.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/class.reflectionparameter.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/class.reflectionparameter.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/class.reflectionparameter.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/class.reflectionparameter.php" hreflang="pt_BR">
+ <link rel="alternate" href="class.reflectionparameter.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/class.reflectionparameter.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/class.reflectionparameter.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="reflectionparameter.allowsnull.php.html">
+          ReflectionParameter::allowsNull &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="reflectionobject.export.php.html">
+          &laquo; ReflectionObject::export        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.basic.vartype.php.html'>Модули, относящиеся к переменным и типам</a></li>      <li><a href='book.reflection.php.html'>Reflection</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/class.reflectionparameter.php'>English</option>
+            <option value='de/class.reflectionparameter.php'>German</option>
+            <option value='es/class.reflectionparameter.php'>Spanish</option>
+            <option value='fr/class.reflectionparameter.php'>French</option>
+            <option value='it/class.reflectionparameter.php'>Italian</option>
+            <option value='ja/class.reflectionparameter.php'>Japanese</option>
+            <option value='pt_BR/class.reflectionparameter.php'>Brazilian Portuguese</option>
+            <option value='ru/class.reflectionparameter.php' selected="selected">Russian</option>
+            <option value='tr/class.reflectionparameter.php'>Turkish</option>
+            <option value='zh/class.reflectionparameter.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/reflection/reflectionparameter.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Fclass.reflectionparameter%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="class.reflectionparameter" class="reference">
+
+ <h1 class="title">Класс ReflectionParameter</h1>
+ 
+
+ <div class="partintro"><p class="verinfo">(PHP 5, PHP 7, PHP 8)</p>
+
+
+  <div class="section" id="reflectionparameter.intro">
+   <h2 class="title">Введение</h2>
+   <p class="para">
+    Класс <span class="classname"><strong class="classname">ReflectionParameter</strong></span> сообщает
+    информацию о параметрах методов и функций.
+   </p>
+   <p class="para">
+    Чтобы иметь возможность исследовать аргументы функции,
+    сначала создайте экземпляр класса <span class="classname"><a href="class.reflectionfunction.php.html" class="classname">ReflectionFunction</a></span> либо
+    <span class="classname"><a href="class.reflectionmethod.php.html" class="classname">ReflectionMethod</a></span>, а затем используйте его
+    метод <span class="methodname"><a href="reflectionfunctionabstract.getparameters.php.html" class="methodname">ReflectionFunctionAbstract::getParameters()</a></span>
+    для получения массива аргументов.
+   </p>
+  </div>
+
+
+  <div class="section" id="reflectionparameter.synopsis">
+   <h2 class="title">Обзор классов</h2>
+
+
+   <div class="classsynopsis"><div class="classsynopsisinfo">
+    
+     <span class="modifier">class</span> <strong class="classname"><strong class="classname">ReflectionParameter</strong></strong>
+    
+
+    
+     <span class="modifier">implements</span>
+      <a href="class.reflector.php.html" class="interfacename">Reflector</a> {</div>
+
+    <div class="classsynopsisinfo classsynopsisinfo_comment">/* Свойства */</div>
+    <div class="fieldsynopsis">
+     <span class="modifier">public</span>
+     <span class="type">string</span>
+      <var class="varname"><a href="class.reflectionparameter.php.html#reflectionparameter.props.name">$<var class="varname">name</var></a></var>;</div>
+
+
+    <div class="classsynopsisinfo classsynopsisinfo_comment">/* Методы */</div>
+    <div class="constructorsynopsis dc-description">
+   <span class="modifier">public</span> <span class="methodname"><a href="reflectionparameter.construct.php.html" class="methodname">__construct</a></span>(<span class="methodparam"><span class="type"><span class="type">string</span>|<span class="type">array</span>|<span class="type">object</span></span> <code class="parameter">$function</code></span>, <span class="methodparam"><span class="type"><span class="type">int</span>|<span class="type">string</span></span> <code class="parameter">$param</code></span>)</div>
+
+    <div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="reflectionparameter.allowsnull.php.html" class="methodname">allowsNull</a></span>(): <span class="type">bool</span></div>
+<div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="reflectionparameter.canbepassedbyvalue.php.html" class="methodname">canBePassedByValue</a></span>(): <span class="type">bool</span></div>
+<div class="methodsynopsis dc-description"><span class="modifier">private</span> <span class="methodname"><a href="reflectionparameter.clone.php.html" class="methodname">__clone</a></span>(): <span class="type"><span class="type void">void</span></span></div>
+<div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="modifier">static</span> <span class="methodname"><a href="reflectionparameter.export.php.html" class="methodname">export</a></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$function</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$parameter</code></span>, <span class="methodparam"><span class="type">bool</span> <code class="parameter">$return</code><span class="initializer"> = ?</span></span>): <span class="type">string</span></div>
+<div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="reflectionparameter.getattributes.php.html" class="methodname">getAttributes</a></span>(<span class="methodparam"><span class="type">?</span><span class="type"><span class="type">string</span><span class="type"></span></span> <code class="parameter">$name</code><span class="initializer"> = <strong><code>null</code></strong></span></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter">$flags</code><span class="initializer"> = 0</span></span>): <span class="type">array</span></div>
+<div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="reflectionparameter.getclass.php.html" class="methodname">getClass</a></span>(): <span class="type"><span class="type">?</span><span class="type"><a href="class.reflectionclass.php.html" class="type ReflectionClass">ReflectionClass</a></span></span></div>
+<div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="reflectionparameter.getdeclaringclass.php.html" class="methodname">getDeclaringClass</a></span>(): <span class="type"><span class="type">?</span><span class="type"><a href="class.reflectionclass.php.html" class="type ReflectionClass">ReflectionClass</a></span></span></div>
+<div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="reflectionparameter.getdeclaringfunction.php.html" class="methodname">getDeclaringFunction</a></span>(): <span class="type"><a href="class.reflectionfunctionabstract.php.html" class="type ReflectionFunctionAbstract">ReflectionFunctionAbstract</a></span></div>
+<div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="reflectionparameter.getdefaultvalue.php.html" class="methodname">getDefaultValue</a></span>(): <span class="type"><a href="language.types.declarations.php.html#language.types.declarations.mixed" class="type mixed">mixed</a></span></div>
+<div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="reflectionparameter.getdefaultvalueconstantname.php.html" class="methodname">getDefaultValueConstantName</a></span>(): <span class="type"><span class="type">?</span><span class="type">string</span></span></div>
+<div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="reflectionparameter.getname.php.html" class="methodname">getName</a></span>(): <span class="type">string</span></div>
+<div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="reflectionparameter.getposition.php.html" class="methodname">getPosition</a></span>(): <span class="type">int</span></div>
+<div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="reflectionparameter.gettype.php.html" class="methodname">getType</a></span>(): <span class="type"><span class="type">?</span><span class="type"><a href="class.reflectiontype.php.html" class="type ReflectionType">ReflectionType</a></span></span></div>
+<div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="reflectionparameter.hastype.php.html" class="methodname">hasType</a></span>(): <span class="type">bool</span></div>
+<div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="reflectionparameter.isarray.php.html" class="methodname">isArray</a></span>(): <span class="type">bool</span></div>
+<div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="reflectionparameter.iscallable.php.html" class="methodname">isCallable</a></span>(): <span class="type">bool</span></div>
+<div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="reflectionparameter.isdefaultvalueavailable.php.html" class="methodname">isDefaultValueAvailable</a></span>(): <span class="type">bool</span></div>
+<div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="reflectionparameter.isdefaultvalueconstant.php.html" class="methodname">isDefaultValueConstant</a></span>(): <span class="type">bool</span></div>
+<div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="reflectionparameter.isoptional.php.html" class="methodname">isOptional</a></span>(): <span class="type">bool</span></div>
+<div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="reflectionparameter.ispassedbyreference.php.html" class="methodname">isPassedByReference</a></span>(): <span class="type">bool</span></div>
+<div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="reflectionparameter.isvariadic.php.html" class="methodname">isVariadic</a></span>(): <span class="type">bool</span></div>
+<div class="methodsynopsis dc-description"><span class="modifier">public</span> <span class="methodname"><a href="reflectionparameter.tostring.php.html" class="methodname">__toString</a></span>(): <span class="type">string</span></div>
+
+   }</div>
+
+
+  </div>
+
+
+
+  <div class="section" id="reflectionparameter.props">
+   <h2 class="title">Свойства</h2>
+   <dl>
+    
+     <dt id="reflectionparameter.props.name"><var class="varname">name</var></dt>
+
+     <dd>
+
+      <p class="para">
+       Имя аргумента. Доступно только для чтения и выбрасывает
+       исключение <span class="classname"><a href="class.reflectionexception.php.html" class="classname">ReflectionException</a></span> при попытке записи.
+      </p>
+     </dd>
+
+    
+   </dl>
+
+  </div>
+
+
+  <div class="section">
+   <h2 class="title">Список изменений</h2>
+   <table class="doctable informaltable">
+    
+     <thead>
+      <tr>
+       <th>Версия</th>
+       <th>Описание</th>
+      </tr>
+
+     </thead>
+
+     <tbody class="tbody">
+      <tr>
+       <td>8.0.0</td>
+       <td>
+        Метод <span class="methodname"><a href="reflectionparameter.export.php.html" class="methodname">ReflectionParameter::export()</a></span> был удалён.
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </div>
+
+ </div>
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2>Содержание</h2><ul class="chunklist chunklist_reference"><li><a href="reflectionparameter.allowsnull.php.html">ReflectionParameter::allowsNull</a> — Проверяет, допустимо ли значение null для параметра</li><li><a href="reflectionparameter.canbepassedbyvalue.php.html">ReflectionParameter::canBePassedByValue</a> — Проверяет, можно ли передать этот аргумент по значению</li><li><a href="reflectionparameter.clone.php.html">ReflectionParameter::__clone</a> — Клонировать</li><li><a href="reflectionparameter.construct.php.html">ReflectionParameter::__construct</a> — Конструктор</li><li><a href="reflectionparameter.export.php.html">ReflectionParameter::export</a> — Экспорт</li><li><a href="reflectionparameter.getattributes.php.html">ReflectionParameter::getAttributes</a> — Получает атрибуты</li><li><a href="reflectionparameter.getclass.php.html">ReflectionParameter::getClass</a> — Получает объект ReflectionClass для отражаемого параметра или null</li><li><a href="reflectionparameter.getdeclaringclass.php.html">ReflectionParameter::getDeclaringClass</a> — Получение объявляющего класса</li><li><a href="reflectionparameter.getdeclaringfunction.php.html">ReflectionParameter::getDeclaringFunction</a> — Получение объявляющей функции</li><li><a href="reflectionparameter.getdefaultvalue.php.html">ReflectionParameter::getDefaultValue</a> — Получение значения по умолчанию для параметра</li><li><a href="reflectionparameter.getdefaultvalueconstantname.php.html">ReflectionParameter::getDefaultValueConstantName</a> — Возвращает имя константы значения по умолчанию, если значение по умолчанию константа или null</li><li><a href="reflectionparameter.getname.php.html">ReflectionParameter::getName</a> — Получение имени параметра</li><li><a href="reflectionparameter.getposition.php.html">ReflectionParameter::getPosition</a> — Получение позиции параметра</li><li><a href="reflectionparameter.gettype.php.html">ReflectionParameter::getType</a> — Получить тип параметра</li><li><a href="reflectionparameter.hastype.php.html">ReflectionParameter::hasType</a> — Проверить, указан ли тип параметра</li><li><a href="reflectionparameter.isarray.php.html">ReflectionParameter::isArray</a> — Проверяет, ожидает ли аргумент массив в качестве значения</li><li><a href="reflectionparameter.iscallable.php.html">ReflectionParameter::isCallable</a> — Определить, должен ли параметр быть типа callable</li><li><a href="reflectionparameter.isdefaultvalueavailable.php.html">ReflectionParameter::isDefaultValueAvailable</a> — Проверяет, доступно ли значение по умолчанию</li><li><a href="reflectionparameter.isdefaultvalueconstant.php.html">ReflectionParameter::isDefaultValueConstant</a> — Определить, является ли значение параметра по умолчанию константой</li><li><a href="reflectionparameter.isoptional.php.html">ReflectionParameter::isOptional</a> — Проверяет, является ли аргумент необязательным</li><li><a href="reflectionparameter.ispassedbyreference.php.html">ReflectionParameter::isPassedByReference</a> — Проверяет, передан ли параметр по ссылке</li><li><a href="reflectionparameter.isvariadic.php.html">ReflectionParameter::isVariadic</a> — Проверить, является ли параметр параметром с переменным количеством аргументов</li><li><a href="reflectionparameter.tostring.php.html">ReflectionParameter::__toString</a> — Преобразование в строку</li></ul>
+</div>
+<section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=class.reflectionparameter&amp;redirect=https://www.php.net/manual/ru/class.reflectionparameter.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">4 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="83125">  <div class="votes">
+    <div id="Vu83125">
+    <a href="https://www.php.net/manual/vote-note.php?id=83125&amp;page=class.reflectionparameter&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd83125">
+    <a href="https://www.php.net/manual/vote-note.php?id=83125&amp;page=class.reflectionparameter&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V83125" title="81% like this...">
+    7
+    </div>
+  </div>
+  <a href="class.reflectionparameter.php.html#83125" class="name">
+  <strong class="user"><em>fgm at riff dot org</em></strong></a><a class="genanchor" href="class.reflectionparameter.php.html#83125"> &para;</a><div class="date" title="2008-05-11 12:44"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom83125">
+<div class="phpcode"><code><span class="html">The note about the signature of the ReflectionParameter constructor is actually incomplete, at least in 5.2.5: it is possible to use an integer for the second parameter, and the constructor will use it to return the n-th parameter.<br /><br />This allows you to obtain proper ReflectionParameter objects even when documenting code from extensions which (strangely enough) define several parameters with the same name. The string-based constructor always returns the first parameter with the matching name, whereas the integer-based constructor correctly returns the n-th parameter.<br /><br />So, in short, this works:<br /><span class="default">&lt;?php<br /></span><span class="comment">// supposing the extension defined something like:<br />// Some_Class::someMethod($a, $x, $y, $x, $y)<br /></span><span class="default">$p </span><span class="keyword">= new </span><span class="default">ReflectionParameter</span><span class="keyword">(array(</span><span class="string">'Some_Class'</span><span class="keyword">, </span><span class="string">'someMethod'</span><span class="keyword">), </span><span class="default">4</span><span class="keyword">);<br /></span><span class="comment">// returns the last parameter, whereas<br /></span><span class="default">$p </span><span class="keyword">= new </span><span class="default">ReflectionParameter</span><span class="keyword">(array(</span><span class="string">'Some_Class'</span><span class="keyword">, </span><span class="string">'someMethod'</span><span class="keyword">), </span><span class="string">'y'</span><span class="keyword">);<br /></span><span class="comment">// always returns the first $y at position 2<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="76667">  <div class="votes">
+    <div id="Vu76667">
+    <a href="https://www.php.net/manual/vote-note.php?id=76667&amp;page=class.reflectionparameter&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd76667">
+    <a href="https://www.php.net/manual/vote-note.php?id=76667&amp;page=class.reflectionparameter&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V76667" title="71% like this...">
+    3
+    </div>
+  </div>
+  <a href="class.reflectionparameter.php.html#76667" class="name">
+  <strong class="user"><em>killgecNOFSPAM at gmail dot com</em></strong></a><a class="genanchor" href="class.reflectionparameter.php.html#76667"> &para;</a><div class="date" title="2007-07-25 05:53"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom76667">
+<div class="phpcode"><code><span class="html">Signature of constructor of ReflectionParameter correctly is:<br /><br />public function __construct(array/string $function, string $name);<br /><br />where $function is either a name of a global function, or a class/method name pair.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="76506">  <div class="votes">
+    <div id="Vu76506">
+    <a href="https://www.php.net/manual/vote-note.php?id=76506&amp;page=class.reflectionparameter&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd76506">
+    <a href="https://www.php.net/manual/vote-note.php?id=76506&amp;page=class.reflectionparameter&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V76506" title="60% like this...">
+    1
+    </div>
+  </div>
+  <a href="class.reflectionparameter.php.html#76506" class="name">
+  <strong class="user"><em>massimo at mmware dot it</em></strong></a><a class="genanchor" href="class.reflectionparameter.php.html#76506"> &para;</a><div class="date" title="2007-07-18 08:58"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom76506">
+<div class="phpcode"><code><span class="html">I found these limitations using class ReflectionParameter from ReflectionFunction with INTERNAL FUNCTIONS (eg print_r, str_replace, ... ) :<br /><br />1. parameter names don't match with manual: (try example 19.35 with arg "call_user_func" )<br />2. some functions (eg PCRE function, preg_match etc) have EMPTY parameter names <br />3. calling getDefaultValue on Parameters will result in Exception "Cannot determine default value for internal functions"</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="128945">  <div class="votes">
+    <div id="Vu128945">
+    <a href="https://www.php.net/manual/vote-note.php?id=128945&amp;page=class.reflectionparameter&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd128945">
+    <a href="https://www.php.net/manual/vote-note.php?id=128945&amp;page=class.reflectionparameter&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V128945" title="no votes...">
+    0
+    </div>
+  </div>
+  <a href="class.reflectionparameter.php.html#128945" class="name">
+  <strong class="user"><em>rasmus at mindplay dot dk</em></strong></a><a class="genanchor" href="class.reflectionparameter.php.html#128945"> &para;</a><div class="date" title="2023-10-11 10:55"><strong>4 months ago</strong></div>
+  <div class="text" id="Hcom128945">
+<div class="phpcode"><code><span class="html">There are so many parameter modes now, and I needed to know exactly what `ReflectionParameter` is going to return, so I wrote a little test-script - you can find the script and results in a table here:<br /><br /><a href="https://gist.github.com/mindplay-dk/082458088988e32256a827f9b7491e17" rel="nofollow" target="_blank">https://gist.github.com/mindplay-dk/082458088988e32256a827f9b7491e17</a></span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=class.reflectionparameter&amp;redirect=https://www.php.net/manual/ru/class.reflectionparameter.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="book.reflection.php.html">Reflection</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="intro.reflection.php.html" title="Введение">Введение</a>
+                        </li>
+                                                <li class="">
+                            <a href="reflection.setup.php.html" title="Установка и настройка">Установка и настройка</a>
+                        </li>
+                                                <li class="">
+                            <a href="reflection.constants.php.html" title="Предопределённые константы">Предопределённые константы</a>
+                        </li>
+                                                <li class="">
+                            <a href="reflection.examples.php.html" title="Примеры">Примеры</a>
+                        </li>
+                                                <li class="">
+                            <a href="reflection.extending.php.html" title="Расширение">Расширение</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.reflection.php.html" title="Reflection">Reflection</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.reflectionclass.php.html" title="ReflectionClass">ReflectionClass</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.reflectionclassconstant.php.html" title="ReflectionClassConstant">ReflectionClassConstant</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.reflectionenum.php.html" title="ReflectionEnum">ReflectionEnum</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.reflectionenumunitcase.php.html" title="ReflectionEnumUnitCase">ReflectionEnumUnitCase</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.reflectionenumbackedcase.php.html" title="ReflectionEnumBackedCase">ReflectionEnumBackedCase</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.reflectionzendextension.php.html" title="ReflectionZendExtension">ReflectionZendExtension</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.reflectionextension.php.html" title="ReflectionExtension">ReflectionExtension</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.reflectionfunction.php.html" title="ReflectionFunction">ReflectionFunction</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.reflectionfunctionabstract.php.html" title="ReflectionFunctionAbstract">ReflectionFunctionAbstract</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.reflectionmethod.php.html" title="ReflectionMethod">ReflectionMethod</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.reflectionnamedtype.php.html" title="ReflectionNamedType">ReflectionNamedType</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.reflectionobject.php.html" title="ReflectionObject">ReflectionObject</a>
+                        </li>
+                                                <li class="current">
+                            <a href="class.reflectionparameter.php.html" title="ReflectionParameter">ReflectionParameter</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.reflectionproperty.php.html" title="ReflectionProperty">ReflectionProperty</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.reflectiontype.php.html" title="ReflectionType">ReflectionType</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.reflectionuniontype.php.html" title="ReflectionUnionType">ReflectionUnionType</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.reflectiongenerator.php.html" title="ReflectionGenerator">ReflectionGenerator</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.reflectionfiber.php.html" title="ReflectionFiber">ReflectionFiber</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.reflectionintersectiontype.php.html" title="ReflectionIntersectionType">ReflectionIntersectionType</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.reflectionreference.php.html" title="ReflectionReference">ReflectionReference</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.reflectionattribute.php.html" title="ReflectionAttribute">ReflectionAttribute</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.reflector.php.html" title="Reflector">Reflector</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.reflectionexception.php.html" title="ReflectionException">ReflectionException</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

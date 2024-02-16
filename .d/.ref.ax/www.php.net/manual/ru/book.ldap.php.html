@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: LDAP - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="book.ldap.php.html">
+ <link rel="shorturl" href="https://www.php.net/ldap">
+ <link rel="alternate" href="https://www.php.net/ldap" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="refs.remote.other.php.html">
+ <link rel="prev" href="class.gearmanexception.php.html">
+ <link rel="next" href="intro.ldap.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/book.ldap.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/book.ldap.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/book.ldap.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/book.ldap.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/book.ldap.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/book.ldap.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/book.ldap.php" hreflang="pt_BR">
+ <link rel="alternate" href="book.ldap.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/book.ldap.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/book.ldap.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="intro.ldap.php.html">
+          Введение &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="class.gearmanexception.php.html">
+          &laquo; GearmanException        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.remote.other.php.html'>Другие службы</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/book.ldap.php'>English</option>
+            <option value='de/book.ldap.php'>German</option>
+            <option value='es/book.ldap.php'>Spanish</option>
+            <option value='fr/book.ldap.php'>French</option>
+            <option value='it/book.ldap.php'>Italian</option>
+            <option value='ja/book.ldap.php'>Japanese</option>
+            <option value='pt_BR/book.ldap.php'>Brazilian Portuguese</option>
+            <option value='ru/book.ldap.php' selected="selected">Russian</option>
+            <option value='tr/book.ldap.php'>Turkish</option>
+            <option value='zh/book.ldap.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/ldap/book.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Fbook.ldap%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="book.ldap" class="book">
+ 
+ <h1 class="title">Облегчённый протокол доступа к каталогам (LDAP)</h1>
+ 
+
+ 
+ 
+ 
+
+ 
+
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+
+<ul class="chunklist chunklist_book"><li><a href="intro.ldap.php.html">Введение</a></li><li><a href="ldap.setup.php.html">Установка и настройка</a><ul class="chunklist chunklist_book chunklist_children"><li><a href="ldap.requirements.php.html">Требования</a></li><li><a href="ldap.installation.php.html">Установка</a></li><li><a href="ldap.configuration.php.html">Настройка во время выполнения</a></li><li><a href="ldap.resources.php.html">Типы ресурсов</a></li></ul></li><li><a href="ldap.constants.php.html">Предопределённые константы</a></li><li><a href="ldap.using.php.html">Использование вызовов PHP LDAP</a></li><li><a href="ldap.controls.php.html">Управляющие объекты LDAP</a></li><li><a href="ldap.examples.php.html">Примеры</a><ul class="chunklist chunklist_book chunklist_children"><li><a href="ldap.examples-basic.php.html">Базовое использование</a></li><li><a href="ldap.examples-controls.php.html">LDAP Controls</a></li></ul></li><li><a href="ref.ldap.php.html">Функции LDAP</a><ul class="chunklist chunklist_book chunklist_children"><li><a href="function.ldap-8859-to-t61.php.html">ldap_8859_to_t61</a> — Переводит символы из кодировки ISO-8859 в t61</li><li><a href="function.ldap-add-ext.php.html">ldap_add_ext</a> — Добавить записи в каталог LDAP</li><li><a href="function.ldap-add.php.html">ldap_add</a> — Добавить запись в LDAP директорию</li><li><a href="function.ldap-bind-ext.php.html">ldap_bind_ext</a> — Привязать к директории LDAP</li><li><a href="function.ldap-bind.php.html">ldap_bind</a> — Привязать к LDAP директории</li><li><a href="function.ldap-close.php.html">ldap_close</a> — Псевдоним ldap_unbind</li><li><a href="function.ldap-compare.php.html">ldap_compare</a> — Сравнить значение атрибута, найденного в записи определённой DN</li><li><a href="function.ldap-connect-wallet.php.html">ldap_connect_wallet</a> — Подключается к LDAP-серверу</li><li><a href="function.ldap-connect.php.html">ldap_connect</a> — Подключается к серверу LDAP</li><li><a href="function.ldap-control-paged-result-response.php.html">ldap_control_paged_result_response</a> — Получить указатель на текущую страницу результирующего набора LDAP</li><li><a href="function.ldap-control-paged-result.php.html">ldap_control_paged_result</a> — Послать серверу LDAP данные для использования постраничного извлечения результата</li><li><a href="function.ldap-count-entries.php.html">ldap_count_entries</a> — Посчитать число записей в результатах поиска</li><li><a href="function.ldap-count-references.php.html">ldap_count_references</a> — Подсчитывает количество ссылок в результатах поиска</li><li><a href="function.ldap-delete-ext.php.html">ldap_delete_ext</a> — Удалить запись из директории</li><li><a href="function.ldap-delete.php.html">ldap_delete</a> — Удаляет запись из директории LDAP</li><li><a href="function.ldap-dn2ufn.php.html">ldap_dn2ufn</a> — Преобразовать DN в удобный для пользователя формат именования</li><li><a href="function.ldap-err2str.php.html">ldap_err2str</a> — Преобразовать код ошибки LDAP в строковое сообщение об ошибке</li><li><a href="function.ldap-errno.php.html">ldap_errno</a> — Возвратить номер ошибки LDAP последней команды</li><li><a href="function.ldap-error.php.html">ldap_error</a> — Возвратить сообщение об ошибке LDAP последней команды</li><li><a href="function.ldap-escape.php.html">ldap_escape</a> — Экранирование строки для использования в фильтре LDAP или в DN</li><li><a href="function.ldap-exop-passwd.php.html">ldap_exop_passwd</a> — Обёртка для расширенной операции PASSWD</li><li><a href="function.ldap-exop-refresh.php.html">ldap_exop_refresh</a> — Обёртка для расширенной операции Refresh</li><li><a href="function.ldap-exop-sync.php.html">ldap_exop_sync</a> — Выполняет расширенную операцию</li><li><a href="function.ldap-exop-whoami.php.html">ldap_exop_whoami</a> — Обёртка для расширенной операции WHOAMI</li><li><a href="function.ldap-exop.php.html">ldap_exop</a> — Выполняет расширенную операцию</li><li><a href="function.ldap-explode-dn.php.html">ldap_explode_dn</a> — Разделить DN на его составные части</li><li><a href="function.ldap-first-attribute.php.html">ldap_first_attribute</a> — Вернуть первый атрибут</li><li><a href="function.ldap-first-entry.php.html">ldap_first_entry</a> — Возвратить первый идентификатор результата</li><li><a href="function.ldap-first-reference.php.html">ldap_first_reference</a> — Возвращает первую справку</li><li><a href="function.ldap-free-result.php.html">ldap_free_result</a> — Освободить память результата</li><li><a href="function.ldap-get-attributes.php.html">ldap_get_attributes</a> — Получает атрибуты из записи в результатах поиска</li><li><a href="function.ldap-get-dn.php.html">ldap_get_dn</a> — Получить DN результирующей записи</li><li><a href="function.ldap-get-entries.php.html">ldap_get_entries</a> — Получает все записи результата</li><li><a href="function.ldap-get-option.php.html">ldap_get_option</a> — Получить текущее значение данной опции</li><li><a href="function.ldap-get-values-len.php.html">ldap_get_values_len</a> — Получить все бинарные значения из записи результата</li><li><a href="function.ldap-get-values.php.html">ldap_get_values</a> — Получает все значения из записи результата</li><li><a href="function.ldap-list.php.html">ldap_list</a> — Одноуровневый поиск</li><li><a href="function.ldap-mod_add-ext.php.html">ldap_mod_add_ext</a> — Добавить значения атрибута к текущим атрибутам</li><li><a href="function.ldap-mod-add.php.html">ldap_mod_add</a> — Добавить значения атрибута к текущим атрибутам</li><li><a href="function.ldap-mod_del-ext.php.html">ldap_mod_del_ext</a> — Удалить значения атрибутов из текущих атрибутов</li><li><a href="function.ldap-mod-del.php.html">ldap_mod_del</a> — Удалить значения атрибута из текущих атрибутов</li><li><a href="function.ldap-mod_replace-ext.php.html">ldap_mod_replace_ext</a> — Заменить значения атрибута на новые</li><li><a href="function.ldap-mod-replace.php.html">ldap_mod_replace</a> — Заменить значения атрибутов на новые</li><li><a href="function.ldap-modify-batch.php.html">ldap_modify_batch</a> — Формирования и запуск пакетного изменения записи LDAP</li><li><a href="function.ldap-modify.php.html">ldap_modify</a> — Псевдоним ldap_mod_replace</li><li><a href="function.ldap-next-attribute.php.html">ldap_next_attribute</a> — Получить следующий атрибут из результата</li><li><a href="function.ldap-next-entry.php.html">ldap_next_entry</a> — Получить следующую запись результата</li><li><a href="function.ldap-next-reference.php.html">ldap_next_reference</a> — Возвращает следующую справку</li><li><a href="function.ldap-parse-exop.php.html">ldap_parse_exop</a> — Разбор результирующего объекта выполнения расширенной операции LDAP</li><li><a href="function.ldap-parse-reference.php.html">ldap_parse_reference</a> — Извлекает информацию из справочника</li><li><a href="function.ldap-parse-result.php.html">ldap_parse_result</a> — Извлечь информацию из результата</li><li><a href="function.ldap-read.php.html">ldap_read</a> — Читает запись</li><li><a href="function.ldap-rename-ext.php.html">ldap_rename_ext</a> — Модифицировать название записи</li><li><a href="function.ldap-rename.php.html">ldap_rename</a> — Изменить имя записи</li><li><a href="function.ldap-sasl-bind.php.html">ldap_sasl_bind</a> — Привязать к LDAP директории, используя SASL</li><li><a href="function.ldap-search.php.html">ldap_search</a> — Поиск по LDAP дереву</li><li><a href="function.ldap-set-option.php.html">ldap_set_option</a> — Установить значение данной опции</li><li><a href="function.ldap-set-rebind-proc.php.html">ldap_set_rebind_proc</a> — Установить функцию обратного вызова для повторного связывания при ссылочном поиске</li><li><a href="function.ldap-sort.php.html">ldap_sort</a> — Сортирует записи LDAP</li><li><a href="function.ldap-start-tls.php.html">ldap_start_tls</a> — Запускает TLS</li><li><a href="function.ldap-t61-to-8859.php.html">ldap_t61_to_8859</a> — Переводит символы из кодировки t61 в ISO-8859</li><li><a href="function.ldap-unbind.php.html">ldap_unbind</a> — Разорвать привязку к директории LDAP</li></ul></li><li><a href="class.ldap-connection.php.html">LDAP\Connection</a> — Класс LDAP\Connection</li><li><a href="class.ldap-result.php.html">LDAP\Result</a> — Класс LDAP\Result</li><li><a href="class.ldap-result-entry.php.html">LDAP\ResultEntry</a> — Класс LDAP\ResultEntry</li></ul></div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=book.ldap&amp;redirect=https://www.php.net/manual/ru/book.ldap.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes </h3>
+ </div>
+ <div class="note">There are no user contributed notes for this page.</div></section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="refs.remote.other.php.html">Другие службы</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="book.curl.php.html" title="cURL">cURL</a>
+                        </li>
+                                                <li class="">
+                            <a href="book.event.php.html" title="Event">Event</a>
+                        </li>
+                                                <li class="">
+                            <a href="book.ftp.php.html" title="FTP">FTP</a>
+                        </li>
+                                                <li class="">
+                            <a href="book.gearman.php.html" title="Gearman">Gearman</a>
+                        </li>
+                                                <li class="current">
+                            <a href="book.ldap.php.html" title="LDAP">LDAP</a>
+                        </li>
+                                                <li class="">
+                            <a href="book.memcache.php.html" title="Memcache">Memcache</a>
+                        </li>
+                                                <li class="">
+                            <a href="book.memcached.php.html" title="Memcached">Memcached</a>
+                        </li>
+                                                <li class="">
+                            <a href="book.mqseries.php.html" title="mqseries">mqseries</a>
+                        </li>
+                                                <li class="">
+                            <a href="book.network.php.html" title="Сеть">Сеть</a>
+                        </li>
+                                                <li class="">
+                            <a href="book.rrd.php.html" title="RRD">RRD</a>
+                        </li>
+                                                <li class="">
+                            <a href="book.scoutapm.php.html" title="ScoutAPM">ScoutAPM</a>
+                        </li>
+                                                <li class="">
+                            <a href="book.snmp.php.html" title="SNMP">SNMP</a>
+                        </li>
+                                                <li class="">
+                            <a href="book.sockets.php.html" title="Сокеты">Сокеты</a>
+                        </li>
+                                                <li class="">
+                            <a href="book.ssh2.php.html" title="SSH2">SSH2</a>
+                        </li>
+                                                <li class="">
+                            <a href="book.stomp.php.html" title="Stomp">Stomp</a>
+                        </li>
+                                                <li class="">
+                            <a href="book.svm.php.html" title="SVM">SVM</a>
+                        </li>
+                                                <li class="">
+                            <a href="book.svn.php.html" title="SVN">SVN</a>
+                        </li>
+                                                <li class="">
+                            <a href="book.tcpwrap.php.html" title="TCP">TCP</a>
+                        </li>
+                                                <li class="">
+                            <a href="book.varnish.php.html" title="Varnish">Varnish</a>
+                        </li>
+                                                <li class="">
+                            <a href="book.yaz.php.html" title="YAZ">YAZ</a>
+                        </li>
+                                                <li class="">
+                            <a href="book.zmq.php.html" title="Обмен сообщениями 0MQ">Обмен сообщениями 0MQ</a>
+                        </li>
+                                                <li class="">
+                            <a href="book.zookeeper.php.html" title="ZooKeeper">ZooKeeper</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

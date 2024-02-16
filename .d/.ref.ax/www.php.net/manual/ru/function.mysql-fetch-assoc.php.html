@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: mysql_fetch_assoc - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="function.mysql-fetch-assoc.php.html">
+ <link rel="shorturl" href="https://www.php.net/mysql-fetch-assoc">
+ <link rel="alternate" href="https://www.php.net/mysql-fetch-assoc" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="ref.mysql.php.html">
+ <link rel="prev" href="function.mysql-fetch-array.php.html">
+ <link rel="next" href="function.mysql-fetch-field.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/function.mysql-fetch-assoc.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/function.mysql-fetch-assoc.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/function.mysql-fetch-assoc.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/function.mysql-fetch-assoc.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/function.mysql-fetch-assoc.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/function.mysql-fetch-assoc.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/function.mysql-fetch-assoc.php" hreflang="pt_BR">
+ <link rel="alternate" href="function.mysql-fetch-assoc.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/function.mysql-fetch-assoc.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/function.mysql-fetch-assoc.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="function.mysql-fetch-field.php.html">
+          mysql_fetch_field &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="function.mysql-fetch-array.php.html">
+          &laquo; mysql_fetch_array        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.database.php.html'>Модули для работы с базами данных</a></li>      <li><a href='refs.database.vendors.php.html'>Модули для работы с базами данных отдельных производителей</a></li>      <li><a href='set.mysqlinfo.php.html'>MySQL</a></li>      <li><a href='book.mysql.php.html'>MySQL (Original)</a></li>      <li><a href='ref.mysql.php.html'>MySQL</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/function.mysql-fetch-assoc.php'>English</option>
+            <option value='de/function.mysql-fetch-assoc.php'>German</option>
+            <option value='es/function.mysql-fetch-assoc.php'>Spanish</option>
+            <option value='fr/function.mysql-fetch-assoc.php'>French</option>
+            <option value='it/function.mysql-fetch-assoc.php'>Italian</option>
+            <option value='ja/function.mysql-fetch-assoc.php'>Japanese</option>
+            <option value='pt_BR/function.mysql-fetch-assoc.php'>Brazilian Portuguese</option>
+            <option value='ru/function.mysql-fetch-assoc.php' selected="selected">Russian</option>
+            <option value='tr/function.mysql-fetch-assoc.php'>Turkish</option>
+            <option value='zh/function.mysql-fetch-assoc.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/mysql/functions/mysql-fetch-assoc.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Ffunction.mysql-fetch-assoc%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="function.mysql-fetch-assoc" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">mysql_fetch_assoc</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.0.3, PHP 5)</p><p class="refpurpose"><span class="refname">mysql_fetch_assoc</span> &mdash; <span class="dc-title">Возвращает ряд результата запроса в качестве ассоциативного массива</span></p>
+
+ </div>
+
+ <div id="function.mysql-fetch-assoc-refsynopsisdiv">
+  <div class="warning"><strong class="warning">Внимание</strong>
+   <p class="para">Данный модуль устарел начиная с версии PHP 5.5.0, и удалён в PHP 7.0.0.
+Используйте вместо него <a href="book.mysqli.php.html" class="link">MySQLi</a> или <a href="ref.pdo-mysql.php.html" class="link">PDO_MySQL</a>.
+Смотрите также инструкцию <a href="mysqlinfo.api.choosing.php.html" class="link">MySQL: выбор API</a>.
+Альтернативы для этой функции:</p>
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="mysqli-result.fetch-assoc.php.html" class="function">mysqli_fetch_assoc()</a></span></li>
+    <li class="member">
+     <span class="methodname"><a href="pdostatement.fetch.php.html" class="methodname">PDOStatement::fetch()</a></span>
+     с параметром <code class="parameter">mode</code> заданным как <strong><code>PDO::FETCH_ASSOC</code></strong>
+    </li>
+   </ul>
+  </div>
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.mysql-fetch-assoc-description">
+  <h3 class="title">Описание</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="methodname"><strong>mysql_fetch_assoc</strong></span>(<span class="methodparam"><span class="type">resource</span> <code class="parameter">$result</code></span>): <span class="type">array</span></div>
+
+  <p class="para rdfs-comment">
+   Возвращает ассоциативный массив, соответствующий полученному ряду и сдвигает вперёд
+   внутренний указатель результата.
+   Функция <span class="function"><strong>mysql_fetch_assoc()</strong></span> аналогична вызову функции
+   <span class="function"><a href="function.mysql-fetch-array.php.html" class="function">mysql_fetch_array()</a></span> со вторым необязательным параметром, равным
+   MYSQL_ASSOC. Функция возвращает только ассоциативный массив.
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.mysql-fetch-assoc-parameters">
+  <h3 class="title">Список параметров</h3>
+  <p class="para">
+   <dl>
+    <dt>
+
+<code class="parameter">result</code></dt>
+<dd>
+<p class="para">Обрабатываемый <a href="language.types.resource.php.html" class="link">результат запроса</a>.
+Этот результат может быть получен с помощью функции <span class="function"><a href="function.mysql-query.php.html" class="function">mysql_query()</a></span>.</p></dd>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.mysql-fetch-assoc-returnvalues">
+  <h3 class="title">Возвращаемые значения</h3>
+  <p class="para">
+   Возвращает ассоциативный массив строк, соответствующий полученному ряду, либо
+   <strong><code>false</code></strong> если рядов больше нет.
+  </p>
+  <p class="para">
+   Если два или более столбцов результата имеют одинаковые имена,
+   приоритет будет иметь последний столбец. Для доступа к другому
+   одноимённому столбцу (или столбцам), вам необходимо либо обратиться
+   к результату запроса по числовому индексу с помощью
+   <span class="function"><a href="function.mysql-fetch-row.php.html" class="function">mysql_fetch_row()</a></span> либо добавить псевдонимы к нужным столбцам.
+   Для более подробной информации о псевдонимах
+   смотрите описание примера <span class="function"><a href="function.mysql-fetch-array.php.html" class="function">mysql_fetch_array()</a></span>.
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.mysql-fetch-assoc-examples">
+  <h3 class="title">Примеры</h3>
+  <p class="para">
+   <div class="example" id="example-5308">
+    <p><strong>Пример #1 Расширенный пример использования <span class="function"><strong>mysql_fetch_assoc()</strong></span></strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br />$conn </span><span style="color: #007700">= </span><span style="color: #0000BB">mysql_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">, </span><span style="color: #DD0000">"mysql_user"</span><span style="color: #007700">, </span><span style="color: #DD0000">"mysql_password"</span><span style="color: #007700">);<br /><br />if (!</span><span style="color: #0000BB">$conn</span><span style="color: #007700">) {<br />    echo </span><span style="color: #DD0000">"Unable to connect to DB: " </span><span style="color: #007700">. </span><span style="color: #0000BB">mysql_error</span><span style="color: #007700">();<br />    exit;<br />}<br /><br />if (!</span><span style="color: #0000BB">mysql_select_db</span><span style="color: #007700">(</span><span style="color: #DD0000">"mydbname"</span><span style="color: #007700">)) {<br />    echo </span><span style="color: #DD0000">"Unable to select mydbname: " </span><span style="color: #007700">. </span><span style="color: #0000BB">mysql_error</span><span style="color: #007700">();<br />    exit;<br />}<br /><br /></span><span style="color: #0000BB">$sql </span><span style="color: #007700">= </span><span style="color: #DD0000">"SELECT id as userid, fullname, userstatus<br />        FROM   sometable<br />        WHERE  userstatus = 1"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$result </span><span style="color: #007700">= </span><span style="color: #0000BB">mysql_query</span><span style="color: #007700">(</span><span style="color: #0000BB">$sql</span><span style="color: #007700">);<br /><br />if (!</span><span style="color: #0000BB">$result</span><span style="color: #007700">) {<br />    echo </span><span style="color: #DD0000">"Could not successfully run query (</span><span style="color: #0000BB">$sql</span><span style="color: #DD0000">) from DB: " </span><span style="color: #007700">. </span><span style="color: #0000BB">mysql_error</span><span style="color: #007700">();<br />    exit;<br />}<br /><br />if (</span><span style="color: #0000BB">mysql_num_rows</span><span style="color: #007700">(</span><span style="color: #0000BB">$result</span><span style="color: #007700">) == </span><span style="color: #0000BB">0</span><span style="color: #007700">) {<br />    echo </span><span style="color: #DD0000">"No rows found, nothing to print so am exiting"</span><span style="color: #007700">;<br />    exit;<br />}<br /><br /></span><span style="color: #FF8000">// До тех пор, пока в результате содержатся ряды, помещаем их в ассоциативный массив.<br />// Замечание: если запрос возвращает только один ряд - нет нужды в цикле.<br />// Замечание: если вы добавите extract($row); в начало цикла, вы сделаете<br />//            доступными переменные $userid, $fullname и $userstatus<br /></span><span style="color: #007700">while (</span><span style="color: #0000BB">$row </span><span style="color: #007700">= </span><span style="color: #0000BB">mysql_fetch_assoc</span><span style="color: #007700">(</span><span style="color: #0000BB">$result</span><span style="color: #007700">)) {<br />    echo </span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #DD0000">"userid"</span><span style="color: #007700">];<br />    echo </span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #DD0000">"fullname"</span><span style="color: #007700">];<br />    echo </span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #DD0000">"userstatus"</span><span style="color: #007700">];<br />}<br /><br /></span><span style="color: #0000BB">mysql_free_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$result</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.mysql-fetch-assoc-notes">
+  <h3 class="title">Примечания</h3>
+  <blockquote class="note"><p><strong class="note">Замечание</strong>: 
+   <strong>Производительность</strong><br />
+   <p class="para">
+    Важно отметить, что
+    <span class="function"><strong>mysql_fetch_assoc()</strong></span> лишь <em>незначительно</em>
+    медленнее, чем <span class="function"><a href="function.mysql-fetch-row.php.html" class="function">mysql_fetch_row()</a></span>, но в то же время предоставляет
+    важную дополнительную информацию.
+   </p>
+  </p></blockquote>
+  <blockquote class="note"><p><strong class="note">Замечание</strong>: <span class="simpara">Имена полей, возвращаемые этой
+функцией являются <em>зависимыми от регистра</em>.</span></p></blockquote>
+  <blockquote class="note"><p><strong class="note">Замечание</strong>: <span class="simpara">Эта функция устанавливает NULL-поля
+в значение <strong><code>null</code></strong> PHP.</span></p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.mysql-fetch-assoc-seealso">
+  <h3 class="title">Смотрите также</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.mysql-fetch-row.php.html" class="function" rel="rdfs-seeAlso">mysql_fetch_row()</a> - Обрабатывает ряд результата запроса и возвращает массив с числовыми индексами</span></li>
+    <li class="member"><span class="function"><a href="function.mysql-fetch-array.php.html" class="function" rel="rdfs-seeAlso">mysql_fetch_array()</a> - Обрабатывает ряд результата запроса, возвращая ассоциативный массив, численный массив или оба</span></li>
+    <li class="member"><span class="function"><a href="function.mysql-data-seek.php.html" class="function" rel="rdfs-seeAlso">mysql_data_seek()</a> - Перемещает внутренний указатель в результате запроса</span></li>
+    <li class="member"><span class="function"><a href="function.mysql-query.php.html" class="function" rel="rdfs-seeAlso">mysql_query()</a> - Посылает запрос MySQL</span></li>
+    <li class="member"><span class="function"><a href="function.mysql-error.php.html" class="function" rel="rdfs-seeAlso">mysql_error()</a> - Возвращает текст ошибки последней операции с MySQL</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=function.mysql-fetch-assoc&amp;redirect=https://www.php.net/manual/ru/function.mysql-fetch-assoc.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">15 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="35553">  <div class="votes">
+    <div id="Vu35553">
+    <a href="https://www.php.net/manual/vote-note.php?id=35553&amp;page=function.mysql-fetch-assoc&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd35553">
+    <a href="https://www.php.net/manual/vote-note.php?id=35553&amp;page=function.mysql-fetch-assoc&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V35553" title="58% like this...">
+    7
+    </div>
+  </div>
+  <a href="function.mysql-fetch-assoc.php.html#35553" class="name">
+  <strong class="user"><em>marREtijn dot posthMOuma at hoVEme dot nl</em></strong></a><a class="genanchor" href="function.mysql-fetch-assoc.php.html#35553"> &para;</a><div class="date" title="2003-09-04 04:57"><strong>20 years ago</strong></div>
+  <div class="text" id="Hcom35553">
+<div class="phpcode"><code><span class="html">It appears that you can't have table.field names in the resulting array. <br />Just use an alias if your results come up empty and you are using multi-table query's:<br /><br />$res=mysql_query("SELECT user.ID AS uID, order.ID AS oID FROM user, order WHERE ( order.userid=uID )";<br />while ($row=mysql_fetch_assoc($res)) {<br />   echo "&lt;p&gt;userid: $row['uID'], orderid: $row['oID']&lt;/p&gt;";<br />}</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="46093">  <div class="votes">
+    <div id="Vu46093">
+    <a href="https://www.php.net/manual/vote-note.php?id=46093&amp;page=function.mysql-fetch-assoc&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd46093">
+    <a href="https://www.php.net/manual/vote-note.php?id=46093&amp;page=function.mysql-fetch-assoc&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V46093" title="52% like this...">
+    3
+    </div>
+  </div>
+  <a href="function.mysql-fetch-assoc.php.html#46093" class="name">
+  <strong class="user"><em>joe at kybert dot com</em></strong></a><a class="genanchor" href="function.mysql-fetch-assoc.php.html#46093"> &para;</a><div class="date" title="2004-09-29 01:07"><strong>19 years ago</strong></div>
+  <div class="text" id="Hcom46093">
+<div class="phpcode"><code><span class="html">Worth pointing out that the internal row pointer is incremented once the data is collected for the current row.<br /><br />This means that multiple calls will iterate through the row data, so you DONT need to mysql_data_seek(..) between calls.<br /><br />This is noted in the  mysql_fetch_row() docs, but not here!?</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="71483">  <div class="votes">
+    <div id="Vu71483">
+    <a href="https://www.php.net/manual/vote-note.php?id=71483&amp;page=function.mysql-fetch-assoc&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd71483">
+    <a href="https://www.php.net/manual/vote-note.php?id=71483&amp;page=function.mysql-fetch-assoc&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V71483" title="52% like this...">
+    2
+    </div>
+  </div>
+  <a href="function.mysql-fetch-assoc.php.html#71483" class="name">
+  <strong class="user"><em>Typer85 at gmail dot com</em></strong></a><a class="genanchor" href="function.mysql-fetch-assoc.php.html#71483"> &para;</a><div class="date" title="2006-11-30 05:21"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom71483">
+<div class="phpcode"><code><span class="html">Please be advised that the resource result that you pass to this function can be thought of as being passed by reference because a resource is simply a pointer to a memory location.<br /><br />Because of this, you can not loop through a resource result twice in the same script before resetting the pointer back to the start position.<br /><br />For example:<br /><br />----------------<br /><span class="default">&lt;?php<br /><br /></span><span class="comment">// Assume We Already Queried Our Database.<br /><br />// Loop Through Result Set.<br /><br /></span><span class="keyword">while( </span><span class="default">$queryContent </span><span class="keyword">= </span><span class="default">mysql_fetch_row</span><span class="keyword">( </span><span class="default">$queryResult </span><span class="keyword">) {<br /><br />    </span><span class="comment">// Display.<br /><br />    </span><span class="keyword">echo </span><span class="default">$queryContent</span><span class="keyword">[ </span><span class="default">0 </span><span class="keyword">];<br />}<br /><br /></span><span class="comment">// We looped through the resource result already so the<br />// the pointer is no longer pointing at any rows.<br /><br />// If we decide to loop through the same resource result<br />// again, the function will always return false because it<br />// will assume there are no more rows.<br /><br />// So the following code, if executed after the previous code<br />// segment will not work.<br /><br /></span><span class="keyword">while( </span><span class="default">$queryContent </span><span class="keyword">= </span><span class="default">mysql_fetch_row</span><span class="keyword">( </span><span class="default">$queryResult </span><span class="keyword">) {<br /><br />    </span><span class="comment">// Display.<br /><br />    </span><span class="keyword">echo </span><span class="default">$queryContent</span><span class="keyword">[ </span><span class="default">0 </span><span class="keyword">];<br />}<br /><br /></span><span class="comment">// Because $queryContent is now equal to FALSE, the loop<br />// will not be entered.<br /><br /></span><span class="default">?&gt;<br /></span>----------------<br /><br />The only solution to this is to reset the pointer to make it point at the first row again before the second code segment, so now the complete code will look as follows:<br /><br />----------------<br /><span class="default">&lt;?php<br /><br /></span><span class="comment">// Assume We Already Queried Our Database.<br /><br />// Loop Through Result Set.<br /><br /></span><span class="keyword">while( </span><span class="default">$queryContent </span><span class="keyword">= </span><span class="default">mysql_fetch_row</span><span class="keyword">( </span><span class="default">$queryResult </span><span class="keyword">) {<br /><br />    </span><span class="comment">// Display.<br /><br />    </span><span class="keyword">echo </span><span class="default">$queryContent</span><span class="keyword">[ </span><span class="default">0 </span><span class="keyword">];<br />}<br /><br /></span><span class="comment">// Reset Our Pointer.<br /><br /></span><span class="default">mysql_data_seek</span><span class="keyword">( </span><span class="default">$queryResult </span><span class="keyword">);<br /><br /></span><span class="comment">// Loop Again.<br /><br /></span><span class="keyword">while( </span><span class="default">$queryContent </span><span class="keyword">= </span><span class="default">mysql_fetch_row</span><span class="keyword">( </span><span class="default">$queryResult </span><span class="keyword">) {<br /><br />    </span><span class="comment">// Display.<br /><br />    </span><span class="keyword">echo </span><span class="default">$queryContent</span><span class="keyword">[ </span><span class="default">0 </span><span class="keyword">];<br />}<br /><br /></span><span class="default">?&gt;<br /></span>----------------<br /><br />Of course you would have to do extra checks to make sure that the number of rows in the result is not 0 or else mysql_data_seek itself will return false and an error will be raised.<br /><br />Also please note that this applies to all functions that fetch result sets, including mysql_fetch_row, mysql_fetch_assos, and mysql_fetch_array.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="90416">  <div class="votes">
+    <div id="Vu90416">
+    <a href="https://www.php.net/manual/vote-note.php?id=90416&amp;page=function.mysql-fetch-assoc&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd90416">
+    <a href="https://www.php.net/manual/vote-note.php?id=90416&amp;page=function.mysql-fetch-assoc&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V90416" title="45% like this...">
+    -4
+    </div>
+  </div>
+  <a href="function.mysql-fetch-assoc.php.html#90416" class="name">
+  <strong class="user"><em>george at georgefisher dot com</em></strong></a><a class="genanchor" href="function.mysql-fetch-assoc.php.html#90416"> &para;</a><div class="date" title="2009-04-21 07:51"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom90416">
+<div class="phpcode"><code><span class="html">Thanks to to R. Bradley for the implode idea. The following fixes a few bugs and includes quote_smart functionality (and has been tested)<br /><br /><span class="default">&lt;?php<br />   </span><span class="keyword">function </span><span class="default">mysql_insert_assoc </span><span class="keyword">(</span><span class="default">$my_table</span><span class="keyword">, </span><span class="default">$my_array</span><span class="keyword">) {<br />   <br />   </span><span class="comment">//<br />   // Insert values into a MySQL database<br />   // Includes quote_smart code to foil SQL Injection<br />   //<br />   // A call to this function of:<br />   //<br />   //  $val1 = "foobar";<br />   //  $val2 = 495;<br />   //  mysql_insert_assoc("tablename", array(col1=&gt;$val1, col2=&gt;$val2, col3=&gt;"val3", col4=&gt;720, col5=&gt;834.987));<br />   //<br />   // Sends the following query:<br />   //  INSERT INTO 'tablename' (col1, col2, col3, col4, col5) values ('foobar', 495, 'val3', 720, 834.987)<br />   //<br /> <br />       </span><span class="keyword">global </span><span class="default">$db_link</span><span class="keyword">;<br />       <br />       </span><span class="comment">// Find all the keys (column names) from the array $my_array<br />       </span><span class="default">$columns </span><span class="keyword">= </span><span class="default">array_keys</span><span class="keyword">(</span><span class="default">$my_array</span><span class="keyword">);<br /><br />       </span><span class="comment">// Find all the values from the array $my_array<br />       </span><span class="default">$values </span><span class="keyword">= </span><span class="default">array_values</span><span class="keyword">(</span><span class="default">$my_array</span><span class="keyword">);<br />       <br />       </span><span class="comment">// quote_smart the values<br />       </span><span class="default">$values_number </span><span class="keyword">= </span><span class="default">count</span><span class="keyword">(</span><span class="default">$values</span><span class="keyword">);<br />       for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">$values_number</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++)<br />         {<br />         </span><span class="default">$value </span><span class="keyword">= </span><span class="default">$values</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">];<br />         if (</span><span class="default">get_magic_quotes_gpc</span><span class="keyword">()) { </span><span class="default">$value </span><span class="keyword">= </span><span class="default">stripslashes</span><span class="keyword">(</span><span class="default">$value</span><span class="keyword">); }<br />         if (!</span><span class="default">is_numeric</span><span class="keyword">(</span><span class="default">$value</span><span class="keyword">))    { </span><span class="default">$value </span><span class="keyword">= </span><span class="string">"'" </span><span class="keyword">. </span><span class="default">mysql_real_escape_string</span><span class="keyword">(</span><span class="default">$value</span><span class="keyword">, </span><span class="default">$db_link</span><span class="keyword">) . </span><span class="string">"'"</span><span class="keyword">; }<br />         </span><span class="default">$values</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">] = </span><span class="default">$value</span><span class="keyword">;<br />         }<br />         <br />       </span><span class="comment">// Compose the query<br />       </span><span class="default">$sql </span><span class="keyword">= </span><span class="string">"INSERT INTO </span><span class="default">$my_table</span><span class="string"> "</span><span class="keyword">;<br /><br />       </span><span class="comment">// create comma-separated string of column names, enclosed in parentheses<br />       </span><span class="default">$sql </span><span class="keyword">.= </span><span class="string">"(" </span><span class="keyword">. </span><span class="default">implode</span><span class="keyword">(</span><span class="string">", "</span><span class="keyword">, </span><span class="default">$columns</span><span class="keyword">) . </span><span class="string">")"</span><span class="keyword">;<br />       </span><span class="default">$sql </span><span class="keyword">.= </span><span class="string">" values "</span><span class="keyword">;<br /><br />       </span><span class="comment">// create comma-separated string of values, enclosed in parentheses<br />       </span><span class="default">$sql </span><span class="keyword">.= </span><span class="string">"(" </span><span class="keyword">. </span><span class="default">implode</span><span class="keyword">(</span><span class="string">", "</span><span class="keyword">, </span><span class="default">$values</span><span class="keyword">) . </span><span class="string">")"</span><span class="keyword">;<br />       <br />       </span><span class="default">$result </span><span class="keyword">= @</span><span class="default">mysql_query </span><span class="keyword">(</span><span class="default">$sql</span><span class="keyword">) OR die (</span><span class="string">"&lt;br /&gt;\n&lt;span style=\"color:red\"&gt;Query: </span><span class="default">$sql</span><span class="string"> UNsuccessful :&lt;/span&gt; " </span><span class="keyword">. </span><span class="default">mysql_error</span><span class="keyword">() . </span><span class="string">"\n&lt;br /&gt;"</span><span class="keyword">);<br /><br />       return (</span><span class="default">$result</span><span class="keyword">) ? </span><span class="default">true </span><span class="keyword">: </span><span class="default">false</span><span class="keyword">;<br />   }<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="61387">  <div class="votes">
+    <div id="Vu61387">
+    <a href="https://www.php.net/manual/vote-note.php?id=61387&amp;page=function.mysql-fetch-assoc&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd61387">
+    <a href="https://www.php.net/manual/vote-note.php?id=61387&amp;page=function.mysql-fetch-assoc&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V61387" title="46% like this...">
+    -4
+    </div>
+  </div>
+  <a href="function.mysql-fetch-assoc.php.html#61387" class="name">
+  <strong class="user"><em>jono</em></strong></a><a class="genanchor" href="function.mysql-fetch-assoc.php.html#61387"> &para;</a><div class="date" title="2006-02-01 09:22"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom61387">
+<div class="phpcode"><code><span class="html">Note that the field names quoted within $row[] are case sensitive whereas many sql commands are case insensitive.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="56112">  <div class="votes">
+    <div id="Vu56112">
+    <a href="https://www.php.net/manual/vote-note.php?id=56112&amp;page=function.mysql-fetch-assoc&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd56112">
+    <a href="https://www.php.net/manual/vote-note.php?id=56112&amp;page=function.mysql-fetch-assoc&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V56112" title="45% like this...">
+    -4
+    </div>
+  </div>
+  <a href="function.mysql-fetch-assoc.php.html#56112" class="name">
+  <strong class="user"><em>benlanc at ster dot me dot uk</em></strong></a><a class="genanchor" href="function.mysql-fetch-assoc.php.html#56112"> &para;</a><div class="date" title="2005-08-23 04:25"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom56112">
+<div class="phpcode"><code><span class="html">It probably without saying, but using list() in conjunction with mysql_fetch_assoc() does not work - use mysql_fetch_row() instead.<br /><br /><span class="default">&lt;?php<br />$sql </span><span class="keyword">= </span><span class="string">"SELECT `id`,`field`,`value` FROM `table`"</span><span class="keyword">;<br /></span><span class="default">$result </span><span class="keyword">= </span><span class="default">mysql_query</span><span class="keyword">(</span><span class="default">$sql</span><span class="keyword">);<br /><br /></span><span class="comment">// this results in empty values for rowID,fieldName,myValue<br /></span><span class="keyword">list(</span><span class="default">$rowID</span><span class="keyword">,</span><span class="default">$fieldName</span><span class="keyword">,</span><span class="default">$myValue</span><span class="keyword">) = </span><span class="default">mysql_fetch_assoc</span><span class="keyword">(</span><span class="default">$result</span><span class="keyword">);<br /><br /></span><span class="comment">// this is what you want:<br /></span><span class="keyword">list(</span><span class="default">$rowID</span><span class="keyword">,</span><span class="default">$fieldName</span><span class="keyword">,</span><span class="default">$myValue</span><span class="keyword">) = </span><span class="default">mysql_fetch_row</span><span class="keyword">(</span><span class="default">$result</span><span class="keyword">);<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="90030">  <div class="votes">
+    <div id="Vu90030">
+    <a href="https://www.php.net/manual/vote-note.php?id=90030&amp;page=function.mysql-fetch-assoc&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd90030">
+    <a href="https://www.php.net/manual/vote-note.php?id=90030&amp;page=function.mysql-fetch-assoc&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V90030" title="47% like this...">
+    -6
+    </div>
+  </div>
+  <a href="function.mysql-fetch-assoc.php.html#90030" class="name">
+  <strong class="user"><em>Daniel Chcouri - 333222 +A-T+ gmail</em></strong></a><a class="genanchor" href="function.mysql-fetch-assoc.php.html#90030"> &para;</a><div class="date" title="2009-04-02 03:45"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom90030">
+<div class="phpcode"><code><span class="html">Fetching all the results to array with one liner:<br /><br /><span class="default">&lt;?php<br />$result </span><span class="keyword">= </span><span class="default">mysql_query</span><span class="keyword">(...);<br />while((</span><span class="default">$resultArray</span><span class="keyword">[] = </span><span class="default">mysql_fetch_assoc</span><span class="keyword">(</span><span class="default">$result</span><span class="keyword">)) || </span><span class="default">array_pop</span><span class="keyword">(</span><span class="default">$resultArray</span><span class="keyword">));<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="69666">  <div class="votes">
+    <div id="Vu69666">
+    <a href="https://www.php.net/manual/vote-note.php?id=69666&amp;page=function.mysql-fetch-assoc&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd69666">
+    <a href="https://www.php.net/manual/vote-note.php?id=69666&amp;page=function.mysql-fetch-assoc&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V69666" title="41% like this...">
+    -4
+    </div>
+  </div>
+  <a href="function.mysql-fetch-assoc.php.html#69666" class="name">
+  <strong class="user"><em>R. Bradley</em></strong></a><a class="genanchor" href="function.mysql-fetch-assoc.php.html#69666"> &para;</a><div class="date" title="2006-09-14 08:34"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom69666">
+<div class="phpcode"><code><span class="html">In response to Sergiu's function - implode() would make things a lot easier ... as below:<br /><br /><span class="default">&lt;?php<br />   </span><span class="keyword">function </span><span class="default">mysql_insert_assoc </span><span class="keyword">(</span><span class="default">$my_table</span><span class="keyword">, </span><span class="default">$my_array</span><span class="keyword">) {<br /><br />       </span><span class="comment">// Find all the keys (column names) from the array $my_array<br />       </span><span class="default">$columns </span><span class="keyword">= </span><span class="default">array_keys</span><span class="keyword">(</span><span class="default">$my_array</span><span class="keyword">);<br /><br />       </span><span class="comment">// Find all the values from the array<br />       </span><span class="default">$values </span><span class="keyword">= </span><span class="default">array_values</span><span class="keyword">(</span><span class="default">$my_array</span><span class="keyword">);<br /><br />       </span><span class="comment">// We compose the query<br />       </span><span class="default">$sql </span><span class="keyword">= </span><span class="string">"insert into `</span><span class="default">$my_table</span><span class="string">` "</span><span class="keyword">;<br />       </span><span class="comment">// implode the column names, inserting "\", \"" between each (but not after the last one)<br />       // we add the enclosing quotes at the same time<br />       </span><span class="default">$sql </span><span class="keyword">.= </span><span class="string">"(\"" </span><span class="keyword">. </span><span class="default">implode</span><span class="keyword">(</span><span class="string">"\", \""</span><span class="keyword">, </span><span class="default">$column_names</span><span class="keyword">) . </span><span class="string">"\")"</span><span class="keyword">;<br />       </span><span class="default">$sql </span><span class="keyword">.= </span><span class="string">" values "</span><span class="keyword">;<br />       </span><span class="comment">// Same with the values<br />       </span><span class="default">$sql </span><span class="keyword">.= </span><span class="string">"(" </span><span class="keyword">. </span><span class="default">implode</span><span class="keyword">(</span><span class="string">", "</span><span class="keyword">, </span><span class="default">$values</span><span class="keyword">) . </span><span class="string">")"</span><span class="keyword">;<br /><br />       </span><span class="default">$result </span><span class="keyword">= </span><span class="default">mysql_query</span><span class="keyword">(</span><span class="default">$sql</span><span class="keyword">);<br /><br />       if (</span><span class="default">$result</span><span class="keyword">)<br />       {<br />           echo </span><span class="string">"The row was added sucessfully"</span><span class="keyword">;<br />           return </span><span class="default">true</span><span class="keyword">;<br />       }<br />       else<br />       {<br />           echo (</span><span class="string">"The row was not added&lt;br&gt;The error was" </span><span class="keyword">. </span><span class="default">mysql_error</span><span class="keyword">());<br />           return </span><span class="default">false</span><span class="keyword">;<br />       }<br />   }<br /></span><span class="default">?&gt;<br /></span><br />Thus, a call to this function of:<br />mysql_insert_assoc("tablename", array("col1"=&gt;"val1", "col2"=&gt;"val2"));<br /><br />Sends the following sql query to mysql:<br />INSERT INTO `tablename` ("col1", "col2") VALUES ("val1", "val2")</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="54021">  <div class="votes">
+    <div id="Vu54021">
+    <a href="https://www.php.net/manual/vote-note.php?id=54021&amp;page=function.mysql-fetch-assoc&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd54021">
+    <a href="https://www.php.net/manual/vote-note.php?id=54021&amp;page=function.mysql-fetch-assoc&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V54021" title="40% like this...">
+    -6
+    </div>
+  </div>
+  <a href="function.mysql-fetch-assoc.php.html#54021" class="name">
+  <strong class="user"><em>jo at durchholz dot org</em></strong></a><a class="genanchor" href="function.mysql-fetch-assoc.php.html#54021"> &para;</a><div class="date" title="2005-06-21 01:58"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom54021">
+<div class="phpcode"><code><span class="html">To sum up moverton at northshropshiredc dot gov dot uk and Olivier Fabre:<br /><br />If the query is "SELECT something1, something2, .... FROM tbl WHERE some_condition", the keys in the returned array will be 'something1', 'something2', etc. *even for those "somethings" that are not just field names*.<br /><br />Examples of non-fieldname "somethings" are:<br />NULL<br />NOW<br />MAX(some_fieldname)<br /><br />I haven't tested whether this applies to table.fieldname, but I see no reason why it shouldn't (I'd suspect a typo in my code if I didn't get the expected results; I certainly have had my share of them!)<br /><br />I found it most convenient to check for typos by simply var_dumping the resulting row, like this:<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">echo </span><span class="string">'&lt;pre&gt;Got this row:'<br /></span><span class="default">var_dump </span><span class="keyword">(</span><span class="default">$row</span><span class="keyword">);<br />echo </span><span class="string">'&lt;/pre&gt;'</span><span class="keyword">;<br /></span><span class="default">?&gt;<br /></span><br />where $row is the result from the last call to mysql_fetch_assoc.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="52848">  <div class="votes">
+    <div id="Vu52848">
+    <a href="https://www.php.net/manual/vote-note.php?id=52848&amp;page=function.mysql-fetch-assoc&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd52848">
+    <a href="https://www.php.net/manual/vote-note.php?id=52848&amp;page=function.mysql-fetch-assoc&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V52848" title="41% like this...">
+    -7
+    </div>
+  </div>
+  <a href="function.mysql-fetch-assoc.php.html#52848" class="name">
+  <strong class="user"><em>erik[at]phpcastle.com</em></strong></a><a class="genanchor" href="function.mysql-fetch-assoc.php.html#52848"> &para;</a><div class="date" title="2005-05-14 12:50"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom52848">
+<div class="phpcode"><code><span class="html">When you have to loop multiple times through the result of a query you can set the result pointer to 0 (zero) with mysql_data_seek ()<br /><br />The advantage is that you do not have to query database twice with te same query :)<br /><br />So:<br /><span class="default">&lt;?php<br />  $query </span><span class="keyword">= </span><span class="string">"<br />    SELECT *<br />    FROM database<br />  "</span><span class="keyword">;<br /><br />  </span><span class="comment">//Query database<br />  </span><span class="default">$result </span><span class="keyword">= </span><span class="default">mysql_query </span><span class="keyword">(</span><span class="default">$query</span><span class="keyword">);<br /><br />  </span><span class="comment">//Iterate result<br />  </span><span class="keyword">while (</span><span class="default">$record </span><span class="keyword">= </span><span class="default">mysql_fetch_assoc </span><span class="keyword">(</span><span class="default">$result</span><span class="keyword">)){<br />    </span><span class="default">print_r </span><span class="keyword">(</span><span class="default">$record</span><span class="keyword">);<br />  }<br /><br />  ...<br /><br />  </span><span class="comment">//Point to 0 (zero)<br />  </span><span class="default">mysql_data_seek </span><span class="keyword">(</span><span class="default">$result</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">);<br /><br />  </span><span class="comment">//Re-use the result<br />  </span><span class="keyword">while (</span><span class="default">$record </span><span class="keyword">= </span><span class="default">mysql_fetch_assoc </span><span class="keyword">(</span><span class="default">$result</span><span class="keyword">)){<br />    </span><span class="default">print_r </span><span class="keyword">(</span><span class="default">$record</span><span class="keyword">);<br />  }<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="62270">  <div class="votes">
+    <div id="Vu62270">
+    <a href="https://www.php.net/manual/vote-note.php?id=62270&amp;page=function.mysql-fetch-assoc&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd62270">
+    <a href="https://www.php.net/manual/vote-note.php?id=62270&amp;page=function.mysql-fetch-assoc&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V62270" title="40% like this...">
+    -7
+    </div>
+  </div>
+  <a href="function.mysql-fetch-assoc.php.html#62270" class="name">
+  <strong class="user"><em>chasfileDELETE_ALL_CAPS at gmail dot com</em></strong></a><a class="genanchor" href="function.mysql-fetch-assoc.php.html#62270"> &para;</a><div class="date" title="2006-02-23 11:26"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom62270">
+<div class="phpcode"><code><span class="html">What if you *want* a two dimensional array?  Useful for output as an HTML table, for instance.<br /><br />function mysql_resultTo2DAssocArray ( $result) {<br />    $i=0;<br />    $ret = array();<br />    while ($row = mysql_fetch_assoc($result)) {<br />        foreach ($row as $key =&gt; $value) {<br />            $ret[$i][$key] = $value;<br />            }<br />        $i++;<br />        }<br />    return ($ret);<br />    }<br /><br />print_r(mysql_resultTo2DAssocArray(mysql_query("SELECT * FROM something")));<br /><br />Array ( [0] =&gt; Array ( [symbol] =&gt; ARNA<br />          [datetime] =&gt; 2006-02-17 16:00:00<br />          [price] =&gt; 16.83 )<br />     [1] =&gt; Array ( [symbol] =&gt; CALP<br />          [datetime] =&gt; 2006-02-17 16:00:00<br />          [price] =&gt; 6.54 )<br />     [2] =&gt; Array ( [symbol] =&gt; CROX<br />          [datetime] =&gt; 2006-02-17 16:00:00<br />          [price] =&gt; 27.4 ))</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="87859">  <div class="votes">
+    <div id="Vu87859">
+    <a href="https://www.php.net/manual/vote-note.php?id=87859&amp;page=function.mysql-fetch-assoc&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd87859">
+    <a href="https://www.php.net/manual/vote-note.php?id=87859&amp;page=function.mysql-fetch-assoc&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V87859" title="38% like this...">
+    -7
+    </div>
+  </div>
+  <a href="function.mysql-fetch-assoc.php.html#87859" class="name">
+  <strong class="user"><em>josh at joshstrike dot com</em></strong></a><a class="genanchor" href="function.mysql-fetch-assoc.php.html#87859"> &para;</a><div class="date" title="2008-12-27 03:40"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom87859">
+<div class="phpcode"><code><span class="html">Here's a nifty function to copy a whole table to another table. Takes as its arguments<br />$z -&gt; the result of a SQL query with columns matching the table you're copying into. <br />$toTable -&gt; string name of the table to copy into. <br />$link_identifier -&gt; the db resource of the table you're copying into.<br />If anyone can find a faster way to do this, I'd be glad to know about it...<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">mysql_multirow_copy</span><span class="keyword">(</span><span class="default">$z</span><span class="keyword">,</span><span class="default">$toTable</span><span class="keyword">,</span><span class="default">$link_identifier</span><span class="keyword">) {<br />    </span><span class="default">$fields </span><span class="keyword">= </span><span class="string">""</span><span class="keyword">;<br />    for (</span><span class="default">$i</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">;</span><span class="default">$i</span><span class="keyword">&lt;</span><span class="default">mysql_num_fields</span><span class="keyword">(</span><span class="default">$z</span><span class="keyword">);</span><span class="default">$i</span><span class="keyword">++) {<br />        if (</span><span class="default">$i</span><span class="keyword">&gt;</span><span class="default">0</span><span class="keyword">) {<br />            </span><span class="default">$fields </span><span class="keyword">.= </span><span class="string">","</span><span class="keyword">;<br />        }<br />        </span><span class="default">$fields </span><span class="keyword">.= </span><span class="default">mysql_field_name</span><span class="keyword">(</span><span class="default">$z</span><span class="keyword">,</span><span class="default">$i</span><span class="keyword">);<br />    }<br />    </span><span class="default">$q </span><span class="keyword">= </span><span class="string">"INSERT INTO </span><span class="default">$toTable</span><span class="string"> (</span><span class="default">$fields</span><span class="string">) VALUES"</span><span class="keyword">;<br />    </span><span class="default">$c </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br />    </span><span class="default">mysql_data_seek</span><span class="keyword">(</span><span class="default">$z</span><span class="keyword">,</span><span class="default">0</span><span class="keyword">); </span><span class="comment">//critical reset in case $z has been parsed beforehand. !<br />    </span><span class="keyword">while (</span><span class="default">$a </span><span class="keyword">= </span><span class="default">mysql_fetch_assoc</span><span class="keyword">(</span><span class="default">$z</span><span class="keyword">)) {<br />        foreach (</span><span class="default">$a </span><span class="keyword">as </span><span class="default">$as</span><span class="keyword">) {<br />            </span><span class="default">$a</span><span class="keyword">[</span><span class="default">key</span><span class="keyword">(</span><span class="default">$a</span><span class="keyword">)] = </span><span class="default">addslashes</span><span class="keyword">(</span><span class="default">$as</span><span class="keyword">);<br />            </span><span class="default">next </span><span class="keyword">(</span><span class="default">$a</span><span class="keyword">);<br />        }<br />        if (</span><span class="default">$c</span><span class="keyword">&gt;</span><span class="default">0</span><span class="keyword">) {<br />            </span><span class="default">$q </span><span class="keyword">.= </span><span class="string">","</span><span class="keyword">;<br />        }<br />        </span><span class="default">$q </span><span class="keyword">.= </span><span class="string">"('"</span><span class="keyword">.</span><span class="default">implode</span><span class="keyword">(</span><span class="default">array_values</span><span class="keyword">(</span><span class="default">$a</span><span class="keyword">),</span><span class="string">"','"</span><span class="keyword">).</span><span class="string">"')"</span><span class="keyword">;<br />        </span><span class="default">$c</span><span class="keyword">++;<br />    }<br />    </span><span class="default">$q </span><span class="keyword">.= </span><span class="string">";"</span><span class="keyword">;<br />    </span><span class="default">$z </span><span class="keyword">= </span><span class="default">mysql_query</span><span class="keyword">(</span><span class="default">$q</span><span class="keyword">,</span><span class="default">$link_identifier</span><span class="keyword">);<br />    return (</span><span class="default">$q</span><span class="keyword">);<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="74048">  <div class="votes">
+    <div id="Vu74048">
+    <a href="https://www.php.net/manual/vote-note.php?id=74048&amp;page=function.mysql-fetch-assoc&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd74048">
+    <a href="https://www.php.net/manual/vote-note.php?id=74048&amp;page=function.mysql-fetch-assoc&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V74048" title="41% like this...">
+    -10
+    </div>
+  </div>
+  <a href="function.mysql-fetch-assoc.php.html#74048" class="name">
+  <strong class="user"><em>nick at homefeedback dot com</em></strong></a><a class="genanchor" href="function.mysql-fetch-assoc.php.html#74048"> &para;</a><div class="date" title="2007-03-21 04:50"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom74048">
+<div class="phpcode"><code><span class="html">function array2table: small fix to the post below that handles data returned from mysql that is either null or 0...<br /><br />This is a useful script for displaying MySQL results in an HTML table.<br /><br />&lt;?<br /><br />function array2table($arr,$width)<br />   {<br />   $count = count($arr);<br />   if($count &gt; 0){<br />       reset($arr);<br />       $num = count(current($arr));<br />       echo "&lt;table align=\"center\" border=\"1\"cellpadding=\"5\" cellspacing=\"0\" width=\"$width\"&gt;\n";<br />       echo "&lt;tr&gt;\n";<br />       foreach(current($arr) as $key =&gt; $value){<br />           echo "&lt;th&gt;";<br />           echo $key."&amp;nbsp;";<br />           echo "&lt;/th&gt;\n";   <br />           }   <br />       echo "&lt;/tr&gt;\n";<br />       while ($curr_row = current($arr)) {<br />           echo "&lt;tr&gt;\n";<br />           $col = 1;<br />           while (false !== ($curr_field = current($curr_row))) {<br />               echo "&lt;td&gt;";<br />               echo $curr_field."&amp;nbsp;";<br />               echo "&lt;/td&gt;\n";<br />               next($curr_row);<br />               $col++;<br />               }<br />           while($col &lt;= $num){<br />               echo "&lt;td&gt;&amp;nbsp;&lt;/td&gt;\n";<br />               $col++;       <br />           }<br />           echo "&lt;/tr&gt;\n";<br />           next($arr);<br />           }<br />       echo "&lt;/table&gt;\n";<br />       }<br />   }<br /><br />?&gt;<br /><br />&lt;?<br /><br />// Add DB connection script here<br /><br />$query = "SELECT * FROM mytable";<br />$result = mysql_query($query);<br />while($row = mysql_fetch_assoc($result)){<br />  $array[] = $row; }<br />      <br />array2table($array,600); // Will output a table of 600px width<br /><br />?&gt;</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="45757">  <div class="votes">
+    <div id="Vu45757">
+    <a href="https://www.php.net/manual/vote-note.php?id=45757&amp;page=function.mysql-fetch-assoc&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd45757">
+    <a href="https://www.php.net/manual/vote-note.php?id=45757&amp;page=function.mysql-fetch-assoc&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V45757" title="35% like this...">
+    -8
+    </div>
+  </div>
+  <a href="function.mysql-fetch-assoc.php.html#45757" class="name">
+  <strong class="user"><em>moverton at northshropshiredc dot gov dot uk</em></strong></a><a class="genanchor" href="function.mysql-fetch-assoc.php.html#45757"> &para;</a><div class="date" title="2004-09-17 05:27"><strong>19 years ago</strong></div>
+  <div class="text" id="Hcom45757">
+<div class="phpcode"><code><span class="html">Actually, Olivier, you're completely wrong about that, because there's a bug in your sample code. It will indeed return $row['MAX(time)'] - you have to pass the MySQL resource to mysql_fetch_assoc() and you're not doing that. This:<br /><br />$row = mysql_fetch_assoc($conn)<br /><br />...where $conn is your DB connection, would in fact produce a result. The complete example below is taken from my own self-written content management system:<br /><br />$query = 'SELECT MAX(ctRevDate) FROM content group by ctPage';<br />$querySet = mysql_query($query, $conn);<br />$row = mysql_fetch_assoc($querySet);<br />print_r($row);<br /><br />This produces:<br /><br />Array<br />(<br />    [MAX(ctRevDate)] =&gt; 2004-01-15<br />)<br /><br />..on my testbed. So it doesn't in fact need an alias at all.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="114208">  <div class="votes">
+    <div id="Vu114208">
+    <a href="https://www.php.net/manual/vote-note.php?id=114208&amp;page=function.mysql-fetch-assoc&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd114208">
+    <a href="https://www.php.net/manual/vote-note.php?id=114208&amp;page=function.mysql-fetch-assoc&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V114208" title="27% like this...">
+    -13
+    </div>
+  </div>
+  <a href="function.mysql-fetch-assoc.php.html#114208" class="name">
+  <strong class="user"><em>bkfake-php at yahoo dot com</em></strong></a><a class="genanchor" href="function.mysql-fetch-assoc.php.html#114208"> &para;</a><div class="date" title="2014-01-24 08:53"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom114208">
+<div class="phpcode"><code><span class="html">Although deprecated as of PHP 5.5, the mySQL function do NOT trigger an E_DEPRECATED error</span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=function.mysql-fetch-assoc&amp;redirect=https://www.php.net/manual/ru/function.mysql-fetch-assoc.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="ref.mysql.php.html">MySQL</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="function.mysql-affected-rows.php.html" title="mysql_&#8203;affected_&#8203;rows">mysql_&#8203;affected_&#8203;rows</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.mysql-client-encoding.php.html" title="mysql_&#8203;client_&#8203;encoding">mysql_&#8203;client_&#8203;encoding</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.mysql-close.php.html" title="mysql_&#8203;close">mysql_&#8203;close</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.mysql-connect.php.html" title="mysql_&#8203;connect">mysql_&#8203;connect</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.mysql-create-db.php.html" title="mysql_&#8203;create_&#8203;db">mysql_&#8203;create_&#8203;db</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.mysql-data-seek.php.html" title="mysql_&#8203;data_&#8203;seek">mysql_&#8203;data_&#8203;seek</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.mysql-db-name.php.html" title="mysql_&#8203;db_&#8203;name">mysql_&#8203;db_&#8203;name</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.mysql-db-query.php.html" title="mysql_&#8203;db_&#8203;query">mysql_&#8203;db_&#8203;query</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.mysql-drop-db.php.html" title="mysql_&#8203;drop_&#8203;db">mysql_&#8203;drop_&#8203;db</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.mysql-errno.php.html" title="mysql_&#8203;errno">mysql_&#8203;errno</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.mysql-error.php.html" title="mysql_&#8203;error">mysql_&#8203;error</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.mysql-escape-string.php.html" title="mysql_&#8203;escape_&#8203;string">mysql_&#8203;escape_&#8203;string</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.mysql-fetch-array.php.html" title="mysql_&#8203;fetch_&#8203;array">mysql_&#8203;fetch_&#8203;array</a>
+                        </li>
+                                                <li class="current">
+                            <a href="function.mysql-fetch-assoc.php.html" title="mysql_&#8203;fetch_&#8203;assoc">mysql_&#8203;fetch_&#8203;assoc</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.mysql-fetch-field.php.html" title="mysql_&#8203;fetch_&#8203;field">mysql_&#8203;fetch_&#8203;field</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.mysql-fetch-lengths.php.html" title="mysql_&#8203;fetch_&#8203;lengths">mysql_&#8203;fetch_&#8203;lengths</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.mysql-fetch-object.php.html" title="mysql_&#8203;fetch_&#8203;object">mysql_&#8203;fetch_&#8203;object</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.mysql-fetch-row.php.html" title="mysql_&#8203;fetch_&#8203;row">mysql_&#8203;fetch_&#8203;row</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.mysql-field-flags.php.html" title="mysql_&#8203;field_&#8203;flags">mysql_&#8203;field_&#8203;flags</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.mysql-field-len.php.html" title="mysql_&#8203;field_&#8203;len">mysql_&#8203;field_&#8203;len</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.mysql-field-name.php.html" title="mysql_&#8203;field_&#8203;name">mysql_&#8203;field_&#8203;name</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.mysql-field-seek.php.html" title="mysql_&#8203;field_&#8203;seek">mysql_&#8203;field_&#8203;seek</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.mysql-field-table.php.html" title="mysql_&#8203;field_&#8203;table">mysql_&#8203;field_&#8203;table</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.mysql-field-type.php.html" title="mysql_&#8203;field_&#8203;type">mysql_&#8203;field_&#8203;type</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.mysql-free-result.php.html" title="mysql_&#8203;free_&#8203;result">mysql_&#8203;free_&#8203;result</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.mysql-get-client-info.php.html" title="mysql_&#8203;get_&#8203;client_&#8203;info">mysql_&#8203;get_&#8203;client_&#8203;info</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.mysql-get-host-info.php.html" title="mysql_&#8203;get_&#8203;host_&#8203;info">mysql_&#8203;get_&#8203;host_&#8203;info</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.mysql-get-proto-info.php.html" title="mysql_&#8203;get_&#8203;proto_&#8203;info">mysql_&#8203;get_&#8203;proto_&#8203;info</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.mysql-get-server-info.php.html" title="mysql_&#8203;get_&#8203;server_&#8203;info">mysql_&#8203;get_&#8203;server_&#8203;info</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.mysql-info.php.html" title="mysql_&#8203;info">mysql_&#8203;info</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.mysql-insert-id.php.html" title="mysql_&#8203;insert_&#8203;id">mysql_&#8203;insert_&#8203;id</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.mysql-list-dbs.php.html" title="mysql_&#8203;list_&#8203;dbs">mysql_&#8203;list_&#8203;dbs</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.mysql-list-fields.php.html" title="mysql_&#8203;list_&#8203;fields">mysql_&#8203;list_&#8203;fields</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.mysql-list-processes.php.html" title="mysql_&#8203;list_&#8203;processes">mysql_&#8203;list_&#8203;processes</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.mysql-list-tables.php.html" title="mysql_&#8203;list_&#8203;tables">mysql_&#8203;list_&#8203;tables</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.mysql-num-fields.php.html" title="mysql_&#8203;num_&#8203;fields">mysql_&#8203;num_&#8203;fields</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.mysql-num-rows.php.html" title="mysql_&#8203;num_&#8203;rows">mysql_&#8203;num_&#8203;rows</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.mysql-pconnect.php.html" title="mysql_&#8203;pconnect">mysql_&#8203;pconnect</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.mysql-ping.php.html" title="mysql_&#8203;ping">mysql_&#8203;ping</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.mysql-query.php.html" title="mysql_&#8203;query">mysql_&#8203;query</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.mysql-real-escape-string.php.html" title="mysql_&#8203;real_&#8203;escape_&#8203;string">mysql_&#8203;real_&#8203;escape_&#8203;string</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.mysql-result.php.html" title="mysql_&#8203;result">mysql_&#8203;result</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.mysql-select-db.php.html" title="mysql_&#8203;select_&#8203;db">mysql_&#8203;select_&#8203;db</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.mysql-set-charset.php.html" title="mysql_&#8203;set_&#8203;charset">mysql_&#8203;set_&#8203;charset</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.mysql-stat.php.html" title="mysql_&#8203;stat">mysql_&#8203;stat</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.mysql-tablename.php.html" title="mysql_&#8203;tablename">mysql_&#8203;tablename</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.mysql-thread-id.php.html" title="mysql_&#8203;thread_&#8203;id">mysql_&#8203;thread_&#8203;id</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.mysql-unbuffered-query.php.html" title="mysql_&#8203;unbuffered_&#8203;query">mysql_&#8203;unbuffered_&#8203;query</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

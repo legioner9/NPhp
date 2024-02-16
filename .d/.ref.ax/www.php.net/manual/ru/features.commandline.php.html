@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: Работа с PHP из командной строки - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="features.commandline.php.html">
+ <link rel="shorturl" href="https://www.php.net/commandline">
+ <link rel="alternate" href="https://www.php.net/commandline" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="features.php.html">
+ <link rel="prev" href="features.persistent-connections.php.html">
+ <link rel="next" href="features.commandline.introduction.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/features.commandline.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/features.commandline.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/features.commandline.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/features.commandline.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/features.commandline.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/features.commandline.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/features.commandline.php" hreflang="pt_BR">
+ <link rel="alternate" href="features.commandline.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/features.commandline.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/features.commandline.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="features.commandline.introduction.php.html">
+          Введение &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="features.persistent-connections.php.html">
+          &laquo; Постоянные соединения с базами данных        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='features.php.html'>Особенности</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/features.commandline.php'>English</option>
+            <option value='de/features.commandline.php'>German</option>
+            <option value='es/features.commandline.php'>Spanish</option>
+            <option value='fr/features.commandline.php'>French</option>
+            <option value='it/features.commandline.php'>Italian</option>
+            <option value='ja/features.commandline.php'>Japanese</option>
+            <option value='pt_BR/features.commandline.php'>Brazilian Portuguese</option>
+            <option value='ru/features.commandline.php' selected="selected">Russian</option>
+            <option value='tr/features.commandline.php'>Turkish</option>
+            <option value='zh/features.commandline.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/features/commandline.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Ffeatures.commandline%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="features.commandline" class="chapter">
+ <h1>Работа с PHP из командной строки</h1>
+<h2>Содержание</h2><ul class="chunklist chunklist_chapter"><li><a href="features.commandline.introduction.php.html">Введение</a></li><li><a href="features.commandline.differences.php.html">Основные отличия от остальных реализаций SAPI</a></li><li><a href="features.commandline.options.php.html">Опции</a></li><li><a href="features.commandline.usage.php.html">Использование</a></li><li><a href="features.commandline.io-streams.php.html">Потоки ввода-вывода</a></li><li><a href="features.commandline.interactive.php.html">Интерактивная консоль</a></li><li><a href="features.commandline.webserver.php.html">Встроенный веб-сервер</a></li><li><a href="features.commandline.ini.php.html">Опции конфигурации</a></li></ul>
+
+ 
+
+ 
+ 
+ 
+
+ 
+ 
+ 
+
+ 
+ 
+ 
+
+ 
+ 
+ 
+
+ 
+ 
+ 
+
+ 
+ 
+ 
+
+ 
+ 
+ 
+
+ 
+
+</div>
+<section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=features.commandline&amp;redirect=https://www.php.net/manual/ru/features.commandline.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">35 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="108883">  <div class="votes">
+    <div id="Vu108883">
+    <a href="https://www.php.net/manual/vote-note.php?id=108883&amp;page=features.commandline&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd108883">
+    <a href="https://www.php.net/manual/vote-note.php?id=108883&amp;page=features.commandline&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V108883" title="55% like this...">
+    103
+    </div>
+  </div>
+  <a href="features.commandline.php.html#108883" class="name">
+  <strong class="user"><em>sep16 at psu dot edu</em></strong></a><a class="genanchor" href="features.commandline.php.html#108883"> &para;</a><div class="date" title="2012-06-01 01:17"><strong>11 years ago</strong></div>
+  <div class="text" id="Hcom108883">
+<div class="phpcode"><code><span class="html">You can easily parse command line arguments into the $_GET variable by using the parse_str() function.<br /><br /><span class="default">&lt;?php<br /><br />parse_str</span><span class="keyword">(</span><span class="default">implode</span><span class="keyword">(</span><span class="string">'&amp;'</span><span class="keyword">, </span><span class="default">array_slice</span><span class="keyword">(</span><span class="default">$argv</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">)), </span><span class="default">$_GET</span><span class="keyword">);<br /><br /></span><span class="default">?&gt;<br /></span><br />It behaves exactly like you'd expect with cgi-php.<br /><br />$ php -f somefile.php a=1 b[]=2 b[]=3<br /><br />This will set $_GET['a'] to '1' and $_GET['b'] to array('2', '3').<br /><br />Even better, instead of putting that line in every file, take advantage of PHP's auto_prepend_file directive.  Put that line in its own file and set the auto_prepend_file directive in your cli-specific php.ini like so:<br /><br />auto_prepend_file = "/etc/php/cli-php5.3/local.prepend.php"<br /><br />It will be automatically prepended to any PHP file run from the command line.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="125955">  <div class="votes">
+    <div id="Vu125955">
+    <a href="https://www.php.net/manual/vote-note.php?id=125955&amp;page=features.commandline&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd125955">
+    <a href="https://www.php.net/manual/vote-note.php?id=125955&amp;page=features.commandline&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V125955" title="76% like this...">
+    32
+    </div>
+  </div>
+  <a href="features.commandline.php.html#125955" class="name">
+  <strong class="user"><em>Anonymous</em></strong></a><a class="genanchor" href="features.commandline.php.html#125955"> &para;</a><div class="date" title="2021-03-24 12:49"><strong>2 years ago</strong></div>
+  <div class="text" id="Hcom125955">
+<div class="phpcode"><code><span class="html">We can pass many arguments directly into the hashbang line.<br />As example many ini setting via the -d parameter of php.<br />---<br />#!/usr/bin/php -d memory_limit=2048M -d post_max_size=0<br />phpinfo();<br />exit;<br />---<br />./script | grep memory<br />memory_limit =&gt; 2048M =&gt; 2048M<br />---<br />But we can also use this behaviour into a second script, so it call the first as an interpreter, via the hashbang:<br />---<br />#!./script arg1 arg2 arg3 <br />---<br />However the parameters are dispatched in a different way into $argv<br /><br />All the parameters are in $argv[1], $argv[0] is the interpreter script name, and $argv[1] is the caller script name.<br /><br />To get back the parameters into $argv, we can simply test if $argv[1] contains spaces, and then dispatch again as normal: <br /><br />#!/usr/bin/php -d memory_limit=2048M -d post_max_size=0<br /><span class="default">&lt;?php<br />var_dump</span><span class="keyword">(</span><span class="default">$argv</span><span class="keyword">);<br />if (</span><span class="default">strpos</span><span class="keyword">(</span><span class="default">$argv</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">], </span><span class="string">' '</span><span class="keyword">) !== </span><span class="default">false</span><span class="keyword">){<br />  </span><span class="default">$argw </span><span class="keyword">= </span><span class="default">explode</span><span class="keyword">(</span><span class="string">" "</span><span class="keyword">, </span><span class="default">$argv</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">]);<br />  </span><span class="default">array_unshift</span><span class="keyword">(</span><span class="default">$argw</span><span class="keyword">, </span><span class="default">$argv</span><span class="keyword">[</span><span class="default">2</span><span class="keyword">]);<br />  </span><span class="default">$argv </span><span class="keyword">= </span><span class="default">$argw</span><span class="keyword">;<br />}<br /></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$argv</span><span class="keyword">); </span><span class="default">?&gt;<br /></span>---<br />array(3) {<br />  [0]=&gt;<br />  string(8) "./script"<br />  [1]=&gt;<br />  string(15) "arg1 arg2 arg3 "<br />  [2]=&gt;<br />  string(14) "./other_script"<br />}<br />array(4) {<br />  [0]=&gt;<br />  string(8) "./other_script"<br />  [1]=&gt;<br />  string(4) "arg1"<br />  [2]=&gt;<br />  string(4) "arg2"<br />  [3]=&gt;<br />  string(4) "arg3"<br />}<br />---<br />This will maintain the same behaviour in all cases and allow to even double click a script to call both parameters of another script, and even make a full interpreter language layer.  The other script doesn't has to be php. Take care of paths.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="121914">  <div class="votes">
+    <div id="Vu121914">
+    <a href="https://www.php.net/manual/vote-note.php?id=121914&amp;page=features.commandline&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd121914">
+    <a href="https://www.php.net/manual/vote-note.php?id=121914&amp;page=features.commandline&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V121914" title="68% like this...">
+    16
+    </div>
+  </div>
+  <a href="features.commandline.php.html#121914" class="name">
+  <strong class="user"><em>apmuthu at usa dot net</em></strong></a><a class="genanchor" href="features.commandline.php.html#121914"> &para;</a><div class="date" title="2017-11-26 05:17"><strong>6 years ago</strong></div>
+  <div class="text" id="Hcom121914">
+<div class="phpcode"><code><span class="html">Adding a pause() function to PHP waiting for any user input returning it:<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">pause</span><span class="keyword">() {<br />    </span><span class="default">$handle </span><span class="keyword">= </span><span class="default">fopen </span><span class="keyword">(</span><span class="string">"php://stdin"</span><span class="keyword">,</span><span class="string">"r"</span><span class="keyword">);<br />    do { </span><span class="default">$line </span><span class="keyword">= </span><span class="default">fgets</span><span class="keyword">(</span><span class="default">$handle</span><span class="keyword">); } while (</span><span class="default">$line </span><span class="keyword">== </span><span class="string">''</span><span class="keyword">);<br />    </span><span class="default">fclose</span><span class="keyword">(</span><span class="default">$handle</span><span class="keyword">);<br />    return </span><span class="default">$line</span><span class="keyword">;<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="57143">  <div class="votes">
+    <div id="Vu57143">
+    <a href="https://www.php.net/manual/vote-note.php?id=57143&amp;page=features.commandline&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd57143">
+    <a href="https://www.php.net/manual/vote-note.php?id=57143&amp;page=features.commandline&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V57143" title="63% like this...">
+    19
+    </div>
+  </div>
+  <a href="features.commandline.php.html#57143" class="name">
+  <strong class="user"><em>drewish at katherinehouse dot com</em></strong></a><a class="genanchor" href="features.commandline.php.html#57143"> &para;</a><div class="date" title="2005-09-25 12:08"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom57143">
+<div class="phpcode"><code><span class="html">When you're writing one line php scripts remember that 'php://stdin' is your friend. Here's a simple program I use to format PHP code for inclusion on my blog:<br /><br />UNIX:<br />  cat test.php | php -r "print htmlentities(file_get_contents('php://stdin'));"<br /><br />DOS/Windows:<br />  type test.php | php -r "print htmlentities(file_get_contents('php://stdin'));"</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="116023">  <div class="votes">
+    <div id="Vu116023">
+    <a href="https://www.php.net/manual/vote-note.php?id=116023&amp;page=features.commandline&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd116023">
+    <a href="https://www.php.net/manual/vote-note.php?id=116023&amp;page=features.commandline&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V116023" title="60% like this...">
+    20
+    </div>
+  </div>
+  <a href="features.commandline.php.html#116023" class="name">
+  <strong class="user"><em>frankNospamwanted at. toppoint dot. de</em></strong></a><a class="genanchor" href="features.commandline.php.html#116023"> &para;</a><div class="date" title="2014-10-30 03:37"><strong>9 years ago</strong></div>
+  <div class="text" id="Hcom116023">
+<div class="phpcode"><code><span class="html">Parsing commandline argument GET String without changing the PHP script (linux shell):<br />URL: index.php?a=1&amp;b=2<br />Result: output.html<br /><br />echo "" | php -R 'include("index.php");' -B 'parse_str($argv[1], $_GET);' 'a=1&amp;b=2' &gt;output.html<br /><br />(no need to change php.ini)<br /><br />You can put this <br />  echo "" | php -R 'include("'$1'");' -B 'parse_str($argv[1], $_GET);' "$2"<br />in a bash script "php_get" to use it like this:<br />  php_get index.php 'a=1&amp;b=2' &gt;output.html<br />or directed to text browser...<br />  php_get index.php 'a=1&amp;b=2' |w3m -T text/html</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="76606">  <div class="votes">
+    <div id="Vu76606">
+    <a href="https://www.php.net/manual/vote-note.php?id=76606&amp;page=features.commandline&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd76606">
+    <a href="https://www.php.net/manual/vote-note.php?id=76606&amp;page=features.commandline&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V76606" title="63% like this...">
+    13
+    </div>
+  </div>
+  <a href="features.commandline.php.html#76606" class="name">
+  <strong class="user"><em>lucas dot vasconcelos at gmail dot com</em></strong></a><a class="genanchor" href="features.commandline.php.html#76606"> &para;</a><div class="date" title="2007-07-22 11:04"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom76606">
+<div class="phpcode"><code><span class="html">Just another variant of previous script that group arguments doesn't starts with '-' or '--'<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">arguments</span><span class="keyword">(</span><span class="default">$argv</span><span class="keyword">) {<br />    </span><span class="default">$_ARG </span><span class="keyword">= array();<br />    foreach (</span><span class="default">$argv </span><span class="keyword">as </span><span class="default">$arg</span><span class="keyword">) {<br />      if (</span><span class="default">ereg</span><span class="keyword">(</span><span class="string">'--([^=]+)=(.*)'</span><span class="keyword">,</span><span class="default">$arg</span><span class="keyword">,</span><span class="default">$reg</span><span class="keyword">)) {<br />        </span><span class="default">$_ARG</span><span class="keyword">[</span><span class="default">$reg</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">]] = </span><span class="default">$reg</span><span class="keyword">[</span><span class="default">2</span><span class="keyword">];<br />      } elseif(</span><span class="default">ereg</span><span class="keyword">(</span><span class="string">'^-([a-zA-Z0-9])'</span><span class="keyword">,</span><span class="default">$arg</span><span class="keyword">,</span><span class="default">$reg</span><span class="keyword">)) {<br />            </span><span class="default">$_ARG</span><span class="keyword">[</span><span class="default">$reg</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">]] = </span><span class="string">'true'</span><span class="keyword">;<br />      } else {<br />            </span><span class="default">$_ARG</span><span class="keyword">[</span><span class="string">'input'</span><span class="keyword">][]=</span><span class="default">$arg</span><span class="keyword">;<br />      }<br />    }<br />  return </span><span class="default">$_ARG</span><span class="keyword">;<br />}<br /><br /></span><span class="default">print_r</span><span class="keyword">(</span><span class="default">arguments</span><span class="keyword">(</span><span class="default">$argv</span><span class="keyword">));<br /></span><span class="default">?&gt;<br /></span><br />$ php myscript.php --user=nobody /etc/apache2/*<br />Array<br />(<br />    [input] =&gt; Array<br />        (<br />            [0] =&gt; myscript.php<br />            [1] =&gt; /etc/apache2/apache2.conf<br />            [2] =&gt; /etc/apache2/conf.d<br />            [3] =&gt; /etc/apache2/envvars<br />            [4] =&gt; /etc/apache2/httpd.conf<br />            [5] =&gt; /etc/apache2/mods-available<br />            [6] =&gt; /etc/apache2/mods-enabled<br />            [7] =&gt; /etc/apache2/ports.conf<br />            [8] =&gt; /etc/apache2/sites-available<br />            [9] =&gt; /etc/apache2/sites-enabled<br />        )<br /><br />    [user] =&gt; nobody<br />)</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="32701">  <div class="votes">
+    <div id="Vu32701">
+    <a href="https://www.php.net/manual/vote-note.php?id=32701&amp;page=features.commandline&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd32701">
+    <a href="https://www.php.net/manual/vote-note.php?id=32701&amp;page=features.commandline&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V32701" title="61% like this...">
+    16
+    </div>
+  </div>
+  <a href="features.commandline.php.html#32701" class="name">
+  <strong class="user"><em>monte at ispi dot net</em></strong></a><a class="genanchor" href="features.commandline.php.html#32701"> &para;</a><div class="date" title="2003-06-04 03:47"><strong>20 years ago</strong></div>
+  <div class="text" id="Hcom32701">
+<div class="phpcode"><code><span class="html">I had a problem with the $argv values getting split up when they contained plus (+) signs. Be sure to use the CLI version, not CGI to get around it.<br /><br />Monte</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="119901">  <div class="votes">
+    <div id="Vu119901">
+    <a href="https://www.php.net/manual/vote-note.php?id=119901&amp;page=features.commandline&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd119901">
+    <a href="https://www.php.net/manual/vote-note.php?id=119901&amp;page=features.commandline&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V119901" title="60% like this...">
+    13
+    </div>
+  </div>
+  <a href="features.commandline.php.html#119901" class="name">
+  <strong class="user"><em>ohcc at 163 dot com</em></strong></a><a class="genanchor" href="features.commandline.php.html#119901"> &para;</a><div class="date" title="2016-09-17 06:26"><strong>7 years ago</strong></div>
+  <div class="text" id="Hcom119901">
+<div class="phpcode"><code><span class="html">use " instead of ' on windows when using the cli version with -r<br /><br />php -r "echo 1" <br />-- correct<br /><br />php -r 'echo 1'<br />  PHP Parse error:  syntax error, unexpected ''echo' (T_ENCAPSED_AND_WHITESPACE), expecting end of file in Command line code on line 1</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="94924">  <div class="votes">
+    <div id="Vu94924">
+    <a href="https://www.php.net/manual/vote-note.php?id=94924&amp;page=features.commandline&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd94924">
+    <a href="https://www.php.net/manual/vote-note.php?id=94924&amp;page=features.commandline&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V94924" title="56% like this...">
+    24
+    </div>
+  </div>
+  <a href="features.commandline.php.html#94924" class="name">
+  <strong class="user"><em>notreallyanaddress at somerandomaddr dot com</em></strong></a><a class="genanchor" href="features.commandline.php.html#94924"> &para;</a><div class="date" title="2009-12-02 05:34"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom94924">
+<div class="phpcode"><code><span class="html">If you want to be interactive with the user and accept user input, all you need to do is read from stdin.  <br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">echo </span><span class="string">"Are you sure you want to do this?  Type 'yes' to continue: "</span><span class="keyword">;<br /></span><span class="default">$handle </span><span class="keyword">= </span><span class="default">fopen </span><span class="keyword">(</span><span class="string">"php://stdin"</span><span class="keyword">,</span><span class="string">"r"</span><span class="keyword">);<br /></span><span class="default">$line </span><span class="keyword">= </span><span class="default">fgets</span><span class="keyword">(</span><span class="default">$handle</span><span class="keyword">);<br />if(</span><span class="default">trim</span><span class="keyword">(</span><span class="default">$line</span><span class="keyword">) != </span><span class="string">'yes'</span><span class="keyword">){<br />    echo </span><span class="string">"ABORTING!\n"</span><span class="keyword">;<br />    exit;<br />}<br />echo </span><span class="string">"\n"</span><span class="keyword">;<br />echo </span><span class="string">"Thank you, continuing...\n"</span><span class="keyword">;<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="123606">  <div class="votes">
+    <div id="Vu123606">
+    <a href="https://www.php.net/manual/vote-note.php?id=123606&amp;page=features.commandline&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd123606">
+    <a href="https://www.php.net/manual/vote-note.php?id=123606&amp;page=features.commandline&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V123606" title="60% like this...">
+    7
+    </div>
+  </div>
+  <a href="features.commandline.php.html#123606" class="name">
+  <strong class="user"><em>sam marshall</em></strong></a><a class="genanchor" href="features.commandline.php.html#123606"> &para;</a><div class="date" title="2019-02-12 04:13"><strong>5 years ago</strong></div>
+  <div class="text" id="Hcom123606">
+<div class="phpcode"><code><span class="html">When using the -R flag, the name of the variable containing the content of the current line (not including the LF) is $argn.<br /><br />For example you can do this code:<br /><br />cat file.txt | php -R 'echo $argn . "\n";'<br /><br />This will just output each line of the input file without doing anything to it.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="113224">  <div class="votes">
+    <div id="Vu113224">
+    <a href="https://www.php.net/manual/vote-note.php?id=113224&amp;page=features.commandline&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd113224">
+    <a href="https://www.php.net/manual/vote-note.php?id=113224&amp;page=features.commandline&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V113224" title="59% like this...">
+    10
+    </div>
+  </div>
+  <a href="features.commandline.php.html#113224" class="name">
+  <strong class="user"><em>PSIKYO at mail dot dlut dot edu dot cn</em></strong></a><a class="genanchor" href="features.commandline.php.html#113224"> &para;</a><div class="date" title="2013-09-14 03:19"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom113224">
+<div class="phpcode"><code><span class="html">If you edit a php file in windows, upload and run it on linux with command line method. You may encounter a running problem probably like that:<br /><br />[root@ItsCloud02 wsdl]# ./lnxcli.php<br />Extension './lnxcli.php' not present.<br /><br />Or you may encounter some other strange problem.<br />Care the enter key. In windows environment, enter key generate two binary characters '0D0A'. But in Linux, enter key generate just only a 'OA'.<br />I wish it can help someone if you are using windows to code php and run it as a command line program on linux.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="39576">  <div class="votes">
+    <div id="Vu39576">
+    <a href="https://www.php.net/manual/vote-note.php?id=39576&amp;page=features.commandline&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd39576">
+    <a href="https://www.php.net/manual/vote-note.php?id=39576&amp;page=features.commandline&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V39576" title="54% like this...">
+    24
+    </div>
+  </div>
+  <a href="features.commandline.php.html#39576" class="name">
+  <strong class="user"><em>ben at slax0rnet dot com</em></strong></a><a class="genanchor" href="features.commandline.php.html#39576"> &para;</a><div class="date" title="2004-02-02 07:34"><strong>20 years ago</strong></div>
+  <div class="text" id="Hcom39576">
+<div class="phpcode"><code><span class="html">Just a note for people trying to use interactive mode from the commandline.<br /><br />The purpose of interactive mode is to parse code snippits without actually leaving php, and it works like this:<br /><br />[root@localhost php-4.3.4]# php -a<br />Interactive mode enabled<br /><br /><span class="default">&lt;?php </span><span class="keyword">echo </span><span class="string">"hi!"</span><span class="keyword">; </span><span class="default">?&gt;<br /></span>&lt;note, here we would press CTRL-D to parse everything we've entered so far&gt;<br />hi!<br /><span class="default">&lt;?php </span><span class="keyword">exit(); </span><span class="default">?&gt;<br /></span>&lt;ctrl-d here again&gt;<br />[root@localhost php-4.3.4]#<br /><br />I noticed this somehow got ommited from the docs, hope it helps someone!</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="105568">  <div class="votes">
+    <div id="Vu105568">
+    <a href="https://www.php.net/manual/vote-note.php?id=105568&amp;page=features.commandline&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd105568">
+    <a href="https://www.php.net/manual/vote-note.php?id=105568&amp;page=features.commandline&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V105568" title="55% like this...">
+    17
+    </div>
+  </div>
+  <a href="features.commandline.php.html#105568" class="name">
+  <strong class="user"><em>Kodeart</em></strong></a><a class="genanchor" href="features.commandline.php.html#105568"> &para;</a><div class="date" title="2011-08-29 02:03"><strong>12 years ago</strong></div>
+  <div class="text" id="Hcom105568">
+<div class="phpcode"><code><span class="html">Check directly without calling functions:<br /><span class="default">&lt;?php<br /></span><span class="keyword">if (</span><span class="default">PHP_SAPI </span><span class="keyword">=== </span><span class="string">'cli'</span><span class="keyword">)<br />{<br />   </span><span class="comment">// ...<br /></span><span class="keyword">}<br /></span><span class="default">?&gt;<br /></span><br />You can define a constant to use it elsewhere<br /><span class="default">&lt;?php<br />define</span><span class="keyword">(</span><span class="string">'ISCLI'</span><span class="keyword">, </span><span class="default">PHP_SAPI </span><span class="keyword">=== </span><span class="string">'cli'</span><span class="keyword">);<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="56928">  <div class="votes">
+    <div id="Vu56928">
+    <a href="https://www.php.net/manual/vote-note.php?id=56928&amp;page=features.commandline&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd56928">
+    <a href="https://www.php.net/manual/vote-note.php?id=56928&amp;page=features.commandline&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V56928" title="57% like this...">
+    14
+    </div>
+  </div>
+  <a href="features.commandline.php.html#56928" class="name">
+  <strong class="user"><em>OverFlow636 at gmail dot com</em></strong></a><a class="genanchor" href="features.commandline.php.html#56928"> &para;</a><div class="date" title="2005-09-19 12:27"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom56928">
+<div class="phpcode"><code><span class="html">I needed this, you proly wont tho.<br />puts the exicution args into $_GET<br /><span class="default">&lt;?php<br /></span><span class="keyword">if (</span><span class="default">$argv</span><span class="keyword">) {<br />    foreach (</span><span class="default">$argv </span><span class="keyword">as </span><span class="default">$k</span><span class="keyword">=&gt;</span><span class="default">$v</span><span class="keyword">)<br />    {<br />        if (</span><span class="default">$k</span><span class="keyword">==</span><span class="default">0</span><span class="keyword">) continue;<br />        </span><span class="default">$it </span><span class="keyword">= </span><span class="default">explode</span><span class="keyword">(</span><span class="string">"="</span><span class="keyword">,</span><span class="default">$argv</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">]);<br />        if (isset(</span><span class="default">$it</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">])) </span><span class="default">$_GET</span><span class="keyword">[</span><span class="default">$it</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">]] = </span><span class="default">$it</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">];<br />    }<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="83843">  <div class="votes">
+    <div id="Vu83843">
+    <a href="https://www.php.net/manual/vote-note.php?id=83843&amp;page=features.commandline&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd83843">
+    <a href="https://www.php.net/manual/vote-note.php?id=83843&amp;page=features.commandline&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V83843" title="55% like this...">
+    17
+    </div>
+  </div>
+  <a href="features.commandline.php.html#83843" class="name">
+  <strong class="user"><em>thomas dot harding at laposte dot net</em></strong></a><a class="genanchor" href="features.commandline.php.html#83843"> &para;</a><div class="date" title="2008-06-14 03:08"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom83843">
+<div class="phpcode"><code><span class="html">Parsing command line: optimization is evil!<br /><br />One thing all contributors on this page forgotten is that you can suround an argv with single or double quotes. So the join coupled together with the preg_match_all will always break that :)<br /><br />Here is a proposal:<br /><br />#!/usr/bin/php<br /><span class="default">&lt;?php<br />print_r</span><span class="keyword">(</span><span class="default">arguments</span><span class="keyword">(</span><span class="default">$argv</span><span class="keyword">));<br /><br />function </span><span class="default">arguments </span><span class="keyword">( </span><span class="default">$args </span><span class="keyword">)<br />{<br />  </span><span class="default">array_shift</span><span class="keyword">( </span><span class="default">$args </span><span class="keyword">);<br />  </span><span class="default">$endofoptions </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;<br /><br />  </span><span class="default">$ret </span><span class="keyword">= array<br />    (<br />    </span><span class="string">'commands' </span><span class="keyword">=&gt; array(),<br />    </span><span class="string">'options' </span><span class="keyword">=&gt; array(),<br />    </span><span class="string">'flags'    </span><span class="keyword">=&gt; array(),<br />    </span><span class="string">'arguments' </span><span class="keyword">=&gt; array(),<br />    );<br /><br />  while ( </span><span class="default">$arg </span><span class="keyword">= </span><span class="default">array_shift</span><span class="keyword">(</span><span class="default">$args</span><span class="keyword">) )<br />  {<br /><br />    </span><span class="comment">// if we have reached end of options,<br />    //we cast all remaining argvs as arguments<br />    </span><span class="keyword">if (</span><span class="default">$endofoptions</span><span class="keyword">)<br />    {<br />      </span><span class="default">$ret</span><span class="keyword">[</span><span class="string">'arguments'</span><span class="keyword">][] = </span><span class="default">$arg</span><span class="keyword">;<br />      continue;<br />    }<br /><br />    </span><span class="comment">// Is it a command? (prefixed with --)<br />    </span><span class="keyword">if ( </span><span class="default">substr</span><span class="keyword">( </span><span class="default">$arg</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">2 </span><span class="keyword">) === </span><span class="string">'--' </span><span class="keyword">)<br />    {<br /><br />      </span><span class="comment">// is it the end of options flag?<br />      </span><span class="keyword">if (!isset (</span><span class="default">$arg</span><span class="keyword">[</span><span class="default">3</span><span class="keyword">]))<br />      {<br />        </span><span class="default">$endofoptions </span><span class="keyword">= </span><span class="default">true</span><span class="keyword">;; </span><span class="comment">// end of options;<br />        </span><span class="keyword">continue;<br />      }<br /><br />      </span><span class="default">$value </span><span class="keyword">= </span><span class="string">""</span><span class="keyword">;<br />      </span><span class="default">$com   </span><span class="keyword">= </span><span class="default">substr</span><span class="keyword">( </span><span class="default">$arg</span><span class="keyword">, </span><span class="default">2 </span><span class="keyword">);<br /><br />      </span><span class="comment">// is it the syntax '--option=argument'?<br />      </span><span class="keyword">if (</span><span class="default">strpos</span><span class="keyword">(</span><span class="default">$com</span><span class="keyword">,</span><span class="string">'='</span><span class="keyword">))<br />        list(</span><span class="default">$com</span><span class="keyword">,</span><span class="default">$value</span><span class="keyword">) = </span><span class="default">split</span><span class="keyword">(</span><span class="string">"="</span><span class="keyword">,</span><span class="default">$com</span><span class="keyword">,</span><span class="default">2</span><span class="keyword">);<br /><br />      </span><span class="comment">// is the option not followed by another option but by arguments<br />      </span><span class="keyword">elseif (</span><span class="default">strpos</span><span class="keyword">(</span><span class="default">$args</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">],</span><span class="string">'-'</span><span class="keyword">) !== </span><span class="default">0</span><span class="keyword">)<br />      {<br />        while (</span><span class="default">strpos</span><span class="keyword">(</span><span class="default">$args</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">],</span><span class="string">'-'</span><span class="keyword">) !== </span><span class="default">0</span><span class="keyword">)<br />          </span><span class="default">$value </span><span class="keyword">.= </span><span class="default">array_shift</span><span class="keyword">(</span><span class="default">$args</span><span class="keyword">).</span><span class="string">' '</span><span class="keyword">;<br />        </span><span class="default">$value </span><span class="keyword">= </span><span class="default">rtrim</span><span class="keyword">(</span><span class="default">$value</span><span class="keyword">,</span><span class="string">' '</span><span class="keyword">);<br />      }<br /><br />      </span><span class="default">$ret</span><span class="keyword">[</span><span class="string">'options'</span><span class="keyword">][</span><span class="default">$com</span><span class="keyword">] = !empty(</span><span class="default">$value</span><span class="keyword">) ? </span><span class="default">$value </span><span class="keyword">: </span><span class="default">true</span><span class="keyword">;<br />      continue;<br /><br />    }<br /><br />    </span><span class="comment">// Is it a flag or a serial of flags? (prefixed with -)<br />    </span><span class="keyword">if ( </span><span class="default">substr</span><span class="keyword">( </span><span class="default">$arg</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">1 </span><span class="keyword">) === </span><span class="string">'-' </span><span class="keyword">)<br />    {<br />      for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">1</span><span class="keyword">; isset(</span><span class="default">$arg</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">]) ; </span><span class="default">$i</span><span class="keyword">++)<br />        </span><span class="default">$ret</span><span class="keyword">[</span><span class="string">'flags'</span><span class="keyword">][] = </span><span class="default">$arg</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">];<br />      continue;<br />    }<br /><br />    </span><span class="comment">// finally, it is not option, nor flag, nor argument<br />    </span><span class="default">$ret</span><span class="keyword">[</span><span class="string">'commands'</span><span class="keyword">][] = </span><span class="default">$arg</span><span class="keyword">;<br />    continue;<br />  }<br /><br />  if (!</span><span class="default">count</span><span class="keyword">(</span><span class="default">$ret</span><span class="keyword">[</span><span class="string">'options'</span><span class="keyword">]) &amp;&amp; !</span><span class="default">count</span><span class="keyword">(</span><span class="default">$ret</span><span class="keyword">[</span><span class="string">'flags'</span><span class="keyword">]))<br />  {<br />    </span><span class="default">$ret</span><span class="keyword">[</span><span class="string">'arguments'</span><span class="keyword">] = </span><span class="default">array_merge</span><span class="keyword">(</span><span class="default">$ret</span><span class="keyword">[</span><span class="string">'commands'</span><span class="keyword">], </span><span class="default">$ret</span><span class="keyword">[</span><span class="string">'arguments'</span><span class="keyword">]);<br />    </span><span class="default">$ret</span><span class="keyword">[</span><span class="string">'commands'</span><span class="keyword">] = array();<br />  }<br />return </span><span class="default">$ret</span><span class="keyword">;<br />}<br /><br />exit (</span><span class="default">0</span><span class="keyword">)<br /><br /></span><span class="comment">/* vim: set expandtab tabstop=2 shiftwidth=2: */<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="98647">  <div class="votes">
+    <div id="Vu98647">
+    <a href="https://www.php.net/manual/vote-note.php?id=98647&amp;page=features.commandline&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd98647">
+    <a href="https://www.php.net/manual/vote-note.php?id=98647&amp;page=features.commandline&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V98647" title="56% like this...">
+    9
+    </div>
+  </div>
+  <a href="features.commandline.php.html#98647" class="name">
+  <strong class="user"><em>Anonymous</em></strong></a><a class="genanchor" href="features.commandline.php.html#98647"> &para;</a><div class="date" title="2010-06-28 07:41"><strong>13 years ago</strong></div>
+  <div class="text" id="Hcom98647">
+<div class="phpcode"><code><span class="html">Using CLI (on WIN at least), some INI paths are relative to the current working directory.  For example, if your error_log = "php_errors.log", then php_errors.log will be created (or appended to if already exists) in whatever directory you happen to be in at the moment if you have write access there.  Instead of having random error logs all over the place because of this behavior, you may want to set error_log to a full path, perhaps to the php.exe directory.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="75985">  <div class="votes">
+    <div id="Vu75985">
+    <a href="https://www.php.net/manual/vote-note.php?id=75985&amp;page=features.commandline&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd75985">
+    <a href="https://www.php.net/manual/vote-note.php?id=75985&amp;page=features.commandline&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V75985" title="57% like this...">
+    6
+    </div>
+  </div>
+  <a href="features.commandline.php.html#75985" class="name">
+  <strong class="user"><em>bluej100@gmail</em></strong></a><a class="genanchor" href="features.commandline.php.html#75985"> &para;</a><div class="date" title="2007-06-25 11:02"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom75985">
+<div class="phpcode"><code><span class="html">In 5.1.2 (and others, I assume), the -f form silently drops the first argument after the script name from $_SERVER['argv']. I'd suggest avoiding it unless you need it for a special case.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="53252">  <div class="votes">
+    <div id="Vu53252">
+    <a href="https://www.php.net/manual/vote-note.php?id=53252&amp;page=features.commandline&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd53252">
+    <a href="https://www.php.net/manual/vote-note.php?id=53252&amp;page=features.commandline&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V53252" title="56% like this...">
+    8
+    </div>
+  </div>
+  <a href="features.commandline.php.html#53252" class="name">
+  <strong class="user"><em>roberto dot dimas at gmail dot com</em></strong></a><a class="genanchor" href="features.commandline.php.html#53252"> &para;</a><div class="date" title="2005-05-26 01:52"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom53252">
+<div class="phpcode"><code><span class="html">One of the things I like about perl and vbscripts, is the fact that I can name a file e.g. 'test.pl' and just have to type 'test, without the .pl extension' on the windows command line and the command processor knows that it is a perl file and executes it using the perl command interpreter.<br /><br />I did the same with the file extension .php3 (I will use php3 exclusivelly for command line php scripts, I'm doing this because my text editor VIM 6.3 already has the correct syntax highlighting for .php3 files ).<br /><br />I modified the PATHEXT environment variable in Windows XP, from the " 'system' control panel applet-&gt;'Advanced' tab-&gt;'Environment Variables' button-&gt; 'System variables' text area".<br /><br />Then from control panel "Folder Options" applet-&gt; 'File Types' tab, I added a new file extention (php3), using the button 'New'  and typing php3 in the window that pops up.<br /><br />Then in the 'Details for php3 extention' area I used the 'Change' button to look for the Php.exe executable so that the php3 file extentions are associated with the php executable.<br /><br />You have to modify also the 'PATH' environment variable, pointing to the folder where the php executable is installed<br /><br />Hope this is useful to somebody</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="26201">  <div class="votes">
+    <div id="Vu26201">
+    <a href="https://www.php.net/manual/vote-note.php?id=26201&amp;page=features.commandline&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd26201">
+    <a href="https://www.php.net/manual/vote-note.php?id=26201&amp;page=features.commandline&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V26201" title="57% like this...">
+    6
+    </div>
+  </div>
+  <a href="features.commandline.php.html#26201" class="name">
+  <strong class="user"><em>phpnotes at ssilk dot de</em></strong></a><a class="genanchor" href="features.commandline.php.html#26201"> &para;</a><div class="date" title="2002-10-22 03:36"><strong>21 years ago</strong></div>
+  <div class="text" id="Hcom26201">
+<div class="phpcode"><code><span class="html">To hand over the GET-variables in interactive mode like in HTTP-Mode (e.g. your URI is myprog.html?hugo=bla&amp;bla=hugo), you have to call<br /><br />php myprog.html '&amp;hugo=bla&amp;bla=hugo'<br /><br />(two &amp; instead of ? and &amp;!)<br /><br />There just a little difference in the $ARGC, $ARGV values, but I think this is in those cases not relevant.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="24970">  <div class="votes">
+    <div id="Vu24970">
+    <a href="https://www.php.net/manual/vote-note.php?id=24970&amp;page=features.commandline&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd24970">
+    <a href="https://www.php.net/manual/vote-note.php?id=24970&amp;page=features.commandline&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V24970" title="56% like this...">
+    8
+    </div>
+  </div>
+  <a href="features.commandline.php.html#24970" class="name">
+  <strong class="user"><em>jeff at noSpam[] dot genhex dot net</em></strong></a><a class="genanchor" href="features.commandline.php.html#24970"> &para;</a><div class="date" title="2002-09-06 05:13"><strong>21 years ago</strong></div>
+  <div class="text" id="Hcom24970">
+<div class="phpcode"><code><span class="html">You can also call the script from the command line after chmod'ing the file (ie: chmod 755 file.php).<br /><br />On your first line of the file, enter "#!/usr/bin/php" (or to wherever your php executable is located).  If you want to suppress the PHP headers, use the line of "#!/usr/bin/php -q" for your path.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="75532">  <div class="votes">
+    <div id="Vu75532">
+    <a href="https://www.php.net/manual/vote-note.php?id=75532&amp;page=features.commandline&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd75532">
+    <a href="https://www.php.net/manual/vote-note.php?id=75532&amp;page=features.commandline&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V75532" title="55% like this...">
+    10
+    </div>
+  </div>
+  <a href="features.commandline.php.html#75532" class="name">
+  <strong class="user"><em>eric dot brison at anakeen dot com</em></strong></a><a class="genanchor" href="features.commandline.php.html#75532"> &para;</a><div class="date" title="2007-06-04 05:16"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom75532">
+<div class="phpcode"><code><span class="html">Just a variant of previous script to accept arguments with '=' also<br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">arguments</span><span class="keyword">(</span><span class="default">$argv</span><span class="keyword">) {<br />    </span><span class="default">$_ARG </span><span class="keyword">= array();<br />    foreach (</span><span class="default">$argv </span><span class="keyword">as </span><span class="default">$arg</span><span class="keyword">) {<br />      if (</span><span class="default">ereg</span><span class="keyword">(</span><span class="string">'--([^=]+)=(.*)'</span><span class="keyword">,</span><span class="default">$arg</span><span class="keyword">,</span><span class="default">$reg</span><span class="keyword">)) {<br />        </span><span class="default">$_ARG</span><span class="keyword">[</span><span class="default">$reg</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">]] = </span><span class="default">$reg</span><span class="keyword">[</span><span class="default">2</span><span class="keyword">];<br />      } elseif(</span><span class="default">ereg</span><span class="keyword">(</span><span class="string">'-([a-zA-Z0-9])'</span><span class="keyword">,</span><span class="default">$arg</span><span class="keyword">,</span><span class="default">$reg</span><span class="keyword">)) {<br />            </span><span class="default">$_ARG</span><span class="keyword">[</span><span class="default">$reg</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">]] = </span><span class="string">'true'</span><span class="keyword">;<br />        }<br />   <br />    }<br />  return </span><span class="default">$_ARG</span><span class="keyword">;<br />}<br /></span><span class="default">?&gt;<br /></span>$ php myscript.php --user=nobody --password=secret -p --access="host=127.0.0.1 port=456" <br />Array<br />(<br />    [user] =&gt; nobody<br />    [password] =&gt; secret<br />    [p] =&gt; true<br />    [access] =&gt; host=127.0.0.1 port=456<br />)</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="71154">  <div class="votes">
+    <div id="Vu71154">
+    <a href="https://www.php.net/manual/vote-note.php?id=71154&amp;page=features.commandline&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd71154">
+    <a href="https://www.php.net/manual/vote-note.php?id=71154&amp;page=features.commandline&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V71154" title="55% like this...">
+    9
+    </div>
+  </div>
+  <a href="features.commandline.php.html#71154" class="name">
+  <strong class="user"><em>goalain eat gmail dont com</em></strong></a><a class="genanchor" href="features.commandline.php.html#71154"> &para;</a><div class="date" title="2006-11-14 12:57"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom71154">
+<div class="phpcode"><code><span class="html">If your php script doesn't run with shebang (#!/usr/bin/php),<br />and it issues the beautifull and informative error message:<br />"Command not found."  just dos2unix yourscript.php<br />et voila.<br /><br />If you still get the "Command not found." <br />Just try to run it as ./myscript.php , with the "./"<br />if it works - it means your current directory is not in the executable search path.<br /><br />If your php script doesn't run with shebang (#/usr/bin/php),<br />and it issues the beautifull and informative message:<br />"Invalid null command." it's probably because the "!" is missing in the the shebang line (like what's above) or something else in that area.<br /><br />\Alon</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="74088">  <div class="votes">
+    <div id="Vu74088">
+    <a href="https://www.php.net/manual/vote-note.php?id=74088&amp;page=features.commandline&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd74088">
+    <a href="https://www.php.net/manual/vote-note.php?id=74088&amp;page=features.commandline&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V74088" title="54% like this...">
+    9
+    </div>
+  </div>
+  <a href="features.commandline.php.html#74088" class="name">
+  <strong class="user"><em>rob</em></strong></a><a class="genanchor" href="features.commandline.php.html#74088"> &para;</a><div class="date" title="2007-03-23 11:48"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom74088">
+<div class="phpcode"><code><span class="html">i use emacs in c-mode for editing.  in 4.3, starting a cli script like so:<br /><br />#!/usr/bin/php -q /* -*- c -*- */<br /><span class="default">&lt;?php<br /><br />told emacs to drop into c</span><span class="keyword">-</span><span class="default">mode automatically when i loaded the file </span><span class="keyword">for </span><span class="default">editing</span><span class="keyword">.  </span><span class="default">the </span><span class="string">'-q' </span><span class="default">flag didn</span><span class="string">'t actually do anything (in the older cgi versions, it suppressed html output when the script was run) but it caused the commented mode line to be ignored by php.<br /><br />in 5.2, '</span><span class="keyword">-</span><span class="default">q</span><span class="string">' has apparently been deprecated.  replace it with '</span><span class="keyword">--</span><span class="string">' to achieve the 4.3 invocation-with-emacs-mode-line behavior:<br /><br />#!/usr/bin/php -- /* -*- c -*- */<br />&lt;?php<br /><br />don'</span><span class="default">t go back to your 4.3 system </span><span class="keyword">and </span><span class="default">replace </span><span class="string">'-q' </span><span class="default">with </span><span class="string">'--'</span><span class="keyword">; </span><span class="default">it seems to cause php to hang waiting on STDIN</span><span class="keyword">...</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="33119">  <div class="votes">
+    <div id="Vu33119">
+    <a href="https://www.php.net/manual/vote-note.php?id=33119&amp;page=features.commandline&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd33119">
+    <a href="https://www.php.net/manual/vote-note.php?id=33119&amp;page=features.commandline&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V33119" title="54% like this...">
+    8
+    </div>
+  </div>
+  <a href="features.commandline.php.html#33119" class="name">
+  <strong class="user"><em>Adam, php(at)getwebspace.com</em></strong></a><a class="genanchor" href="features.commandline.php.html#33119"> &para;</a><div class="date" title="2003-06-17 04:12"><strong>20 years ago</strong></div>
+  <div class="text" id="Hcom33119">
+<div class="phpcode"><code><span class="html">Ok, I've had a heck of a time with PHP &gt; 4.3.x and whether to use CLI vs CGI. The CGI version of 4.3.2 would return (in browser):<br />---<br />No input file specified.<br />---<br /><br />And the CLI version would return:<br />---<br />500 Internal Server Error<br />---<br /><br />It appears that in CGI mode, PHP looks at the environment variable PATH_TRANSLATED to determine the script to execute and ignores command line. That is why in the absensce of this environment variable, you get "No input file specified." However, in CLI mode the HTTP headers are not printed. I believe this is intended behavior for both situations but creates a problem when you have a CGI wrapper that sends environment variables but passes the actual script name on the command line.<br /><br />By modifying my CGI wrapper to create this PATH_TRANSLATED environment variable, it solved my problem, and I was able to run the CGI build of 4.3.2</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="78093">  <div class="votes">
+    <div id="Vu78093">
+    <a href="https://www.php.net/manual/vote-note.php?id=78093&amp;page=features.commandline&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd78093">
+    <a href="https://www.php.net/manual/vote-note.php?id=78093&amp;page=features.commandline&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V78093" title="54% like this...">
+    5
+    </div>
+  </div>
+  <a href="features.commandline.php.html#78093" class="name">
+  <strong class="user"><em>losbrutos at free dot fr</em></strong></a><a class="genanchor" href="features.commandline.php.html#78093"> &para;</a><div class="date" title="2007-09-27 05:54"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom78093">
+<div class="phpcode"><code><span class="html">an another "another variant" :<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">arguments</span><span class="keyword">(</span><span class="default">$argv</span><span class="keyword">)<br />{<br />  </span><span class="default">$_ARG </span><span class="keyword">= array();<br />  foreach (</span><span class="default">$argv </span><span class="keyword">as </span><span class="default">$arg</span><span class="keyword">)<br />  {<br />    if (</span><span class="default">preg_match</span><span class="keyword">(</span><span class="string">'#^-{1,2}([a-zA-Z0-9]*)=?(.*)$#'</span><span class="keyword">, </span><span class="default">$arg</span><span class="keyword">, </span><span class="default">$matches</span><span class="keyword">))<br />    {<br />      </span><span class="default">$key </span><span class="keyword">= </span><span class="default">$matches</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">];<br />      switch (</span><span class="default">$matches</span><span class="keyword">[</span><span class="default">2</span><span class="keyword">])<br />      {<br />        case </span><span class="string">''</span><span class="keyword">:<br />        case </span><span class="string">'true'</span><span class="keyword">:<br />          </span><span class="default">$arg </span><span class="keyword">= </span><span class="default">true</span><span class="keyword">;<br />          break;<br />        case </span><span class="string">'false'</span><span class="keyword">:<br />          </span><span class="default">$arg </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;<br />          break;<br />        default:<br />          </span><span class="default">$arg </span><span class="keyword">= </span><span class="default">$matches</span><span class="keyword">[</span><span class="default">2</span><span class="keyword">];<br />      }<br />      </span><span class="default">$_ARG</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">] = </span><span class="default">$arg</span><span class="keyword">;<br />    }<br />    else<br />    {<br />      </span><span class="default">$_ARG</span><span class="keyword">[</span><span class="string">'input'</span><span class="keyword">][] = </span><span class="default">$arg</span><span class="keyword">;<br />    }<br />  }<br />  return </span><span class="default">$_ARG</span><span class="keyword">;<br />}<br /></span><span class="default">?&gt;<br /></span><br />$php myscript.php arg1 -arg2=val2 --arg3=arg3 -arg4 --arg5 -arg6=false<br /><br />Array<br />(<br />    [input] =&gt; Array<br />        (<br />            [0] =&gt; myscript.php<br />            [1] =&gt; arg1<br />        )<br /><br />    [arg2] =&gt; val2<br />    [arg3] =&gt; arg3<br />    [arg4] =&gt; true<br />    [arg5] =&gt; true<br />    [arg5] =&gt; false<br />)</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="39655">  <div class="votes">
+    <div id="Vu39655">
+    <a href="https://www.php.net/manual/vote-note.php?id=39655&amp;page=features.commandline&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd39655">
+    <a href="https://www.php.net/manual/vote-note.php?id=39655&amp;page=features.commandline&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V39655" title="54% like this...">
+    7
+    </div>
+  </div>
+  <a href="features.commandline.php.html#39655" class="name">
+  <strong class="user"><em>linn at backendmedia dot com</em></strong></a><a class="genanchor" href="features.commandline.php.html#39655"> &para;</a><div class="date" title="2004-02-06 06:12"><strong>20 years ago</strong></div>
+  <div class="text" id="Hcom39655">
+<div class="phpcode"><code><span class="html">For those of you who want the old CGI behaviour that changes to the actual directory of the script use:<br />chdir(dirname($_SERVER['argv'][0]));<br /><br />at the beginning of your scripts.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="50358">  <div class="votes">
+    <div id="Vu50358">
+    <a href="https://www.php.net/manual/vote-note.php?id=50358&amp;page=features.commandline&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd50358">
+    <a href="https://www.php.net/manual/vote-note.php?id=50358&amp;page=features.commandline&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V50358" title="54% like this...">
+    5
+    </div>
+  </div>
+  <a href="features.commandline.php.html#50358" class="name">
+  <strong class="user"><em>obfuscated at emailaddress dot com</em></strong></a><a class="genanchor" href="features.commandline.php.html#50358"> &para;</a><div class="date" title="2005-02-25 08:15"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom50358">
+<div class="phpcode"><code><span class="html">This posting is not a php-only problem, but hopefully will save someone a few hours of headaches.  Running on MacOS (although this could happen on any *nix I suppose), I was unable to get the script to execute without specifically envoking php from the command line:<br /><br />[macg4:valencia/jobs] tim% test.php<br />./test.php: Command not found.<br /><br />However, it worked just fine when php was envoked on the command line:<br /><br />[macg4:valencia/jobs] tim% php test.php<br />Well, here we are...  Now what?<br /><br />Was file access mode set for executable?  Yup.<br /><br />[macg4:valencia/jobs] tim% ls -l <br />total 16<br />-rwxr-xr-x  1 tim  staff   242 Feb 24 17:23 test.php<br /><br />And you did, of course, remember to add the php command as the first line of your script, yeah?  Of course.<br /><br />#!/usr/bin/php<br /><span class="default">&lt;?php </span><span class="keyword">print </span><span class="string">"Well, here we are...  Now what?\n"</span><span class="keyword">; </span><span class="default">?&gt;<br /></span><br />So why dudn't it work?  Well, like I said... on a Mac.... but I also occasionally edit the files on my Windows portable (i.e. when I'm travelling and don't have my trusty Mac available)...  Using, say, WordPad on Windows... and BBEdit on the Mac...<br /><br />Aaahhh... in BBEdit check how the file is being saved!  Mac?  Unix?  or Dos?  Bingo.  It had been saved as Dos format.  Change it to Unix:<br /><br />[macg4:valencia/jobs] tim% ./test.php<br />Well, here we are...  Now what?<br />[macg4:valencia/jobs] tim% <br /><br />NB: If you're editing your php files on multiple platforms (i.e. Windows and Linux), make sure you double check the files are saved in a Unix format...  those \r's and \n's 'll bite cha!</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="19167">  <div class="votes">
+    <div id="Vu19167">
+    <a href="https://www.php.net/manual/vote-note.php?id=19167&amp;page=features.commandline&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd19167">
+    <a href="https://www.php.net/manual/vote-note.php?id=19167&amp;page=features.commandline&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V19167" title="55% like this...">
+    4
+    </div>
+  </div>
+  <a href="features.commandline.php.html#19167" class="name">
+  <strong class="user"><em>pyxl at jerrell dot com</em></strong></a><a class="genanchor" href="features.commandline.php.html#19167"> &para;</a><div class="date" title="2002-02-18 11:52"><strong>21 years ago</strong></div>
+  <div class="text" id="Hcom19167">
+<div class="phpcode"><code><span class="html">Assuming --prefix=/usr/local/php, it's better to create a symlink from /usr/bin/php or /usr/local/bin/php to target /usr/local/php/bin/php so that it's both in your path and automatically correct every time you rebuild.  If you forgot to do that copy of the binary after a rebuild, you can do all kinds of wild goose chasing when things break.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="31360">  <div class="votes">
+    <div id="Vu31360">
+    <a href="https://www.php.net/manual/vote-note.php?id=31360&amp;page=features.commandline&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd31360">
+    <a href="https://www.php.net/manual/vote-note.php?id=31360&amp;page=features.commandline&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V31360" title="54% like this...">
+    4
+    </div>
+  </div>
+  <a href="features.commandline.php.html#31360" class="name">
+  <strong class="user"><em>Popeye at P-t-B dot com</em></strong></a><a class="genanchor" href="features.commandline.php.html#31360"> &para;</a><div class="date" title="2003-04-18 08:15"><strong>20 years ago</strong></div>
+  <div class="text" id="Hcom31360">
+<div class="phpcode"><code><span class="html">In *nix systems, use the WHICH command to show the location of the php binary executable. This is the path to use as the first line in your php shell script file. (#!/path/to/php -q) And execute php from the command line with the -v switch to see what version you are running.<br /><br />example:<br /><br /># which php<br />/usr/local/bin/php<br /># php -v<br />PHP 4.3.1 (cli) (built: Mar 27 2003 14:41:51)<br />Copyright (c) 1997-2002 The PHP Group<br />Zend Engine v1.3.0, Copyright (c) 1998-2002 Zend Technologies<br /><br />In the above example, you would use: #!/usr/local/bin/php<br /><br />Also note that, if you do not have the current/default directory in your PATH (.), you will have to use ./scriptfilename to execute your script file from the command line (or you will receive a "command not found" error). Use the ENV command to show your PATH environment variable value.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="62162">  <div class="votes">
+    <div id="Vu62162">
+    <a href="https://www.php.net/manual/vote-note.php?id=62162&amp;page=features.commandline&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd62162">
+    <a href="https://www.php.net/manual/vote-note.php?id=62162&amp;page=features.commandline&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V62162" title="53% like this...">
+    5
+    </div>
+  </div>
+  <a href="features.commandline.php.html#62162" class="name">
+  <strong class="user"><em>stromdotcom at hotmail dot com</em></strong></a><a class="genanchor" href="features.commandline.php.html#62162"> &para;</a><div class="date" title="2006-02-21 10:27"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom62162">
+<div class="phpcode"><code><span class="html">Spawning php-win.exe as a child process to handle scripting in Windows applications has a few quirks (all having to do with pipes between Windows apps and console apps).<br /><br />To do this in C++:<br /><br />// We will run php.exe as a child process after creating<br />// two pipes and attaching them to stdin and stdout<br />// of the child process<br />// Define sa struct such that child inherits our handles<br /><br />SECURITY_ATTRIBUTES sa = { sizeof(SECURITY_ATTRIBUTES) };<br />sa.bInheritHandle = TRUE;<br />sa.lpSecurityDescriptor = NULL;<br /><br />// Create the handles for our two pipes (two handles per pipe, one for each end)<br />// We will have one pipe for stdin, and one for stdout, each with a READ and WRITE end<br />HANDLE hStdoutRd, hStdoutWr, hStdinRd, hStdinWr;<br /><br />// Now create the pipes, and make them inheritable<br />CreatePipe (&amp;hStdoutRd, &amp;hStdoutWr, &amp;sa, 0))<br />SetHandleInformation(hStdoutRd, HANDLE_FLAG_INHERIT, 0);<br />CreatePipe (&amp;hStdinRd, &amp;hStdinWr, &amp;sa, 0)<br />SetHandleInformation(hStdinWr, HANDLE_FLAG_INHERIT, 0);<br /><br />// Now we have two pipes, we can create the process<br />// First, fill out the usage structs<br />STARTUPINFO si = { sizeof(STARTUPINFO) };<br />PROCESS_INFORMATION pi;<br />si.dwFlags = STARTF_USESTDHANDLES;<br />si.hStdOutput = hStdoutWr;<br />si.hStdInput  = hStdinRd;<br /><br />// And finally, create the process<br />CreateProcess (NULL, "c:\\php\\php-win.exe", NULL, NULL, TRUE, NORMAL_PRIORITY_CLASS, NULL, NULL, &amp;si, &amp;pi);<br /><br />// Close the handles we aren't using<br />CloseHandle(hStdoutWr);<br />CloseHandle(hStdinRd);<br /><br />// Now that we have the process running, we can start pushing PHP at it<br />WriteFile(hStdinWr, "<span class="default">&lt;?php </span><span class="keyword">echo </span><span class="string">'test'</span><span class="keyword">; </span><span class="default">?&gt;</span>", 9, &amp;dwWritten, NULL);<br /><br />// When we're done writing to stdin, we close that pipe<br />CloseHandle(hStdinWr);<br /><br />// Reading from stdout is only slightly more complicated<br />int i;<br /><br />std::string processed("");<br />char buf[128];<br /><br />while ( (ReadFile(hStdoutRd, buf, 128, &amp;dwRead, NULL) &amp;&amp; (dwRead != 0)) ) {<br />    for (i = 0; i &lt; dwRead; i++)<br />        processed += buf[i];<br />}    <br /><br />// Done reading, so close this handle too<br />CloseHandle(hStdoutRd);<br /><br />A full implementation (implemented as a C++ class) is available at <a href="http://www.stromcode.com" rel="nofollow" target="_blank">http://www.stromcode.com</a></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="29468">  <div class="votes">
+    <div id="Vu29468">
+    <a href="https://www.php.net/manual/vote-note.php?id=29468&amp;page=features.commandline&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd29468">
+    <a href="https://www.php.net/manual/vote-note.php?id=29468&amp;page=features.commandline&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V29468" title="54% like this...">
+    4
+    </div>
+  </div>
+  <a href="features.commandline.php.html#29468" class="name">
+  <strong class="user"><em>Alexander Plakidin</em></strong></a><a class="genanchor" href="features.commandline.php.html#29468"> &para;</a><div class="date" title="2003-02-14 05:34"><strong>20 years ago</strong></div>
+  <div class="text" id="Hcom29468">
+<div class="phpcode"><code><span class="html">How to change current directory in PHP script to script's directory when running it from command line using PHP 4.3.0?<br />(you'll probably need to add this to older scripts when running them under PHP 4.3.0 for backwards compatibility)<br /><br />Here's what I am using:<br />chdir(preg_replace('/\\/[^\\/]+$/',"",$PHP_SELF));<br /><br />Note: documentation says that "PHP_SELF" is not available in command-line PHP scripts. Though, it IS available. Probably this will be changed in future version, so don't rely on this line of code...<br /><br />Use $_SERVER['PHP_SELF'] instead of just $PHP_SELF if you have register_globals=Off</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="54756">  <div class="votes">
+    <div id="Vu54756">
+    <a href="https://www.php.net/manual/vote-note.php?id=54756&amp;page=features.commandline&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd54756">
+    <a href="https://www.php.net/manual/vote-note.php?id=54756&amp;page=features.commandline&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V54756" title="53% like this...">
+    4
+    </div>
+  </div>
+  <a href="features.commandline.php.html#54756" class="name">
+  <strong class="user"><em>docey</em></strong></a><a class="genanchor" href="features.commandline.php.html#54756"> &para;</a><div class="date" title="2005-07-14 05:44"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom54756">
+<div class="phpcode"><code><span class="html">dunno if this is on linux the same but on windows evertime<br />you send somthing to the console screen php is waiting for<br />the console to return. therefor if you send a lot of small <br />short amounts of text, the console is starting to be using <br />more cpu-cycles then php and thus slowing the script.<br /><br />take a look at this sheme:<br />cpu-cycle:1 -&gt;php: print("a");<br />cpu-cycle:2 -&gt;cmd: output("a");<br />cpu-cycle:3 -&gt;php: print("b");<br />cpu-cycle:4 -&gt;cmd: output("b");<br />cpu-cycle:5 -&gt;php: print("c");<br />cpu-cycle:6 -&gt;cmd: output("c"); <br />cpu-cylce:7 -&gt;php: print("d");<br />cpu-cycle:8 -&gt;cmd: output("d"); <br />cpu-cylce:9 -&gt;php: print("e");<br />cpu-cycle:0 -&gt;cmd: output("e"); <br /><br />on the screen just appears "abcde". but if you write <br />your script this way it will be far more faster:<br />cpu-cycle:1 -&gt;php: ob_start();<br />cpu-cycle:2 -&gt;php: print("abc");<br />cpu-cycle:3 -&gt;php: print("de");<br />cpu-cycle:4 -&gt;php: $data = ob_get_contents();<br />cpu-cycle:5 -&gt;php: ob_end_clean();<br />cpu-cycle:6 -&gt;php: print($data);<br />cpu-cycle:7 -&gt;cmd: output("abcde");<br /><br />now this is just a small example but if you are writing an<br />app that is outputting a lot to the console, i.e. a text<br />based screen with frequent updates, then its much better <br />to first cach all output, and output is as one big chunk of<br />text instead of one char a the time. <br /><br />ouput buffering is ideal for this. in my script i outputted<br />almost 4000chars of info and just by caching it first, it<br />speeded up by almost 400% and dropped cpu-usage.<br /><br />because what is being displayed doesn't matter, be it 2<br />chars or 40.0000 chars, just the call to output takes a <br />great deal of time. remeber that.<br /><br />maybe someone can test if this is the same on unix-based<br />systems. it seems that the STDOUT stream just waits for <br />the console to report ready, before continueing execution.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="78672">  <div class="votes">
+    <div id="Vu78672">
+    <a href="https://www.php.net/manual/vote-note.php?id=78672&amp;page=features.commandline&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd78672">
+    <a href="https://www.php.net/manual/vote-note.php?id=78672&amp;page=features.commandline&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V78672" title="50% like this...">
+    1
+    </div>
+  </div>
+  <a href="features.commandline.php.html#78672" class="name">
+  <strong class="user"><em>james_s2010 at NOSPAM dot hotmail dot com</em></strong></a><a class="genanchor" href="features.commandline.php.html#78672"> &para;</a><div class="date" title="2007-10-22 02:11"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom78672">
+<div class="phpcode"><code><span class="html">I was looking for a way to interactively get a single character response from user. Using STDIN with fread, fgets and such will only work after pressing enter. So I came up with this instead:<br /><br />#!/usr/bin/php -q<br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">inKey</span><span class="keyword">(</span><span class="default">$vals</span><span class="keyword">) {<br />    </span><span class="default">$inKey </span><span class="keyword">= </span><span class="string">""</span><span class="keyword">;<br />    While(!</span><span class="default">in_array</span><span class="keyword">(</span><span class="default">$inKey</span><span class="keyword">,</span><span class="default">$vals</span><span class="keyword">)) {<br />        </span><span class="default">$inKey </span><span class="keyword">= </span><span class="default">trim</span><span class="keyword">(`</span><span class="string">read -s -n1 valu;echo \$valu</span><span class="keyword">`);<br />    }<br />    return </span><span class="default">$inKey</span><span class="keyword">;<br />}<br />function </span><span class="default">echoAT</span><span class="keyword">(</span><span class="default">$Row</span><span class="keyword">,</span><span class="default">$Col</span><span class="keyword">,</span><span class="default">$prompt</span><span class="keyword">=</span><span class="string">""</span><span class="keyword">) {<br />    </span><span class="comment">// Display prompt at specific screen coords<br />    </span><span class="keyword">echo </span><span class="string">"\033["</span><span class="keyword">.</span><span class="default">$Row</span><span class="keyword">.</span><span class="string">";"</span><span class="keyword">.</span><span class="default">$Col</span><span class="keyword">.</span><span class="string">"H"</span><span class="keyword">.</span><span class="default">$prompt</span><span class="keyword">;<br />}<br />    </span><span class="comment">// Display prompt at position 10,10<br />    </span><span class="default">echoAT</span><span class="keyword">(</span><span class="default">10</span><span class="keyword">,</span><span class="default">10</span><span class="keyword">,</span><span class="string">"Opt : "</span><span class="keyword">);<br /><br />    </span><span class="comment">// Define acceptable responses<br />    </span><span class="default">$options </span><span class="keyword">= array(</span><span class="string">"1"</span><span class="keyword">,</span><span class="string">"2"</span><span class="keyword">,</span><span class="string">"3"</span><span class="keyword">,</span><span class="string">"4"</span><span class="keyword">,</span><span class="string">"X"</span><span class="keyword">);<br /><br />    </span><span class="comment">// Get user response<br />    </span><span class="default">$key </span><span class="keyword">= </span><span class="default">inKey</span><span class="keyword">(</span><span class="default">$options</span><span class="keyword">);<br /><br />    </span><span class="comment">// Display user response &amp; exit<br />    </span><span class="default">echoAT</span><span class="keyword">(</span><span class="default">12</span><span class="keyword">,</span><span class="default">10</span><span class="keyword">,</span><span class="string">"Pressed : </span><span class="default">$key</span><span class="string">\n"</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />Hope this helps someone.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="29663">  <div class="votes">
+    <div id="Vu29663">
+    <a href="https://www.php.net/manual/vote-note.php?id=29663&amp;page=features.commandline&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd29663">
+    <a href="https://www.php.net/manual/vote-note.php?id=29663&amp;page=features.commandline&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V29663" title="48% like this...">
+    -2
+    </div>
+  </div>
+  <a href="features.commandline.php.html#29663" class="name">
+  <strong class="user"><em>volkany at celiknet dot com</em></strong></a><a class="genanchor" href="features.commandline.php.html#29663"> &para;</a><div class="date" title="2003-02-20 01:44"><strong>20 years ago</strong></div>
+  <div class="text" id="Hcom29663">
+<div class="phpcode"><code><span class="html">Here goes a very simple clrscr function for newbies...<br />function clrscr() { system("clear"); }</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="73765">  <div class="votes">
+    <div id="Vu73765">
+    <a href="https://www.php.net/manual/vote-note.php?id=73765&amp;page=features.commandline&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd73765">
+    <a href="https://www.php.net/manual/vote-note.php?id=73765&amp;page=features.commandline&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V73765" title="45% like this...">
+    -5
+    </div>
+  </div>
+  <a href="features.commandline.php.html#73765" class="name">
+  <strong class="user"><em>djcassis at gmail</em></strong></a><a class="genanchor" href="features.commandline.php.html#73765"> &para;</a><div class="date" title="2007-03-09 07:14"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom73765">
+<div class="phpcode"><code><span class="html">To display colored text when it is actually supported :<br /><span class="default">&lt;?php<br /></span><span class="keyword">echo </span><span class="string">"\033[31m"</span><span class="keyword">.</span><span class="default">$myvar</span><span class="keyword">; </span><span class="comment">// red foreground<br /></span><span class="keyword">echo </span><span class="string">"\033[41m"</span><span class="keyword">.</span><span class="default">$myvar</span><span class="keyword">; </span><span class="comment">// red background<br /></span><span class="default">?&gt;<br /></span><br />To reset these settings : <br /><span class="default">&lt;?php<br /></span><span class="keyword">echo </span><span class="string">"\033[0m"</span><span class="keyword">;<br /></span><span class="default">?&gt;<br /></span><br />More fun :<br /><span class="default">&lt;?php<br /></span><span class="keyword">echo </span><span class="string">"\033[5;30m;\033[48mWARNING !"</span><span class="keyword">; </span><span class="comment">// black blinking text over red background<br /></span><span class="default">?&gt;<br /></span><br />More info here : <a href="http://www.tldp.org/HOWTO/Bash-Prompt-HOWTO/x329.html" rel="nofollow" target="_blank">http://www.tldp.org/HOWTO/Bash-Prompt-HOWTO/x329.html</a></span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=features.commandline&amp;redirect=https://www.php.net/manual/ru/features.commandline.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="features.php.html">Особенности</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="features.http-auth.php.html" title="HTTP-&#8203;аутентификация в PHP">HTTP-&#8203;аутентификация в PHP</a>
+                        </li>
+                                                <li class="">
+                            <a href="features.cookies.php.html" title="Cookies">Cookies</a>
+                        </li>
+                                                <li class="">
+                            <a href="features.sessions.php.html" title="Сессии">Сессии</a>
+                        </li>
+                                                <li class="">
+                            <a href="features.xforms.php.html" title="Работа с XForms">Работа с XForms</a>
+                        </li>
+                                                <li class="">
+                            <a href="features.file-upload.php.html" title="Загрузка файлов на сервер">Загрузка файлов на сервер</a>
+                        </li>
+                                                <li class="">
+                            <a href="features.remote-files.php.html" title="Работа с удалёнными файлами">Работа с удалёнными файлами</a>
+                        </li>
+                                                <li class="">
+                            <a href="features.connection-handling.php.html" title="Работа с соединениями">Работа с соединениями</a>
+                        </li>
+                                                <li class="">
+                            <a href="features.persistent-connections.php.html" title="Постоянные соединения с базами данных">Постоянные соединения с базами данных</a>
+                        </li>
+                                                <li class="current">
+                            <a href="features.commandline.php.html" title="Работа с PHP из командной строки">Работа с PHP из командной строки</a>
+                        </li>
+                                                <li class="">
+                            <a href="features.gc.php.html" title="Сборка мусора">Сборка мусора</a>
+                        </li>
+                                                <li class="">
+                            <a href="features.dtrace.php.html" title="Динамическая трассировка DTrace">Динамическая трассировка DTrace</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: eval - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="function.eval.php.html">
+ <link rel="shorturl" href="https://www.php.net/eval">
+ <link rel="alternate" href="https://www.php.net/eval" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="ref.misc.php.html">
+ <link rel="prev" href="function.die.php.html">
+ <link rel="next" href="function.exit.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/function.eval.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/function.eval.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/function.eval.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/function.eval.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/function.eval.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/function.eval.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/function.eval.php" hreflang="pt_BR">
+ <link rel="alternate" href="function.eval.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/function.eval.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/function.eval.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="function.exit.php.html">
+          exit &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="function.die.php.html">
+          &laquo; die        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.basic.other.php.html'>Другие базовые модули</a></li>      <li><a href='book.misc.php.html'>Misc.</a></li>      <li><a href='ref.misc.php.html'>Разные функции</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/function.eval.php'>English</option>
+            <option value='de/function.eval.php'>German</option>
+            <option value='es/function.eval.php'>Spanish</option>
+            <option value='fr/function.eval.php'>French</option>
+            <option value='it/function.eval.php'>Italian</option>
+            <option value='ja/function.eval.php'>Japanese</option>
+            <option value='pt_BR/function.eval.php'>Brazilian Portuguese</option>
+            <option value='ru/function.eval.php' selected="selected">Russian</option>
+            <option value='tr/function.eval.php'>Turkish</option>
+            <option value='zh/function.eval.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/misc/functions/eval.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Ffunction.eval%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="function.eval" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">eval</h1>
+  <p class="verinfo">(PHP 4, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">eval</span> &mdash; <span class="dc-title">Расценивает строку как PHP-код и выполняет его</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.eval-description">
+  <h3 class="title">Описание</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="methodname"><strong>eval</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$code</code></span>): <span class="type"><a href="language.types.declarations.php.html#language.types.declarations.mixed" class="type mixed">mixed</a></span></div>
+
+  <p class="para rdfs-comment">
+   Выполняет переданную в параметре <code class="parameter">code</code> строку как код PHP.
+  </p>
+  <p class="para">
+   Выполняемый код наследует ту же
+   <a href="language.variables.scope.php.html" class="link">область видимости переменной</a>,
+   что и строка, на которой языковая конструкция <span class="function"><strong>eval()</strong></span> была вызвана.
+   Любые доступные на этой строке переменные будут доступны для чтения
+   и изменения в выполняемом коде.
+   Однако все объявленные в этом коде функции и классы получат глобальную область видимости.
+   Говоря по-другому, компилятор расценит выполняемый код так, как если бы это был
+   <a href="function.include.php.html" class="link">подключёный</a> файл.
+  </p>
+  <div class="caution"><strong class="caution">Предостережение</strong>
+   <p class="para">
+    Языковая конструкция <span class="function"><strong>eval()</strong></span> может быть <em>очень
+    опасной</em>, поскольку может выполнять произвольный код.
+    <em>Поэтому от работы с ней воздерживаются</em>. Если тщательный поиск других решений показал,
+    что альтернативы нет, внимательно проверяют, чтобы в неё
+    <em>не передавались пользовательские данные</em> без их правильной предварительной проверки.
+   </p>
+  </div>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.eval-parameters">
+  <h3 class="title">Список параметров</h3>
+  <p class="para">
+   <dl>
+    
+     <dt>
+<code class="parameter">code</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Выполняемая строка кода PHP.
+      </p>
+      <p class="para">
+       Код не должен быть обёрнут открывающимся и закрывающимся
+       <a href="language.basic-syntax.phpmode.php.html" class="link">тегами PHP</a>, то есть
+       строка должна быть, например, такой: <code class="literal">&#039;echo &quot;Привет!&quot;;&#039;</code>,
+       но не такой <code class="literal">&#039;&lt;?php echo &quot;Привет!&quot;; &gt;&#039;</code>.
+       Можно переключаться между режимами PHP- и HTML-кода, например:
+       <code class="literal">&#039;echo &quot;Код PHP!&quot;; ?&gt;Код HTML&lt;?php echo &quot;Снова код PHP!&quot;;&#039;</code>.
+      </p>
+      <p class="para">
+       Передаваемый код должен быть верным выполняемым кодом PHP. Это значит, что
+       операторы должны быть разделены точкой с запятой (;).
+       При выполнении строки <code class="literal">&#039;echo &quot;Привет!&quot;&#039;</code> будет сгенерирована ошибка,
+       а строка <code class="literal">&#039;echo &quot;Привет!&quot;;&#039;</code> будет успешно выполнена.
+      </p>
+      <p class="para">
+       Указание в строке кода ключевого слова <code class="literal">return</code> прекращает
+       выполнение.
+      </p>
+      <p class="para">
+       Код из строки будет выполнен в той области видимости, в которой вызвана конструкция <span class="function"><strong>eval()</strong></span>.
+       Поэтому переменные, которые определены или
+       изменены в ней, сохранят видимость
+       после завершения вызова конструкции <span class="function"><strong>eval()</strong></span>.
+      </p>
+     </dd>
+
+    
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.eval-returnvalues">
+  <h3 class="title">Возвращаемые значения</h3>
+  <p class="para">
+   Языковая конструкция <span class="function"><strong>eval()</strong></span> возвращает значение <strong><code>null</code></strong>, или значение,
+   которое вернул вызванный в выполняемом коде оператор <code class="literal">return</code>.
+   Начиная с PHP 7, если в выполняемом коде присутствует ошибка,
+   то конструкция <span class="function"><strong>eval()</strong></span> вызывает исключение &quot;ParseError&quot;. До PHP 7 в таких случаях
+   возвращалось логическое значение <strong><code>false</code></strong> и продолжалось нормальное
+   выполнение последующего кода. Невозможно поймать ошибку парсера в конструкции <span class="function"><strong>eval()</strong></span>
+   функцией <span class="function"><a href="function.set-error-handler.php.html" class="function">set_error_handler()</a></span>.
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.eval-examples">
+  <h3 class="title">Примеры</h3>
+  <p class="para">
+   <div class="example" id="">
+    <p><strong>Пример #1 Пример функции <span class="function"><strong>eval()</strong></span> — простое слияние текста</strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$string </span><span style="color: #007700">= </span><span style="color: #DD0000">'чашка'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$name </span><span style="color: #007700">= </span><span style="color: #DD0000">'кофе'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$str </span><span style="color: #007700">= </span><span style="color: #DD0000">'Это $string с моим $name.'</span><span style="color: #007700">;<br />echo </span><span style="color: #0000BB">$str</span><span style="color: #007700">. </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />eval(</span><span style="color: #DD0000">"\$str = \"</span><span style="color: #0000BB">$str</span><span style="color: #DD0000">\";"</span><span style="color: #007700">);<br />echo </span><span style="color: #0000BB">$str</span><span style="color: #007700">. </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+    </div>
+
+    
+<div class="example-contents"><p>
+ Результат выполнения приведённого примера:
+</p></div>
+
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Это $string с моим $name.
+Это чашка с моим кофе.
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.eval-notes">
+  <h3 class="title">Примечания</h3>
+
+  <blockquote class="note"><p><strong class="note">Замечание</strong>: <span class="simpara">Поскольку это языковая конструкция, а не функция,
+её нельзя вызывать как <a href="functions.variable-functions.php.html" class="link">переменную функцию</a>
+или передавать как <a href="functions.arguments.php.html#functions.named-arguments" class="link">именованный аргумент</a>.</span>
+</p></blockquote>
+
+  <div class="tip"><strong class="tip">Подсказка</strong><p class="simpara">Как и всё, что выводит результат в браузер,
+<a href="book.outcontrol.php.html" class="link">функции контроля вывода</a> можно вызывать, чтобы перехватить
+выводимые этой функцией данные и сохранять их, например в строку (<span class="type">string</span>).</p></div>
+  <blockquote class="note"><p><strong class="note">Замечание</strong>: 
+   <p class="para">
+    В случае фатальной ошибки в выполняемом коде прекращается выполнение всего скрипта.
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.eval-seealso">
+  <h3 class="title">Смотрите также</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.call-user-func.php.html" class="function" rel="rdfs-seeAlso">call_user_func()</a> - Вызывает callback-функцию, заданную в первом параметре</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=function.eval&amp;redirect=https://www.php.net/manual/ru/function.eval.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">20 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="44008">  <div class="votes">
+    <div id="Vu44008">
+    <a href="https://www.php.net/manual/vote-note.php?id=44008&amp;page=function.eval&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd44008">
+    <a href="https://www.php.net/manual/vote-note.php?id=44008&amp;page=function.eval&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V44008" title="80% like this...">
+    463
+    </div>
+  </div>
+  <a href="function.eval.php.html#44008" class="name"><strong class="user"><em>Anonymous</em></strong></a><a class="genanchor" href="function.eval.php.html#44008"> &para;</a><div class="date" title="2004-07-12 09:37"><strong>19 years ago</strong></div>
+  <div class="text" id="Hcom44008">
+<div class="phpcode"><code><span class="html">Kepp the following Quote in mind:<br /><br />If eval() is the answer, you're almost certainly asking the<br />wrong question. -- Rasmus Lerdorf, BDFL of PHP</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="117744">  <div class="votes">
+    <div id="Vu117744">
+    <a href="https://www.php.net/manual/vote-note.php?id=117744&amp;page=function.eval&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd117744">
+    <a href="https://www.php.net/manual/vote-note.php?id=117744&amp;page=function.eval&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V117744" title="65% like this...">
+    42
+    </div>
+  </div>
+  <a href="function.eval.php.html#117744" class="name">
+  <strong class="user"><em>lord dot dracon at gmail dot com</em></strong></a><a class="genanchor" href="function.eval.php.html#117744"> &para;</a><div class="date" title="2015-07-31 01:46"><strong>8 years ago</strong></div>
+  <div class="text" id="Hcom117744">
+<div class="phpcode"><code><span class="html">Inception with eval()<br /><br />&lt;pre&gt;<br />Inception Start:<br /><span class="default">&lt;?php<br /></span><span class="keyword">eval(</span><span class="string">"echo 'Inception lvl 1...\n'; eval('echo \"Inception lvl 2...\n\"; eval(\"echo \'Inception lvl 3...\n\'; eval(\'echo \\\"Limbo!\\\";\');\");');"</span><span class="keyword">);<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="121284">  <div class="votes">
+    <div id="Vu121284">
+    <a href="https://www.php.net/manual/vote-note.php?id=121284&amp;page=function.eval&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd121284">
+    <a href="https://www.php.net/manual/vote-note.php?id=121284&amp;page=function.eval&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V121284" title="64% like this...">
+    21
+    </div>
+  </div>
+  <a href="function.eval.php.html#121284" class="name">
+  <strong class="user"><em>Jeremie LEGRAND</em></strong></a><a class="genanchor" href="function.eval.php.html#121284"> &para;</a><div class="date" title="2017-06-28 03:25"><strong>6 years ago</strong></div>
+  <div class="text" id="Hcom121284">
+<div class="phpcode"><code><span class="html">At least in PHP 7.1+, eval() terminates the script if the evaluated code generate a fatal error. For example:<br /><span class="default">&lt;?php<br /></span><span class="keyword">@eval(</span><span class="string">'$content = (100 - );'</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />(Even if it is in the man, I'm note sure it acted like this in 5.6, but whatever)<br />To catch it, I had to do:<br /><span class="default">&lt;?php<br /></span><span class="keyword">try {<br />    eval(</span><span class="string">'$content = (100 - );'</span><span class="keyword">);<br />} catch (</span><span class="default">Throwable $t</span><span class="keyword">) {<br />    </span><span class="default">$content </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">;<br />}<br /></span><span class="default">?&gt;<br /></span><br />This is the only way I found to catch the error and hide the fact there was one.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="107377">  <div class="votes">
+    <div id="Vu107377">
+    <a href="https://www.php.net/manual/vote-note.php?id=107377&amp;page=function.eval&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd107377">
+    <a href="https://www.php.net/manual/vote-note.php?id=107377&amp;page=function.eval&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V107377" title="58% like this...">
+    23
+    </div>
+  </div>
+  <a href="function.eval.php.html#107377" class="name">
+  <strong class="user"><em>bohwaz</em></strong></a><a class="genanchor" href="function.eval.php.html#107377"> &para;</a><div class="date" title="2012-02-04 10:51"><strong>12 years ago</strong></div>
+  <div class="text" id="Hcom107377">
+<div class="phpcode"><code><span class="html">If you want to allow math input and make sure that the input is proper mathematics and not some hacking code, you can try this:<br /><br /><span class="default">&lt;?php<br /><br />$test </span><span class="keyword">= </span><span class="string">'2+3*pi'</span><span class="keyword">;<br /><br /></span><span class="comment">// Remove whitespaces<br /></span><span class="default">$test </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'/\s+/'</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">, </span><span class="default">$test</span><span class="keyword">);<br /><br /></span><span class="default">$number </span><span class="keyword">= </span><span class="string">'(?:\d+(?:[,.]\d+)?|pi|π)'</span><span class="keyword">; </span><span class="comment">// What is a number<br /></span><span class="default">$functions </span><span class="keyword">= </span><span class="string">'(?:sinh?|cosh?|tanh?|abs|acosh?|asinh?|atanh?|exp|log10|deg2rad|rad2deg|sqrt|ceil|floor|round)'</span><span class="keyword">; </span><span class="comment">// Allowed PHP functions<br /></span><span class="default">$operators </span><span class="keyword">= </span><span class="string">'[+\/*\^%-]'</span><span class="keyword">; </span><span class="comment">// Allowed math operators<br /></span><span class="default">$regexp </span><span class="keyword">= </span><span class="string">'/^(('</span><span class="keyword">.</span><span class="default">$number</span><span class="keyword">.</span><span class="string">'|'</span><span class="keyword">.</span><span class="default">$functions</span><span class="keyword">.</span><span class="string">'\s*\((?1)+\)|\((?1)+\))(?:'</span><span class="keyword">.</span><span class="default">$operators</span><span class="keyword">.</span><span class="string">'(?2))?)+$/'</span><span class="keyword">; </span><span class="comment">// Final regexp, heavily using recursive patterns<br /><br /></span><span class="keyword">if (</span><span class="default">preg_match</span><span class="keyword">(</span><span class="default">$regexp</span><span class="keyword">, </span><span class="default">$q</span><span class="keyword">))<br />{<br />    </span><span class="default">$test </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'!pi|π!'</span><span class="keyword">, </span><span class="string">'pi()'</span><span class="keyword">, </span><span class="default">$test</span><span class="keyword">); </span><span class="comment">// Replace pi with pi function<br />    </span><span class="keyword">eval(</span><span class="string">'$result = '</span><span class="keyword">.</span><span class="default">$test</span><span class="keyword">.</span><span class="string">';'</span><span class="keyword">);<br />}<br />else<br />{<br />    </span><span class="default">$result </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;<br />}<br /><br /></span><span class="default">?&gt;<br /></span><br />I can't guarantee you absolutely that this will block every possible malicious code nor that it will block malformed code, but that's better than the matheval function below which will allow malformed code like '2+2+' which will throw an error.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="122036">  <div class="votes">
+    <div id="Vu122036">
+    <a href="https://www.php.net/manual/vote-note.php?id=122036&amp;page=function.eval&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd122036">
+    <a href="https://www.php.net/manual/vote-note.php?id=122036&amp;page=function.eval&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V122036" title="57% like this...">
+    6
+    </div>
+  </div>
+  <a href="function.eval.php.html#122036" class="name">
+  <strong class="user"><em>catgirl at charuru dot moe</em></strong></a><a class="genanchor" href="function.eval.php.html#122036"> &para;</a><div class="date" title="2017-12-17 11:49"><strong>6 years ago</strong></div>
+  <div class="text" id="Hcom122036">
+<div class="phpcode"><code><span class="html">It should be noted that imported namespaces are not available in eval.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="97063">  <div class="votes">
+    <div id="Vu97063">
+    <a href="https://www.php.net/manual/vote-note.php?id=97063&amp;page=function.eval&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd97063">
+    <a href="https://www.php.net/manual/vote-note.php?id=97063&amp;page=function.eval&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V97063" title="53% like this...">
+    5
+    </div>
+  </div>
+  <a href="function.eval.php.html#97063" class="name">
+  <strong class="user"><em>darkhogg (foo) gmail (bar) com</em></strong></a><a class="genanchor" href="function.eval.php.html#97063"> &para;</a><div class="date" title="2010-03-30 10:33"><strong>13 years ago</strong></div>
+  <div class="text" id="Hcom97063">
+<div class="phpcode"><code><span class="html">The following code<br /><br /><span class="default">&lt;?php<br />    </span><span class="keyword">eval( </span><span class="string">'?&gt; foo &lt;?php' </span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />does not throw any error, but prints the opening tag.<br />Adding a space after the open tag fixes it:<br /><br /><span class="default">&lt;?php<br />    </span><span class="keyword">eval( </span><span class="string">'?&gt; foo &lt;?php ' </span><span class="keyword">);<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="125667">  <div class="votes">
+    <div id="Vu125667">
+    <a href="https://www.php.net/manual/vote-note.php?id=125667&amp;page=function.eval&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd125667">
+    <a href="https://www.php.net/manual/vote-note.php?id=125667&amp;page=function.eval&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V125667" title="52% like this...">
+    1
+    </div>
+  </div>
+  <a href="function.eval.php.html#125667" class="name">
+  <strong class="user"><em>remindfwd</em></strong></a><a class="genanchor" href="function.eval.php.html#125667"> &para;</a><div class="date" title="2021-01-09 05:30"><strong>3 years ago</strong></div>
+  <div class="text" id="Hcom125667">
+<div class="phpcode"><code><span class="html">Note that <br /><br /><span class="default">&lt;?php<br /><br /></span><span class="keyword">echo eval( </span><span class="string">'$var = (20 - 5);' </span><span class="keyword">);  </span><span class="comment">// don't show anything<br /><br /></span><span class="keyword">echo </span><span class="string">' someString ' </span><span class="keyword">. eval( </span><span class="string">'echo $var = 15;' </span><span class="keyword">); </span><span class="comment">// outputs 15 someString <br /><br />//or<br /></span><span class="keyword">echo </span><span class="string">' someString ' </span><span class="keyword">. eval( </span><span class="string">'echo $var = 15;' </span><span class="keyword">) . </span><span class="string">' otherString '</span><span class="keyword">; </span><span class="comment">// 15 someString  otherString  <br /><br />//or<br /></span><span class="keyword">echo </span><span class="string">' someString ' </span><span class="keyword">. eval( </span><span class="string">'echo $var = 15;' </span><span class="keyword">) . </span><span class="string">' otherString ' </span><span class="keyword">. </span><span class="string">'...' </span><span class="keyword">.eval( </span><span class="string">'echo " __ " . $var = 10;' </span><span class="keyword">); </span><span class="comment">// 15 __ 10 someString  otherString  ...<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="121190">  <div class="votes">
+    <div id="Vu121190">
+    <a href="https://www.php.net/manual/vote-note.php?id=121190&amp;page=function.eval&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd121190">
+    <a href="https://www.php.net/manual/vote-note.php?id=121190&amp;page=function.eval&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V121190" title="51% like this...">
+    1
+    </div>
+  </div>
+  <a href="function.eval.php.html#121190" class="name">
+  <strong class="user"><em>divinity76 at gmail dot com</em></strong></a><a class="genanchor" href="function.eval.php.html#121190"> &para;</a><div class="date" title="2017-06-06 09:35"><strong>6 years ago</strong></div>
+  <div class="text" id="Hcom121190">
+<div class="phpcode"><code><span class="html">imo, this is a better eval replacement: <br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">betterEval</span><span class="keyword">(</span><span class="default">$code</span><span class="keyword">) {<br />    </span><span class="default">$tmp </span><span class="keyword">= </span><span class="default">tmpfile </span><span class="keyword">();<br />    </span><span class="default">$tmpf </span><span class="keyword">= </span><span class="default">stream_get_meta_data </span><span class="keyword">( </span><span class="default">$tmp </span><span class="keyword">);<br />    </span><span class="default">$tmpf </span><span class="keyword">= </span><span class="default">$tmpf </span><span class="keyword">[</span><span class="string">'uri'</span><span class="keyword">];<br />    </span><span class="default">fwrite </span><span class="keyword">( </span><span class="default">$tmp</span><span class="keyword">, </span><span class="default">$code </span><span class="keyword">);<br />    </span><span class="default">$ret </span><span class="keyword">= include (</span><span class="default">$tmpf</span><span class="keyword">);<br />    </span><span class="default">fclose </span><span class="keyword">( </span><span class="default">$tmp </span><span class="keyword">);<br />    return </span><span class="default">$ret</span><span class="keyword">;<br />}<br /></span><span class="default">?&gt;<br /></span><br />- why? betterEval follows normal php opening and closing tag conventions, there's no need to strip `&lt;?php?&gt;` from the source.  and it always throws a ParseError if there was a parse error, instead of returning false (note: this was fixed for normal eval() in php 7.0). - and there's also something about exception backtraces</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="128258">  <div class="votes">
+    <div id="Vu128258">
+    <a href="https://www.php.net/manual/vote-note.php?id=128258&amp;page=function.eval&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd128258">
+    <a href="https://www.php.net/manual/vote-note.php?id=128258&amp;page=function.eval&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V128258" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="function.eval.php.html#128258" class="name">
+  <strong class="user"><em>xxixxek at gmail dot com</em></strong></a><a class="genanchor" href="function.eval.php.html#128258"> &para;</a><div class="date" title="2023-02-27 03:46"><strong>11 months ago</strong></div>
+  <div class="text" id="Hcom128258">
+<div class="phpcode"><code><span class="html">I happened to work on a very old code that, for many reasons, couldn't be rewritten and the only way of showing the exact error in eval that worked for me was:<br /><br />$res = eval($somecode);<br /><br />if(!$res) {<br />    echo "&lt;pre&gt;";<br />    print_r(explode(PHP_EOL, $somecode));<br />    echo "&lt;/pre&gt;";<br />}<br /><br />I know it is terrible but I didn't have much of a choice. None of the try...catch solutions worked for me; the solution above shows the exact lines with numbers and it is easy to find what's wrong with the code.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="128257">  <div class="votes">
+    <div id="Vu128257">
+    <a href="https://www.php.net/manual/vote-note.php?id=128257&amp;page=function.eval&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd128257">
+    <a href="https://www.php.net/manual/vote-note.php?id=128257&amp;page=function.eval&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V128257" title="0% like this...">
+    -1
+    </div>
+  </div>
+  <a href="function.eval.php.html#128257" class="name">
+  <strong class="user"><em>xxixxek at gmail dot com</em></strong></a><a class="genanchor" href="function.eval.php.html#128257"> &para;</a><div class="date" title="2023-02-27 03:45"><strong>11 months ago</strong></div>
+  <div class="text" id="Hcom128257">
+<div class="phpcode"><code><span class="html">I happened to work on a very old code that, for many reasons, couldn't be rewritten and the only way of showing the exact error in eval that worked for me was:<br /><br />$res = eval($somecode);<br /><br />if(!$res) {<br />    echo "&lt;pre&gt;";<br />    print_r(explode(PHP_EOL, $somecode));<br />    echo "&lt;/pre&gt;";<br />}<br /><br />I know it is terrible but I didn't have much of a choice. None of the try...catch solutions worked for me; the solution above shows the exact lines with numbers and it is easy to find what's wrong with the code.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="126912">  <div class="votes">
+    <div id="Vu126912">
+    <a href="https://www.php.net/manual/vote-note.php?id=126912&amp;page=function.eval&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd126912">
+    <a href="https://www.php.net/manual/vote-note.php?id=126912&amp;page=function.eval&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V126912" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="function.eval.php.html#126912" class="name">
+  <strong class="user"><em>stocki dot r at gmail dot com</em></strong></a><a class="genanchor" href="function.eval.php.html#126912"> &para;</a><div class="date" title="2022-03-10 08:35"><strong>1 year ago</strong></div>
+  <div class="text" id="Hcom126912">
+<div class="phpcode"><code><span class="html">You can use `eval()` to combine classes/traits dynamically with anonymus classes:<br /><br /><span class="default">&lt;?php<br /><br /></span><span class="keyword">function </span><span class="default">init</span><span class="keyword">(</span><span class="default">$trait</span><span class="keyword">, </span><span class="default">$class</span><span class="keyword">) {<br />    return (</span><span class="default">trait_exists</span><span class="keyword">(</span><span class="default">$trait</span><span class="keyword">) &amp;&amp; </span><span class="default">class_exists</span><span class="keyword">(</span><span class="default">$class</span><span class="keyword">))<br />        ? eval(</span><span class="string">"return new class() extends </span><span class="keyword">{</span><span class="default">$class</span><span class="keyword">}</span><span class="string"> { use </span><span class="keyword">{</span><span class="default">$trait</span><span class="keyword">}</span><span class="string">; };"</span><span class="keyword">)<br />        : </span><span class="default">false</span><span class="keyword">;<br />}<br /><br />trait </span><span class="default">Edit </span><span class="keyword">{<br />    function </span><span class="default">hello</span><span class="keyword">() { echo </span><span class="string">'EDIT: ' </span><span class="keyword">. </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">modulename</span><span class="keyword">; }<br />}<br />trait </span><span class="default">Ajax </span><span class="keyword">{<br />    function </span><span class="default">hello</span><span class="keyword">() { echo </span><span class="string">'AJAX: ' </span><span class="keyword">. </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">modulename</span><span class="keyword">; }<br />}<br />class </span><span class="default">MyModule </span><span class="keyword">{<br />    public </span><span class="default">$modulename </span><span class="keyword">= </span><span class="string">'My Module'</span><span class="keyword">;<br />}<br />class </span><span class="default">AnotherModule </span><span class="keyword">{<br />    public </span><span class="default">$modulename </span><span class="keyword">= </span><span class="string">'Another Module'</span><span class="keyword">;<br />}<br /><br /></span><span class="default">init</span><span class="keyword">(</span><span class="string">'Edit'</span><span class="keyword">, </span><span class="string">'MyModule'</span><span class="keyword">)-&gt;</span><span class="default">hello</span><span class="keyword">();      </span><span class="comment"># 'EDIT: My Module'<br /></span><span class="default">init</span><span class="keyword">(</span><span class="string">'Ajax'</span><span class="keyword">, </span><span class="string">'AnotherModule'</span><span class="keyword">)-&gt;</span><span class="default">hello</span><span class="keyword">(); </span><span class="comment"># 'AJAX: Another Module'<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="126715">  <div class="votes">
+    <div id="Vu126715">
+    <a href="https://www.php.net/manual/vote-note.php?id=126715&amp;page=function.eval&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd126715">
+    <a href="https://www.php.net/manual/vote-note.php?id=126715&amp;page=function.eval&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V126715" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="function.eval.php.html#126715" class="name">
+  <strong class="user"><em>greald at gmail dot com</em></strong></a><a class="genanchor" href="function.eval.php.html#126715"> &para;</a><div class="date" title="2021-12-26 09:10"><strong>2 years ago</strong></div>
+  <div class="text" id="Hcom126715">
+<div class="phpcode"><code><span class="html">to avoid the evil eval() you may use the fact that function names, variable names, property names and method names can be handled strings.<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">class </span><span class="default">Fruit<br /></span><span class="keyword">{<br />    public </span><span class="default">$tomato </span><span class="keyword">= </span><span class="string">"Tomatos"</span><span class="keyword">;<br /><br />    public function </span><span class="default">red</span><span class="keyword">() {return </span><span class="string">" are red. "</span><span class="keyword">;}<br />}<br /><br /></span><span class="default">$fruit </span><span class="keyword">= new </span><span class="default">Fruit</span><span class="keyword">;<br /></span><span class="default">$fruitStr </span><span class="keyword">= </span><span class="string">"tomato"</span><span class="keyword">;<br /></span><span class="default">$colorStr </span><span class="keyword">= </span><span class="string">"red"</span><span class="keyword">;<br /><br />echo </span><span class="default">$fruit</span><span class="keyword">-&gt;</span><span class="default">$fruitStr </span><span class="keyword">. </span><span class="default">$fruit</span><span class="keyword">-&gt;</span><span class="default">$colorStr</span><span class="keyword">();<br /><br /></span><span class="comment">// and procedural  //////////////////////////////////////////<br /><br /></span><span class="default">$lemon </span><span class="keyword">= </span><span class="string">"Lemons"</span><span class="keyword">;<br /><br />function </span><span class="default">yellow</span><span class="keyword">() {return </span><span class="string">" are yellow. "</span><span class="keyword">;}<br /><br /></span><span class="default">$fruitStr </span><span class="keyword">= </span><span class="string">"</span><span class="default">$lemon</span><span class="string">"</span><span class="keyword">;<br /></span><span class="default">$colorStr </span><span class="keyword">= </span><span class="string">"yellow"</span><span class="keyword">;<br /><br />echo </span><span class="default">$fruitStr </span><span class="keyword">. </span><span class="default">$colorStr</span><span class="keyword">();<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="121837">  <div class="votes">
+    <div id="Vu121837">
+    <a href="https://www.php.net/manual/vote-note.php?id=121837&amp;page=function.eval&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd121837">
+    <a href="https://www.php.net/manual/vote-note.php?id=121837&amp;page=function.eval&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V121837" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="function.eval.php.html#121837" class="name">
+  <strong class="user"><em>solobot</em></strong></a><a class="genanchor" href="function.eval.php.html#121837"> &para;</a><div class="date" title="2017-11-07 09:55"><strong>6 years ago</strong></div>
+  <div class="text" id="Hcom121837">
+<div class="phpcode"><code><span class="html">eval() is workaround for generating multiple anonymous classes with static properties in loop<br /><br />public function generateClassMap()<br />    {<br />        foreach ($this-&gt;classMap as $tableName =&gt; $class)<br />        {<br />            $c = null;<br />            eval('$c = new class extends \common\MyStaticClass {<br />                public static $tableName;<br />                public static function tableName()<br />                {<br />                    return static::$tableName;<br />                }<br />            };');<br />            $c::$tableName = $this-&gt;replicationPrefix.$tableName;<br />            $this-&gt;classMap[$tableName] = $c;<br /><br />        }<br />    }<br /><br />thus every class will have its own $tableName instead of common ancestor.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="116642">  <div class="votes">
+    <div id="Vu116642">
+    <a href="https://www.php.net/manual/vote-note.php?id=116642&amp;page=function.eval&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd116642">
+    <a href="https://www.php.net/manual/vote-note.php?id=116642&amp;page=function.eval&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V116642" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="function.eval.php.html#116642" class="name">
+  <strong class="user"><em>Karel</em></strong></a><a class="genanchor" href="function.eval.php.html#116642"> &para;</a><div class="date" title="2015-02-03 04:23"><strong>9 years ago</strong></div>
+  <div class="text" id="Hcom116642">
+<div class="phpcode"><code><span class="html">For them who are facing syntax error when try execute code in eval,<br /><br /><br /><span class="default">&lt;?php<br /><br />$str </span><span class="keyword">=  </span><span class="string">'&lt;?php echo "test"; ?&gt;'</span><span class="keyword">;<br /><br />eval(</span><span class="string">'?&gt;'</span><span class="keyword">.</span><span class="default">$str</span><span class="keyword">.</span><span class="string">'&lt;?php;'</span><span class="keyword">); </span><span class="comment">// outputs test<br /></span><span class="keyword">eval(</span><span class="string">'?&gt;'</span><span class="keyword">.</span><span class="default">$str</span><span class="keyword">.</span><span class="string">'&lt;?'</span><span class="keyword">); </span><span class="comment">// outputs test<br /></span><span class="keyword">eval(</span><span class="string">'?&gt;'</span><span class="keyword">.</span><span class="default">$str</span><span class="keyword">.</span><span class="string">'&lt;?php'</span><span class="keyword">);</span><span class="comment">// throws syntax error - unexpected $end<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="99891">  <div class="votes">
+    <div id="Vu99891">
+    <a href="https://www.php.net/manual/vote-note.php?id=99891&amp;page=function.eval&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd99891">
+    <a href="https://www.php.net/manual/vote-note.php?id=99891&amp;page=function.eval&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V99891" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="function.eval.php.html#99891" class="name">
+  <strong class="user"><em>php at rijkvanwel dot nl</em></strong></a><a class="genanchor" href="function.eval.php.html#99891"> &para;</a><div class="date" title="2010-09-13 07:41"><strong>13 years ago</strong></div>
+  <div class="text" id="Hcom99891">
+<div class="phpcode"><code><span class="html">To catch a parse error in eval()'ed code with a custom error handler, use error_get_last() (PHP &gt;= 5.2.0).<br /><br /><span class="default">&lt;?php<br />$return </span><span class="keyword">= eval( </span><span class="string">'parse error' </span><span class="keyword">);<br /><br />if ( </span><span class="default">$return </span><span class="keyword">=== </span><span class="default">false </span><span class="keyword">&amp;&amp; ( </span><span class="default">$error </span><span class="keyword">= </span><span class="default">error_get_last</span><span class="keyword">() ) ) {<br />    </span><span class="default">myErrorHandler</span><span class="keyword">( </span><span class="default">$error</span><span class="keyword">[</span><span class="string">'type'</span><span class="keyword">], </span><span class="default">$error</span><span class="keyword">[</span><span class="string">'message'</span><span class="keyword">], </span><span class="default">$error</span><span class="keyword">[</span><span class="string">'file'</span><span class="keyword">], </span><span class="default">$error</span><span class="keyword">[</span><span class="string">'line'</span><span class="keyword">], </span><span class="default">null </span><span class="keyword">);<br /><br />    </span><span class="comment">// Since the "execution of the following code continues normally", as stated in the manual,<br />    // we still have to exit explicitly in case of an error<br />    </span><span class="keyword">exit;<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="118768">  <div class="votes">
+    <div id="Vu118768">
+    <a href="https://www.php.net/manual/vote-note.php?id=118768&amp;page=function.eval&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd118768">
+    <a href="https://www.php.net/manual/vote-note.php?id=118768&amp;page=function.eval&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V118768" title="47% like this...">
+    -2
+    </div>
+  </div>
+  <a href="function.eval.php.html#118768" class="name">
+  <strong class="user"><em>Uther</em></strong></a><a class="genanchor" href="function.eval.php.html#118768"> &para;</a><div class="date" title="2016-02-02 05:33"><strong>8 years ago</strong></div>
+  <div class="text" id="Hcom118768">
+<div class="phpcode"><code><span class="html">eval'd code within namespaces which contain class and/or function definitions will be defined in the global namespace... not incredibly obvious :/</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="87296">  <div class="votes">
+    <div id="Vu87296">
+    <a href="https://www.php.net/manual/vote-note.php?id=87296&amp;page=function.eval&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd87296">
+    <a href="https://www.php.net/manual/vote-note.php?id=87296&amp;page=function.eval&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V87296" title="47% like this...">
+    -2
+    </div>
+  </div>
+  <a href="function.eval.php.html#87296" class="name">
+  <strong class="user"><em>php at stock-consulting dot com</em></strong></a><a class="genanchor" href="function.eval.php.html#87296"> &para;</a><div class="date" title="2008-11-28 08:16"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom87296">
+<div class="phpcode"><code><span class="html">Magic constants like __FILE__ may not return what you expect if used inside eval()'d code. Instead, it'll answer something like "c:\directory\filename.php(123) : eval()'d code" (under Windows, obviously, checked with PHP5.2.6) - which can still be processed with a function like preg_replace to receive the filename of the file containing the eval().<br /><br />Example:<br /><br /><span class="default">&lt;?php<br />$filename </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'@\(.*\(.*$@'</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">, </span><span class="default">__FILE__</span><span class="keyword">);<br />echo </span><span class="default">$filename</span><span class="keyword">;<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="127054">  <div class="votes">
+    <div id="Vu127054">
+    <a href="https://www.php.net/manual/vote-note.php?id=127054&amp;page=function.eval&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd127054">
+    <a href="https://www.php.net/manual/vote-note.php?id=127054&amp;page=function.eval&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V127054" title="33% like this...">
+    -2
+    </div>
+  </div>
+  <a href="function.eval.php.html#127054" class="name">
+  <strong class="user"><em>Patanjali</em></strong></a><a class="genanchor" href="function.eval.php.html#127054"> &para;</a><div class="date" title="2022-05-14 10:04"><strong>1 year ago</strong></div>
+  <div class="text" id="Hcom127054">
+<div class="phpcode"><code><span class="html">eval() is useful for preprocessing css (and js) with php to embed directly into a style tag in the head tag (or script tag at the bottom of body tag) of the HTML of the page.<br /><br />This:<br /><br />a. Prevents Flash of White in Chrome or Firefox (where an external css file arrives briefly too late to render the HTML).<br /><br />b. Allows radical minifying by testing the page source to see if whole blocks of rules or code are even required, such as for tables.<br /><br />c. Allows custom source-content-dependent css rules to be created on the fly. (I use this to create rules for positioned labels over an image that scale with it)<br /><br />d. Allows generation of a hash of the processed css or js for use in the page's CSP header for style-src or script-src to prevent injection attacks.<br /><br />Here eval() is safe because it is not using user-supplied (person or browser) information</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="81376">  <div class="votes">
+    <div id="Vu81376">
+    <a href="https://www.php.net/manual/vote-note.php?id=81376&amp;page=function.eval&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd81376">
+    <a href="https://www.php.net/manual/vote-note.php?id=81376&amp;page=function.eval&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V81376" title="36% like this...">
+    -13
+    </div>
+  </div>
+  <a href="function.eval.php.html#81376" class="name">
+  <strong class="user"><em>Ipseno at yahoo dot com</em></strong></a><a class="genanchor" href="function.eval.php.html#81376"> &para;</a><div class="date" title="2008-02-25 10:24"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom81376">
+<div class="phpcode"><code><span class="html">If you attempt to call a user defined function in eval() and .php files are obfuscated by Zend encoder, it will result in a fatal error.<br /><br />Use a call_user_func() inside eval() to call your personal hand made functions.<br /><br />This is user function<br /><span class="default">&lt;?php<br /><br /></span><span class="keyword">function </span><span class="default">square_it</span><span class="keyword">(</span><span class="default">$nmb</span><span class="keyword">)<br />{<br />    return </span><span class="default">$nmb </span><span class="keyword">* </span><span class="default">$nmb</span><span class="keyword">;<br />}<br /><br /></span><span class="default">?&gt;<br /></span><br />//Checking if eval sees it?<br /><span class="default">&lt;?php<br /><br />$code </span><span class="keyword">= </span><span class="default">var_export</span><span class="keyword">( </span><span class="default">function_exists</span><span class="keyword">(</span><span class="string">'square_it'</span><span class="keyword">) );<br /><br />eval( </span><span class="default">$code </span><span class="keyword">);    </span><span class="comment">//returns TRUE - so yes it does!<br /><br /></span><span class="default">?&gt;<br /></span><br />This will result in a fatal error:<br />PHP Fatal error:  Call to undefined function square_it()<br /><span class="default">&lt;?php<br /><br />$code </span><span class="keyword">= </span><span class="string">'echo square_it(55);' </span><span class="keyword">;<br /><br />eval( </span><span class="default">$code </span><span class="keyword">);<br /><br /></span><span class="default">?&gt;<br /></span><br />This will work<br /><span class="default">&lt;?php<br /><br />$code </span><span class="keyword">= </span><span class="string">'echo call_user_func(\'square_it\', 55);' </span><span class="keyword">;<br /><br />eval( </span><span class="default">$code </span><span class="keyword">);<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="84140">  <div class="votes">
+    <div id="Vu84140">
+    <a href="https://www.php.net/manual/vote-note.php?id=84140&amp;page=function.eval&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd84140">
+    <a href="https://www.php.net/manual/vote-note.php?id=84140&amp;page=function.eval&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V84140" title="35% like this...">
+    -11
+    </div>
+  </div>
+  <a href="function.eval.php.html#84140" class="name">
+  <strong class="user"><em>marco at harddisk dot is-a-geek dot org</em></strong></a><a class="genanchor" href="function.eval.php.html#84140"> &para;</a><div class="date" title="2008-06-30 10:44"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom84140">
+<div class="phpcode"><code><span class="html">eval does not work reliably in conjunction with global, at least not in the cygwin port version.<br /><br />So:<br /><span class="default">&lt;?PHP<br /></span><span class="keyword">class </span><span class="default">foo </span><span class="keyword">{<br />  </span><span class="comment">//my class...<br /></span><span class="keyword">}<br />function </span><span class="default">load_module</span><span class="keyword">(</span><span class="default">$module</span><span class="keyword">) {<br />  eval(</span><span class="string">"global \$"</span><span class="keyword">.</span><span class="default">$module</span><span class="keyword">.</span><span class="string">"_var;"</span><span class="keyword">);<br />  eval(</span><span class="string">"\$"</span><span class="keyword">.</span><span class="default">$module</span><span class="keyword">.</span><span class="string">"_var=&amp;new foo();"</span><span class="keyword">);<br />  </span><span class="comment">//various stuff ... ...<br /></span><span class="keyword">}<br /></span><span class="default">load_module</span><span class="keyword">(</span><span class="string">"foo"</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />becomes to working:<br /><br /><span class="default">&lt;?PHP<br /></span><span class="keyword">class </span><span class="default">foo </span><span class="keyword">{<br />  </span><span class="comment">//my class...<br /></span><span class="keyword">}<br />function </span><span class="default">load_module</span><span class="keyword">(</span><span class="default">$module</span><span class="keyword">) {<br />  eval(</span><span class="string">'$GLOBALS["'</span><span class="keyword">.</span><span class="default">$module</span><span class="keyword">.</span><span class="string">'_var"]=&amp;new foo();'</span><span class="keyword">);<br />  </span><span class="comment">//various stuff ... ...<br /></span><span class="keyword">}<br /></span><span class="default">load_module</span><span class="keyword">(</span><span class="string">"foo"</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />Note in the 2nd example, you _always_ need to use $GLOBALS[$module] to access the variable!</span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=function.eval&amp;redirect=https://www.php.net/manual/ru/function.eval.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="ref.misc.php.html">Разные функции</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="function.connection-aborted.php.html" title="connection_&#8203;aborted">connection_&#8203;aborted</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.connection-status.php.html" title="connection_&#8203;status">connection_&#8203;status</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.constant.php.html" title="constant">constant</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.define.php.html" title="define">define</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.defined.php.html" title="defined">defined</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.die.php.html" title="die">die</a>
+                        </li>
+                                                <li class="current">
+                            <a href="function.eval.php.html" title="eval">eval</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.exit.php.html" title="exit">exit</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.get-browser.php.html" title="get_&#8203;browser">get_&#8203;browser</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.halt-compiler.php.html" title="_&#8203;_&#8203;halt_&#8203;compiler">_&#8203;_&#8203;halt_&#8203;compiler</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.highlight-file.php.html" title="highlight_&#8203;file">highlight_&#8203;file</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.highlight-string.php.html" title="highlight_&#8203;string">highlight_&#8203;string</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.hrtime.php.html" title="hrtime">hrtime</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.ignore-user-abort.php.html" title="ignore_&#8203;user_&#8203;abort">ignore_&#8203;user_&#8203;abort</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.pack.php.html" title="pack">pack</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.php-strip-whitespace.php.html" title="php_&#8203;strip_&#8203;whitespace">php_&#8203;strip_&#8203;whitespace</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.sapi-windows-cp-conv.php.html" title="sapi_&#8203;windows_&#8203;cp_&#8203;conv">sapi_&#8203;windows_&#8203;cp_&#8203;conv</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.sapi-windows-cp-get.php.html" title="sapi_&#8203;windows_&#8203;cp_&#8203;get">sapi_&#8203;windows_&#8203;cp_&#8203;get</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.sapi-windows-cp-is-utf8.php.html" title="sapi_&#8203;windows_&#8203;cp_&#8203;is_&#8203;utf8">sapi_&#8203;windows_&#8203;cp_&#8203;is_&#8203;utf8</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.sapi-windows-cp-set.php.html" title="sapi_&#8203;windows_&#8203;cp_&#8203;set">sapi_&#8203;windows_&#8203;cp_&#8203;set</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.sapi-windows-generate-ctrl-event.php.html" title="sapi_&#8203;windows_&#8203;generate_&#8203;ctrl_&#8203;event">sapi_&#8203;windows_&#8203;generate_&#8203;ctrl_&#8203;event</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.sapi-windows-set-ctrl-handler.php.html" title="sapi_&#8203;windows_&#8203;set_&#8203;ctrl_&#8203;handler">sapi_&#8203;windows_&#8203;set_&#8203;ctrl_&#8203;handler</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.sapi-windows-vt100-support.php.html" title="sapi_&#8203;windows_&#8203;vt100_&#8203;support">sapi_&#8203;windows_&#8203;vt100_&#8203;support</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.show-source.php.html" title="show_&#8203;source">show_&#8203;source</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.sleep.php.html" title="sleep">sleep</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.sys-getloadavg.php.html" title="sys_&#8203;getloadavg">sys_&#8203;getloadavg</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.time-nanosleep.php.html" title="time_&#8203;nanosleep">time_&#8203;nanosleep</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.time-sleep-until.php.html" title="time_&#8203;sleep_&#8203;until">time_&#8203;sleep_&#8203;until</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.uniqid.php.html" title="uniqid">uniqid</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.unpack.php.html" title="unpack">unpack</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.usleep.php.html" title="usleep">usleep</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

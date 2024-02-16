@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: Настройка во время выполнения - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="mysqli.configuration.php.html">
+ <link rel="shorturl" href="mysqli.configuration.php.html">
+ <link rel="alternate" href="mysqli.configuration.php.html" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="mysqli.setup.php.html">
+ <link rel="prev" href="mysqli.installation.php.html">
+ <link rel="next" href="mysqli.resources.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/mysqli.configuration.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/mysqli.configuration.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/mysqli.configuration.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/mysqli.configuration.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/mysqli.configuration.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/mysqli.configuration.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/mysqli.configuration.php" hreflang="pt_BR">
+ <link rel="alternate" href="mysqli.configuration.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/mysqli.configuration.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/mysqli.configuration.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="mysqli.resources.php.html">
+          Типы ресурсов &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="mysqli.installation.php.html">
+          &laquo; Установка        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.database.php.html'>Модули для работы с базами данных</a></li>      <li><a href='refs.database.vendors.php.html'>Модули для работы с базами данных отдельных производителей</a></li>      <li><a href='set.mysqlinfo.php.html'>MySQL</a></li>      <li><a href='book.mysqli.php.html'>MySQLi</a></li>      <li><a href='mysqli.setup.php.html'>Установка и настройка</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/mysqli.configuration.php'>English</option>
+            <option value='de/mysqli.configuration.php'>German</option>
+            <option value='es/mysqli.configuration.php'>Spanish</option>
+            <option value='fr/mysqli.configuration.php'>French</option>
+            <option value='it/mysqli.configuration.php'>Italian</option>
+            <option value='ja/mysqli.configuration.php'>Japanese</option>
+            <option value='pt_BR/mysqli.configuration.php'>Brazilian Portuguese</option>
+            <option value='ru/mysqli.configuration.php' selected="selected">Russian</option>
+            <option value='tr/mysqli.configuration.php'>Turkish</option>
+            <option value='zh/mysqli.configuration.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/mysqli/ini.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Fmysqli.configuration%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="mysqli.configuration" class="section">
+ <h2 class="title">Настройка во время выполнения</h2>
+ <p class="simpara">
+Поведение этих функций зависит от установок в <var class="filename">php.ini</var>.
+</p>
+ <p class="para">
+  <table id="mysqli.configuration.options" class="doctable table">
+   <caption><strong>Параметры конфигурации MySQLi</strong></caption>
+   
+    <thead>
+     <tr>
+      <th>Имя</th>
+      <th>По умолчанию</th>
+      <th>Место изменения</th>
+      <th>Список изменений</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+      <td>
+       <a href="mysqli.configuration.php.html#ini.mysqli.allow-local-infile" class="link">mysqli.allow_local_infile</a>
+      </td>
+      <td>&quot;0&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td>До PHP 7.2.16 и 7.3.3 значением по умолчанию было &quot;1&quot;.</td>
+     </tr>
+
+     <tr>
+      <td><a href="mysqli.configuration.php.html#ini.mysqli.local-infile-directory" class="link">mysqli.local_infile_directory</a></td>
+      <td class="empty">&nbsp;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td>Доступно, начиная с PHP 8.1.0.</td>
+     </tr>
+
+     <tr>
+      <td>
+       <a href="mysqli.configuration.php.html#ini.mysqli.allow-persistent" class="link">mysqli.allow_persistent</a>
+      </td>
+      <td>&quot;1&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr>
+      <td>
+       <a href="mysqli.configuration.php.html#ini.mysqli.max-persistent" class="link">mysqli.max_persistent</a>
+      </td>
+      <td>&quot;-1&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr>
+      <td>
+       <a href="mysqli.configuration.php.html#ini.mysqli.max-links" class="link">mysqli.max_links</a>
+      </td>
+      <td>&quot;-1&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr>
+      <td>
+       <a href="mysqli.configuration.php.html#ini.mysqli.default-port" class="link">mysqli.default_port</a>
+      </td>
+      <td>&quot;3306&quot;</td>
+      <td><strong><code>INI_ALL</code></strong></td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr>
+      <td>
+       <a href="mysqli.configuration.php.html#ini.mysqli.default-socket" class="link">mysqli.default_socket</a>
+      </td>
+      <td>NULL</td>
+      <td><strong><code>INI_ALL</code></strong></td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr>
+      <td>
+       <a href="mysqli.configuration.php.html#ini.mysqli.default-host" class="link">mysqli.default_host</a>
+      </td>
+      <td>NULL</td>
+      <td><strong><code>INI_ALL</code></strong></td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr>
+      <td>
+       <a href="mysqli.configuration.php.html#ini.mysqli.default-user" class="link">mysqli.default_user</a>
+      </td>
+      <td>NULL</td>
+      <td><strong><code>INI_ALL</code></strong></td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr>
+      <td>
+       <a href="mysqli.configuration.php.html#ini.mysqli.default-pw" class="link">mysqli.default_pw</a>
+      </td>
+      <td>NULL</td>
+      <td><strong><code>INI_ALL</code></strong></td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr>
+      <td>
+       <a href="mysqli.configuration.php.html#ini.mysqli.reconnect" class="link">mysqli.reconnect</a>
+      </td>
+      <td>&quot;0&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td>Удалено, начиная с PHP 8.2.0</td>
+     </tr>
+
+     <tr>
+      <td>
+       <a href="mysqli.configuration.php.html#ini.mysqli.rollback-on-cached-plink" class="link">mysqli.rollback_on_cached_plink</a>
+      </td>
+      <td>&quot;0&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
+ </p>
+ <p class="para">
+  Прочие детали и определения констант INI_* смотрите в разделе
+  <a href="configuration.changes.php.html" class="link">конфигурационные изменения</a>.
+ </p>
+
+ <p class="para">Краткое разъяснение конфигурационных
+директив.</p>
+
+ <p class="para">
+  <dl>
+
+   
+    <dt id="ini.mysqli.allow-local-infile">
+     <code class="parameter">mysqli.allow_local_infile</code>
+     <span class="type">int</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Разрешает доступ к локальным файлам, с точки зрения PHP,
+      с помощью инструкций LOAD DATA.
+     </p>
+    </dd>
+
+   
+
+   
+   <dt id="ini.mysqli.local-infile-directory">
+    <code class="parameter">mysqli.local_infile_directory</code>
+    <span class="type">string</span>
+   </dt>
+
+   <dd>
+
+    <p class="para">
+     Позволяет ограничить загрузку LOAD DATA файлами, расположенными в указанном
+     каталоге.
+    </p>
+   </dd>
+
+  
+
+   
+    <dt id="ini.mysqli.allow-persistent">
+     <code class="parameter">mysqli.allow_persistent</code>
+     <span class="type">int</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Включает возможность создавать постоянные соединения
+      с помощью <span class="function"><a href="function.mysqli-connect.php.html" class="function">mysqli_connect()</a></span>.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.mysqli.max-persistent">
+     <code class="parameter">mysqli.max_persistent</code>
+     <span class="type">int</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Максимально возможное количество постоянных соединений.
+      Для неограниченного количества установите в 0.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.mysqli.max-links">
+     <code class="parameter">mysqli.max_links</code>
+     <span class="type">int</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Максимальное количество соединений MySQL на процесс.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.mysqli.default-port">
+     <code class="parameter">mysqli.default_port</code>
+     <span class="type">int</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      TCP-порт, используемый по умолчанию для соединения с сервером баз данных,
+      если другое значение явно не указано. Если значение по умолчанию не
+      указано, оно будет получено из переменной среды окружения
+      <code class="literal">MYSQL_TCP_PORT</code>, директивы <code class="literal">mysql-tcp</code>
+      в файле <var class="filename">/etc/services</var> или константы
+      <code class="literal">MYSQL_PORT</code>, которая задаётся во время компиляции, в
+      указанном порядке. Win32 использует только константу
+      <code class="literal">MYSQL_PORT</code>.
+     </p>
+    </dd>
+
+   
+
+   
+    <dt id="ini.mysqli.default-socket">
+     <code class="parameter">mysqli.default_socket</code>
+     <span class="type">string</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Имя сокета по умолчанию, которое используется для соединения с локальной
+      базой данных, если имя сокета не было указано явно.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.mysqli.default-host">
+     <code class="parameter">mysqli.default_host</code>
+     <span class="type">string</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Имя сервера, которое используется, если имя не было указано явно.
+     </p>
+    </dd>
+
+   
+
+   
+    <dt id="ini.mysqli.default-user">
+     <code class="parameter">mysqli.default_user</code>
+     <span class="type">string</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Имя пользователя, используемое по умолчанию, если имя не было указано
+      явно.
+     </p>
+    </dd>
+
+   
+
+   
+    <dt id="ini.mysqli.default-pw">
+     <code class="parameter">mysqli.default_pw</code>
+     <span class="type">string</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Пароль, используемый по умолчанию для подключения к БД,
+      если пароль не был явно указан.
+     </p>
+    </dd>
+
+   
+
+   
+    <dt id="ini.mysqli.reconnect">
+     <code class="parameter">mysqli.reconnect</code>
+     <span class="type">int</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Автоматически восстанавливать соединение при его потере.
+     </p>
+     <blockquote class="note"><p><strong class="note">Замечание</strong>: 
+      <span class="simpara">Эта настройка игнорируется драйвером &quot;mysqlnd&quot; и была удалена в PHP 8.2.0.</span>
+     </p></blockquote>
+    </dd>
+
+   
+
+   
+    <dt id="ini.mysqli.rollback-on-cached-plink">
+     <code class="parameter">mysqli.rollback_on_cached_plink</code>
+     <span class="type">bool</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Если этот параметр включён, закрытие постоянного соединения откатит любые
+      ожидающие транзакции этого соединения, прежде чем оно будет возвращено
+      в пул постоянных соединений. В противном случае ожидающие соединения
+      будут откатываться только тогда, когда соединение будет повторно
+      использовано или когда оно будет фактически закрыто.
+     </p>
+    </dd>
+
+   
+
+  </dl>
+
+ </p>
+ <p class="para">
+  Пользователи не могут устанавливать <code class="literal">MYSQL_OPT_READ_TIMEOUT</code>
+  с помощью API-вызовов или установки конфигурационных значений во время
+  работы скрипта. Учтите, что если бы это было возможно, то
+  <code class="literal">libmysqlclient</code> и потоки по-разному обрабатывали бы значение
+  <code class="literal">MYSQL_OPT_READ_TIMEOUT</code>.
+ </p>
+</div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=mysqli.configuration&amp;redirect=https://www.php.net/manual/ru/mysqli.configuration.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">1 note</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="126911">  <div class="votes">
+    <div id="Vu126911">
+    <a href="https://www.php.net/manual/vote-note.php?id=126911&amp;page=mysqli.configuration&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd126911">
+    <a href="https://www.php.net/manual/vote-note.php?id=126911&amp;page=mysqli.configuration&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V126911" title="44% like this...">
+    -3
+    </div>
+  </div>
+  <a href="mysqli.configuration.php.html#126911" class="name">
+  <strong class="user"><em>User</em></strong></a><a class="genanchor" href="mysqli.configuration.php.html#126911"> &para;</a><div class="date" title="2022-03-09 01:16"><strong>1 year ago</strong></div>
+  <div class="text" id="Hcom126911">
+<div class="phpcode"><code><span class="html">About "mysqli.max_persistent int".<br />The documentation says "Set to 0 for unlimited".<br />Shouldn't the value be set to -1 for unlimited?</span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=mysqli.configuration&amp;redirect=https://www.php.net/manual/ru/mysqli.configuration.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="mysqli.setup.php.html">Установка и настройка</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="mysqli.requirements.php.html" title="Требования">Требования</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.installation.php.html" title="Установка">Установка</a>
+                        </li>
+                                                <li class="current">
+                            <a href="mysqli.configuration.php.html" title="Настройка во время выполнения">Настройка во время выполнения</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.resources.php.html" title="Типы ресурсов">Типы ресурсов</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

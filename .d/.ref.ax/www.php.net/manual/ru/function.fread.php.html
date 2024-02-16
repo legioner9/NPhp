@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: fread - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="function.fread.php.html">
+ <link rel="shorturl" href="https://www.php.net/fread">
+ <link rel="alternate" href="https://www.php.net/fread" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="ref.filesystem.php.html">
+ <link rel="prev" href="function.fputs.php.html">
+ <link rel="next" href="function.fscanf.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/function.fread.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/function.fread.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/function.fread.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/function.fread.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/function.fread.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/function.fread.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/function.fread.php" hreflang="pt_BR">
+ <link rel="alternate" href="function.fread.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/function.fread.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/function.fread.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="function.fscanf.php.html">
+          fscanf &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="function.fputs.php.html">
+          &laquo; fputs        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.fileprocess.file.php.html'>Модули для работы с файловой системой</a></li>      <li><a href='book.filesystem.php.html'>Файловая система</a></li>      <li><a href='ref.filesystem.php.html'>Функции файловой системы</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/function.fread.php'>English</option>
+            <option value='de/function.fread.php'>German</option>
+            <option value='es/function.fread.php'>Spanish</option>
+            <option value='fr/function.fread.php'>French</option>
+            <option value='it/function.fread.php'>Italian</option>
+            <option value='ja/function.fread.php'>Japanese</option>
+            <option value='pt_BR/function.fread.php'>Brazilian Portuguese</option>
+            <option value='ru/function.fread.php' selected="selected">Russian</option>
+            <option value='tr/function.fread.php'>Turkish</option>
+            <option value='zh/function.fread.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/filesystem/functions/fread.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Ffunction.fread%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="function.fread" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">fread</h1>
+  <p class="verinfo">(PHP 4, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">fread</span> &mdash; <span class="dc-title">Бинарно-безопасное чтение файла</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.fread-description">
+  <h3 class="title">Описание</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="methodname"><strong>fread</strong></span>(<span class="methodparam"><span class="type">resource</span> <code class="parameter">$stream</code></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter">$length</code></span>): <span class="type"><span class="type">string</span>|<span class="type"><span class="type false">false</span></span></span></div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><strong>fread()</strong></span> читает до
+   <code class="parameter">length</code> байт из файлового указателя
+   <code class="parameter">stream</code> и смещает указатель. Чтение останавливается как только
+   было достигнуто одно из следующих условий:
+   <ul class="itemizedlist">
+    <li class="listitem">
+     <span class="simpara">
+      было прочитано <code class="parameter">length</code> байт
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      достигнут EOF (конец файла)
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      стал доступен пакет или истекло <a href="function.socket-set-timeout.php.html" class="link">
+      время ожидания сокета</a> (для сетевых потоков)
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      если читаемый поток является буферизованным и не представляет
+      собой обычный файл, то за один раз максимум читается
+      количество байт, равное размеру одной порции данных (обычно это 8192),
+      однако, в зависимости от ранее буферизованных данных размер возвращаемых
+      данных может быть больше размера одной порции данных.
+     </span>
+    </li>
+   </ul>
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.fread-parameters">
+  <h3 class="title">Список параметров</h3>
+  <p class="para">
+   <dl>
+    
+     <dt>
+<code class="parameter">stream</code></dt>
+
+     <dd>
+
+      <p class="para">Ресурс (<span class="type">resource</span>)
+указателя файловой системы, который часто создают функцией <span class="function"><a href="function.fopen.php.html" class="function">fopen()</a></span>.</p>
+     </dd>
+
+    
+    
+     <dt>
+<code class="parameter">length</code></dt>
+
+     <dd>
+
+      <p class="para">
+       <code class="parameter">length</code> указывает размер прочитанных данных
+       в байтах.
+      </p>
+     </dd>
+
+    
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.fread-returnvalues">
+  <h3 class="title">Возвращаемые значения</h3>
+  <p class="para">
+   Возвращает прочтённую строку или <strong><code>false</code></strong> в случае возникновения ошибки.
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.fread-examples">
+  <h3 class="title">Примеры</h3>
+  <p class="para">
+   <div class="example" id="">
+    <p><strong>Пример #1 Простой пример использования <span class="function"><strong>fread()</strong></span></strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// получает содержимое файла в строку<br /></span><span style="color: #0000BB">$filename </span><span style="color: #007700">= </span><span style="color: #DD0000">"/usr/local/something.txt"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$handle </span><span style="color: #007700">= </span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #0000BB">$filename</span><span style="color: #007700">, </span><span style="color: #DD0000">"r"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$contents </span><span style="color: #007700">= </span><span style="color: #0000BB">fread</span><span style="color: #007700">(</span><span style="color: #0000BB">$handle</span><span style="color: #007700">, </span><span style="color: #0000BB">filesize</span><span style="color: #007700">(</span><span style="color: #0000BB">$filename</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$handle</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="">
+    <p><strong>Пример #2 Пример бинарного чтения с помощью <span class="function"><strong>fread()</strong></span></strong></p>
+    <div class="warning"><strong class="warning">Внимание</strong>
+     <p class="para">
+      На системах, которые различают бинарные и текстовые файлы
+      (к примеру, Windows), файл должен быть открыт с использованием
+      флага &#039;b&#039; в параметре mode функции <span class="function"><a href="function.fopen.php.html" class="function">fopen()</a></span>.
+     </p>
+    </div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$filename </span><span style="color: #007700">= </span><span style="color: #DD0000">"c:\\files\\somepic.gif"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$handle </span><span style="color: #007700">= </span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #0000BB">$filename</span><span style="color: #007700">, </span><span style="color: #DD0000">"rb"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$contents </span><span style="color: #007700">= </span><span style="color: #0000BB">fread</span><span style="color: #007700">(</span><span style="color: #0000BB">$handle</span><span style="color: #007700">, </span><span style="color: #0000BB">filesize</span><span style="color: #007700">(</span><span style="color: #0000BB">$filename</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$handle</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="">
+    <p><strong>Пример #3 Примеры удалённого чтения с помощью <span class="function"><strong>fread()</strong></span></strong></p>
+    <div class="warning"><strong class="warning">Внимание</strong>
+     <p class="para">
+      При чтении чего-либо отличного от локальных файлов, например
+      потоков, возвращаемых при чтении
+      <a href="features.remote-files.php.html" class="link">удалённых файлов</a> или из
+      <span class="function"><a href="function.popen.php.html" class="function">popen()</a></span> и <span class="function"><a href="function.fsockopen.php.html" class="function">fsockopen()</a></span>, чтение
+      остановится после того, как пакет станет доступным. Это означает, что
+      вы должны собирать данные вместе по кусочкам, как показано на примере
+      ниже.
+     </p>
+    </div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$handle </span><span style="color: #007700">= </span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #DD0000">"http://www.example.com/"</span><span style="color: #007700">, </span><span style="color: #DD0000">"rb"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$contents </span><span style="color: #007700">= </span><span style="color: #0000BB">stream_get_contents</span><span style="color: #007700">(</span><span style="color: #0000BB">$handle</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$handle</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+    </div>
+
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$handle </span><span style="color: #007700">= </span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #DD0000">"http://www.example.com/"</span><span style="color: #007700">, </span><span style="color: #DD0000">"rb"</span><span style="color: #007700">);<br />if (</span><span style="color: #0000BB">FALSE </span><span style="color: #007700">=== </span><span style="color: #0000BB">$handle</span><span style="color: #007700">) {<br />    exit(</span><span style="color: #DD0000">"Не удалось открыть поток по url адресу"</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #0000BB">$contents </span><span style="color: #007700">= </span><span style="color: #DD0000">''</span><span style="color: #007700">;<br /><br />while (!</span><span style="color: #0000BB">feof</span><span style="color: #007700">(</span><span style="color: #0000BB">$handle</span><span style="color: #007700">)) {<br />    </span><span style="color: #0000BB">$contents </span><span style="color: #007700">.= </span><span style="color: #0000BB">fread</span><span style="color: #007700">(</span><span style="color: #0000BB">$handle</span><span style="color: #007700">, </span><span style="color: #0000BB">8192</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$handle</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+<div class="refsect1 notes" id="refsect1-function.fread-notes">
+  <h3 class="title">Примечания</h3>
+  <blockquote class="note"><p><strong class="note">Замечание</strong>: 
+   <p class="para">
+    Если вы просто хотите получить содержимое файла в виде строки,
+    используйте <span class="function"><a href="function.file-get-contents.php.html" class="function">file_get_contents()</a></span>, так как
+    эта функция намного производительнее, чем код описанный выше.
+   </p>
+  </p></blockquote>
+  <blockquote class="note"><p><strong class="note">Замечание</strong>: 
+   <p class="para">
+    Учтите, что <span class="function"><strong>fread()</strong></span> читает, начиная с текущей
+    позиции файлового указателя. Используйте функцию <span class="function"><a href="function.ftell.php.html" class="function">ftell()</a></span>
+    для нахождения текущей позиции указателя и функцию <span class="function"><a href="function.rewind.php.html" class="function">rewind()</a></span>
+    для перемотки позиции указателя в начало.
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.fread-seealso">
+  <h3 class="title">Смотрите также</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.fwrite.php.html" class="function" rel="rdfs-seeAlso">fwrite()</a> - Записывает данные в файл бинарно-безопасным способом</span></li>
+    <li class="member"><span class="function"><a href="function.fopen.php.html" class="function" rel="rdfs-seeAlso">fopen()</a> - Открывает файл или URL</span></li>
+    <li class="member"><span class="function"><a href="function.fsockopen.php.html" class="function" rel="rdfs-seeAlso">fsockopen()</a> - Открывает соединение с интернет-сокетом или доменным сокетом Unix</span></li>
+    <li class="member"><span class="function"><a href="function.popen.php.html" class="function" rel="rdfs-seeAlso">popen()</a> - Открывает файловый указатель процесса</span></li>
+    <li class="member"><span class="function"><a href="function.fgets.php.html" class="function" rel="rdfs-seeAlso">fgets()</a> - Читает строку из файла</span></li>
+    <li class="member"><span class="function"><a href="function.fgetss.php.html" class="function" rel="rdfs-seeAlso">fgetss()</a> - Читает строку из файла и удаляет HTML-теги</span></li>
+    <li class="member"><span class="function"><a href="function.fscanf.php.html" class="function" rel="rdfs-seeAlso">fscanf()</a> - Обрабатывает данные из файла в соответствии с форматом</span></li>
+    <li class="member"><span class="function"><a href="function.file.php.html" class="function" rel="rdfs-seeAlso">file()</a> - Читает содержимое файла и помещает его в массив</span></li>
+    <li class="member"><span class="function"><a href="function.fpassthru.php.html" class="function" rel="rdfs-seeAlso">fpassthru()</a> - Выводит все оставшиеся данные из файлового указателя</span></li>
+    <li class="member"><span class="function"><a href="function.fseek.php.html" class="function" rel="rdfs-seeAlso">fseek()</a> - Устанавливает смещение в файловом указателе</span></li>
+    <li class="member"><span class="function"><a href="function.ftell.php.html" class="function" rel="rdfs-seeAlso">ftell()</a> - Возвращает текущую позицию указателя чтения/записи файла</span></li>
+    <li class="member"><span class="function"><a href="function.rewind.php.html" class="function" rel="rdfs-seeAlso">rewind()</a> - Сбрасывает курсор файлового указателя</span></li>
+    <li class="member"><span class="function"><a href="function.unpack.php.html" class="function" rel="rdfs-seeAlso">unpack()</a> - Распаковать данные из бинарной строки</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=function.fread&amp;redirect=https://www.php.net/manual/ru/function.fread.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">32 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="84115">  <div class="votes">
+    <div id="Vu84115">
+    <a href="https://www.php.net/manual/vote-note.php?id=84115&amp;page=function.fread&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd84115">
+    <a href="https://www.php.net/manual/vote-note.php?id=84115&amp;page=function.fread&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V84115" title="65% like this...">
+    26
+    </div>
+  </div>
+  <a href="function.fread.php.html#84115" class="name">
+  <strong class="user"><em>Edward Jaramilla</em></strong></a><a class="genanchor" href="function.fread.php.html#84115"> &para;</a><div class="date" title="2008-06-28 11:45"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom84115">
+<div class="phpcode"><code><span class="html">I couldn't get some of the previous resume scripts to work with Free Download Manager or Firefox.  I did some clean up and modified the code a little.<br /><br />Changes:<br />1. Added a Flag to specify if you want download to be resumable or not<br />2. Some error checking and data cleanup for invalid/multiple ranges based on <a href="http://tools.ietf.org/id/draft-ietf-http-range-retrieval-00.txt" rel="nofollow" target="_blank">http://tools.ietf.org/id/draft-ietf-http-range-retrieval-00.txt</a><br />3. Always calculate a $seek_end even though the range specification says it could be empty... eg: bytes 500-/1234<br />4. Removed some Cache headers that didn't seem to be needed. (add back if you have problems)<br />5. Only send partial content header if downloading a piece of the file (IE workaround)<br /><br /><span class="default">&lt;?php<br /><br /></span><span class="keyword">function </span><span class="default">dl_file_resumable</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">, </span><span class="default">$is_resume</span><span class="keyword">=</span><span class="default">TRUE</span><span class="keyword">)<br />{<br />    </span><span class="comment">//First, see if the file exists<br />    </span><span class="keyword">if (!</span><span class="default">is_file</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">))<br />    {<br />        die(</span><span class="string">"&lt;b&gt;404 File not found!&lt;/b&gt;"</span><span class="keyword">);<br />    }<br /><br />    </span><span class="comment">//Gather relevent info about file<br />    </span><span class="default">$size </span><span class="keyword">= </span><span class="default">filesize</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">);<br />    </span><span class="default">$fileinfo </span><span class="keyword">= </span><span class="default">pathinfo</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">);<br />    <br />    </span><span class="comment">//workaround for IE filename bug with multiple periods / multiple dots in filename<br />    //that adds square brackets to filename - eg. setup.abc.exe becomes setup[1].abc.exe<br />    </span><span class="default">$filename </span><span class="keyword">= (</span><span class="default">strstr</span><span class="keyword">(</span><span class="default">$_SERVER</span><span class="keyword">[</span><span class="string">'HTTP_USER_AGENT'</span><span class="keyword">], </span><span class="string">'MSIE'</span><span class="keyword">)) ?<br />                  </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'/\./'</span><span class="keyword">, </span><span class="string">'%2e'</span><span class="keyword">, </span><span class="default">$fileinfo</span><span class="keyword">[</span><span class="string">'basename'</span><span class="keyword">], </span><span class="default">substr_count</span><span class="keyword">(</span><span class="default">$fileinfo</span><span class="keyword">[</span><span class="string">'basename'</span><span class="keyword">], </span><span class="string">'.'</span><span class="keyword">) - </span><span class="default">1</span><span class="keyword">) :<br />                  </span><span class="default">$fileinfo</span><span class="keyword">[</span><span class="string">'basename'</span><span class="keyword">];<br />    <br />    </span><span class="default">$file_extension </span><span class="keyword">= </span><span class="default">strtolower</span><span class="keyword">(</span><span class="default">$path_info</span><span class="keyword">[</span><span class="string">'extension'</span><span class="keyword">]);<br /><br />    </span><span class="comment">//This will set the Content-Type to the appropriate setting for the file<br />    </span><span class="keyword">switch(</span><span class="default">$file_extension</span><span class="keyword">)<br />    {<br />        case </span><span class="string">'exe'</span><span class="keyword">: </span><span class="default">$ctype</span><span class="keyword">=</span><span class="string">'application/octet-stream'</span><span class="keyword">; break;<br />        case </span><span class="string">'zip'</span><span class="keyword">: </span><span class="default">$ctype</span><span class="keyword">=</span><span class="string">'application/zip'</span><span class="keyword">; break;<br />        case </span><span class="string">'mp3'</span><span class="keyword">: </span><span class="default">$ctype</span><span class="keyword">=</span><span class="string">'audio/mpeg'</span><span class="keyword">; break;<br />        case </span><span class="string">'mpg'</span><span class="keyword">: </span><span class="default">$ctype</span><span class="keyword">=</span><span class="string">'video/mpeg'</span><span class="keyword">; break;<br />        case </span><span class="string">'avi'</span><span class="keyword">: </span><span class="default">$ctype</span><span class="keyword">=</span><span class="string">'video/x-msvideo'</span><span class="keyword">; break;<br />        default:    </span><span class="default">$ctype</span><span class="keyword">=</span><span class="string">'application/force-download'</span><span class="keyword">;<br />    }<br /><br />    </span><span class="comment">//check if http_range is sent by browser (or download manager)<br />    </span><span class="keyword">if(</span><span class="default">$is_resume </span><span class="keyword">&amp;&amp; isset(</span><span class="default">$_SERVER</span><span class="keyword">[</span><span class="string">'HTTP_RANGE'</span><span class="keyword">]))<br />    {<br />        list(</span><span class="default">$size_unit</span><span class="keyword">, </span><span class="default">$range_orig</span><span class="keyword">) = </span><span class="default">explode</span><span class="keyword">(</span><span class="string">'='</span><span class="keyword">, </span><span class="default">$_SERVER</span><span class="keyword">[</span><span class="string">'HTTP_RANGE'</span><span class="keyword">], </span><span class="default">2</span><span class="keyword">);<br /><br />        if (</span><span class="default">$size_unit </span><span class="keyword">== </span><span class="string">'bytes'</span><span class="keyword">)<br />        {<br />            </span><span class="comment">//multiple ranges could be specified at the same time, but for simplicity only serve the first range<br />            //<a href="http://tools.ietf.org/id/draft-ietf-http-range-retrieval-00.txt" rel="nofollow" target="_blank">http://tools.ietf.org/id/draft-ietf-http-range-retrieval-00.txt</a><br />            </span><span class="keyword">list(</span><span class="default">$range</span><span class="keyword">, </span><span class="default">$extra_ranges</span><span class="keyword">) = </span><span class="default">explode</span><span class="keyword">(</span><span class="string">','</span><span class="keyword">, </span><span class="default">$range_orig</span><span class="keyword">, </span><span class="default">2</span><span class="keyword">);<br />        }<br />        else<br />        {<br />            </span><span class="default">$range </span><span class="keyword">= </span><span class="string">''</span><span class="keyword">;<br />        }<br />    }<br />    else<br />    {<br />        </span><span class="default">$range </span><span class="keyword">= </span><span class="string">''</span><span class="keyword">;<br />    }<br /><br />    </span><span class="comment">//figure out download piece from range (if set)<br />    </span><span class="keyword">list(</span><span class="default">$seek_start</span><span class="keyword">, </span><span class="default">$seek_end</span><span class="keyword">) = </span><span class="default">explode</span><span class="keyword">(</span><span class="string">'-'</span><span class="keyword">, </span><span class="default">$range</span><span class="keyword">, </span><span class="default">2</span><span class="keyword">);<br /><br />    </span><span class="comment">//set start and end based on range (if set), else set defaults<br />    //also check for invalid ranges.<br />    </span><span class="default">$seek_end </span><span class="keyword">= (empty(</span><span class="default">$seek_end</span><span class="keyword">)) ? (</span><span class="default">$size </span><span class="keyword">- </span><span class="default">1</span><span class="keyword">) : </span><span class="default">min</span><span class="keyword">(</span><span class="default">abs</span><span class="keyword">(</span><span class="default">intval</span><span class="keyword">(</span><span class="default">$seek_end</span><span class="keyword">)),(</span><span class="default">$size </span><span class="keyword">- </span><span class="default">1</span><span class="keyword">));<br />    </span><span class="default">$seek_start </span><span class="keyword">= (empty(</span><span class="default">$seek_start</span><span class="keyword">) || </span><span class="default">$seek_end </span><span class="keyword">&lt; </span><span class="default">abs</span><span class="keyword">(</span><span class="default">intval</span><span class="keyword">(</span><span class="default">$seek_start</span><span class="keyword">))) ? </span><span class="default">0 </span><span class="keyword">: </span><span class="default">max</span><span class="keyword">(</span><span class="default">abs</span><span class="keyword">(</span><span class="default">intval</span><span class="keyword">(</span><span class="default">$seek_start</span><span class="keyword">)),</span><span class="default">0</span><span class="keyword">);<br /><br />    </span><span class="comment">//add headers if resumable<br />    </span><span class="keyword">if (</span><span class="default">$is_resume</span><span class="keyword">)<br />    {<br />        </span><span class="comment">//Only send partial content header if downloading a piece of the file (IE workaround)<br />        </span><span class="keyword">if (</span><span class="default">$seek_start </span><span class="keyword">&gt; </span><span class="default">0 </span><span class="keyword">|| </span><span class="default">$seek_end </span><span class="keyword">&lt; (</span><span class="default">$size </span><span class="keyword">- </span><span class="default">1</span><span class="keyword">))<br />        {<br />            </span><span class="default">header</span><span class="keyword">(</span><span class="string">'HTTP/1.1 206 Partial Content'</span><span class="keyword">);<br />        }<br /><br />        </span><span class="default">header</span><span class="keyword">(</span><span class="string">'Accept-Ranges: bytes'</span><span class="keyword">);<br />        </span><span class="default">header</span><span class="keyword">(</span><span class="string">'Content-Range: bytes '</span><span class="keyword">.</span><span class="default">$seek_start</span><span class="keyword">.</span><span class="string">'-'</span><span class="keyword">.</span><span class="default">$seek_end</span><span class="keyword">.</span><span class="string">'/'</span><span class="keyword">.</span><span class="default">$size</span><span class="keyword">);<br />    }<br /><br />    </span><span class="comment">//headers for IE Bugs (is this necessary?)<br />    //header("Cache-Control: cache, must-revalidate");   <br />    //header("Pragma: public");<br /><br />    </span><span class="default">header</span><span class="keyword">(</span><span class="string">'Content-Type: ' </span><span class="keyword">. </span><span class="default">$ctype</span><span class="keyword">);<br />    </span><span class="default">header</span><span class="keyword">(</span><span class="string">'Content-Disposition: attachment; filename="' </span><span class="keyword">. </span><span class="default">$filename </span><span class="keyword">. </span><span class="string">'"'</span><span class="keyword">);<br />    </span><span class="default">header</span><span class="keyword">(</span><span class="string">'Content-Length: '</span><span class="keyword">.(</span><span class="default">$seek_end </span><span class="keyword">- </span><span class="default">$seek_start </span><span class="keyword">+ </span><span class="default">1</span><span class="keyword">));<br /><br />    </span><span class="comment">//open the file<br />    </span><span class="default">$fp </span><span class="keyword">= </span><span class="default">fopen</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">, </span><span class="string">'rb'</span><span class="keyword">);<br />    </span><span class="comment">//seek to start of missing part<br />    </span><span class="default">fseek</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">, </span><span class="default">$seek_start</span><span class="keyword">);<br /><br />    </span><span class="comment">//start buffered download<br />    </span><span class="keyword">while(!</span><span class="default">feof</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">))<br />    {<br />        </span><span class="comment">//reset time limit for big files<br />        </span><span class="default">set_time_limit</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">);<br />        print(</span><span class="default">fread</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">, </span><span class="default">1024</span><span class="keyword">*</span><span class="default">8</span><span class="keyword">));<br />        </span><span class="default">flush</span><span class="keyword">();<br />        </span><span class="default">ob_flush</span><span class="keyword">();<br />    }<br /><br />    </span><span class="default">fclose</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">);<br />    exit;<br />}<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="113885">  <div class="votes">
+    <div id="Vu113885">
+    <a href="https://www.php.net/manual/vote-note.php?id=113885&amp;page=function.fread&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd113885">
+    <a href="https://www.php.net/manual/vote-note.php?id=113885&amp;page=function.fread&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V113885" title="77% like this...">
+    17
+    </div>
+  </div>
+  <a href="function.fread.php.html#113885" class="name">
+  <strong class="user"><em>dharmilshah at gmail dot com</em></strong></a><a class="genanchor" href="function.fread.php.html#113885"> &para;</a><div class="date" title="2013-12-12 11:59"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom113885">
+<div class="phpcode"><code><span class="html">For anyone still trying to write an effective file downloader function/script, the work has been done for you in all the major servers including Apache &amp; nginx.<br /><br />Using the X-Sendfile header, you can do the following:<br /><br />if ($user-&gt;isLoggedIn())<br />{<br />    header("X-Sendfile: $path_to_somefile_private");<br />    header("Content-Type: application/octet-stream");<br />    header("Content-Disposition: attachment; filename=\"$somefile\"");<br />}<br /><br />Apache will serve the file for you while NOT revealing your private file path! Pretty nice. This works on all browsers/download managers and saves a lot of resources.<br /><br />Documentation:<br />Apache module: <a href="https://tn123.org/mod_xsendfile/" rel="nofollow" target="_blank">https://tn123.org/mod_xsendfile/</a><br />Nginx: <a href="http://wiki.nginx.org/XSendfile" rel="nofollow" target="_blank">http://wiki.nginx.org/XSendfile</a><br />Lighttpd: <a href="http://blog.lighttpd.net/articles/2006/07/02/x-sendfile/" rel="nofollow" target="_blank">http://blog.lighttpd.net/articles/2006/07/02/x-sendfile/</a><br /><br />Hopefully this will save you many hours of work.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="93250">  <div class="votes">
+    <div id="Vu93250">
+    <a href="https://www.php.net/manual/vote-note.php?id=93250&amp;page=function.fread&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd93250">
+    <a href="https://www.php.net/manual/vote-note.php?id=93250&amp;page=function.fread&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V93250" title="65% like this...">
+    25
+    </div>
+  </div>
+  <a href="function.fread.php.html#93250" class="name">
+  <strong class="user"><em>edgarinvillegas at hotmail dot com</em></strong></a><a class="genanchor" href="function.fread.php.html#93250"> &para;</a><div class="date" title="2009-08-30 12:16"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom93250">
+<div class="phpcode"><code><span class="html">I had a fread script that hanged forever (from php manual):<br /><br /><span class="default">&lt;?php<br />$fp </span><span class="keyword">= </span><span class="default">fsockopen</span><span class="keyword">(</span><span class="string">"example.host.com"</span><span class="keyword">, </span><span class="default">80</span><span class="keyword">);<br />if (!</span><span class="default">$fp</span><span class="keyword">) {<br />    echo </span><span class="string">"</span><span class="default">$errstr</span><span class="string"> (</span><span class="default">$errno</span><span class="string">)&lt;br /&gt;\n"</span><span class="keyword">;<br />} else {<br />    </span><span class="default">fwrite</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">, </span><span class="string">"Data sent by socket"</span><span class="keyword">);<br />    </span><span class="default">$content </span><span class="keyword">= </span><span class="string">""</span><span class="keyword">;<br />    while (!</span><span class="default">feof</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">)) {  </span><span class="comment">//This looped forever<br />        </span><span class="default">$content </span><span class="keyword">.= </span><span class="default">fread</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">, </span><span class="default">1024</span><span class="keyword">);<br />    }<br />    </span><span class="default">fclose</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">);<br />    echo </span><span class="default">$content</span><span class="keyword">;<br />}<br /></span><span class="default">?&gt;<br /></span><br />The problem is that sometimes end of streaming is not marked by EOF nor a fixed mark, that's why this looped forever. This caused me a lot of headaches...<br />I solved it using the stream_get_meta_data function and a break statement as the following shows:<br /><br /><span class="default">&lt;?php<br />$fp </span><span class="keyword">= </span><span class="default">fsockopen</span><span class="keyword">(</span><span class="string">"example.host.com"</span><span class="keyword">, </span><span class="default">80</span><span class="keyword">);<br />if (!</span><span class="default">$fp</span><span class="keyword">) {<br />    echo </span><span class="string">"</span><span class="default">$errstr</span><span class="string"> (</span><span class="default">$errno</span><span class="string">)&lt;br /&gt;\n"</span><span class="keyword">;<br />} else {<br />    </span><span class="default">fwrite</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">, </span><span class="string">"Data sent by socket"</span><span class="keyword">);<br />    </span><span class="default">$content </span><span class="keyword">= </span><span class="string">""</span><span class="keyword">;<br />    while (!</span><span class="default">feof</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">)) {  <br />        </span><span class="default">$content </span><span class="keyword">.= </span><span class="default">fread</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">, </span><span class="default">1024</span><span class="keyword">);<br />        </span><span class="default">$stream_meta_data </span><span class="keyword">= </span><span class="default">stream_get_meta_data</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">); </span><span class="comment">//Added line<br />         </span><span class="keyword">if(</span><span class="default">$stream_meta_data</span><span class="keyword">[</span><span class="string">'unread_bytes'</span><span class="keyword">] &lt;= </span><span class="default">0</span><span class="keyword">) break; </span><span class="comment">//Added line<br />    </span><span class="keyword">}<br />    </span><span class="default">fclose</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">);<br />    echo </span><span class="default">$content</span><span class="keyword">;<br />}<br /></span><span class="default">?&gt;<br /></span><br />Hope this will save a lot of headaches to someone.<br /><br />(Greetings, from La Paz-Bolivia)</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="82841">  <div class="votes">
+    <div id="Vu82841">
+    <a href="https://www.php.net/manual/vote-note.php?id=82841&amp;page=function.fread&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd82841">
+    <a href="https://www.php.net/manual/vote-note.php?id=82841&amp;page=function.fread&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V82841" title="85% like this...">
+    10
+    </div>
+  </div>
+  <a href="function.fread.php.html#82841" class="name">
+  <strong class="user"><em>mail at 3v1n0 dot net</em></strong></a><a class="genanchor" href="function.fread.php.html#82841"> &para;</a><div class="date" title="2008-04-28 03:32"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom82841">
+<div class="phpcode"><code><span class="html">This is an hack I've done to download remote files with HTTP resume support. This is useful if you want to write a download script that fetches files remotely and then sends them to the user, adding support to download managers (I tested it on wget). To do that you should also use a "remote_filesize" function that you can easily write/find.<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">readfile_chunked_remote</span><span class="keyword">(</span><span class="default">$filename</span><span class="keyword">, </span><span class="default">$seek </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">, </span><span class="default">$retbytes </span><span class="keyword">= </span><span class="default">true</span><span class="keyword">, </span><span class="default">$timeout </span><span class="keyword">= </span><span class="default">3</span><span class="keyword">) {<br />    </span><span class="default">set_time_limit</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">);<br />    </span><span class="default">$defaultchunksize </span><span class="keyword">= </span><span class="default">1024</span><span class="keyword">*</span><span class="default">1024</span><span class="keyword">;<br />    </span><span class="default">$chunksize </span><span class="keyword">= </span><span class="default">$defaultchunksize</span><span class="keyword">;<br />    </span><span class="default">$buffer </span><span class="keyword">= </span><span class="string">''</span><span class="keyword">;<br />    </span><span class="default">$cnt </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br />    </span><span class="default">$remotereadfile </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;<br /><br />    if (</span><span class="default">preg_match</span><span class="keyword">(</span><span class="string">'/[a-zA-Z]+:\/\//'</span><span class="keyword">, </span><span class="default">$filename</span><span class="keyword">))<br />        </span><span class="default">$remotereadfile </span><span class="keyword">= </span><span class="default">true</span><span class="keyword">;<br /><br />    </span><span class="default">$handle </span><span class="keyword">= @</span><span class="default">fopen</span><span class="keyword">(</span><span class="default">$filename</span><span class="keyword">, </span><span class="string">'rb'</span><span class="keyword">);<br /><br />    if (</span><span class="default">$handle </span><span class="keyword">=== </span><span class="default">false</span><span class="keyword">) {<br />        return </span><span class="default">false</span><span class="keyword">;<br />    }<br /><br />    </span><span class="default">stream_set_timeout</span><span class="keyword">(</span><span class="default">$handle</span><span class="keyword">, </span><span class="default">$timeout</span><span class="keyword">);<br />    <br />    if (</span><span class="default">$seek </span><span class="keyword">!= </span><span class="default">0 </span><span class="keyword">&amp;&amp; !</span><span class="default">$remotereadfile</span><span class="keyword">)<br />        </span><span class="default">fseek</span><span class="keyword">(</span><span class="default">$handle</span><span class="keyword">, </span><span class="default">$seek</span><span class="keyword">);<br /><br />    while (!</span><span class="default">feof</span><span class="keyword">(</span><span class="default">$handle</span><span class="keyword">)) {<br /><br />        if (</span><span class="default">$remotereadfile </span><span class="keyword">&amp;&amp; </span><span class="default">$seek </span><span class="keyword">!= </span><span class="default">0 </span><span class="keyword">&amp;&amp; </span><span class="default">$cnt</span><span class="keyword">+</span><span class="default">$chunksize </span><span class="keyword">&gt; </span><span class="default">$seek</span><span class="keyword">)<br />            </span><span class="default">$chunksize </span><span class="keyword">= </span><span class="default">$seek</span><span class="keyword">-</span><span class="default">$cnt</span><span class="keyword">;<br />        else<br />            </span><span class="default">$chunksize </span><span class="keyword">= </span><span class="default">$defaultchunksize</span><span class="keyword">;<br /><br />        </span><span class="default">$buffer </span><span class="keyword">= @</span><span class="default">fread</span><span class="keyword">(</span><span class="default">$handle</span><span class="keyword">, </span><span class="default">$chunksize</span><span class="keyword">);<br /><br />        if (</span><span class="default">$retbytes </span><span class="keyword">|| (</span><span class="default">$remotereadfile </span><span class="keyword">&amp;&amp; </span><span class="default">$seek </span><span class="keyword">!= </span><span class="default">0</span><span class="keyword">)) {<br />            </span><span class="default">$cnt </span><span class="keyword">+= </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$buffer</span><span class="keyword">);<br />        }<br /><br />        if (!</span><span class="default">$remotereadfile </span><span class="keyword">|| (</span><span class="default">$remotereadfile </span><span class="keyword">&amp;&amp; </span><span class="default">$cnt </span><span class="keyword">&gt; </span><span class="default">$seek</span><span class="keyword">))<br />            echo </span><span class="default">$buffer</span><span class="keyword">;<br /><br />        </span><span class="default">ob_flush</span><span class="keyword">();<br />        </span><span class="default">flush</span><span class="keyword">();<br />    }<br /><br />    </span><span class="default">$info </span><span class="keyword">= </span><span class="default">stream_get_meta_data</span><span class="keyword">(</span><span class="default">$handle</span><span class="keyword">);<br /><br />    </span><span class="default">$status </span><span class="keyword">= </span><span class="default">fclose</span><span class="keyword">(</span><span class="default">$handle</span><span class="keyword">);<br /><br />    if (</span><span class="default">$info</span><span class="keyword">[</span><span class="string">'timed_out'</span><span class="keyword">])<br />        return </span><span class="default">false</span><span class="keyword">;<br /><br />    if (</span><span class="default">$retbytes </span><span class="keyword">&amp;&amp; </span><span class="default">$status</span><span class="keyword">) {<br />        return </span><span class="default">$cnt</span><span class="keyword">;<br />    }<br /><br />    return </span><span class="default">$status</span><span class="keyword">;<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="78406">  <div class="votes">
+    <div id="Vu78406">
+    <a href="https://www.php.net/manual/vote-note.php?id=78406&amp;page=function.fread&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd78406">
+    <a href="https://www.php.net/manual/vote-note.php?id=78406&amp;page=function.fread&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V78406" title="85% like this...">
+    10
+    </div>
+  </div>
+  <a href="function.fread.php.html#78406" class="name">
+  <strong class="user"><em>matt at matt-darby dot com</em></strong></a><a class="genanchor" href="function.fread.php.html#78406"> &para;</a><div class="date" title="2007-10-10 10:32"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom78406">
+<div class="phpcode"><code><span class="html">I thought I had an issue where fread() would fail on files &gt; 30M in size. I tried a file_get_contents() method with the same results. The issue was not reading the file, but echoing its data back to the browser. <br /><br />Basically, you need to split up the filedata into manageable chunks before firing it off to the browser:<br /><br /><span class="default">&lt;?php<br /><br />$total     </span><span class="keyword">= </span><span class="default">filesize</span><span class="keyword">(</span><span class="default">$filepath</span><span class="keyword">);<br /></span><span class="default">$blocksize </span><span class="keyword">= (</span><span class="default">2 </span><span class="keyword">&lt;&lt; </span><span class="default">20</span><span class="keyword">); </span><span class="comment">//2M chunks<br /></span><span class="default">$sent      </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br /></span><span class="default">$handle    </span><span class="keyword">= </span><span class="default">fopen</span><span class="keyword">(</span><span class="default">$filepath</span><span class="keyword">, </span><span class="string">"r"</span><span class="keyword">);<br /><br /></span><span class="comment">// Push headers that tell what kind of file is coming down the pike<br /></span><span class="default">header</span><span class="keyword">(</span><span class="string">'Content-type: '</span><span class="keyword">.</span><span class="default">$content_type</span><span class="keyword">);<br /></span><span class="default">header</span><span class="keyword">(</span><span class="string">'Content-Disposition: attachment; filename='</span><span class="keyword">.</span><span class="default">$filename</span><span class="keyword">);<br /></span><span class="default">header</span><span class="keyword">(</span><span class="string">'Content-length: '</span><span class="keyword">.</span><span class="default">$filesize </span><span class="keyword">* </span><span class="default">1024</span><span class="keyword">);<br />                <br /></span><span class="comment">// Now we need to loop through the file and echo out chunks of file data<br />// Dumping the whole file fails at &gt; 30M!<br /></span><span class="keyword">while(</span><span class="default">$sent </span><span class="keyword">&lt; </span><span class="default">$total</span><span class="keyword">){<br />    echo </span><span class="default">fread</span><span class="keyword">(</span><span class="default">$handle</span><span class="keyword">, </span><span class="default">$blocksize</span><span class="keyword">);<br />    </span><span class="default">$sent </span><span class="keyword">+= </span><span class="default">$blocksize</span><span class="keyword">;<br />}<br />            <br />exit(</span><span class="default">0</span><span class="keyword">);<br /><br /></span><span class="default">?&gt;<br /></span><br />Hope this helps someone!</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="115340">  <div class="votes">
+    <div id="Vu115340">
+    <a href="https://www.php.net/manual/vote-note.php?id=115340&amp;page=function.fread&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd115340">
+    <a href="https://www.php.net/manual/vote-note.php?id=115340&amp;page=function.fread&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V115340" title="88% like this...">
+    7
+    </div>
+  </div>
+  <a href="function.fread.php.html#115340" class="name">
+  <strong class="user"><em>john dot wellesz at teaser dot com</em></strong></a><a class="genanchor" href="function.fread.php.html#115340"> &para;</a><div class="date" title="2014-07-07 08:52"><strong>9 years ago</strong></div>
+  <div class="text" id="Hcom115340">
+<div class="phpcode"><code><span class="html">Note that fread() will return '' (empty string) when a timeout occurs unlike socket_read() which returns false...</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="74162">  <div class="votes">
+    <div id="Vu74162">
+    <a href="https://www.php.net/manual/vote-note.php?id=74162&amp;page=function.fread&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd74162">
+    <a href="https://www.php.net/manual/vote-note.php?id=74162&amp;page=function.fread&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V74162" title="85% like this...">
+    5
+    </div>
+  </div>
+  <a href="function.fread.php.html#74162" class="name">
+  <strong class="user"><em>aubfre at hotmail dot com</em></strong></a><a class="genanchor" href="function.fread.php.html#74162"> &para;</a><div class="date" title="2007-03-27 09:20"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom74162">
+<div class="phpcode"><code><span class="html">Changing the value of $length may yield to different download speeds when serving a file from a script.<br /><br />I was not able to max out my 10mbps connection when 4096 was used. I found out that using 16384 would use all the available bandwidth.<br /><br />When outputing binary data with fread, do not assume that 4096 or 8192 is the optimal value for you. Do some benchmarks by downloading files through your script.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="105471">  <div class="votes">
+    <div id="Vu105471">
+    <a href="https://www.php.net/manual/vote-note.php?id=105471&amp;page=function.fread&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd105471">
+    <a href="https://www.php.net/manual/vote-note.php?id=105471&amp;page=function.fread&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V105471" title="78% like this...">
+    8
+    </div>
+  </div>
+  <a href="function.fread.php.html#105471" class="name">
+  <strong class="user"><em>randym</em></strong></a><a class="genanchor" href="function.fread.php.html#105471"> &para;</a><div class="date" title="2011-08-20 10:45"><strong>12 years ago</strong></div>
+  <div class="text" id="Hcom105471">
+<div class="phpcode"><code><span class="html">Concerning [problems with UTF-8 and] downloading Zip files I found that simply adding 3 lines of code before starting the fread to the buffer for delivery in all browsers solved the problem.<br /><br /><span class="default">&lt;?php<br />    ob_end_clean</span><span class="keyword">();<br />    </span><span class="default">ob_start</span><span class="keyword">();<br />    </span><span class="default">header</span><span class="keyword">( </span><span class="string">'Content-Type:' </span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />... see where placed in the function below:<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">readfile_chunked</span><span class="keyword">( </span><span class="default">$filename</span><span class="keyword">, </span><span class="default">$retbytes </span><span class="keyword">= </span><span class="default">true </span><span class="keyword">) {<br />    </span><span class="default">$chunksize </span><span class="keyword">= </span><span class="default">1 </span><span class="keyword">* (</span><span class="default">1024 </span><span class="keyword">* </span><span class="default">1024</span><span class="keyword">); </span><span class="comment">// how many bytes per chunk<br />    </span><span class="default">$buffer </span><span class="keyword">= </span><span class="string">''</span><span class="keyword">;<br />    </span><span class="default">$cnt </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br />    </span><span class="default">$handle </span><span class="keyword">= </span><span class="default">fopen</span><span class="keyword">( </span><span class="default">$filename</span><span class="keyword">, </span><span class="string">'rb' </span><span class="keyword">);<br />    if ( </span><span class="default">$handle </span><span class="keyword">=== </span><span class="default">false </span><span class="keyword">) {<br />        return </span><span class="default">false</span><span class="keyword">;<br />    }<br />    </span><span class="default">ob_end_clean</span><span class="keyword">(); </span><span class="comment">//added to fix ZIP file corruption<br />    </span><span class="default">ob_start</span><span class="keyword">(); </span><span class="comment">//added to fix ZIP file corruption<br />    </span><span class="default">header</span><span class="keyword">( </span><span class="string">'Content-Type:' </span><span class="keyword">); </span><span class="comment">//added to fix ZIP file corruption<br />    </span><span class="keyword">while ( !</span><span class="default">feof</span><span class="keyword">( </span><span class="default">$handle </span><span class="keyword">) ) {<br />        </span><span class="default">$buffer </span><span class="keyword">= </span><span class="default">fread</span><span class="keyword">( </span><span class="default">$handle</span><span class="keyword">, </span><span class="default">$chunksize </span><span class="keyword">);<br />        </span><span class="comment">//$buffer = str_replace("ï»¿","",$buffer);<br />        </span><span class="keyword">echo </span><span class="default">$buffer</span><span class="keyword">;<br />        </span><span class="default">ob_flush</span><span class="keyword">();<br />        </span><span class="default">flush</span><span class="keyword">();<br />        if ( </span><span class="default">$retbytes </span><span class="keyword">) {<br />            </span><span class="default">$cnt </span><span class="keyword">+= </span><span class="default">strlen</span><span class="keyword">( </span><span class="default">$buffer </span><span class="keyword">);<br />        }<br />    }<br />    </span><span class="default">$status </span><span class="keyword">= </span><span class="default">fclose</span><span class="keyword">( </span><span class="default">$handle </span><span class="keyword">);<br />    if ( </span><span class="default">$retbytes </span><span class="keyword">&amp;&amp; </span><span class="default">$status </span><span class="keyword">) {<br />        return </span><span class="default">$cnt</span><span class="keyword">; </span><span class="comment">// return num. bytes delivered like readfile() does.<br />    </span><span class="keyword">}<br />    return </span><span class="default">$status</span><span class="keyword">;<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="97728">  <div class="votes">
+    <div id="Vu97728">
+    <a href="https://www.php.net/manual/vote-note.php?id=97728&amp;page=function.fread&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd97728">
+    <a href="https://www.php.net/manual/vote-note.php?id=97728&amp;page=function.fread&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V97728" title="83% like this...">
+    4
+    </div>
+  </div>
+  <a href="function.fread.php.html#97728" class="name">
+  <strong class="user"><em>david at identd dot dyndns dot org</em></strong></a><a class="genanchor" href="function.fread.php.html#97728"> &para;</a><div class="date" title="2010-05-05 06:27"><strong>13 years ago</strong></div>
+  <div class="text" id="Hcom97728">
+<div class="phpcode"><code><span class="html">Note to IIS admins:<br /><br />When using PHP via the FastCGI ISAPI extension, there is a script timeout of approximately 1hr that cannot be adjusted. When using PHP via CGI, there is a script timeout that is based upon the value of the CGITimeout configuration option. This value must be set extremely high if you plan to serve large files. An explanation of how to configure this option can be found here: <a href="http://www.iisadmin.co.uk/?p=7" rel="nofollow" target="_blank">http://www.iisadmin.co.uk/?p=7</a> If you do not modify this setting you can expect the above scripts to fail silently once it has hit the default value (30 minutes in my case).</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="85801">  <div class="votes">
+    <div id="Vu85801">
+    <a href="https://www.php.net/manual/vote-note.php?id=85801&amp;page=function.fread&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd85801">
+    <a href="https://www.php.net/manual/vote-note.php?id=85801&amp;page=function.fread&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V85801" title="76% like this...">
+    7
+    </div>
+  </div>
+  <a href="function.fread.php.html#85801" class="name">
+  <strong class="user"><em>Anonymous</em></strong></a><a class="genanchor" href="function.fread.php.html#85801"> &para;</a><div class="date" title="2008-09-18 06:46"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom85801">
+<div class="phpcode"><code><span class="html">It might be worth noting that if your site uses a front controller with sessions and you send a large file to a user; you should end the session just before sending the file, otherwise the user will not be able to continue continue browsing the site while the file is downloading.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="86633">  <div class="votes">
+    <div id="Vu86633">
+    <a href="https://www.php.net/manual/vote-note.php?id=86633&amp;page=function.fread&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd86633">
+    <a href="https://www.php.net/manual/vote-note.php?id=86633&amp;page=function.fread&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V86633" title="77% like this...">
+    5
+    </div>
+  </div>
+  <a href="function.fread.php.html#86633" class="name">
+  <strong class="user"><em>Anonymous</em></strong></a><a class="genanchor" href="function.fread.php.html#86633"> &para;</a><div class="date" title="2008-10-27 04:50"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom86633">
+<div class="phpcode"><code><span class="html">This code is buggy<br /><span class="default">&lt;?php<br />$contents </span><span class="keyword">= </span><span class="string">''</span><span class="keyword">;<br />while (!</span><span class="default">feof</span><span class="keyword">(</span><span class="default">$handle</span><span class="keyword">)) {<br />  </span><span class="default">$contents </span><span class="keyword">.= </span><span class="default">fread</span><span class="keyword">(</span><span class="default">$handle</span><span class="keyword">, </span><span class="default">8192</span><span class="keyword">);<br />}<br /></span><span class="default">?&gt;<br /></span>When you read a file whose size is a multiple of the readsize (8192 here), then the loop is executed when there are no more data to read. Here, the result of fread() is not checked, and so the instruction<br /><span class="default">&lt;?php<br />$contents </span><span class="keyword">.= </span><span class="default">fread</span><span class="keyword">(</span><span class="default">$handle</span><span class="keyword">, </span><span class="default">8192</span><span class="keyword">) <br /></span><span class="default">?&gt;<br /></span>is executed once with no data from fread(). In this very case, it is not important, but in some situation it could be harmful.<br /><br />The good way to read a file block by block is :<br /><span class="default">&lt;?php<br /></span><span class="keyword">while ( (</span><span class="default">$buf</span><span class="keyword">=</span><span class="default">fread</span><span class="keyword">( </span><span class="default">$handle</span><span class="keyword">, </span><span class="default">8192 </span><span class="keyword">)) != </span><span class="string">'' </span><span class="keyword">) {<br />    </span><span class="comment">// Here, $buf is guaranted to contain data<br />    </span><span class="default">$contents </span><span class="keyword">.= </span><span class="default">$buf</span><span class="keyword">;<br />}<br />if(</span><span class="default">$buf</span><span class="keyword">===</span><span class="default">FALSE</span><span class="keyword">) {<br />    echo </span><span class="string">"THERE WAS AN ERROR READING\n"</span><span class="keyword">;<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="50904">  <div class="votes">
+    <div id="Vu50904">
+    <a href="https://www.php.net/manual/vote-note.php?id=50904&amp;page=function.fread&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd50904">
+    <a href="https://www.php.net/manual/vote-note.php?id=50904&amp;page=function.fread&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V50904" title="77% like this...">
+    5
+    </div>
+  </div>
+  <a href="function.fread.php.html#50904" class="name">
+  <strong class="user"><em>dvsoftware at gmail dot com</em></strong></a><a class="genanchor" href="function.fread.php.html#50904"> &para;</a><div class="date" title="2005-03-13 12:22"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom50904">
+<div class="phpcode"><code><span class="html">I was trying to implement resume support in download script, and i have finnaly succeded. here is the script:<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">dl_file_resume</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">){<br /><br />   </span><span class="comment">//First, see if the file exists<br />   </span><span class="keyword">if (!</span><span class="default">is_file</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">)) { die(</span><span class="string">"&lt;b&gt;404 File not found!&lt;/b&gt;"</span><span class="keyword">); }<br /><br />   </span><span class="comment">//Gather relevent info about file<br />   </span><span class="default">$len </span><span class="keyword">= </span><span class="default">filesize</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">);<br />   </span><span class="default">$filename </span><span class="keyword">= </span><span class="default">basename</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">);<br />   </span><span class="default">$file_extension </span><span class="keyword">= </span><span class="default">strtolower</span><span class="keyword">(</span><span class="default">substr</span><span class="keyword">(</span><span class="default">strrchr</span><span class="keyword">(</span><span class="default">$filename</span><span class="keyword">,</span><span class="string">"."</span><span class="keyword">),</span><span class="default">1</span><span class="keyword">));<br /><br />   </span><span class="comment">//This will set the Content-Type to the appropriate setting for the file<br />   </span><span class="keyword">switch( </span><span class="default">$file_extension </span><span class="keyword">) {<br />     case </span><span class="string">"exe"</span><span class="keyword">: </span><span class="default">$ctype</span><span class="keyword">=</span><span class="string">"application/octet-stream"</span><span class="keyword">; break;<br />     case </span><span class="string">"zip"</span><span class="keyword">: </span><span class="default">$ctype</span><span class="keyword">=</span><span class="string">"application/zip"</span><span class="keyword">; break;<br />     case </span><span class="string">"mp3"</span><span class="keyword">: </span><span class="default">$ctype</span><span class="keyword">=</span><span class="string">"audio/mpeg"</span><span class="keyword">; break;<br />     case </span><span class="string">"mpg"</span><span class="keyword">:</span><span class="default">$ctype</span><span class="keyword">=</span><span class="string">"video/mpeg"</span><span class="keyword">; break;<br />     case </span><span class="string">"avi"</span><span class="keyword">: </span><span class="default">$ctype</span><span class="keyword">=</span><span class="string">"video/x-msvideo"</span><span class="keyword">; break;<br /><br />     </span><span class="comment">//The following are for extensions that shouldn't be downloaded (sensitive stuff, like php files)<br />     </span><span class="keyword">case </span><span class="string">"php"</span><span class="keyword">:<br />     case </span><span class="string">"htm"</span><span class="keyword">:<br />     case </span><span class="string">"html"</span><span class="keyword">:<br />     case </span><span class="string">"txt"</span><span class="keyword">: die(</span><span class="string">"&lt;b&gt;Cannot be used for "</span><span class="keyword">. </span><span class="default">$file_extension </span><span class="keyword">.</span><span class="string">" files!&lt;/b&gt;"</span><span class="keyword">); break;<br /><br />     default: </span><span class="default">$ctype</span><span class="keyword">=</span><span class="string">"application/force-download"</span><span class="keyword">;<br />   }<br /><br />   </span><span class="comment">//Begin writing headers<br />   </span><span class="default">header</span><span class="keyword">(</span><span class="string">"Pragma: public"</span><span class="keyword">);<br />   </span><span class="default">header</span><span class="keyword">(</span><span class="string">"Expires: 0"</span><span class="keyword">);<br />   </span><span class="default">header</span><span class="keyword">(</span><span class="string">"Cache-Control:"</span><span class="keyword">);<br />   </span><span class="default">header</span><span class="keyword">(</span><span class="string">"Cache-Control: public"</span><span class="keyword">); <br />   </span><span class="default">header</span><span class="keyword">(</span><span class="string">"Content-Description: File Transfer"</span><span class="keyword">);<br />   <br />   </span><span class="comment">//Use the switch-generated Content-Type<br />   </span><span class="default">header</span><span class="keyword">(</span><span class="string">"Content-Type: </span><span class="default">$ctype</span><span class="string">"</span><span class="keyword">);<br /></span><span class="default">$filespaces </span><span class="keyword">= </span><span class="default">str_replace</span><span class="keyword">(</span><span class="string">"_"</span><span class="keyword">, </span><span class="string">" "</span><span class="keyword">, </span><span class="default">$filename</span><span class="keyword">);<br /><br /></span><span class="comment">//if your filename contains underscores, you can replace them with spaces<br />  </span><span class="default">$header</span><span class="keyword">=</span><span class="string">'Content-Disposition: attachment; filename='</span><span class="keyword">.</span><span class="default">$filespaces</span><span class="keyword">.</span><span class="string">';'</span><span class="keyword">;<br />   </span><span class="default">header</span><span class="keyword">(</span><span class="default">$header </span><span class="keyword">);<br />   </span><span class="default">header</span><span class="keyword">(</span><span class="string">"Content-Transfer-Encoding: binary"</span><span class="keyword">);<br /><br />  </span><span class="default">$size</span><span class="keyword">=</span><span class="default">filesize</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">);<br /></span><span class="comment">//check if http_range is sent by browser (or download manager)<br />   </span><span class="keyword">if(isset(</span><span class="default">$_ENV</span><span class="keyword">[</span><span class="string">'HTTP_RANGE'</span><span class="keyword">])) {<br /> list(</span><span class="default">$a</span><span class="keyword">, </span><span class="default">$range</span><span class="keyword">)=</span><span class="default">explode</span><span class="keyword">(</span><span class="string">"="</span><span class="keyword">,</span><span class="default">$_ENV</span><span class="keyword">[</span><span class="string">'HTTP_RANGE'</span><span class="keyword">]);<br /></span><span class="comment">//if yes, download missing part<br /> </span><span class="default">str_replace</span><span class="keyword">(</span><span class="default">$range</span><span class="keyword">, </span><span class="string">"-"</span><span class="keyword">, </span><span class="default">$range</span><span class="keyword">);<br /> </span><span class="default">$size2</span><span class="keyword">=</span><span class="default">$size</span><span class="keyword">-</span><span class="default">1</span><span class="keyword">;<br /> </span><span class="default">header</span><span class="keyword">(</span><span class="string">"Content-Range: </span><span class="default">$range$size2</span><span class="string">/</span><span class="default">$size</span><span class="string">"</span><span class="keyword">);<br /> </span><span class="default">$new_length</span><span class="keyword">=</span><span class="default">$size2</span><span class="keyword">-</span><span class="default">$range</span><span class="keyword">;<br /> </span><span class="default">header</span><span class="keyword">(</span><span class="string">"Content-Length: </span><span class="default">$new_length</span><span class="string">"</span><span class="keyword">);<br />/if </span><span class="default">not</span><span class="keyword">, </span><span class="default">download whole file<br /></span><span class="keyword">} else {<br /> </span><span class="default">$size2</span><span class="keyword">=</span><span class="default">$size</span><span class="keyword">-</span><span class="default">1</span><span class="keyword">;<br /> </span><span class="default">header</span><span class="keyword">(</span><span class="string">"Content-Range: bytes 0-</span><span class="default">$size2</span><span class="string">/</span><span class="default">$size</span><span class="string">"</span><span class="keyword">);<br /> </span><span class="default">header</span><span class="keyword">(</span><span class="string">"Content-Length: "</span><span class="keyword">.</span><span class="default">$size2</span><span class="keyword">);<br />}<br /></span><span class="comment">//open the file<br /></span><span class="default">$fp</span><span class="keyword">=</span><span class="default">fopen</span><span class="keyword">(</span><span class="string">"</span><span class="default">$file</span><span class="string">"</span><span class="keyword">,</span><span class="string">"r"</span><span class="keyword">);<br /></span><span class="comment">//seek to start of missing part<br /></span><span class="default">fseek</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">,</span><span class="default">$range</span><span class="keyword">);<br /></span><span class="comment">//start buffered download<br /></span><span class="keyword">while(!</span><span class="default">feof</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">))<br />{<br /></span><span class="comment">//reset time limit for big files<br /></span><span class="default">set_time_limit</span><span class="keyword">();<br />print(</span><span class="default">fread</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">,</span><span class="default">1024</span><span class="keyword">*</span><span class="default">8</span><span class="keyword">));<br /> </span><span class="default">flush</span><span class="keyword">();<br />}<br /></span><span class="default">fclose</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">); <br />   <br />   exit;<br />     <br />} <br /></span><span class="default">?&gt;<br /></span><br />EXAMPLE<br /><span class="default">&lt;?php<br />dl_file_resume</span><span class="keyword">(</span><span class="string">"somefile.mp3"</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />please write if you find any errors, i have tested this only with mp3 files, but others should be fine</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="51703">  <div class="votes">
+    <div id="Vu51703">
+    <a href="https://www.php.net/manual/vote-note.php?id=51703&amp;page=function.fread&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd51703">
+    <a href="https://www.php.net/manual/vote-note.php?id=51703&amp;page=function.fread&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V51703" title="80% like this...">
+    3
+    </div>
+  </div>
+  <a href="function.fread.php.html#51703" class="name">
+  <strong class="user"><em>mrhappy[at]dotgeek.org</em></strong></a><a class="genanchor" href="function.fread.php.html#51703"> &para;</a><div class="date" title="2005-04-07 07:02"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom51703">
+<div class="phpcode"><code><span class="html">Just a note for anybody trying to implement a php handled download script -<br /><br />We spent a long time trying to figure out why our code was eating system resources on large files.. Eventually we managed to trace it to output buffering that was being started on every page via an include.. (It was attempting to buffer the entire 600 Megs or whatever size *before* sending data to the client) if you have this problem you may want to check that first and either not start buffering or close that in the usual way :)<br /><br />Hope that prevents somebody spending hours trying to fix an obscure issue.<br /><br />Regards :)</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="50637">  <div class="votes">
+    <div id="Vu50637">
+    <a href="https://www.php.net/manual/vote-note.php?id=50637&amp;page=function.fread&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd50637">
+    <a href="https://www.php.net/manual/vote-note.php?id=50637&amp;page=function.fread&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V50637" title="75% like this...">
+    2
+    </div>
+  </div>
+  <a href="function.fread.php.html#50637" class="name">
+  <strong class="user"><em>fenris_wolf0 at yahoo dot com</em></strong></a><a class="genanchor" href="function.fread.php.html#50637"> &para;</a><div class="date" title="2005-03-05 02:59"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom50637">
+<div class="phpcode"><code><span class="html">To make the effects of the latest PHP version changes of the fread function even more explicit:  the new size limitation of fread -regardless of the filesize one specifies,  in the example below 1024 * 1024- means that if one was  simply reading the contents of a text file from a dynamic URL like so:<br /><br /><span class="default">&lt;?php<br />  $dp </span><span class="keyword">= </span><span class="string">"<a href="http://www.example.com/filename.php" rel="nofollow" target="_blank">http://www.example.com/filename.php</a>"</span><span class="keyword">;<br />  </span><span class="default">$buffer </span><span class="keyword">= </span><span class="default">fopen</span><span class="keyword">(</span><span class="default">$dp</span><span class="keyword">, </span><span class="string">'r'</span><span class="keyword">);<br />  if (!</span><span class="default">$buffer</span><span class="keyword">) <br />    {<br />      echo(</span><span class="string">"&lt;P&gt;Error: unable to load URL file into </span><span class="default">$buffer</span><span class="string">.      Process  aborted.&lt;/P&gt;"</span><span class="keyword">);<br />      exit();<br />    }<br />  </span><span class="default">$sp </span><span class="keyword">= </span><span class="default">fread</span><span class="keyword">(</span><span class="default">$buffer</span><span class="keyword">, </span><span class="default">1024</span><span class="keyword">*</span><span class="default">1024</span><span class="keyword">);<br />  </span><span class="default">fclose</span><span class="keyword">(</span><span class="default">$buffer</span><span class="keyword">);<br />  </span><span class="default">highlight_string</span><span class="keyword">(</span><span class="default">$sp</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />one should from now on use the file_get_contents function, as shown below, to avoid one's text being truncated forcibly.<br /><br /><span class="default">&lt;?php<br />  $dp </span><span class="keyword">= </span><span class="string">"<a href="http://www.example.com/filename.php" rel="nofollow" target="_blank">http://www.example.com/filename.php</a>"</span><span class="keyword">;<br />  if (!</span><span class="default">$dp</span><span class="keyword">) <br />    {<br />      echo(</span><span class="string">"&lt;P&gt;Error: unable to load URL file into </span><span class="default">$dp</span><span class="string">.  Process aborted.&lt;/P&gt;"</span><span class="keyword">);<br />      exit();<br />    }<br />  </span><span class="default">$sp </span><span class="keyword">= </span><span class="default">file_get_contents</span><span class="keyword">(</span><span class="default">$dp</span><span class="keyword">);<br />  </span><span class="default">highlight_string</span><span class="keyword">(</span><span class="default">$sp</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />I thought it couldn't hurt to clarify this detail in order to save time for anyone else who is in the same situation as I was tonight when my ISP abruptly upgraded to the latest version of PHP...    :(<br /><br />Thank you to every previous contributor to this topic.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="114350">  <div class="votes">
+    <div id="Vu114350">
+    <a href="https://www.php.net/manual/vote-note.php?id=114350&amp;page=function.fread&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd114350">
+    <a href="https://www.php.net/manual/vote-note.php?id=114350&amp;page=function.fread&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V114350" title="71% like this...">
+    3
+    </div>
+  </div>
+  <a href="function.fread.php.html#114350" class="name">
+  <strong class="user"><em>fread at imperium dot be</em></strong></a><a class="genanchor" href="function.fread.php.html#114350"> &para;</a><div class="date" title="2014-02-11 05:13"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom114350">
+<div class="phpcode"><code><span class="html">My script was based on example 3b, but used up 100% CPU when a timeout occurred that wasn't "seen". This is very bad. So here's my code, hoping this will help people out there with the same problem. Obviously first use $rPage = fsockopen(...) and fwrite($rPage,...) and such, after which:<br /><br />    $sPage    = ''; // the page goes in here<br />    $iTimeout    = 5; // set the timeout in seconds<br />    stream_set_timeout($rPage,$iTimeout);<br />    stream_set_blocking($rPage,0);<br />    $fTimeout    = microtime(true);<br />    do {<br />        if (($sRead = fread($rPage,8192))!==false and strlen($sRead)) {<br />            $sPage    .= $sRead; }<br />        else {<br />            usleep(10000); } // 0.01 second<br />        $aInfo    = stream_get_meta_data($rPage); }<br />    while (!feof($rPage) and !$aInfo['timed_out'] and microtime(true)-$fTimeout&lt;$iTimeout);<br />    fclose($rPage);<br />    // now simply decompress and unchunk $sPage, if need be<br /><br />Above code will make sure the timeout is used, because this isn't always detected properly. In addition, the usleep() will keep the CPU in check.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="47832">  <div class="votes">
+    <div id="Vu47832">
+    <a href="https://www.php.net/manual/vote-note.php?id=47832&amp;page=function.fread&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd47832">
+    <a href="https://www.php.net/manual/vote-note.php?id=47832&amp;page=function.fread&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V47832" title="66% like this...">
+    4
+    </div>
+  </div>
+  <a href="function.fread.php.html#47832" class="name">
+  <strong class="user"><em>ibis at connect dot ie</em></strong></a><a class="genanchor" href="function.fread.php.html#47832"> &para;</a><div class="date" title="2004-12-01 02:23"><strong>19 years ago</strong></div>
+  <div class="text" id="Hcom47832">
+<div class="phpcode"><code><span class="html">If, like me, you're in the habit of using fopen("<a href="http://..." rel="nofollow" target="_blank">http://...</a>") and fread for pulling fairly large remote files, you may find that the upgrade to PHP5 (5.0.2 on Win2000/IIS5) causes fread to top out at about 8035 bytes. PHP5 RC2 with identical php.ini settings did not exhibit this behaviour (I was using this for testing). Irritating for me because I was using simple_xml_load to load the file contents as XML, and the problem initially appeared to be that function.<br /><br />Solution - swap over to file_get_contents or use the loop suggested on the documentation above (see Warning).</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="82474">  <div class="votes">
+    <div id="Vu82474">
+    <a href="https://www.php.net/manual/vote-note.php?id=82474&amp;page=function.fread&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd82474">
+    <a href="https://www.php.net/manual/vote-note.php?id=82474&amp;page=function.fread&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V82474" title="66% like this...">
+    3
+    </div>
+  </div>
+  <a href="function.fread.php.html#82474" class="name">
+  <strong class="user"><em>shocker at shockingsoft dot com</em></strong></a><a class="genanchor" href="function.fread.php.html#82474"> &para;</a><div class="date" title="2008-04-12 06:22"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom82474">
+<div class="phpcode"><code><span class="html">If you read from a socket connection or any other stream that may delay when responsing but you want to set a timeout you can use stream_set_timeout():<br /><br /><span class="default">&lt;?php<br />$f </span><span class="keyword">= </span><span class="default">fsockopen</span><span class="keyword">(</span><span class="string">"127.0.0.1"</span><span class="keyword">, </span><span class="default">123</span><span class="keyword">);<br />if (</span><span class="default">$f</span><span class="keyword">)<br /> {<br />  </span><span class="default">fwrite</span><span class="keyword">(</span><span class="default">$f</span><span class="keyword">, </span><span class="string">"hello"</span><span class="keyword">);<br />  </span><span class="default">stream_set_timeout</span><span class="keyword">(</span><span class="default">$f</span><span class="keyword">, </span><span class="default">5</span><span class="keyword">); </span><span class="comment">//5 seconds read timeout<br />  </span><span class="keyword">if (!</span><span class="default">fread</span><span class="keyword">(</span><span class="default">$f</span><span class="keyword">, </span><span class="default">5</span><span class="keyword">)) echo </span><span class="string">"Error while reading"</span><span class="keyword">;<br />    else echo </span><span class="string">"Read ok"</span><span class="keyword">;<br />  </span><span class="default">fclose</span><span class="keyword">(</span><span class="default">$f</span><span class="keyword">);<br /> }<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="102986">  <div class="votes">
+    <div id="Vu102986">
+    <a href="https://www.php.net/manual/vote-note.php?id=102986&amp;page=function.fread&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd102986">
+    <a href="https://www.php.net/manual/vote-note.php?id=102986&amp;page=function.fread&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V102986" title="64% like this...">
+    4
+    </div>
+  </div>
+  <a href="function.fread.php.html#102986" class="name">
+  <strong class="user"><em>Anonymous</em></strong></a><a class="genanchor" href="function.fread.php.html#102986"> &para;</a><div class="date" title="2011-03-18 05:59"><strong>12 years ago</strong></div>
+  <div class="text" id="Hcom102986">
+<div class="phpcode"><code><span class="html">If you serve a file download over PHP with fread and print/echo and experience corrupted binary files, chances are the server still uses magic quotes and escapes the null bytes in your file. Although from 5.3.0 magic quotes are no longer supported, you might still encounter this problem. Try to turn them off by placing this code before using fread:<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">@</span><span class="default">ini_set</span><span class="keyword">(</span><span class="string">'magic_quotes_runtime'</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">);<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="49078">  <div class="votes">
+    <div id="Vu49078">
+    <a href="https://www.php.net/manual/vote-note.php?id=49078&amp;page=function.fread&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd49078">
+    <a href="https://www.php.net/manual/vote-note.php?id=49078&amp;page=function.fread&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V49078" title="64% like this...">
+    4
+    </div>
+  </div>
+  <a href="function.fread.php.html#49078" class="name">
+  <strong class="user"><em>m (at) mindplay (dot) dk</em></strong></a><a class="genanchor" href="function.fread.php.html#49078"> &para;</a><div class="date" title="2005-01-16 12:20"><strong>19 years ago</strong></div>
+  <div class="text" id="Hcom49078">
+<div class="phpcode"><code><span class="html">Here's a function for sending a file to the client - it may look more complicated than necessary, but has a number of advantages over simpler file sending functions:<br /><br />- Works with large files, and uses only an 8KB buffer per transfer. <br /><br />- Stops transferring if the client is disconnected (unlike many scripts, that continue to read and buffer the entire file, wasting valuable resources) but does not halt the script <br /><br />- Returns TRUE if transfer was completed, or FALSE if the client was disconnected before completing the download - you'll often need this, so you can log downloads correctly. <br /><br />- Sends a number of headers, including ones that ensure it's cached for a maximum of 2 hours on any browser/proxy, and "Content-Length" which most people seem to forget. <br /><br />(tested on Linux (Apache) and Windows (IIS5/6) under PHP4.3.x)<br /><br />Note that the folder from which protected files will be pulled, is set as a constant in this function (/protected) ... Now here's the function: <br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">send_file</span><span class="keyword">(</span><span class="default">$name</span><span class="keyword">) {<br />  </span><span class="default">ob_end_clean</span><span class="keyword">();<br />  </span><span class="default">$path </span><span class="keyword">= </span><span class="string">"protected/"</span><span class="keyword">.</span><span class="default">$name</span><span class="keyword">;<br />  if (!</span><span class="default">is_file</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">) or </span><span class="default">connection_status</span><span class="keyword">()!=</span><span class="default">0</span><span class="keyword">) return(</span><span class="default">FALSE</span><span class="keyword">);<br />  </span><span class="default">header</span><span class="keyword">(</span><span class="string">"Cache-Control: no-store, no-cache, must-revalidate"</span><span class="keyword">);<br />  </span><span class="default">header</span><span class="keyword">(</span><span class="string">"Cache-Control: post-check=0, pre-check=0"</span><span class="keyword">, </span><span class="default">false</span><span class="keyword">);<br />  </span><span class="default">header</span><span class="keyword">(</span><span class="string">"Pragma: no-cache"</span><span class="keyword">);<br />  </span><span class="default">header</span><span class="keyword">(</span><span class="string">"Expires: "</span><span class="keyword">.</span><span class="default">gmdate</span><span class="keyword">(</span><span class="string">"D, d M Y H:i:s"</span><span class="keyword">, </span><span class="default">mktime</span><span class="keyword">(</span><span class="default">date</span><span class="keyword">(</span><span class="string">"H"</span><span class="keyword">)+</span><span class="default">2</span><span class="keyword">, </span><span class="default">date</span><span class="keyword">(</span><span class="string">"i"</span><span class="keyword">), </span><span class="default">date</span><span class="keyword">(</span><span class="string">"s"</span><span class="keyword">), </span><span class="default">date</span><span class="keyword">(</span><span class="string">"m"</span><span class="keyword">), </span><span class="default">date</span><span class="keyword">(</span><span class="string">"d"</span><span class="keyword">), </span><span class="default">date</span><span class="keyword">(</span><span class="string">"Y"</span><span class="keyword">))).</span><span class="string">" GMT"</span><span class="keyword">);<br />  </span><span class="default">header</span><span class="keyword">(</span><span class="string">"Last-Modified: "</span><span class="keyword">.</span><span class="default">gmdate</span><span class="keyword">(</span><span class="string">"D, d M Y H:i:s"</span><span class="keyword">).</span><span class="string">" GMT"</span><span class="keyword">);<br />  </span><span class="default">header</span><span class="keyword">(</span><span class="string">"Content-Type: application/octet-stream"</span><span class="keyword">);<br />  </span><span class="default">header</span><span class="keyword">(</span><span class="string">"Content-Length: "</span><span class="keyword">.(string)(</span><span class="default">filesize</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">)));<br />  </span><span class="default">header</span><span class="keyword">(</span><span class="string">"Content-Disposition: inline; filename=</span><span class="default">$name</span><span class="string">"</span><span class="keyword">);<br />  </span><span class="default">header</span><span class="keyword">(</span><span class="string">"Content-Transfer-Encoding: binary\n"</span><span class="keyword">);<br />  if (</span><span class="default">$file </span><span class="keyword">= </span><span class="default">fopen</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">, </span><span class="string">'rb'</span><span class="keyword">)) {<br />    while(!</span><span class="default">feof</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">) and (</span><span class="default">connection_status</span><span class="keyword">()==</span><span class="default">0</span><span class="keyword">)) {<br />      print(</span><span class="default">fread</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">, </span><span class="default">1024</span><span class="keyword">*</span><span class="default">8</span><span class="keyword">));<br />      </span><span class="default">flush</span><span class="keyword">();<br />    }<br />    </span><span class="default">fclose</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">);<br />  }<br />  return((</span><span class="default">connection_status</span><span class="keyword">()==</span><span class="default">0</span><span class="keyword">) and !</span><span class="default">connection_aborted</span><span class="keyword">());<br />}<br /></span><span class="default">?&gt;<br /></span><br />And here's an example of using the function: <br /><br /><span class="default">&lt;?php <br /></span><span class="keyword">if (!</span><span class="default">send_file</span><span class="keyword">(</span><span class="string">"platinumdemo.zip"</span><span class="keyword">)) { <br />die (</span><span class="string">"file transfer failed"</span><span class="keyword">); <br /></span><span class="comment">// either the file transfer was incomplete <br />// or the file was not found <br /></span><span class="keyword">} else { <br /></span><span class="comment">// the download was a success <br />// log, or do whatever else <br /></span><span class="keyword">} <br /></span><span class="default">?&gt;</span> <br /><br />Regards, <br />Rasmus Schultz</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="54350">  <div class="votes">
+    <div id="Vu54350">
+    <a href="https://www.php.net/manual/vote-note.php?id=54350&amp;page=function.fread&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd54350">
+    <a href="https://www.php.net/manual/vote-note.php?id=54350&amp;page=function.fread&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V54350" title="66% like this...">
+    1
+    </div>
+  </div>
+  <a href="function.fread.php.html#54350" class="name">
+  <strong class="user"><em>Richard Dale richard at premiumdata dot n dot e dot t</em></strong></a><a class="genanchor" href="function.fread.php.html#54350"> &para;</a><div class="date" title="2005-06-30 09:11"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom54350">
+<div class="phpcode"><code><span class="html">If you use any of the above code for downloadinng files, Internet Explorer will change the filename if it has multiple periods in it to something with square brackets.  To work around this, we check to see if the User Agent contains MSIE and rewrite the necessary periods as %2E<br /><br /><span class="default">&lt;?php<br /></span><span class="comment"># eg. $filename="setup.abc.exe";<br /></span><span class="keyword">if (</span><span class="default">strstr</span><span class="keyword">(</span><span class="default">$_SERVER</span><span class="keyword">[</span><span class="string">'HTTP_USER_AGENT'</span><span class="keyword">], </span><span class="string">"MSIE"</span><span class="keyword">)) { <br />    </span><span class="comment"># workaround for IE filename bug with multiple periods / multiple dots in filename<br />    # that adds square brackets to filename - eg. setup.abc.exe becomes setup[1].abc.exe<br />    </span><span class="default">$iefilename </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'/\./'</span><span class="keyword">, </span><span class="string">'%2e'</span><span class="keyword">, </span><span class="default">$filename</span><span class="keyword">, </span><span class="default">substr_count</span><span class="keyword">(</span><span class="default">$filename</span><span class="keyword">, </span><span class="string">'.'</span><span class="keyword">) - </span><span class="default">1</span><span class="keyword">);<br />    </span><span class="default">header</span><span class="keyword">(</span><span class="string">"Content-Disposition: attachment; filename=</span><span class="default">$iefilename</span><span class="string">" </span><span class="keyword">);<br />} else {<br />    </span><span class="default">header</span><span class="keyword">(</span><span class="string">"Content-Disposition: attachment; filename=</span><span class="default">$filename</span><span class="string">"</span><span class="keyword">);<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="8085">  <div class="votes">
+    <div id="Vu8085">
+    <a href="https://www.php.net/manual/vote-note.php?id=8085&amp;page=function.fread&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd8085">
+    <a href="https://www.php.net/manual/vote-note.php?id=8085&amp;page=function.fread&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V8085" title="66% like this...">
+    1
+    </div>
+  </div>
+  <a href="function.fread.php.html#8085" class="name">
+  <strong class="user"><em>heikki dot korpela at wapit dot com</em></strong></a><a class="genanchor" href="function.fread.php.html#8085"> &para;</a><div class="date" title="2000-08-26 02:22"><strong>23 years ago</strong></div>
+  <div class="text" id="Hcom8085">
+<div class="phpcode"><code><span class="html">Fread is binary-safe IF AND ONLY IF you don't use magic-quotes. If you do, all null bytes will become \0, and you might get surprising results when unpacking.<br /><br />That is, you would do something like<br /><br /><span class="default">&lt;?php<br />set_magic_quotes_runtime</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />before fread()<br /><br />and something like<br /><br /><span class="default">&lt;?php<br />set_magic_quotes_runtime</span><span class="keyword">(</span><span class="default">get_magic_quotes_gpc</span><span class="keyword">()) </span><span class="default">after</span><span class="keyword">.<br /></span><span class="default">?&gt;<br /></span><br />And, after fread, an unpack would be needed, of course. Surprisingly, pack(), however, does not work quite like in Perl (or perhaps I'm just missing something here) - you can't pack an array directly, but instead you'll have to pack each element seperately to the string:<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">foreach (</span><span class="default">$data </span><span class="keyword">as </span><span class="default">$dec</span><span class="keyword">) {<br />  </span><span class="default">$data_output </span><span class="keyword">.= </span><span class="default">pack</span><span class="keyword">(</span><span class="string">"C*"</span><span class="keyword">, </span><span class="default">$dec</span><span class="keyword">);<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="42381">  <div class="votes">
+    <div id="Vu42381">
+    <a href="https://www.php.net/manual/vote-note.php?id=42381&amp;page=function.fread&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd42381">
+    <a href="https://www.php.net/manual/vote-note.php?id=42381&amp;page=function.fread&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V42381" title="60% like this...">
+    2
+    </div>
+  </div>
+  <a href="function.fread.php.html#42381" class="name">
+  <strong class="user"><em>webmaster at wildpeaks dot com</em></strong></a><a class="genanchor" href="function.fread.php.html#42381"> &para;</a><div class="date" title="2004-05-14 12:32"><strong>19 years ago</strong></div>
+  <div class="text" id="Hcom42381">
+<div class="phpcode"><code><span class="html">The following function retrieves a line in a file, regardless of its size, so you won't get an error if the file's size is beyond php's allowed memory limit (the string has to be below however), which is something i was needing for accessing a big log file generated by a webhost. Indexes start at 1 (so $line = 1 means the first line unlike arrays). If the file is small, it would be better to use "file()" however.<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">strpos_count</span><span class="keyword">(</span><span class="default">$haystack</span><span class="keyword">, </span><span class="default">$needle</span><span class="keyword">, </span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">) {<br />    while (</span><span class="default">strpos</span><span class="keyword">(</span><span class="default">$haystack</span><span class="keyword">,</span><span class="default">$needle</span><span class="keyword">) !== </span><span class="default">false</span><span class="keyword">) {</span><span class="default">$haystack </span><span class="keyword">= </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$haystack</span><span class="keyword">, (</span><span class="default">strpos</span><span class="keyword">(</span><span class="default">$haystack</span><span class="keyword">,</span><span class="default">$needle</span><span class="keyword">) + </span><span class="default">1</span><span class="keyword">)); </span><span class="default">$i</span><span class="keyword">++;}<br />    return </span><span class="default">$i</span><span class="keyword">;<br />}<br />function </span><span class="default">getLine</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">,</span><span class="default">$line</span><span class="keyword">=</span><span class="default">1</span><span class="keyword">){<br />    </span><span class="default">$occurence </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br />    </span><span class="default">$contents </span><span class="keyword">= </span><span class="string">''</span><span class="keyword">;<br />    </span><span class="default">$startPos </span><span class="keyword">= -</span><span class="default">1</span><span class="keyword">;<br />    if (!</span><span class="default">file_exists</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">)) return </span><span class="string">''</span><span class="keyword">;<br />    </span><span class="default">$fp </span><span class="keyword">= @</span><span class="default">fopen</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">, </span><span class="string">"rb"</span><span class="keyword">);<br />    if (!</span><span class="default">$fp</span><span class="keyword">) return </span><span class="string">''</span><span class="keyword">;<br />    while (!@</span><span class="default">feof</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">)) {<br />        </span><span class="default">$str </span><span class="keyword">= @</span><span class="default">fread</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">, </span><span class="default">1024</span><span class="keyword">);<br />        </span><span class="default">$number_of_occurences </span><span class="keyword">= </span><span class="default">strpos_count</span><span class="keyword">(</span><span class="default">$str</span><span class="keyword">,</span><span class="string">"\n"</span><span class="keyword">);<br />        if (</span><span class="default">$number_of_occurences </span><span class="keyword">== </span><span class="default">0</span><span class="keyword">) {if (</span><span class="default">$start_pos </span><span class="keyword">!= -</span><span class="default">1</span><span class="keyword">) {</span><span class="default">$contents </span><span class="keyword">.= </span><span class="default">$str</span><span class="keyword">;}}<br />        else {<br />            </span><span class="default">$lastPos </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br />            for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">$number_of_occurences</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++){<br />                </span><span class="default">$pos </span><span class="keyword">= </span><span class="default">strpos</span><span class="keyword">(</span><span class="default">$str</span><span class="keyword">,</span><span class="string">"\n"</span><span class="keyword">, </span><span class="default">$lastPos</span><span class="keyword">);<br />                </span><span class="default">$occurence</span><span class="keyword">++;<br />                if (</span><span class="default">$occurence </span><span class="keyword">== </span><span class="default">$line</span><span class="keyword">) {<br />                    </span><span class="default">$startPos </span><span class="keyword">= </span><span class="default">$pos</span><span class="keyword">;<br />                    if (</span><span class="default">$i </span><span class="keyword">== </span><span class="default">$number_of_occurences </span><span class="keyword">- </span><span class="default">1</span><span class="keyword">) {</span><span class="default">$contents </span><span class="keyword">= </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$str</span><span class="keyword">, </span><span class="default">$startPos </span><span class="keyword">+ </span><span class="default">1</span><span class="keyword">);}<br />                } elseif (</span><span class="default">$occurence </span><span class="keyword">== </span><span class="default">$line </span><span class="keyword">+ </span><span class="default">1</span><span class="keyword">) {<br />                    if (</span><span class="default">$i </span><span class="keyword">== </span><span class="default">0</span><span class="keyword">) {</span><span class="default">$contents </span><span class="keyword">.= </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$str</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">$pos</span><span class="keyword">);} else {</span><span class="default">$contents </span><span class="keyword">= </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$str</span><span class="keyword">, </span><span class="default">$startPos</span><span class="keyword">, </span><span class="default">$pos </span><span class="keyword">- </span><span class="default">$startPos</span><span class="keyword">);}<br />                    </span><span class="default">$occurence </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br />                    break;<br />                }<br />                </span><span class="default">$lastPos </span><span class="keyword">= </span><span class="default">$pos </span><span class="keyword">+ </span><span class="default">1</span><span class="keyword">;<br />            }<br />        }<br />    }<br />    @</span><span class="default">fclose</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">);<br />    return </span><span class="default">$contents</span><span class="keyword">;<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="106999">  <div class="votes">
+    <div id="Vu106999">
+    <a href="https://www.php.net/manual/vote-note.php?id=106999&amp;page=function.fread&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd106999">
+    <a href="https://www.php.net/manual/vote-note.php?id=106999&amp;page=function.fread&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V106999" title="60% like this...">
+    1
+    </div>
+  </div>
+  <a href="function.fread.php.html#106999" class="name">
+  <strong class="user"><em>andrej dot frelih at gmail dot com</em></strong></a><a class="genanchor" href="function.fread.php.html#106999"> &para;</a><div class="date" title="2011-12-27 04:35"><strong>12 years ago</strong></div>
+  <div class="text" id="Hcom106999">
+<div class="phpcode"><code><span class="html">Another sample function that supports from/to range requests:<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">download_file</span><span class="keyword">(</span><span class="default">$file_name</span><span class="keyword">) {<br /><br />    if (!</span><span class="default">file_exists</span><span class="keyword">(</span><span class="default">$file_name</span><span class="keyword">)) { die(</span><span class="string">"&lt;b&gt;404 File not found!&lt;/b&gt;"</span><span class="keyword">); }<br />    <br />    </span><span class="default">$file_extension </span><span class="keyword">= </span><span class="default">strtolower</span><span class="keyword">(</span><span class="default">substr</span><span class="keyword">(</span><span class="default">strrchr</span><span class="keyword">(</span><span class="default">$file_name</span><span class="keyword">,</span><span class="string">"."</span><span class="keyword">),</span><span class="default">1</span><span class="keyword">));<br />    </span><span class="default">$file_size </span><span class="keyword">= </span><span class="default">filesize</span><span class="keyword">(</span><span class="default">$file_name</span><span class="keyword">);<br />    </span><span class="default">$md5_sum </span><span class="keyword">= </span><span class="default">md5_file</span><span class="keyword">(</span><span class="default">$file_name</span><span class="keyword">);<br />    <br />   </span><span class="comment">//This will set the Content-Type to the appropriate setting for the file<br />    </span><span class="keyword">switch(</span><span class="default">$file_extension</span><span class="keyword">) {<br />        case </span><span class="string">"exe"</span><span class="keyword">: </span><span class="default">$ctype</span><span class="keyword">=</span><span class="string">"application/octet-stream"</span><span class="keyword">; break;<br />        case </span><span class="string">"zip"</span><span class="keyword">: </span><span class="default">$ctype</span><span class="keyword">=</span><span class="string">"application/zip"</span><span class="keyword">; break;<br />        case </span><span class="string">"mp3"</span><span class="keyword">: </span><span class="default">$ctype</span><span class="keyword">=</span><span class="string">"audio/mpeg"</span><span class="keyword">; break;<br />        case </span><span class="string">"mpg"</span><span class="keyword">:</span><span class="default">$ctype</span><span class="keyword">=</span><span class="string">"video/mpeg"</span><span class="keyword">; break;<br />        case </span><span class="string">"avi"</span><span class="keyword">: </span><span class="default">$ctype</span><span class="keyword">=</span><span class="string">"video/x-msvideo"</span><span class="keyword">; break;<br /><br />        </span><span class="comment">//The following are for extensions that shouldn't be downloaded (sensitive stuff, like php files)<br />        </span><span class="keyword">case </span><span class="string">"php"</span><span class="keyword">:<br />        case </span><span class="string">"htm"</span><span class="keyword">:<br />        case </span><span class="string">"html"</span><span class="keyword">:<br />        case </span><span class="string">"txt"</span><span class="keyword">: die(</span><span class="string">"&lt;b&gt;Cannot be used for "</span><span class="keyword">. </span><span class="default">$file_extension </span><span class="keyword">.</span><span class="string">" files!&lt;/b&gt;"</span><span class="keyword">); break;<br /><br />        default: </span><span class="default">$ctype</span><span class="keyword">=</span><span class="string">"application/force-download"</span><span class="keyword">;<br />    }<br />    <br />    if (isset(</span><span class="default">$_SERVER</span><span class="keyword">[</span><span class="string">'HTTP_RANGE'</span><span class="keyword">])) {<br />        </span><span class="default">$partial_content </span><span class="keyword">= </span><span class="default">true</span><span class="keyword">;<br />        </span><span class="default">$range </span><span class="keyword">= </span><span class="default">explode</span><span class="keyword">(</span><span class="string">"-"</span><span class="keyword">, </span><span class="default">$_SERVER</span><span class="keyword">[</span><span class="string">'HTTP_RANGE'</span><span class="keyword">]);<br />        </span><span class="default">$offset </span><span class="keyword">= </span><span class="default">intval</span><span class="keyword">(</span><span class="default">$range</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">]);<br />        </span><span class="default">$length </span><span class="keyword">= </span><span class="default">intval</span><span class="keyword">(</span><span class="default">$range</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">]) - </span><span class="default">$offset</span><span class="keyword">;<br />    }<br />    else {<br />        </span><span class="default">$partial_content </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;<br />        </span><span class="default">$offset </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br />        </span><span class="default">$length </span><span class="keyword">= </span><span class="default">$file_size</span><span class="keyword">;<br />    }<br />    <br />    </span><span class="comment">//read the data from the file<br />    </span><span class="default">$handle </span><span class="keyword">= </span><span class="default">fopen</span><span class="keyword">(</span><span class="default">$file_name</span><span class="keyword">, </span><span class="string">'r'</span><span class="keyword">); <br />    </span><span class="default">$buffer </span><span class="keyword">= </span><span class="string">''</span><span class="keyword">; <br />    </span><span class="default">fseek</span><span class="keyword">(</span><span class="default">$handle</span><span class="keyword">, </span><span class="default">$offset</span><span class="keyword">);<br />    </span><span class="default">$buffer </span><span class="keyword">= </span><span class="default">fread</span><span class="keyword">(</span><span class="default">$handle</span><span class="keyword">, </span><span class="default">$length</span><span class="keyword">);<br />    </span><span class="default">$md5_sum </span><span class="keyword">= </span><span class="default">md5</span><span class="keyword">(</span><span class="default">$buffer</span><span class="keyword">);<br />    if (</span><span class="default">$partial_content</span><span class="keyword">) </span><span class="default">$data_size </span><span class="keyword">= </span><span class="default">intval</span><span class="keyword">(</span><span class="default">$range</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">]) - </span><span class="default">intval</span><span class="keyword">(</span><span class="default">$range</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">]);<br />    else </span><span class="default">$data_size </span><span class="keyword">= </span><span class="default">$file_size</span><span class="keyword">;<br />    </span><span class="default">fclose</span><span class="keyword">(</span><span class="default">$handle</span><span class="keyword">); <br />    <br />    </span><span class="comment">// send the headers and data<br />    </span><span class="default">header</span><span class="keyword">(</span><span class="string">"Content-Length: " </span><span class="keyword">. </span><span class="default">$data_size</span><span class="keyword">); <br />    </span><span class="default">header</span><span class="keyword">(</span><span class="string">"Content-md5: " </span><span class="keyword">. </span><span class="default">$md5_sum</span><span class="keyword">); <br />    </span><span class="default">header</span><span class="keyword">(</span><span class="string">"Accept-Ranges: bytes"</span><span class="keyword">);    <br />    if (</span><span class="default">$partial_content</span><span class="keyword">) </span><span class="default">header</span><span class="keyword">(</span><span class="string">'Content-Range: bytes ' </span><span class="keyword">. </span><span class="default">$offset </span><span class="keyword">. </span><span class="string">'-' </span><span class="keyword">. (</span><span class="default">$offset </span><span class="keyword">+ </span><span class="default">$length</span><span class="keyword">) . </span><span class="string">'/' </span><span class="keyword">. </span><span class="default">$file_size</span><span class="keyword">);<br />    </span><span class="default">header</span><span class="keyword">(</span><span class="string">"Connection: close"</span><span class="keyword">);<br />    </span><span class="default">header</span><span class="keyword">(</span><span class="string">"Content-type: " </span><span class="keyword">. </span><span class="default">$ctype</span><span class="keyword">);<br />    </span><span class="default">header</span><span class="keyword">(</span><span class="string">'Content-Disposition: attachment; filename=' </span><span class="keyword">. </span><span class="default">$file_name</span><span class="keyword">);<br />    echo </span><span class="default">$buffer</span><span class="keyword">; <br />    </span><span class="default">flush</span><span class="keyword">(); <br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="88175">  <div class="votes">
+    <div id="Vu88175">
+    <a href="https://www.php.net/manual/vote-note.php?id=88175&amp;page=function.fread&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd88175">
+    <a href="https://www.php.net/manual/vote-note.php?id=88175&amp;page=function.fread&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V88175" title="60% like this...">
+    1
+    </div>
+  </div>
+  <a href="function.fread.php.html#88175" class="name">
+  <strong class="user"><em>James Ranson</em></strong></a><a class="genanchor" href="function.fread.php.html#88175"> &para;</a><div class="date" title="2009-01-13 04:20"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom88175">
+<div class="phpcode"><code><span class="html">Tom, the idea for the examples below is to ensure the user has proper credentials before serving the file. With that security in mind, the suggestion of a 302 redirection seems like a risky idea. Anyone with a modicum of networking experience can run a TCP trace and see the 302 Redirect response, as it is actually a response received by the client browser; the browser then makes a subsequent http request for the URL provided in the Location header.  When that 302 response is captured by wireshark, the 'secret' location is then exposed and can be shared with anyone who wishes to bypass the authorization routines in the php.<br /><br />The only way to secure this would be for the 302 Redirection response to include some kind of unique, per-request, expiring authorization token, either on the end of the url or in a set-cookie, that is then checked by an authorization module implemented within the hosting webserver. Otherwise, you're relegated to the methods described below.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="75063">  <div class="votes">
+    <div id="Vu75063">
+    <a href="https://www.php.net/manual/vote-note.php?id=75063&amp;page=function.fread&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd75063">
+    <a href="https://www.php.net/manual/vote-note.php?id=75063&amp;page=function.fread&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V75063" title="60% like this...">
+    1
+    </div>
+  </div>
+  <a href="function.fread.php.html#75063" class="name">
+  <strong class="user"><em>kai at froghh dot de</em></strong></a><a class="genanchor" href="function.fread.php.html#75063"> &para;</a><div class="date" title="2007-05-10 07:52"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom75063">
+<div class="phpcode"><code><span class="html">reading from a socket stream can be different to the<br />behaviour expected, since you have not set<br />stream_set_blocking to 1.<br />sample source:<br /><span class="default">&lt;?php<br />$fp </span><span class="keyword">= </span><span class="default">fsockopen </span><span class="keyword">(</span><span class="default">$server</span><span class="keyword">, </span><span class="default">$port</span><span class="keyword">, </span><span class="default">$errno</span><span class="keyword">, </span><span class="default">$errstr</span><span class="keyword">, </span><span class="default">$socket_timeout</span><span class="keyword">);<br /></span><span class="default">$header </span><span class="keyword">= </span><span class="string">''</span><span class="keyword">;<br />do {<br />    </span><span class="default">$header</span><span class="keyword">.=</span><span class="default">fread</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">,</span><span class="default">1</span><span class="keyword">);<br />    </span><span class="default">$i</span><span class="keyword">++;<br />} while (!</span><span class="default">preg_match</span><span class="keyword">(</span><span class="string">'/\\r\\n\\r\\n$/'</span><span class="keyword">, </span><span class="default">$header</span><span class="keyword">) &amp;&amp; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">$maxheaderlenth</span><span class="keyword">);<br /></span><span class="default">preg_match</span><span class="keyword">(</span><span class="string">'/Content\\-Length:\\s+([0-9]*)\\r\\n/'</span><span class="keyword">, </span><span class="default">$header</span><span class="keyword">,</span><span class="default">$matches</span><span class="keyword">);<br /></span><span class="default">$buffer </span><span class="keyword">= </span><span class="default">fread</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_fp</span><span class="keyword">, </span><span class="default">$matches</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">]);<br /></span><span class="default">?&gt;<br /></span><br />if i.e. the content length is 50000 and the responding server is to slow<br />(means 50000 are not completely sent when fread is called) <br />you'll only receive the number of bytes sent by the <br />responding server at the time fread is called.<br /><br />fread will not wait for any data to complete the given size.<br />as described in user notes on stream_set_blocking there <br />seems to be a bug using stream_set_blocking.<br />a workaround - well, not the best way - is to read<br />the response split to 1 byte<br />instead of <br /><span class="default">&lt;?php $buffer </span><span class="keyword">= </span><span class="default">fread</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_fp</span><span class="keyword">, </span><span class="default">$matches</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">]); </span><span class="default">?&gt;<br /></span><br />you'd write<br /><span class="default">&lt;?php<br />$buffer </span><span class="keyword">= </span><span class="string">''</span><span class="keyword">;<br />for(</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">$matches</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">]; </span><span class="default">$i</span><span class="keyword">++){<br />    </span><span class="default">$buffer </span><span class="keyword">.= </span><span class="default">fread</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_fp</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">);<br />}<br /></span><span class="default">?&gt;<br /></span><br />it several tests this seems like it works.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="100040">  <div class="votes">
+    <div id="Vu100040">
+    <a href="https://www.php.net/manual/vote-note.php?id=100040&amp;page=function.fread&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd100040">
+    <a href="https://www.php.net/manual/vote-note.php?id=100040&amp;page=function.fread&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V100040" title="57% like this...">
+    1
+    </div>
+  </div>
+  <a href="function.fread.php.html#100040" class="name">
+  <strong class="user"><em>NOopensourceSPAM at prodigy7 dot de</em></strong></a><a class="genanchor" href="function.fread.php.html#100040"> &para;</a><div class="date" title="2010-09-21 06:45"><strong>13 years ago</strong></div>
+  <div class="text" id="Hcom100040">
+<div class="phpcode"><code><span class="html">Somehow all code samples for downloads, described here, doesn't work right for me.<br />When I download a big file readfile or fread in b mode, the final file hasn't the same md5 like the originial.<br /><br />Some tests helps me, finding a solution:<br /><br /><span class="default">&lt;?php<br />            $fp </span><span class="keyword">= </span><span class="default">fopen</span><span class="keyword">(</span><span class="default">$DownloadFile</span><span class="keyword">, </span><span class="string">'rb'</span><span class="keyword">);<br />            while ( </span><span class="default">$cline </span><span class="keyword">= </span><span class="default">fgets</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">) )<br />            {<br />                print </span><span class="default">$cline</span><span class="keyword">;<br />            }<br />            </span><span class="default">fclose</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />Somehow, it's "binary safe" and deliver that file which are read. md5 original and download are the same.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="127092">  <div class="votes">
+    <div id="Vu127092">
+    <a href="https://www.php.net/manual/vote-note.php?id=127092&amp;page=function.fread&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd127092">
+    <a href="https://www.php.net/manual/vote-note.php?id=127092&amp;page=function.fread&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V127092" title="100% like this...">
+    2
+    </div>
+  </div>
+  <a href="function.fread.php.html#127092" class="name">
+  <strong class="user"><em>Wvss at gmail dot com</em></strong></a><a class="genanchor" href="function.fread.php.html#127092"> &para;</a><div class="date" title="2022-05-16 05:26"><strong>1 year ago</strong></div>
+  <div class="text" id="Hcom127092">
+<div class="phpcode"><code><span class="html">&lt;!DOCTYPE html&gt;<br />&lt;html lang="en"&gt;<br />&lt;head&gt;<br />    &lt;meta charset="UTF-8"&gt;<br />    &lt;meta http-equiv="X-UA-Compatible" content="IE=edge"&gt;<br />    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;<br />    &lt;title&gt;Document&lt;/title&gt;<br />&lt;/head&gt;<br />&lt;body&gt;<br />    <span class="default">&lt;?php<br />    </span><span class="keyword">require_once </span><span class="string">"person.class.php"</span><span class="keyword">;<br />    require_once </span><span class="string">"schueler.class.php"</span><span class="keyword">;<br />    require_once </span><span class="string">"lehrer.class.php"</span><span class="keyword">;<br />    </span><span class="comment">//$p = new Person("Hans", "Wurst");<br />    //$p-&gt;ausgabe();<br /><br />    </span><span class="default">$s </span><span class="keyword">= new </span><span class="default">Schueler</span><span class="keyword">(</span><span class="string">"Kevin"</span><span class="keyword">, </span><span class="string">"Mayer"</span><span class="keyword">, </span><span class="string">"FTET3"</span><span class="keyword">);<br />    </span><span class="default">$s</span><span class="keyword">-&gt;</span><span class="default">ausgabe</span><span class="keyword">();<br /><br />     </span><span class="default">Lehrer</span><span class="keyword">::</span><span class="default">$maxGehaltsStufe </span><span class="keyword">= </span><span class="default">16</span><span class="keyword">;     <br />    </span><span class="default">$l </span><span class="keyword">= new </span><span class="default">Lehrer</span><span class="keyword">(</span><span class="string">"Karl"</span><span class="keyword">, </span><span class="string">"Napf"</span><span class="keyword">, </span><span class="default">13</span><span class="keyword">);<br />    </span><span class="default">$l</span><span class="keyword">-&gt;</span><span class="default">ausgabe</span><span class="keyword">();<br />    </span><span class="default">$l</span><span class="keyword">-&gt;</span><span class="default">befoerdern</span><span class="keyword">();<br />    </span><span class="default">$l</span><span class="keyword">-&gt;</span><span class="default">ausgabe</span><span class="keyword">();<br />    </span><span class="default">$l</span><span class="keyword">-&gt;</span><span class="default">befoerdern</span><span class="keyword">();<br />    </span><span class="default">$l</span><span class="keyword">-&gt;</span><span class="default">ausgabe</span><span class="keyword">();<br />    </span><span class="default">$l</span><span class="keyword">-&gt;</span><span class="default">befoerdern</span><span class="keyword">();<br />    </span><span class="default">$l</span><span class="keyword">-&gt;</span><span class="default">ausgabe</span><span class="keyword">();<br />    </span><span class="default">$l</span><span class="keyword">-&gt;</span><span class="default">befoerdern</span><span class="keyword">();<br />    </span><span class="default">$l</span><span class="keyword">-&gt;</span><span class="default">ausgabe</span><span class="keyword">();<br />    </span><span class="default">?&gt;<br /></span>&lt;/body&gt;<br />&lt;/html&gt;</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="111258">  <div class="votes">
+    <div id="Vu111258">
+    <a href="https://www.php.net/manual/vote-note.php?id=111258&amp;page=function.fread&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd111258">
+    <a href="https://www.php.net/manual/vote-note.php?id=111258&amp;page=function.fread&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V111258" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="function.fread.php.html#111258" class="name">
+  <strong class="user"><em>box dot afzar at gmail dot com</em></strong></a><a class="genanchor" href="function.fread.php.html#111258"> &para;</a><div class="date" title="2013-01-31 10:00"><strong>11 years ago</strong></div>
+  <div class="text" id="Hcom111258">
+<div class="phpcode"><code><span class="html">I write this script for download with resume suport<br /><span class="default">&lt;?php<br /></span><span class="comment">// If user click the download link<br /></span><span class="keyword">if(isset(</span><span class="default">$_GET</span><span class="keyword">[</span><span class="string">'filename'</span><span class="keyword">])){<br />        </span><span class="comment">// The directory of downloadable files<br />        // This directory should be unaccessible from web<br />        </span><span class="default">$file_dir</span><span class="keyword">=</span><span class="string">"/tmp/"</span><span class="keyword">;<br /> <br />        </span><span class="comment">// Replace the slash and backslash character with empty string<br />        // The slash and backslash character can be dangerous<br />        </span><span class="default">$file_name</span><span class="keyword">=</span><span class="default">str_replace</span><span class="keyword">(</span><span class="string">"/"</span><span class="keyword">, </span><span class="string">""</span><span class="keyword">, </span><span class="default">$_GET</span><span class="keyword">[</span><span class="string">'filename'</span><span class="keyword">]);<br />        </span><span class="default">$file_name</span><span class="keyword">=</span><span class="default">str_replace</span><span class="keyword">(</span><span class="string">"\\"</span><span class="keyword">, </span><span class="string">""</span><span class="keyword">, </span><span class="default">$file_name</span><span class="keyword">);<br /> <br />        </span><span class="comment">// If the requested file is exist<br />        </span><span class="keyword">if(</span><span class="default">file_exists</span><span class="keyword">(</span><span class="default">$file_dir</span><span class="keyword">.</span><span class="default">$file_name</span><span class="keyword">)){<br />                </span><span class="comment">// Get the file size<br />                </span><span class="default">$file_size</span><span class="keyword">=</span><span class="default">filesize</span><span class="keyword">(</span><span class="default">$file_dir</span><span class="keyword">.</span><span class="default">$file_name</span><span class="keyword">);<br />                </span><span class="comment">// Open the file<br />                </span><span class="default">$fh</span><span class="keyword">=</span><span class="default">fopen</span><span class="keyword">(</span><span class="default">$file_dir</span><span class="keyword">.</span><span class="default">$file_name</span><span class="keyword">, </span><span class="string">"r"</span><span class="keyword">);<br /> <br />                </span><span class="comment">// Download speed in KB/s<br />                </span><span class="default">$speed</span><span class="keyword">=</span><span class="default">5</span><span class="keyword">;<br /> <br />                </span><span class="comment">// Initialize the range of bytes to be transferred<br />                </span><span class="default">$start</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">;<br />                </span><span class="default">$end</span><span class="keyword">=</span><span class="default">$file_size</span><span class="keyword">-</span><span class="default">1</span><span class="keyword">;<br /> <br />                </span><span class="comment">// Check HTTP_RANGE variable<br />                </span><span class="keyword">if(isset(</span><span class="default">$_SERVER</span><span class="keyword">[</span><span class="string">'HTTP_RANGE'</span><span class="keyword">]) &amp;&amp;<br />                        </span><span class="default">preg_match</span><span class="keyword">(</span><span class="string">'/^bytes=(\d+)-(\d*)/'</span><span class="keyword">, </span><span class="default">$_SERVER</span><span class="keyword">[</span><span class="string">'HTTP_RANGE'</span><span class="keyword">], </span><span class="default">$arr</span><span class="keyword">)){<br /> <br />                        </span><span class="comment">// Starting byte<br />                        </span><span class="default">$start</span><span class="keyword">=</span><span class="default">$arr</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">];<br />                        if(</span><span class="default">$arr</span><span class="keyword">[</span><span class="default">2</span><span class="keyword">]){<br />                                </span><span class="comment">// Ending byte<br />                                </span><span class="default">$end</span><span class="keyword">=</span><span class="default">$arr</span><span class="keyword">[</span><span class="default">2</span><span class="keyword">];<br />                        }<br />                }<br /> <br />                </span><span class="comment">// Check if starting and ending byte is valid<br />                </span><span class="keyword">if(</span><span class="default">$start</span><span class="keyword">&gt;</span><span class="default">$end </span><span class="keyword">|| </span><span class="default">$start</span><span class="keyword">&gt;=</span><span class="default">$file_size</span><span class="keyword">){<br />                        </span><span class="default">header</span><span class="keyword">(</span><span class="string">"HTTP/1.1 416 Requested Range Not Satisfiable"</span><span class="keyword">);<br />                        </span><span class="default">header</span><span class="keyword">(</span><span class="string">"Content-Length: 0"</span><span class="keyword">);<br />                }<br />                else{<br />                        </span><span class="comment">// For the first time download<br />                        </span><span class="keyword">if(</span><span class="default">$start</span><span class="keyword">==</span><span class="default">0 </span><span class="keyword">&amp;&amp; </span><span class="default">$end</span><span class="keyword">==</span><span class="default">$file_size</span><span class="keyword">){<br />                                </span><span class="comment">// Send HTTP OK header<br />                                </span><span class="default">header</span><span class="keyword">(</span><span class="string">"HTTP/1.1 200 OK"</span><span class="keyword">);<br />                        }<br />                        else{<br />                                </span><span class="comment">// For resume download<br />                                // Send Partial Content header<br />                                </span><span class="default">header</span><span class="keyword">(</span><span class="string">"HTTP/1.1 206 Partial Content"</span><span class="keyword">);<br />                                </span><span class="comment">// Send Content-Range header<br />                                </span><span class="default">header</span><span class="keyword">(</span><span class="string">"Content-Range: bytes "</span><span class="keyword">.</span><span class="default">$start</span><span class="keyword">.</span><span class="string">"-"</span><span class="keyword">.</span><span class="default">$end</span><span class="keyword">.</span><span class="string">"/"</span><span class="keyword">.</span><span class="default">$file_size</span><span class="keyword">);<br />                        }<br /> <br />                        </span><span class="comment">// Bytes left<br />                        </span><span class="default">$left</span><span class="keyword">=</span><span class="default">$end</span><span class="keyword">-</span><span class="default">$start</span><span class="keyword">+</span><span class="default">1</span><span class="keyword">;<br /> <br />     <br />}<br /></span><span class="default">?&gt;<br /></span>&lt;html&gt;<br />&lt;head&gt;<br />        &lt;title&gt;Home&lt;/title&gt;<br />&lt;/head&gt;<br />&lt;body&gt;<br />        &lt;a href="index.php?filename=file.pdf"&gt;Download&lt;/a&gt;<br />&lt;/body&gt;<br />&lt;/html&gt;</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="56991">  <div class="votes">
+    <div id="Vu56991">
+    <a href="https://www.php.net/manual/vote-note.php?id=56991&amp;page=function.fread&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd56991">
+    <a href="https://www.php.net/manual/vote-note.php?id=56991&amp;page=function.fread&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V56991" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="function.fread.php.html#56991" class="name">
+  <strong class="user"><em>adamgamble at gmail dot com</em></strong></a><a class="genanchor" href="function.fread.php.html#56991"> &para;</a><div class="date" title="2005-09-20 08:00"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom56991">
+<div class="phpcode"><code><span class="html"><span class="default">&lt;?php<br /></span><span class="comment">/*<br />geoCode($address)<br />Accepts an address in the form of<br />999 Geocode Dr. New York, Ny 10108<br />returns array with lat and lon<br />*/<br /><br /></span><span class="keyword">function </span><span class="default">geoCode</span><span class="keyword">(</span><span class="default">$address</span><span class="keyword">) {<br /><br />    </span><span class="default">$gaddress </span><span class="keyword">= </span><span class="string">"<a href="http://maps.google.com?q=" rel="nofollow" target="_blank">http://maps.google.com?q=</a>" </span><span class="keyword">. </span><span class="default">urlencode</span><span class="keyword">(</span><span class="default">$address</span><span class="keyword">);<br /><br />    </span><span class="default">$handle </span><span class="keyword">= </span><span class="default">fopen</span><span class="keyword">(</span><span class="default">$gaddress</span><span class="keyword">, </span><span class="string">"r"</span><span class="keyword">);<br />    </span><span class="default">$contents </span><span class="keyword">= </span><span class="string">''</span><span class="keyword">;<br /><br />     while (!</span><span class="default">feof</span><span class="keyword">(</span><span class="default">$handle</span><span class="keyword">)) {<br />         </span><span class="default">$contents </span><span class="keyword">.= </span><span class="default">fread</span><span class="keyword">(</span><span class="default">$handle</span><span class="keyword">, </span><span class="default">8192</span><span class="keyword">);<br />     }<br />     </span><span class="default">fclose</span><span class="keyword">(</span><span class="default">$handle</span><span class="keyword">);<br />     </span><span class="default">ereg</span><span class="keyword">(</span><span class="string">'&lt;center lat="([0-9.-]{1,})" lng="([0-9.-]{1,})"/&gt;'</span><span class="keyword">, </span><span class="default">$contents</span><span class="keyword">, </span><span class="default">$regs</span><span class="keyword">);<br /><br />     </span><span class="default">$returnData</span><span class="keyword">[</span><span class="string">'lat'</span><span class="keyword">] = </span><span class="default">$regs</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">];<br />     </span><span class="default">$returnData</span><span class="keyword">[</span><span class="string">'lon'</span><span class="keyword">] = </span><span class="default">$regs</span><span class="keyword">[</span><span class="default">2</span><span class="keyword">];<br /><br />     return </span><span class="default">$returnData</span><span class="keyword">;<br />}<br /><br /></span><span class="default">print_r</span><span class="keyword">(</span><span class="default">geoCode</span><span class="keyword">(</span><span class="string">"1064 Georgetown ln. Birmingham, Al 35217"</span><span class="keyword">));<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="86680">  <div class="votes">
+    <div id="Vu86680">
+    <a href="https://www.php.net/manual/vote-note.php?id=86680&amp;page=function.fread&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd86680">
+    <a href="https://www.php.net/manual/vote-note.php?id=86680&amp;page=function.fread&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V86680" title="45% like this...">
+    -1
+    </div>
+  </div>
+  <a href="function.fread.php.html#86680" class="name">
+  <strong class="user"><em>tom</em></strong></a><a class="genanchor" href="function.fread.php.html#86680"> &para;</a><div class="date" title="2008-10-29 08:11"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom86680">
+<div class="phpcode"><code><span class="html">Various scripts suggested here attempt to deliver a file for download to a client. Handling http protocol features such as HTTP_RANGE is not trivial; neither is handling flow control with the server, memory and time limits when the files are large.<br /><br />An alternative is to let the web server can handle http by redirecting to the file in question. It's not uncommon e.g. <a href="http://www.apple.com/downloads/macosx/" rel="nofollow" target="_blank">http://www.apple.com/downloads/macosx/</a> does this.<br /><br />A PHP script can do any checks needed (security, authentication, validate the file) and any other tasks before calling header("Location $urltofile"); <br /><br />I tested this with apache. Interrupt/resume download works. The server's mime type configuration will determine client behavior. For apache, if defaults in mime.types are not suitable, configuration directives for mod_mime could go in a .htaccess file in the directory of the file to download. If really necessary, these could even by written by the PHP script before it redirects.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="46517">  <div class="votes">
+    <div id="Vu46517">
+    <a href="https://www.php.net/manual/vote-note.php?id=46517&amp;page=function.fread&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd46517">
+    <a href="https://www.php.net/manual/vote-note.php?id=46517&amp;page=function.fread&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V46517" title="42% like this...">
+    -1
+    </div>
+  </div>
+  <a href="function.fread.php.html#46517" class="name">
+  <strong class="user"><em>fpinho at hotpop dot com</em></strong></a><a class="genanchor" href="function.fread.php.html#46517"> &para;</a><div class="date" title="2004-10-13 02:21"><strong>19 years ago</strong></div>
+  <div class="text" id="Hcom46517">
+<div class="phpcode"><code><span class="html">After using the suggested function from Rasmus Schultz : mindplay(at)mindplay(dot)dk, I've just noticed that people trying to download big files with a slow connection would get download stopped after exactly 60seconds -&gt; the max execution time set with php.ini.<br />I suggest using a bigger buffer (1024x1024), or maybe resetting the time limit within the 'while' cicle with:<br />   set_time_limit(0);<br /><br />The cicle would go like this:<br /><br /><span class="default">&lt;?php<br />   </span><span class="keyword">while(!</span><span class="default">feof</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">) and (</span><span class="default">connection_status</span><span class="keyword">()==</span><span class="default">0</span><span class="keyword">)) { <br />     print(</span><span class="default">fread</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">, </span><span class="default">1024</span><span class="keyword">*</span><span class="default">1024</span><span class="keyword">)); <br />     </span><span class="default">set_time_limit</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">);<br />     </span><span class="default">flush</span><span class="keyword">(); <br />   } <br /></span><span class="default">?&gt;<br /></span><br />Frederico Pinho</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="26824">  <div class="votes">
+    <div id="Vu26824">
+    <a href="https://www.php.net/manual/vote-note.php?id=26824&amp;page=function.fread&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd26824">
+    <a href="https://www.php.net/manual/vote-note.php?id=26824&amp;page=function.fread&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V26824" title="28% like this...">
+    -3
+    </div>
+  </div>
+  <a href="function.fread.php.html#26824" class="name">
+  <strong class="user"><em>rob at lbox.org</em></strong></a><a class="genanchor" href="function.fread.php.html#26824"> &para;</a><div class="date" title="2002-11-14 01:28"><strong>21 years ago</strong></div>
+  <div class="text" id="Hcom26824">
+<div class="phpcode"><code><span class="html">I spent a while trying to get this to work so I thought I'd share.<br /><br />Here's how to read a remote binary file using fread.<br /><br /><span class="default">&lt;?php<br />$fp </span><span class="keyword">= </span><span class="default">fopen</span><span class="keyword">(</span><span class="string">"<a href="http://www.example.com/img.jpg" rel="nofollow" target="_blank">http://www.example.com/img.jpg</a>"</span><span class="keyword">, </span><span class="string">"rb"</span><span class="keyword">);<br /><br />if(</span><span class="default">$fp</span><span class="keyword">){<br /> while(!</span><span class="default">feof</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">)) {<br />     </span><span class="default">$img </span><span class="keyword">= </span><span class="default">$img </span><span class="keyword">. </span><span class="default">fread</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">, </span><span class="default">1024</span><span class="keyword">);<br /> }<br />}<br /></span><span class="default">?&gt;<br /></span><br />This will read the contents of the file into the var $img 1024 bytes at a time.  I used that number because it seemed safe, but you can increment it all you want I guess.<br /><br />I don't know if everyone but me gets this, but I thought I'd share since I didn't see anything like it out there.</span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=function.fread&amp;redirect=https://www.php.net/manual/ru/function.fread.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="ref.filesystem.php.html">Функции файловой системы</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="function.basename.php.html" title="basename">basename</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.chgrp.php.html" title="chgrp">chgrp</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.chmod.php.html" title="chmod">chmod</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.chown.php.html" title="chown">chown</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.clearstatcache.php.html" title="clearstatcache">clearstatcache</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.copy.php.html" title="copy">copy</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.delete.php.html" title="delete">delete</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.dirname.php.html" title="dirname">dirname</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.disk-free-space.php.html" title="disk_&#8203;free_&#8203;space">disk_&#8203;free_&#8203;space</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.disk-total-space.php.html" title="disk_&#8203;total_&#8203;space">disk_&#8203;total_&#8203;space</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.diskfreespace.php.html" title="diskfreespace">diskfreespace</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.fclose.php.html" title="fclose">fclose</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.fdatasync.php.html" title="fdatasync">fdatasync</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.feof.php.html" title="feof">feof</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.fflush.php.html" title="fflush">fflush</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.fgetc.php.html" title="fgetc">fgetc</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.fgetcsv.php.html" title="fgetcsv">fgetcsv</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.fgets.php.html" title="fgets">fgets</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.fgetss.php.html" title="fgetss">fgetss</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.file-exists.php.html" title="file_&#8203;exists">file_&#8203;exists</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.file-get-contents.php.html" title="file_&#8203;get_&#8203;contents">file_&#8203;get_&#8203;contents</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.file-put-contents.php.html" title="file_&#8203;put_&#8203;contents">file_&#8203;put_&#8203;contents</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.file.php.html" title="file">file</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.fileatime.php.html" title="fileatime">fileatime</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.filectime.php.html" title="filectime">filectime</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.filegroup.php.html" title="filegroup">filegroup</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.fileinode.php.html" title="fileinode">fileinode</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.filemtime.php.html" title="filemtime">filemtime</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.fileowner.php.html" title="fileowner">fileowner</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.fileperms.php.html" title="fileperms">fileperms</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.filesize.php.html" title="filesize">filesize</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.filetype.php.html" title="filetype">filetype</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.flock.php.html" title="flock">flock</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.fnmatch.php.html" title="fnmatch">fnmatch</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.fopen.php.html" title="fopen">fopen</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.fpassthru.php.html" title="fpassthru">fpassthru</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.fputcsv.php.html" title="fputcsv">fputcsv</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.fputs.php.html" title="fputs">fputs</a>
+                        </li>
+                                                <li class="current">
+                            <a href="function.fread.php.html" title="fread">fread</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.fscanf.php.html" title="fscanf">fscanf</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.fseek.php.html" title="fseek">fseek</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.fstat.php.html" title="fstat">fstat</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.fsync.php.html" title="fsync">fsync</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.ftell.php.html" title="ftell">ftell</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.ftruncate.php.html" title="ftruncate">ftruncate</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.fwrite.php.html" title="fwrite">fwrite</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.glob.php.html" title="glob">glob</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.is-dir.php.html" title="is_&#8203;dir">is_&#8203;dir</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.is-executable.php.html" title="is_&#8203;executable">is_&#8203;executable</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.is-file.php.html" title="is_&#8203;file">is_&#8203;file</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.is-link.php.html" title="is_&#8203;link">is_&#8203;link</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.is-readable.php.html" title="is_&#8203;readable">is_&#8203;readable</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.is-uploaded-file.php.html" title="is_&#8203;uploaded_&#8203;file">is_&#8203;uploaded_&#8203;file</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.is-writable.php.html" title="is_&#8203;writable">is_&#8203;writable</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.is-writeable.php.html" title="is_&#8203;writeable">is_&#8203;writeable</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.lchgrp.php.html" title="lchgrp">lchgrp</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.lchown.php.html" title="lchown">lchown</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.link.php.html" title="link">link</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.linkinfo.php.html" title="linkinfo">linkinfo</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.lstat.php.html" title="lstat">lstat</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.mkdir.php.html" title="mkdir">mkdir</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.move-uploaded-file.php.html" title="move_&#8203;uploaded_&#8203;file">move_&#8203;uploaded_&#8203;file</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.parse-ini-file.php.html" title="parse_&#8203;ini_&#8203;file">parse_&#8203;ini_&#8203;file</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.parse-ini-string.php.html" title="parse_&#8203;ini_&#8203;string">parse_&#8203;ini_&#8203;string</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.pathinfo.php.html" title="pathinfo">pathinfo</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.pclose.php.html" title="pclose">pclose</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.popen.php.html" title="popen">popen</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.readfile.php.html" title="readfile">readfile</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.readlink.php.html" title="readlink">readlink</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.realpath-cache-get.php.html" title="realpath_&#8203;cache_&#8203;get">realpath_&#8203;cache_&#8203;get</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.realpath-cache-size.php.html" title="realpath_&#8203;cache_&#8203;size">realpath_&#8203;cache_&#8203;size</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.realpath.php.html" title="realpath">realpath</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.rename.php.html" title="rename">rename</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.rewind.php.html" title="rewind">rewind</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.rmdir.php.html" title="rmdir">rmdir</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.set-file-buffer.php.html" title="set_&#8203;file_&#8203;buffer">set_&#8203;file_&#8203;buffer</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.stat.php.html" title="stat">stat</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.symlink.php.html" title="symlink">symlink</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.tempnam.php.html" title="tempnam">tempnam</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.tmpfile.php.html" title="tmpfile">tmpfile</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.touch.php.html" title="touch">touch</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.umask.php.html" title="umask">umask</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.unlink.php.html" title="unlink">unlink</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

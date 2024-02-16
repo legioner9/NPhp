@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: Функции файловой системы - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="ref.filesystem.php.html">
+ <link rel="shorturl" href="https://www.php.net/filesystem">
+ <link rel="alternate" href="https://www.php.net/filesystem" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="book.filesystem.php.html">
+ <link rel="prev" href="filesystem.constants.php.html">
+ <link rel="next" href="function.basename.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/ref.filesystem.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/ref.filesystem.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/ref.filesystem.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/ref.filesystem.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/ref.filesystem.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/ref.filesystem.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/ref.filesystem.php" hreflang="pt_BR">
+ <link rel="alternate" href="ref.filesystem.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/ref.filesystem.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/ref.filesystem.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="function.basename.php.html">
+          basename &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="filesystem.constants.php.html">
+          &laquo; Предопределённые константы        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.fileprocess.file.php.html'>Модули для работы с файловой системой</a></li>      <li><a href='book.filesystem.php.html'>Файловая система</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/ref.filesystem.php'>English</option>
+            <option value='de/ref.filesystem.php'>German</option>
+            <option value='es/ref.filesystem.php'>Spanish</option>
+            <option value='fr/ref.filesystem.php'>French</option>
+            <option value='it/ref.filesystem.php'>Italian</option>
+            <option value='ja/ref.filesystem.php'>Japanese</option>
+            <option value='pt_BR/ref.filesystem.php'>Brazilian Portuguese</option>
+            <option value='ru/ref.filesystem.php' selected="selected">Russian</option>
+            <option value='tr/ref.filesystem.php'>Turkish</option>
+            <option value='zh/ref.filesystem.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/filesystem/reference.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Fref.filesystem%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="ref.filesystem" class="reference">
+ <h1 class="title">Функции файловой системы</h1>
+
+ <div class="partintro">
+  <h1 class="title">Смотрите также</h1>
+  <p class="simpara">
+   Разделы «<a href="ref.dir.php.html" class="link">Каталоги</a>»
+   и «<a href="ref.exec.php.html" class="link">Выполнение программ</a>»
+   описывают родственные функций.
+  </p>
+  <p class="simpara">
+   Глава «<a href="wrappers.php.html" class="xref">Поддерживаемые протоколы и обёртки</a>» даёт список URL-обёрток
+   и пояснения для работы с удалёнными файлами.
+  </p>
+ </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2>Содержание</h2><ul class="chunklist chunklist_reference"><li><a href="function.basename.php.html">basename</a> — Возвращает последний компонент имени из указанного пути</li><li><a href="function.chgrp.php.html">chgrp</a> — Изменяет группу файла</li><li><a href="function.chmod.php.html">chmod</a> — Изменяет режим доступа к файлу</li><li><a href="function.chown.php.html">chown</a> — Изменяет владельца файла</li><li><a href="function.clearstatcache.php.html">clearstatcache</a> — Очищает кеш состояния файлов</li><li><a href="function.copy.php.html">copy</a> — Копирует файл</li><li><a href="function.delete.php.html">delete</a> — Смотрите описание функции unlink или unset</li><li><a href="function.dirname.php.html">dirname</a> — Возвращает имя родительского каталога из указанного пути</li><li><a href="function.disk-free-space.php.html">disk_free_space</a> — Возвращает размер доступного пространства в каталоге или файловой системе</li><li><a href="function.disk-total-space.php.html">disk_total_space</a> — Возвращает общий размер файловой системы или раздела диска</li><li><a href="function.diskfreespace.php.html">diskfreespace</a> — Псевдоним disk_free_space</li><li><a href="function.fclose.php.html">fclose</a> — Закрывает открытый дескриптор файла</li><li><a href="function.fdatasync.php.html">fdatasync</a> — Синхронизирует данные (но не метаданные) с файлом</li><li><a href="function.feof.php.html">feof</a> — Проверяет, достигнут ли конец файла</li><li><a href="function.fflush.php.html">fflush</a> — Сбрасывает буфер вывода в файл</li><li><a href="function.fgetc.php.html">fgetc</a> — Считывает символ из файла</li><li><a href="function.fgetcsv.php.html">fgetcsv</a> — Читает строку из файла и производит разбор данных CSV</li><li><a href="function.fgets.php.html">fgets</a> — Читает строку из файла</li><li><a href="function.fgetss.php.html">fgetss</a> — Читает строку из файла и удаляет HTML-теги</li><li><a href="function.file-exists.php.html">file_exists</a> — Проверяет существование указанного файла или каталога</li><li><a href="function.file-get-contents.php.html">file_get_contents</a> — Читает содержимое файла в строку</li><li><a href="function.file-put-contents.php.html">file_put_contents</a> — Записывает данные в файл</li><li><a href="function.file.php.html">file</a> — Читает содержимое файла и помещает его в массив</li><li><a href="function.fileatime.php.html">fileatime</a> — Возвращает время последнего доступа к файлу</li><li><a href="function.filectime.php.html">filectime</a> — Возвращает время изменения индексного дескриптора файла</li><li><a href="function.filegroup.php.html">filegroup</a> — Получает идентификатор группы файла</li><li><a href="function.fileinode.php.html">fileinode</a> — Возвращает индексный дескриптор файла</li><li><a href="function.filemtime.php.html">filemtime</a> — Возвращает время последнего изменения файла</li><li><a href="function.fileowner.php.html">fileowner</a> — Возвращает идентификатор владельца файла</li><li><a href="function.fileperms.php.html">fileperms</a> — Возвращает информацию о правах на файл</li><li><a href="function.filesize.php.html">filesize</a> — Возвращает размер файла</li><li><a href="function.filetype.php.html">filetype</a> — Возвращает тип файла</li><li><a href="function.flock.php.html">flock</a> — Блокирует файл методом переносимой рекомендательной блокировки</li><li><a href="function.fnmatch.php.html">fnmatch</a> — Проверяет совпадение имени файла с шаблоном</li><li><a href="function.fopen.php.html">fopen</a> — Открывает файл или URL</li><li><a href="function.fpassthru.php.html">fpassthru</a> — Выводит все оставшиеся данные из файлового указателя</li><li><a href="function.fputcsv.php.html">fputcsv</a> — Форматирует строку в виде CSV и записывает её в файловый указатель</li><li><a href="function.fputs.php.html">fputs</a> — Псевдоним fwrite</li><li><a href="function.fread.php.html">fread</a> — Бинарно-безопасное чтение файла</li><li><a href="function.fscanf.php.html">fscanf</a> — Обрабатывает данные из файла в соответствии с форматом</li><li><a href="function.fseek.php.html">fseek</a> — Устанавливает смещение в файловом указателе</li><li><a href="function.fstat.php.html">fstat</a> — Получает информацию о файле, используя открытый файловый указатель</li><li><a href="function.fsync.php.html">fsync</a> — Синхронизирует изменения в файле (включая метаданные)</li><li><a href="function.ftell.php.html">ftell</a> — Возвращает текущую позицию указателя чтения/записи файла</li><li><a href="function.ftruncate.php.html">ftruncate</a> — Урезает файл до указанной длины</li><li><a href="function.fwrite.php.html">fwrite</a> — Записывает данные в файл бинарно-безопасным способом</li><li><a href="function.glob.php.html">glob</a> — Находит файловые пути, совпадающие с шаблоном</li><li><a href="function.is-dir.php.html">is_dir</a> — Определяет, является ли имя файла директорией</li><li><a href="function.is-executable.php.html">is_executable</a> — Определяет, является ли файл исполняемым</li><li><a href="function.is-file.php.html">is_file</a> — Определяет, является ли файл обычным файлом</li><li><a href="function.is-link.php.html">is_link</a> — Определяет, является ли файл символической ссылкой</li><li><a href="function.is-readable.php.html">is_readable</a> — Определяет существование файла и доступен ли он для чтения</li><li><a href="function.is-uploaded-file.php.html">is_uploaded_file</a> — Определяет, был ли файл загружен при помощи HTTP POST</li><li><a href="function.is-writable.php.html">is_writable</a> — Определяет, доступен ли файл для записи</li><li><a href="function.is-writeable.php.html">is_writeable</a> — Псевдоним is_writable</li><li><a href="function.lchgrp.php.html">lchgrp</a> — Изменяет группу, которой принадлежит символическая ссылка</li><li><a href="function.lchown.php.html">lchown</a> — Изменяет владельца символической ссылки</li><li><a href="function.link.php.html">link</a> — Создаёт жёсткую ссылку</li><li><a href="function.linkinfo.php.html">linkinfo</a> — Возвращает информацию о ссылке</li><li><a href="function.lstat.php.html">lstat</a> — Возвращает информацию о файле или символической ссылке</li><li><a href="function.mkdir.php.html">mkdir</a> — Создаёт директорию</li><li><a href="function.move-uploaded-file.php.html">move_uploaded_file</a> — Перемещает загруженный файл в новое место</li><li><a href="function.parse-ini-file.php.html">parse_ini_file</a> — Обрабатывает конфигурационный файл</li><li><a href="function.parse-ini-string.php.html">parse_ini_string</a> — Разбирает строку конфигурации</li><li><a href="function.pathinfo.php.html">pathinfo</a> — Возвращает информацию о пути к файлу</li><li><a href="function.pclose.php.html">pclose</a> — Закрывает файловый указатель процесса</li><li><a href="function.popen.php.html">popen</a> — Открывает файловый указатель процесса</li><li><a href="function.readfile.php.html">readfile</a> — Выводит файл</li><li><a href="function.readlink.php.html">readlink</a> — Возвращает файл, на который указывает символическая ссылка</li><li><a href="function.realpath-cache-get.php.html">realpath_cache_get</a> — Получает записи из кеша realpath</li><li><a href="function.realpath-cache-size.php.html">realpath_cache_size</a> — Получает размер кеша realpath</li><li><a href="function.realpath.php.html">realpath</a> — Возвращает канонизированный абсолютный путь к файлу</li><li><a href="function.rename.php.html">rename</a> — Переименовывает файл или директорию</li><li><a href="function.rewind.php.html">rewind</a> — Сбрасывает курсор файлового указателя</li><li><a href="function.rmdir.php.html">rmdir</a> — Удаляет директорию</li><li><a href="function.set-file-buffer.php.html">set_file_buffer</a> — Псевдоним stream_set_write_buffer</li><li><a href="function.stat.php.html">stat</a> — Возвращает информацию о файле</li><li><a href="function.symlink.php.html">symlink</a> — Создаёт символическую ссылку</li><li><a href="function.tempnam.php.html">tempnam</a> — Создаёт файл с уникальным именем</li><li><a href="function.tmpfile.php.html">tmpfile</a> — Создаёт временный файл</li><li><a href="function.touch.php.html">touch</a> — Устанавливает время доступа и модификации файла</li><li><a href="function.umask.php.html">umask</a> — Изменяет текущую маску прав доступа для вновь созданных файлов и каталогов (umask)</li><li><a href="function.unlink.php.html">unlink</a> — Удаляет файл</li></ul>
+</div>
+<section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=ref.filesystem&amp;redirect=https://www.php.net/manual/ru/ref.filesystem.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">8 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="73954">  <div class="votes">
+    <div id="Vu73954">
+    <a href="https://www.php.net/manual/vote-note.php?id=73954&amp;page=ref.filesystem&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd73954">
+    <a href="https://www.php.net/manual/vote-note.php?id=73954&amp;page=ref.filesystem&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V73954" title="62% like this...">
+    60
+    </div>
+  </div>
+  <a href="ref.filesystem.php.html#73954" class="name">
+  <strong class="user"><em>Christian</em></strong></a><a class="genanchor" href="ref.filesystem.php.html#73954"> &para;</a><div class="date" title="2007-03-17 09:24"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom73954">
+<div class="phpcode"><code><span class="html">I just learned that, to specify file names in a portable manner, you DON'T need 'DIRECTORY_SEPARATOR' - just use '/'. This really surprised and shocked me, as until now I typed about a zillion times 'DIRECTORY_SEPARATOR' to stay platform independent - unnecessary. Don't make the same mistake.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="91075">  <div class="votes">
+    <div id="Vu91075">
+    <a href="https://www.php.net/manual/vote-note.php?id=91075&amp;page=ref.filesystem&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd91075">
+    <a href="https://www.php.net/manual/vote-note.php?id=91075&amp;page=ref.filesystem&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V91075" title="47% like this...">
+    -2
+    </div>
+  </div>
+  <a href="ref.filesystem.php.html#91075" class="name">
+  <strong class="user"><em>drapeko.com</em></strong></a><a class="genanchor" href="ref.filesystem.php.html#91075"> &para;</a><div class="date" title="2009-05-23 06:19"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom91075">
+<div class="phpcode"><code><span class="html">You have an array of directories (straightforward list of directories):<br /><br /><span class="default">&lt;?php<br />     $array </span><span class="keyword">= array(<br />         </span><span class="string">'/home/drapeko/var'</span><span class="keyword">,<br />         </span><span class="string">'/home/drapeko/var/y'</span><span class="keyword">,<br />         </span><span class="string">'/home/drapeko'</span><span class="keyword">,<br />         </span><span class="string">'/home'</span><span class="keyword">,<br />         </span><span class="string">'/var/libexec'<br />     </span><span class="keyword">);<br />     );<br /></span><span class="default">?&gt;<br /></span><br />And you would like to transform this array to hierarchy of directories:<br /><br /><span class="default">&lt;?php<br /> $array </span><span class="keyword">= array (<br />     </span><span class="string">'home' </span><span class="keyword">=&gt; array (<br />         </span><span class="string">'drapeko' </span><span class="keyword">=&gt; array (<br />             </span><span class="string">'var' </span><span class="keyword">=&gt; array (<br />                 </span><span class="string">'y' </span><span class="keyword">=&gt; array()<br />             )<br />         )<br />     ),<br />     </span><span class="string">'var' </span><span class="keyword">=&gt; array(<br />         </span><span class="string">'libexec' </span><span class="keyword">=&gt; array()<br />     )<br /> );<br /></span><span class="default">?&gt;<br /></span><br />How can you do it?<br /><br />First of all the below function will help us.<br /><br /><span class="default">&lt;?php<br /></span><span class="comment">/**<br /> * This function converts real filesystem path to the string array representation.<br /> *<br /> * for example,<br /> * '/home/drapeko/var/y            will be converted to    $result_array['home']['drapeko']['var']['y']<br /> * '/home/drapeko/var/y/file.txt   will be converted to       $result_array['home']['drapeko']['var']['y']<br /> *<br /> * @param $path         realpath of the directory<br /> * @return string        string array representation of the path<br /> */<br /></span><span class="keyword">function </span><span class="default">pathToArrayStr</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">) {<br />     </span><span class="comment">// TODO constants/configs?<br />     </span><span class="default">$res_path </span><span class="keyword">= </span><span class="default">str_replace</span><span class="keyword">(array(</span><span class="string">':/'</span><span class="keyword">, </span><span class="string">':\\'</span><span class="keyword">, </span><span class="string">'/'</span><span class="keyword">, </span><span class="string">'\\'</span><span class="keyword">, </span><span class="default">DIRECTORY_SEPARATOR</span><span class="keyword">), </span><span class="string">'/'</span><span class="keyword">, </span><span class="default">$path</span><span class="keyword">);<br />     </span><span class="comment">// if the first or last symbol is '/' delete it (e.g. for linux)<br />     </span><span class="default">$res_path </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(array(</span><span class="string">"/^\//"</span><span class="keyword">, </span><span class="string">"/\/$/"</span><span class="keyword">), </span><span class="string">''</span><span class="keyword">, </span><span class="default">$res_path</span><span class="keyword">);<br />     </span><span class="comment">// create string<br />     </span><span class="default">$res_path </span><span class="keyword">= </span><span class="string">'[\''</span><span class="keyword">.</span><span class="default">str_replace</span><span class="keyword">(</span><span class="string">'/'</span><span class="keyword">, </span><span class="string">'\'][\''</span><span class="keyword">, </span><span class="default">$res_path</span><span class="keyword">).</span><span class="string">'\']'</span><span class="keyword">;<br /><br />     return </span><span class="default">$res_path</span><span class="keyword">;<br />}<br /></span><span class="default">?&gt;<br /></span><br />It simply converts the real path of the file to array string representation.<br /><br />How can you use this function? I know it looks like a little confusing. But it's quite simple. Consider the example below:<br /><br /><span class="default">&lt;?php<br /> $result </span><span class="keyword">= array();<br /> </span><span class="default">$check </span><span class="keyword">= array();<br /> foreach(</span><span class="default">$array </span><span class="keyword">as </span><span class="default">$val</span><span class="keyword">) {<br />     </span><span class="default">$str </span><span class="keyword">= </span><span class="default">pathToArrayStr</span><span class="keyword">(</span><span class="default">$val</span><span class="keyword">, </span><span class="string">'result'</span><span class="keyword">);<br />     foreach(</span><span class="default">$check </span><span class="keyword">as </span><span class="default">$ck</span><span class="keyword">) {<br />         if (</span><span class="default">strpos</span><span class="keyword">(</span><span class="default">$ck</span><span class="keyword">, </span><span class="default">$str</span><span class="keyword">) !== </span><span class="default">false</span><span class="keyword">) {<br />             continue </span><span class="default">2</span><span class="keyword">;<br />         }<br />     }<br />     </span><span class="default">$check</span><span class="keyword">[] = </span><span class="default">$str</span><span class="keyword">;<br />     eval(</span><span class="string">'$result'</span><span class="keyword">.</span><span class="default">$str</span><span class="keyword">.</span><span class="string">' = array();'</span><span class="keyword">);<br /> }<br /></span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$result</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />Heh, how do you find it? This approach has helped me very much. I hope you will find it useful. :)</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="50360">  <div class="votes">
+    <div id="Vu50360">
+    <a href="https://www.php.net/manual/vote-note.php?id=50360&amp;page=ref.filesystem&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd50360">
+    <a href="https://www.php.net/manual/vote-note.php?id=50360&amp;page=ref.filesystem&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V50360" title="47% like this...">
+    -3
+    </div>
+  </div>
+  <a href="ref.filesystem.php.html#50360" class="name">
+  <strong class="user"><em>tunnelareaten at gmail dot com</em></strong></a><a class="genanchor" href="ref.filesystem.php.html#50360"> &para;</a><div class="date" title="2005-02-25 08:27"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom50360">
+<div class="phpcode"><code><span class="html">I made this function to search and/or display files by extension or for a string occurance in the filename. Any comments or enhancements are welcome offcourse. I'll update this function soon.<br /><br />usage: list_files([string], [string], [int 1 | 0], [int 1 | 0]);<br /><br />search for extension: list_files([string], [string], [0], [int 1 | 0]);<br />returns array: $myArray = list_files([string], [string], [0], [0]);<br />echo result: list_files([string], [string], [0], [1]);<br /><br />search for string occurance: list_files([string], [string], [1], [int 1 | 0]);<br />returns array: $myArray = list_files([string], [string], [1], [0]);<br />echo result: list_files([string], [string], [1], [1]);<br /><br /><span class="default">&lt;?php<br /><br /></span><span class="keyword">function </span><span class="default">list_files</span><span class="keyword">(</span><span class="default">$directory</span><span class="keyword">, </span><span class="default">$stringSearch</span><span class="keyword">, </span><span class="default">$searchHandler</span><span class="keyword">, </span><span class="default">$outputHandler</span><span class="keyword">) {<br /> </span><span class="default">$errorHandler </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;<br /> </span><span class="default">$result </span><span class="keyword">= array();<br /> if (! </span><span class="default">$directoryHandler </span><span class="keyword">= @</span><span class="default">opendir </span><span class="keyword">(</span><span class="default">$directory</span><span class="keyword">)) {<br />  echo (</span><span class="string">"&lt;pre&gt;\nerror: directory \"</span><span class="default">$directory</span><span class="string">\" doesn't exist!\n&lt;/pre&gt;\n"</span><span class="keyword">);<br /> return </span><span class="default">$errorHandler </span><span class="keyword">= </span><span class="default">true</span><span class="keyword">;<br /> }<br /> if (</span><span class="default">$searchHandler </span><span class="keyword">=== </span><span class="default">0</span><span class="keyword">) {<br />  while (</span><span class="default">false </span><span class="keyword">!== (</span><span class="default">$fileName </span><span class="keyword">= @</span><span class="default">readdir </span><span class="keyword">(</span><span class="default">$directoryHandler</span><span class="keyword">))) {<br />   if(@</span><span class="default">substr </span><span class="keyword">(</span><span class="default">$fileName</span><span class="keyword">, - @</span><span class="default">strlen </span><span class="keyword">(</span><span class="default">$stringSearch</span><span class="keyword">)) === </span><span class="default">$stringSearch</span><span class="keyword">) {<br />    @</span><span class="default">array_push </span><span class="keyword">(</span><span class="default">$result</span><span class="keyword">, </span><span class="default">$fileName</span><span class="keyword">);<br />   }<br />  }<br /> }<br /> if (</span><span class="default">$searchHandler </span><span class="keyword">=== </span><span class="default">1</span><span class="keyword">) {<br />  while(</span><span class="default">false </span><span class="keyword">!== (</span><span class="default">$fileName </span><span class="keyword">= @</span><span class="default">readdir </span><span class="keyword">(</span><span class="default">$directoryHandler</span><span class="keyword">))) {<br />   if(@</span><span class="default">substr_count </span><span class="keyword">(</span><span class="default">$fileName</span><span class="keyword">, </span><span class="default">$stringSearch</span><span class="keyword">) &gt; </span><span class="default">0</span><span class="keyword">) {<br />    @</span><span class="default">array_push </span><span class="keyword">(</span><span class="default">$result</span><span class="keyword">, </span><span class="default">$fileName</span><span class="keyword">);<br />   }<br />  }<br /> }<br /> if ((</span><span class="default">$errorHandler </span><span class="keyword">=== </span><span class="default">true</span><span class="keyword">) &amp;&amp;  (@</span><span class="default">count </span><span class="keyword">(</span><span class="default">$result</span><span class="keyword">) === </span><span class="default">0</span><span class="keyword">)) {<br />  echo (</span><span class="string">"&lt;pre&gt;\nerror: no filetype \"</span><span class="default">$fileExtension</span><span class="string">\" found!\n&lt;/pre&gt;\n"</span><span class="keyword">);<br /> }<br /> else {<br />  </span><span class="default">sort </span><span class="keyword">(</span><span class="default">$result</span><span class="keyword">);<br />  if (</span><span class="default">$outputHandler </span><span class="keyword">=== </span><span class="default">0</span><span class="keyword">) {<br />   return </span><span class="default">$result</span><span class="keyword">;<br />  }<br />  if (</span><span class="default">$outputHandler </span><span class="keyword">=== </span><span class="default">1</span><span class="keyword">) {<br />   echo (</span><span class="string">"&lt;pre&gt;\n"</span><span class="keyword">);<br />   </span><span class="default">print_r </span><span class="keyword">(</span><span class="default">$result</span><span class="keyword">);<br />   echo (</span><span class="string">"&lt;/pre&gt;\n"</span><span class="keyword">); <br />  }<br /> }<br />}<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="32089">  <div class="votes">
+    <div id="Vu32089">
+    <a href="https://www.php.net/manual/vote-note.php?id=32089&amp;page=ref.filesystem&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd32089">
+    <a href="https://www.php.net/manual/vote-note.php?id=32089&amp;page=ref.filesystem&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V32089" title="41% like this...">
+    -6
+    </div>
+  </div>
+  <a href="ref.filesystem.php.html#32089" class="name">
+  <strong class="user"><em>mitra at mitra dot biz</em></strong></a><a class="genanchor" href="ref.filesystem.php.html#32089"> &para;</a><div class="date" title="2003-05-15 10:10"><strong>20 years ago</strong></div>
+  <div class="text" id="Hcom32089">
+<div class="phpcode"><code><span class="html">Pollard@php.net contributed this in response to a question on setting these variables ...<br />This option *IS* settable within your PHP scripts.<br />Example:<br /><br /><span class="default">&lt;?php<br />  ini_set</span><span class="keyword">(</span><span class="string">'auto_detect_line_endings'</span><span class="keyword">, </span><span class="default">true</span><span class="keyword">);<br />  </span><span class="default">$contents </span><span class="keyword">= </span><span class="default">file</span><span class="keyword">(</span><span class="string">'unknowntype.txt'</span><span class="keyword">);<br /><br />  </span><span class="default">ini_set</span><span class="keyword">(</span><span class="string">'auto_detect_line_endings'</span><span class="keyword">, </span><span class="default">false</span><span class="keyword">);<br />  </span><span class="default">$content2 </span><span class="keyword">= </span><span class="default">file</span><span class="keyword">(</span><span class="string">'unixfile.txt'</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />Note, with PHP 4.3 anytime Mac files are read using fgets or file you'll need to auto_detect_line_endings since \n is otherwise assumed.  However, with PHP 5.0, stream_get_line() will allow you to specify what line ending character to read up to.<br /><br />\\ Read a line from a MAC file<br />stream_get_line($fp, 4096, "\r"); <br /><br />\\ Read a line from a UNIX file<br />stream_get_line($fp, 4096, "\n"); <br /><br />\\ Read a line from a DOS file<br />stream_get_line($fp, 4096, "\r\n"); <br /><br />\\ Read a line up to any filesystem line ending<br />ini_set('auto_detect_line_endings', true); fgets($fp); <br /><br />\\ You can also make up your own line ending characters:<br />\\ Read up to the first instance of ":"<br />stream_get_line($fp, 4096, ":");</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="35196">  <div class="votes">
+    <div id="Vu35196">
+    <a href="https://www.php.net/manual/vote-note.php?id=35196&amp;page=ref.filesystem&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd35196">
+    <a href="https://www.php.net/manual/vote-note.php?id=35196&amp;page=ref.filesystem&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V35196" title="40% like this...">
+    -7
+    </div>
+  </div>
+  <a href="ref.filesystem.php.html#35196" class="name">
+  <strong class="user"><em>Gregor Mosheh</em></strong></a><a class="genanchor" href="ref.filesystem.php.html#35196"> &para;</a><div class="date" title="2003-08-22 05:23"><strong>20 years ago</strong></div>
+  <div class="text" id="Hcom35196">
+<div class="phpcode"><code><span class="html">This function searches a directory and returns an array of all files whose filename matches the specified regular expression. It's similar in concept to the Unix find program.<br /><br /> function findfile($location='',$fileregex='') {<br />    if (!$location or !is_dir($location) or !$fileregex) {<br />       return false;<br />    }<br /> <br />    $matchedfiles = array();<br /> <br />    $all = opendir($location);<br />    while ($file = readdir($all)) {<br />       if (is_dir($location.'/'.$file) and $file &lt;&gt; ".." and $file &lt;&gt; ".") {<br />          $subdir_matches = findfile($location.'/'.$file,$fileregex);<br />          $matchedfiles = array_merge($matchedfiles,$subdir_matches);<br />          unset($file);<br />       }<br />       elseif (!is_dir($location.'/'.$file)) {<br />          if (preg_match($fileregex,$file)) {<br />             array_push($matchedfiles,$location.'/'.$file);<br />          }<br />       }<br />    }<br />    closedir($all);<br />    unset($all);<br />    return $matchedfiles;<br /> }<br /><br />$htmlfiles = findfile('/some/dir','/\.(htm|html)$/');</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="30152">  <div class="votes">
+    <div id="Vu30152">
+    <a href="https://www.php.net/manual/vote-note.php?id=30152&amp;page=ref.filesystem&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd30152">
+    <a href="https://www.php.net/manual/vote-note.php?id=30152&amp;page=ref.filesystem&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V30152" title="34% like this...">
+    -9
+    </div>
+  </div>
+  <a href="ref.filesystem.php.html#30152" class="name">
+  <strong class="user"><em>jdhurn at uberidx dot com</em></strong></a><a class="genanchor" href="ref.filesystem.php.html#30152"> &para;</a><div class="date" title="2003-03-08 07:18"><strong>20 years ago</strong></div>
+  <div class="text" id="Hcom30152">
+<div class="phpcode"><code><span class="html">This is a function I use to determine if a file contains Binary information. I use this for my search engine so that it doesn't try to index files like .zip or .mp3 or any other file that doesn't contain readable information. It makes use of the Character Type Extension if it's loaded, if it's not then it uses Regular Expressions.<br /><br />function is_binary($link)<br />{<br />     $tmpStr  = '';<br />     @$fp     = fopen($link, 'rb');<br />     @$tmpStr = fread($fp, 256);<br />     @fclose($fp);<br /><br />     if($tmpStr != '')<br />     {<br />          $tmpStr = str_replace(chr(10), '', $tmpStr);<br />          $tmpStr = str_replace(chr(13), '', $tmpStr);<br /><br />          $tmpInt = 0;<br /><br />           for($i =0; $i &lt; strlen($tmpStr); $i++)<br />          {<br />                if( extension_loaded('ctype') )<br />               {<br />                    if( !ctype_print($tmpStr[$i]) )<br />                         $tmpInt++;<br />               }<br />               else<br />               {<br />                   if( !eregi("[[:print:]]+", $tmpStr[$i]) )<br />                         $tmpInt++;<br />               }<br />           }<br /><br />           if($tmpInt &gt; 5)<br />                return(0);<br />            else<br />                return(1);<br />     }<br />     else<br />           return(0);<br />}</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="30924">  <div class="votes">
+    <div id="Vu30924">
+    <a href="https://www.php.net/manual/vote-note.php?id=30924&amp;page=ref.filesystem&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd30924">
+    <a href="https://www.php.net/manual/vote-note.php?id=30924&amp;page=ref.filesystem&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V30924" title="30% like this...">
+    -8
+    </div>
+  </div>
+  <a href="ref.filesystem.php.html#30924" class="name">
+  <strong class="user"><em>regis at webstuff dot com dot br</em></strong></a><a class="genanchor" href="ref.filesystem.php.html#30924"> &para;</a><div class="date" title="2003-04-03 07:49"><strong>20 years ago</strong></div>
+  <div class="text" id="Hcom30924">
+<div class="phpcode"><code><span class="html">Here is a useful function if you're having trouble writing raw bytes into a file. <br /><br />It receives an integer and returns an array containing the ASCII values of the bytes on each index of the array.<br /><br />function int2bytes($number){<br />  $byte = $number;<br />  $i=0;<br />  do{<br />    $dec_tmp = $byte;<br />    <br />    $byte = bcdiv($byte,256,0);<br />    $resto = $dec_tmp - (256 * $byte);<br />    $return[] = $resto;<br />  } while($byte &gt;= 256);<br />  if($byte) $return[] = $byte;<br />  return array_reverse($return);<br />}<br /><br />Example:<br /><br />$arr = int2bytes(75832);<br /><br />$arr will contain the following values:<br />Array<br />(<br />    [0] =&gt; 1<br />    [1] =&gt; 40<br />    [2] =&gt; 56<br />)<br /><br />Now, to write this data to the file, just use a fputs() with chr(), just like this:<br /><br />fputs($fp,chr($arr[0]).chr($arr[1]).chr($arr[2]))<br /><br />-- Regis</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="111670">  <div class="votes">
+    <div id="Vu111670">
+    <a href="https://www.php.net/manual/vote-note.php?id=111670&amp;page=ref.filesystem&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd111670">
+    <a href="https://www.php.net/manual/vote-note.php?id=111670&amp;page=ref.filesystem&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V111670" title="28% like this...">
+    -11
+    </div>
+  </div>
+  <a href="ref.filesystem.php.html#111670" class="name">
+  <strong class="user"><em>ob at babcom dot biz</em></strong></a><a class="genanchor" href="ref.filesystem.php.html#111670"> &para;</a><div class="date" title="2013-03-14 03:56"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom111670">
+<div class="phpcode"><code><span class="html">a function based on "tunnelareaten at gmail dot com"s idea to search for files in a given directory by a searchstring or by fileextension.<br /><br />I added support to search recursively through all sub-directories an to determine weather the filepath should be returned or not.<br /><br /><span class="default">&lt;?php<br /></span><span class="comment">// recursive function to get contents of given folder by searchterm or fileextension<br />// (does not show folders)<br />// standards: Foldername:                    string<br />//            Searchterm:                    string<br />//            Searchtype:                    ext/search (file-extension or searchterm within filename)<br />//            SaveCompletePath:        true/1<br />// usage:     array FileSearch_r($Folder,$Search[,$SearchType,$SavePath])<br /><br /></span><span class="keyword">function </span><span class="default">FileSearch_r</span><span class="keyword">(</span><span class="default">$Dir</span><span class="keyword">,</span><span class="default">$Search</span><span class="keyword">,</span><span class="default">$SearchType</span><span class="keyword">=</span><span class="string">"search"</span><span class="keyword">,</span><span class="default">$SavePath</span><span class="keyword">=</span><span class="default">1</span><span class="keyword">) {<br />  </span><span class="default">$Array</span><span class="keyword">=array();<br />  </span><span class="default">$D</span><span class="keyword">=</span><span class="default">dir</span><span class="keyword">(</span><span class="default">$Dir</span><span class="keyword">);<br />  while (</span><span class="default">false</span><span class="keyword">!==(</span><span class="default">$Entry</span><span class="keyword">=</span><span class="default">$D</span><span class="keyword">-&gt;</span><span class="default">read</span><span class="keyword">()))<br />    if (</span><span class="default">$Entry</span><span class="keyword">!=</span><span class="string">'.' </span><span class="keyword">&amp;&amp; </span><span class="default">$Entry</span><span class="keyword">!=</span><span class="string">'..'</span><span class="keyword">) {<br />      </span><span class="default">$Entry</span><span class="keyword">=</span><span class="default">$Dir</span><span class="keyword">.</span><span class="default">$Entry</span><span class="keyword">;<br />      if (</span><span class="default">is_dir</span><span class="keyword">(</span><span class="default">$Entry</span><span class="keyword">)) </span><span class="default">$Array</span><span class="keyword">=</span><span class="default">array_merge</span><span class="keyword">(</span><span class="default">$Array</span><span class="keyword">,</span><span class="default">FileSearch_r</span><span class="keyword">(</span><span class="default">$Entry</span><span class="keyword">.</span><span class="string">'/'</span><span class="keyword">,</span><span class="default">$Search</span><span class="keyword">,</span><span class="default">$SearchType</span><span class="keyword">,</span><span class="default">$SavePath</span><span class="keyword">));<br />      else<br />          if (</span><span class="default">$SearchType</span><span class="keyword">==</span><span class="string">"search"<br />                      </span><span class="keyword">?</span><span class="default">substr_count</span><span class="keyword">(</span><span class="default">$Entry</span><span class="keyword">,</span><span class="default">$Search</span><span class="keyword">)&gt;</span><span class="default">0<br />                      </span><span class="keyword">:(</span><span class="default">$SearchType</span><span class="keyword">==</span><span class="string">"ext"<br />                          </span><span class="keyword">?</span><span class="default">substr</span><span class="keyword">(</span><span class="default">$Entry</span><span class="keyword">,-</span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$Search</span><span class="keyword">))===</span><span class="default">$Search<br />                          </span><span class="keyword">:</span><span class="default">true</span><span class="keyword">))<br />              </span><span class="default">$Array</span><span class="keyword">[]=</span><span class="default">$Entry</span><span class="keyword">;<br />    }<br />  </span><span class="default">$D</span><span class="keyword">-&gt;</span><span class="default">close</span><span class="keyword">();<br />  </span><span class="default">sort</span><span class="keyword">(</span><span class="default">$Array</span><span class="keyword">,</span><span class="default">SORT_STRING</span><span class="keyword">);<br />  if(!(bool)</span><span class="default">$SavePath</span><span class="keyword">) </span><span class="default">$Array</span><span class="keyword">=</span><span class="default">str_replace</span><span class="keyword">(</span><span class="default">$Dir</span><span class="keyword">,</span><span class="string">""</span><span class="keyword">,</span><span class="default">array_values</span><span class="keyword">(</span><span class="default">$Array</span><span class="keyword">));<br />  return </span><span class="default">$Array</span><span class="keyword">;<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=ref.filesystem&amp;redirect=https://www.php.net/manual/ru/ref.filesystem.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="book.filesystem.php.html">Файловая система</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="intro.filesystem.php.html" title="Введение">Введение</a>
+                        </li>
+                                                <li class="">
+                            <a href="filesystem.setup.php.html" title="Установка и настройка">Установка и настройка</a>
+                        </li>
+                                                <li class="">
+                            <a href="filesystem.constants.php.html" title="Предопределённые константы">Предопределённые константы</a>
+                        </li>
+                                                <li class="current">
+                            <a href="ref.filesystem.php.html" title="Функции файловой системы">Функции файловой системы</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

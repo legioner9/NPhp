@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: socket_select - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="function.socket-select.php.html">
+ <link rel="shorturl" href="https://www.php.net/socket-select">
+ <link rel="alternate" href="https://www.php.net/socket-select" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="ref.sockets.php.html">
+ <link rel="prev" href="function.socket-recvmsg.php.html">
+ <link rel="next" href="function.socket-send.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/function.socket-select.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/function.socket-select.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/function.socket-select.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/function.socket-select.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/function.socket-select.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/function.socket-select.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/function.socket-select.php" hreflang="pt_BR">
+ <link rel="alternate" href="function.socket-select.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/function.socket-select.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/function.socket-select.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="function.socket-send.php.html">
+          socket_send &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="function.socket-recvmsg.php.html">
+          &laquo; socket_recvmsg        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.remote.other.php.html'>Другие службы</a></li>      <li><a href='book.sockets.php.html'>Сокеты</a></li>      <li><a href='ref.sockets.php.html'>Функции сокета</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/function.socket-select.php'>English</option>
+            <option value='de/function.socket-select.php'>German</option>
+            <option value='es/function.socket-select.php'>Spanish</option>
+            <option value='fr/function.socket-select.php'>French</option>
+            <option value='it/function.socket-select.php'>Italian</option>
+            <option value='ja/function.socket-select.php'>Japanese</option>
+            <option value='pt_BR/function.socket-select.php'>Brazilian Portuguese</option>
+            <option value='ru/function.socket-select.php' selected="selected">Russian</option>
+            <option value='tr/function.socket-select.php'>Turkish</option>
+            <option value='zh/function.socket-select.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/sockets/functions/socket-select.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Ffunction.socket-select%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="function.socket-select" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">socket_select</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.1.0, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">socket_select</span> &mdash; <span class="dc-title">Запускает системный вызов select() для заданных массивов сокетов с указанным временем ожидания</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.socket-select-description">
+  <h3 class="title">Описание</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="methodname"><strong>socket_select</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">?</span><span class="type"><span class="type">array</span><span class="type"></span></span> <code class="parameter reference">&$read</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">?</span><span class="type"><span class="type">array</span><span class="type"></span></span> <code class="parameter reference">&$write</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">?</span><span class="type"><span class="type">array</span><span class="type"></span></span> <code class="parameter reference">&$except</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">?</span><span class="type"><span class="type">int</span><span class="type"></span></span> <code class="parameter">$seconds</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$microseconds</code><span class="initializer"> = 0</span></span><br>): <span class="type"><span class="type">int</span>|<span class="type"><span class="type false">false</span></span></span></div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><strong>socket_select()</strong></span> принимает массивы сокетов и ждёт
+   их изменения статуса. Те, кто знаком с сокетами BSD, обнаружат, что
+   массивы сокетов на самом деле являются так называемыми наборами
+   дескрипторов файлов. Наблюдаются три независимых массива ресурсов сокетов.
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.socket-select-parameters">
+  <h3 class="title">Список параметров</h3>
+  <p class="para">
+   <dl>
+    
+     <dt>
+<code class="parameter">read</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Сокеты, перечисленные в массиве <code class="parameter">read</code> будут
+       наблюдаться для просмотра, есть ли доступные символы для чтения (
+       точнее, чтобы видеть, не будет ли чтение блокироваться, в частности,
+       сокет уже достиг конца файла, и в этом случае
+       <span class="function"><a href="function.socket-read.php.html" class="function">socket_read()</a></span> вернёт строку с нулевой длиной).
+      </p>
+     </dd>
+
+    
+    
+     <dt>
+<code class="parameter">write</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Сокеты, перечисленные в массиве <code class="parameter">write</code> будут
+       наблюдаться для просмотра, не будет ли запись блокироваться.
+      </p>
+     </dd>
+
+    
+    
+     <dt>
+<code class="parameter">except</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Сокеты, перечисленные в массиве <code class="parameter">except</code> будут
+       наблюдаться для исключений.
+      </p>
+     </dd>
+
+    
+    
+     <dt>
+<code class="parameter">seconds</code></dt>
+
+     <dd>
+
+      <p class="para">
+       <code class="parameter">seconds</code> и <code class="parameter">microseconds</code>
+       вместе образуют параметр <code class="literal">timeout</code>. Параметр
+       <code class="literal">timeout</code> - максимальный промежуток времени до возврата
+       <span class="function"><strong>socket_select()</strong></span>.
+       <code class="parameter">seconds</code> может быть нулём, заставляя
+       <span class="function"><strong>socket_select()</strong></span> к немедленному возврату. Это полезно для
+       опроса. Если <code class="parameter">seconds</code> равен <strong><code>null</code></strong> (нет времени ожидания),
+       <span class="function"><strong>socket_select()</strong></span> может блокироваться бесконечно.
+      </p>
+     </dd>
+
+    
+    
+     <dt>
+<code class="parameter">microseconds</code></dt>
+
+     <dd>
+
+      <p class="para">
+      </p>
+     </dd>
+
+    
+   </dl>
+
+  </p>
+  <div class="warning"><strong class="warning">Внимание</strong>
+   <p class="para">
+    При завершении массивы изменяются для обозначения, какой сокет
+    на самом деле изменил статус.
+   </p>
+  </div>
+  <p class="para">
+   Не требуется передавать каждый массив в
+   <span class="function"><strong>socket_select()</strong></span>. Вы можете пропустить его и использовать
+   пустой массив или <strong><code>null</code></strong> вместо этого. Также не забывайте, что эти массивы
+   передаются <em>по ссылке</em> и будут изменены после завершения
+   <span class="function"><strong>socket_select()</strong></span>.
+  </p>
+  <blockquote class="note"><p><strong class="note">Замечание</strong>: 
+   <p class="para">
+    Из-за ограничения текущего движка Zend невозможно передать модификатор
+    константы, такой как <strong><code>null</code></strong>, непосредственно в качестве параметра в функцию,
+    которая ожидает, что этот параметр будет передан по ссылке. Вместо этого используйте
+    временную переменную или выражение, где левая сторона является временной переменной:
+    <div class="example" id="">
+     <p><strong>Пример #1 Использование <strong><code>null</code></strong> в <span class="function"><strong>socket_select()</strong></span></strong></p>
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$e </span><span style="color: #007700">= </span><span style="color: #0000BB">NULL</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">socket_select</span><span style="color: #007700">(</span><span style="color: #0000BB">$r</span><span style="color: #007700">, </span><span style="color: #0000BB">$w</span><span style="color: #007700">, </span><span style="color: #0000BB">$e</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+     </div>
+
+    </div>
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.socket-select-returnvalues">
+  <h3 class="title">Возвращаемые значения</h3>
+  <p class="para">
+   В случае успешного выполнения <span class="function"><strong>socket_select()</strong></span> возвращает количество
+   сокетов, содержащихся в изменённых массивах, которое может быть равно нулю,
+   если время ожидания истечёт до того, как произойдёт что-то интересное. В случае возникновения ошибки возвращается <strong><code>false</code></strong>.
+   Код ошибки может быть получен с помощью
+   <span class="function"><a href="function.socket-last-error.php.html" class="function">socket_last_error()</a></span>.
+  </p>
+  <blockquote class="note"><p><strong class="note">Замечание</strong>: 
+   <p class="para">
+    Обязательно используйте оператор <code class="literal">===</code> при проверке
+    на ошибку. Поскольку <span class="function"><strong>socket_select()</strong></span> может возвращать 0,
+    сравнение с <code class="literal">==</code> будет оцениваться как <strong><code>true</code></strong>:
+    <div class="example" id="">
+     <p><strong>Пример #2 Анализ результата <span class="function"><strong>socket_select()</strong></span></strong></p>
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$e </span><span style="color: #007700">= </span><span style="color: #0000BB">NULL</span><span style="color: #007700">;<br />if (</span><span style="color: #0000BB">false </span><span style="color: #007700">=== </span><span style="color: #0000BB">socket_select</span><span style="color: #007700">(</span><span style="color: #0000BB">$r</span><span style="color: #007700">, </span><span style="color: #0000BB">$w</span><span style="color: #007700">, </span><span style="color: #0000BB">$e</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">)) {<br />    echo </span><span style="color: #DD0000">"Неудачный вызов socket_select(), причина: " </span><span style="color: #007700">.<br />        </span><span style="color: #0000BB">socket_strerror</span><span style="color: #007700">(</span><span style="color: #0000BB">socket_last_error</span><span style="color: #007700">()) . </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+     </div>
+
+    </div>
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.socket-select-examples">
+  <h3 class="title">Примеры</h3>
+  <p class="para">
+   <div class="example" id="">
+    <p><strong>Пример #3 Пример использования <span class="function"><strong>socket_select()</strong></span></strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/* Подготовить массив сокетов для чтения */<br /></span><span style="color: #0000BB">$read   </span><span style="color: #007700">= array(</span><span style="color: #0000BB">$socket1</span><span style="color: #007700">, </span><span style="color: #0000BB">$socket2</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$write  </span><span style="color: #007700">= </span><span style="color: #0000BB">NULL</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$except </span><span style="color: #007700">= </span><span style="color: #0000BB">NULL</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$num_changed_sockets </span><span style="color: #007700">= </span><span style="color: #0000BB">socket_select</span><span style="color: #007700">(</span><span style="color: #0000BB">$read</span><span style="color: #007700">, </span><span style="color: #0000BB">$write</span><span style="color: #007700">, </span><span style="color: #0000BB">$except</span><span style="color: #007700">, </span><span style="color: #0000BB">0</span><span style="color: #007700">);<br /><br />if (</span><span style="color: #0000BB">$num_changed_sockets </span><span style="color: #007700">=== </span><span style="color: #0000BB">false</span><span style="color: #007700">) {<br />    </span><span style="color: #FF8000">/* Обработка ошибок */<br /></span><span style="color: #007700">} else if (</span><span style="color: #0000BB">$num_changed_sockets </span><span style="color: #007700">&gt; </span><span style="color: #0000BB">0</span><span style="color: #007700">) {<br />    </span><span style="color: #FF8000">/* По крайней мере, в одном из сокетов произошло что-то интересное */<br /></span><span style="color: #007700">}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.socket-select-notes">
+  <h3 class="title">Примечания</h3>
+  <blockquote class="note"><p><strong class="note">Замечание</strong>: 
+   <p class="para">
+    Имейте в виду, что некоторые реализации сокетов необходимо обрабатывать
+    очень осторожно. Несколько основных правил:
+    <ul class="itemizedlist">
+     <li class="listitem">
+      <span class="simpara">
+       Вы всегда должны попытаться использовать <span class="function"><strong>socket_select()</strong></span>
+       без времени ожидания. Ваша программа ничего не должна делать, если нет доступных
+       данных. Код, зависящий от времени ожидания, обычно не очень переносим и
+       труден для отладки.
+      </span>
+     </li>
+     <li class="listitem">
+      <span class="simpara">
+       Сокет не должен добавляться к любому из массивов, если вы не собираетесь
+       проверять результат после вызова <span class="function"><strong>socket_select()</strong></span>.
+       После возврата <span class="function"><strong>socket_select()</strong></span>
+       все сокеты во всех массивах должны быть проверены. Любой
+       сокет, доступный для записи или чтения, должен использоваться для записи или чтения.
+      </span>
+     </li>
+     <li class="listitem">
+      <span class="simpara">
+       Если вы читаете или записываете из сокета, возвращаемого в массивах, имейте в виду,
+       что он необязательно сможет прочитать или записать полностью запрашиваемые вами
+       данные. Будьте готовы прочитать или записать только один байт.
+      </span>
+     </li>
+     <li class="listitem">
+      <span class="simpara">
+       Обычно для большинства реализаций сокетов единственное исключение, пойманное
+       с помощью массива <code class="parameter">except</code> - это данные без привязки,
+       полученные в сокете.
+      </span>
+     </li>
+    </ul>
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.socket-select-seealso">
+  <h3 class="title">Смотрите также</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.socket-read.php.html" class="function" rel="rdfs-seeAlso">socket_read()</a> - Читает строку максимальную длину байт из сокета</span></li>
+    <li class="member"><span class="function"><a href="function.socket-write.php.html" class="function" rel="rdfs-seeAlso">socket_write()</a> - Запись в сокет</span></li>
+    <li class="member"><span class="function"><a href="function.socket-last-error.php.html" class="function" rel="rdfs-seeAlso">socket_last_error()</a> - Возвращает последнюю ошибку на сокете</span></li>
+    <li class="member"><span class="function"><a href="function.socket-strerror.php.html" class="function" rel="rdfs-seeAlso">socket_strerror()</a> - Возвращает строку, описывающую ошибку сокета</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=function.socket-select&amp;redirect=https://www.php.net/manual/ru/function.socket-select.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">23 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="56241">  <div class="votes">
+    <div id="Vu56241">
+    <a href="https://www.php.net/manual/vote-note.php?id=56241&amp;page=function.socket-select&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd56241">
+    <a href="https://www.php.net/manual/vote-note.php?id=56241&amp;page=function.socket-select&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V56241" title="76% like this...">
+    49
+    </div>
+  </div>
+  <a href="function.socket-select.php.html#56241" class="name">
+  <strong class="user"><em>vardhan ( at ) rogers ( dot ) com</em></strong></a><a class="genanchor" href="function.socket-select.php.html#56241"> &para;</a><div class="date" title="2005-08-28 07:46"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom56241">
+<div class="phpcode"><code><span class="html">A simple PHP script using socket_select() to manage multiple connections.<br />connect using "telnet localhost 9050". it broadcasts your messages that you send through telnet to other users connected to the server -- sort of like a chat script<br /><br />#!/usr/local/bin/php<br /><span class="default">&lt;?php<br /><br />    $port </span><span class="keyword">= </span><span class="default">9050</span><span class="keyword">;<br />    <br />    </span><span class="comment">// create a streaming socket, of type TCP/IP<br />    </span><span class="default">$sock </span><span class="keyword">= </span><span class="default">socket_create</span><span class="keyword">(</span><span class="default">AF_INET</span><span class="keyword">, </span><span class="default">SOCK_STREAM</span><span class="keyword">, </span><span class="default">SOL_TCP</span><span class="keyword">);<br />    <br />    </span><span class="comment">// set the option to reuse the port<br />    </span><span class="default">socket_set_option</span><span class="keyword">(</span><span class="default">$sock</span><span class="keyword">, </span><span class="default">SOL_SOCKET</span><span class="keyword">, </span><span class="default">SO_REUSEADDR</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">);<br />    <br />    </span><span class="comment">// "bind" the socket to the address to "localhost", on port $port<br />    // so this means that all connections on this port are now our resposibility to send/recv data, disconnect, etc..<br />    </span><span class="default">socket_bind</span><span class="keyword">(</span><span class="default">$sock</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">$port</span><span class="keyword">);<br />    <br />    </span><span class="comment">// start listen for connections<br />    </span><span class="default">socket_listen</span><span class="keyword">(</span><span class="default">$sock</span><span class="keyword">);<br /><br />    </span><span class="comment">// create a list of all the clients that will be connected to us..<br />    // add the listening socket to this list<br />    </span><span class="default">$clients </span><span class="keyword">= array(</span><span class="default">$sock</span><span class="keyword">);<br />    <br />    while (</span><span class="default">true</span><span class="keyword">) {<br />        </span><span class="comment">// create a copy, so $clients doesn't get modified by socket_select()<br />        </span><span class="default">$read </span><span class="keyword">= </span><span class="default">$clients</span><span class="keyword">;<br />        <br />        </span><span class="comment">// get a list of all the clients that have data to be read from<br />        // if there are no clients with data, go to next iteration<br />        </span><span class="keyword">if (</span><span class="default">socket_select</span><span class="keyword">(</span><span class="default">$read</span><span class="keyword">, </span><span class="default">$write </span><span class="keyword">= </span><span class="default">NULL</span><span class="keyword">, </span><span class="default">$except </span><span class="keyword">= </span><span class="default">NULL</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">) &lt; </span><span class="default">1</span><span class="keyword">)<br />            continue;<br />        <br />        </span><span class="comment">// check if there is a client trying to connect<br />        </span><span class="keyword">if (</span><span class="default">in_array</span><span class="keyword">(</span><span class="default">$sock</span><span class="keyword">, </span><span class="default">$read</span><span class="keyword">)) {<br />            </span><span class="comment">// accept the client, and add him to the $clients array<br />            </span><span class="default">$clients</span><span class="keyword">[] = </span><span class="default">$newsock </span><span class="keyword">= </span><span class="default">socket_accept</span><span class="keyword">(</span><span class="default">$sock</span><span class="keyword">);<br />            <br />            </span><span class="comment">// send the client a welcome message<br />            </span><span class="default">socket_write</span><span class="keyword">(</span><span class="default">$newsock</span><span class="keyword">, </span><span class="string">"no noobs, but ill make an exception :)\n"</span><span class="keyword">.<br />            </span><span class="string">"There are "</span><span class="keyword">.(</span><span class="default">count</span><span class="keyword">(</span><span class="default">$clients</span><span class="keyword">) - </span><span class="default">1</span><span class="keyword">).</span><span class="string">" client(s) connected to the server\n"</span><span class="keyword">);<br />            <br />            </span><span class="default">socket_getpeername</span><span class="keyword">(</span><span class="default">$newsock</span><span class="keyword">, </span><span class="default">$ip</span><span class="keyword">);<br />            echo </span><span class="string">"New client connected: </span><span class="keyword">{</span><span class="default">$ip</span><span class="keyword">}</span><span class="string">\n"</span><span class="keyword">;<br />            <br />            </span><span class="comment">// remove the listening socket from the clients-with-data array<br />            </span><span class="default">$key </span><span class="keyword">= </span><span class="default">array_search</span><span class="keyword">(</span><span class="default">$sock</span><span class="keyword">, </span><span class="default">$read</span><span class="keyword">);<br />            unset(</span><span class="default">$read</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">]);<br />        }<br />        <br />        </span><span class="comment">// loop through all the clients that have data to read from<br />        </span><span class="keyword">foreach (</span><span class="default">$read </span><span class="keyword">as </span><span class="default">$read_sock</span><span class="keyword">) {<br />            </span><span class="comment">// read until newline or 1024 bytes<br />            // socket_read while show errors when the client is disconnected, so silence the error messages<br />            </span><span class="default">$data </span><span class="keyword">= @</span><span class="default">socket_read</span><span class="keyword">(</span><span class="default">$read_sock</span><span class="keyword">, </span><span class="default">1024</span><span class="keyword">, </span><span class="default">PHP_NORMAL_READ</span><span class="keyword">);<br />            <br />            </span><span class="comment">// check if the client is disconnected<br />            </span><span class="keyword">if (</span><span class="default">$data </span><span class="keyword">=== </span><span class="default">false</span><span class="keyword">) {<br />                </span><span class="comment">// remove client for $clients array<br />                </span><span class="default">$key </span><span class="keyword">= </span><span class="default">array_search</span><span class="keyword">(</span><span class="default">$read_sock</span><span class="keyword">, </span><span class="default">$clients</span><span class="keyword">);<br />                unset(</span><span class="default">$clients</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">]);<br />                echo </span><span class="string">"client disconnected.\n"</span><span class="keyword">;<br />                </span><span class="comment">// continue to the next client to read from, if any<br />                </span><span class="keyword">continue;<br />            }<br />            <br />            </span><span class="comment">// trim off the trailing/beginning white spaces<br />            </span><span class="default">$data </span><span class="keyword">= </span><span class="default">trim</span><span class="keyword">(</span><span class="default">$data</span><span class="keyword">);<br />            <br />            </span><span class="comment">// check if there is any data after trimming off the spaces<br />            </span><span class="keyword">if (!empty(</span><span class="default">$data</span><span class="keyword">)) {<br />            <br />                </span><span class="comment">// send this to all the clients in the $clients array (except the first one, which is a listening socket)<br />                </span><span class="keyword">foreach (</span><span class="default">$clients </span><span class="keyword">as </span><span class="default">$send_sock</span><span class="keyword">) {<br />                <br />                    </span><span class="comment">// if its the listening sock or the client that we got the message from, go to the next one in the list<br />                    </span><span class="keyword">if (</span><span class="default">$send_sock </span><span class="keyword">== </span><span class="default">$sock </span><span class="keyword">|| </span><span class="default">$send_sock </span><span class="keyword">== </span><span class="default">$read_sock</span><span class="keyword">)<br />                        continue;<br />                    <br />                    </span><span class="comment">// write the message to the client -- add a newline character to the end of the message<br />                    </span><span class="default">socket_write</span><span class="keyword">(</span><span class="default">$send_sock</span><span class="keyword">, </span><span class="default">$data</span><span class="keyword">.</span><span class="string">"\n"</span><span class="keyword">);<br />                    <br />                } </span><span class="comment">// end of broadcast foreach<br />                <br />            </span><span class="keyword">}<br />            <br />        } </span><span class="comment">// end of reading foreach<br />    </span><span class="keyword">}<br /><br />    </span><span class="comment">// close the listening socket<br />    </span><span class="default">socket_close</span><span class="keyword">(</span><span class="default">$sock</span><span class="keyword">);<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="119675">  <div class="votes">
+    <div id="Vu119675">
+    <a href="https://www.php.net/manual/vote-note.php?id=119675&amp;page=function.socket-select&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd119675">
+    <a href="https://www.php.net/manual/vote-note.php?id=119675&amp;page=function.socket-select&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V119675" title="100% like this...">
+    7
+    </div>
+  </div>
+  <a href="function.socket-select.php.html#119675" class="name">
+  <strong class="user"><em>malcolm.murphy</em></strong></a><a class="genanchor" href="function.socket-select.php.html#119675"> &para;</a><div class="date" title="2016-07-31 06:55"><strong>7 years ago</strong></div>
+  <div class="text" id="Hcom119675">
+<div class="phpcode"><code><span class="html">This was mentioned by [Viorel] above but I think it warrants being repeated...<br /><br />The example provided by [vardhan ( at ) rogers ( dot ) com], while otherwise exceptional, uses the value int(0) for $tv_sec which will cause the iteration to loop as fast as possible, consequently using up any available CPU time.<br /><br />*** Ideally, $tv_sec should always be set to NULL ***, especially if you are using socket_select in a loop. If you must temporarily stop listening for events to perform another task, then the timeout should be as high as possible to reduce CPU strain (another note suggested preventing 100% CPU usage by setting a low $tv_usec value, which only makes the problem slightly less worse but does not solve it).<br /><br />Setting the timeout to an explicit null value is basically the same as setting it to infinite. The script will only execute the while loop once every time there is an event.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="118501">  <div class="votes">
+    <div id="Vu118501">
+    <a href="https://www.php.net/manual/vote-note.php?id=118501&amp;page=function.socket-select&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd118501">
+    <a href="https://www.php.net/manual/vote-note.php?id=118501&amp;page=function.socket-select&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V118501" title="63% like this...">
+    3
+    </div>
+  </div>
+  <a href="function.socket-select.php.html#118501" class="name">
+  <strong class="user"><em>antti r</em></strong></a><a class="genanchor" href="function.socket-select.php.html#118501"> &para;</a><div class="date" title="2015-12-16 12:16"><strong>8 years ago</strong></div>
+  <div class="text" id="Hcom118501">
+<div class="phpcode"><code><span class="html">as of 12/2015 and php 5.3.3, the socket_select() maximum sockets is still 1024 and not risable by process file limits (bash ulimit -n). PHP new compilation is required to raise the limits. Or one might rather choose forking or multiple binaries.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="29467">  <div class="votes">
+    <div id="Vu29467">
+    <a href="https://www.php.net/manual/vote-note.php?id=29467&amp;page=function.socket-select&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd29467">
+    <a href="https://www.php.net/manual/vote-note.php?id=29467&amp;page=function.socket-select&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V29467" title="66% like this...">
+    2
+    </div>
+  </div>
+  <a href="function.socket-select.php.html#29467" class="name">
+  <strong class="user"><em>calimero dot NOSPAM at NOSPAM dot creatixnet dot com</em></strong></a><a class="genanchor" href="function.socket-select.php.html#29467"> &para;</a><div class="date" title="2003-02-14 04:36"><strong>20 years ago</strong></div>
+  <div class="text" id="Hcom29467">
+<div class="phpcode"><code><span class="html">Please note that the timeout parameter has important side-effects on the CPU usage of your script.<br /><br />Setting the timeout to 0 will make your CPU looping without any time to have some rest and handle other running processes on your system, causing the system load to increase heavily while your script is running.<br /><br />Personnaly, I use a value of 15 ms for this parameter. this ensures a good listening frequency while letting your system load clear.<br /><br />Example :<br />$read = array($ListeningSocket);<br />$num_changed_sockets = socket_select($read, $write = NULL, $except = NULL, 0, 10);<br /><br />Hope this helps.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="45737">  <div class="votes">
+    <div id="Vu45737">
+    <a href="https://www.php.net/manual/vote-note.php?id=45737&amp;page=function.socket-select&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd45737">
+    <a href="https://www.php.net/manual/vote-note.php?id=45737&amp;page=function.socket-select&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V45737" title="66% like this...">
+    1
+    </div>
+  </div>
+  <a href="function.socket-select.php.html#45737" class="name">
+  <strong class="user"><em>Richard Neill</em></strong></a><a class="genanchor" href="function.socket-select.php.html#45737"> &para;</a><div class="date" title="2004-09-16 09:37"><strong>19 years ago</strong></div>
+  <div class="text" id="Hcom45737">
+<div class="phpcode"><code><span class="html">It is probably a bad idea to watch an array of sockets for input with socket_select, and then socket_read() using PHP_NORMAL_READ.<br /><br />Although this seems desirable, you can end up with a permanently blocked program, if someone sends you malformed input which is missing a trailing \n \r. Guess how I found that out.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="98222">  <div class="votes">
+    <div id="Vu98222">
+    <a href="https://www.php.net/manual/vote-note.php?id=98222&amp;page=function.socket-select&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd98222">
+    <a href="https://www.php.net/manual/vote-note.php?id=98222&amp;page=function.socket-select&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V98222" title="63% like this...">
+    3
+    </div>
+  </div>
+  <a href="function.socket-select.php.html#98222" class="name">
+  <strong class="user"><em>John</em></strong></a><a class="genanchor" href="function.socket-select.php.html#98222"> &para;</a><div class="date" title="2010-06-02 09:25"><strong>13 years ago</strong></div>
+  <div class="text" id="Hcom98222">
+<div class="phpcode"><code><span class="html">The way the document describes socket_select()'s handling of sockets polled for read is rather obscure.<br /><br />It says that it checks to see if reading would not "block," but the overall description of socket_select() says it checks for a change in blocking status. Unfortunately, these are in conflict.<br /><br />If a socket already has data in the buffer, calling socket_select() on that socket would never return (assuming null timeout), and would block forever. :-( This is because the blocking status wouldn't change. It simply stays "non-blocking"<br /><br />It is important to remember NOT to select() on a socket which may already have data available.<br /><br />An example...<br /><span class="default">&lt;?php<br /></span><span class="comment">//... $socket is already here...<br /></span><span class="default">$done </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;<br /></span><span class="default">$n </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br />do{<br />    </span><span class="default">$tmp </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br />    </span><span class="default">$r </span><span class="keyword">= </span><span class="default">$w </span><span class="keyword">= </span><span class="default">$e </span><span class="keyword">= array();<br />    </span><span class="default">$r </span><span class="keyword">= array(</span><span class="default">$socket</span><span class="keyword">);<br />    </span><span class="default">socket_select</span><span class="keyword">(</span><span class="default">$r</span><span class="keyword">,</span><span class="default">$w</span><span class="keyword">,</span><span class="default">$e</span><span class="keyword">,</span><span class="default">null</span><span class="keyword">);<br />    </span><span class="default">$n </span><span class="keyword">= </span><span class="default">socket_recv</span><span class="keyword">(</span><span class="default">$socket</span><span class="keyword">, </span><span class="default">$tmp</span><span class="keyword">, </span><span class="default">1024</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">);<br /><br />    </span><span class="comment">//$done = true; //Something determines that we are done reading...<br /></span><span class="keyword">}while(!</span><span class="default">$done</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span>This MAY NOT work... socket_select() is always being called... but we may have data in the input buffer.<br /><br />We need to ensure that the last time we read, nothing was read... (empty buffer)<br /><span class="default">&lt;?php<br /></span><span class="comment">//... $socket is already here...<br /></span><span class="default">$done </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;<br /></span><span class="default">$n </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br />do{<br />    </span><span class="default">$tmp </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br />    </span><span class="default">$r </span><span class="keyword">= </span><span class="default">$w </span><span class="keyword">= </span><span class="default">$e </span><span class="keyword">= array();<br />    </span><span class="default">$r </span><span class="keyword">= array(</span><span class="default">$socket</span><span class="keyword">);<br />    if(</span><span class="default">$n </span><span class="keyword">=== </span><span class="default">0</span><span class="keyword">) </span><span class="default">socket_select</span><span class="keyword">(</span><span class="default">$r</span><span class="keyword">,</span><span class="default">$w</span><span class="keyword">,</span><span class="default">$e</span><span class="keyword">,</span><span class="default">null</span><span class="keyword">);<br />    </span><span class="default">$n </span><span class="keyword">= </span><span class="default">socket_recv</span><span class="keyword">(</span><span class="default">$socket</span><span class="keyword">, </span><span class="default">$tmp</span><span class="keyword">, </span><span class="default">1024</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">);<br /><br />    </span><span class="comment">//$done = true; //Something determines that we are done reading...<br /></span><span class="keyword">}while(!</span><span class="default">$done</span><span class="keyword">);<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="111592">  <div class="votes">
+    <div id="Vu111592">
+    <a href="https://www.php.net/manual/vote-note.php?id=111592&amp;page=function.socket-select&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd111592">
+    <a href="https://www.php.net/manual/vote-note.php?id=111592&amp;page=function.socket-select&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V111592" title="57% like this...">
+    2
+    </div>
+  </div>
+  <a href="function.socket-select.php.html#111592" class="name">
+  <strong class="user"><em>Viorel</em></strong></a><a class="genanchor" href="function.socket-select.php.html#111592"> &para;</a><div class="date" title="2013-03-06 07:38"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom111592">
+<div class="phpcode"><code><span class="html">Probably you will want to use <br /><br />// get a list of all the clients that have data to be read from<br />// if there are no clients with data, go to next iteration<br />        if (socket_select($read, $write = NULL, $except = NULL, NULL) &lt; 1)<br />            continue;<br />            <br />instead  <br />        if (socket_select($read, $write = NULL, $except = NULL, 0) &lt; 1)<br />            continue;<br />which will hang your CPU to 100% (return immediate if nothing to be done)</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="124613">  <div class="votes">
+    <div id="Vu124613">
+    <a href="https://www.php.net/manual/vote-note.php?id=124613&amp;page=function.socket-select&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd124613">
+    <a href="https://www.php.net/manual/vote-note.php?id=124613&amp;page=function.socket-select&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V124613" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="function.socket-select.php.html#124613" class="name">
+  <strong class="user"><em>juanfe0245 at gmail dot com</em></strong></a><a class="genanchor" href="function.socket-select.php.html#124613"> &para;</a><div class="date" title="2020-01-14 09:39"><strong>4 years ago</strong></div>
+  <div class="text" id="Hcom124613">
+<div class="phpcode"><code><span class="html"><span class="default">&lt;?php<br /></span><span class="comment">//Creamos un socket de transmisión de tipo TCP / IP.<br /></span><span class="default">$servidorSocket</span><span class="keyword">=</span><span class="default">socket_create</span><span class="keyword">(</span><span class="default">AF_INET</span><span class="keyword">, </span><span class="default">SOCK_STREAM</span><span class="keyword">, </span><span class="default">SOL_TCP</span><span class="keyword">);<br /></span><span class="comment">//Configuramos la opción para reutilizar el puerto.<br /></span><span class="default">socket_set_option</span><span class="keyword">(</span><span class="default">$servidorSocket</span><span class="keyword">,</span><span class="default">SOL_SOCKET</span><span class="keyword">,</span><span class="default">SO_REUSEADDR</span><span class="keyword">,</span><span class="default">1</span><span class="keyword">);<br /></span><span class="comment">/*<br />    Vinculamos el socket a nuestro puerto y dirección IP.<br />    Ahora, todas las conecciones en este puerto son nuestro responsabilidad para recibir y enviar datos.<br />*/<br /></span><span class="default">socket_bind</span><span class="keyword">(</span><span class="default">$servidorSocket</span><span class="keyword">,</span><span class="string">'localhost'</span><span class="keyword">,</span><span class="default">9000</span><span class="keyword">);<br /></span><span class="comment">//Comenzamos a escuchar conexiones.<br /></span><span class="default">socket_listen</span><span class="keyword">(</span><span class="default">$servidorSocket</span><span class="keyword">);<br /></span><span class="comment">/*<br />    Creamos un arreglo con todos los clientes que se conectarán a nuestro servidor.<br />    Añadimos nuestro socket servidor al arreglo de clientes.<br />*/<br /></span><span class="default">$clientes</span><span class="keyword">=[</span><span class="default">$servidorSocket</span><span class="keyword">];<br /></span><span class="default">$null</span><span class="keyword">=</span><span class="default">null</span><span class="keyword">;<br />while(</span><span class="default">true</span><span class="keyword">){<br />    </span><span class="comment">//Creamos una copia de $clientes, debido a que $clientes no se modifica por la función socket_select().<br />    </span><span class="default">$nuevoClienteLector</span><span class="keyword">=</span><span class="default">$clientes</span><span class="keyword">;<br />    </span><span class="comment">//Obtenemos una lista de todos los clientes que tienen datos para leer.<br />    </span><span class="default">socket_select</span><span class="keyword">(</span><span class="default">$nuevoClienteLector</span><span class="keyword">,</span><span class="default">$null</span><span class="keyword">,</span><span class="default">$null</span><span class="keyword">,</span><span class="default">10</span><span class="keyword">);<br />    </span><span class="comment">//Verificamos si hay un cliente tratando de conectarse.<br />    </span><span class="keyword">if(</span><span class="default">in_array</span><span class="keyword">(</span><span class="default">$servidorSocket</span><span class="keyword">,</span><span class="default">$nuevoClienteLector</span><span class="keyword">)){<br />        </span><span class="comment">//Aceptamos el cliente y lo añadimos al arreglo de $clientes.<br />        </span><span class="default">$nuevoCliente</span><span class="keyword">=</span><span class="default">socket_accept</span><span class="keyword">(</span><span class="default">$servidorSocket</span><span class="keyword">);<br />        echo </span><span class="string">"Socket aceptado.\n"</span><span class="keyword">;<br />        </span><span class="default">$clientes</span><span class="keyword">[]=</span><span class="default">$nuevoCliente</span><span class="keyword">;<br />        </span><span class="comment">//Obtenemos el encabezado del cliente y realizamos la comprobación del handshake.<br />        </span><span class="default">$encabezado</span><span class="keyword">=</span><span class="default">socket_read</span><span class="keyword">(</span><span class="default">$nuevoCliente</span><span class="keyword">,</span><span class="default">1024</span><span class="keyword">);<br />        </span><span class="default">handshake</span><span class="keyword">(</span><span class="default">$nuevoCliente</span><span class="keyword">,</span><span class="default">$encabezado</span><span class="keyword">);<br />        </span><span class="comment">//Eliminamos el cliente del arreglo $nuevoClienteLector.<br />        </span><span class="default">$nuevoClienteIndex</span><span class="keyword">=</span><span class="default">array_search</span><span class="keyword">(</span><span class="default">$servidorSocket</span><span class="keyword">,</span><span class="default">$nuevoClienteLector</span><span class="keyword">);<br />        unset(</span><span class="default">$nuevoClienteLector</span><span class="keyword">[</span><span class="default">$nuevoClienteIndex</span><span class="keyword">]);<br />    }<br />    </span><span class="comment">//Recorremos todos los clientes que tienen datos por leer.<br />    </span><span class="keyword">foreach(</span><span class="default">$nuevoClienteLector </span><span class="keyword">as </span><span class="default">$cliente</span><span class="keyword">){<br />        </span><span class="comment">//Recibimos información del cliente conectado.<br />        </span><span class="keyword">while(</span><span class="default">socket_recv</span><span class="keyword">(</span><span class="default">$cliente</span><span class="keyword">,</span><span class="default">$datosCliente</span><span class="keyword">,</span><span class="default">1024</span><span class="keyword">,</span><span class="default">0</span><span class="keyword">)&gt;=</span><span class="default">1</span><span class="keyword">){<br />            </span><span class="comment">//Decodificamos el mensaje que viene en bytes.<br />            </span><span class="default">$mensaje</span><span class="keyword">=</span><span class="default">decodificar</span><span class="keyword">(</span><span class="default">$datosCliente</span><span class="keyword">);<br />            </span><span class="comment">//Enviamos el mensaje a todos los sockets conectados.<br />            </span><span class="default">enviar</span><span class="keyword">(</span><span class="default">$clientes</span><span class="keyword">,</span><span class="default">$mensaje</span><span class="keyword">);<br />            echo </span><span class="default">$mensaje</span><span class="keyword">.</span><span class="string">"\n"</span><span class="keyword">;<br />            break </span><span class="default">2</span><span class="keyword">;<br />        }<br />        </span><span class="comment">//Verificamos si el cliente esta desconectado.<br />        </span><span class="default">$datosCliente</span><span class="keyword">=@</span><span class="default">socket_read</span><span class="keyword">(</span><span class="default">$cliente</span><span class="keyword">,</span><span class="default">1024</span><span class="keyword">,</span><span class="default">PHP_NORMAL_READ</span><span class="keyword">);<br />        if(</span><span class="default">$datosCliente</span><span class="keyword">===</span><span class="default">false</span><span class="keyword">){<br />            </span><span class="default">$clienteIndex</span><span class="keyword">=</span><span class="default">array_search</span><span class="keyword">(</span><span class="default">$cliente</span><span class="keyword">,</span><span class="default">$clientes</span><span class="keyword">);<br />            </span><span class="comment">//Eliminamos el cliente del arreglo $clientes.<br />            </span><span class="keyword">unset(</span><span class="default">$clientes</span><span class="keyword">[</span><span class="default">$clienteIndex</span><span class="keyword">]);<br />            echo </span><span class="string">"Cliente desconectado.\n"</span><span class="keyword">;<br />        }<br />    }<br />}<br />function </span><span class="default">enviar</span><span class="keyword">(</span><span class="default">$clientes</span><span class="keyword">,</span><span class="default">$mensaje</span><span class="keyword">){<br />    </span><span class="default">$mensaje</span><span class="keyword">=</span><span class="default">codificar</span><span class="keyword">(</span><span class="default">$mensaje</span><span class="keyword">);<br />    foreach(</span><span class="default">$clientes </span><span class="keyword">as </span><span class="default">$cliente</span><span class="keyword">){<br />        @</span><span class="default">socket_write</span><span class="keyword">(</span><span class="default">$cliente</span><span class="keyword">,</span><span class="default">$mensaje</span><span class="keyword">,</span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$mensaje</span><span class="keyword">));<br />    }<br />}<br /></span><span class="default">socket_close</span><span class="keyword">(</span><span class="default">$servidorSocket</span><span class="keyword">);<br />function </span><span class="default">codificar</span><span class="keyword">(</span><span class="default">$socketData</span><span class="keyword">){<br />    </span><span class="default">$b1 </span><span class="keyword">= </span><span class="default">0x80 </span><span class="keyword">| (</span><span class="default">0x1 </span><span class="keyword">&amp; </span><span class="default">0x0f</span><span class="keyword">);<br />    </span><span class="default">$length </span><span class="keyword">= </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$socketData</span><span class="keyword">);<br />    <br />    if(</span><span class="default">$length </span><span class="keyword">&lt;= </span><span class="default">125</span><span class="keyword">)<br />        </span><span class="default">$header </span><span class="keyword">= </span><span class="default">pack</span><span class="keyword">(</span><span class="string">'CC'</span><span class="keyword">, </span><span class="default">$b1</span><span class="keyword">, </span><span class="default">$length</span><span class="keyword">);<br />    elseif(</span><span class="default">$length </span><span class="keyword">&gt; </span><span class="default">125 </span><span class="keyword">&amp;&amp; </span><span class="default">$length </span><span class="keyword">&lt; </span><span class="default">65536</span><span class="keyword">)<br />        </span><span class="default">$header </span><span class="keyword">= </span><span class="default">pack</span><span class="keyword">(</span><span class="string">'CCn'</span><span class="keyword">, </span><span class="default">$b1</span><span class="keyword">, </span><span class="default">126</span><span class="keyword">, </span><span class="default">$length</span><span class="keyword">);<br />    elseif(</span><span class="default">$length </span><span class="keyword">&gt;= </span><span class="default">65536</span><span class="keyword">)<br />        </span><span class="default">$header </span><span class="keyword">= </span><span class="default">pack</span><span class="keyword">(</span><span class="string">'CCNN'</span><span class="keyword">, </span><span class="default">$b1</span><span class="keyword">, </span><span class="default">127</span><span class="keyword">, </span><span class="default">$length</span><span class="keyword">);<br />    return </span><span class="default">$header</span><span class="keyword">.</span><span class="default">$socketData</span><span class="keyword">;<br />}<br />function </span><span class="default">decodificar</span><span class="keyword">(</span><span class="default">$socketData</span><span class="keyword">) {<br />    </span><span class="default">$length </span><span class="keyword">= </span><span class="default">ord</span><span class="keyword">(</span><span class="default">$socketData</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">]) &amp; </span><span class="default">127</span><span class="keyword">;<br />    if(</span><span class="default">$length </span><span class="keyword">== </span><span class="default">126</span><span class="keyword">) {<br />        </span><span class="default">$masks </span><span class="keyword">= </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$socketData</span><span class="keyword">, </span><span class="default">4</span><span class="keyword">, </span><span class="default">4</span><span class="keyword">);<br />        </span><span class="default">$data </span><span class="keyword">= </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$socketData</span><span class="keyword">, </span><span class="default">8</span><span class="keyword">);<br />    }<br />    elseif(</span><span class="default">$length </span><span class="keyword">== </span><span class="default">127</span><span class="keyword">) {<br />        </span><span class="default">$masks </span><span class="keyword">= </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$socketData</span><span class="keyword">, </span><span class="default">10</span><span class="keyword">, </span><span class="default">4</span><span class="keyword">);<br />        </span><span class="default">$data </span><span class="keyword">= </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$socketData</span><span class="keyword">, </span><span class="default">14</span><span class="keyword">);<br />    }<br />    else {<br />        </span><span class="default">$masks </span><span class="keyword">= </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$socketData</span><span class="keyword">, </span><span class="default">2</span><span class="keyword">, </span><span class="default">4</span><span class="keyword">);<br />        </span><span class="default">$data </span><span class="keyword">= </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$socketData</span><span class="keyword">, </span><span class="default">6</span><span class="keyword">);<br />    }<br />    </span><span class="default">$socketData </span><span class="keyword">= </span><span class="string">""</span><span class="keyword">;<br />    for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$data</span><span class="keyword">); ++</span><span class="default">$i</span><span class="keyword">) {<br />        </span><span class="default">$socketData </span><span class="keyword">.= </span><span class="default">$data</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">] ^ </span><span class="default">$masks</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">%</span><span class="default">4</span><span class="keyword">];<br />    }<br />    return </span><span class="default">$socketData</span><span class="keyword">;<br />}<br />function </span><span class="default">handshake</span><span class="keyword">(</span><span class="default">$client_socket_resource</span><span class="keyword">,</span><span class="default">$received_header</span><span class="keyword">) {<br />    </span><span class="default">$headers </span><span class="keyword">= array();<br />    </span><span class="default">$lines </span><span class="keyword">= </span><span class="default">preg_split</span><span class="keyword">(</span><span class="string">"/\r\n/"</span><span class="keyword">, </span><span class="default">$received_header</span><span class="keyword">);<br />    foreach(</span><span class="default">$lines </span><span class="keyword">as </span><span class="default">$line</span><span class="keyword">){<br />        </span><span class="default">$line </span><span class="keyword">= </span><span class="default">chop</span><span class="keyword">(</span><span class="default">$line</span><span class="keyword">);<br />        if(</span><span class="default">preg_match</span><span class="keyword">(</span><span class="string">'/\A(\S+): (.*)\z/'</span><span class="keyword">, </span><span class="default">$line</span><span class="keyword">, </span><span class="default">$matches</span><span class="keyword">)) </span><span class="default">$headers</span><span class="keyword">[</span><span class="default">$matches</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">]] = </span><span class="default">$matches</span><span class="keyword">[</span><span class="default">2</span><span class="keyword">];<br />    }<br />    </span><span class="default">$secKey </span><span class="keyword">= </span><span class="default">$headers</span><span class="keyword">[</span><span class="string">'Sec-WebSocket-Key'</span><span class="keyword">];<br />    </span><span class="default">$secAccept </span><span class="keyword">= </span><span class="default">base64_encode</span><span class="keyword">(</span><span class="default">pack</span><span class="keyword">(</span><span class="string">'H*'</span><span class="keyword">, </span><span class="default">sha1</span><span class="keyword">(</span><span class="default">$secKey </span><span class="keyword">. </span><span class="string">'258EAFA5-E914-47DA-95CA-C5AB0DC85B11'</span><span class="keyword">)));<br />    </span><span class="default">$buffer  </span><span class="keyword">= </span><span class="string">"HTTP/1.1 101 Web Socket Protocol Handshake\r\n" </span><span class="keyword">.<br />    </span><span class="string">"Upgrade: websocket\r\n" </span><span class="keyword">.<br />    </span><span class="string">"Connection: Upgrade\r\n" </span><span class="keyword">.<br />    </span><span class="string">"Sec-WebSocket-Accept:</span><span class="default">$secAccept</span><span class="string">\r\n\r\n"</span><span class="keyword">;<br />    </span><span class="default">socket_write</span><span class="keyword">(</span><span class="default">$client_socket_resource</span><span class="keyword">,</span><span class="default">$buffer</span><span class="keyword">,</span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$buffer</span><span class="keyword">));<br />}</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="123763">  <div class="votes">
+    <div id="Vu123763">
+    <a href="https://www.php.net/manual/vote-note.php?id=123763&amp;page=function.socket-select&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd123763">
+    <a href="https://www.php.net/manual/vote-note.php?id=123763&amp;page=function.socket-select&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V123763" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="function.socket-select.php.html#123763" class="name">
+  <strong class="user"><em>renmengyang567 at gmail dot com</em></strong></a><a class="genanchor" href="function.socket-select.php.html#123763"> &para;</a><div class="date" title="2019-04-09 12:18"><strong>4 years ago</strong></div>
+  <div class="text" id="Hcom123763">
+<div class="phpcode"><code><span class="html">&lt;explain&gt;<br /> A simple socket-select case ^_^<br /><br /><span class="default">&lt;?php<br />$sock </span><span class="keyword">= </span><span class="default">socket_create</span><span class="keyword">(</span><span class="default">AF_INET</span><span class="keyword">, </span><span class="default">SOCK_STREAM</span><span class="keyword">, </span><span class="default">getprotobyname</span><span class="keyword">(</span><span class="string">'tcp'</span><span class="keyword">));<br /></span><span class="default">socket_set_option</span><span class="keyword">(</span><span class="default">$sock</span><span class="keyword">, </span><span class="default">SOL_SOCKET</span><span class="keyword">, </span><span class="default">SO_REUSEADDR</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">);<br /></span><span class="default">socket_bind</span><span class="keyword">(</span><span class="default">$sock</span><span class="keyword">, </span><span class="string">'127.0.0.1'</span><span class="keyword">,</span><span class="default">5000</span><span class="keyword">);<br /></span><span class="default">socket_listen</span><span class="keyword">(</span><span class="default">$sock</span><span class="keyword">,</span><span class="default">1024</span><span class="keyword">);<br /></span><span class="default">$all_sock</span><span class="keyword">[(int)</span><span class="default">$sock</span><span class="keyword">] = </span><span class="default">$sock</span><span class="keyword">;<br /><br />while (</span><span class="default">true</span><span class="keyword">) { <br />    </span><span class="default">$read </span><span class="keyword">= </span><span class="default">$write </span><span class="keyword">= </span><span class="default">$except </span><span class="keyword">= [];<br />    </span><span class="default">$tv_sec </span><span class="keyword">= </span><span class="default">5</span><span class="keyword">;<br />    </span><span class="default">$tv_usec </span><span class="keyword">= </span><span class="default">5000</span><span class="keyword">;<br />    </span><span class="default">$read </span><span class="keyword">= </span><span class="default">$all_sock</span><span class="keyword">;<br />    <br />    </span><span class="default">$changed </span><span class="keyword">= </span><span class="default">socket_select</span><span class="keyword">(</span><span class="default">$read</span><span class="keyword">, </span><span class="default">$write</span><span class="keyword">, </span><span class="default">$except</span><span class="keyword">, </span><span class="default">$tv_sec</span><span class="keyword">, </span><span class="default">$tv_sec</span><span class="keyword">);<br /><br />    if (</span><span class="default">false </span><span class="keyword">== </span><span class="default">$changed</span><span class="keyword">)<br />        print </span><span class="string">"[error]socket_select() failed <br />        (" </span><span class="keyword">.</span><span class="default">socket_strerror</span><span class="keyword">(</span><span class="default">socket_last_error</span><span class="keyword">()) . </span><span class="string">")\n"</span><span class="keyword">;<br /><br />    if (</span><span class="default">$changed </span><span class="keyword">&lt; </span><span class="default">1</span><span class="keyword">)<br />       continue;<br /><br />    </span><span class="comment">//var_dump($read);<br />    //sleep(2);<br />    </span><span class="keyword">foreach (</span><span class="default">$read </span><span class="keyword">as </span><span class="default">$rsock</span><span class="keyword">) {<br />        </span><span class="comment">// 服务端连接<br />        </span><span class="keyword">if (</span><span class="default">$rsock </span><span class="keyword">=== </span><span class="default">$sock</span><span class="keyword">) {<br />            </span><span class="default">$client </span><span class="keyword">= </span><span class="default">socket_accept</span><span class="keyword">(</span><span class="default">$sock</span><span class="keyword">);<br />            </span><span class="default">$all_sock</span><span class="keyword">[(int)</span><span class="default">$client</span><span class="keyword">] = </span><span class="default">$client</span><span class="keyword">;<br />        <br />        } else {</span><span class="comment">//客户端连接 <br />            </span><span class="default">$msg</span><span class="keyword">= </span><span class="default">socket_read</span><span class="keyword">(</span><span class="default">$rsock</span><span class="keyword">, </span><span class="default">400</span><span class="keyword">,</span><span class="default">PHP_NORMAL_READ</span><span class="keyword">);<br />            if (</span><span class="default">$msg </span><span class="keyword">!== </span><span class="string">''</span><span class="keyword">) {<br />                </span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$msg</span><span class="keyword">);<br />            } <br />        }<br />    }<br />}<br /></span><span class="default">socket_close</span><span class="keyword">(</span><span class="default">$sock</span><span class="keyword">);</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="113842">  <div class="votes">
+    <div id="Vu113842">
+    <a href="https://www.php.net/manual/vote-note.php?id=113842&amp;page=function.socket-select&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd113842">
+    <a href="https://www.php.net/manual/vote-note.php?id=113842&amp;page=function.socket-select&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V113842" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="function.socket-select.php.html#113842" class="name">
+  <strong class="user"><em>simon dot riget at gmail dot com</em></strong></a><a class="genanchor" href="function.socket-select.php.html#113842"> &para;</a><div class="date" title="2013-12-07 08:28"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom113842">
+<div class="phpcode"><code><span class="html">A verry simple HTTP webserver written in PHP<br />Run it in the shell with php &lt;name of file&gt; and test in in the browser with &lt;server address&gt;:8080/test<br /><br /><span class="default">&lt;?php<br />  </span><span class="comment">// Reduce the amount of warnings displayed<br />  </span><span class="default">error_reporting</span><span class="keyword">(</span><span class="default">E_ALL </span><span class="keyword">^ </span><span class="default">E_NOTICE</span><span class="keyword">);<br /><br />  </span><span class="comment">// Set up socket for listening <br />  </span><span class="default">$host_socket </span><span class="keyword">= </span><span class="default">socket_create</span><span class="keyword">(</span><span class="default">AF_INET</span><span class="keyword">, </span><span class="default">SOCK_STREAM</span><span class="keyword">, </span><span class="default">SOL_TCP</span><span class="keyword">);<br />  if(!</span><span class="default">$host_socket</span><span class="keyword">) die(</span><span class="string">"Failed to start event server. socket_create: "</span><span class="keyword">. </span><span class="default">socket_strerror</span><span class="keyword">(</span><span class="default">socket_last_error</span><span class="keyword">()).</span><span class="string">"\n"</span><span class="keyword">);<br /><br />  </span><span class="comment">// set the option to reuse the port<br />  </span><span class="keyword">if(! </span><span class="default">socket_set_option</span><span class="keyword">(</span><span class="default">$host_socket</span><span class="keyword">, </span><span class="default">SOL_SOCKET</span><span class="keyword">, </span><span class="default">SO_REUSEADDR</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">) )<br />    die(</span><span class="string">"Failed to start event server. socket_set_option: "</span><span class="keyword">. </span><span class="default">socket_strerror</span><span class="keyword">(</span><span class="default">socket_last_error</span><span class="keyword">()).</span><span class="string">"\n"</span><span class="keyword">);<br /><br />  </span><span class="comment">// bind host socket to localhost or 0.0.0.0 on port 8080<br />  </span><span class="keyword">if(! </span><span class="default">socket_bind</span><span class="keyword">(</span><span class="default">$host_socket</span><span class="keyword">,</span><span class="string">"0.0.0.0"</span><span class="keyword">,</span><span class="default">8080</span><span class="keyword">) )<br />    die(</span><span class="string">"Failed to start event server. socket_bind: "</span><span class="keyword">. </span><span class="default">socket_strerror</span><span class="keyword">(</span><span class="default">socket_last_error</span><span class="keyword">()).</span><span class="string">"\n"</span><span class="keyword">);<br /><br />  </span><span class="comment">// start listening for connections<br />  </span><span class="keyword">if(! </span><span class="default">socket_listen</span><span class="keyword">(</span><span class="default">$host_socket</span><span class="keyword">,</span><span class="default">10</span><span class="keyword">) )<br />    die(</span><span class="string">"Failed to start event server. socket_listen: "</span><span class="keyword">.</span><span class="default">socket_strerror</span><span class="keyword">(</span><span class="default">socket_last_error</span><span class="keyword">()).</span><span class="string">"\n"</span><span class="keyword">);<br /><br />  while (</span><span class="default">true</span><span class="keyword">) {<br />    </span><span class="comment">// Make list of sockets to listen for changes in, including host<br />    </span><span class="default">$read </span><span class="keyword">= array(</span><span class="default">$host_socket</span><span class="keyword">);<br />         <br />    </span><span class="comment">// get a list of all the clients that have data to be read from<br />    </span><span class="default">$ready</span><span class="keyword">=@</span><span class="default">socket_select</span><span class="keyword">(</span><span class="default">$read</span><span class="keyword">, </span><span class="default">$write </span><span class="keyword">= </span><span class="default">NULL</span><span class="keyword">, </span><span class="default">$except </span><span class="keyword">= </span><span class="default">NULL</span><span class="keyword">,</span><span class="default">0</span><span class="keyword">);<br />    if (</span><span class="default">$ready</span><span class="keyword">=== </span><span class="default">false</span><span class="keyword">)<br />      die(</span><span class="string">"Failed to listen for clients: "</span><span class="keyword">. </span><span class="default">socket_strerror</span><span class="keyword">(</span><span class="default">socket_last_error</span><span class="keyword">()));<br /><br />    </span><span class="comment">// a client request service<br />    </span><span class="keyword">elseif(</span><span class="default">$ready</span><span class="keyword">&gt;</span><span class="default">0</span><span class="keyword">){<br />      </span><span class="comment">// accept new client<br />      </span><span class="default">$newsocket </span><span class="keyword">= </span><span class="default">socket_accept</span><span class="keyword">(</span><span class="default">$host_socket</span><span class="keyword">);<br /><br />      </span><span class="comment">// Read from socket<br />      </span><span class="default">$input </span><span class="keyword">= </span><span class="default">socket_read</span><span class="keyword">(</span><span class="default">$newsocket</span><span class="keyword">, </span><span class="default">1024</span><span class="keyword">);<br />      if(</span><span class="default">$input</span><span class="keyword">){<br />        unset(</span><span class="default">$client_header</span><span class="keyword">);<br />        </span><span class="comment">// Read headers; Split into safe lines<br />        </span><span class="default">$line</span><span class="keyword">=</span><span class="default">explode</span><span class="keyword">(</span><span class="string">"\n"</span><span class="keyword">,</span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'/[^A-Za-z0-9\-+\n :;=%*?.,\/_]/'</span><span class="keyword">,</span><span class="string">''</span><span class="keyword">,</span><span class="default">substr</span><span class="keyword">(</span><span class="default">$input</span><span class="keyword">,</span><span class="default">0</span><span class="keyword">,</span><span class="default">2000</span><span class="keyword">)));<br />        </span><span class="comment">// Split request line into its parts<br />        </span><span class="keyword">list(</span><span class="default">$client_header</span><span class="keyword">[</span><span class="string">"method"</span><span class="keyword">],</span><span class="default">$client_header</span><span class="keyword">[</span><span class="string">"url"</span><span class="keyword">],</span><span class="default">$client_header</span><span class="keyword">[</span><span class="string">"protocol"</span><span class="keyword">])=</span><span class="default">explode</span><span class="keyword">(</span><span class="string">" "</span><span class="keyword">,</span><span class="default">$line</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">]);<br />        </span><span class="comment">// Remove the request line again.<br />        </span><span class="keyword">unset(</span><span class="default">$line</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">]);<br />        </span><span class="comment">// Make key=value array of headers<br />        </span><span class="keyword">foreach(</span><span class="default">$line </span><span class="keyword">as </span><span class="default">$l</span><span class="keyword">){<br />          list(</span><span class="default">$key</span><span class="keyword">,</span><span class="default">$val</span><span class="keyword">)=</span><span class="default">explode</span><span class="keyword">(</span><span class="string">": "</span><span class="keyword">,</span><span class="default">$l</span><span class="keyword">);<br />          if(</span><span class="default">$key</span><span class="keyword">) </span><span class="default">$client_header</span><span class="keyword">[</span><span class="default">strtolower</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">)]=</span><span class="default">$val</span><span class="keyword">;<br />        }<br />        </span><span class="comment">// Get IP of client<br />        </span><span class="default">socket_getpeername</span><span class="keyword">(</span><span class="default">$newsocket</span><span class="keyword">, </span><span class="default">$client_header</span><span class="keyword">[</span><span class="string">'ip'</span><span class="keyword">]);<br /><br />        </span><span class="comment">// Decode url<br />        </span><span class="default">$client_header</span><span class="keyword">+=(array)</span><span class="default">parse_url</span><span class="keyword">(</span><span class="default">$client_header</span><span class="keyword">[</span><span class="string">'url'</span><span class="keyword">]);<br />        </span><span class="default">parse_str</span><span class="keyword">(</span><span class="default">$client_header</span><span class="keyword">[</span><span class="string">'query'</span><span class="keyword">],</span><span class="default">$client_header</span><span class="keyword">[</span><span class="string">'arg'</span><span class="keyword">]);<br /><br />        </span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$client_header</span><span class="keyword">);<br /><br />        </span><span class="comment">// Serve file<br />        </span><span class="keyword">if(</span><span class="default">strpos</span><span class="keyword">(</span><span class="default">$client_header</span><span class="keyword">[</span><span class="string">'path'</span><span class="keyword">],</span><span class="string">".html"</span><span class="keyword">) &amp;&amp; </span><span class="default">file_exists</span><span class="keyword">(</span><span class="default">__DIR__</span><span class="keyword">.</span><span class="default">$client_header</span><span class="keyword">[</span><span class="string">'path'</span><span class="keyword">])){<br />          echo </span><span class="string">"Sending a HTML page to client\n"</span><span class="keyword">;<br />          </span><span class="default">socket_write</span><span class="keyword">(</span><span class="default">$newsocket</span><span class="keyword">,</span><span class="string">"</span><span class="default">$client_header</span><span class="keyword">[</span><span class="default">protocol</span><span class="keyword">]</span><span class="string"> 200 OK\r\n"</span><span class="keyword">);    <br />          </span><span class="default">socket_write</span><span class="keyword">(</span><span class="default">$newsocket</span><span class="keyword">,</span><span class="string">"Content-type: text/html; charset=utf-8\r\n\r\n"</span><span class="keyword">);<br />          </span><span class="default">socket_write</span><span class="keyword">(</span><span class="default">$newsocket</span><span class="keyword">,</span><span class="default">file_get_contents</span><span class="keyword">(</span><span class="default">__DIR__</span><span class="keyword">.</span><span class="default">$client_header</span><span class="keyword">[</span><span class="string">'path'</span><span class="keyword">]).</span><span class="string">"\r\n\r\n"</span><span class="keyword">);<br />          </span><span class="default">socket_close</span><span class="keyword">(</span><span class="default">$newsocket</span><span class="keyword">);<br />        }elseif(</span><span class="default">$client_header</span><span class="keyword">[</span><span class="string">'path'</span><span class="keyword">]==</span><span class="string">"/test"</span><span class="keyword">){<br />          echo </span><span class="string">"Sending test HTML page to client\n"</span><span class="keyword">;<br />          </span><span class="default">socket_write</span><span class="keyword">(</span><span class="default">$newsocket</span><span class="keyword">,</span><span class="string">"&lt;!DOCTYPE HTML&gt;&lt;html&gt;&lt;head&gt;&lt;html&gt;&lt;body&gt;&lt;h1&gt;Its working!&lt;/h1&gt;Have fun\r\n"</span><span class="keyword">);<br />          </span><span class="default">socket_write</span><span class="keyword">(</span><span class="default">$newsocket</span><span class="keyword">,</span><span class="string">"&lt;pre&gt;Request header: "</span><span class="keyword">. </span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$client_header</span><span class="keyword">,</span><span class="default">true</span><span class="keyword">) . </span><span class="string">"&lt;/pre&gt;\r\n"</span><span class="keyword">);<br />          </span><span class="default">socket_write</span><span class="keyword">(</span><span class="default">$newsocket</span><span class="keyword">,</span><span class="string">"&lt;/body&gt;&lt;/html&gt;\r\n\r\n"</span><span class="keyword">);<br />          </span><span class="default">socket_close</span><span class="keyword">(</span><span class="default">$newsocket</span><span class="keyword">);<br />        }else{<br />          echo </span><span class="string">"</span><span class="default">$client_header</span><span class="keyword">[</span><span class="default">protocol</span><span class="keyword">]</span><span class="string"> 404 Not Found\r\n"</span><span class="keyword">;<br />          </span><span class="default">socket_write</span><span class="keyword">(</span><span class="default">$newsocket</span><span class="keyword">,</span><span class="string">"</span><span class="default">$client_header</span><span class="keyword">[</span><span class="default">protocol</span><span class="keyword">]</span><span class="string"> 404 Not Found\r\n\r\n"</span><span class="keyword">);   <br />          </span><span class="default">socket_close</span><span class="keyword">(</span><span class="default">$newsocket</span><span class="keyword">);<br />        }<br />      }<br />    }<br />  }<br />  </span><span class="default">socket_close</span><span class="keyword">(</span><span class="default">$host_socket</span><span class="keyword">);<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="102270">  <div class="votes">
+    <div id="Vu102270">
+    <a href="https://www.php.net/manual/vote-note.php?id=102270&amp;page=function.socket-select&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd102270">
+    <a href="https://www.php.net/manual/vote-note.php?id=102270&amp;page=function.socket-select&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V102270" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="function.socket-select.php.html#102270" class="name">
+  <strong class="user"><em>jean at briskula dot si</em></strong></a><a class="genanchor" href="function.socket-select.php.html#102270"> &para;</a><div class="date" title="2011-02-04 05:03"><strong>13 years ago</strong></div>
+  <div class="text" id="Hcom102270">
+<div class="phpcode"><code><span class="html">As it was already said, some clients need \0 character to end transmission, for example Flash's XMLSocket.<br /><br />You should also be prepared to read less data than you have requested. <br /><br />Here is an example of a socket buffer - it's an array which has socket resources for keys and an array of a timestamp and recieved data as values.<br /><br />I find that the best practice for sending data is trailing it with a new line and zero character (\n\0), because you will probably have different types of clients which behave differently for reading data from sockets. Some need a \n to fire an event, some need \0.<br /><br />For recieving data, sometimes you will get splitted data - this can hapen because the buffer is full (in my example 8192 bytes) or it just gets broken during transmission in lower levels.<br /><br />Sometimes you can read two messages at once, but they have a zero character in between, so you can just use preg_split() to split the messages. The second message may not be complete, so you add it to your buffer.<br /><br /><span class="default">&lt;?php<br />    </span><span class="keyword">const </span><span class="default">message_delimiter </span><span class="keyword">= </span><span class="string">"\n\0"</span><span class="keyword">;<br /><br />    </span><span class="comment">/*<br />     * Clear socket buffers older than 1 hour<br />     */<br />    </span><span class="keyword">function </span><span class="default">clear_buffer</span><span class="keyword">() {<br />        foreach(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">buffer </span><span class="keyword">as </span><span class="default">$key</span><span class="keyword">=&gt;</span><span class="default">$val</span><span class="keyword">) {<br />            if(</span><span class="default">time</span><span class="keyword">() - </span><span class="default">$val</span><span class="keyword">[</span><span class="string">'ts'</span><span class="keyword">] &gt; </span><span class="default">3600</span><span class="keyword">) {<br />                unset(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">buffer</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">]);<br />            }<br />        }<br />    }<br /><br />    </span><span class="comment">/*<br />     * Add data to a buffer<br />     */<br />    </span><span class="keyword">function </span><span class="default">buffer_add</span><span class="keyword">(</span><span class="default">$sock</span><span class="keyword">,</span><span class="default">$data</span><span class="keyword">) {<br />        if(!isset(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">buffer</span><span class="keyword">[</span><span class="default">$sock</span><span class="keyword">])) {<br />            </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">buffer</span><span class="keyword">[</span><span class="default">$sock</span><span class="keyword">][</span><span class="string">'data'</span><span class="keyword">] = </span><span class="string">''</span><span class="keyword">;<br />        }<br /><br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">buffer</span><span class="keyword">[</span><span class="default">$sock</span><span class="keyword">][</span><span class="string">'data'</span><span class="keyword">] .= </span><span class="default">$data</span><span class="keyword">;<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">buffer</span><span class="keyword">[</span><span class="default">$sock</span><span class="keyword">][</span><span class="string">'ts'</span><span class="keyword">] = </span><span class="default">time</span><span class="keyword">();<br />    }<br /><br />    function </span><span class="default">buffer_get</span><span class="keyword">(</span><span class="default">$sock</span><span class="keyword">) {<br />        </span><span class="comment">// split buffer by the end of string<br />        </span><span class="default">$lines </span><span class="keyword">= </span><span class="default">preg_split</span><span class="keyword">(</span><span class="string">'/\0/'</span><span class="keyword">,</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">buffer</span><span class="keyword">[</span><span class="default">$sock</span><span class="keyword">][</span><span class="string">'data'</span><span class="keyword">]);<br /><br />        </span><span class="comment">// reset buffer to the last line of input<br />        // if the buffer was sent completely, the last line of input should be<br />        // an empty string<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">buffer</span><span class="keyword">[</span><span class="default">$sock</span><span class="keyword">][</span><span class="string">'data'</span><span class="keyword">] = </span><span class="default">trim</span><span class="keyword">(</span><span class="default">$lines</span><span class="keyword">[</span><span class="default">count</span><span class="keyword">(</span><span class="default">$lines</span><span class="keyword">)-</span><span class="default">1</span><span class="keyword">]);<br /><br />        if(!empty(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">buffer</span><span class="keyword">[</span><span class="default">$sock</span><span class="keyword">][</span><span class="string">'data'</span><span class="keyword">])) {<br />            </span><span class="default">debug</span><span class="keyword">(</span><span class="string">"buffer is not empty for </span><span class="default">$sock</span><span class="string">, len: "</span><span class="keyword">.</span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">buffer</span><span class="keyword">[</span><span class="default">$sock</span><span class="keyword">][</span><span class="string">'data'</span><span class="keyword">]));<br />        }<br /><br />        </span><span class="comment">// remove the last line of input (incomplete data)<br />        // parse any complete data<br />        </span><span class="keyword">unset(</span><span class="default">$lines</span><span class="keyword">[</span><span class="default">count</span><span class="keyword">(</span><span class="default">$lines</span><span class="keyword">)-</span><span class="default">1</span><span class="keyword">]);<br /><br />        </span><span class="comment">// return only the fully sent data<br />        </span><span class="keyword">return </span><span class="default">$lines</span><span class="keyword">;<br />    }<br /><br />    function </span><span class="default">read</span><span class="keyword">(&amp;</span><span class="default">$sock</span><span class="keyword">,</span><span class="default">$len</span><span class="keyword">=</span><span class="default">8192</span><span class="keyword">,</span><span class="default">$flag</span><span class="keyword">=</span><span class="default">MSG_DONTWAIT</span><span class="keyword">) {<br />        </span><span class="default">$lines </span><span class="keyword">= array();<br /><br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">clear_buffer</span><span class="keyword">();<br /><br />        </span><span class="default">$bytes_read </span><span class="keyword">= @</span><span class="default">socket_recv</span><span class="keyword">(</span><span class="default">$sock</span><span class="keyword">,</span><span class="default">$read_data</span><span class="keyword">,</span><span class="default">$len</span><span class="keyword">,</span><span class="default">$flag</span><span class="keyword">);<br /><br />        if (</span><span class="default">$bytes_read </span><span class="keyword">=== </span><span class="default">false </span><span class="keyword">|| </span><span class="default">$bytes_read </span><span class="keyword">== </span><span class="default">0</span><span class="keyword">) {<br />            return </span><span class="default">false</span><span class="keyword">;<br />        } else {<br />            </span><span class="default">debug</span><span class="keyword">(</span><span class="string">"recv: </span><span class="default">$read_data</span><span class="string">"</span><span class="keyword">);<br />            </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">buffer_add</span><span class="keyword">(</span><span class="default">$sock</span><span class="keyword">,</span><span class="default">$read_data</span><span class="keyword">);<br />            return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">buffer_get</span><span class="keyword">(</span><span class="default">$sock</span><span class="keyword">);<br />        }<br />    }<br /><br />    </span><span class="comment">/*<br />     * Write to a socket<br />     * add a newline and null character at the end<br />     * some clients don't read until new line is recieved<br />     *<br />     * try to send the rest of the data if it gets truncated<br />     */<br />    </span><span class="keyword">function </span><span class="default">write</span><span class="keyword">(&amp;</span><span class="default">$sock</span><span class="keyword">,</span><span class="default">$msg</span><span class="keyword">) {<br />        </span><span class="default">$msg </span><span class="keyword">= </span><span class="default">$msg</span><span class="keyword">.</span><span class="default">self</span><span class="keyword">::</span><span class="default">message_delimiter</span><span class="keyword">;<br />        </span><span class="default">$length </span><span class="keyword">= </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$msg</span><span class="keyword">);<br />        while(</span><span class="default">true</span><span class="keyword">) {<br />            </span><span class="default">$sent </span><span class="keyword">= @</span><span class="default">socket_write</span><span class="keyword">(</span><span class="default">$sock</span><span class="keyword">,</span><span class="default">$msg</span><span class="keyword">,</span><span class="default">$length</span><span class="keyword">);<br />            if(</span><span class="default">$sent </span><span class="keyword">&lt;= </span><span class="default">0</span><span class="keyword">) {<br />                return </span><span class="default">false</span><span class="keyword">;<br />            }<br />            if(</span><span class="default">$sent </span><span class="keyword">&lt; </span><span class="default">$length</span><span class="keyword">) {<br />                </span><span class="default">$msg </span><span class="keyword">= </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$msg</span><span class="keyword">, </span><span class="default">$sent</span><span class="keyword">);<br />                </span><span class="default">$length </span><span class="keyword">-= </span><span class="default">$sent</span><span class="keyword">;<br />                </span><span class="default">debug</span><span class="keyword">(</span><span class="string">"Message truncated: Resending: </span><span class="default">$msg</span><span class="string">"</span><span class="keyword">);<br />            } else {<br />                return </span><span class="default">true</span><span class="keyword">;<br />            }<br />        }<br />        return </span><span class="default">false</span><span class="keyword">;<br />    }<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="97390">  <div class="votes">
+    <div id="Vu97390">
+    <a href="https://www.php.net/manual/vote-note.php?id=97390&amp;page=function.socket-select&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd97390">
+    <a href="https://www.php.net/manual/vote-note.php?id=97390&amp;page=function.socket-select&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V97390" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="function.socket-select.php.html#97390" class="name">
+  <strong class="user"><em>magemerlin at list dot ru</em></strong></a><a class="genanchor" href="function.socket-select.php.html#97390"> &para;</a><div class="date" title="2010-04-17 03:24"><strong>13 years ago</strong></div>
+  <div class="text" id="Hcom97390">
+<div class="phpcode"><code><span class="html">If you using a Flash client - you should know some specific features:<br /><br />1) when client connects to the server - it is sending to you "&lt;policy-file-request/&gt;"."\0" string. Server should answer an XML policy file, then disconnect from this client. Code is something like <br /><br />if ('&lt;policy-file-request/&gt;'==substr($data, 0, 22))<br />                {<br />                    echo "policy requset.\n";<br />                    flush();ob_flush();<br />                    $msg = '&lt;'.'?xml version="1.0"?&gt;<br />&lt;!DOCTYPE cross-domain-policy SYSTEM "<a href="http://www.macromedia.com/xml/dtds/cross-domain-policy.dtd" rel="nofollow" target="_blank">http://www.macromedia.com/xml/dtds/cross-domain-policy.dtd</a>"&gt;<br />&lt;cross-domain-policy&gt;<br />&lt;allow-access-from domain="*" to-ports="*" /&gt;<br />&lt;/cross-domain-policy&gt;'."\0";<br />                    echo "Say to client (crossdomain.xml) ... ";<br />                    flush();ob_flush();<br />                    socket_write($read_sock, $msg, strlen($msg));<br />                    echo "OK\n";<br />                    flush();ob_flush();<br />                    <br />                    echo "Closing ... ";<br />                    flush();ob_flush();<br />                    socket_close($read_sock);<br />                    echo "OK\n";<br />                    flush();ob_flush();<br />                }<br />                else<br />                {<br />// here is normal IO operations with client<br />}<br /><br />2) every output to client should be ended with "\0" (if using XMLSocket in Flash client) - otherwise flash will not generate onData event<br /><br />Russian examples is there - <a href="http://www.flasher.ru/forum/showpost.php?p=901346&amp;postcount=7" rel="nofollow" target="_blank">http://www.flasher.ru/forum/showpost.php?p=901346&amp;postcount=7</a></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="89666">  <div class="votes">
+    <div id="Vu89666">
+    <a href="https://www.php.net/manual/vote-note.php?id=89666&amp;page=function.socket-select&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd89666">
+    <a href="https://www.php.net/manual/vote-note.php?id=89666&amp;page=function.socket-select&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V89666" title="no votes...">
+    0
+    </div>
+  </div>
+  <a href="function.socket-select.php.html#89666" class="name">
+  <strong class="user"><em>eidberger at jakota dot de</em></strong></a><a class="genanchor" href="function.socket-select.php.html#89666"> &para;</a><div class="date" title="2009-03-18 06:06"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom89666">
+<div class="phpcode"><code><span class="html">Just noticed that you have to loop socket_select () when using UDP to get all queued packets:<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">while (</span><span class="default">socket_select </span><span class="keyword">(</span><span class="default">$aRead</span><span class="keyword">, </span><span class="default">$aWrite</span><span class="keyword">, </span><span class="default">$aExcept</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">) &gt; </span><span class="default">0</span><span class="keyword">) {<br />    foreach (</span><span class="default">$aReadUdp </span><span class="keyword">as </span><span class="default">$oSocket</span><span class="keyword">) {<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">clientReadUdp </span><span class="keyword">(</span><span class="default">$oSocket</span><span class="keyword">);<br />    }<br />}<br /></span><span class="default">?&gt;<br /></span><br />That's important because every call of socket_select () on UDP brings you only one result. But there could be 10.000 results queued and if your turnarround time is to slow (server busy, other sleeps etc.), you'll never progress all results in near realtime.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="85758">  <div class="votes">
+    <div id="Vu85758">
+    <a href="https://www.php.net/manual/vote-note.php?id=85758&amp;page=function.socket-select&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd85758">
+    <a href="https://www.php.net/manual/vote-note.php?id=85758&amp;page=function.socket-select&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V85758" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="function.socket-select.php.html#85758" class="name">
+  <strong class="user"><em>danny at dansheps dot com</em></strong></a><a class="genanchor" href="function.socket-select.php.html#85758"> &para;</a><div class="date" title="2008-09-16 09:45"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom85758">
+<div class="phpcode"><code><span class="html">Just to add to this.  Since the information contained in the notes is somewhat old.   It appears keys are being preserved now.<br /><br />So, if you rely on knowing which keys need to be worked with and were like me and thought that it didnot preserve.  Well it does.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="79512">  <div class="votes">
+    <div id="Vu79512">
+    <a href="https://www.php.net/manual/vote-note.php?id=79512&amp;page=function.socket-select&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd79512">
+    <a href="https://www.php.net/manual/vote-note.php?id=79512&amp;page=function.socket-select&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V79512" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="function.socket-select.php.html#79512" class="name">
+  <strong class="user"><em>qartis at gmail dot com</em></strong></a><a class="genanchor" href="function.socket-select.php.html#79512"> &para;</a><div class="date" title="2007-11-30 01:38"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom79512">
+<div class="phpcode"><code><span class="html">In regards to the code posted by vardhan ( at ) rogers ( dot ) com, it appears that on the following line:<br />        if (socket_select($read, $write = NULL, $except = NULL, 0) &lt; 1)<br />the timeout parameter is accidentally set to 0, rather than NULL. This means that the select call will return immediately rather than blocking indefinitely.<br /><br />Change the socket_select line to the following for great success:<br />        if (socket_select($read, $write = NULL, $except = NULL, NULL) &lt; 1)</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="72547">  <div class="votes">
+    <div id="Vu72547">
+    <a href="https://www.php.net/manual/vote-note.php?id=72547&amp;page=function.socket-select&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd72547">
+    <a href="https://www.php.net/manual/vote-note.php?id=72547&amp;page=function.socket-select&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V72547" title="no votes...">
+    0
+    </div>
+  </div>
+  <a href="function.socket-select.php.html#72547" class="name"><strong class="user"><em>Anonymous</em></strong></a><a class="genanchor" href="function.socket-select.php.html#72547"> &para;</a><div class="date" title="2007-01-23 03:04"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom72547">
+<div class="phpcode"><code><span class="html">If you want to use a simple fractional value for timeout:<br /><br /><span class="default">&lt;?php<br />socket_select</span><span class="keyword">(..., </span><span class="default">floor</span><span class="keyword">(</span><span class="default">$timeout</span><span class="keyword">), </span><span class="default">ceil</span><span class="keyword">(</span><span class="default">$timeout</span><span class="keyword">*</span><span class="default">1000000</span><span class="keyword">));<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="23098">  <div class="votes">
+    <div id="Vu23098">
+    <a href="https://www.php.net/manual/vote-note.php?id=23098&amp;page=function.socket-select&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd23098">
+    <a href="https://www.php.net/manual/vote-note.php?id=23098&amp;page=function.socket-select&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V23098" title="100% like this...">
+    1
+    </div>
+  </div>
+  <a href="function.socket-select.php.html#23098" class="name">
+  <strong class="user"><em>julian dot haupt at gmx dot de</em></strong></a><a class="genanchor" href="function.socket-select.php.html#23098"> &para;</a><div class="date" title="2002-07-09 10:15"><strong>21 years ago</strong></div>
+  <div class="text" id="Hcom23098">
+<div class="phpcode"><code><span class="html">hello,<br />i just made a class which acts similiar to Perl's IO::Select in order to make socket selecting very easy<br /><br />your script should look something like that:<br /><br /><span class="default">&lt;?php<br />$server </span><span class="keyword">= new </span><span class="default">Server</span><span class="keyword">;<br /></span><span class="default">$client </span><span class="keyword">= new </span><span class="default">Client</span><span class="keyword">;<br /><br />for (;;) {<br />  foreach (</span><span class="default">$select</span><span class="keyword">-&gt;</span><span class="default">can_read</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">) as </span><span class="default">$socket</span><span class="keyword">) {<br /><br />    if (</span><span class="default">$socket </span><span class="keyword">== </span><span class="default">$client</span><span class="keyword">-&gt;</span><span class="default">socket</span><span class="keyword">) {<br />      </span><span class="comment">// New Client Socket<br />      </span><span class="default">$select</span><span class="keyword">-&gt;</span><span class="default">add</span><span class="keyword">(</span><span class="default">socket_accept</span><span class="keyword">(</span><span class="default">$client</span><span class="keyword">-&gt;</span><span class="default">socket</span><span class="keyword">));<br />    }<br />    else {<br />      </span><span class="comment">//there's something to read on $socket<br />    </span><span class="keyword">}<br />  }<br />}<br /></span><span class="default">?&gt;<br /></span><br />you should of course implement some routines to detect broken sockets and remove them from the select object.<br /><br />you can also do output buffering and check in the main-loop for sockets that are ready to write<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">class </span><span class="default">select </span><span class="keyword">{<br />  var </span><span class="default">$sockets</span><span class="keyword">;<br /><br />  function </span><span class="default">select</span><span class="keyword">(</span><span class="default">$sockets</span><span class="keyword">) {<br /><br />    </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">sockets </span><span class="keyword">= array();<br /><br />    foreach (</span><span class="default">$sockets </span><span class="keyword">as </span><span class="default">$socket</span><span class="keyword">) {<br />      </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">add</span><span class="keyword">(</span><span class="default">$socket</span><span class="keyword">);<br />    }<br />  }<br /><br />  function </span><span class="default">add</span><span class="keyword">(</span><span class="default">$add_socket</span><span class="keyword">) {<br />    </span><span class="default">array_push</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">sockets</span><span class="keyword">,</span><span class="default">$add_socket</span><span class="keyword">);<br />  }<br /><br />  function </span><span class="default">remove</span><span class="keyword">(</span><span class="default">$remove_socket</span><span class="keyword">) {<br />    </span><span class="default">$sockets </span><span class="keyword">= array();<br /><br />    foreach (</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">sockets </span><span class="keyword">as </span><span class="default">$socket</span><span class="keyword">) {<br />      if(</span><span class="default">$remove_socket </span><span class="keyword">!= </span><span class="default">$socket</span><span class="keyword">)<br />        </span><span class="default">$sockets</span><span class="keyword">[] = </span><span class="default">$socket</span><span class="keyword">;<br />    }<br /><br />    </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">sockets </span><span class="keyword">= </span><span class="default">$sockets</span><span class="keyword">;<br />  }<br /><br />  function </span><span class="default">can_read</span><span class="keyword">(</span><span class="default">$timeout</span><span class="keyword">) {<br />    </span><span class="default">$read </span><span class="keyword">= </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">sockets</span><span class="keyword">;<br />    </span><span class="default">socket_select</span><span class="keyword">(</span><span class="default">$read</span><span class="keyword">,</span><span class="default">$write </span><span class="keyword">= </span><span class="default">NULL</span><span class="keyword">,</span><span class="default">$except </span><span class="keyword">= </span><span class="default">NULL</span><span class="keyword">,</span><span class="default">$timeout</span><span class="keyword">);<br />    return </span><span class="default">$read</span><span class="keyword">;<br />  }<br /><br />  function </span><span class="default">can_write</span><span class="keyword">(</span><span class="default">$timeout</span><span class="keyword">) {<br />    </span><span class="default">$write </span><span class="keyword">= </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">sockets</span><span class="keyword">;<br />    </span><span class="default">socket_select</span><span class="keyword">(</span><span class="default">$read </span><span class="keyword">= </span><span class="default">NULL</span><span class="keyword">,</span><span class="default">$write</span><span class="keyword">,</span><span class="default">$except </span><span class="keyword">= </span><span class="default">NULL</span><span class="keyword">,</span><span class="default">$timeout</span><span class="keyword">);<br />    return </span><span class="default">$write</span><span class="keyword">;<br />  }<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="64728">  <div class="votes">
+    <div id="Vu64728">
+    <a href="https://www.php.net/manual/vote-note.php?id=64728&amp;page=function.socket-select&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd64728">
+    <a href="https://www.php.net/manual/vote-note.php?id=64728&amp;page=function.socket-select&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V64728" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="function.socket-select.php.html#64728" class="name">
+  <strong class="user"><em>Whosawhatsis at that google email thingy</em></strong></a><a class="genanchor" href="function.socket-select.php.html#64728"> &para;</a><div class="date" title="2006-04-19 07:35"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom64728">
+<div class="phpcode"><code><span class="html">Another solution to the problem of keys not being preserved is to have an additional array for looking up sockets that uses their resource identifiers as keys. This can be obtained using array_flip() in some cases, but is particularly useful if each socket is associated with an object. In this case, you can make the object's constructor add a pointer to itself to the lookup array with its socket resource identifier as a key and use the following code to execute a read method for the object associated with each socket returned by socket_select():<br /><br /><span class="default">&lt;?php<br />socket_select</span><span class="keyword">(</span><span class="default">$reads</span><span class="keyword">, </span><span class="default">$writes</span><span class="keyword">, </span><span class="default">$excepts</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">);<br /><br />foreach (</span><span class="default">$sockets </span><span class="keyword">as </span><span class="default">$socket</span><span class="keyword">) {<br />    </span><span class="default">$lookuparray</span><span class="keyword">[</span><span class="default">$socket</span><span class="keyword">]-&gt;</span><span class="default">read</span><span class="keyword">();<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="57347">  <div class="votes">
+    <div id="Vu57347">
+    <a href="https://www.php.net/manual/vote-note.php?id=57347&amp;page=function.socket-select&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd57347">
+    <a href="https://www.php.net/manual/vote-note.php?id=57347&amp;page=function.socket-select&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V57347" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="function.socket-select.php.html#57347" class="name">
+  <strong class="user"><em>crimson at NOSPAMtechnologist dot com</em></strong></a><a class="genanchor" href="function.socket-select.php.html#57347"> &para;</a><div class="date" title="2005-09-30 04:15"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom57347">
+<div class="phpcode"><code><span class="html">Note that the resulting arrays do NOT maintain keys (PHP 4.3.2) after being run through this function:<br /><br />Before:<br />Array<br />(<br />    [Client_Socket] =&gt; Resource id #6<br />    [Server_Socket] =&gt; Resource id #9<br />)<br /><br />After:<br />Array<br />(<br />    [0] =&gt; Resource id #6<br />    [1] =&gt; Resource id #9<br />)<br /><br />It would have been nice to have the keys stay to figure out which stream you need to receive from, but you'll have to use some fancy foreach loop to figure out which sockets to check.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="52443">  <div class="votes">
+    <div id="Vu52443">
+    <a href="https://www.php.net/manual/vote-note.php?id=52443&amp;page=function.socket-select&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd52443">
+    <a href="https://www.php.net/manual/vote-note.php?id=52443&amp;page=function.socket-select&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V52443" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="function.socket-select.php.html#52443" class="name">
+  <strong class="user"><em>drenintell</em></strong></a><a class="genanchor" href="function.socket-select.php.html#52443"> &para;</a><div class="date" title="2005-05-01 01:13"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom52443">
+<div class="phpcode"><code><span class="html">The continuation of my my previous post on 28-Apr-2005 10:19 at<br /><a href="http://ca3.php.net/manual/en/function.socket-select.php" rel="nofollow" target="_blank">http://ca3.php.net/manual/en/function.socket-select.php</a><br /><br />Here it is: (Link is broken into 2 parts)<br /><br />'<a href="http://gtkphp.org/php_socket_select_hangs" rel="nofollow" target="_blank">http://gtkphp.org/php_socket_select_hangs</a><br />_explanation_and_solution.html'</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="58367">  <div class="votes">
+    <div id="Vu58367">
+    <a href="https://www.php.net/manual/vote-note.php?id=58367&amp;page=function.socket-select&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd58367">
+    <a href="https://www.php.net/manual/vote-note.php?id=58367&amp;page=function.socket-select&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V58367" title="0% like this...">
+    -1
+    </div>
+  </div>
+  <a href="function.socket-select.php.html#58367" class="name">
+  <strong class="user"><em>ludvig dot ericson at gmail dot com</em></strong></a><a class="genanchor" href="function.socket-select.php.html#58367"> &para;</a><div class="date" title="2005-11-01 05:35"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom58367">
+<div class="phpcode"><code><span class="html">Regarding the comment below, No, it does not, it's a system call and I believe it's rather hard to preserve keys.<br /><br />Additionally, socket_select should be used like it was a user-inputted array, that you don't know what you sent in to.<br /><br /><span class="default">&lt;?php<br />$reads </span><span class="keyword">= </span><span class="default">$clients</span><span class="keyword">;<br /></span><span class="default">$reads</span><span class="keyword">[] = </span><span class="default">$server</span><span class="keyword">;<br /><br /></span><span class="default">socket_select</span><span class="keyword">(</span><span class="default">$reads</span><span class="keyword">);<br /><br />foreach (</span><span class="default">$reads </span><span class="keyword">as </span><span class="default">$read</span><span class="keyword">) {<br />    </span><span class="comment">/* do some stuff */<br /></span><span class="keyword">}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="93943">  <div class="votes">
+    <div id="Vu93943">
+    <a href="https://www.php.net/manual/vote-note.php?id=93943&amp;page=function.socket-select&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd93943">
+    <a href="https://www.php.net/manual/vote-note.php?id=93943&amp;page=function.socket-select&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V93943" title="9% like this...">
+    -9
+    </div>
+  </div>
+  <a href="function.socket-select.php.html#93943" class="name">
+  <strong class="user"><em>Aaron (aaron at acephalo dot us)</em></strong></a><a class="genanchor" href="function.socket-select.php.html#93943"> &para;</a><div class="date" title="2009-10-07 11:21"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom93943">
+<div class="phpcode"><code><span class="html">socket_select() can also serve as a more granular sleep():<br /><br /><span class="default">&lt;?php<br />  </span><span class="comment"># half-second sleep<br />  </span><span class="default">$undef </span><span class="keyword">= array();<br />  </span><span class="default">socket_select</span><span class="keyword">(</span><span class="default">$undef</span><span class="keyword">, </span><span class="default">$undef</span><span class="keyword">, </span><span class="default">$undef</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="string">"500000"</span><span class="keyword">);<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="25054">  <div class="votes">
+    <div id="Vu25054">
+    <a href="https://www.php.net/manual/vote-note.php?id=25054&amp;page=function.socket-select&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd25054">
+    <a href="https://www.php.net/manual/vote-note.php?id=25054&amp;page=function.socket-select&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V25054" title="0% like this...">
+    -3
+    </div>
+  </div>
+  <a href="function.socket-select.php.html#25054" class="name">
+  <strong class="user"><em>daveb at optusnet dot com dot au</em></strong></a><a class="genanchor" href="function.socket-select.php.html#25054"> &para;</a><div class="date" title="2002-09-09 09:27"><strong>21 years ago</strong></div>
+  <div class="text" id="Hcom25054">
+<div class="phpcode"><code><span class="html">If you haven't done any network programming before, PHP's socket_select() might appear a bit strange to you. I've written a simple php "partyline" script to demonstrate the multi-socket use of select'ing at <a href="http://dave.dapond.com/socketselect.php.txt" rel="nofollow" target="_blank">http://dave.dapond.com/socketselect.php.txt</a></span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=function.socket-select&amp;redirect=https://www.php.net/manual/ru/function.socket-select.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="ref.sockets.php.html">Функции сокета</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="function.socket-accept.php.html" title="socket_&#8203;accept">socket_&#8203;accept</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-addrinfo-bind.php.html" title="socket_&#8203;addrinfo_&#8203;bind">socket_&#8203;addrinfo_&#8203;bind</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-addrinfo-connect.php.html" title="socket_&#8203;addrinfo_&#8203;connect">socket_&#8203;addrinfo_&#8203;connect</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-addrinfo-explain.php.html" title="socket_&#8203;addrinfo_&#8203;explain">socket_&#8203;addrinfo_&#8203;explain</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-addrinfo-lookup.php.html" title="socket_&#8203;addrinfo_&#8203;lookup">socket_&#8203;addrinfo_&#8203;lookup</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-atmark.php.html" title="socket_&#8203;atmark">socket_&#8203;atmark</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-bind.php.html" title="socket_&#8203;bind">socket_&#8203;bind</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-clear-error.php.html" title="socket_&#8203;clear_&#8203;error">socket_&#8203;clear_&#8203;error</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-close.php.html" title="socket_&#8203;close">socket_&#8203;close</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-cmsg-space.php.html" title="socket_&#8203;cmsg_&#8203;space">socket_&#8203;cmsg_&#8203;space</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-connect.php.html" title="socket_&#8203;connect">socket_&#8203;connect</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-create-listen.php.html" title="socket_&#8203;create_&#8203;listen">socket_&#8203;create_&#8203;listen</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-create-pair.php.html" title="socket_&#8203;create_&#8203;pair">socket_&#8203;create_&#8203;pair</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-create.php.html" title="socket_&#8203;create">socket_&#8203;create</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-export-stream.php.html" title="socket_&#8203;export_&#8203;stream">socket_&#8203;export_&#8203;stream</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-get-option.php.html" title="socket_&#8203;get_&#8203;option">socket_&#8203;get_&#8203;option</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-getopt.php.html" title="socket_&#8203;getopt">socket_&#8203;getopt</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-getpeername.php.html" title="socket_&#8203;getpeername">socket_&#8203;getpeername</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-getsockname.php.html" title="socket_&#8203;getsockname">socket_&#8203;getsockname</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-import-stream.php.html" title="socket_&#8203;import_&#8203;stream">socket_&#8203;import_&#8203;stream</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-last-error.php.html" title="socket_&#8203;last_&#8203;error">socket_&#8203;last_&#8203;error</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-listen.php.html" title="socket_&#8203;listen">socket_&#8203;listen</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-read.php.html" title="socket_&#8203;read">socket_&#8203;read</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-recv.php.html" title="socket_&#8203;recv">socket_&#8203;recv</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-recvfrom.php.html" title="socket_&#8203;recvfrom">socket_&#8203;recvfrom</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-recvmsg.php.html" title="socket_&#8203;recvmsg">socket_&#8203;recvmsg</a>
+                        </li>
+                                                <li class="current">
+                            <a href="function.socket-select.php.html" title="socket_&#8203;select">socket_&#8203;select</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-send.php.html" title="socket_&#8203;send">socket_&#8203;send</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-sendmsg.php.html" title="socket_&#8203;sendmsg">socket_&#8203;sendmsg</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-sendto.php.html" title="socket_&#8203;sendto">socket_&#8203;sendto</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-set-block.php.html" title="socket_&#8203;set_&#8203;block">socket_&#8203;set_&#8203;block</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-set-nonblock.php.html" title="socket_&#8203;set_&#8203;nonblock">socket_&#8203;set_&#8203;nonblock</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-set-option.php.html" title="socket_&#8203;set_&#8203;option">socket_&#8203;set_&#8203;option</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-setopt.php.html" title="socket_&#8203;setopt">socket_&#8203;setopt</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-shutdown.php.html" title="socket_&#8203;shutdown">socket_&#8203;shutdown</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-strerror.php.html" title="socket_&#8203;strerror">socket_&#8203;strerror</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-write.php.html" title="socket_&#8203;write">socket_&#8203;write</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-wsaprotocol-info-export.php.html" title="socket_&#8203;wsaprotocol_&#8203;info_&#8203;export">socket_&#8203;wsaprotocol_&#8203;info_&#8203;export</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-wsaprotocol-info-import.php.html" title="socket_&#8203;wsaprotocol_&#8203;info_&#8203;import">socket_&#8203;wsaprotocol_&#8203;info_&#8203;import</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.socket-wsaprotocol-info-release.php.html" title="socket_&#8203;wsaprotocol_&#8203;info_&#8203;release">socket_&#8203;wsaprotocol_&#8203;info_&#8203;release</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

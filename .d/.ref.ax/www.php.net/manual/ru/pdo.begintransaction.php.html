@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: PDO::beginTransaction - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="pdo.begintransaction.php.html">
+ <link rel="shorturl" href="pdo.begintransaction.php.html">
+ <link rel="alternate" href="pdo.begintransaction.php.html" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="class.pdo.php.html">
+ <link rel="prev" href="class.pdo.php.html">
+ <link rel="next" href="pdo.commit.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/pdo.begintransaction.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/pdo.begintransaction.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/pdo.begintransaction.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/pdo.begintransaction.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/pdo.begintransaction.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/pdo.begintransaction.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/pdo.begintransaction.php" hreflang="pt_BR">
+ <link rel="alternate" href="pdo.begintransaction.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/pdo.begintransaction.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/pdo.begintransaction.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="pdo.commit.php.html">
+          PDO::commit &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="class.pdo.php.html">
+          &laquo; PDO        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.database.php.html'>Модули для работы с базами данных</a></li>      <li><a href='refs.database.abstract.php.html'>Уровни абстракции</a></li>      <li><a href='book.pdo.php.html'>PDO</a></li>      <li><a href='class.pdo.php.html'>PDO</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/pdo.begintransaction.php'>English</option>
+            <option value='de/pdo.begintransaction.php'>German</option>
+            <option value='es/pdo.begintransaction.php'>Spanish</option>
+            <option value='fr/pdo.begintransaction.php'>French</option>
+            <option value='it/pdo.begintransaction.php'>Italian</option>
+            <option value='ja/pdo.begintransaction.php'>Japanese</option>
+            <option value='pt_BR/pdo.begintransaction.php'>Brazilian Portuguese</option>
+            <option value='ru/pdo.begintransaction.php' selected="selected">Russian</option>
+            <option value='tr/pdo.begintransaction.php'>Turkish</option>
+            <option value='zh/pdo.begintransaction.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/pdo/pdo/begintransaction.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Fpdo.begintransaction%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="pdo.begintransaction" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">PDO::beginTransaction</h1>
+  <p class="verinfo">(PHP 5 &gt;= 5.1.0, PHP 7, PHP 8, PECL pdo &gt;= 0.1.0)</p><p class="refpurpose"><span class="refname">PDO::beginTransaction</span> &mdash; <span class="dc-title">
+   Инициализация транзакции
+  </span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-pdo.begintransaction-description">
+  <h3 class="title">Описание</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="methodname"><strong>PDO::beginTransaction</strong></span>(): <span class="type">bool</span></div>
+
+  <p class="para rdfs-comment">
+   Выключает режим автоматической фиксации транзакции. В то время как режим
+   автоматической фиксации выключен, изменения, внесённые в базу данных через объект
+   экземпляра PDO, не применяются, пока вы не завершите транзакцию, вызвав
+   <span class="methodname"><a href="pdo.commit.php.html" class="methodname">PDO::commit()</a></span>. Вызов <span class="methodname"><a href="pdo.rollback.php.html" class="methodname">PDO::rollBack()</a></span> откатит
+   все изменения в базе данных и вернёт соединение к режиму автоматической фиксации.
+  </p>
+  <p class="para">
+   Некоторые базы данных, включая MySQL, автоматически выполняют неявную
+   фиксацию, когда выражения языка описания данных (DDL), такие как
+   DROP TABLE или CREATE TABLE, находятся внутри транзакции. Неявная
+   фиксация предотвратит вам откат любых изменений, сделанных в этой транзакции.
+  </p>
+
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-pdo.begintransaction-parameters">
+  <h3 class="title">Список параметров</h3>
+  
+<p class="para">
+ У этой функции нет параметров.
+</p>
+
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-pdo.begintransaction-returnvalues">
+  <h3 class="title">Возвращаемые значения</h3>
+  <p class="para">
+   Возвращает <strong><code>true</code></strong> в случае успешного выполнения или <strong><code>false</code></strong> в случае возникновения ошибки.
+  </p>
+ </div>
+
+
+ <div class="refsect1 errors" id="refsect1-pdo.begintransaction-errors">
+  <h3 class="title">Ошибки</h3>
+  <p class="para">
+   Выбрасывает <span class="classname"><a href="class.pdoexception.php.html" class="classname">PDOException</a></span>, если транзакция уже стартовала, либо
+   если драйвер не поддерживает транзакции.
+  </p>
+  <blockquote class="note"><p><strong class="note">Замечание</strong>: <span class="simpara">Исключение будет вызвано, даже если атрибут <strong><code>PDO::ATTR_ERRMODE</code></strong> не выставлен в <strong><code>PDO::ERRMODE_EXCEPTION</code></strong>.</span></p></blockquote>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-pdo.begintransaction-examples">
+  <h3 class="title">Примеры</h3>
+  <p class="para">
+   <div class="example" id="example-3130"><p><strong>Пример #1 Откат транзакции</strong></p>
+    <div class="example-contents"><p>
+     Следующий пример начинает транзакцию и выполняет два выражения,
+     что изменяет базу данных до отката изменений. В MySQL,
+     тем не менее, выражение DROP TABLE автоматически фиксирует
+     транзакцию так, что ни одно из изменений транзакции не откатывается.
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/* Начало транзакции, отключение автоматической фиксации */<br /></span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">beginTransaction</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">/* Изменение схемы базы данных и данных */<br /></span><span style="color: #0000BB">$sth </span><span style="color: #007700">= </span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">exec</span><span style="color: #007700">(</span><span style="color: #DD0000">"DROP TABLE fruit"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$sth </span><span style="color: #007700">= </span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">exec</span><span style="color: #007700">(</span><span style="color: #DD0000">"UPDATE dessert<br />    SET name = 'hamburger'"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* Распознаем ошибку и откатываем изменения */<br /></span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">rollBack</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">/* Соединение с базой данных снова в режиме автоматической фиксации */<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-pdo.begintransaction-seealso">
+  <h3 class="title">Смотрите также</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="methodname"><a href="pdo.commit.php.html" class="methodname" rel="rdfs-seeAlso">PDO::commit()</a> - Фиксирует транзакцию</span></li>
+    <li class="member"><span class="methodname"><a href="pdo.rollback.php.html" class="methodname" rel="rdfs-seeAlso">PDO::rollBack()</a> - Откат транзакции</span></li>
+    <li class="member"><a href="pdo.transactions.php.html" class="link">Транзакции и автоматическая фиксация</a></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=pdo.begintransaction&amp;redirect=https://www.php.net/manual/ru/pdo.begintransaction.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">16 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="116669">  <div class="votes">
+    <div id="Vu116669">
+    <a href="https://www.php.net/manual/vote-note.php?id=116669&amp;page=pdo.begintransaction&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd116669">
+    <a href="https://www.php.net/manual/vote-note.php?id=116669&amp;page=pdo.begintransaction&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V116669" title="69% like this...">
+    57
+    </div>
+  </div>
+  <a href="pdo.begintransaction.php.html#116669" class="name">
+  <strong class="user"><em>steve at fancyguy dot com</em></strong></a><a class="genanchor" href="pdo.begintransaction.php.html#116669"> &para;</a><div class="date" title="2015-02-08 08:34"><strong>9 years ago</strong></div>
+  <div class="text" id="Hcom116669">
+<div class="phpcode"><code><span class="html">The nested transaction example here is great, but it's missing a key piece of the puzzle.  Commits will commit everything, I only wanted commits to actually commit when the outermost commit has been completed.  This can be done in InnoDB with savepoints.<br /><br /><span class="default">&lt;?php<br /><br /></span><span class="keyword">class </span><span class="default">Database </span><span class="keyword">extends </span><span class="default">PDO<br /></span><span class="keyword">{<br /><br />    protected </span><span class="default">$transactionCount </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br /><br />    public function </span><span class="default">beginTransaction</span><span class="keyword">()<br />    {<br />        if (!</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">transactionCounter</span><span class="keyword">++) {<br />            return </span><span class="default">parent</span><span class="keyword">::</span><span class="default">beginTransaction</span><span class="keyword">();<br />        }<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">exec</span><span class="keyword">(</span><span class="string">'SAVEPOINT trans'</span><span class="keyword">.</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">transactionCounter</span><span class="keyword">);<br />        return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">transactionCounter </span><span class="keyword">&gt;= </span><span class="default">0</span><span class="keyword">;<br />    }<br /><br />    public function </span><span class="default">commit</span><span class="keyword">()<br />    {<br />        if (!--</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">transactionCounter</span><span class="keyword">) {<br />            return </span><span class="default">parent</span><span class="keyword">::</span><span class="default">commit</span><span class="keyword">();<br />        }<br />        return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">transactionCounter </span><span class="keyword">&gt;= </span><span class="default">0</span><span class="keyword">;<br />    }<br /><br />    public function </span><span class="default">rollback</span><span class="keyword">()<br />    {<br />        if (--</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">transactionCounter</span><span class="keyword">) {<br />            </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">exec</span><span class="keyword">(</span><span class="string">'ROLLBACK TO trans'</span><span class="keyword">.</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">transactionCounter </span><span class="keyword">+ </span><span class="default">1</span><span class="keyword">);<br />            return </span><span class="default">true</span><span class="keyword">;<br />        }<br />        return </span><span class="default">parent</span><span class="keyword">::</span><span class="default">rollback</span><span class="keyword">();<br />    }<br />    <br />}</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="81022">  <div class="votes">
+    <div id="Vu81022">
+    <a href="https://www.php.net/manual/vote-note.php?id=81022&amp;page=pdo.begintransaction&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd81022">
+    <a href="https://www.php.net/manual/vote-note.php?id=81022&amp;page=pdo.begintransaction&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V81022" title="76% like this...">
+    18
+    </div>
+  </div>
+  <a href="pdo.begintransaction.php.html#81022" class="name">
+  <strong class="user"><em>drm at melp dot nl</em></strong></a><a class="genanchor" href="pdo.begintransaction.php.html#81022"> &para;</a><div class="date" title="2008-02-11 06:37"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom81022">
+<div class="phpcode"><code><span class="html">In response to "Anonymous / 20-Dec-2007 03:04"<br /><br />You could also extend the PDO class and hold a private flag to check if a transaction is already started.<br /><br />class MyPDO extends PDO {<br />   protected $hasActiveTransaction = false;<br /><br />   function beginTransaction () {<br />      if ( $this-&gt;hasActiveTransaction ) {<br />         return false;<br />      } else {<br />         $this-&gt;hasActiveTransaction = parent::beginTransaction ();<br />         return $this-&gt;hasActiveTransaction;<br />      }<br />   }<br /><br />   function commit () {<br />      parent::commit ();<br />      $this-&gt;hasActiveTransaction = false;<br />   }<br /><br />   function rollback () {<br />      parent::rollback ();<br />      $this-&gt;hasActiveTransaction = false;<br />   }<br /><br />}</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="109753">  <div class="votes">
+    <div id="Vu109753">
+    <a href="https://www.php.net/manual/vote-note.php?id=109753&amp;page=pdo.begintransaction&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd109753">
+    <a href="https://www.php.net/manual/vote-note.php?id=109753&amp;page=pdo.begintransaction&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V109753" title="62% like this...">
+    29
+    </div>
+  </div>
+  <a href="pdo.begintransaction.php.html#109753" class="name">
+  <strong class="user"><em>bitluni</em></strong></a><a class="genanchor" href="pdo.begintransaction.php.html#109753"> &para;</a><div class="date" title="2012-08-16 09:27"><strong>11 years ago</strong></div>
+  <div class="text" id="Hcom109753">
+<div class="phpcode"><code><span class="html">You can generate problems with nested beginTransaction and commit calls.<br />example:<br /><br />beginTransaction()<br />do imprortant stuff<br />call method<br />    beginTransaction()<br />    basic stuff 1<br />    basic stuff 2<br />    commit()<br />do most important stuff<br />commit()<br /><br />Won't work and is dangerous since you could close your transaction too early with the nested commit().<br /><br />There is no need to mess you code and pass like a bool which indicate if transaction is already running. You could just overload the beginTransaction() and commit() in your PDO wrapper like this:<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">class </span><span class="default">Database </span><span class="keyword">extends \</span><span class="default">\PDO<br /></span><span class="keyword">{<br />    protected </span><span class="default">$transactionCounter </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br />    function </span><span class="default">beginTransaction</span><span class="keyword">()<br />    {<br />        if(!</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">transactionCounter</span><span class="keyword">++)<br />            return </span><span class="default">parent</span><span class="keyword">::</span><span class="default">beginTransaction</span><span class="keyword">();<br />       return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">transactionCounter </span><span class="keyword">&gt;= </span><span class="default">0</span><span class="keyword">;<br />    }<br /><br />    function </span><span class="default">commit</span><span class="keyword">()<br />    {<br />       if(!--</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">transactionCounter</span><span class="keyword">)<br />           return </span><span class="default">parent</span><span class="keyword">::</span><span class="default">commit</span><span class="keyword">();<br />       return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">transactionCounter </span><span class="keyword">&gt;= </span><span class="default">0</span><span class="keyword">;<br />    }<br /><br />    function </span><span class="default">rollback</span><span class="keyword">()<br />    {<br />        if(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">transactionCounter </span><span class="keyword">&gt;= </span><span class="default">0</span><span class="keyword">)<br />        {<br />            </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">transactionCounter </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br />            return </span><span class="default">parent</span><span class="keyword">::</span><span class="default">rollback</span><span class="keyword">();<br />        }<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">transactionCounter </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br />        return </span><span class="default">false</span><span class="keyword">;<br />    }<br /></span><span class="comment">//...<br /></span><span class="keyword">}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="126436">  <div class="votes">
+    <div id="Vu126436">
+    <a href="https://www.php.net/manual/vote-note.php?id=126436&amp;page=pdo.begintransaction&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd126436">
+    <a href="https://www.php.net/manual/vote-note.php?id=126436&amp;page=pdo.begintransaction&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V126436" title="71% like this...">
+    3
+    </div>
+  </div>
+  <a href="pdo.begintransaction.php.html#126436" class="name">
+  <strong class="user"><em>Sbastien</em></strong></a><a class="genanchor" href="pdo.begintransaction.php.html#126436"> &para;</a><div class="date" title="2021-09-18 12:34"><strong>2 years ago</strong></div>
+  <div class="text" id="Hcom126436">
+<div class="phpcode"><code><span class="html">A way to use transaction and prepared statement to speed-up bulk INSERTs :<br /><br /><span class="default">&lt;?php<br /><br /></span><span class="comment">// ...<br /><br /></span><span class="default">$insert </span><span class="keyword">= </span><span class="default">$pdo</span><span class="keyword">-&gt;</span><span class="default">prepare</span><span class="keyword">(</span><span class="string">'INSERT INTO table (c1, c2, c3) VALUES (?, ?, ?)'</span><span class="keyword">);<br /></span><span class="default">$bulk </span><span class="keyword">= </span><span class="default">3_000</span><span class="keyword">; </span><span class="comment">// To adjust according to your data/system<br /></span><span class="default">$rows </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br /><br /></span><span class="default">$pdo</span><span class="keyword">-&gt;</span><span class="default">beginTransaction</span><span class="keyword">();<br />while (</span><span class="default">$entry </span><span class="keyword">= </span><span class="default">fgetcsv</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">)) {<br />    </span><span class="default">$insert</span><span class="keyword">-&gt;</span><span class="default">execute</span><span class="keyword">(</span><span class="default">$entry</span><span class="keyword">);<br />    if (++</span><span class="default">$rows </span><span class="keyword">% </span><span class="default">$bulk </span><span class="keyword">=== </span><span class="default">0</span><span class="keyword">) {<br />        </span><span class="default">$pdo</span><span class="keyword">-&gt;</span><span class="default">commit</span><span class="keyword">();<br />        </span><span class="default">$pdo</span><span class="keyword">-&gt;</span><span class="default">beginTransaction</span><span class="keyword">();<br />    }<br />}<br />if (</span><span class="default">$pdo</span><span class="keyword">-&gt;</span><span class="default">inTransaction</span><span class="keyword">()) { </span><span class="comment">// Remaining rows insertion<br />    </span><span class="default">$pdo</span><span class="keyword">-&gt;</span><span class="default">commit</span><span class="keyword">();<br />}</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="119120">  <div class="votes">
+    <div id="Vu119120">
+    <a href="https://www.php.net/manual/vote-note.php?id=119120&amp;page=pdo.begintransaction&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd119120">
+    <a href="https://www.php.net/manual/vote-note.php?id=119120&amp;page=pdo.begintransaction&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V119120" title="66% like this...">
+    12
+    </div>
+  </div>
+  <a href="pdo.begintransaction.php.html#119120" class="name">
+  <strong class="user"><em>kesler dot alwin at gmail dot com</em></strong></a><a class="genanchor" href="pdo.begintransaction.php.html#119120"> &para;</a><div class="date" title="2016-04-05 01:35"><strong>7 years ago</strong></div>
+  <div class="text" id="Hcom119120">
+<div class="phpcode"><code><span class="html">please fix in answer #116669:<br /><br />    $this-&gt;exec('ROLLBACK TO trans'.$this-&gt;transactionCounter + 1);<br /><br />with<br /><br />    $this-&gt;exec('ROLLBACK TO trans'.($this-&gt;transactionCounter + 1));</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="90239">  <div class="votes">
+    <div id="Vu90239">
+    <a href="https://www.php.net/manual/vote-note.php?id=90239&amp;page=pdo.begintransaction&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd90239">
+    <a href="https://www.php.net/manual/vote-note.php?id=90239&amp;page=pdo.begintransaction&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V90239" title="68% like this...">
+    11
+    </div>
+  </div>
+  <a href="pdo.begintransaction.php.html#90239" class="name">
+  <strong class="user"><em>rjohnson at intepro dot us</em></strong></a><a class="genanchor" href="pdo.begintransaction.php.html#90239"> &para;</a><div class="date" title="2009-04-11 02:27"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom90239">
+<div class="phpcode"><code><span class="html">If you are using PDO::SQLITE and need to support a high level of concurrency with locking, try preparing your statements prior to calling beginTransaction() and you may also need to call closeCursor() on SELECT statements to prevent the driver from thinking that there are open transactions.<br /><br />Here's an example (Windows, PHP version 5.2.8).  We test this by opening 2 browser tabs to this script and running them at the same time.  If we put the beginTransaction before the prepare, the second browser tab would hit the catch block and the commit would throw another PDOException indicating that transactions were still open.<br /><br /><span class="default">&lt;?php<br />$conn </span><span class="keyword">= new </span><span class="default">PDO</span><span class="keyword">(</span><span class="string">'sqlite:C:\path\to\file.sqlite'</span><span class="keyword">);<br /></span><span class="default">$stmt </span><span class="keyword">= </span><span class="default">$conn</span><span class="keyword">-&gt;</span><span class="default">prepare</span><span class="keyword">(</span><span class="string">'INSERT INTO my_table(my_id, my_value) VALUES(?, ?)'</span><span class="keyword">);<br /></span><span class="default">$waiting </span><span class="keyword">= </span><span class="default">true</span><span class="keyword">; </span><span class="comment">// Set a loop condition to test for<br /></span><span class="keyword">while(</span><span class="default">$waiting</span><span class="keyword">) {<br />    try {<br />        </span><span class="default">$conn</span><span class="keyword">-&gt;</span><span class="default">beginTransaction</span><span class="keyword">();<br />        for(</span><span class="default">$i</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">10</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++) {<br />            </span><span class="default">$stmt</span><span class="keyword">-&gt;</span><span class="default">bindValue</span><span class="keyword">(</span><span class="default">1</span><span class="keyword">, </span><span class="default">$i</span><span class="keyword">, </span><span class="default">PDO</span><span class="keyword">::</span><span class="default">PARAM_INT</span><span class="keyword">);<br />            </span><span class="default">$stmt</span><span class="keyword">-&gt;</span><span class="default">bindValue</span><span class="keyword">(</span><span class="default">2</span><span class="keyword">, </span><span class="string">'TEST'</span><span class="keyword">, </span><span class="default">PDO</span><span class="keyword">::</span><span class="default">PARAM_STR</span><span class="keyword">);<br />            </span><span class="default">$stmt</span><span class="keyword">-&gt;</span><span class="default">execute</span><span class="keyword">();<br />            </span><span class="default">sleep</span><span class="keyword">(</span><span class="default">1</span><span class="keyword">);<br />        }<br />        </span><span class="default">$conn</span><span class="keyword">-&gt;</span><span class="default">commit</span><span class="keyword">();<br />        </span><span class="default">$waiting </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;<br />    } catch(</span><span class="default">PDOException $e</span><span class="keyword">) {<br />        if(</span><span class="default">stripos</span><span class="keyword">(</span><span class="default">$e</span><span class="keyword">-&gt;</span><span class="default">getMessage</span><span class="keyword">(), </span><span class="string">'DATABASE IS LOCKED'</span><span class="keyword">) !== </span><span class="default">false</span><span class="keyword">) {<br />            </span><span class="comment">// This should be specific to SQLite, sleep for 0.25 seconds<br />            // and try again.  We do have to commit the open transaction first though<br />            </span><span class="default">$conn</span><span class="keyword">-&gt;</span><span class="default">commit</span><span class="keyword">();<br />            </span><span class="default">usleep</span><span class="keyword">(</span><span class="default">250000</span><span class="keyword">);<br />        } else {<br />            </span><span class="default">$conn</span><span class="keyword">-&gt;</span><span class="default">rollBack</span><span class="keyword">();<br />            throw </span><span class="default">$e</span><span class="keyword">;<br />        }<br />    }<br />}<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="98309">  <div class="votes">
+    <div id="Vu98309">
+    <a href="https://www.php.net/manual/vote-note.php?id=98309&amp;page=pdo.begintransaction&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd98309">
+    <a href="https://www.php.net/manual/vote-note.php?id=98309&amp;page=pdo.begintransaction&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V98309" title="65% like this...">
+    9
+    </div>
+  </div>
+  <a href="pdo.begintransaction.php.html#98309" class="name">
+  <strong class="user"><em>ludwig dot green at gmail dot com</em></strong></a><a class="genanchor" href="pdo.begintransaction.php.html#98309"> &para;</a><div class="date" title="2010-06-08 09:23"><strong>13 years ago</strong></div>
+  <div class="text" id="Hcom98309">
+<div class="phpcode"><code><span class="html">be aware that you also can not use TRUNCATE TABLE as this statement will trigger a commit just like CREATE TABLE or DROP TABLE<br /><br />it is best to only use SELECT, UPDATE and DELETE within a transaction, all other statements may cause commits thus breaking the atomicity of your transactions and their ability to rollback<br /><br />obviously you can use DELETE FROM &lt;table&gt; instead of TRUNCATE TABLE but be aware that there are differences between both statements, for example TRUNCATE resets the auto_increment value while DELETE does not.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="119975">  <div class="votes">
+    <div id="Vu119975">
+    <a href="https://www.php.net/manual/vote-note.php?id=119975&amp;page=pdo.begintransaction&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd119975">
+    <a href="https://www.php.net/manual/vote-note.php?id=119975&amp;page=pdo.begintransaction&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V119975" title="66% like this...">
+    3
+    </div>
+  </div>
+  <a href="pdo.begintransaction.php.html#119975" class="name">
+  <strong class="user"><em>cristian at crishk dot com</em></strong></a><a class="genanchor" href="pdo.begintransaction.php.html#119975"> &para;</a><div class="date" title="2016-10-01 10:12"><strong>7 years ago</strong></div>
+  <div class="text" id="Hcom119975">
+<div class="phpcode"><code><span class="html">OK I'm finding a solution for "NESTED" transactions in MySQL, and as you know in the MySQL documentation says that it's not possible to have transactions within transactions. I was trying to use the Database class propossed here in <a href="http://php.net/manual/en/pdo.begintransaction.php" rel="nofollow" target="_blank">http://php.net/manual/en/pdo.begintransaction.php</a> but unfortunately that's wrong for many things related to the control flow that I have been solved with the following code (LOOK THE EXAMPLE AT THE END, CarOwner)<br /><br /><span class="default">&lt;?php<br /><br /></span><span class="keyword">class </span><span class="default">TransactionController </span><span class="keyword">extends \</span><span class="default">\PDO </span><span class="keyword">{<br />    public static </span><span class="default">$warn_rollback_was_thrown </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;<br />    public static </span><span class="default">$transaction_rollbacked </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;<br />    public function </span><span class="default">__construct</span><span class="keyword">()<br />    {<br />        </span><span class="default">parent </span><span class="keyword">:: </span><span class="default">__construct</span><span class="keyword">( ... </span><span class="default">connection info </span><span class="keyword">... );<br />    }<br />    public static </span><span class="default">$nest </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br />    public function </span><span class="default">reset</span><span class="keyword">()<br />    {<br />        </span><span class="default">TransactionController </span><span class="keyword">:: </span><span class="default">$transaction_rollbacked </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;<br />        </span><span class="default">TransactionController </span><span class="keyword">:: </span><span class="default">$warn_rollback_was_thrown </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;<br />        </span><span class="default">TransactionController </span><span class="keyword">:: </span><span class="default">$nest </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br />    }<br />    function </span><span class="default">beginTransaction</span><span class="keyword">()<br />    {<br />        </span><span class="default">$result </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">;<br />        if (</span><span class="default">TransactionController </span><span class="keyword">:: </span><span class="default">$nest </span><span class="keyword">== </span><span class="default">0</span><span class="keyword">) {<br />            </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">reset</span><span class="keyword">();<br />            </span><span class="default">$result </span><span class="keyword">= </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">beginTransaction</span><span class="keyword">();<br />        }<br />        </span><span class="default">TransactionController </span><span class="keyword">:: </span><span class="default">$nest</span><span class="keyword">++;<br />        return </span><span class="default">$result</span><span class="keyword">;<br />    }<br /><br />    public function </span><span class="default">commit</span><span class="keyword">()<br />    {<br /><br />        </span><span class="default">$result </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">;<br /><br />        if (</span><span class="default">TransactionController </span><span class="keyword">:: </span><span class="default">$nest </span><span class="keyword">== </span><span class="default">0 </span><span class="keyword">&amp;&amp;<br />                !</span><span class="default">TransactionController </span><span class="keyword">:: </span><span class="default">$transaction_rollbacked </span><span class="keyword">&amp;&amp;<br />                !</span><span class="default">TransactionController </span><span class="keyword">:: </span><span class="default">$warn_rollback_was_thrown</span><span class="keyword">) {<br />                    </span><span class="default">$result </span><span class="keyword">= </span><span class="default">parent </span><span class="keyword">:: </span><span class="default">commit</span><span class="keyword">();<br />                }<br />                </span><span class="default">TransactionController </span><span class="keyword">:: </span><span class="default">$nest</span><span class="keyword">--;<br />                return </span><span class="default">$result</span><span class="keyword">;<br />    }<br /><br />    public function </span><span class="default">rollback</span><span class="keyword">()<br />    {<br />        </span><span class="default">$result </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">;<br />        if (</span><span class="default">TransactionController </span><span class="keyword">:: </span><span class="default">$nest </span><span class="keyword">&gt;= </span><span class="default">0</span><span class="keyword">) {<br />            if (</span><span class="default">TransactionController </span><span class="keyword">:: </span><span class="default">$nest </span><span class="keyword">== </span><span class="default">0</span><span class="keyword">) {<br />                </span><span class="default">$result </span><span class="keyword">= </span><span class="default">parent </span><span class="keyword">:: </span><span class="default">rollback</span><span class="keyword">();<br />                </span><span class="default">TransactionController </span><span class="keyword">:: </span><span class="default">$transaction_rollbacked </span><span class="keyword">= </span><span class="default">true</span><span class="keyword">;<br />            }<br />            else {<br />                </span><span class="default">TransactionController  </span><span class="keyword">:: </span><span class="default">$warn_rollback_was_thrown </span><span class="keyword">= </span><span class="default">true</span><span class="keyword">;<br />            }<br />        }<br />        </span><span class="default">TransactionController </span><span class="keyword">:: </span><span class="default">$nest</span><span class="keyword">--;<br />        return </span><span class="default">$result</span><span class="keyword">;<br />    }<br /><br />    public function </span><span class="default">transactionFailed</span><span class="keyword">()<br />    {<br />        return </span><span class="default">TransactionController </span><span class="keyword">:: </span><span class="default">$warn_rollback_was_thrown </span><span class="keyword">=== </span><span class="default">true</span><span class="keyword">;<br />    }<br />    </span><span class="comment">// to force rollback you can only do it from $nest = 0<br />    </span><span class="keyword">public function </span><span class="default">forceRollback</span><span class="keyword">()<br />    {<br />        if (</span><span class="default">TransactionController </span><span class="keyword">:: </span><span class="default">$nest </span><span class="keyword">=== </span><span class="default">0</span><span class="keyword">) {<br />            </span><span class="default">throws </span><span class="keyword">new </span><span class="default">\PDOException</span><span class="keyword">();<br />        }<br />    }<br />}<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="116245">  <div class="votes">
+    <div id="Vu116245">
+    <a href="https://www.php.net/manual/vote-note.php?id=116245&amp;page=pdo.begintransaction&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd116245">
+    <a href="https://www.php.net/manual/vote-note.php?id=116245&amp;page=pdo.begintransaction&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V116245" title="61% like this...">
+    3
+    </div>
+  </div>
+  <a href="pdo.begintransaction.php.html#116245" class="name">
+  <strong class="user"><em>eddi13</em></strong></a><a class="genanchor" href="pdo.begintransaction.php.html#116245"> &para;</a><div class="date" title="2014-11-28 09:16"><strong>9 years ago</strong></div>
+  <div class="text" id="Hcom116245">
+<div class="phpcode"><code><span class="html">after TRUNCATE TABLE `table`  just as DELETE FROM `table`, so if whole table was deleted, aborts the transaction. And the rollback will not be passible.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="85211">  <div class="votes">
+    <div id="Vu85211">
+    <a href="https://www.php.net/manual/vote-note.php?id=85211&amp;page=pdo.begintransaction&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd85211">
+    <a href="https://www.php.net/manual/vote-note.php?id=85211&amp;page=pdo.begintransaction&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V85211" title="57% like this...">
+    3
+    </div>
+  </div>
+  <a href="pdo.begintransaction.php.html#85211" class="name">
+  <strong class="user"><em>dbeecher at tekops dot com</em></strong></a><a class="genanchor" href="pdo.begintransaction.php.html#85211"> &para;</a><div class="date" title="2008-08-20 09:21"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom85211">
+<div class="phpcode"><code><span class="html">// If you need to set an ISOLATION level or LOCK MODE it needs to be done BEFORE you make the BeginTransaction() call...<br />//<br />//  **note** you should always check result codes on operations and do error handling.  This sample code<br />//  assumes all the calls work so that the order of operations is accurate and easy to see<br />//<br />//  THIS IS using the PECL PDO::INFORMIX module, running on fedora core 6, php 5.2.4<br />//<br />//    This is the correct way to address an informix -243 error (could not position within table) when there<br />//    is no ISAM error indicating a table corruption.  A -243 can happen (if the table/indexes, etc., are ok) <br />//    if a row is locked.  The code below sets the LOCK MODE to wait 2 minutes (120 seconds) before<br />//    giving up.  In this example you get READ COMMITTED rows, if you don't need read committed<br />//    but just need to get whatever data is there (ignoring locked rows, etc.) instead of<br />//    "SET LOCK MODE TO WAIT 120" you could "SET ISOLATION TO DIRTY READ".<br />//<br />//    In informix you *must* manage how you do reads because it is very easy to trigger a<br />//    lock table overflow (which downs the instance) if you have lots of rows, are using joins<br />//    and have many updates happening.  <br />//<br /><br />// e.g.,<br /><br />$sql= "SELECT FIRST 50 * FROM mytable WHERE mystuff=1 ORDER BY myid";                    /* define SQL query */<br /><br />try                                                                                /* create an exception handler */<br />    {<br />    $dbh = new PDO("informix:host=......");<br />         <br />    if ($dbh)    /* did we connect? */<br />        {<br />        $dbh-&gt;setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);<br />        $dbh-&gt;query("SET LOCK MODE TO WAIT 120")<br />        <br />        # ----------------<br />        # open transaction cursor<br />        # ----------------<br />        if    ( $dbh-&gt;beginTransaction() )                                         # explicitly open cursor<br />            {<br />            try    /* open exception handler */<br />                {<br />                $stmt = $dbh-&gt;prepare($sql, array(PDO::ATTR_CURSOR =&gt; PDO::CURSOR_SCROLL));<br /><br />                $stmt-&gt;execute();<br />                <br />                while ($row = $stmt-&gt;fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT))<br />                    {<br />                    $data = $row[0] . "\t" . $row[1] . "\t" . $row[2] . "\t" . $row[3] . "\t" . $row[4] . "\t" . $row[5] . "\t" . $row[6] . "\t" . $row[7] . "\n" . $row[8] ;<br />                    //print $data;<br />                    print_r($row);<br />                    };<br />                <br />                $stmt = null;<br />                }<br />            catch (PDOException $e)<br />                {<br />                print "Query Failed!\n\n";<br />                <br />                print "DBA FAIL:" . $e-&gt;getMessage();<br />                };<br />            <br />            $dbh-&gt;rollback();                                                       # abort any changes (ie. $dbh-&gt;commit()<br />            $dbh = null;                                                            # close connection<br />            }<br />        else<br />            {<br />            # we should never get here, it should go to the exception handler<br />            print "Unable to establish connection...\n\n";<br />            };<br />        };<br />    }<br />catch (Exception $e)<br />    {<br />    $dbh-&gt;rollback();<br />    echo "Failed: " . $e-&gt;getMessage();<br />    };</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="95353">  <div class="votes">
+    <div id="Vu95353">
+    <a href="https://www.php.net/manual/vote-note.php?id=95353&amp;page=pdo.begintransaction&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd95353">
+    <a href="https://www.php.net/manual/vote-note.php?id=95353&amp;page=pdo.begintransaction&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V95353" title="55% like this...">
+    2
+    </div>
+  </div>
+  <a href="pdo.begintransaction.php.html#95353" class="name">
+  <strong class="user"><em>geompse at gmail dot com</em></strong></a><a class="genanchor" href="pdo.begintransaction.php.html#95353"> &para;</a><div class="date" title="2009-12-28 01:58"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom95353">
+<div class="phpcode"><code><span class="html">With Oracle, any structure statement will do an implicit commit.<br /><br />So : ALTER TABLE "my_table" DROP COLUMN "my_column";<br />Can't be rolled back !<br /><br />Hope this will save time for others</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="116262">  <div class="votes">
+    <div id="Vu116262">
+    <a href="https://www.php.net/manual/vote-note.php?id=116262&amp;page=pdo.begintransaction&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd116262">
+    <a href="https://www.php.net/manual/vote-note.php?id=116262&amp;page=pdo.begintransaction&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V116262" title="52% like this...">
+    1
+    </div>
+  </div>
+  <a href="pdo.begintransaction.php.html#116262" class="name">
+  <strong class="user"><em>Steel Brain</em></strong></a><a class="genanchor" href="pdo.begintransaction.php.html#116262"> &para;</a><div class="date" title="2014-12-03 12:39"><strong>9 years ago</strong></div>
+  <div class="text" id="Hcom116262">
+<div class="phpcode"><code><span class="html">The example is misleading, Typically data definition language clauses (DDL) will trigger the database engine to automatically commit. It means that if you drop a table, that query will be executed regardless of the transaction.<br />Ref-Mysql:<br />    <a href="http://dev.mysql.com/doc/refman/5.0/en/implicit-commit.html" rel="nofollow" target="_blank">http://dev.mysql.com/doc/refman/5.0/en/implicit-commit.html</a></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="114788">  <div class="votes">
+    <div id="Vu114788">
+    <a href="https://www.php.net/manual/vote-note.php?id=114788&amp;page=pdo.begintransaction&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd114788">
+    <a href="https://www.php.net/manual/vote-note.php?id=114788&amp;page=pdo.begintransaction&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V114788" title="51% like this...">
+    1
+    </div>
+  </div>
+  <a href="pdo.begintransaction.php.html#114788" class="name">
+  <strong class="user"><em>arth dot inbox at mail dot ru</em></strong></a><a class="genanchor" href="pdo.begintransaction.php.html#114788"> &para;</a><div class="date" title="2014-04-07 08:53"><strong>9 years ago</strong></div>
+  <div class="text" id="Hcom114788">
+<div class="phpcode"><code><span class="html">Strange behavior with pdo_firebird driver:<br /><br /><span class="default">&lt;?php<br />$dbh </span><span class="keyword">= new </span><span class="default">PDO </span><span class="keyword">(</span><span class="string">''</span><span class="keyword">,</span><span class="string">''</span><span class="keyword">,</span><span class="string">''</span><span class="keyword">,array( </span><span class="default">PDO </span><span class="keyword">:: </span><span class="default">ATTR_PERSISTENT</span><span class="keyword">=&gt;</span><span class="default">true</span><span class="keyword">));<br /></span><span class="default">$dbh</span><span class="keyword">-&gt;</span><span class="default">setAttribute</span><span class="keyword">(</span><span class="default">PDO</span><span class="keyword">::</span><span class="default">ATTR_ERRMODE</span><span class="keyword">,</span><span class="default">PDO</span><span class="keyword">::</span><span class="default">ERRMODE_EXCEPTION </span><span class="keyword">); <br /></span><span class="default">$dbh </span><span class="keyword">-&gt; </span><span class="default">exec </span><span class="keyword">( </span><span class="string">"select 1;" </span><span class="keyword">); </span><span class="comment">//should be autocommitted<br /></span><span class="keyword">try<br />{ <br />   </span><span class="comment">//$dbh-&gt;commit/rollback here fixes the issue;<br />   </span><span class="default">$dbh </span><span class="keyword">-&gt; </span><span class="default">beginTransaction </span><span class="keyword">(); </span><span class="comment">// &lt;- fails "with there is already an active transaction"<br />   </span><span class="default">$dbh </span><span class="keyword">-&gt; </span><span class="default">exec </span><span class="keyword">( </span><span class="string">"select 1;" </span><span class="keyword">); <br />   </span><span class="default">$dbh </span><span class="keyword">-&gt; </span><span class="default">commit </span><span class="keyword">(); <br />}<br />catch ( </span><span class="default">Exception $e </span><span class="keyword">)<br />{ <br />  </span><span class="default">$dbh </span><span class="keyword">-&gt; </span><span class="default">rollBack </span><span class="keyword">(); <br /> } <br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="79942">  <div class="votes">
+    <div id="Vu79942">
+    <a href="https://www.php.net/manual/vote-note.php?id=79942&amp;page=pdo.begintransaction&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd79942">
+    <a href="https://www.php.net/manual/vote-note.php?id=79942&amp;page=pdo.begintransaction&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V79942" title="38% like this...">
+    -4
+    </div>
+  </div>
+  <a href="pdo.begintransaction.php.html#79942" class="name">
+  <strong class="user"><em>Anonymous</em></strong></a><a class="genanchor" href="pdo.begintransaction.php.html#79942"> &para;</a><div class="date" title="2007-12-20 07:04"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom79942">
+<div class="phpcode"><code><span class="html">beginTransaction will through a PDOException if you execute it while a PDO transaction is already active.  Additionally the PDO engine doesn't seem to provide any way of determining if there is a transaction "in flight" so if you might be calling a function from within another function that starts a transaction you'll have to wrap the beginTransaction () call in a try .. catch block.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="113602">  <div class="votes">
+    <div id="Vu113602">
+    <a href="https://www.php.net/manual/vote-note.php?id=113602&amp;page=pdo.begintransaction&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd113602">
+    <a href="https://www.php.net/manual/vote-note.php?id=113602&amp;page=pdo.begintransaction&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V113602" title="37% like this...">
+    -13
+    </div>
+  </div>
+  <a href="pdo.begintransaction.php.html#113602" class="name">
+  <strong class="user"><em>mtjo62 at gmail dot com</em></strong></a><a class="genanchor" href="pdo.begintransaction.php.html#113602"> &para;</a><div class="date" title="2013-11-03 11:22"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom113602">
+<div class="phpcode"><code><span class="html">For the PDO driver for the  Firebird server, you have to explicitly disable autocommit to initiate the  transaction as well as explicitly enable autocommit to commit it.<br /><br />$dbh-&gt;setAttribute( PDO::ATTR_AUTOCOMMIT, 0 );<br />$dbh-&gt;beginTransaction();<br /><br />/** Query block */<br /><br />$dbh-&gt;commit();<br />$dbh-&gt;setAttribute( PDO::ATTR_AUTOCOMMIT, 1 );</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="120178">  <div class="votes">
+    <div id="Vu120178">
+    <a href="https://www.php.net/manual/vote-note.php?id=120178&amp;page=pdo.begintransaction&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd120178">
+    <a href="https://www.php.net/manual/vote-note.php?id=120178&amp;page=pdo.begintransaction&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V120178" title="16% like this...">
+    -8
+    </div>
+  </div>
+  <a href="pdo.begintransaction.php.html#120178" class="name">
+  <strong class="user"><em>sasi dot viragelet at gmail dot com</em></strong></a><a class="genanchor" href="pdo.begintransaction.php.html#120178"> &para;</a><div class="date" title="2016-11-17 09:29"><strong>7 years ago</strong></div>
+  <div class="text" id="Hcom120178">
+<div class="phpcode"><code><span class="html">When transaction gets your enemy:<br /><br />try {<br /><br />$pdo-&gt;beginTransaction();<br /><br />// ... whatever db actions you have and then:<br /><br />$sql_insert = 'INSERT INTO a (a_id, a_name, a_date)<br />  VALUES (:a_id, :a_name CURRENT_TIMESTAMP)';<br /><br />  $stmt = $pdo-&gt;prepare($sql_insert);<br /><br />  $stmt-&gt;bindValue(':_id', $id);<br />  $stmt-&gt;bindValue(':a_name', $name);<br /><br />  $stmt-&gt;execute();<br /><br />  $pdo-&gt;commit();<br /><br />} catch (\PDOException $e) {<br /><br />  $pdo-&gt;rollBack();<br /><br />  http_response_code(500);<br />  header("Content-type: text/plain");<br />  echo $e;<br />  exit();<br /><br />}<br /><br />Notice the sytax error? There's a missing comma that just slips through every gate of surveillance:<br /><br />"...UES (:a_id, :a_name CURR..." :: between the to be binded value and current timestamp command. The missing comma will not generate any error no syntax error, no database error. Though this record will never or partially make it. This will just silently fail. The story gets rough if you build your other dependencies on the transactions unmovable foot-stones of trust.<br /><br />Just imagine you have some basic records in your transaction that you really wanna ensure ends up correctly in your db. And these records have a foreign constraint relation with another record. (That of course if you'd include in the transaction would throw you a big red error(–for who don't get it: transaction will first attempt to write everything into a temporary place, where it will get checked before everything gets into its permanent place, so constraints cannot be checked for something that don't exist yet.)) So you have a constraint that's based on the trust PDO will throw an error if something gets screwed, so what, you'll just place that insertion after the commit was successful. (Without any doublecheck.)<br /><br />What happens you will get some partial records in your database without a relation that just might be important. You will that way be able to build up very sophisticated strange behaviours in your application. So pay attention!</span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=pdo.begintransaction&amp;redirect=https://www.php.net/manual/ru/pdo.begintransaction.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="class.pdo.php.html">PDO</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="current">
+                            <a href="pdo.begintransaction.php.html" title="beginTransaction">beginTransaction</a>
+                        </li>
+                                                <li class="">
+                            <a href="pdo.commit.php.html" title="commit">commit</a>
+                        </li>
+                                                <li class="">
+                            <a href="pdo.construct.php.html" title="_&#8203;_&#8203;construct">_&#8203;_&#8203;construct</a>
+                        </li>
+                                                <li class="">
+                            <a href="pdo.errorcode.php.html" title="errorCode">errorCode</a>
+                        </li>
+                                                <li class="">
+                            <a href="pdo.errorinfo.php.html" title="errorInfo">errorInfo</a>
+                        </li>
+                                                <li class="">
+                            <a href="pdo.exec.php.html" title="exec">exec</a>
+                        </li>
+                                                <li class="">
+                            <a href="pdo.getattribute.php.html" title="getAttribute">getAttribute</a>
+                        </li>
+                                                <li class="">
+                            <a href="pdo.getavailabledrivers.php.html" title="getAvailableDrivers">getAvailableDrivers</a>
+                        </li>
+                                                <li class="">
+                            <a href="pdo.intransaction.php.html" title="inTransaction">inTransaction</a>
+                        </li>
+                                                <li class="">
+                            <a href="pdo.lastinsertid.php.html" title="lastInsertId">lastInsertId</a>
+                        </li>
+                                                <li class="">
+                            <a href="pdo.prepare.php.html" title="prepare">prepare</a>
+                        </li>
+                                                <li class="">
+                            <a href="pdo.query.php.html" title="query">query</a>
+                        </li>
+                                                <li class="">
+                            <a href="pdo.quote.php.html" title="quote">quote</a>
+                        </li>
+                                                <li class="">
+                            <a href="pdo.rollback.php.html" title="rollBack">rollBack</a>
+                        </li>
+                                                <li class="">
+                            <a href="pdo.setattribute.php.html" title="setAttribute">setAttribute</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

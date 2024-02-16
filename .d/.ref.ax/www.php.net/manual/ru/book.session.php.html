@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: Сессии - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="book.session.php.html">
+ <link rel="shorturl" href="https://www.php.net/session">
+ <link rel="alternate" href="https://www.php.net/session" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="refs.basic.session.php.html">
+ <link rel="prev" href="refs.basic.session.php.html">
+ <link rel="next" href="intro.session.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/book.session.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/book.session.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/book.session.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/book.session.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/book.session.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/book.session.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/book.session.php" hreflang="pt_BR">
+ <link rel="alternate" href="book.session.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/book.session.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/book.session.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="intro.session.php.html">
+          Введение &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="refs.basic.session.php.html">
+          &laquo; Модули для работы с сессиями        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.basic.session.php.html'>Модули для работы с сессиями</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/book.session.php'>English</option>
+            <option value='de/book.session.php'>German</option>
+            <option value='es/book.session.php'>Spanish</option>
+            <option value='fr/book.session.php'>French</option>
+            <option value='it/book.session.php'>Italian</option>
+            <option value='ja/book.session.php'>Japanese</option>
+            <option value='pt_BR/book.session.php'>Brazilian Portuguese</option>
+            <option value='ru/book.session.php' selected="selected">Russian</option>
+            <option value='tr/book.session.php'>Turkish</option>
+            <option value='zh/book.session.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/session/book.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Fbook.session%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="book.session" class="book">
+ 
+ <h1 class="title">Управление сессиями</h1>
+ 
+
+ 
+ 
+ 
+
+ 
+
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+<ul class="chunklist chunklist_book"><li><a href="intro.session.php.html">Введение</a></li><li><a href="session.setup.php.html">Установка и настройка</a><ul class="chunklist chunklist_book chunklist_children"><li><a href="session.requirements.php.html">Требования</a></li><li><a href="session.installation.php.html">Установка</a></li><li><a href="session.configuration.php.html">Настройка во время выполнения</a></li><li><a href="session.resources.php.html">Типы ресурсов</a></li></ul></li><li><a href="session.constants.php.html">Предопределённые константы</a></li><li><a href="session.examples.php.html">Примеры</a><ul class="chunklist chunklist_book chunklist_children"><li><a href="session.examples.basic.php.html">Основы использования</a></li><li><a href="session.idpassing.php.html">Передача идентификатора сессии</a></li><li><a href="session.customhandler.php.html">Пользовательские обработчики сессии</a></li></ul></li><li><a href="session.upload-progress.php.html">Отслеживание прогресса загрузки файлов с помощью сессий</a></li><li><a href="session.security.php.html">Безопасность сессий</a><ul class="chunklist chunklist_book chunklist_children"><li><a href="features.session.security.management.php.html">Базовые принципы управления сессиями</a></li><li><a href="session.security.ini.php.html">INI-настройки безопасности сессий</a></li></ul></li><li><a href="ref.session.php.html">Функции для работы с сессиями</a><ul class="chunklist chunklist_book chunklist_children"><li><a href="function.session-abort.php.html">session_abort</a> — Отменяет изменения в массиве сессии и завершает её</li><li><a href="function.session-cache-expire.php.html">session_cache_expire</a> — Получает и/или устанавливает срок действия текущего кеша</li><li><a href="function.session-cache-limiter.php.html">session_cache_limiter</a> — Получить и/или установить текущий режим кеширования</li><li><a href="function.session-commit.php.html">session_commit</a> — Псевдоним session_write_close</li><li><a href="function.session-create-id.php.html">session_create_id</a> — Создаёт новый идентификатор сессии</li><li><a href="function.session-decode.php.html">session_decode</a> — Декодирует данные сессии из закодированной строки сессии</li><li><a href="function.session-destroy.php.html">session_destroy</a> — Уничтожает все данные сессии</li><li><a href="function.session-encode.php.html">session_encode</a> — Кодирует данные текущей сессии в формате строки сессии</li><li><a href="function.session-gc.php.html">session_gc</a> — Выполняет сборку мусора данных сессии</li><li><a href="function.session-get-cookie-params.php.html">session_get_cookie_params</a> — Возвращает параметры cookie сессии</li><li><a href="function.session-id.php.html">session_id</a> — Получает и/или устанавливает идентификатор текущей сессии</li><li><a href="function.session-module-name.php.html">session_module_name</a> — Возвращает и/или устанавливает модуль текущей сессии</li><li><a href="function.session-name.php.html">session_name</a> — Получить или установить имя текущей сессии</li><li><a href="function.session-regenerate-id.php.html">session_regenerate_id</a> — Генерирует и обновляет идентификатор текущей сессии</li><li><a href="function.session-register-shutdown.php.html">session_register_shutdown</a> — Функция завершения сессии</li><li><a href="function.session-reset.php.html">session_reset</a> — Реинициализирует сессию оригинальными значениями</li><li><a href="function.session-save-path.php.html">session_save_path</a> — Получает и/или устанавливает путь сохранения сессии</li><li><a href="function.session-set-cookie-params.php.html">session_set_cookie_params</a> — Устанавливает параметры сессионной cookie</li><li><a href="function.session-set-save-handler.php.html">session_set_save_handler</a> — Устанавливает пользовательские обработчики хранения сессии</li><li><a href="function.session-start.php.html">session_start</a> — Стартует новую сессию, либо возобновляет существующую</li><li><a href="function.session-status.php.html">session_status</a> — Возвращает состояние текущей сессии</li><li><a href="function.session-unset.php.html">session_unset</a> — Удалить все переменные сессии</li><li><a href="function.session-write-close.php.html">session_write_close</a> — Записывает данные сессии и завершает её</li></ul></li><li><a href="class.sessionhandler.php.html">SessionHandler</a> — Класс SessionHandler<ul class="chunklist chunklist_book chunklist_children"><li><a href="sessionhandler.close.php.html">SessionHandler::close</a> — Закрывает сессию</li><li><a href="sessionhandler.create-sid.php.html">SessionHandler::create_sid</a> — Возвращает новый идентификатор сессии</li><li><a href="sessionhandler.destroy.php.html">SessionHandler::destroy</a> — Уничтожает сессию</li><li><a href="sessionhandler.gc.php.html">SessionHandler::gc</a> — Очищает старые сессии</li><li><a href="sessionhandler.open.php.html">SessionHandler::open</a> — Инициализирует сессию</li><li><a href="sessionhandler.read.php.html">SessionHandler::read</a> — Считывает данные сессии</li><li><a href="sessionhandler.write.php.html">SessionHandler::write</a> — Записывает данные сессии</li></ul></li><li><a href="class.sessionhandlerinterface.php.html">SessionHandlerInterface</a> — Класс SessionHandlerInterface<ul class="chunklist chunklist_book chunklist_children"><li><a href="sessionhandlerinterface.close.php.html">SessionHandlerInterface::close</a> — Закрывает сессию</li><li><a href="sessionhandlerinterface.destroy.php.html">SessionHandlerInterface::destroy</a> — Уничтожает сессию</li><li><a href="sessionhandlerinterface.gc.php.html">SessionHandlerInterface::gc</a> — Очищает старые сессии</li><li><a href="sessionhandlerinterface.open.php.html">SessionHandlerInterface::open</a> — Инициализирует сессию</li><li><a href="sessionhandlerinterface.read.php.html">SessionHandlerInterface::read</a> — Читает данные сессии</li><li><a href="sessionhandlerinterface.write.php.html">SessionHandlerInterface::write</a> — Записать данные сессии</li></ul></li><li><a href="class.sessionidinterface.php.html">SessionIdInterface</a> — Интерфейс SessionIdInterface<ul class="chunklist chunklist_book chunklist_children"><li><a href="sessionidinterface.create-sid.php.html">SessionIdInterface::create_sid</a> — Создать идентификатор сессии</li></ul></li><li><a href="class.sessionupdatetimestamphandlerinterface.php.html">SessionUpdateTimestampHandlerInterface</a> — Интерфейс SessionUpdateTimestampHandlerInterface<ul class="chunklist chunklist_book chunklist_children"><li><a href="sessionupdatetimestamphandlerinterface.updatetimestamp.php.html">SessionUpdateTimestampHandlerInterface::updateTimestamp</a> — Обновить метку времени</li><li><a href="sessionupdatetimestamphandlerinterface.validateid.php.html">SessionUpdateTimestampHandlerInterface::validateId</a> — Проверить идентификатор</li></ul></li></ul></div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=book.session&amp;redirect=https://www.php.net/manual/ru/book.session.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">1 note</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="90351">  <div class="votes">
+    <div id="Vu90351">
+    <a href="https://www.php.net/manual/vote-note.php?id=90351&amp;page=book.session&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd90351">
+    <a href="https://www.php.net/manual/vote-note.php?id=90351&amp;page=book.session&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V90351" title="51% like this...">
+    10
+    </div>
+  </div>
+  <a href="book.session.php.html#90351" class="name">
+  <strong class="user"><em>e dot mortoray at ecircle dot com</em></strong></a><a class="genanchor" href="book.session.php.html#90351"> &para;</a><div class="date" title="2009-04-17 05:02"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom90351">
+<div class="phpcode"><code><span class="html">There is a nuance we found with session timing out although the user is still active in the session.  The problem has to do with never modifying the session variable.<br /><br />The GC will clear the session data files based on their last modification time.  Thus if you never modify the session, you simply read from it, then the GC will eventually clean up.<br /><br />To prevent this you need to ensure that your session is modified within the GC delete time.  You can accomplish this like below.<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">if( !isset(</span><span class="default">$_SESSION</span><span class="keyword">[</span><span class="string">'last_access'</span><span class="keyword">]) || (</span><span class="default">time</span><span class="keyword">() - </span><span class="default">$_SESSION</span><span class="keyword">[</span><span class="string">'last_access'</span><span class="keyword">]) &gt; </span><span class="default">60 </span><span class="keyword">)<br />  </span><span class="default">$_SESSION</span><span class="keyword">[</span><span class="string">'last_access'</span><span class="keyword">] = </span><span class="default">time</span><span class="keyword">();<br /></span><span class="default">?&gt;<br /></span><br />This will update the session every 60s to ensure that the modification date is altered.</span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=book.session&amp;redirect=https://www.php.net/manual/ru/book.session.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="refs.basic.session.php.html">Модули для работы с сессиями</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="current">
+                            <a href="book.session.php.html" title="Сессии">Сессии</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

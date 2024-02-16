@@ -1,0 +1,1933 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: Настройка во время выполнения - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="opcache.configuration.php.html">
+ <link rel="shorturl" href="opcache.configuration.php.html">
+ <link rel="alternate" href="opcache.configuration.php.html" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="opcache.setup.php.html">
+ <link rel="prev" href="opcache.installation.php.html">
+ <link rel="next" href="opcache.resources.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/opcache.configuration.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/opcache.configuration.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/opcache.configuration.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/opcache.configuration.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/opcache.configuration.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/opcache.configuration.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/opcache.configuration.php" hreflang="pt_BR">
+ <link rel="alternate" href="opcache.configuration.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/opcache.configuration.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/opcache.configuration.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="opcache.resources.php.html">
+          Типы ресурсов &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="opcache.installation.php.html">
+          &laquo; Установка        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.basic.php.php.html'>Изменение поведения PHP</a></li>      <li><a href='book.opcache.php.html'>OPcache</a></li>      <li><a href='opcache.setup.php.html'>Установка и настройка</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/opcache.configuration.php'>English</option>
+            <option value='de/opcache.configuration.php'>German</option>
+            <option value='es/opcache.configuration.php'>Spanish</option>
+            <option value='fr/opcache.configuration.php'>French</option>
+            <option value='it/opcache.configuration.php'>Italian</option>
+            <option value='ja/opcache.configuration.php'>Japanese</option>
+            <option value='pt_BR/opcache.configuration.php'>Brazilian Portuguese</option>
+            <option value='ru/opcache.configuration.php' selected="selected">Russian</option>
+            <option value='tr/opcache.configuration.php'>Turkish</option>
+            <option value='zh/opcache.configuration.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/opcache/ini.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Fopcache.configuration%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="opcache.configuration" class="sect1">
+ <h2 class="title">Настройка во время выполнения</h2>
+ <p class="simpara">
+Поведение этих функций зависит от установок в <var class="filename">php.ini</var>.
+</p>
+ <p class="para">
+  <table class="doctable table">
+   <caption><strong>Опции настройки OPcache</strong></caption>
+   
+    <thead>
+     <tr>
+      <th>Имя</th>
+      <th>По умолчанию</th>
+      <th>Место изменения</th>
+      <th>Список изменений</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.enable" class="link">opcache.enable</a></td>
+      <td>&quot;1&quot;</td>
+      <td><strong><code>INI_ALL</code></strong></td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.enable-cli" class="link">opcache.enable_cli</a></td>
+      <td>&quot;0&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td>В версиях с PHP 7.1.2 по 7.1.6 включительно, значение по умолчанию &quot;1&quot; (включено)</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.memory-consumption" class="link">opcache.memory_consumption</a></td>
+      <td>&quot;128&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.interned-strings-buffer" class="link">opcache.interned_strings_buffer</a></td>
+      <td>&quot;8&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.max-accelerated-files" class="link">opcache.max_accelerated_files</a></td>
+      <td>&quot;10000&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.max-wasted-percentage" class="link">opcache.max_wasted_percentage</a></td>
+      <td>&quot;5&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.use-cwd" class="link">opcache.use_cwd</a></td>
+      <td>&quot;1&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.validate-timestamps" class="link">opcache.validate_timestamps</a></td>
+      <td>&quot;1&quot;</td>
+      <td><strong><code>INI_ALL</code></strong></td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.revalidate-freq" class="link">opcache.revalidate_freq</a></td>
+      <td>&quot;2&quot;</td>
+      <td><strong><code>INI_ALL</code></strong></td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.revalidate-path" class="link">opcache.revalidate_path</a></td>
+      <td>&quot;0&quot;</td>
+      <td><strong><code>INI_ALL</code></strong></td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.save-comments" class="link">opcache.save_comments</a></td>
+      <td>&quot;1&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.fast-shutdown" class="link">opcache.fast_shutdown</a></td>
+      <td>&quot;0&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.enable-file-override" class="link">opcache.enable_file_override</a></td>
+      <td>&quot;0&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.optimization-level" class="link">opcache.optimization_level</a></td>
+      <td>&quot;0x7FFEBFFF&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td>До PHP 7.3.0 было 0x7FFFBFFF</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.inherited-hack" class="link">opcache.inherited_hack</a></td>
+      <td>&quot;1&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td>Удалено в PHP 7.3.0</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.dups-fix" class="link">opcache.dups_fix</a></td>
+      <td>&quot;0&quot;</td>
+      <td><strong><code>INI_ALL</code></strong></td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.blacklist-filename" class="link">opcache.blacklist_filename</a></td>
+      <td>&quot;&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.max-file-size" class="link">opcache.max_file_size</a></td>
+      <td>&quot;0&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.consistency-checks" class="link">opcache.consistency_checks</a></td>
+      <td>&quot;0&quot;</td>
+      <td><strong><code>INI_ALL</code></strong></td>
+      <td>Недоступно с PHP 8.1.18 и 8.2.5. Удалено в PHP 8.3.0.</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.force-restart-timeout" class="link">opcache.force_restart_timeout</a></td>
+      <td>&quot;180&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.error-log" class="link">opcache.error_log</a></td>
+      <td>&quot;&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.log-verbosity-level" class="link">opcache.log_verbosity_level</a></td>
+      <td>&quot;1&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.record-warnings" class="link">opcache.record_warnings</a></td>
+      <td>&quot;0&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td>Доступно с PHP 8.0.0.</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.preferred-memory-model" class="link">opcache.preferred_memory_model</a></td>
+      <td>&quot;&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.protect-memory" class="link">opcache.protect_memory</a></td>
+      <td>&quot;0&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.mmap-base" class="link">opcache.mmap_base</a></td>
+      <td><strong><code>null</code></strong></td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.restrict-api" class="link">opcache.restrict_api</a></td>
+      <td>&quot;&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.file_update_protection" class="link">opcache.file_update_protection</a></td>
+      <td>&quot;2&quot;</td>
+      <td><strong><code>INI_ALL</code></strong></td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.huge_code_pages" class="link">opcache.huge_code_pages</a></td>
+      <td>&quot;0&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.lockfile_path" class="link">opcache.lockfile_path</a></td>
+      <td>&quot;/tmp&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.opt_debug_level" class="link">opcache.opt_debug_level</a></td>
+      <td>&quot;0&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td>Доступно с PHP 7.1.0</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.file-cache" class="link">opcache.file_cache</a></td>
+      <td>NULL</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.file-cache-only" class="link">opcache.file_cache_only</a></td>
+      <td>&quot;0&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.file-cache-consistency-checks" class="link">opcache.file_cache_consistency_checks</a></td>
+      <td>&quot;1&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.file-cache-fallback" class="link">opcache.file_cache_fallback</a></td>
+      <td>&quot;1&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.validate-permission" class="link">opcache.validate_permission</a></td>
+      <td>&quot;0&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td>Доступно с PHP 7.0.14</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.validate-root" class="link">opcache.validate_root</a></td>
+      <td>&quot;0&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td>Доступно с PHP 7.0.14</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.preload" class="link">opcache.preload</a></td>
+      <td>&quot;&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td>Доступно с PHP 7.4.0</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.preload-user" class="link">opcache.preload_user</a></td>
+      <td>&quot;&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td>Доступно с PHP 7.4.0</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.cache-id" class="link">opcache.cache_id</a></td>
+      <td>&quot;&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td>Только в Windows. Доступно с PHP 7.4.0</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.jit" class="link">opcache.jit</a></td>
+      <td>&quot;tracing&quot;</td>
+      <td><strong><code>INI_ALL</code></strong></td>
+      <td>Доступно с PHP 8.0.0</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.jit-buffer-size" class="link">opcache.jit_buffer_size</a></td>
+      <td>&quot;0&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td>Доступно с PHP 8.0.0</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.jit-debug" class="link">opcache.jit_debug</a></td>
+      <td>&quot;0&quot;</td>
+      <td><strong><code>INI_ALL</code></strong></td>
+      <td>Доступно с PHP 8.0.0</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.jit-bisect-limit" class="link">opcache.jit_bisect_limit</a></td>
+      <td>&quot;0&quot;</td>
+      <td><strong><code>INI_ALL</code></strong></td>
+      <td>Доступно с PHP 8.0.0</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.jit-prof-threshold" class="link">opcache.jit_prof_threshold</a></td>
+      <td>&quot;0.005&quot;</td>
+      <td><strong><code>INI_ALL</code></strong></td>
+      <td>Доступно с PHP 8.0.0</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.jit-max-root-traces" class="link">opcache.jit_max_root_traces</a></td>
+      <td>&quot;1024&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td>Доступно с PHP 8.0.0</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.jit-max-side-traces" class="link">opcache.jit_max_side_traces</a></td>
+      <td>&quot;128&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td>Доступно с PHP 8.0.0</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.jit-max-exit-counters" class="link">opcache.jit_max_exit_counters</a></td>
+      <td>&quot;8192&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td>Доступно с PHP 8.0.0</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.jit-hot-loop" class="link">opcache.jit_hot_loop</a></td>
+      <td>&quot;64&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td>Доступно с PHP 8.0.0</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.jit-hot-func" class="link">opcache.jit_hot_func</a></td>
+      <td>&quot;127&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td>Доступно с PHP 8.0.0</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.jit-hot-return" class="link">opcache.jit_hot_return</a></td>
+      <td>&quot;8&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td>Доступно с PHP 8.0.0</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.jit-hot-side-exit" class="link">opcache.jit_hot_side_exit</a></td>
+      <td>&quot;8&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td>Доступно с PHP 8.0.0</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.jit-blacklist-root-trace" class="link">opcache.jit_blacklist_root_trace</a></td>
+      <td>&quot;16&quot;</td>
+      <td><strong><code>INI_ALL</code></strong></td>
+      <td>Доступно с PHP 8.0.0</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.jit-blacklist-side-trace" class="link">opcache.jit_blacklist_side_trace</a></td>
+      <td>&quot;8&quot;</td>
+      <td><strong><code>INI_ALL</code></strong></td>
+      <td>Доступно с PHP 8.0.0</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.jit-max-loop-unrolls" class="link">opcache.jit_max_loop_unrolls</a></td>
+      <td>&quot;8&quot;</td>
+      <td><strong><code>INI_ALL</code></strong></td>
+      <td>Доступно с PHP 8.0.0</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.jit-max-recursive-calls" class="link">opcache.jit_max_recursive_calls</a></td>
+      <td>&quot;2&quot;</td>
+      <td><strong><code>INI_ALL</code></strong></td>
+      <td>Доступно с PHP 8.0.0</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.jit-max-recursive-return" class="link">opcache.jit_max_recursive_returns</a></td>
+      <td>&quot;2&quot;</td>
+      <td><strong><code>INI_ALL</code></strong></td>
+      <td>Доступно с PHP 8.0.0</td>
+     </tr>
+
+     <tr>
+      <td><a href="opcache.configuration.php.html#ini.opcache.jit-max-polymorphic-calls" class="link">opcache.jit_max_polymorphic_calls</a></td>
+      <td>&quot;2&quot;</td>
+      <td><strong><code>INI_ALL</code></strong></td>
+      <td>Доступно с PHP 8.0.0</td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
+  Дополнительная информация и описания режимов
+INI_* даны в разделе «<a href="configuration.changes.modes.php.html" class="xref">Места установки параметров конфигурации</a>».
+ </p>
+
+ <p class="para">Краткое разъяснение конфигурационных
+директив.</p>
+
+ <p class="para">
+  <dl>
+   
+    <dt id="ini.opcache.enable">
+     <code class="parameter">opcache.enable</code>
+     <span class="type">bool</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Разрешает кеширование опкодов. Если запрещено, код не будет оптимизироваться
+      и кешироваться. Опцию <code class="literal">opcache.enable</code> нельзя включить во
+      время исполнения с помощью <span class="function"><a href="function.ini-set.php.html" class="function">ini_set()</a></span>, но можно выключить.
+      Попытка включить её таким образом приведёт к генерации предупреждения.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.enable-cli">
+     <code class="parameter">opcache.enable_cli</code>
+     <span class="type">bool</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Разрешает кеширование опкодов для CLI-версии PHP.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.memory-consumption">
+     <code class="parameter">opcache.memory_consumption</code>
+     <span class="type">int</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Размер разделяемой памяти в мегабайтах для OPcache.
+      Минимально допустимое значение — <code class="literal">&quot;8&quot;</code>,
+      которое применяется, если установлено меньшее значение.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.interned-strings-buffer">
+     <code class="parameter">opcache.interned_strings_buffer</code>
+     <span class="type">int</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Количество памяти в мегабайтах для хранения интернированных строк.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.max-accelerated-files">
+     <code class="parameter">opcache.max_accelerated_files</code>
+     <span class="type">int</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Максимальное количество ключей (и, соответственно, скриптов) в хеш-таблице
+      OPcache. Фактическое используемое значение будет первым числом из набора
+      <code class="literal">{ 223, 463, 983, 1979, 3907, 7963, 16229, 32531, 65407, 130987, 262237, 524521, 1048793 }</code>,
+      которое больше или равно заданному в этом параметре.
+      Минимум 200, максимум 1000000.
+      Значения за пределами этого диапазона ограничены до допустимого диапазона.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.max-wasted-percentage">
+     <code class="parameter">opcache.max_wasted_percentage</code>
+     <span class="type">int</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Максимальное значение потерянной памяти (в процентах) после которого планируется
+      перезапуск, если недостаточно свободной памяти.
+      Максимально допустимое значение: <code class="literal">&quot;50&quot;</code>,
+      которое применяется, если установлено большее значение.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.use-cwd">
+     <code class="parameter">opcache.use_cwd</code>
+     <span class="type">bool</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Если включено, OPcache добавляет текущую рабочую директорию к ключу
+      скрипта, тем самым устраняя возможность коллизий для файлов с одинаковым
+      именем. Отключение этой опции повышает производительность, но может
+      привести к сбоям.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.validate-timestamps">
+     <code class="parameter">opcache.validate_timestamps</code>
+     <span class="type">bool</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Если включено, OPcache будет проверять актуальность закешированных скриптов каждые
+      <a href="opcache.configuration.php.html#ini.opcache.revalidate-freq" class="link">opcache.revalidate_freq</a>
+      секунд. Когда запрещено, вы можете перезапустить OPcache вручную с помощью
+      <span class="function"><a href="function.opcache-reset.php.html" class="function">opcache_reset()</a></span>,
+      <span class="function"><a href="function.opcache-invalidate.php.html" class="function">opcache_invalidate()</a></span> или перезапустив веб-сервер для того, чтобы
+      изменения вступили в силу.
+      <blockquote class="note"><p><strong class="note">Замечание</strong>: 
+       <span class="simpara">
+        OPcache всё ещё может проверять временную метку файла во время компиляции, если для
+        опций <a href="opcache.configuration.php.html#ini.opcache.file_update_protection" class="link">opcache.file_update_protection</a>
+        или <a href="opcache.configuration.php.html#ini.opcache.max-file-size" class="link">opcache.max_file_size</a> установлены ненулевые значения.
+       </span>
+      </p></blockquote>
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.revalidate-freq">
+     <code class="parameter">opcache.revalidate_freq</code>
+     <span class="type">int</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Как часто в секундах проверять временные метки файлов.
+      <code class="literal">0</code> приведёт к тому, что OPcache будет производить эту проверку
+      при каждом запросе.
+     </p>
+     <p class="para">
+      Эта директива игнорируется, если выключена
+      <a href="opcache.configuration.php.html#ini.opcache.validate-timestamps" class="link">opcache.validate_timestamps</a>.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.revalidate-path">
+     <code class="parameter">opcache.revalidate_path</code>
+     <span class="type">bool</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Если выключено, существующие закешированные файлы, использующие один и тот же
+      <a href="ini.core.php.html#ini.include-path" class="link">include_path</a>, будут повторно использоваться.
+      Таким образом, если файл с тем же именем находится в другом месте в include_path, он
+      не будет найден.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.save-comments">
+     <code class="parameter">opcache.save_comments</code>
+     <span class="type">bool</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Если выключено, все комментарии будут отброшены из кеша опкодов для
+      минимизации размера кода. Отключение этой опции может привести к тому, что
+      некоторые фреймворки, полагающиеся на аннотации в комментариях, перестанут
+      работать, включая Doctrine, Zend Framework 2 и PHPUnit.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.fast-shutdown">
+     <code class="parameter">opcache.fast_shutdown</code>
+     <span class="type">bool</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Если включено, то будет использована быстрая последовательность перезагрузки,
+      при которой не происходит очистки всех выделенных блоков памяти. Вместо этого для
+      освобождения всего набора переменных используется стандартный менеджер
+      памяти Zend Engine.
+     </p>
+     <p class="para">
+      Эта директива была удалена в PHP 7.2.0. Вариант быстрой
+      последовательности перезагрузки был интегрирован в PHP и автоматически
+      будет использоваться, если это возможно.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.enable-file-override">
+     <code class="parameter">opcache.enable_file_override</code>
+     <span class="type">bool</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Если включено, то кеш опкодов будет проверять, закеширован ли уже файл при
+      вызове функций <span class="function"><a href="function.file-exists.php.html" class="function">file_exists()</a></span>,
+      <span class="function"><a href="function.is-file.php.html" class="function">is_file()</a></span> и <span class="function"><a href="function.is-readable.php.html" class="function">is_readable()</a></span>. Это может
+      повысить производительность для приложений, проверяющих присутствие и
+      доступность для чтения скриптом PHP, но несёт риск возврата устаревших
+      данных, если запрещена опция
+      <a href="opcache.configuration.php.html#ini.opcache.validate-timestamps" class="link">opcache.validate_timestamps</a>.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.optimization-level">
+     <code class="parameter">opcache.optimization_level</code>
+     <span class="type">int</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Битовая маска, контролирующая, какие шаги оптимизации выполняются.
+      По умолчанию применяются все безопасные оптимизации.
+      Изменение значения по умолчанию в основном полезно для отладки/разработки оптимизатора
+      (смотрите также <a href="opcache.configuration.php.html#ini.opcache.opt_debug_level" class="link">opcache.opt_debug_level</a>).
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.inherited-hack">
+     <code class="parameter">opcache.inherited_hack</code>
+     <span class="type">bool</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Эта директива игнорируется.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.dups-fix">
+     <code class="parameter">opcache.dups_fix</code>
+     <span class="type">bool</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Этот хак требуется только для обхода ошибок &quot;Cannot redeclare class&quot;.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.blacklist-filename">
+     <code class="parameter">opcache.blacklist_filename</code>
+     <span class="type">string</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Местоположение чёрного списка OPcache. Файл чёрного списка содержит
+      имена файлов, которые не нужно ускорять, по одной записи на строку.
+      Допустимы шаблоны поиска и префиксы. Строки, начинающиеся с точки с запятой
+      игнорируются
+     </p>
+     <p class="para">
+      Пример простого чёрного списка:
+     </p>
+     <div class="informalexample">
+      <div class="example-contents">
+<div class="cdata"><pre>
+; Указываем конкретный файл.
+/var/www/broken.php
+; Префикс, обозначающий все файлы, начинающиеся с x.
+/var/www/x
+; Шаблон поиска.
+/var/www/*-broken.php
+</pre></div>
+      </div>
+
+     </div>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.max-file-size">
+     <code class="parameter">opcache.max_file_size</code>
+     <span class="type">int</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Максимальный размер файла для кеширования в байтах.
+      Если задать <code class="literal">0</code>, то кешироваться будут все файлы.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.consistency-checks">
+     <code class="parameter">opcache.consistency_checks</code>
+     <span class="type">int</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Если не ноль, OPcache будет сверять контрольную сумму кеша каждые N запросов,
+      где N — заданное в этой директиве значение. Рекомендуется включать только
+      при отладке, так как сильно влияет на производительность.
+     </p>
+     <blockquote class="note"><p><strong class="note">Замечание</strong>: 
+      <p class="para">
+       Недоступно с PHP 8.1.18 и 8.2.5. Удалено в PHP 8.3.0.
+      </p>
+     </p></blockquote>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.force-restart-timeout">
+     <code class="parameter">opcache.force_restart_timeout</code>
+     <span class="type">int</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Количество секунд ожидания освобождения кеша, после которого будет
+      принудительно произведён запланированный перезапуск. Если это время
+      превышено, OPcache считает, что происходит что-то неправильное и убивает
+      процесс, блокирующий кеш.
+     </p>
+     <p class="para">
+      Если параметр
+      <a href="opcache.configuration.php.html#ini.opcache.log-verbosity-level" class="link">opcache.log_verbosity_level</a>
+      задать равным 2 или больше, то, при возникновении подобной ситуации,
+      в лог ошибок будет записано предупреждение.
+     </p>
+     <p class="para">
+      Директива не поддерживается в Windows.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.error-log">
+     <code class="parameter">opcache.error_log</code>
+     <span class="type">string</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Лог ошибок OPcache. Пустая строка считается как <code class="literal">stderr</code>, и ошибки
+      будут выведены в стандартный поток ошибок (в большинстве случаев это лог
+      ошибок веб-сервера).
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.log-verbosity-level">
+     <code class="parameter">opcache.log_verbosity_level</code>
+     <span class="type">int</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Уровень подробности лога ошибок. По умолчанию будут записываться только
+      фатальные ошибки (уровень 0) и ошибки (уровень 1).
+      Также значения могут быть следующими: предупреждения (уровень 2), информационные
+      сообщения (уровень 3) и сообщения отладки (уровень 4).
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.record-warnings">
+     <code class="parameter">opcache.record_warnings</code>
+     <span class="type">bool</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Если включено, OPcache запишет предупреждения во время компиляции и воспроизведёт их при следующем включении,
+      даже если оно выполняется из кеша.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.preferred-memory-model">
+     <code class="parameter">opcache.preferred_memory_model</code>
+     <span class="type">string</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Предпочитаемая модель памяти для OPcache. Если оставить пустым, то
+      OPcache самостоятельно выберет наиболее подходящую модель, которая
+      будет вести себя корректно практически в любых случаях.
+     </p>
+     <p class="para">
+      Возможные значения включают <code class="literal">mmap</code>, <code class="literal">shm</code>,
+      <code class="literal">posix</code> и <code class="literal">win32</code>.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.protect-memory">
+     <code class="parameter">opcache.protect_memory</code>
+     <span class="type">bool</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Защищает разделяемую память от неожиданной записи во время запуска скриптов.
+      Полезно только для внутренней отладки.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.mmap-base">
+     <code class="parameter">opcache.mmap_base</code>
+     <span class="type">string</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Базовое значение для сегмента разделяемой памяти в Windows. Все процессы
+      PHP должны отображать разделяемую память в одинаковое адресное пространство.
+      Данная опция помогает починить ошибки типа
+      &quot;Unable to reattach to base address&quot;.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.restrict-api">
+     <code class="parameter">opcache.restrict_api</code>
+     <span class="type">string</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Позволяет вызывать функции API OPcache только скриптам, чей путь начинается с
+      указанной строки. Значение по умолчанию &quot;&quot; означает отсутствие ограничений.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.file_update_protection">
+     <code class="parameter">opcache.file_update_protection</code>
+     <span class="type">string</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Исключит кеширование файлов, с момента изменения которых прошло меньше секунд, чем указано.
+      Это защищает от кеширования не полностью обновлённых файлов. Если все обновления файлов атомарны, можно повысить
+      производительность, задав этот параметр равным <code class="literal">0</code>.
+      Это разрешит закешировать файлы немедленно.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.huge_code_pages">
+     <code class="parameter">opcache.huge_code_pages</code>
+     <span class="type">bool</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Включает или отключает копирование кода PHP (текстового сегмента) в HUGE PAGES.
+      Это может повысить производительность, но требует соответствующих системных
+      настроек.
+      Доступно в Linux начиная с PHP 7.0.0 и FreeBSD начиная с PHP 7.4.0.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.lockfile_path">
+     <code class="parameter">opcache.lockfile_path</code>
+     <span class="type">string</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Абсолютный путь к хранилищу общих файлов блокировок (только *nix)
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.opt_debug_level">
+     <code class="parameter">opcache.opt_debug_level</code>
+     <span class="type">string</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Производит вывод опкодов для отладки разных этапов оптимизации.
+      0x10000 приведёт к выводу опкодов как только они сгенерированы компилятором, до
+      применения какой-либо оптимизации.
+      0x20000 приведёт к выводу опкодов после оптимизации.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.file-cache">
+     <code class="parameter">opcache.file_cache</code>
+     <span class="type">string</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Разрешает и задаёт директорию кеша второго уровня. Это должно
+      повысить производительность в случае, если память SHM заполнена,
+      сервер перезапущен или SHM сброшена. Значение по умолчанию &quot;&quot;
+      запрещает кеширование на файловой системе.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.file-cache-only">
+     <code class="parameter">opcache.file_cache_only</code>
+     <span class="type">bool</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Включает или выключает кеширование опкодов в разделяемой памяти.
+     </p>
+     <blockquote class="note"><p><strong class="note">Замечание</strong>: 
+      <p class="para">
+       До PHP 8.1.0 отключение этой директивы с уже заполненным
+       файловым кешем требовало ручной очистки файлового кеша.
+      </p>
+     </p></blockquote>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.file-cache-consistency-checks">
+     <code class="parameter">opcache.file_cache_consistency_checks</code>
+     <span class="type">bool</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Включает или выключает проверку контрольной суммы при загрузке скрипта
+      из файлового кеша.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.file-cache-fallback">
+     <code class="parameter">opcache.file_cache_fallback</code>
+     <span class="type">bool</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Применяет opcache.file_cache_only=1 для некоторых процессов, которые
+      завершились ошибкой при переподключении к разделяемой памяти
+      (только для Windows). Требуется явно разрешённое кеширование на файловую систему.
+     </p>
+     <div class="caution"><strong class="caution">Предостережение</strong>
+      <p class="simpara">
+       Отключение этой опции конфигурации может помешать запуску процессов, и поэтому не рекомендуется.
+      </p>
+     </div>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.validate-permission">
+     <code class="parameter">opcache.validate_permission</code>
+     <span class="type">bool</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Проверяет права доступа к кешированному файлу для текущего пользователя.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.validate-root">
+     <code class="parameter">opcache.validate_root</code>
+     <span class="type">bool</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Предотвращает коллизии имён в chroot-окружении. Должно быть включено
+      для всех случаев использования chroot-окружений для предотвращения доступа
+      к файлам за пределами chroot.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.preload">
+     <code class="parameter">opcache.preload</code>
+     <span class="type">string</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Задаёт скрипт PHP, который будет скомпилирован и запущен при старте сервера и
+      сможет предзагрузить другие файлы, либо с помощью <span class="function"><a href="function.include.php.html" class="function">include</a></span>, либо
+      используя функцию <span class="function"><a href="function.opcache-compile-file.php.html" class="function">opcache_compile_file()</a></span>. Все сущности (например
+      функции и классы), определённые в этих файлах, автоматически будут доступны до момента
+      выключения сервера.
+     </p>
+     <blockquote class="note"><p><strong class="note">Замечание</strong>: 
+      <p class="para">
+       Предварительная загрузка не поддерживается в Windows.
+      </p>
+     </p></blockquote>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.preload-user">
+     <code class="parameter">opcache.preload_user</code>
+     <span class="type">string</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Позволяет запускать предварительную загрузку от имени указанного пользователя системы.
+      Полезно для серверов, которые запускаются от имени root перед переключением на непривилегированного пользователя системы.
+      По умолчанию предварительная загрузка от имени root запрещена по соображениям безопасности,
+      если только этой директиве явно не установлено значение <code class="literal">root</code>.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.cache-id">
+     <code class="parameter">opcache.cache_id</code>
+     <span class="type">string</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      В Windows все процессы, выполняющие один и тот же <abbr title="PHP: Hypertext Preprocessor">PHP</abbr> <abbr title="Server Application Programming Interface">SAPI</abbr>
+      под одной и той же учётной записью пользователя с одинаковым идентификатором кеша, совместно используют один экземпляр OPcache.
+      Значение идентификатора кеша может быть свободно выбрано.
+     </p>
+     <div class="tip"><strong class="tip">Подсказка</strong>
+      <p class="simpara">
+       Для IIS разные пулы приложений могут иметь собственный экземпляр OPcache,
+       используя переменную среды <var class="envar">APP_POOL_ID</var> как
+       <code class="parameter">opcache.cache_id</code>.
+      </p>
+     </div>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.jit">
+     <code class="parameter">opcache.jit</code>
+     <span class="type"><span class="type">string</span>|<span class="type">int</span></span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Для обычного использования параметр принимает одно из четырёх строковых значений:
+     </p>
+     <ul class="simplelist">
+      <li class="member"><code class="literal">disable</code>: Полностью отключён, не может быть включён во время выполнения.</li>
+      <li class="member"><code class="literal">off</code>: Отключено, но может быть включено во время выполнения.</li>
+      <li class="member">
+       <code class="literal">tracing</code>/<code class="literal">on</code>: Используйте трассировку JIT.
+       Включено по умолчанию и рекомендуется для большинства пользователей.
+      </li>
+      <li class="member"><code class="literal">function</code>: Используйте функцию JIT.</li>
+     </ul>
+     <p class="para">
+      Для расширенного использования параметр принимает 4-значное целое число <code class="literal">CRTO</code>, где цифры означают:
+      <dl>
+       
+        <dt>
+<code class="literal">C</code> (Флаги оптимизации для процессора)</dt>
+
+        <dd>
+
+         <ul class="simplelist">
+          <li class="member"><code class="literal">0</code>: Отключить оптимизацию для ЦП.</li>
+          <li class="member"><code class="literal">1</code>: Включите использование AVX, если ЦП поддерживает его.</li>
+         </ul>
+        </dd>
+
+       
+       
+        <dt>
+<code class="literal">R</code> (распределение регистров)</dt>
+
+        <dd>
+
+         <ul class="simplelist">
+          <li class="member"><code class="literal">0</code>: Не выполнять распределение регистров.</li>
+          <li class="member"><code class="literal">1</code>: Выполнять выделение локального блочного регистра.</li>
+          <li class="member"><code class="literal">2</code>: Выполнять выделение глобального регистра.</li>
+         </ul>
+        </dd>
+
+       
+       
+        <dt>
+<code class="literal">T</code> (триггер)</dt>
+
+        <dd>
+
+         <ul class="simplelist">
+          <li class="member"><code class="literal">0</code>: Компиляция всех функций при загрузке скрипта.</li>
+          <li class="member"><code class="literal">1</code>: Компиляция функций при первом выполнении.</li>
+          <li class="member">
+           <code class="literal">2</code>: Профилирование функций при первом запросе и затем компилирование самых популярных функций.
+          </li>
+          <li class="member"><code class="literal">3</code>: Профилирование на лету и компиляция горячих функций.</li>
+          <li class="member"><code class="literal">4</code>: В настоящее время не используется.</li>
+          <li class="member">
+           <code class="literal">5</code>: Использование трассировки JIT. Профилирование на лету и компиляция трассировки для горячих сегментов кода.
+          </li>
+         </ul>
+        </dd>
+
+       
+       
+        <dt>
+<code class="literal">O</code> (уровень оптимизации)</dt>
+
+        <dd>
+
+         <ul class="simplelist">
+          <li class="member"><code class="literal">0</code>: Без JIT.</li>
+          <li class="member"><code class="literal">1</code>: Минимальный JIT (вызов стандартных обработчиков виртуальных машин).</li>
+          <li class="member"><code class="literal">2</code>: Встроенные обработчики виртуальных машин.</li>
+          <li class="member"><code class="literal">3</code>: Использовать вывод типа.</li>
+          <li class="member"><code class="literal">4</code>: Использовать график вызовов.</li>
+          <li class="member"><code class="literal">5</code>: Оптимизировать весь скрипт.</li>
+         </ul>
+        </dd>
+
+       
+      </dl>
+
+      Режим <code class="literal">&quot;tracing&quot;</code> соответствует <code class="code">CRTO = 1254</code>,
+      Режим <code class="literal">&quot;function&quot;</code> соответствует <code class="code">CRTO = 1205</code>.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.jit-buffer-size">
+     <code class="parameter">opcache.jit_buffer_size</code>
+     <span class="type">int</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Объем разделяемой памяти, резервируемый для скомпилированного JIT-кода. Нулевое значение отключает JIT.
+     </p>
+     <span class="simpara">
+ Если указано целое значение (<span class="type">int</span>),
+ объём измеряется байтами. Можно также использовать сокращённую запись, которая описана в <a href="faq.using.php.html#faq.using.shorthandbytes" class="link">этом разделе FAQ</a>.
+</span>
+
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.jit-debug">
+     <code class="parameter">opcache.jit_debug</code>
+     <span class="type">int</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Битовая маска, определяющая, какой вывод отладки JIT следует включить.
+      Возможные значения смотрите в файле <a href="https://github.com/php/php-src/blob/master/ext/opcache/jit/zend_jit.h" class="link external">&raquo;&nbsp;zend_jit.h</a>
+      (поиск макроопределений, начинающихся с <code class="code">ZEND_JIT_DEBUG</code>).
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.jit-bisect-limit">
+     <code class="parameter">opcache.jit_bisect_limit</code>
+     <span class="type">int</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Опция отладки, отключающая JIT-компиляцию после компиляции определённого количества функций.
+      Может быть полезно для разделения источника неправильной компиляции JIT.
+      Примечание: этот параметр работает, только если для триггера JIT установлено значение 0 (компиляция при загрузке скрипта)
+      или 1 (компиляция при первом выполнении), например, <code class="code">opcache.jit=1215</code>.
+      Подробнее смотрите в разделе <a href="opcache.configuration.php.html#ini.opcache.jit" class="link">opcache.jit</a>.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.jit-prof-threshold">
+     <code class="parameter">opcache.jit_prof_threshold</code>
+     <span class="type">float</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      При использовании режима триггера &quot;профилирование функций при первом запросе&quot; этот порог определяет, считается ли
+      функция горячей. Количество вызовов функции, разделённое на количество вызовов
+      всех функций, должно быть выше порогового значения. Например, порог 0,005 означает,
+      что функции, составляющие более 0,5% всех вызовов, будут скомпилированы JIT.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.jit-max-root-traces">
+     <code class="parameter">opcache.jit_max_root_traces</code>
+     <span class="type">int</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Максимальное количество корневых стеков вызова.
+      Корневой стек вызова — это поток выполнения, проходящий по коду сначала по одному пути,
+      что является единицей компиляции JIT.
+      JIT не будет компилировать новый код, если он достигнет этого предела.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.jit-max-side-traces">
+     <code class="parameter">opcache.jit_max_side_traces</code>
+     <span class="type">int</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Максимальное количество боковых стеков вызова, которые может иметь корневой стек.
+      Боковой стек вызова — это другой поток выполнения, который не следует по пути скомпилированного корневого стека вызова.
+      Боковые стеки вызова, принадлежащие одному и тому же корневому стеку вызова, не будут компилироваться,
+      если они достигают этого предела.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.jit-max-exit-counters">
+     <code class="parameter">opcache.jit_max_exit_counters</code>
+     <span class="type">int</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Максимальное количество счётчиков выхода бокового стека вызова. Это ограничивает общее количество боковых стеков,
+      которые могут быть во всех корневых стеках.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.jit-hot-loop">
+     <code class="parameter">opcache.jit_hot_loop</code>
+     <span class="type">int</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Через сколько итераций цикл считается горячим.
+      Допустимый диапазон значений: <code class="code">[0,255]</code>; для любого значения вне этого диапазона,
+      например, -1 или 256, будет использоваться значение по умолчанию.
+      В частности, нулевое значение отключит JIT для отслеживания и компиляции любых циклов.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.jit-hot-func">
+     <code class="parameter">opcache.jit_hot_func</code>
+     <span class="type">int</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Через сколько вызовов функция считается горячей.
+      Допустимый диапазон значений: <code class="code">[0,255]</code>; для любого значения вне этого диапазона,
+      например, -1 или 256, будет использоваться значение по умолчанию.
+      В частности, нулевое значение отключит JIT для отслеживания и компиляции любых функций.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.jit-hot-return">
+     <code class="parameter">opcache.jit_hot_return</code>
+     <span class="type">int</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Через сколько возвратов возврат считается горячим.
+      Допустимый диапазон значений: <code class="code">[0,255]</code>; для любого значения вне этого диапазона,
+      например, -1 или 256, будет использоваться значение по умолчанию.
+      В частности, нулевое значение отключит JIT для отслеживания и компиляции любых возвратов.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.jit-hot-side-exit">
+     <code class="parameter">opcache.jit_hot_side_exit</code>
+     <span class="type">int</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Через сколько выходов боковой стек считается горячим.
+      Допустимый диапазон значений: <code class="code">[0,255]</code>; для любого значения вне этого диапазона,
+      например, -1 или 256, будет использоваться значение по умолчанию.
+      В частности, нулевое значение отключит JIT для отслеживания и компиляции любых побочных выходов.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.jit-blacklist-root-trace">
+     <code class="parameter">opcache.jit_blacklist_root_trace</code>
+     <span class="type">int</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Максимальное количество попыток компиляции корневой трассировки, прежде чем она будет занесена в чёрный список.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.jit-blacklist-side-trace">
+     <code class="parameter">opcache.jit_blacklist_side_trace</code>
+     <span class="type">int</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Максимальное количество попыток компиляции боковой трассировки до того, как она будет занесена в чёрный список.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.jit-max-loop-unrolls">
+     <code class="parameter">opcache.jit_max_loop_unrolls</code>
+     <span class="type">int</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Максимальное количество попыток развернуть цикл в боковой трассировке, пытаясь достичь корневой трассировки и закрыть внешний цикл.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.jit-max-recursive-calls">
+     <code class="parameter">opcache.jit_max_recursive_calls</code>
+     <span class="type">int</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Максимальное количество развёрнутых рекурсивных циклов вызова.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.jit-max-recursive-return">
+     <code class="parameter">opcache.jit_max_recursive_returns</code>
+     <span class="type">int</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Максимальное количество развёрнутых рекурсивных циклов возврата.
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.opcache.jit-max-polymorphic-calls">
+     <code class="parameter">opcache.jit_max_polymorphic_calls</code>
+     <span class="type">int</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Максимальное количество попыток встроенных полиморфных (динамических или методических) вызовов.
+      Вызовы выше этого лимита обрабатываются как метаморфические и не встраиваются.
+     </p>
+    </dd>
+
+   
+  </dl>
+
+ </p>
+</div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=opcache.configuration&amp;redirect=https://www.php.net/manual/ru/opcache.configuration.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">6 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="120544">  <div class="votes">
+    <div id="Vu120544">
+    <a href="https://www.php.net/manual/vote-note.php?id=120544&amp;page=opcache.configuration&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd120544">
+    <a href="https://www.php.net/manual/vote-note.php?id=120544&amp;page=opcache.configuration&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V120544" title="66% like this...">
+    17
+    </div>
+  </div>
+  <a href="opcache.configuration.php.html#120544" class="name">
+  <strong class="user"><em>damien at overeem dot org</em></strong></a><a class="genanchor" href="opcache.configuration.php.html#120544"> &para;</a><div class="date" title="2017-01-27 04:35"><strong>7 years ago</strong></div>
+  <div class="text" id="Hcom120544">
+<div class="phpcode"><code><span class="html">When using PHP on a windows platform and enabling opcache, you might run into occasional 500 errors. These will appear to show up entirely random.<br /><br />When this happens, your windows Event log (Windows Logs/Application) will show (probably multiple)  entries from Zend OPcache with Event ID 487. Further information will state the following error message: "Base address marks unusable memory region".<br /><br />This issue can be resolved by adding the following to your php.ini:<br /><br />    opcache.mmap_base = 0x20000000<br /><br />Unfortunately I do not know the significance of the value "0x20000000". I can only tell you that this value works to solve the problem (Tried and tested)</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="123425">  <div class="votes">
+    <div id="Vu123425">
+    <a href="https://www.php.net/manual/vote-note.php?id=123425&amp;page=opcache.configuration&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd123425">
+    <a href="https://www.php.net/manual/vote-note.php?id=123425&amp;page=opcache.configuration&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V123425" title="69% like this...">
+    9
+    </div>
+  </div>
+  <a href="opcache.configuration.php.html#123425" class="name">
+  <strong class="user"><em>wessos at example dot org</em></strong></a><a class="genanchor" href="opcache.configuration.php.html#123425"> &para;</a><div class="date" title="2018-12-12 10:53"><strong>5 years ago</strong></div>
+  <div class="text" id="Hcom123425">
+<div class="phpcode"><code><span class="html">The optimization levels as of php 7.3 are the following:<br /><br />#define ZEND_OPTIMIZER_PASS_1        (1&lt;&lt;0)   /* CSE, STRING construction     */<br />#define ZEND_OPTIMIZER_PASS_2        (1&lt;&lt;1)   /* Constant conversion and jumps */<br />#define ZEND_OPTIMIZER_PASS_3        (1&lt;&lt;2)   /* ++, +=, series of jumps      */<br />#define ZEND_OPTIMIZER_PASS_4        (1&lt;&lt;3)   /* INIT_FCALL_BY_NAME -&gt; DO_FCALL */<br />#define ZEND_OPTIMIZER_PASS_5        (1&lt;&lt;4)   /* CFG based optimization       */<br />#define ZEND_OPTIMIZER_PASS_6        (1&lt;&lt;5)   /* DFA based optimization       */<br />#define ZEND_OPTIMIZER_PASS_7        (1&lt;&lt;6)   /* CALL GRAPH optimization      */<br />#define ZEND_OPTIMIZER_PASS_8        (1&lt;&lt;7)   /* SCCP (constant propagation)  */<br />#define ZEND_OPTIMIZER_PASS_9        (1&lt;&lt;8)   /* TMP VAR usage                */<br />#define ZEND_OPTIMIZER_PASS_10        (1&lt;&lt;9)   /* NOP removal                 */<br />#define ZEND_OPTIMIZER_PASS_11        (1&lt;&lt;10)  /* Merge equal constants       */<br />#define ZEND_OPTIMIZER_PASS_12        (1&lt;&lt;11)  /* Adjust used stack           */<br />#define ZEND_OPTIMIZER_PASS_13        (1&lt;&lt;12)  /* Remove unused variables     */<br />#define ZEND_OPTIMIZER_PASS_14        (1&lt;&lt;13)  /* DCE (dead code elimination) */<br />#define ZEND_OPTIMIZER_PASS_15        (1&lt;&lt;14)  /* (unsafe) Collect constants */<br />#define ZEND_OPTIMIZER_PASS_16        (1&lt;&lt;15)  /* Inline functions */<br /><br />Source: <a href="https://lxr.room11.org/xref/php-src%40master/ext/opcache/Optimizer/zend_optimizer.h" rel="nofollow" target="_blank">https://lxr.room11.org/xref/php-src%40master/ext/opcache/Optimizer/zend_optimizer.h</a></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="124574">  <div class="votes">
+    <div id="Vu124574">
+    <a href="https://www.php.net/manual/vote-note.php?id=124574&amp;page=opcache.configuration&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd124574">
+    <a href="https://www.php.net/manual/vote-note.php?id=124574&amp;page=opcache.configuration&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V124574" title="71% like this...">
+    6
+    </div>
+  </div>
+  <a href="opcache.configuration.php.html#124574" class="name">
+  <strong class="user"><em>carneiro at isharelife dot com dot br</em></strong></a><a class="genanchor" href="opcache.configuration.php.html#124574"> &para;</a><div class="date" title="2020-01-08 03:39"><strong>4 years ago</strong></div>
+  <div class="text" id="Hcom124574">
+<div class="phpcode"><code><span class="html">If you try to allocate more memory that is available using opcache.memory_consumption PHP stops working without any logs to help on debugging. This issue took me 4 hours to solve when creating a staging server with same configrations and less memory that was available on production server.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="123780">  <div class="votes">
+    <div id="Vu123780">
+    <a href="https://www.php.net/manual/vote-note.php?id=123780&amp;page=opcache.configuration&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd123780">
+    <a href="https://www.php.net/manual/vote-note.php?id=123780&amp;page=opcache.configuration&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V123780" title="66% like this...">
+    5
+    </div>
+  </div>
+  <a href="opcache.configuration.php.html#123780" class="name">
+  <strong class="user"><em>tizian dot schmidlin at gmail dot com</em></strong></a><a class="genanchor" href="opcache.configuration.php.html#123780"> &para;</a><div class="date" title="2019-04-15 09:41"><strong>4 years ago</strong></div>
+  <div class="text" id="Hcom123780">
+<div class="phpcode"><code><span class="html">It should be noted that according to the original RFC (<a href="https://wiki.php.net/rfc/preload" rel="nofollow" target="_blank">https://wiki.php.net/rfc/preload</a>) `opcache.preload` caches preloaded files *forever* for all instances of the underlying PHP process.<br /><br />That means, that hosting multiple websites on the same server might result in some unexpected behaviour.<br /><br />Concrete example: <br />- you have a Symfony 3.2 App (which might be an endpoint of some type) and a Symfony 3.4 App (which might be your main application)<br />- both apps have a main Class called App that is in the same namespace (as it is usual, since the class name is unique to each project)<br />- depending on which app is loaded first, one or the other will work, since `opcache.preload` has no file based distinction of what class is used where and simply provides them to the user space<br /><br />This is avoidable by simply not preloading user space classes or, if you work with FPM, by defining a pool for each app.<br /><br />In order to optimize memory consumption, you might also use a common FPM Pool for all Symfony 3.4 Apps and preload the entire framework in there and simply not preload user space classes (which might be cached by opcache anyway but is slower, since it will be checked if the file has changed on every request).</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="120464">  <div class="votes">
+    <div id="Vu120464">
+    <a href="https://www.php.net/manual/vote-note.php?id=120464&amp;page=opcache.configuration&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd120464">
+    <a href="https://www.php.net/manual/vote-note.php?id=120464&amp;page=opcache.configuration&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V120464" title="60% like this...">
+    4
+    </div>
+  </div>
+  <a href="opcache.configuration.php.html#120464" class="name">
+  <strong class="user"><em>bdurand at ensemblegroup dot net</em></strong></a><a class="genanchor" href="opcache.configuration.php.html#120464"> &para;</a><div class="date" title="2017-01-12 11:19"><strong>7 years ago</strong></div>
+  <div class="text" id="Hcom120464">
+<div class="phpcode"><code><span class="html">It would appear as though the [opcache.enable] setting is indeed NOT PHP_INI_ALL.<br />For changing it within user.ini yields no effect when disabled at global level. user.ini is ignored for that setting.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="118310">  <div class="votes">
+    <div id="Vu118310">
+    <a href="https://www.php.net/manual/vote-note.php?id=118310&amp;page=opcache.configuration&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd118310">
+    <a href="https://www.php.net/manual/vote-note.php?id=118310&amp;page=opcache.configuration&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V118310" title="29% like this...">
+    -18
+    </div>
+  </div>
+  <a href="opcache.configuration.php.html#118310" class="name">
+  <strong class="user"><em>BR</em></strong></a><a class="genanchor" href="opcache.configuration.php.html#118310"> &para;</a><div class="date" title="2015-11-14 01:13"><strong>8 years ago</strong></div>
+  <div class="text" id="Hcom118310">
+<div class="phpcode"><code><span class="html">opcache.max_wasted_percentage must have a value between 1 and 50. Otherwise it will automatically set the variable 5 %.</span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=opcache.configuration&amp;redirect=https://www.php.net/manual/ru/opcache.configuration.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="opcache.setup.php.html">Установка и настройка</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="opcache.requirements.php.html" title="Требования">Требования</a>
+                        </li>
+                                                <li class="">
+                            <a href="opcache.installation.php.html" title="Установка">Установка</a>
+                        </li>
+                                                <li class="current">
+                            <a href="opcache.configuration.php.html" title="Настройка во время выполнения">Настройка во время выполнения</a>
+                        </li>
+                                                <li class="">
+                            <a href="opcache.resources.php.html" title="Типы ресурсов">Типы ресурсов</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

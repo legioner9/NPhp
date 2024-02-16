@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: strspn - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="function.strspn.php.html">
+ <link rel="shorturl" href="https://www.php.net/strspn">
+ <link rel="alternate" href="https://www.php.net/strspn" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="ref.strings.php.html">
+ <link rel="prev" href="function.strrpos.php.html">
+ <link rel="next" href="function.strstr.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/function.strspn.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/function.strspn.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/function.strspn.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/function.strspn.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/function.strspn.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/function.strspn.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/function.strspn.php" hreflang="pt_BR">
+ <link rel="alternate" href="function.strspn.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/function.strspn.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/function.strspn.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="function.strstr.php.html">
+          strstr &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="function.strrpos.php.html">
+          &laquo; strrpos        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.basic.text.php.html'>Обработка текста</a></li>      <li><a href='book.strings.php.html'>Строки</a></li>      <li><a href='ref.strings.php.html'>Функции для работы со строками</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/function.strspn.php'>English</option>
+            <option value='de/function.strspn.php'>German</option>
+            <option value='es/function.strspn.php'>Spanish</option>
+            <option value='fr/function.strspn.php'>French</option>
+            <option value='it/function.strspn.php'>Italian</option>
+            <option value='ja/function.strspn.php'>Japanese</option>
+            <option value='pt_BR/function.strspn.php'>Brazilian Portuguese</option>
+            <option value='ru/function.strspn.php' selected="selected">Russian</option>
+            <option value='tr/function.strspn.php'>Turkish</option>
+            <option value='zh/function.strspn.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/strings/functions/strspn.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Ffunction.strspn%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="function.strspn" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">strspn</h1>
+  <p class="verinfo">(PHP 4, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">strspn</span> &mdash; <span class="dc-title">
+   Возвращает длину участка в начале строки, полностью соответствующего маске
+  </span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.strspn-description">
+  <h3 class="title">Описание</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="methodname"><strong>strspn</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$string</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">string</span> <code class="parameter">$characters</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$offset</code><span class="initializer"> = 0</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">?</span><span class="type"><span class="type">int</span><span class="type"></span></span> <code class="parameter">$length</code><span class="initializer"> = <strong><code>null</code></strong></span></span><br>): <span class="type">int</span></div>
+
+  <p class="para rdfs-comment">
+   Возвращает длину участка от начала строки <code class="parameter">string</code>,
+   содержащий <em>только</em> символы из <code class="parameter">characters</code>.
+  </p>
+  <p class="para">
+   Если параметры <code class="parameter">offset</code> и <code class="parameter">length</code>
+   не указаны, то будет исследована вся строка <code class="parameter">string</code>.
+   Если они указаны, то эффект будет аналогичен вызову
+   <code class="literal">strspn(substr($string, $offset, $length),
+   $characters)</code>
+   (подробнее смотрите функцию <a href="function.substr.php.html" class="xref">substr</a>).
+  </p>
+  <p class="para">
+   Строка кода:
+   <div class="informalexample">
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$var </span><span style="color: #007700">= </span><span style="color: #0000BB">strspn</span><span style="color: #007700">(</span><span style="color: #DD0000">"42 - ответ на 128 вопрос."</span><span style="color: #007700">, </span><span style="color: #DD0000">"1234567890"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+    </div>
+
+   </div>
+   присвоит <code class="literal">2</code> переменной <var class="varname">$var</var>,
+   так как &quot;42&quot; - это начальный участок строки <code class="parameter">string</code>,
+   состоящий только из символов &quot;1234567890&quot;.
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.strspn-parameters">
+  <h3 class="title">Список параметров</h3>
+  <p class="para">
+   <dl>
+    
+     <dt>
+<code class="parameter">string</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Исследуемая строка.
+      </p>
+     </dd>
+
+    
+    
+     <dt>
+<code class="parameter">characters</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Список из разрешённых символов.
+      </p>
+     </dd>
+
+    
+    
+     <dt>
+<code class="parameter">offset</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Позиция начала поиска в <code class="parameter">subject</code>.
+      </p>
+      <p class="para">
+       Если <code class="parameter">offset</code> указан и неотрицателен,
+       то <span class="function"><strong>strspn()</strong></span> начнёт искать в строке
+       <code class="parameter">string</code>, начиная с позиции
+       <code class="parameter">offset</code>. К примеру, в
+       строке &#039;<code class="literal">abcdef</code>&#039;, символом с позицией
+       <code class="literal">0</code> является &#039;<code class="literal">a</code>&#039;, символом
+       с позицией <code class="literal">2</code> является
+       &#039;<code class="literal">c</code>&#039; и т.д.
+      </p>
+      <p class="para">
+       Если <code class="parameter">offset</code> указан и отрицателен,
+       то <span class="function"><strong>strspn()</strong></span> начнёт поиск
+       в строке <code class="parameter">string</code> с позиции, отстоящей
+       на <code class="parameter">offset</code> символов с конца
+       <code class="parameter">string</code>.
+      </p>
+     </dd>
+
+    
+    
+     <dt>
+<code class="parameter">length</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Длина исследуемого фрагмента <code class="parameter">string</code>.
+      </p>
+      <p class="para">
+       Если <code class="parameter">length</code> указан и неотрицателен,
+       то строка <code class="parameter">string</code> будет исследована
+       в течение <code class="parameter">length</code> после стартовой позиции.
+      </p>
+      <p class="para">
+       Если <code class="parameter">length</code> указан и отрицателен,
+       то строка <code class="parameter">string</code> будет исследована
+       начиная со стартовой позиции до позиции, отстоящей на
+       <code class="parameter">length</code> символов с конца
+       <code class="parameter">string</code>.
+      </p>
+     </dd>
+
+    
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.strspn-returnvalues">
+  <h3 class="title">Возвращаемые значения</h3>
+  <p class="para">
+   Возвращает длину первого участка <code class="parameter">string</code>,
+   состоящего целиком из символов в <code class="parameter">characters</code>.
+  </p>
+  <blockquote class="note"><p><strong class="note">Замечание</strong>: 
+   <p class="para">
+    Когда <code class="parameter">offset</code> указан, возвращаемая длина строки определяется,
+    начиная с этой позиции, а не с начала строки <code class="parameter">string</code>.
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.strspn-changelog">
+  <h3 class="title">Список изменений</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>Версия</th>
+      <th>Описание</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+      <td>8.0.0</td>
+      <td>
+       <code class="parameter">length</code> теперь допускает значение null.
+      </td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.strspn-examples">
+  <h3 class="title">Примеры</h3>
+  <p class="para">
+   <div class="example" id="">
+    <p><strong>Пример #1 Пример использования <span class="function"><strong>strspn()</strong></span></strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// subject не начинается ни из какого символа из mask<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">strspn</span><span style="color: #007700">(</span><span style="color: #DD0000">"foo"</span><span style="color: #007700">, </span><span style="color: #DD0000">"o"</span><span style="color: #007700">));<br /><br /></span><span style="color: #FF8000">// проверить два символа из subject, начиная с позиции 1<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">strspn</span><span style="color: #007700">(</span><span style="color: #DD0000">"foo"</span><span style="color: #007700">, </span><span style="color: #DD0000">"o"</span><span style="color: #007700">, </span><span style="color: #0000BB">1</span><span style="color: #007700">, </span><span style="color: #0000BB">2</span><span style="color: #007700">));<br /><br /></span><span style="color: #FF8000">// проверить один символ из subject, начиная с позиции 1<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">strspn</span><span style="color: #007700">(</span><span style="color: #DD0000">"foo"</span><span style="color: #007700">, </span><span style="color: #DD0000">"o"</span><span style="color: #007700">, </span><span style="color: #0000BB">1</span><span style="color: #007700">, </span><span style="color: #0000BB">1</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+    </div>
+
+    
+<div class="example-contents"><p>
+ Результат выполнения приведённого примера:
+</p></div>
+
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+int(0)
+int(2)
+int(1)
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.strspn-notes">
+  <h3 class="title">Примечания</h3>
+  <blockquote class="note"><p><strong class="note">Замечание</strong>: <span class="simpara">Эта функция
+безопасна для обработки данных в двоичной форме.</span></p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.strspn-seealso">
+  <h3 class="title">Смотрите также</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.strcspn.php.html" class="function" rel="rdfs-seeAlso">strcspn()</a> - Возвращает длину участка в начале строки, не соответствующего маске</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=function.strspn&amp;redirect=https://www.php.net/manual/ru/function.strspn.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">9 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="84980">  <div class="votes">
+    <div id="Vu84980">
+    <a href="https://www.php.net/manual/vote-note.php?id=84980&amp;page=function.strspn&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd84980">
+    <a href="https://www.php.net/manual/vote-note.php?id=84980&amp;page=function.strspn&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V84980" title="78% like this...">
+    23
+    </div>
+  </div>
+  <a href="function.strspn.php.html#84980" class="name">
+  <strong class="user"><em>barry dot balkowski at gmail dot com</em></strong></a><a class="genanchor" href="function.strspn.php.html#84980"> &para;</a><div class="date" title="2008-08-08 02:12"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom84980">
+<div class="phpcode"><code><span class="html">It took me some time to understand the way this function works…<br />I’ve compiled my own explanation with my own words that is more understandable for me personally than the official one or those that can be found in different tutorials on the web.<br />Perhaps, it will save someone several minutes…<br /><br /><span class="default">&lt;?php <br />strspn</span><span class="keyword">(</span><span class="default">string $haystack</span><span class="keyword">, </span><span class="default">string $char_list </span><span class="keyword">[, </span><span class="default">int $start </span><span class="keyword">[, </span><span class="default">int $length</span><span class="keyword">]])<br /></span><span class="default">?&gt;<br /></span><br />The way it works:<br /> -   searches for a segment of $haystack that consists entirely from supplied through the second argument chars <br /> -   $haystack must start from one of the chars supplied through $char_list, otherwise the function will find nothing<br /> -   as soon as the function encounters a char that was not mentioned in $chars it understands that the segment is over and stops (it doesn’t search for the second, third and so on segments)<br /> -   finally, it measures the segment’s length and return it (i.e. length)<br /><br />In other words it finds a span (only the first one) in the string that consists entirely form chars supplied in $chars_list and returns its length</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="101133">  <div class="votes">
+    <div id="Vu101133">
+    <a href="https://www.php.net/manual/vote-note.php?id=101133&amp;page=function.strspn&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd101133">
+    <a href="https://www.php.net/manual/vote-note.php?id=101133&amp;page=function.strspn&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V101133" title="74% like this...">
+    19
+    </div>
+  </div>
+  <a href="function.strspn.php.html#101133" class="name">
+  <strong class="user"><em>AT-HE (at_he.hotmail)</em></strong></a><a class="genanchor" href="function.strspn.php.html#101133"> &para;</a><div class="date" title="2010-11-28 02:45"><strong>13 years ago</strong></div>
+  <div class="text" id="Hcom101133">
+<div class="phpcode"><code><span class="html">you can use this function with strlen to check illegal characters, string lenght must be the same than strspn (characters from my string contained in another)<br /><br /><span class="default">&lt;?php<br /><br />$digits</span><span class="keyword">=</span><span class="string">'0123456789'</span><span class="keyword">;<br /><br />if (</span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$phone</span><span class="keyword">) != </span><span class="default">strspn</span><span class="keyword">(</span><span class="default">$phone</span><span class="keyword">,</span><span class="default">$digits</span><span class="keyword">))<br /> echo </span><span class="string">"illegal characters"</span><span class="keyword">;<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="78200">  <div class="votes">
+    <div id="Vu78200">
+    <a href="https://www.php.net/manual/vote-note.php?id=78200&amp;page=function.strspn&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd78200">
+    <a href="https://www.php.net/manual/vote-note.php?id=78200&amp;page=function.strspn&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V78200" title="75% like this...">
+    10
+    </div>
+  </div>
+  <a href="function.strspn.php.html#78200" class="name">
+  <strong class="user"><em>B Crawford</em></strong></a><a class="genanchor" href="function.strspn.php.html#78200"> &para;</a><div class="date" title="2007-10-02 05:20"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom78200">
+<div class="phpcode"><code><span class="html">This function is significantly faster for checking illegal characters than the equivalent preg_match() method.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="102190">  <div class="votes">
+    <div id="Vu102190">
+    <a href="https://www.php.net/manual/vote-note.php?id=102190&amp;page=function.strspn&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd102190">
+    <a href="https://www.php.net/manual/vote-note.php?id=102190&amp;page=function.strspn&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V102190" title="64% like this...">
+    7
+    </div>
+  </div>
+  <a href="function.strspn.php.html#102190" class="name">
+  <strong class="user"><em>mrsohailkhan at gmail dot com</em></strong></a><a class="genanchor" href="function.strspn.php.html#102190"> &para;</a><div class="date" title="2011-02-01 12:56"><strong>13 years ago</strong></div>
+  <div class="text" id="Hcom102190">
+<div class="phpcode"><code><span class="html">very dificult to get from the definition directly, while i search for that,i came to know that<br /><br />strspn() will tell you the length of a string consisting entirely of the set of characters in accept set. That is, it starts walking down str until it finds a character that is not in the set (that is, a character that is not to be accepted), and returns the length of the string so far. <br /><br />and <br /><br />strcspn() works much the same way, except that it walks down str until it finds a character in the reject set (that is, a character that is to be rejected.) It then returns the length of the string so far.<br /><br /><span class="default">&lt;?php<br />$acceptSet </span><span class="keyword">= </span><span class="string">"aeiou"</span><span class="keyword">;<br /></span><span class="default">$rejectSet  </span><span class="keyword">= </span><span class="string">"y"</span><span class="keyword">;<br /><br /></span><span class="default">$str1 </span><span class="keyword">=</span><span class="string">"a banana"</span><span class="keyword">;<br /></span><span class="default">$str2 </span><span class="keyword">=</span><span class="string">"the bolivian navy on manuvers in the south pacific"</span><span class="keyword">;<br /><br />echo </span><span class="default">$n </span><span class="keyword">= </span><span class="default">strspn</span><span class="keyword">(</span><span class="default">$str1</span><span class="keyword">,</span><span class="default">$acceptSet</span><span class="keyword">);</span><span class="comment">// $n == 1, just "a"<br /><br /></span><span class="keyword">echo </span><span class="default">$n </span><span class="keyword">= </span><span class="default">strcspn</span><span class="keyword">(</span><span class="default">$str2</span><span class="keyword">,</span><span class="default">$rejectSet</span><span class="keyword">);</span><span class="comment">// n = 16, "the bolivian nav"<br /></span><span class="default">?&gt;<br /></span><br />hope this example will help in understanding the concept of strspn() and strcspn().</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="89362">  <div class="votes">
+    <div id="Vu89362">
+    <a href="https://www.php.net/manual/vote-note.php?id=89362&amp;page=function.strspn&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd89362">
+    <a href="https://www.php.net/manual/vote-note.php?id=89362&amp;page=function.strspn&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V89362" title="66% like this...">
+    5
+    </div>
+  </div>
+  <a href="function.strspn.php.html#89362" class="name">
+  <strong class="user"><em>Dmitry Mazur</em></strong></a><a class="genanchor" href="function.strspn.php.html#89362"> &para;</a><div class="date" title="2009-03-04 10:23"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom89362">
+<div class="phpcode"><code><span class="html">The second parameter is a set of allowed characters.<br />strspn will return an zero-based index of a first non-allowed character.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="108922">  <div class="votes">
+    <div id="Vu108922">
+    <a href="https://www.php.net/manual/vote-note.php?id=108922&amp;page=function.strspn&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd108922">
+    <a href="https://www.php.net/manual/vote-note.php?id=108922&amp;page=function.strspn&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V108922" title="60% like this...">
+    3
+    </div>
+  </div>
+  <a href="function.strspn.php.html#108922" class="name">
+  <strong class="user"><em>bob at example dot com</em></strong></a><a class="genanchor" href="function.strspn.php.html#108922"> &para;</a><div class="date" title="2012-06-05 03:37"><strong>11 years ago</strong></div>
+  <div class="text" id="Hcom108922">
+<div class="phpcode"><code><span class="html">Quick way to check if a string consists entirely of characters within the mask is to compare strspn with strlen eg:<br /><br /><span class="default">&lt;?php<br />$path </span><span class="keyword">= </span><span class="default">$_SERVER</span><span class="keyword">[</span><span class="string">'PATH_INFO'</span><span class="keyword">];<br />if (</span><span class="default">strspn</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">,</span><span class="string">'/'</span><span class="keyword">) == </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">)) {<br />    </span><span class="comment">//PATH_INFO is empty<br /></span><span class="keyword">}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="125265">  <div class="votes">
+    <div id="Vu125265">
+    <a href="https://www.php.net/manual/vote-note.php?id=125265&amp;page=function.strspn&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd125265">
+    <a href="https://www.php.net/manual/vote-note.php?id=125265&amp;page=function.strspn&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V125265" title="100% like this...">
+    1
+    </div>
+  </div>
+  <a href="function.strspn.php.html#125265" class="name">
+  <strong class="user"><em>lincoln dot mahmud at gmail dot com</em></strong></a><a class="genanchor" href="function.strspn.php.html#125265"> &para;</a><div class="date" title="2020-08-13 01:34"><strong>3 years ago</strong></div>
+  <div class="text" id="Hcom125265">
+<div class="phpcode"><code><span class="html">Get Group match letter<br /><br /><span class="default">&lt;?php <br /><br />$s</span><span class="keyword">= </span><span class="string">'aaabbbcceeffaaeeeaaabbzmmm'</span><span class="keyword">;<br /><br />function </span><span class="default">groupby</span><span class="keyword">( </span><span class="default">$s </span><span class="keyword">){<br />    static </span><span class="default">$a </span><span class="keyword">= [];<br />    static </span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br />    <br />    </span><span class="default">$o </span><span class="keyword">= </span><span class="default">strspn</span><span class="keyword">( </span><span class="default">$s</span><span class="keyword">, </span><span class="default">$s</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">], </span><span class="default">$i</span><span class="keyword">);<br />    </span><span class="default">$a</span><span class="keyword">[ </span><span class="default">$i </span><span class="keyword">] = [  </span><span class="default">$s</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">] =&gt; </span><span class="default">$o </span><span class="keyword">];<br />    </span><span class="default">$i </span><span class="keyword">+= </span><span class="default">$o</span><span class="keyword">;<br />    <br />    if( </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$s</span><span class="keyword">) ) {<br />        </span><span class="default">groupby</span><span class="keyword">(</span><span class="default">$s</span><span class="keyword">);<br />    }<br /><br />    return </span><span class="default">$a</span><span class="keyword">;<br />}<br /><br /></span><span class="default">print_r</span><span class="keyword">(</span><span class="default">groupby</span><span class="keyword">(</span><span class="default">$s</span><span class="keyword">));<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="122366">  <div class="votes">
+    <div id="Vu122366">
+    <a href="https://www.php.net/manual/vote-note.php?id=122366&amp;page=function.strspn&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd122366">
+    <a href="https://www.php.net/manual/vote-note.php?id=122366&amp;page=function.strspn&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V122366" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="function.strspn.php.html#122366" class="name">
+  <strong class="user"><em>nino dot skopac at gmail dot com</em></strong></a><a class="genanchor" href="function.strspn.php.html#122366"> &para;</a><div class="date" title="2018-02-07 06:59"><strong>6 years ago</strong></div>
+  <div class="text" id="Hcom122366">
+<div class="phpcode"><code><span class="html">strspon and preg_match seem to be equally fast for validating numbers:<br /><br /><span class="default">&lt;?php<br /><br />$testValInvalid </span><span class="keyword">= </span><span class="string">'foobar123^^'</span><span class="keyword">;<br /></span><span class="default">$testValValid </span><span class="keyword">= </span><span class="string">'12346'</span><span class="keyword">;<br /></span><span class="default">$allowedChars </span><span class="keyword">= </span><span class="string">'1234567890'</span><span class="keyword">;<br /><br /></span><span class="default">$t1 </span><span class="keyword">= </span><span class="default">microtime</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">);<br />for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">1000000</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++) {<br />    </span><span class="default">assert</span><span class="keyword">(</span><span class="default">strspn</span><span class="keyword">(</span><span class="default">$testValInvalid</span><span class="keyword">, </span><span class="default">$allowedChars</span><span class="keyword">) != </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$testValInvalid</span><span class="keyword">));<br />    </span><span class="default">assert</span><span class="keyword">(</span><span class="default">strspn</span><span class="keyword">(</span><span class="default">$testValValid</span><span class="keyword">, </span><span class="default">$allowedChars</span><span class="keyword">) == </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$testValValid</span><span class="keyword">));<br />}<br />print </span><span class="string">'Time taken for strspon: ' </span><span class="keyword">. (</span><span class="default">microtime</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">) - </span><span class="default">$t1</span><span class="keyword">);<br />print </span><span class="default">PHP_EOL</span><span class="keyword">;<br /><br /></span><span class="default">$t1 </span><span class="keyword">= </span><span class="default">microtime</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">);<br />for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">1000000</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++) {<br />    </span><span class="default">assert</span><span class="keyword">(</span><span class="default">preg_match</span><span class="keyword">(</span><span class="string">'/^[0-9]+$/'</span><span class="keyword">, </span><span class="default">$testValInvalid</span><span class="keyword">) === </span><span class="default">0</span><span class="keyword">);<br />    </span><span class="default">assert</span><span class="keyword">(</span><span class="default">preg_match</span><span class="keyword">(</span><span class="string">'/^[0-9]+$/'</span><span class="keyword">, </span><span class="default">$testValValid</span><span class="keyword">));<br />}<br /><br />print </span><span class="string">'Time taken for preg_match: ' </span><span class="keyword">. (</span><span class="default">microtime</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">) - </span><span class="default">$t1</span><span class="keyword">);<br />print </span><span class="default">PHP_EOL</span><span class="keyword">;<br /><br /></span><span class="comment">/**<br />nino-mcb:hosp_web ninoskopac$ php test.php<br />Time taken for strspon: 3.24165391922<br />Time taken for preg_match: 3.1820080280304<br />nino-mcb:hosp_web ninoskopac$ php test.php<br />Time taken for strspon: 3.1806418895721<br />Time taken for preg_match: 3.2244551181793<br /> */<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="124395">  <div class="votes">
+    <div id="Vu124395">
+    <a href="https://www.php.net/manual/vote-note.php?id=124395&amp;page=function.strspn&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd124395">
+    <a href="https://www.php.net/manual/vote-note.php?id=124395&amp;page=function.strspn&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V124395" title="0% like this...">
+    -7
+    </div>
+  </div>
+  <a href="function.strspn.php.html#124395" class="name">
+  <strong class="user"><em>ayaou dot mohammed at gmail dot com</em></strong></a><a class="genanchor" href="function.strspn.php.html#124395"> &para;</a><div class="date" title="2019-11-14 02:32"><strong>4 years ago</strong></div>
+  <div class="text" id="Hcom124395">
+<div class="phpcode"><code><span class="html">This function doesn't  work with non ASCII characters<br /><br />Exemple:<br /><br /><span class="default">&lt;?php<br /><br />$subject </span><span class="keyword">= </span><span class="string">"Comment ça va ma chérie"</span><span class="keyword">;<br /></span><span class="default">$mask </span><span class="keyword">= </span><span class="string">"éèçà"</span><span class="keyword">;<br /><br />echo </span><span class="default">strspn</span><span class="keyword">(</span><span class="default">$subject</span><span class="keyword">,</span><span class="default">$mask</span><span class="keyword">); </span><span class="comment">// Echo 0<br /><br /></span><span class="default">?&gt;<br /></span><br />See, we expected  1 but 0 was the correct result</span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=function.strspn&amp;redirect=https://www.php.net/manual/ru/function.strspn.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="ref.strings.php.html">Функции для работы со строками</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="function.addcslashes.php.html" title="addcslashes">addcslashes</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.addslashes.php.html" title="addslashes">addslashes</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.bin2hex.php.html" title="bin2hex">bin2hex</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.chop.php.html" title="chop">chop</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.chr.php.html" title="chr">chr</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.chunk-split.php.html" title="chunk_&#8203;split">chunk_&#8203;split</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.convert-uudecode.php.html" title="convert_&#8203;uudecode">convert_&#8203;uudecode</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.convert-uuencode.php.html" title="convert_&#8203;uuencode">convert_&#8203;uuencode</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.count-chars.php.html" title="count_&#8203;chars">count_&#8203;chars</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.crc32.php.html" title="crc32">crc32</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.crypt.php.html" title="crypt">crypt</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.echo.php.html" title="echo">echo</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.explode.php.html" title="explode">explode</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.fprintf.php.html" title="fprintf">fprintf</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.get-html-translation-table.php.html" title="get_&#8203;html_&#8203;translation_&#8203;table">get_&#8203;html_&#8203;translation_&#8203;table</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.hebrev.php.html" title="hebrev">hebrev</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.hex2bin.php.html" title="hex2bin">hex2bin</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.html-entity-decode.php.html" title="html_&#8203;entity_&#8203;decode">html_&#8203;entity_&#8203;decode</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.htmlentities.php.html" title="htmlentities">htmlentities</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.htmlspecialchars-decode.php.html" title="htmlspecialchars_&#8203;decode">htmlspecialchars_&#8203;decode</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.htmlspecialchars.php.html" title="htmlspecialchars">htmlspecialchars</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.implode.php.html" title="implode">implode</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.join.php.html" title="join">join</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.lcfirst.php.html" title="lcfirst">lcfirst</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.levenshtein.php.html" title="levenshtein">levenshtein</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.localeconv.php.html" title="localeconv">localeconv</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.ltrim.php.html" title="ltrim">ltrim</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.md5-file.php.html" title="md5_&#8203;file">md5_&#8203;file</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.md5.php.html" title="md5">md5</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.metaphone.php.html" title="metaphone">metaphone</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.money-format.php.html" title="money_&#8203;format">money_&#8203;format</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.nl-langinfo.php.html" title="nl_&#8203;langinfo">nl_&#8203;langinfo</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.nl2br.php.html" title="nl2br">nl2br</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.number-format.php.html" title="number_&#8203;format">number_&#8203;format</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.ord.php.html" title="ord">ord</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.parse-str.php.html" title="parse_&#8203;str">parse_&#8203;str</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.print.php.html" title="print">print</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.printf.php.html" title="printf">printf</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.quoted-printable-decode.php.html" title="quoted_&#8203;printable_&#8203;decode">quoted_&#8203;printable_&#8203;decode</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.quoted-printable-encode.php.html" title="quoted_&#8203;printable_&#8203;encode">quoted_&#8203;printable_&#8203;encode</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.quotemeta.php.html" title="quotemeta">quotemeta</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.rtrim.php.html" title="rtrim">rtrim</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.setlocale.php.html" title="setlocale">setlocale</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.sha1-file.php.html" title="sha1_&#8203;file">sha1_&#8203;file</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.sha1.php.html" title="sha1">sha1</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.similar-text.php.html" title="similar_&#8203;text">similar_&#8203;text</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.soundex.php.html" title="soundex">soundex</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.sprintf.php.html" title="sprintf">sprintf</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.sscanf.php.html" title="sscanf">sscanf</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.str-contains.php.html" title="str_&#8203;contains">str_&#8203;contains</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.str-decrement.php.html" title="str_&#8203;decrement">str_&#8203;decrement</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.str-ends-with.php.html" title="str_&#8203;ends_&#8203;with">str_&#8203;ends_&#8203;with</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.str-getcsv.php.html" title="str_&#8203;getcsv">str_&#8203;getcsv</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.str-increment.php.html" title="str_&#8203;increment">str_&#8203;increment</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.str-ireplace.php.html" title="str_&#8203;ireplace">str_&#8203;ireplace</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.str-pad.php.html" title="str_&#8203;pad">str_&#8203;pad</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.str-repeat.php.html" title="str_&#8203;repeat">str_&#8203;repeat</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.str-replace.php.html" title="str_&#8203;replace">str_&#8203;replace</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.str-rot13.php.html" title="str_&#8203;rot13">str_&#8203;rot13</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.str-shuffle.php.html" title="str_&#8203;shuffle">str_&#8203;shuffle</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.str-split.php.html" title="str_&#8203;split">str_&#8203;split</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.str-starts-with.php.html" title="str_&#8203;starts_&#8203;with">str_&#8203;starts_&#8203;with</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.str-word-count.php.html" title="str_&#8203;word_&#8203;count">str_&#8203;word_&#8203;count</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.strcasecmp.php.html" title="strcasecmp">strcasecmp</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.strchr.php.html" title="strchr">strchr</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.strcmp.php.html" title="strcmp">strcmp</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.strcoll.php.html" title="strcoll">strcoll</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.strcspn.php.html" title="strcspn">strcspn</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.strip-tags.php.html" title="strip_&#8203;tags">strip_&#8203;tags</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.stripcslashes.php.html" title="stripcslashes">stripcslashes</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.stripos.php.html" title="stripos">stripos</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.stripslashes.php.html" title="stripslashes">stripslashes</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.stristr.php.html" title="stristr">stristr</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.strlen.php.html" title="strlen">strlen</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.strnatcasecmp.php.html" title="strnatcasecmp">strnatcasecmp</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.strnatcmp.php.html" title="strnatcmp">strnatcmp</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.strncasecmp.php.html" title="strncasecmp">strncasecmp</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.strncmp.php.html" title="strncmp">strncmp</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.strpbrk.php.html" title="strpbrk">strpbrk</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.strpos.php.html" title="strpos">strpos</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.strrchr.php.html" title="strrchr">strrchr</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.strrev.php.html" title="strrev">strrev</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.strripos.php.html" title="strripos">strripos</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.strrpos.php.html" title="strrpos">strrpos</a>
+                        </li>
+                                                <li class="current">
+                            <a href="function.strspn.php.html" title="strspn">strspn</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.strstr.php.html" title="strstr">strstr</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.strtok.php.html" title="strtok">strtok</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.strtolower.php.html" title="strtolower">strtolower</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.strtoupper.php.html" title="strtoupper">strtoupper</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.strtr.php.html" title="strtr">strtr</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.substr-compare.php.html" title="substr_&#8203;compare">substr_&#8203;compare</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.substr-count.php.html" title="substr_&#8203;count">substr_&#8203;count</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.substr-replace.php.html" title="substr_&#8203;replace">substr_&#8203;replace</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.substr.php.html" title="substr">substr</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.trim.php.html" title="trim">trim</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.ucfirst.php.html" title="ucfirst">ucfirst</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.ucwords.php.html" title="ucwords">ucwords</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.vfprintf.php.html" title="vfprintf">vfprintf</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.vprintf.php.html" title="vprintf">vprintf</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.vsprintf.php.html" title="vsprintf">vsprintf</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.wordwrap.php.html" title="wordwrap">wordwrap</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                        <li>
+                <span class="header">Deprecated</span>
+                <ul class="child-menu-list">
+                                    <li class="">
+                        <a href="function.convert-cyr-string.php.html" title="convert_&#8203;cyr_&#8203;string">convert_&#8203;cyr_&#8203;string</a>
+                    </li>
+                                    <li class="">
+                        <a href="function.hebrevc.php.html" title="hebrevc">hebrevc</a>
+                    </li>
+                                    <li class="">
+                        <a href="function.utf8-decode.php.html" title="utf8_&#8203;decode">utf8_&#8203;decode</a>
+                    </li>
+                                    <li class="">
+                        <a href="function.utf8-encode.php.html" title="utf8_&#8203;encode">utf8_&#8203;encode</a>
+                    </li>
+                                </ul>
+            </li>
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

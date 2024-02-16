@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: Функции SSH2 - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="ref.ssh2.php.html">
+ <link rel="shorturl" href="https://www.php.net/ssh2">
+ <link rel="alternate" href="https://www.php.net/ssh2" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="book.ssh2.php.html">
+ <link rel="prev" href="ssh2.constants.php.html">
+ <link rel="next" href="function.ssh2-auth-agent.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/ref.ssh2.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/ref.ssh2.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/ref.ssh2.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/ref.ssh2.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/ref.ssh2.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/ref.ssh2.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/ref.ssh2.php" hreflang="pt_BR">
+ <link rel="alternate" href="ref.ssh2.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/ref.ssh2.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/ref.ssh2.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="function.ssh2-auth-agent.php.html">
+          ssh2_auth_agent &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="ssh2.constants.php.html">
+          &laquo; Предопределённые константы        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.remote.other.php.html'>Другие службы</a></li>      <li><a href='book.ssh2.php.html'>SSH2</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/ref.ssh2.php'>English</option>
+            <option value='de/ref.ssh2.php'>German</option>
+            <option value='es/ref.ssh2.php'>Spanish</option>
+            <option value='fr/ref.ssh2.php'>French</option>
+            <option value='it/ref.ssh2.php'>Italian</option>
+            <option value='ja/ref.ssh2.php'>Japanese</option>
+            <option value='pt_BR/ref.ssh2.php'>Brazilian Portuguese</option>
+            <option value='ru/ref.ssh2.php' selected="selected">Russian</option>
+            <option value='tr/ref.ssh2.php'>Turkish</option>
+            <option value='zh/ref.ssh2.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/ssh2/reference.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Fref.ssh2%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="ref.ssh2" class="reference">
+ <h1 class="title">Функции SSH2</h1>
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2>Содержание</h2><ul class="chunklist chunklist_reference"><li><a href="function.ssh2-auth-agent.php.html">ssh2_auth_agent</a> — Аутентификация через SSH с помощью агент ssh</li><li><a href="function.ssh2-auth-hostbased-file.php.html">ssh2_auth_hostbased_file</a> — Аутентификация с использованием открытого ключа хоста</li><li><a href="function.ssh2-auth-none.php.html">ssh2_auth_none</a> — Аутентификация как &quot;none&quot;</li><li><a href="function.ssh2-auth-password.php.html">ssh2_auth_password</a> — Аутентификация через SSH с использованием обычного пароля</li><li><a href="function.ssh2-auth-pubkey-file.php.html">ssh2_auth_pubkey_file</a> — Аутентификация с открытым ключом</li><li><a href="function.ssh2-connect.php.html">ssh2_connect</a> — Подключение к SSH-серверу</li><li><a href="function.ssh2-disconnect.php.html">ssh2_disconnect</a> — Закрыть соединение с удалённым сервером SSH</li><li><a href="function.ssh2-exec.php.html">ssh2_exec</a> — Выполнение команды на удалённом сервере</li><li><a href="function.ssh2-fetch-stream.php.html">ssh2_fetch_stream</a> — Получение расширенного потока данных</li><li><a href="function.ssh2-fingerprint.php.html">ssh2_fingerprint</a> — Получение отпечатка удалённого сервера</li><li><a href="function.ssh2-forward-accept.php.html">ssh2_forward_accept</a> — Принимает соединение, созданное слушателем</li><li><a href="function.ssh2-forward-listen.php.html">ssh2_forward_listen</a> — Связывает порт на удалённом сервере и прослушивает соединения</li><li><a href="function.ssh2-methods-negotiated.php.html">ssh2_methods_negotiated</a> — Возвращает список согласованных методов</li><li><a href="function.ssh2-poll.php.html">ssh2_poll</a> — Опрашивает каналы/слушателей/потоки на предмет событий</li><li><a href="function.ssh2-publickey-add.php.html">ssh2_publickey_add</a> — Добавляет авторизованный открытый ключ</li><li><a href="function.ssh2-publickey-init.php.html">ssh2_publickey_init</a> — Инициализирует подсистему открытого ключа</li><li><a href="function.ssh2-publickey-list.php.html">ssh2_publickey_list</a> — Список уже авторизованных открытых ключей</li><li><a href="function.ssh2-publickey-remove.php.html">ssh2_publickey_remove</a> — Удаляет авторизованный открытый ключ</li><li><a href="function.ssh2-scp-recv.php.html">ssh2_scp_recv</a> — Запрос файла через SCP</li><li><a href="function.ssh2-scp-send.php.html">ssh2_scp_send</a> — Отправка файла через SCP</li><li><a href="function.ssh2-send-eof.php.html">ssh2_send_eof</a> — Отправляет EOF в поток</li><li><a href="function.ssh2-sftp-chmod.php.html">ssh2_sftp_chmod</a> — Изменение прав доступа</li><li><a href="function.ssh2-sftp-lstat.php.html">ssh2_sftp_lstat</a> — Информация о символической ссылке</li><li><a href="function.ssh2-sftp-mkdir.php.html">ssh2_sftp_mkdir</a> — Создать директорию</li><li><a href="function.ssh2-sftp-readlink.php.html">ssh2_sftp_readlink</a> — Возвращает объект по символической ссылке</li><li><a href="function.ssh2-sftp-realpath.php.html">ssh2_sftp_realpath</a> — Определяет полный путь по предоставленной строке с путём</li><li><a href="function.ssh2-sftp-rename.php.html">ssh2_sftp_rename</a> — Переименовывает файл</li><li><a href="function.ssh2-sftp-rmdir.php.html">ssh2_sftp_rmdir</a> — Удаляет директорию</li><li><a href="function.ssh2-sftp-stat.php.html">ssh2_sftp_stat</a> — Информация о файле</li><li><a href="function.ssh2-sftp-symlink.php.html">ssh2_sftp_symlink</a> — Создать символическую ссылку</li><li><a href="function.ssh2-sftp-unlink.php.html">ssh2_sftp_unlink</a> — Удалить файл на сервере</li><li><a href="function.ssh2-sftp.php.html">ssh2_sftp</a> — Инициализировать подсистему SFTP</li><li><a href="function.ssh2-shell.php.html">ssh2_shell</a> — Запрашивает интерактивный терминал</li><li><a href="function.ssh2-tunnel.php.html">ssh2_tunnel</a> — Открыть туннель через удалённый сервер</li></ul>
+</div>
+<section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=ref.ssh2&amp;redirect=https://www.php.net/manual/ru/ref.ssh2.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">8 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="121929">  <div class="votes">
+    <div id="Vu121929">
+    <a href="https://www.php.net/manual/vote-note.php?id=121929&amp;page=ref.ssh2&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd121929">
+    <a href="https://www.php.net/manual/vote-note.php?id=121929&amp;page=ref.ssh2&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V121929" title="100% like this...">
+    4
+    </div>
+  </div>
+  <a href="ref.ssh2.php.html#121929" class="name">
+  <strong class="user"><em>shred</em></strong></a><a class="genanchor" href="ref.ssh2.php.html#121929"> &para;</a><div class="date" title="2017-11-28 12:36"><strong>6 years ago</strong></div>
+  <div class="text" id="Hcom121929">
+<div class="phpcode"><code><span class="html">Getting strange "Unable to open ssh2.s<a href="ftp://Resource" rel="nofollow" target="_blank">ftp://Resource</a> id #3/example.txt" errors? This is a bug in PHP &gt; 5.6.27. Use intval() as a workaround to make ssh2 work again:<br /><br />$sftp = ssh2_sftp($connection);<br />fopen("ssh2.s<a href="ftp://" rel="nofollow" target="_blank">ftp://</a>" . intval($sftp) . "/example.txt", 'r');<br /><br /><a href="https://bugs.php.net/bug.php?id=73597" rel="nofollow" target="_blank">https://bugs.php.net/bug.php?id=73597</a></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="78756">  <div class="votes">
+    <div id="Vu78756">
+    <a href="https://www.php.net/manual/vote-note.php?id=78756&amp;page=ref.ssh2&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd78756">
+    <a href="https://www.php.net/manual/vote-note.php?id=78756&amp;page=ref.ssh2&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V78756" title="76% like this...">
+    9
+    </div>
+  </div>
+  <a href="ref.ssh2.php.html#78756" class="name">
+  <strong class="user"><em>dan at novapulsar dot com</em></strong></a><a class="genanchor" href="ref.ssh2.php.html#78756"> &para;</a><div class="date" title="2007-10-25 11:06"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom78756">
+<div class="phpcode"><code><span class="html">you will have an issue transferring any file using ssh2_scp_send unless you send a dummy file after your real file, or preferably issue an <br /><br />ssh2_exec ($connection, 'exit'); <br /><br />I was transferring hundreds of thousands of files in my prototype across multiple servers, and noticed that each file had a mismatched md5 hash and bytelength.<br /><br />after a bit of research i learnt that this was a bug, and added the code above as suggested at pecl.php.net in the bugs section.<br /><br />hopefully this helps someone who is getting partial file transfer that could ruin your whole app.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="69324">  <div class="votes">
+    <div id="Vu69324">
+    <a href="https://www.php.net/manual/vote-note.php?id=69324&amp;page=ref.ssh2&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd69324">
+    <a href="https://www.php.net/manual/vote-note.php?id=69324&amp;page=ref.ssh2&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V69324" title="100% like this...">
+    3
+    </div>
+  </div>
+  <a href="ref.ssh2.php.html#69324" class="name">
+  <strong class="user"><em>astribuncio at gmail dot com</em></strong></a><a class="genanchor" href="ref.ssh2.php.html#69324"> &para;</a><div class="date" title="2006-08-31 10:17"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom69324">
+<div class="phpcode"><code><span class="html">Installing on HPUX 11.11 cookbook<br /><br />Just follow the install instructions on the man page and solved the problems as they appear<br /><br />- when making libssh2<br />Problem related with /lib/pa20_64 and 64 bits library in 32 bits link<br />Edited the configure file  and changed<br />SHLIB_LDFLAGS="-b +vnocompatwarnings -L/lib/pa20_64"<br />to<br />SHLIB_LDFLAGS="-b +vnocompatwarnings -L/lib"<br /><br />-when executing phpize<br />Problems with aclocal, autom4ke and m4<br />Installed automake, autoconf and m4<br /><br />-when ./configuring the ssh2 <br />Configure: error: libssh2 version &gt;= 0.4 not found<br />Edited the configure.m4 and removed the -ldl switch from line (as posted before)<br />39      -L$SSH2_DIR/lib -lm -ldl<br />runned phpize again and ./configure --with-ssh2</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="63641">  <div class="votes">
+    <div id="Vu63641">
+    <a href="https://www.php.net/manual/vote-note.php?id=63641&amp;page=ref.ssh2&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd63641">
+    <a href="https://www.php.net/manual/vote-note.php?id=63641&amp;page=ref.ssh2&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V63641" title="61% like this...">
+    3
+    </div>
+  </div>
+  <a href="ref.ssh2.php.html#63641" class="name">
+  <strong class="user"><em>Mike &lt;esnik8202 at sneakemail dot com&gt;</em></strong></a><a class="genanchor" href="ref.ssh2.php.html#63641"> &para;</a><div class="date" title="2006-03-26 09:08"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom63641">
+<div class="phpcode"><code><span class="html">To list directory contents:<br /><br /><span class="default">&lt;?php<br />$connection </span><span class="keyword">= </span><span class="default">ssh2_connect</span><span class="keyword">(\</span><span class="string">"hostname\", 22);<br />ssh2_auth_password(</span><span class="default">$connection</span><span class="string">,\"username\", \"password\");  // or use any of the ssh2_auth_* methods<br /></span><span class="default">$sftp</span><span class="string"> = ssh2_sftp(</span><span class="default">$connection</span><span class="string">);<br /><br /></span><span class="default">$dh</span><span class="string"> = opendir(\"ssh2.s<a href="ftp://" rel="nofollow" target="_blank">ftp://</a></span><span class="default">$sftp</span><span class="string">/path/to/dir/\");<br /><br />while ((</span><span class="default">$file</span><span class="string"> = readdir(</span><span class="default">$dh</span><span class="string">)) !== false) {<br />  echo \"</span><span class="default">$file</span><span class="string"> is in hostname:/path/to/dir\\n\";<br />}<br /><br />closedir(</span><span class="default">$dh</span><span class="string">);<br />?&gt;<br /><br />(thanks to Sara for assisting)</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="68806">  <div class="votes">
+    <div id="Vu68806">
+    <a href="https://www.php.net/manual/vote-note.php?id=68806&amp;page=ref.ssh2&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd68806">
+    <a href="https://www.php.net/manual/vote-note.php?id=68806&amp;page=ref.ssh2&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V68806" title="62% like this...">
+    2
+    </div>
+  </div>
+  <a href="ref.ssh2.php.html#68806" class="name">
+  <strong class="user"><em>chris dot britton at cingular dot com</em></strong></a><a class="genanchor" href="ref.ssh2.php.html#68806"> &para;</a><div class="date" title="2006-08-11 06:11"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom68806">
+<div class="phpcode"><code><span class="html">I was building out the ssh2 extension (0.10) under OpenBSD 3.9 on sparc64 and I got this error when running configure:<br /><br />checking for libssh2_banner_set in -lssh2... no<br />configure: error: libssh2 version &gt;= 0.4 not found<br /><br />I did some poking around in the configure file and traced the problem down.  The reason for the failure is that configure is trying to compile a test program with -ldl.  libdl is not installed on OpenBSD 3.9. The OpenBSD folks purged libdl years ago and I could not find a package that contains it. <br /><br />(The error message above is misleading because the problem is not with libssh2.)<br /><br />I looked at the ssh2 extension code and could not see a reason for using libdl, so I removed the -ldl from the config.m4 file.  Re-ran phpize and configure. No errors.  Did make and installed ssh2.so.  Works fine.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="57462">  <div class="votes">
+    <div id="Vu57462">
+    <a href="https://www.php.net/manual/vote-note.php?id=57462&amp;page=ref.ssh2&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd57462">
+    <a href="https://www.php.net/manual/vote-note.php?id=57462&amp;page=ref.ssh2&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V57462" title="66% like this...">
+    1
+    </div>
+  </div>
+  <a href="ref.ssh2.php.html#57462" class="name">
+  <strong class="user"><em>dotwho at NSPM dot mac dot com</em></strong></a><a class="genanchor" href="ref.ssh2.php.html#57462"> &para;</a><div class="date" title="2005-10-04 03:15"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom57462">
+<div class="phpcode"><code><span class="html">Trying to compile this ssh PECL extension for Mac OS X (10.4.2) <br />with entropy.ch's php5 distribution? Read on: PART 2:<br /><br />11) Check your shell's path variable by SHELL$ "echo $PATH". <br />If your php5 binary directory is not listed before the standard OS X binary directory, <br />update your $PATH variable to list it first. Mine reads: <br />/usr/local/mysql/bin/: /usr/local/php5/bin/: /bin:/sbin: /usr/bin:/usr/sbin <br />11a) if you do not do this step, the PECL extension will link against the old <br />php4 version that ships with Mac OS X. You will know this by the fact that the <br />next step lists a server API that is different than the output of phpinfo(): <br />My version was 20041030, Apples version was 20020429.<br />12) Run: phpize &amp;&amp; ./configure --with-ssh2 &amp;&amp; make<br />This will produce a lot of output and probably some warnings. If you get a note <br />at the end that says "Build Complete", then the process has completed <br />(probably successfully). The command has produced the output file ssh2.so within <br />the ssh2-0.9 (or whatever version) directory.<br />13) Check where the extension directory is located at by running the following command:<br />SHELL$/usr/local/php5/bin/php-config --extension-dir<br />If it lists some directory that actually exists, copy the ssh2.so file to this directory.<br />If it doesn't list a location that exists, you can either create the location, or <br />choose a different location and update the line in your php.ini file:<br />extension_dir = "./"<br />to point to the directory you would like to use. I chose:<br />extension_dir = "/usr/local/php5/extensions/"?&gt;<br />14) Add the line<br />extension=ssh2.so<br />to the Dynamic Extensions area of your php.ini file.<br />15) Restart your web server for the extensioin to be loaded. If there are any problems, they will be written to the webserver log.<br />16) Check if your new ssh based streams are available by running:<br />SHELL$ /usr/local/php5/bin/php -r "print_r(stream_get_wrappers());"<br />You should get something similar to this output:<br />Array<br />(<br />    [0] =&gt; php<br />    [1] =&gt; file<br />    [2] =&gt; http<br />    [3] =&gt; ftp<br />    [4] =&gt; compress.bzip2<br />    [5] =&gt; compress.zlib<br />    [6] =&gt; https<br />    [7] =&gt; ftps<br />    [8] =&gt; ssh2.shell<br />    [9] =&gt; ssh2.exec<br />    [10] =&gt; ssh2.tunnel<br />    [11] =&gt; ssh2.scp<br />    [12] =&gt; ssh2.sftp<br />)<br />You should now be able to do all the cool things you need to do with ssh <br />(like sftp scp ssh execution)! Take a look at some of the comment here for some <br />example scripts to test things out:<br /><a href="http://us2.php.net/manual/en/ref.ssh2.php" rel="nofollow" target="_blank">http://us2.php.net/manual/en/ref.ssh2.php</a><br /><br />Good luck... hope that saves you my headache! :)</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="57461">  <div class="votes">
+    <div id="Vu57461">
+    <a href="https://www.php.net/manual/vote-note.php?id=57461&amp;page=ref.ssh2&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd57461">
+    <a href="https://www.php.net/manual/vote-note.php?id=57461&amp;page=ref.ssh2&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V57461" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="ref.ssh2.php.html#57461" class="name">
+  <strong class="user"><em>dotwho at NSPM dot mac dot com</em></strong></a><a class="genanchor" href="ref.ssh2.php.html#57461"> &para;</a><div class="date" title="2005-10-04 03:12"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom57461">
+<div class="phpcode"><code><span class="html">Trying to compile this ssh PECL extension for Mac OS X (10.4.2) <br />with entropy.ch's php5 distribution? Read on: PART 1:<br />1) Download libssh (I used version 0.11)<br /><a href="http://sourceforge.net/project/showfiles.php?group_id=125852" rel="nofollow" target="_blank">http://sourceforge.net/project/showfiles.php?group_id=125852</a><br />2) Unzip the directory and cd to the upacked directory in the terminal.<br />3) run: ./configure; make all install;<br />libssh should compile and place the output file in src/*.o<br />4) copy all headers from the include folder within the libssh2 directory to<br />/usr/local/include/<br />5) copy all compiled files (*.o) from the src folder within the libssh2 <br />directory to /usr/local/lib/<br />6) Download ssh2 <br />(I used version 0.9 with additional changes from cvs - explained below)<br /><a href="http://pecl.php.net/package/ssh2" rel="nofollow" target="_blank">http://pecl.php.net/package/ssh2</a><br />7) unzip the downloaded archive.<br />8) version 0.9 has a conflict with an existing symbol used in some of the ZEND headers... <br />a change is available in cvs which renames the symbol in ssh2 to avoid the conflict<br /><a href="http://cvs.php.net/diff.php/pecl/ssh2/ssh2.c?r1=1.9&amp;r2=1.10&amp;ty=h" rel="nofollow" target="_blank">http://cvs.php.net/diff.php/pecl/ssh2/ssh2.c?r1=1.9&amp;r2=1.10&amp;ty=h</a><br />down load at least the 1.10 version of ssh2.c<br />if you decide to download a newer version, download any of the corresponding related files, <br />such as the php_ssh2.h header file.<br />9) replace the old version of ssh2.c with the new version of ssh2.c <br />(and any other files you downloaded).<br />10) From the terminal: <br />cd to the source directory (for me ssh2-0.9/ssh2-0.9/).<br /><br />(Continued in a PART 2 comment)</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="77170">  <div class="votes">
+    <div id="Vu77170">
+    <a href="https://www.php.net/manual/vote-note.php?id=77170&amp;page=ref.ssh2&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd77170">
+    <a href="https://www.php.net/manual/vote-note.php?id=77170&amp;page=ref.ssh2&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V77170" title="33% like this...">
+    -1
+    </div>
+  </div>
+  <a href="ref.ssh2.php.html#77170" class="name">
+  <strong class="user"><em>aeolianmeson at blitzeclipse dot com</em></strong></a><a class="genanchor" href="ref.ssh2.php.html#77170"> &para;</a><div class="date" title="2007-08-17 12:00"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom77170">
+<div class="phpcode"><code><span class="html">Some installations of PHP 5 may have a problem starting the SSH2 extension as a Windows' service. It just started happening to me today, spontaneously. I have PHP 5.2.2 (and have tried 5.2.3), on Apache 2.0.59 .<br /><br />It turns out that it's an Apache problem. Even though I was given an error message when starting it, it still worked perfectly from the CLI. So, I commented it out in the<br />INI file again, and am just loading it using extension_loaded('ssh2') and dl('php_ssh2.dll') from within the script.</span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=ref.ssh2&amp;redirect=https://www.php.net/manual/ru/ref.ssh2.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="book.ssh2.php.html">SSH2</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="intro.ssh2.php.html" title="Введение">Введение</a>
+                        </li>
+                                                <li class="">
+                            <a href="ssh2.setup.php.html" title="Установка и настройка">Установка и настройка</a>
+                        </li>
+                                                <li class="">
+                            <a href="ssh2.constants.php.html" title="Предопределённые константы">Предопределённые константы</a>
+                        </li>
+                                                <li class="current">
+                            <a href="ref.ssh2.php.html" title="Функции SSH2">Функции SSH2</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

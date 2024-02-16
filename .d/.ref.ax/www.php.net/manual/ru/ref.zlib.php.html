@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: Функции Zlib - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="ref.zlib.php.html">
+ <link rel="shorturl" href="https://www.php.net/zlib">
+ <link rel="alternate" href="https://www.php.net/zlib" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="book.zlib.php.html">
+ <link rel="prev" href="zlib.examples.php.html">
+ <link rel="next" href="function.deflate-add.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/ref.zlib.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/ref.zlib.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/ref.zlib.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/ref.zlib.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/ref.zlib.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/ref.zlib.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/ref.zlib.php" hreflang="pt_BR">
+ <link rel="alternate" href="ref.zlib.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/ref.zlib.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/ref.zlib.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="function.deflate-add.php.html">
+          deflate_add &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="zlib.examples.php.html">
+          &laquo; Примеры        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.compression.php.html'>Модули для сжатия и архивации</a></li>      <li><a href='book.zlib.php.html'>Zlib</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/ref.zlib.php'>English</option>
+            <option value='de/ref.zlib.php'>German</option>
+            <option value='es/ref.zlib.php'>Spanish</option>
+            <option value='fr/ref.zlib.php'>French</option>
+            <option value='it/ref.zlib.php'>Italian</option>
+            <option value='ja/ref.zlib.php'>Japanese</option>
+            <option value='pt_BR/ref.zlib.php'>Brazilian Portuguese</option>
+            <option value='ru/ref.zlib.php' selected="selected">Russian</option>
+            <option value='tr/ref.zlib.php'>Turkish</option>
+            <option value='zh/ref.zlib.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/zlib/reference.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Fref.zlib%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="ref.zlib" class="reference">
+ <h1 class="title">Функции Zlib</h1>
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2>Содержание</h2><ul class="chunklist chunklist_reference"><li><a href="function.deflate-add.php.html">deflate_add</a> — Инкрементальное сжатие данных</li><li><a href="function.deflate-init.php.html">deflate_init</a> — Инициализировать контекст инкрементального сжатия</li><li><a href="function.gzclose.php.html">gzclose</a> — Закрыть указатель открытого gz-файла</li><li><a href="function.gzcompress.php.html">gzcompress</a> — Сжать строку</li><li><a href="function.gzdecode.php.html">gzdecode</a> — Декодирует строку, сжатую с помощью gzip</li><li><a href="function.gzdeflate.php.html">gzdeflate</a> — Сжимает строку</li><li><a href="function.gzencode.php.html">gzencode</a> — Создать сжатую строку gzip</li><li><a href="function.gzeof.php.html">gzeof</a> — Проверяет, находится ли текущая позиция в конце (EOF) gz-файла</li><li><a href="function.gzfile.php.html">gzfile</a> — Считывает весь gz-файл в массив</li><li><a href="function.gzgetc.php.html">gzgetc</a> — Получить символ из указателя на gz-файл</li><li><a href="function.gzgets.php.html">gzgets</a> — Получить строку из указателя файла</li><li><a href="function.gzgetss.php.html">gzgetss</a> — Возвращает строку из указателя gz-файла и удалить HTML-теги</li><li><a href="function.gzinflate.php.html">gzinflate</a> — Распаковать сжатую строку</li><li><a href="function.gzopen.php.html">gzopen</a> — Открыть gz-файл</li><li><a href="function.gzpassthru.php.html">gzpassthru</a> — Вывод всех оставшихся данных из указателя gz-файла.</li><li><a href="function.gzputs.php.html">gzputs</a> — Псевдоним gzwrite</li><li><a href="function.gzread.php.html">gzread</a> — Бинарное чтение gz-файла</li><li><a href="function.gzrewind.php.html">gzrewind</a> — Переместить позицию указатель gz-файла в начало</li><li><a href="function.gzseek.php.html">gzseek</a> — Переместить указатель на позицию в указателе gz-файла</li><li><a href="function.gztell.php.html">gztell</a> — Возвращает текущую позицию чтения/записи в указателе gz-файла</li><li><a href="function.gzuncompress.php.html">gzuncompress</a> — Распаковать сжатую строку</li><li><a href="function.gzwrite.php.html">gzwrite</a> — Бинарная запись в gz-файл</li><li><a href="function.inflate-add.php.html">inflate_add</a> — Инкрементальное распаковать закодированные данные</li><li><a href="function.inflate-get-read-len.php.html">inflate_get_read_len</a> — Получает количество прочитанных байт</li><li><a href="function.inflate-get-status.php.html">inflate_get_status</a> — Получает статус декомпрессии</li><li><a href="function.inflate-init.php.html">inflate_init</a> — Инициализация контекста инкрементальной распаковки</li><li><a href="function.ob-gzhandler.php.html">ob_gzhandler</a> — Сжимает буфер вывода в gzip, действуя как callback-функция &mdash; параметр функции ob_start</li><li><a href="function.readgzfile.php.html">readgzfile</a> — Выводит содержимое gz-файла</li><li><a href="function.zlib-decode.php.html">zlib_decode</a> — Распаковывает любые закодированные данные raw/gzip/zlib</li><li><a href="function.zlib-encode.php.html">zlib_encode</a> — Сжатие данных с указанной кодировкой</li><li><a href="function.zlib-get-coding-type.php.html">zlib_get_coding_type</a> — Возвращает способ кодирования, используемый для сжатия вывода</li></ul>
+</div>
+<section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=ref.zlib&amp;redirect=https://www.php.net/manual/ru/ref.zlib.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">19 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="68454">  <div class="votes">
+    <div id="Vu68454">
+    <a href="https://www.php.net/manual/vote-note.php?id=68454&amp;page=ref.zlib&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd68454">
+    <a href="https://www.php.net/manual/vote-note.php?id=68454&amp;page=ref.zlib&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V68454" title="100% like this...">
+    9
+    </div>
+  </div>
+  <a href="ref.zlib.php.html#68454" class="name">
+  <strong class="user"><em>anzenews at volja dot net</em></strong></a><a class="genanchor" href="ref.zlib.php.html#68454"> &para;</a><div class="date" title="2006-07-27 06:59"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom68454">
+<div class="phpcode"><code><span class="html">php at seven dot net dot nz: <br />Have you been using register_shutdown_function() that outputs something? If yes, some of the output was not encoded and IE6 is less than forgiving about that. In my case it was reloading the page and sometimes showing a blank page. So IE6 does get invalid stream, bug is not bogus, only description is not good enough. <br /><br />jpleveille at webgraphe dot com:<br />In PHP 4.4.2 register_shutdown_function() DOES output whatever you wish, but it is not encoded with the rest of the document. Which is even worse as you get a bug that is difficult / impossible to track down.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="43181">  <div class="votes">
+    <div id="Vu43181">
+    <a href="https://www.php.net/manual/vote-note.php?id=43181&amp;page=ref.zlib&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd43181">
+    <a href="https://www.php.net/manual/vote-note.php?id=43181&amp;page=ref.zlib&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V43181" title="100% like this...">
+    5
+    </div>
+  </div>
+  <a href="ref.zlib.php.html#43181" class="name">
+  <strong class="user"><em>zigazou at free dot fr</em></strong></a><a class="genanchor" href="ref.zlib.php.html#43181"> &para;</a><div class="date" title="2004-06-12 03:44"><strong>19 years ago</strong></div>
+  <div class="text" id="Hcom43181">
+<div class="phpcode"><code><span class="html">If you use "zlib.output_compression = On" in your php.ini file, and activates output buffering (ob_start), don't output this header :<br />header('Content-Length: '.ob_get_length());<br /><br />This is because ob_get_length() will return the uncompressed size while zlib will compress the output. Thus your browser will get confused waiting for extra data that will never come.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="44059">  <div class="votes">
+    <div id="Vu44059">
+    <a href="https://www.php.net/manual/vote-note.php?id=44059&amp;page=ref.zlib&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd44059">
+    <a href="https://www.php.net/manual/vote-note.php?id=44059&amp;page=ref.zlib&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V44059" title="100% like this...">
+    4
+    </div>
+  </div>
+  <a href="ref.zlib.php.html#44059" class="name">
+  <strong class="user"><em>gem at rellim dot com</em></strong></a><a class="genanchor" href="ref.zlib.php.html#44059"> &para;</a><div class="date" title="2004-07-13 08:03"><strong>19 years ago</strong></div>
+  <div class="text" id="Hcom44059">
+<div class="phpcode"><code><span class="html">Run, do not walk, run, to add this to your Apache config file:<br /><br />php_flag zlib.output_compression On<br />php_value zlib.output_compression_level 5<br /><br />I just tried this and achieved 10x and 15x speed inprovement on<br />some mature php pages.  Pages I have been seating over to make 5% gains on.  I use microtime() on critical pages to help me track page speed and that confirms the speed improvement.  The php page takes a timestamp at the beginning and end, then logs the page duration.  So any IP transmission effects are not included.  There is<br />a clear subjective difference to the user.<br /><br />The test system was PHP 4.3.6, Apache 2.0.49 over Linux 2.4.<br />As always YMMV.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="29412">  <div class="votes">
+    <div id="Vu29412">
+    <a href="https://www.php.net/manual/vote-note.php?id=29412&amp;page=ref.zlib&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd29412">
+    <a href="https://www.php.net/manual/vote-note.php?id=29412&amp;page=ref.zlib&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V29412" title="100% like this...">
+    4
+    </div>
+  </div>
+  <a href="ref.zlib.php.html#29412" class="name">
+  <strong class="user"><em>mlevy at rgj dot com</em></strong></a><a class="genanchor" href="ref.zlib.php.html#29412"> &para;</a><div class="date" title="2003-02-12 02:06"><strong>21 years ago</strong></div>
+  <div class="text" id="Hcom29412">
+<div class="phpcode"><code><span class="html">If you turn zlib.output_compression_level on, be advised that you shouldn't try to flush() the output in your scripts. PHP will add the gzip header but send the output uncompressed, which plays havoc with Mozilla. IE seems to handle it, though.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="75995">  <div class="votes">
+    <div id="Vu75995">
+    <a href="https://www.php.net/manual/vote-note.php?id=75995&amp;page=ref.zlib&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd75995">
+    <a href="https://www.php.net/manual/vote-note.php?id=75995&amp;page=ref.zlib&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V75995" title="87% like this...">
+    6
+    </div>
+  </div>
+  <a href="ref.zlib.php.html#75995" class="name">
+  <strong class="user"><em>Brian</em></strong></a><a class="genanchor" href="ref.zlib.php.html#75995"> &para;</a><div class="date" title="2007-06-25 11:58"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom75995">
+<div class="phpcode"><code><span class="html">If you have zlib.output_compression set to on when your script starts (in php.ini or via apache directive), then you disable it at runtime using ini_set() before producing output, your output will still be buffered!  Even if you call ob_implicit_flush().<br /><br />If you want unbuffered output, you must disable zlib.output_compression before your script starts (as well as mod_gzip of course, if you have both installed).<br /><br />This behaviour experienced on Server: Apache/1.3.33 (Debian GNU/Linux) mod_gzip/1.3.26.1a PHP/4.3.10-18</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="46366">  <div class="votes">
+    <div id="Vu46366">
+    <a href="https://www.php.net/manual/vote-note.php?id=46366&amp;page=ref.zlib&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd46366">
+    <a href="https://www.php.net/manual/vote-note.php?id=46366&amp;page=ref.zlib&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V46366" title="85% like this...">
+    5
+    </div>
+  </div>
+  <a href="ref.zlib.php.html#46366" class="name">
+  <strong class="user"><em>admin_at_commandline_dot_ch</em></strong></a><a class="genanchor" href="ref.zlib.php.html#46366"> &para;</a><div class="date" title="2004-10-08 05:32"><strong>19 years ago</strong></div>
+  <div class="text" id="Hcom46366">
+<div class="phpcode"><code><span class="html">My gzip function.<br /><br />This function read, compress and writhe only small chunks at one time, this way you can compress big files without memory problems...<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">gzip</span><span class="keyword">(</span><span class="default">$src</span><span class="keyword">, </span><span class="default">$level </span><span class="keyword">= </span><span class="default">5</span><span class="keyword">, </span><span class="default">$dst </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">){<br />    if(</span><span class="default">$dst </span><span class="keyword">== </span><span class="default">false</span><span class="keyword">){<br />        </span><span class="default">$dst </span><span class="keyword">= </span><span class="default">$src</span><span class="keyword">.</span><span class="string">".gz"</span><span class="keyword">;<br />    }<br />    if(</span><span class="default">file_exists</span><span class="keyword">(</span><span class="default">$src</span><span class="keyword">)){<br />        </span><span class="default">$filesize </span><span class="keyword">= </span><span class="default">filesize</span><span class="keyword">(</span><span class="default">$src</span><span class="keyword">);<br />        </span><span class="default">$src_handle </span><span class="keyword">= </span><span class="default">fopen</span><span class="keyword">(</span><span class="default">$src</span><span class="keyword">, </span><span class="string">"r"</span><span class="keyword">);<br />        if(!</span><span class="default">file_exists</span><span class="keyword">(</span><span class="default">$dst</span><span class="keyword">)){<br />            </span><span class="default">$dst_handle </span><span class="keyword">= </span><span class="default">gzopen</span><span class="keyword">(</span><span class="default">$dst</span><span class="keyword">, </span><span class="string">"w</span><span class="default">$level</span><span class="string">"</span><span class="keyword">);<br />            while(!</span><span class="default">feof</span><span class="keyword">(</span><span class="default">$src_handle</span><span class="keyword">)){<br />                </span><span class="default">$chunk </span><span class="keyword">= </span><span class="default">fread</span><span class="keyword">(</span><span class="default">$src_handle</span><span class="keyword">, </span><span class="default">2048</span><span class="keyword">);<br />                </span><span class="default">gzwrite</span><span class="keyword">(</span><span class="default">$dst_handle</span><span class="keyword">, </span><span class="default">$chunk</span><span class="keyword">);<br />            }<br />            </span><span class="default">fclose</span><span class="keyword">(</span><span class="default">$src_handle</span><span class="keyword">);<br />            </span><span class="default">gzclose</span><span class="keyword">(</span><span class="default">$dst_handle</span><span class="keyword">);<br />            return </span><span class="default">true</span><span class="keyword">;<br />        } else {<br />            </span><span class="default">error_log</span><span class="keyword">(</span><span class="string">"</span><span class="default">$dst</span><span class="string"> already exists"</span><span class="keyword">);<br />        }<br />    } else {<br />        </span><span class="default">error_log</span><span class="keyword">(</span><span class="string">"</span><span class="default">$src</span><span class="string"> doesn't exist"</span><span class="keyword">);<br />    }<br />    return </span><span class="default">false</span><span class="keyword">;<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="82310">  <div class="votes">
+    <div id="Vu82310">
+    <a href="https://www.php.net/manual/vote-note.php?id=82310&amp;page=ref.zlib&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd82310">
+    <a href="https://www.php.net/manual/vote-note.php?id=82310&amp;page=ref.zlib&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V82310" title="69% like this...">
+    5
+    </div>
+  </div>
+  <a href="ref.zlib.php.html#82310" class="name">
+  <strong class="user"><em>Robin Skoglund</em></strong></a><a class="genanchor" href="ref.zlib.php.html#82310"> &para;</a><div class="date" title="2008-04-04 04:39"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom82310">
+<div class="phpcode"><code><span class="html">ini_set('zlib.output_compression', 'On') doesn't work<br /><br />It says that zlib.output_compression is PHP_INI_ALL changable, but in my case at least, this is not true. When using ini_set('zlib.output_compression', 'On') runtime, phpinfo() states that zlib.output_compression is enabled, yet there is no compression.<br /><br />Since I don't want to enable zlib.ouput_compression for all sites in php.ini, my solution was to enable it in apache conf (.htaccess should work as well) with the line:<br />php_flag zlib.output_compression on<br /><br />Just spent hours figuring this out, so I hope it helps other people.<br /><br />Btw, I'm using Apache/2.2.4 (Ubuntu) PHP/5.2.3-1ubuntu6.3.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="37482">  <div class="votes">
+    <div id="Vu37482">
+    <a href="https://www.php.net/manual/vote-note.php?id=37482&amp;page=ref.zlib&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd37482">
+    <a href="https://www.php.net/manual/vote-note.php?id=37482&amp;page=ref.zlib&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V37482" title="75% like this...">
+    2
+    </div>
+  </div>
+  <a href="ref.zlib.php.html#37482" class="name">
+  <strong class="user"><em>thivierr at telus dot net</em></strong></a><a class="genanchor" href="ref.zlib.php.html#37482"> &para;</a><div class="date" title="2003-11-17 04:02"><strong>20 years ago</strong></div>
+  <div class="text" id="Hcom37482">
+<div class="phpcode"><code><span class="html">I found the absolute easiest way to read a gzip file is as follows:<br /><br />echo file_get_contents("compress.zlib:///myphp/test.txt.gz");<br /><br />To create a gzip file:<br />file_put_contents("compress.zlib:///myphp/test.txt.gz","Put this in the file\r\n");<br /><br />Things to note about this:<br />-The best prefix to use is "compress.zlib", not "zlib"<br />-If you wish to specify a path starting in the root path, you actually end up with three slashes.  The above path corresponds to "/myphp/test.txt" on unix, and "c:\myphp\test.txt" on Windows (if C: is the current drive).  I tested it just on Windows.<br />-Compression and decompression both use the same prefix of "compress.zlib://" (plus one more slash to get a root dir).<br />-I'm using 5.0, so I'm not 100% sure which behaviour started in which version.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="56917">  <div class="votes">
+    <div id="Vu56917">
+    <a href="https://www.php.net/manual/vote-note.php?id=56917&amp;page=ref.zlib&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd56917">
+    <a href="https://www.php.net/manual/vote-note.php?id=56917&amp;page=ref.zlib&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V56917" title="66% like this...">
+    3
+    </div>
+  </div>
+  <a href="ref.zlib.php.html#56917" class="name">
+  <strong class="user"><em>Bob</em></strong></a><a class="genanchor" href="ref.zlib.php.html#56917"> &para;</a><div class="date" title="2005-09-19 06:45"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom56917">
+<div class="phpcode"><code><span class="html">Contrary to what the documentation says, I've been unable to get zlib.output_compression to work via ini_set() (Even though I put it at the very beginning of the file before any output was sent) as of php 4.3.11.  While it does get set to true, it will not actually do anything. Which means if you don't set this via php.ini or Apache configuration it's a no-go. I have to use ob_start("ob_gzhandler"); instead.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="56216">  <div class="votes">
+    <div id="Vu56216">
+    <a href="https://www.php.net/manual/vote-note.php?id=56216&amp;page=ref.zlib&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd56216">
+    <a href="https://www.php.net/manual/vote-note.php?id=56216&amp;page=ref.zlib&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V56216" title="66% like this...">
+    3
+    </div>
+  </div>
+  <a href="ref.zlib.php.html#56216" class="name">
+  <strong class="user"><em>djmaze(AT)dragonflycms(.)org</em></strong></a><a class="genanchor" href="ref.zlib.php.html#56216"> &para;</a><div class="date" title="2005-08-27 08:27"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom56216">
+<div class="phpcode"><code><span class="html">If you need to compress data and send it as "Content-disposition: attachment" and on-the-fly to the client due to the size for example (40Mb) here's a dirty trick using ob_gzhandler()<br /><br />Keep in mind that $str is the content to output.<br /><br />When you start the output call<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">echo </span><span class="default">ob_gzhandler</span><span class="keyword">(</span><span class="default">$str</span><span class="keyword">, </span><span class="default">PHP_OUTPUT_HANDLER_START</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />Then to output any further content<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">echo </span><span class="default">ob_gzhandler</span><span class="keyword">(</span><span class="default">$str</span><span class="keyword">, </span><span class="default">PHP_OUTPUT_HANDLER_CONT</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />And to close the output<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">echo </span><span class="default">ob_gzhandler</span><span class="keyword">(</span><span class="string">''</span><span class="keyword">, </span><span class="default">PHP_OUTPUT_HANDLER_END</span><span class="keyword">);<br />exit;<br /></span><span class="default">?&gt;<br /></span><br />Only tested on Apache 1.3.33 with PHP 5.0.4</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="67942">  <div class="votes">
+    <div id="Vu67942">
+    <a href="https://www.php.net/manual/vote-note.php?id=67942&amp;page=ref.zlib&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd67942">
+    <a href="https://www.php.net/manual/vote-note.php?id=67942&amp;page=ref.zlib&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V67942" title="62% like this...">
+    2
+    </div>
+  </div>
+  <a href="ref.zlib.php.html#67942" class="name">
+  <strong class="user"><em>php at seven dot net dot nz</em></strong></a><a class="genanchor" href="ref.zlib.php.html#67942"> &para;</a><div class="date" title="2006-07-07 01:49"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom67942">
+<div class="phpcode"><code><span class="html">zlib.output_compression has caused problems for me in IE 6, when pages are sometimes not displayed. This could be difficult to track down and PHP have no intention of fixing it, so hopefully you find this note in a search if it happens to you.<br /><br /><a href="http://bugs.php.net/bug.php?id=38026" rel="nofollow" target="_blank">http://bugs.php.net/bug.php?id=38026</a></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="66472">  <div class="votes">
+    <div id="Vu66472">
+    <a href="https://www.php.net/manual/vote-note.php?id=66472&amp;page=ref.zlib&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd66472">
+    <a href="https://www.php.net/manual/vote-note.php?id=66472&amp;page=ref.zlib&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V66472" title="62% like this...">
+    2
+    </div>
+  </div>
+  <a href="ref.zlib.php.html#66472" class="name">
+  <strong class="user"><em>Arne dot Heizmann at csr dot com</em></strong></a><a class="genanchor" href="ref.zlib.php.html#66472"> &para;</a><div class="date" title="2006-05-23 10:34"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom66472">
+<div class="phpcode"><code><span class="html">PHP Version 5.1.4 here. What Bob said is correct even in this version (newest at the time of writing). You can't enable zlib.output_compression via ini_set(). You have to use php.ini.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="53722">  <div class="votes">
+    <div id="Vu53722">
+    <a href="https://www.php.net/manual/vote-note.php?id=53722&amp;page=ref.zlib&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd53722">
+    <a href="https://www.php.net/manual/vote-note.php?id=53722&amp;page=ref.zlib&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V53722" title="60% like this...">
+    1
+    </div>
+  </div>
+  <a href="ref.zlib.php.html#53722" class="name">
+  <strong class="user"><em>jpleveille at webgraphe dot com</em></strong></a><a class="genanchor" href="ref.zlib.php.html#53722"> &para;</a><div class="date" title="2005-06-10 06:08"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom53722">
+<div class="phpcode"><code><span class="html">register_shutdown_function() (<a href="http://www.php.net/register_shutdown_function" rel="nofollow" target="_blank">http://www.php.net/register_shutdown_function</a>) won't output anything if you use zlib.output_compression.<br /><br />Shutdown function is called after closing all opened output buffers thus, for example, its output will not be compressed if zlib.output_compression is enabled.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="32441">  <div class="votes">
+    <div id="Vu32441">
+    <a href="https://www.php.net/manual/vote-note.php?id=32441&amp;page=ref.zlib&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd32441">
+    <a href="https://www.php.net/manual/vote-note.php?id=32441&amp;page=ref.zlib&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V32441" title="60% like this...">
+    1
+    </div>
+  </div>
+  <a href="ref.zlib.php.html#32441" class="name">
+  <strong class="user"><em>chris at mad-teaparty dot com</em></strong></a><a class="genanchor" href="ref.zlib.php.html#32441"> &para;</a><div class="date" title="2003-05-27 05:10"><strong>20 years ago</strong></div>
+  <div class="text" id="Hcom32441">
+<div class="phpcode"><code><span class="html">Nice function. I did it the other way round:<br /><br />function uncompress($srcName, $dstName) {<br />   $zp = gzopen($srcName, "r");<br />   while(!gzeof($zp))<br />        $string .= gzread($zp, 4096);<br />   gzclose($zp);<br /><br />   $fp = fopen($dstName, "w");<br />   fwrite($fp, $string, strlen($string));<br />   fclose($fp);<br />}<br /><br />uncompress("./myfile.txt.gz", "./myfile.txt");<br /><br />A shorter approach would be:<br /><br />function uncompress($srcName, $dstName) {<br />  $string = implode("", gzfile($srcName));<br />  $fp = fopen($dstName, "w");<br />  fwrite($fp, $string, strlen($string));<br />  fclose($fp);<br />}</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="54412">  <div class="votes">
+    <div id="Vu54412">
+    <a href="https://www.php.net/manual/vote-note.php?id=54412&amp;page=ref.zlib&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd54412">
+    <a href="https://www.php.net/manual/vote-note.php?id=54412&amp;page=ref.zlib&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V54412" title="57% like this...">
+    1
+    </div>
+  </div>
+  <a href="ref.zlib.php.html#54412" class="name">
+  <strong class="user"><em>ghassler at speakeasy dot net</em></strong></a><a class="genanchor" href="ref.zlib.php.html#54412"> &para;</a><div class="date" title="2005-07-03 09:45"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom54412">
+<div class="phpcode"><code><span class="html">I tested all the compression levels against a 22k page and here are the results I got (in bytes):<br /><br />off = 22549<br />1 = 4297<br />2 = 4279<br />3 = 4264<br />4 = 4117<br />5 = 4097<br />6 = 4063<br />7 = 4011<br />8 = 3998<br />9 = 3996<br /><br />Looks like the best bets for zlib.output_compression_level is 1 or 5.  The default of 6 is probably OK too.  Don't know what the CPU usage difference is between them all though.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="12522">  <div class="votes">
+    <div id="Vu12522">
+    <a href="https://www.php.net/manual/vote-note.php?id=12522&amp;page=ref.zlib&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd12522">
+    <a href="https://www.php.net/manual/vote-note.php?id=12522&amp;page=ref.zlib&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V12522" title="100% like this...">
+    2
+    </div>
+  </div>
+  <a href="ref.zlib.php.html#12522" class="name">
+  <strong class="user"><em>monte at ispi dot net</em></strong></a><a class="genanchor" href="ref.zlib.php.html#12522"> &para;</a><div class="date" title="2001-04-18 06:02"><strong>22 years ago</strong></div>
+  <div class="text" id="Hcom12522">
+<div class="phpcode"><code><span class="html">An alternate way to handle gzip compression is to let the mod_gzip module of apache handle it. This seems to contradict the tutorial on phpbuilder.com saying that it won't compress php (or any dynamic) output, but mod_gzip as of version 1.3.17.1a works well for me.<br /><br />Here is an example of an httpd.conf setup:<br /><br />&lt;IfModule mod_gzip.c&gt;<br />mod_gzip_on                 Yes<br />mod_gzip_dechunk            Yes<br />mod_gzip_minimum_file_size  300<br />mod_gzip_maximum_file_size  0<br />mod_gzip_maximum_inmem_size 100000<br />mod_gzip_keep_workfiles     No<br />mod_gzip_temp_dir           /tmp<br />mod_gzip_item_include       file \.html$<br />mod_gzip_item_include       file \.jsp$<br />mod_gzip_item_include       file \.php$<br />mod_gzip_item_include       file \.pl$<br />mod_gzip_item_include       mime ^text/.*<br />mod_gzip_item_include       mime ^application/x-httpd-php<br />mod_gzip_item_include       mime ^httpd/unix-directory$<br />mod_gzip_item_include       handler ^perl-script$<br />mod_gzip_item_include       handler ^server-status$<br />mod_gzip_item_include       handler ^server-info$<br />mod_gzip_item_exclude       mime ^image/.*<br />&lt;/IfModule&gt;<br /><br />This will automatically compress all output of your files with the .php extention or the x-httpd-php mime type. Be sure to have dechunk set to Yes.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="42374">  <div class="votes">
+    <div id="Vu42374">
+    <a href="https://www.php.net/manual/vote-note.php?id=42374&amp;page=ref.zlib&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd42374">
+    <a href="https://www.php.net/manual/vote-note.php?id=42374&amp;page=ref.zlib&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V42374" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="ref.zlib.php.html#42374" class="name">
+  <strong class="user"><em>spam at wildpeaks dot com</em></strong></a><a class="genanchor" href="ref.zlib.php.html#42374"> &para;</a><div class="date" title="2004-05-13 07:04"><strong>19 years ago</strong></div>
+  <div class="text" id="Hcom42374">
+<div class="phpcode"><code><span class="html">For decompressing, i modified a function posted earlier (that way $string doesn't have a big size that may be beyond the memory limit if the gzipped file is big) :<br /><br />function file_ungzip($fromFile, $toFile) {<br />    $zp = @gzopen($fromFile, "r");<br />    $fp = @fopen($toFile, "w");<br />    while(!@gzeof($zp)) {$string = @gzread($zp, 4096); @fwrite($fp, $string, strlen($string));}<br />    @gzclose($zp);<br />    @fclose($fp);<br />}</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="42540">  <div class="votes">
+    <div id="Vu42540">
+    <a href="https://www.php.net/manual/vote-note.php?id=42540&amp;page=ref.zlib&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd42540">
+    <a href="https://www.php.net/manual/vote-note.php?id=42540&amp;page=ref.zlib&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V42540" title="40% like this...">
+    -1
+    </div>
+  </div>
+  <a href="ref.zlib.php.html#42540" class="name">
+  <strong class="user"><em>ec10 at gmx dot net</em></strong></a><a class="genanchor" href="ref.zlib.php.html#42540"> &para;</a><div class="date" title="2004-05-20 11:38"><strong>19 years ago</strong></div>
+  <div class="text" id="Hcom42540">
+<div class="phpcode"><code><span class="html">/**<br /> * @return bool<br /> * @param string $in<br /> * @param string $out<br /> * @param string $param = "1"<br /> * @desc compressing the file with the zlib-extension<br />*/<br />function gzip ($in, $out, $param="1")<br />{<br />    if (!file_exists ($in) || !is_readable ($in))<br />        return false;<br />    if ((!file_exists ($out) &amp;&amp; !is_writable (dirname ($out)) || (file_exists($out) &amp;&amp; !is_writable($out)) ))<br />        return false;<br />    <br />    $in_file = fopen ($in, "rb");<br />    if (!$out_file = gzopen ($out, "wb".$param)) {<br />        return false;<br />    }<br />    <br />    while (!feof ($in_file)) {<br />        $buffer = fgets ($in_file, 4096);<br />        gzwrite ($out_file, $buffer, 4096);<br />    }<br /><br />    fclose ($in_file);<br />    gzclose ($out_file);<br />    <br />    return true;<br />}<br /><br />/**<br /> * @return bool<br /> * @param string $in<br /> * @param string $out<br /> * @desc uncompressing the file with the zlib-extension<br />*/<br />function gunzip ($in, $out)<br />{<br />    if (!file_exists ($in) || !is_readable ($in))<br />        return false;<br />    if ((!file_exists ($out) &amp;&amp; !is_writable (dirname ($out)) || (file_exists($out) &amp;&amp; !is_writable($out)) ))<br />        return false;<br /><br />    $in_file = gzopen ($in, "rb");<br />    $out_file = fopen ($out, "wb");<br /><br />    while (!gzeof ($in_file)) {<br />        $buffer = gzread ($in_file, 4096);<br />        fwrite ($out_file, $buffer, 4096);<br />    }<br /> <br />    gzclose ($in_file);<br />    fclose ($out_file);<br />    <br />    return true;<br />}</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="42946">  <div class="votes">
+    <div id="Vu42946">
+    <a href="https://www.php.net/manual/vote-note.php?id=42946&amp;page=ref.zlib&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd42946">
+    <a href="https://www.php.net/manual/vote-note.php?id=42946&amp;page=ref.zlib&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V42946" title="20% like this...">
+    -3
+    </div>
+  </div>
+  <a href="ref.zlib.php.html#42946" class="name">
+  <strong class="user"><em>xorinox at tiscali dot ch</em></strong></a><a class="genanchor" href="ref.zlib.php.html#42946"> &para;</a><div class="date" title="2004-06-04 07:52"><strong>19 years ago</strong></div>
+  <div class="text" id="Hcom42946">
+<div class="phpcode"><code><span class="html">Have a look to this extended version :)<br /><br /><span class="default">&lt;?php<br /><br /></span><span class="keyword">function </span><span class="default">compress</span><span class="keyword">( </span><span class="default">$srcFileName</span><span class="keyword">, </span><span class="default">$dstFileName </span><span class="keyword">)<br />{<br />    </span><span class="comment">// getting file content<br />    </span><span class="default">$fp </span><span class="keyword">= </span><span class="default">fopen</span><span class="keyword">( </span><span class="default">$srcFileName</span><span class="keyword">, </span><span class="string">"r" </span><span class="keyword">);<br />    </span><span class="default">$data </span><span class="keyword">= </span><span class="default">fread </span><span class="keyword">( </span><span class="default">$fp</span><span class="keyword">, </span><span class="default">filesize</span><span class="keyword">( </span><span class="default">$srcFileName </span><span class="keyword">) );<br />    </span><span class="default">fclose</span><span class="keyword">( </span><span class="default">$fp </span><span class="keyword">);<br />    <br />    </span><span class="comment">// writing compressed file<br />    </span><span class="default">$zp </span><span class="keyword">= </span><span class="default">gzopen</span><span class="keyword">( </span><span class="default">$dstFileName</span><span class="keyword">, </span><span class="string">"w9" </span><span class="keyword">);<br />    </span><span class="default">gzwrite</span><span class="keyword">( </span><span class="default">$zp</span><span class="keyword">, </span><span class="default">$data </span><span class="keyword">);<br />    </span><span class="default">gzclose</span><span class="keyword">( </span><span class="default">$zp </span><span class="keyword">);<br />}<br /><br />function </span><span class="default">uncompress</span><span class="keyword">( </span><span class="default">$srcFileName</span><span class="keyword">, </span><span class="default">$dstFileName</span><span class="keyword">, </span><span class="default">$fileSize </span><span class="keyword">)<br />{<br />    </span><span class="comment">// getting content of the compressed file<br />    </span><span class="default">$zp </span><span class="keyword">= </span><span class="default">gzopen</span><span class="keyword">( </span><span class="default">$srcFileName</span><span class="keyword">, </span><span class="string">"r" </span><span class="keyword">);<br />    </span><span class="default">$data </span><span class="keyword">= </span><span class="default">fread </span><span class="keyword">( </span><span class="default">$zp</span><span class="keyword">, </span><span class="default">$fileSize </span><span class="keyword">);<br />    </span><span class="default">gzclose</span><span class="keyword">( </span><span class="default">$zp </span><span class="keyword">);<br />    <br />    </span><span class="comment">// writing uncompressed file<br />    </span><span class="default">$fp </span><span class="keyword">= </span><span class="default">fopen</span><span class="keyword">( </span><span class="default">$dstFileName</span><span class="keyword">, </span><span class="string">"w" </span><span class="keyword">);<br />    </span><span class="default">fwrite</span><span class="keyword">( </span><span class="default">$fp</span><span class="keyword">, </span><span class="default">$data </span><span class="keyword">);<br />    </span><span class="default">fclose</span><span class="keyword">( </span><span class="default">$fp </span><span class="keyword">);<br />}<br /><br /></span><span class="default">compress</span><span class="keyword">( </span><span class="string">"tmp/supportkonzept.rtf"</span><span class="keyword">, </span><span class="string">"tmp/_supportkonzept.rtf.gz" </span><span class="keyword">);<br /></span><span class="default">uncompress</span><span class="keyword">( </span><span class="string">"tmp/_supportkonzept.rtf.gz"</span><span class="keyword">, </span><span class="string">"tmp/_supportkonzept.rtf"</span><span class="keyword">, </span><span class="default">filesize</span><span class="keyword">( </span><span class="string">"tmp/supportkonzept.rtf" </span><span class="keyword">) );<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=ref.zlib&amp;redirect=https://www.php.net/manual/ru/ref.zlib.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="book.zlib.php.html">Zlib</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="intro.zlib.php.html" title="Введение">Введение</a>
+                        </li>
+                                                <li class="">
+                            <a href="zlib.setup.php.html" title="Установка и настройка">Установка и настройка</a>
+                        </li>
+                                                <li class="">
+                            <a href="zlib.constants.php.html" title="Предопределённые константы">Предопределённые константы</a>
+                        </li>
+                                                <li class="">
+                            <a href="zlib.examples.php.html" title="Примеры">Примеры</a>
+                        </li>
+                                                <li class="current">
+                            <a href="ref.zlib.php.html" title="Функции Zlib">Функции Zlib</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.deflatecontext.php.html" title="DeflateContext">DeflateContext</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.inflatecontext.php.html" title="InflateContext">InflateContext</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: MongoDB\Driver - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="book.mongodb.php.html">
+ <link rel="shorturl" href="https://www.php.net/mongodb">
+ <link rel="alternate" href="https://www.php.net/mongodb" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="set.mongodb.php.html">
+ <link rel="prev" href="mongodb.security.script_injection.php.html">
+ <link rel="next" href="class.mongodb-driver-manager.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/book.mongodb.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/book.mongodb.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/book.mongodb.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/book.mongodb.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/book.mongodb.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/book.mongodb.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/book.mongodb.php" hreflang="pt_BR">
+ <link rel="alternate" href="book.mongodb.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/book.mongodb.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/book.mongodb.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="class.mongodb-driver-manager.php.html">
+          MongoDB\Driver\Manager &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="mongodb.security.script_injection.php.html">
+          &laquo; Атака с помощью инъекций в скриптах        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.database.php.html'>Модули для работы с базами данных</a></li>      <li><a href='refs.database.vendors.php.html'>Модули для работы с базами данных отдельных производителей</a></li>      <li><a href='set.mongodb.php.html'>MongoDB</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/book.mongodb.php'>English</option>
+            <option value='de/book.mongodb.php'>German</option>
+            <option value='es/book.mongodb.php'>Spanish</option>
+            <option value='fr/book.mongodb.php'>French</option>
+            <option value='it/book.mongodb.php'>Italian</option>
+            <option value='ja/book.mongodb.php'>Japanese</option>
+            <option value='pt_BR/book.mongodb.php'>Brazilian Portuguese</option>
+            <option value='ru/book.mongodb.php' selected="selected">Russian</option>
+            <option value='tr/book.mongodb.php'>Turkish</option>
+            <option value='zh/book.mongodb.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/mongodb/mongodb.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Fbook.mongodb%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="book.mongodb" class="book">
+ <h1 class="title">Классы драйвера MongoDB</h1>
+ 
+
+ 
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+<ul class="chunklist chunklist_book"><li><a href="class.mongodb-driver-manager.php.html">MongoDB\Driver\Manager</a> — Класс MongoDB\Driver\Manager<ul class="chunklist chunklist_book chunklist_children"><li><a href="mongodb-driver-manager.addsubscriber.php.html">MongoDB\Driver\Manager::addSubscriber</a> — Регистрирует подписчика на событие мониторинга в данном объекте Manager</li><li><a href="mongodb-driver-manager.construct.php.html">MongoDB\Driver\Manager::__construct</a> — Создаёт новый Manager MongoDB</li><li><a href="mongodb-driver-manager.createclientencryption.php.html">MongoDB\Driver\Manager::createClientEncryption</a> — Создание нового объекта ClientEncryption</li><li><a href="mongodb-driver-manager.executebulkwrite.php.html">MongoDB\Driver\Manager::executeBulkWrite</a> — Выполняет одну или несколько операций записи</li><li><a href="mongodb-driver-manager.executecommand.php.html">MongoDB\Driver\Manager::executeCommand</a> — Выполняет команду базы данных</li><li><a href="mongodb-driver-manager.executequery.php.html">MongoDB\Driver\Manager::executeQuery</a> — Выполняет запрос к базе данных</li><li><a href="mongodb-driver-manager.executereadcommand.php.html">MongoDB\Driver\Manager::executeReadCommand</a> — Выполняет команду базы данных, которая читает</li><li><a href="mongodb-driver-manager.executereadwritecommand.php.html">MongoDB\Driver\Manager::executeReadWriteCommand</a> — Выполняет команду базы данных, которая читает и пишет</li><li><a href="mongodb-driver-manager.executewritecommand.php.html">MongoDB\Driver\Manager::executeWriteCommand</a> — Выполняет команду базы данных, которая пишет</li><li><a href="mongodb-driver-manager.getencryptedfieldsmap.php.html">MongoDB\Driver\Manager::getEncryptedFieldsMap</a> — Возвращает опцию автоматического шифрования encryptedFieldsMap для Manager</li><li><a href="mongodb-driver-manager.getreadconcern.php.html">MongoDB\Driver\Manager::getReadConcern</a> — Возвращает ReadConcern для Manager</li><li><a href="mongodb-driver-manager.getreadpreference.php.html">MongoDB\Driver\Manager::getReadPreference</a> — Возвращает ReadPreference для Manager</li><li><a href="mongodb-driver-manager.getservers.php.html">MongoDB\Driver\Manager::getServers</a> — Возвращает серверы, к которым подключён менеджер</li><li><a href="mongodb-driver-manager.getwriteconcern.php.html">MongoDB\Driver\Manager::getWriteConcern</a> — Возвращает WriteConcern для Manager</li><li><a href="mongodb-driver-manager.removesubscriber.php.html">MongoDB\Driver\Manager::removeSubscriber</a> — Отменяет регистрацию подписчика на событие мониторинга в данном объекте Manager</li><li><a href="mongodb-driver-manager.selectserver.php.html">MongoDB\Driver\Manager::selectServer</a> — Выбрать сервер, соответствующий предпочтениям чтения</li><li><a href="mongodb-driver-manager.startsession.php.html">MongoDB\Driver\Manager::startSession</a> — Запускает новый клиентский сеанс для использования с этим клиентом</li></ul></li><li><a href="class.mongodb-driver-command.php.html">MongoDB\Driver\Command</a> — Класс The MongoDB\Driver\Command<ul class="chunklist chunklist_book chunklist_children"><li><a href="mongodb-driver-command.construct.php.html">MongoDB\Driver\Command::__construct</a> — Создаёт новый объект Command</li></ul></li><li><a href="class.mongodb-driver-query.php.html">MongoDB\Driver\Query</a> — Класс MongoDB\Driver\Query<ul class="chunklist chunklist_book chunklist_children"><li><a href="mongodb-driver-query.construct.php.html">MongoDB\Driver\Query::__construct</a> — Создаёт новый запрос</li></ul></li><li><a href="class.mongodb-driver-bulkwrite.php.html">MongoDB\Driver\BulkWrite</a> — Класс MongoDB\Driver\BulkWrite<ul class="chunklist chunklist_book chunklist_children"><li><a href="mongodb-driver-bulkwrite.construct.php.html">MongoDB\Driver\BulkWrite::__construct</a> — Создаёт новый объект BulkWrite</li><li><a href="mongodb-driver-bulkwrite.count.php.html">MongoDB\Driver\BulkWrite::count</a> — Подсчитывает количество операций записи в порции</li><li><a href="mongodb-driver-bulkwrite.delete.php.html">MongoDB\Driver\BulkWrite::delete</a> — Добавление операции удаления в порцию</li><li><a href="mongodb-driver-bulkwrite.insert.php.html">MongoDB\Driver\BulkWrite::insert</a> — Добавить операцию вставки в порцию</li><li><a href="mongodb-driver-bulkwrite.update.php.html">MongoDB\Driver\BulkWrite::update</a> — Добавить операцию обновления в порцию</li></ul></li><li><a href="class.mongodb-driver-session.php.html">MongoDB\Driver\Session</a> — Класс MongoDB\Driver\Session<ul class="chunklist chunklist_book chunklist_children"><li><a href="mongodb-driver-session.aborttransaction.php.html">MongoDB\Driver\Session::abortTransaction</a> — Прерывает транзакцию</li><li><a href="mongodb-driver-session.advanceclustertime.php.html">MongoDB\Driver\Session::advanceClusterTime</a> — Увеличивает время кластера для сеанса</li><li><a href="mongodb-driver-session.advanceoperationtime.php.html">MongoDB\Driver\Session::advanceOperationTime</a> — Увеличивает время операции для сеанса</li><li><a href="mongodb-driver-session.committransaction.php.html">MongoDB\Driver\Session::commitTransaction</a> — Фиксирует транзакцию</li><li><a href="mongodb-driver-session.construct.php.html">MongoDB\Driver\Session::__construct</a> — Создаёт новый сеанс (не используется)</li><li><a href="mongodb-driver-session.endsession.php.html">MongoDB\Driver\Session::endSession</a> — Завершает сеанс</li><li><a href="mongodb-driver-session.getclustertime.php.html">MongoDB\Driver\Session::getClusterTime</a> — Возвращает время кластера для этого сеанса</li><li><a href="mongodb-driver-session.getlogicalsessionid.php.html">MongoDB\Driver\Session::getLogicalSessionId</a> — Возвращает логический идентификатор сеанса для этого сеанса</li><li><a href="mongodb-driver-session.getoperationtime.php.html">MongoDB\Driver\Session::getOperationTime</a> — Возвращает время операции для этого сеанса</li><li><a href="mongodb-driver-session.getserver.php.html">MongoDB\Driver\Session::getServer</a> — Возвращает сервер к которому привязана текущая сессия</li><li><a href="mongodb-driver-session.gettransactionoptions.php.html">MongoDB\Driver\Session::getTransactionOptions</a> — Возвращает настройки текущей транзакции</li><li><a href="mongodb-driver-session.gettransactionstate.php.html">MongoDB\Driver\Session::getTransactionState</a> — Возвращает статус транзакции для текущей сессии</li><li><a href="mongodb-driver-session.isdirty.php.html">MongoDB\Driver\Session::isDirty</a> — Возвращает, была ли сессия помечена как грязная</li><li><a href="mongodb-driver-session.isintransaction.php.html">MongoDB\Driver\Session::isInTransaction</a> — Определяет, происходит ли в данный момент многодокументная транзакция</li><li><a href="mongodb-driver-session.starttransaction.php.html">MongoDB\Driver\Session::startTransaction</a> — Запускает транзакцию</li></ul></li><li><a href="class.mongodb-driver-clientencryption.php.html">MongoDB\Driver\ClientEncryption</a> — Класс MongoDB\Driver\ClientEncryption<ul class="chunklist chunklist_book chunklist_children"><li><a href="mongodb-driver-clientencryption.addkeyaltname.php.html">MongoDB\Driver\ClientEncryption::addKeyAltName</a> — Добавляет альтернативное имя к документу с ключом</li><li><a href="mongodb-driver-clientencryption.construct.php.html">MongoDB\Driver\ClientEncryption::__construct</a> — Создаёт новый объект ClientEncryption</li><li><a href="mongodb-driver-clientencryption.createdatakey.php.html">MongoDB\Driver\ClientEncryption::createDataKey</a> — Создаёт документ с ключом</li><li><a href="mongodb-driver-clientencryption.decrypt.php.html">MongoDB\Driver\ClientEncryption::decrypt</a> — Расшифровать данных</li><li><a href="mongodb-driver-clientencryption.deletekey.php.html">MongoDB\Driver\ClientEncryption::deleteKey</a> — Удаляет документ с ключом</li><li><a href="mongodb-driver-clientencryption.encrypt.php.html">MongoDB\Driver\ClientEncryption::encrypt</a> — Шифрует данные</li><li><a href="mongodb-driver-clientencryption.encryptexpression.php.html">MongoDB\Driver\ClientEncryption::encryptExpression</a> — Шифрует совпадение или агрегированное выражение</li><li><a href="mongodb-driver-clientencryption.getkey.php.html">MongoDB\Driver\ClientEncryption::getKey</a> — Получает документ с ключом</li><li><a href="mongodb-driver-clientencryption.getkeybyaltname.php.html">MongoDB\Driver\ClientEncryption::getKeyByAltName</a> — Получает документ с ключом по альтернативному имени</li><li><a href="mongodb-driver-clientencryption.getkeys.php.html">MongoDB\Driver\ClientEncryption::getKeys</a> — Получает все документы с ключом</li><li><a href="mongodb-driver-clientencryption.removekeyaltname.php.html">MongoDB\Driver\ClientEncryption::removeKeyAltName</a> — Удаляет альтернативное имя из документа с ключом</li><li><a href="mongodb-driver-clientencryption.rewrapmanydatakey.php.html">MongoDB\Driver\ClientEncryption::rewrapManyDataKey</a> — Переворачивает ключи данных</li></ul></li><li><a href="class.mongodb-driver-serverapi.php.html">MongoDB\Driver\ServerApi</a> — Класс MongoDB\Driver\ServerApi<ul class="chunklist chunklist_book chunklist_children"><li><a href="mongodb-driver-serverapi.bsonserialize.php.html">MongoDB\Driver\ServerApi::bsonSerialize</a> — Возвращает объект для сериализации BSON</li><li><a href="mongodb-driver-serverapi.construct.php.html">MongoDB\Driver\ServerApi::__construct</a> — Создаёт новый экземпляр ServerApi</li><li><a href="mongodb-driver-serverapi.serialize.php.html">MongoDB\Driver\ServerApi::serialize</a> — Сериализует ServerApi</li><li><a href="mongodb-driver-serverapi.unserialize.php.html">MongoDB\Driver\ServerApi::unserialize</a> — Десериализует ServerApi</li></ul></li><li><a href="class.mongodb-driver-writeconcern.php.html">MongoDB\Driver\WriteConcern</a> — Класс MongoDB\Driver\WriteConcern<ul class="chunklist chunklist_book chunklist_children"><li><a href="mongodb-driver-writeconcern.bsonserialize.php.html">MongoDB\Driver\WriteConcern::bsonSerialize</a> — Возвращает объект сериализации BSON</li><li><a href="mongodb-driver-writeconcern.construct.php.html">MongoDB\Driver\WriteConcern::__construct</a> — Создать новый WriteConcern</li><li><a href="mongodb-driver-writeconcern.getjournal.php.html">MongoDB\Driver\WriteConcern::getJournal</a> — Возвращает опцию &quot;journal&quot; WriteConcern</li><li><a href="mongodb-driver-writeconcern.getw.php.html">MongoDB\Driver\WriteConcern::getW</a> — Возвращает опцию &quot;w&quot; WriteConcern</li><li><a href="mongodb-driver-writeconcern.getwtimeout.php.html">MongoDB\Driver\WriteConcern::getWtimeout</a> — Возвращает опцию &quot;wtimeout&quot; WriteConcern</li><li><a href="mongodb-driver-writeconcern.isdefault.php.html">MongoDB\Driver\WriteConcern::isDefault</a> — Проверяет, является ли гарантия записи по умолчанию</li><li><a href="mongodb-driver-writeconcern.serialize.php.html">MongoDB\Driver\WriteConcern::serialize</a> — Сериализация WriteConcern</li><li><a href="mongodb-driver-writeconcern.unserialize.php.html">MongoDB\Driver\WriteConcern::unserialize</a> — Десериализация WriteConcern</li></ul></li><li><a href="class.mongodb-driver-readpreference.php.html">MongoDB\Driver\ReadPreference</a> — Класс MongoDB\Driver\ReadPreference<ul class="chunklist chunklist_book chunklist_children"><li><a href="mongodb-driver-readpreference.bsonserialize.php.html">MongoDB\Driver\ReadPreference::bsonSerialize</a> — Возвращает объект сериализации BSON</li><li><a href="mongodb-driver-readpreference.construct.php.html">MongoDB\Driver\ReadPreference::__construct</a> — Создать новый ReadPreference</li><li><a href="mongodb-driver-readpreference.gethedge.php.html">MongoDB\Driver\ReadPreference::getHedge</a> — Возвращает опцию &quot;hedge&quot; из ReadPreference</li><li><a href="mongodb-driver-readpreference.getmaxstalenessseconds.php.html">MongoDB\Driver\ReadPreference::getMaxStalenessSeconds</a> — Возвращает параметр &quot;maxStalenessSeconds&quot; ReadPreference</li><li><a href="mongodb-driver-readpreference.getmode.php.html">MongoDB\Driver\ReadPreference::getMode</a> — Возвращает параметр &quot;mode&quot; ReadPreference</li><li><a href="mongodb-driver-readpreference.getmodestring.php.html">MongoDB\Driver\ReadPreference::getModeString</a> — Возвращает опцию &quot;mode&quot; объекта ReadPreference в виде строки</li><li><a href="mongodb-driver-readpreference.gettagsets.php.html">MongoDB\Driver\ReadPreference::getTagSets</a> — Возвращает параметр &quot;tagSets&quot; ReadPreference</li><li><a href="mongodb-driver-readpreference.serialize.php.html">MongoDB\Driver\ReadPreference::serialize</a> — Сериализация ReadPreference</li><li><a href="mongodb-driver-readpreference.unserialize.php.html">MongoDB\Driver\ReadPreference::unserialize</a> — Десериализация ReadPreference</li></ul></li><li><a href="class.mongodb-driver-readconcern.php.html">MongoDB\Driver\ReadConcern</a> — Класс MongoDB\Driver\ReadConcern<ul class="chunklist chunklist_book chunklist_children"><li><a href="mongodb-driver-readconcern.bsonserialize.php.html">MongoDB\Driver\ReadConcern::bsonSerialize</a> — Возвращает объект для сериализации BSON</li><li><a href="mongodb-driver-readconcern.construct.php.html">MongoDB\Driver\ReadConcern::__construct</a> — Создаёт новый ReadConcern</li><li><a href="mongodb-driver-readconcern.getlevel.php.html">MongoDB\Driver\ReadConcern::getLevel</a> — Возвращает опцию &quot;level&quot; ReadConcern</li><li><a href="mongodb-driver-readconcern.isdefault.php.html">MongoDB\Driver\ReadConcern::isDefault</a> — Проверяет, является ли гарантией чтения по умолчанию</li><li><a href="mongodb-driver-readconcern.serialize.php.html">MongoDB\Driver\ReadConcern::serialize</a> — Сериализация ReadConcern</li><li><a href="mongodb-driver-readconcern.unserialize.php.html">MongoDB\Driver\ReadConcern::unserialize</a> — Десериализация ReadConcern</li></ul></li><li><a href="class.mongodb-driver-cursor.php.html">MongoDB\Driver\Cursor</a> — Класс MongoDB\Driver\Cursor<ul class="chunklist chunklist_book chunklist_children"><li><a href="mongodb-driver-cursor.construct.php.html">MongoDB\Driver\Cursor::__construct</a> — Создаёт новый объект Cursor (не используется)</li><li><a href="mongodb-driver-cursor.current.php.html">MongoDB\Driver\Cursor::current</a> — Возвращает текущий элемент</li><li><a href="mongodb-driver-cursor.getid.php.html">MongoDB\Driver\Cursor::getId</a> — Возвращает идентификатор для курсора</li><li><a href="mongodb-driver-cursor.getserver.php.html">MongoDB\Driver\Cursor::getServer</a> — Возвращает сервер, связанный с курсором</li><li><a href="mongodb-driver-cursor.isdead.php.html">MongoDB\Driver\Cursor::isDead</a> — Проверяет, исчерпан ли курсор или может содержать дополнительные результаты</li><li><a href="mongodb-driver-cursor.key.php.html">MongoDB\Driver\Cursor::key</a> — Возвращает индекс текущего результата в курсоре</li><li><a href="mongodb-driver-cursor.next.php.html">MongoDB\Driver\Cursor::next</a> — Перемещает курсор на следующий результат</li><li><a href="mongodb-driver-cursor.rewind.php.html">MongoDB\Driver\Cursor::rewind</a> — Перемещает курсор к первому результату</li><li><a href="mongodb-driver-cursor.settypemap.php.html">MongoDB\Driver\Cursor::setTypeMap</a> — Устанавливает карту типа для десериализации BSON</li><li><a href="mongodb-driver-cursor.toarray.php.html">MongoDB\Driver\Cursor::toArray</a> — Возвращает массив, содержащий все результаты курсора</li><li><a href="mongodb-driver-cursor.valid.php.html">MongoDB\Driver\Cursor::valid</a> — Проверяет, корректна ли текущая позиция курсора</li></ul></li><li><a href="class.mongodb-driver-cursorid.php.html">MongoDB\Driver\CursorId</a> — Класс MongoDB\Driver\CursorId<ul class="chunklist chunklist_book chunklist_children"><li><a href="mongodb-driver-cursorid.construct.php.html">MongoDB\Driver\CursorId::__construct</a> — Создаёт новый объект CursorId (не используется)</li><li><a href="mongodb-driver-cursorid.serialize.php.html">MongoDB\Driver\CursorId::serialize</a> — Сериализация CursorId</li><li><a href="mongodb-driver-cursorid.tostring.php.html">MongoDB\Driver\CursorId::__toString</a> — Строковое представление идентификатора курсора</li><li><a href="mongodb-driver-cursorid.unserialize.php.html">MongoDB\Driver\CursorId::unserialize</a> — Десериализация CursorId</li></ul></li><li><a href="class.mongodb-driver-cursorinterface.php.html">MongoDB\Driver\CursorInterface</a> — Интерфейс MongoDB\Driver\CursorInterface<ul class="chunklist chunklist_book chunklist_children"><li><a href="mongodb-driver-cursorinterface.getid.php.html">MongoDB\Driver\CursorInterface::getId</a> — Возвращает идентификатор курсора</li><li><a href="mongodb-driver-cursorinterface.getserver.php.html">MongoDB\Driver\CursorInterface::getServer</a> — Возвращает сервер, с которым связан курсор</li><li><a href="mongodb-driver-cursorinterface.isdead.php.html">MongoDB\Driver\CursorInterface::isDead</a> — Проверить, можно ли ещё получить из курсора результаты</li><li><a href="mongodb-driver-cursorinterface.settypemap.php.html">MongoDB\Driver\CursorInterface::setTypeMap</a> — Задать сопоставление типов для десериализации BSON</li><li><a href="mongodb-driver-cursorinterface.toarray.php.html">MongoDB\Driver\CursorInterface::toArray</a> — Вернуть все результаты для данного курсора в виде массива</li></ul></li><li><a href="class.mongodb-driver-server.php.html">MongoDB\Driver\Server</a> — Класс MongoDB\Driver\Server<ul class="chunklist chunklist_book chunklist_children"><li><a href="mongodb-driver-server.construct.php.html">MongoDB\Driver\Server::__construct</a> — Создаёт новый Server (не используется)</li><li><a href="mongodb-driver-server.executebulkwrite.php.html">MongoDB\Driver\Server::executeBulkWrite</a> — Выполнить одну или несколько операций записи на сервере</li><li><a href="mongodb-driver-server.executecommand.php.html">MongoDB\Driver\Server::executeCommand</a> — Выполнить команду базы данных на сервере</li><li><a href="mongodb-driver-server.executequery.php.html">MongoDB\Driver\Server::executeQuery</a> — Выполняет запрос к базе данных на сервере</li><li><a href="mongodb-driver-server.executereadcommand.php.html">MongoDB\Driver\Server::executeReadCommand</a> — Выполняет команду базы данных, которая читает на сервере</li><li><a href="mongodb-driver-server.executereadwritecommand.php.html">MongoDB\Driver\Server::executeReadWriteCommand</a> — Выполняет команду базы данных, которая читает и пишет на сервере</li><li><a href="mongodb-driver-server.executewritecommand.php.html">MongoDB\Driver\Server::executeWriteCommand</a> — Выполняет команду базы данных, которая пишет на сервере</li><li><a href="mongodb-driver-server.gethost.php.html">MongoDB\Driver\Server::getHost</a> — Возвращает имя хоста сервера</li><li><a href="mongodb-driver-server.getinfo.php.html">MongoDB\Driver\Server::getInfo</a> — Возвращает массив информации, описывающий сервер</li><li><a href="mongodb-driver-server.getlatency.php.html">MongoDB\Driver\Server::getLatency</a> — Возвращает задержку сервера в миллисекундах</li><li><a href="mongodb-driver-server.getport.php.html">MongoDB\Driver\Server::getPort</a> — Возвращает порт, который слушает сервер</li><li><a href="mongodb-driver-server.getserverdescription.php.html">MongoDB\Driver\Server::getServerDescription</a> — Возвращает ServerDescription сервера</li><li><a href="mongodb-driver-server.gettags.php.html">MongoDB\Driver\Server::getTags</a> — Возвращает массив тегов, описывающих сервер в наборе реплик</li><li><a href="mongodb-driver-server.gettype.php.html">MongoDB\Driver\Server::getType</a> — Возвращает целое число, обозначающее тип этого сервера</li><li><a href="mongodb-driver-server.isarbiter.php.html">MongoDB\Driver\Server::isArbiter</a> — Проверяет, является ли сервер членом-арбитром в наборе реплик</li><li><a href="mongodb-driver-server.ishidden.php.html">MongoDB\Driver\Server::isHidden</a> — Проверяет, является ли сервер скрытым членом набора реплик</li><li><a href="mongodb-driver-server.ispassive.php.html">MongoDB\Driver\Server::isPassive</a> — Проверяет, является ли сервер пассивным членом набора реплик</li><li><a href="mongodb-driver-server.isprimary.php.html">MongoDB\Driver\Server::isPrimary</a> — Проверяет, является ли сервер основным членом набора реплик</li><li><a href="mongodb-driver-server.issecondary.php.html">MongoDB\Driver\Server::isSecondary</a> — Проверяет, является ли этот сервер второстепенным членом набора реплик</li></ul></li><li><a href="class.mongodb-driver-serverdescription.php.html">MongoDB\Driver\ServerDescription</a> — Класс MongoDB\Driver\ServerDescription<ul class="chunklist chunklist_book chunklist_children"><li><a href="mongodb-driver-serverdescription.gethelloresponse.php.html">MongoDB\Driver\ServerDescription::getHelloResponse</a> — Возвращает последний ответ сервера &quot;hello&quot;</li><li><a href="mongodb-driver-serverdescription.gethost.php.html">MongoDB\Driver\ServerDescription::getHost</a> — Возвращает имя хоста сервера</li><li><a href="mongodb-driver-serverdescription.getlastupdatetime.php.html">MongoDB\Driver\ServerDescription::getLastUpdateTime</a> — Возвращает время последнего обновления сервера в микросекундах</li><li><a href="mongodb-driver-serverdescription.getport.php.html">MongoDB\Driver\ServerDescription::getPort</a> — Возвращает порт, на котором прослушивается данный сервер</li><li><a href="mongodb-driver-serverdescription.getroundtriptime.php.html">MongoDB\Driver\ServerDescription::getRoundTripTime</a> — Возвращает время обхода сервера в миллисекундах</li><li><a href="mongodb-driver-serverdescription.gettype.php.html">MongoDB\Driver\ServerDescription::getType</a> — Возвращает строку, обозначающую тип данного сервера</li></ul></li><li><a href="class.mongodb-driver-topologydescription.php.html">MongoDB\Driver\TopologyDescription</a> — Класс MongoDB\Driver\TopologyDescription<ul class="chunklist chunklist_book chunklist_children"><li><a href="mongodb-driver-topologydescription.getservers.php.html">MongoDB\Driver\TopologyDescription::getServers</a> — Возвращает серверы в топологии</li><li><a href="mongodb-driver-topologydescription.gettype.php.html">MongoDB\Driver\TopologyDescription::getType</a> — Возвращает строку, обозначающую тип топологии</li><li><a href="mongodb-driver-topologydescription.hasreadableserver.php.html">MongoDB\Driver\TopologyDescription::hasReadableServer</a> — Возвращает, есть ли в топологии сервер, доступный для чтения</li><li><a href="mongodb-driver-topologydescription.haswritableserver.php.html">MongoDB\Driver\TopologyDescription::hasWritableServer</a> — Возвращает, есть ли в топологии сервер, доступный для записи</li></ul></li><li><a href="class.mongodb-driver-writeconcernerror.php.html">MongoDB\Driver\WriteConcernError</a> — Класс The MongoDB\Driver\WriteConcernError<ul class="chunklist chunklist_book chunklist_children"><li><a href="mongodb-driver-writeconcernerror.getcode.php.html">MongoDB\Driver\WriteConcernError::getCode</a> — Возвращает код ошибки WriteConcernError</li><li><a href="mongodb-driver-writeconcernerror.getinfo.php.html">MongoDB\Driver\WriteConcernError::getInfo</a> — Возвращает документ метаданных для WriteConcernError</li><li><a href="mongodb-driver-writeconcernerror.getmessage.php.html">MongoDB\Driver\WriteConcernError::getMessage</a> — Возвращает сообщение об ошибке WriteConcernError</li></ul></li><li><a href="class.mongodb-driver-writeerror.php.html">MongoDB\Driver\WriteError</a> — Класс MongoDB\Driver\WriteError<ul class="chunklist chunklist_book chunklist_children"><li><a href="mongodb-driver-writeerror.getcode.php.html">MongoDB\Driver\WriteError::getCode</a> — Возвращает код ошибки WriteError</li><li><a href="mongodb-driver-writeerror.getindex.php.html">MongoDB\Driver\WriteError::getIndex</a> — Возвращает индекс записи, соответствующей этому WriteError</li><li><a href="mongodb-driver-writeerror.getinfo.php.html">MongoDB\Driver\WriteError::getInfo</a> — Возвращает документ метаданных для WriteError</li><li><a href="mongodb-driver-writeerror.getmessage.php.html">MongoDB\Driver\WriteError::getMessage</a> — Возвращает сообщение об ошибке WriteError</li></ul></li><li><a href="class.mongodb-driver-writeresult.php.html">MongoDB\Driver\WriteResult</a> — Класс MongoDB\Driver\WriteResult<ul class="chunklist chunklist_book chunklist_children"><li><a href="mongodb-driver-writeresult.getdeletedcount.php.html">MongoDB\Driver\WriteResult::getDeletedCount</a> — Возвращает количество удалённых документов</li><li><a href="mongodb-driver-writeresult.getinsertedcount.php.html">MongoDB\Driver\WriteResult::getInsertedCount</a> — Возвращает количество вставленных документов (исключая слияния)</li><li><a href="mongodb-driver-writeresult.getmatchedcount.php.html">MongoDB\Driver\WriteResult::getMatchedCount</a> — Возвращает количество документов, выбранных для обновления</li><li><a href="mongodb-driver-writeresult.getmodifiedcount.php.html">MongoDB\Driver\WriteResult::getModifiedCount</a> — Возвращает количество существующих обновлённых документов</li><li><a href="mongodb-driver-writeresult.getserver.php.html">MongoDB\Driver\WriteResult::getServer</a> — Возвращает сервер, связанный с этим результатом записи</li><li><a href="mongodb-driver-writeresult.getupsertedcount.php.html">MongoDB\Driver\WriteResult::getUpsertedCount</a> — Возвращает количество документов, вставленных слиянием</li><li><a href="mongodb-driver-writeresult.getupsertedids.php.html">MongoDB\Driver\WriteResult::getUpsertedIds</a> — Возвращает массив идентификаторов для объединённых документов</li><li><a href="mongodb-driver-writeresult.getwriteconcernerror.php.html">MongoDB\Driver\WriteResult::getWriteConcernError</a> — Возвращает любую ошибку гарантий записи, которая произошла</li><li><a href="mongodb-driver-writeresult.getwriteerrors.php.html">MongoDB\Driver\WriteResult::getWriteErrors</a> — Возвращает любые ошибки записи, которые произошли</li><li><a href="mongodb-driver-writeresult.isacknowledged.php.html">MongoDB\Driver\WriteResult::isAcknowledged</a> — Возвращает, была ли запись подтверждена</li></ul></li></ul></div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=book.mongodb&amp;redirect=https://www.php.net/manual/ru/book.mongodb.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">1 note</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="123969">  <div class="votes">
+    <div id="Vu123969">
+    <a href="https://www.php.net/manual/vote-note.php?id=123969&amp;page=book.mongodb&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd123969">
+    <a href="https://www.php.net/manual/vote-note.php?id=123969&amp;page=book.mongodb&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V123969" title="87% like this...">
+    6
+    </div>
+  </div>
+  <a href="book.mongodb.php.html#123969" class="name">
+  <strong class="user"><em>mike at eastghost dot com</em></strong></a><a class="genanchor" href="book.mongodb.php.html#123969"> &para;</a><div class="date" title="2019-06-20 03:52"><strong>4 years ago</strong></div>
+  <div class="text" id="Hcom123969">
+<div class="phpcode"><code><span class="html">The 'high level' driver is here <br /><br /><a href="https://docs.mongodb.com/php-library/current/reference/" rel="nofollow" target="_blank">https://docs.mongodb.com/php-library/current/reference/</a></span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=book.mongodb&amp;redirect=https://www.php.net/manual/ru/book.mongodb.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="set.mongodb.php.html">MongoDB</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="mongodb.setup.php.html" title="Установка и настройка">Установка и настройка</a>
+                        </li>
+                                                <li class="">
+                            <a href="mongodb.tutorial.php.html" title="Обучающие материалы">Обучающие материалы</a>
+                        </li>
+                                                <li class="">
+                            <a href="mongodb.architecture.php.html" title="Архитектура и внутреннее устройство драйвера">Архитектура и внутреннее устройство драйвера</a>
+                        </li>
+                                                <li class="">
+                            <a href="mongodb.security.php.html" title="Безопасность">Безопасность</a>
+                        </li>
+                                                <li class="current">
+                            <a href="book.mongodb.php.html" title="MongoDB\Driver">MongoDB\Driver</a>
+                        </li>
+                                                <li class="">
+                            <a href="book.bson.php.html" title="MongoDB\BSON">MongoDB\BSON</a>
+                        </li>
+                                                <li class="">
+                            <a href="mongodb.monitoring.php.html" title="MongoDB\Driver\Monitoring">MongoDB\Driver\Monitoring</a>
+                        </li>
+                                                <li class="">
+                            <a href="mongodb.exceptions.php.html" title="MongoDB\Driver\Exception">MongoDB\Driver\Exception</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

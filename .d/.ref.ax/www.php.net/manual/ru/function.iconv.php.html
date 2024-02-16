@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: iconv - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="function.iconv.php.html">
+ <link rel="shorturl" href="https://www.php.net/iconv">
+ <link rel="alternate" href="https://www.php.net/iconv" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="ref.iconv.php.html">
+ <link rel="prev" href="function.iconv-substr.php.html">
+ <link rel="next" href="function.ob-iconv-handler.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/function.iconv.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/function.iconv.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/function.iconv.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/function.iconv.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/function.iconv.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/function.iconv.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/function.iconv.php" hreflang="pt_BR">
+ <link rel="alternate" href="function.iconv.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/function.iconv.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/function.iconv.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="function.ob-iconv-handler.php.html">
+          ob_iconv_handler &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="function.iconv-substr.php.html">
+          &laquo; iconv_substr        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.international.php.html'>Поддержка языков и кодировок</a></li>      <li><a href='book.iconv.php.html'>iconv</a></li>      <li><a href='ref.iconv.php.html'>Функции iconv</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/function.iconv.php'>English</option>
+            <option value='de/function.iconv.php'>German</option>
+            <option value='es/function.iconv.php'>Spanish</option>
+            <option value='fr/function.iconv.php'>French</option>
+            <option value='it/function.iconv.php'>Italian</option>
+            <option value='ja/function.iconv.php'>Japanese</option>
+            <option value='pt_BR/function.iconv.php'>Brazilian Portuguese</option>
+            <option value='ru/function.iconv.php' selected="selected">Russian</option>
+            <option value='tr/function.iconv.php'>Turkish</option>
+            <option value='zh/function.iconv.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/iconv/functions/iconv.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Ffunction.iconv%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="function.iconv" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">iconv</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.0.5, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">iconv</span> &mdash; <span class="dc-title">Преобразовывает строку из одной кодировки символов в другую</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.iconv-description">
+  <h3 class="title">Описание</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="methodname"><strong>iconv</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$from_encoding</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$to_encoding</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$string</code></span>): <span class="type"><span class="type">string</span>|<span class="type"><span class="type false">false</span></span></span></div>
+
+  <p class="para rdfs-comment">
+   Преобразовывает строку <code class="parameter">string</code> из кодировки <code class="parameter">from_encoding</code>
+   в кодировку <code class="parameter">to_encoding</code>.
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.iconv-parameters">
+  <h3 class="title">Список параметров</h3>
+  <p class="para">
+   <dl>
+    
+     <dt>
+<code class="parameter">from_encoding</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Текущая кодировка, используемая для интерпретации параметра <code class="parameter">string</code>.
+      </p>
+     </dd>
+
+    
+    
+     <dt>
+<code class="parameter">to_encoding</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Требуемая на выходе кодировка.
+      </p>
+      <p class="para">
+       Если к параметру <code class="parameter">to_encoding</code> добавлена строка
+       <code class="literal">//TRANSLIT</code>, включается режим транслитерации.
+       Это значит, что в случае, если символ не может быть представлен в требуемой кодировке,
+       он может быть заменён одним или несколькими похожими символами.
+       Если добавлена строка <code class="literal">//IGNORE</code>, то символы,
+       которые не могут быть представлены в требуемой кодировке, будут
+       удалены.
+       В случае отсутствия вышеуказанных параметров
+       будет сгенерирована ошибка уровня <strong><code>E_NOTICE</code></strong>,
+       а функция вернёт <strong><code>false</code></strong>.
+      </p>
+      <div class="caution"><strong class="caution">Предостережение</strong>
+       <p class="para">
+        Как будет работать <code class="literal">//TRANSLIT</code> и будет ли вообще, зависит от
+        системной реализации iconv() (<strong><code>ICONV_IMPL</code></strong>).
+        Известны некоторые реализации, которые просто игнорируют
+        <code class="literal">//TRANSLIT</code>, так что конвертация для символов некорректных
+        для <code class="parameter">to_encoding</code> скорее всего закончится ошибкой.
+       </p>
+      </div>
+     </dd>
+
+    
+    
+     <dt>
+<code class="parameter">string</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Строка (<span class="type">string</span>) для преобразования.
+      </p>
+     </dd>
+
+    
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.iconv-returnvalues">
+  <h3 class="title">Возвращаемые значения</h3>
+  <p class="para">
+   Возвращает преобразованную строку или <strong><code>false</code></strong> в случае возникновения ошибки.
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.iconv-examples">
+  <h3 class="title">Примеры</h3>
+  <p class="para">
+   <div class="example" id="">
+    <p><strong>Пример #1 Пример использования <span class="function"><strong>iconv()</strong></span></strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$text </span><span style="color: #007700">= </span><span style="color: #DD0000">"Это символ евро - '€'."</span><span style="color: #007700">;<br /><br />echo </span><span style="color: #DD0000">'Исходная строка        : '</span><span style="color: #007700">, </span><span style="color: #0000BB">$text</span><span style="color: #007700">, </span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br />echo </span><span style="color: #DD0000">'С добавлением TRANSLIT : '</span><span style="color: #007700">, </span><span style="color: #0000BB">iconv</span><span style="color: #007700">(</span><span style="color: #DD0000">"UTF-8"</span><span style="color: #007700">, </span><span style="color: #DD0000">"ISO-8859-1//TRANSLIT"</span><span style="color: #007700">, </span><span style="color: #0000BB">$text</span><span style="color: #007700">), </span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br />echo </span><span style="color: #DD0000">'С добавлением IGNORE   : '</span><span style="color: #007700">, </span><span style="color: #0000BB">iconv</span><span style="color: #007700">(</span><span style="color: #DD0000">"UTF-8"</span><span style="color: #007700">, </span><span style="color: #DD0000">"ISO-8859-1//IGNORE"</span><span style="color: #007700">, </span><span style="color: #0000BB">$text</span><span style="color: #007700">), </span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br />echo </span><span style="color: #DD0000">'Обычное преобразование : '</span><span style="color: #007700">, </span><span style="color: #0000BB">iconv</span><span style="color: #007700">(</span><span style="color: #DD0000">"UTF-8"</span><span style="color: #007700">, </span><span style="color: #DD0000">"ISO-8859-1"</span><span style="color: #007700">, </span><span style="color: #0000BB">$text</span><span style="color: #007700">), </span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+    </div>
+
+    
+<div class="example-contents"><p>
+ Вывод приведённого примера будет похож на:
+</p></div>
+
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Исходная строка        : Это символ евро - &#039;€&#039;.
+С добавлением TRANSLIT : Это символ евро - &#039;EUR&#039;.
+С добавлением IGNORE   :Это символ евро - &#039;&#039;.
+Обычное преобразование :
+Notice: iconv(): Detected an illegal character in input string in .\iconv-example.php on line 7
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.iconv-notes">
+  <h3 class="title">Примечания</h3>
+  <blockquote class="note"><p><strong class="note">Замечание</strong>: 
+   <p class="para">
+    Доступные кодировки и опции зависят от установленной реализации iconv.
+    Если параметр <code class="parameter">from_encoding</code> или <code class="parameter">from_encoding</code>
+    не поддерживается в текущей системе, будет возвращено значение <strong><code>false</code></strong>.
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.iconv-seealso">
+  <h3 class="title">Смотрите также</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.mb-convert-encoding.php.html" class="function" rel="rdfs-seeAlso">mb_convert_encoding()</a> - Преобразовывает строку из одной кодировки символов в другую</span></li>
+    <li class="member"><span class="methodname"><a href="uconverter.transcode.php.html" class="methodname" rel="rdfs-seeAlso">UConverter::transcode()</a> - Преобразовывает строку из одной кодировки символов в другую</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=function.iconv&amp;redirect=https://www.php.net/manual/ru/function.iconv.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">39 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="74101">  <div class="votes">
+    <div id="Vu74101">
+    <a href="https://www.php.net/manual/vote-note.php?id=74101&amp;page=function.iconv&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd74101">
+    <a href="https://www.php.net/manual/vote-note.php?id=74101&amp;page=function.iconv&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V74101" title="71% like this...">
+    79
+    </div>
+  </div>
+  <a href="function.iconv.php.html#74101" class="name">
+  <strong class="user"><em>Ritchie</em></strong></a><a class="genanchor" href="function.iconv.php.html#74101"> &para;</a><div class="date" title="2007-03-24 04:11"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom74101">
+<div class="phpcode"><code><span class="html">Please note that iconv('UTF-8', 'ASCII//TRANSLIT', ...) doesn't work properly when locale category LC_CTYPE is set to C or POSIX. You must choose another locale otherwise all non-ASCII characters will be replaced with question marks. This is at least true with glibc 2.5.<br /><br />Example:<br /><span class="default">&lt;?php<br />setlocale</span><span class="keyword">(</span><span class="default">LC_CTYPE</span><span class="keyword">, </span><span class="string">'POSIX'</span><span class="keyword">);<br />echo </span><span class="default">iconv</span><span class="keyword">(</span><span class="string">'UTF-8'</span><span class="keyword">, </span><span class="string">'ASCII//TRANSLIT'</span><span class="keyword">, </span><span class="string">"Žluťoučký kůň\n"</span><span class="keyword">);<br /></span><span class="comment">// ?lu?ou?k? k??<br /><br /></span><span class="default">setlocale</span><span class="keyword">(</span><span class="default">LC_CTYPE</span><span class="keyword">, </span><span class="string">'cs_CZ'</span><span class="keyword">);<br />echo </span><span class="default">iconv</span><span class="keyword">(</span><span class="string">'UTF-8'</span><span class="keyword">, </span><span class="string">'ASCII//TRANSLIT'</span><span class="keyword">, </span><span class="string">"Žluťoučký kůň\n"</span><span class="keyword">);<br /></span><span class="comment">// Zlutoucky kun<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="108643">  <div class="votes">
+    <div id="Vu108643">
+    <a href="https://www.php.net/manual/vote-note.php?id=108643&amp;page=function.iconv&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd108643">
+    <a href="https://www.php.net/manual/vote-note.php?id=108643&amp;page=function.iconv&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V108643" title="71% like this...">
+    77
+    </div>
+  </div>
+  <a href="function.iconv.php.html#108643" class="name">
+  <strong class="user"><em>orrd101 at gmail dot com</em></strong></a><a class="genanchor" href="function.iconv.php.html#108643"> &para;</a><div class="date" title="2012-05-14 06:58"><strong>11 years ago</strong></div>
+  <div class="text" id="Hcom108643">
+<div class="phpcode"><code><span class="html">The "//ignore" option doesn't work with recent versions of the iconv library.  So if you're having trouble with that option, you aren't alone.  <br /><br />That means you can't currently use this function to filter invalid characters.  Instead it silently fails and returns an empty string (or you'll get a notice but only if you have E_NOTICE enabled).<br /><br />This has been a known bug with a known solution for at least since 2009 years but no one seems to be willing to fix it (PHP must pass the -c option to iconv).  It's still broken as of the latest release 5.4.3. <br /><br /><a href="https://bugs.php.net/bug.php?id=48147" rel="nofollow" target="_blank">https://bugs.php.net/bug.php?id=48147</a><br /><a href="https://bugs.php.net/bug.php?id=52211" rel="nofollow" target="_blank">https://bugs.php.net/bug.php?id=52211</a><br /><a href="https://bugs.php.net/bug.php?id=61484" rel="nofollow" target="_blank">https://bugs.php.net/bug.php?id=61484</a><br /><br />[UPDATE 15-JUN-2012]<br />Here's a workaround...<br /><br />  ini_set('mbstring.substitute_character', "none");<br />  $text= mb_convert_encoding($text, 'UTF-8', 'UTF-8');<br /><br />That will strip invalid characters from UTF-8 strings (so that you can insert it into a database, etc.).  Instead of "none" you can also use the value 32 if you want it to insert spaces in place of the invalid characters.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="105507">  <div class="votes">
+    <div id="Vu105507">
+    <a href="https://www.php.net/manual/vote-note.php?id=105507&amp;page=function.iconv&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd105507">
+    <a href="https://www.php.net/manual/vote-note.php?id=105507&amp;page=function.iconv&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V105507" title="78% like this...">
+    55
+    </div>
+  </div>
+  <a href="function.iconv.php.html#105507" class="name">
+  <strong class="user"><em>daniel dot rhodes at warpasylum dot co dot uk</em></strong></a><a class="genanchor" href="function.iconv.php.html#105507"> &para;</a><div class="date" title="2011-08-23 08:22"><strong>12 years ago</strong></div>
+  <div class="text" id="Hcom105507">
+<div class="phpcode"><code><span class="html">Interestingly, setting different target locales results in different, yet appropriate, transliterations. For example:<br /><br /><span class="default">&lt;?php<br /></span><span class="comment">//some German<br /></span><span class="default">$utf8_sentence </span><span class="keyword">= </span><span class="string">'Weiß, Goldmann, Göbel, Weiss, Göthe, Goethe und Götz'</span><span class="keyword">;<br /><br /></span><span class="comment">//UK<br /></span><span class="default">setlocale</span><span class="keyword">(</span><span class="default">LC_ALL</span><span class="keyword">, </span><span class="string">'en_GB'</span><span class="keyword">);<br /><br /></span><span class="comment">//transliterate<br /></span><span class="default">$trans_sentence </span><span class="keyword">= </span><span class="default">iconv</span><span class="keyword">(</span><span class="string">'UTF-8'</span><span class="keyword">, </span><span class="string">'ASCII//TRANSLIT'</span><span class="keyword">, </span><span class="default">$utf8_sentence</span><span class="keyword">);<br /><br /></span><span class="comment">//gives [Weiss, Goldmann, Gobel, Weiss, Gothe, Goethe und Gotz]<br />//which is our original string flattened into 7-bit ASCII as<br />//an English speaker would do it (ie. simply remove the umlauts)<br /></span><span class="keyword">echo </span><span class="default">$trans_sentence </span><span class="keyword">. </span><span class="default">PHP_EOL</span><span class="keyword">;<br /><br /></span><span class="comment">//Germany<br /></span><span class="default">setlocale</span><span class="keyword">(</span><span class="default">LC_ALL</span><span class="keyword">, </span><span class="string">'de_DE'</span><span class="keyword">);<br /><br /></span><span class="default">$trans_sentence </span><span class="keyword">= </span><span class="default">iconv</span><span class="keyword">(</span><span class="string">'UTF-8'</span><span class="keyword">, </span><span class="string">'ASCII//TRANSLIT'</span><span class="keyword">, </span><span class="default">$utf8_sentence</span><span class="keyword">);<br /><br /></span><span class="comment">//gives [Weiss, Goldmann, Goebel, Weiss, Goethe, Goethe und Goetz]<br />//which is exactly how a German would transliterate those<br />//umlauted characters if forced to use 7-bit ASCII!<br />//(because really ä = ae, ö = oe and ü = ue)<br /></span><span class="keyword">echo </span><span class="default">$trans_sentence </span><span class="keyword">. </span><span class="default">PHP_EOL</span><span class="keyword">;<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="94058">  <div class="votes">
+    <div id="Vu94058">
+    <a href="https://www.php.net/manual/vote-note.php?id=94058&amp;page=function.iconv&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd94058">
+    <a href="https://www.php.net/manual/vote-note.php?id=94058&amp;page=function.iconv&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V94058" title="78% like this...">
+    49
+    </div>
+  </div>
+  <a href="function.iconv.php.html#94058" class="name">
+  <strong class="user"><em>annuaireehtp at gmail dot com</em></strong></a><a class="genanchor" href="function.iconv.php.html#94058"> &para;</a><div class="date" title="2009-10-14 04:53"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom94058">
+<div class="phpcode"><code><span class="html">to test different combinations of convertions between charsets (when we don't know the source charset and what is the convenient destination charset) this is an example :<br /><br /><span class="default">&lt;?php<br />$tab </span><span class="keyword">= array(</span><span class="string">"UTF-8"</span><span class="keyword">, </span><span class="string">"ASCII"</span><span class="keyword">, </span><span class="string">"Windows-1252"</span><span class="keyword">, </span><span class="string">"ISO-8859-15"</span><span class="keyword">, </span><span class="string">"ISO-8859-1"</span><span class="keyword">, </span><span class="string">"ISO-8859-6"</span><span class="keyword">, </span><span class="string">"CP1256"</span><span class="keyword">);<br /></span><span class="default">$chain </span><span class="keyword">= </span><span class="string">""</span><span class="keyword">;<br />foreach (</span><span class="default">$tab </span><span class="keyword">as </span><span class="default">$i</span><span class="keyword">)<br />    {<br />        foreach (</span><span class="default">$tab </span><span class="keyword">as </span><span class="default">$j</span><span class="keyword">)<br />        {<br />            </span><span class="default">$chain </span><span class="keyword">.= </span><span class="string">" </span><span class="default">$i$j</span><span class="string"> "</span><span class="keyword">.</span><span class="default">iconv</span><span class="keyword">(</span><span class="default">$i</span><span class="keyword">, </span><span class="default">$j</span><span class="keyword">, </span><span class="string">"</span><span class="default">$my_string</span><span class="string">"</span><span class="keyword">);<br />        }<br />    }<br /><br />echo </span><span class="default">$chain</span><span class="keyword">;<br /></span><span class="default">?&gt;<br /></span><br />then after displaying, you use the $i$j that shows good displaying.<br />NB: you can add other charsets to $tab  to test other cases.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="90330">  <div class="votes">
+    <div id="Vu90330">
+    <a href="https://www.php.net/manual/vote-note.php?id=90330&amp;page=function.iconv&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd90330">
+    <a href="https://www.php.net/manual/vote-note.php?id=90330&amp;page=function.iconv&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V90330" title="74% like this...">
+    19
+    </div>
+  </div>
+  <a href="function.iconv.php.html#90330" class="name">
+  <strong class="user"><em>manuel at kiessling dot net</em></strong></a><a class="genanchor" href="function.iconv.php.html#90330"> &para;</a><div class="date" title="2009-04-16 09:33"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom90330">
+<div class="phpcode"><code><span class="html">Like many other people, I have encountered massive problems when using iconv() to convert between encodings (from UTF-8 to ISO-8859-15 in my case), especially on large strings.<br /><br />The main problem here is that when your string contains illegal UTF-8 characters, there is no really straight forward way to handle those. iconv() simply (and silently!) terminates the string when encountering the problematic characters (also if using //IGNORE), returning a clipped string. The<br /><br /><span class="default">&lt;?php<br /><br />$newstring </span><span class="keyword">= </span><span class="default">html_entity_decode</span><span class="keyword">(</span><span class="default">htmlentities</span><span class="keyword">(</span><span class="default">$oldstring</span><span class="keyword">, </span><span class="default">ENT_QUOTES</span><span class="keyword">, </span><span class="string">'UTF-8'</span><span class="keyword">), </span><span class="default">ENT_QUOTES </span><span class="keyword">, </span><span class="string">'ISO-8859-15'</span><span class="keyword">);<br /><br /></span><span class="default">?&gt;<br /></span><br />workaround suggested here and elsewhere will also break when encountering illegal characters, at least dropping a useful note ("htmlentities(): Invalid multibyte sequence in argument in...")<br /><br />I have found a lot of hints, suggestions and alternative methods (it's scary and in my opinion no good sign how many ways PHP natively provides to convert the encoding of strings), but none of them really worked, except for this one:<br /><br /><span class="default">&lt;?php<br /><br />$newstring </span><span class="keyword">= </span><span class="default">mb_convert_encoding</span><span class="keyword">(</span><span class="default">$oldstring</span><span class="keyword">, </span><span class="string">'ISO-8859-15'</span><span class="keyword">, </span><span class="string">'UTF-8'</span><span class="keyword">);<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="86077">  <div class="votes">
+    <div id="Vu86077">
+    <a href="https://www.php.net/manual/vote-note.php?id=86077&amp;page=function.iconv&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd86077">
+    <a href="https://www.php.net/manual/vote-note.php?id=86077&amp;page=function.iconv&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V86077" title="73% like this...">
+    14
+    </div>
+  </div>
+  <a href="function.iconv.php.html#86077" class="name">
+  <strong class="user"><em>Leigh Morresi</em></strong></a><a class="genanchor" href="function.iconv.php.html#86077"> &para;</a><div class="date" title="2008-10-01 11:10"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom86077">
+<div class="phpcode"><code><span class="html">If you are getting question-marks in your iconv output when transliterating, be sure to 'setlocale' to something your system supports.<br /><br />Some PHP CMS's will default setlocale to 'C', this can be a problem.<br /><br />use the "locale" command to find out a list..<br /><br />$ locale -a<br />C<br />en_AU.utf8<br />POSIX<br /><br /><span class="default">&lt;?php<br />  setlocale</span><span class="keyword">(</span><span class="default">LC_CTYPE</span><span class="keyword">, </span><span class="string">'en_AU.utf8'</span><span class="keyword">);<br />  </span><span class="default">$str </span><span class="keyword">= </span><span class="default">iconv</span><span class="keyword">(</span><span class="string">'UTF-8'</span><span class="keyword">, </span><span class="string">'ASCII//TRANSLIT'</span><span class="keyword">, </span><span class="string">"Côte d'Ivoire"</span><span class="keyword">);<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="49171">  <div class="votes">
+    <div id="Vu49171">
+    <a href="https://www.php.net/manual/vote-note.php?id=49171&amp;page=function.iconv&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd49171">
+    <a href="https://www.php.net/manual/vote-note.php?id=49171&amp;page=function.iconv&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V49171" title="76% like this...">
+    7
+    </div>
+  </div>
+  <a href="function.iconv.php.html#49171" class="name">
+  <strong class="user"><em>zhawari at hotmail dot com</em></strong></a><a class="genanchor" href="function.iconv.php.html#49171"> &para;</a><div class="date" title="2005-01-18 03:02"><strong>19 years ago</strong></div>
+  <div class="text" id="Hcom49171">
+<div class="phpcode"><code><span class="html">Here is how to convert UCS-2 numbers to UTF-8 numbers in hex:<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">ucs2toutf8</span><span class="keyword">(</span><span class="default">$str</span><span class="keyword">)<br />{<br />        for (</span><span class="default">$i</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">;</span><span class="default">$i</span><span class="keyword">&lt;</span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$str</span><span class="keyword">);</span><span class="default">$i</span><span class="keyword">+=</span><span class="default">4</span><span class="keyword">)<br />        {<br />                </span><span class="default">$substring1 </span><span class="keyword">= </span><span class="default">$str</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">].</span><span class="default">$str</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">+</span><span class="default">1</span><span class="keyword">];<br />                </span><span class="default">$substring2 </span><span class="keyword">= </span><span class="default">$str</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">+</span><span class="default">2</span><span class="keyword">].</span><span class="default">$str</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">+</span><span class="default">3</span><span class="keyword">];<br /> <br />                if (</span><span class="default">$substring1 </span><span class="keyword">== </span><span class="string">"00"</span><span class="keyword">)<br />                {<br />                        </span><span class="default">$byte1 </span><span class="keyword">= </span><span class="string">""</span><span class="keyword">;<br />                        </span><span class="default">$byte2 </span><span class="keyword">= </span><span class="default">$substring2</span><span class="keyword">;<br />                }<br />                else<br />                {<br />                        </span><span class="default">$substring </span><span class="keyword">= </span><span class="default">$substring1</span><span class="keyword">.</span><span class="default">$substring2</span><span class="keyword">;<br />                        </span><span class="default">$byte1 </span><span class="keyword">= </span><span class="default">dechex</span><span class="keyword">(</span><span class="default">192</span><span class="keyword">+(</span><span class="default">hexdec</span><span class="keyword">(</span><span class="default">$substring</span><span class="keyword">)/</span><span class="default">64</span><span class="keyword">));<br />                        </span><span class="default">$byte2 </span><span class="keyword">= </span><span class="default">dechex</span><span class="keyword">(</span><span class="default">128</span><span class="keyword">+(</span><span class="default">hexdec</span><span class="keyword">(</span><span class="default">$substring</span><span class="keyword">)%</span><span class="default">64</span><span class="keyword">));<br />                }<br />                </span><span class="default">$utf8 </span><span class="keyword">.= </span><span class="default">$byte1</span><span class="keyword">.</span><span class="default">$byte2</span><span class="keyword">;<br />        }<br />        return </span><span class="default">$utf8</span><span class="keyword">;<br />}<br /> <br />echo </span><span class="default">strtoupper</span><span class="keyword">(</span><span class="default">ucs2toutf8</span><span class="keyword">(</span><span class="string">"06450631062D0020"</span><span class="keyword">));<br /><br /></span><span class="default">?&gt;<br /></span><br />Input:<br />06450631062D<br />Output:<br />D985D8B1D8AD<br /><br />regards,<br />Ziyad</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="113139">  <div class="votes">
+    <div id="Vu113139">
+    <a href="https://www.php.net/manual/vote-note.php?id=113139&amp;page=function.iconv&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd113139">
+    <a href="https://www.php.net/manual/vote-note.php?id=113139&amp;page=function.iconv&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V113139" title="72% like this...">
+    5
+    </div>
+  </div>
+  <a href="function.iconv.php.html#113139" class="name">
+  <strong class="user"><em>jorortega at gmail dot com</em></strong></a><a class="genanchor" href="function.iconv.php.html#113139"> &para;</a><div class="date" title="2013-09-04 03:52"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom113139">
+<div class="phpcode"><code><span class="html">Be aware that iconv in PHP uses system implementations of locales and languages, what works under linux, normally doesn't in windows.<br /><br />Also, you may notice that recent versions of linux (debian, ubuntu, centos, etc) the //TRANSLIT option doesn't work. since most distros doesn't include the intl packages (example: php5-intl and icuxx (where xx is a number) in debian) by default. And this because the intl package conflicts with another package needed for international DNS resolution.<br /><br />Problem is that configuration is dependent of the sysadmin of the machine where you're hosted, so iconv is pretty much useless by default,  depending on what configuration is used by your distro or the machine's admin.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="112706">  <div class="votes">
+    <div id="Vu112706">
+    <a href="https://www.php.net/manual/vote-note.php?id=112706&amp;page=function.iconv&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd112706">
+    <a href="https://www.php.net/manual/vote-note.php?id=112706&amp;page=function.iconv&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V112706" title="72% like this...">
+    5
+    </div>
+  </div>
+  <a href="function.iconv.php.html#112706" class="name">
+  <strong class="user"><em>jessiedeer  at  hotmail dot com</em></strong></a><a class="genanchor" href="function.iconv.php.html#112706"> &para;</a><div class="date" title="2013-07-15 02:06"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom112706">
+<div class="phpcode"><code><span class="html">iconv with //IGNORE works as expected: it will skip the character if this one does not exist in the $out_charset encoding.<br /><br />If a character is missing from the $in_charset encoding (eg byte \x81 from CP1252 encoding), then iconv will return an error, whether with //IGNORE or not.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="116178">  <div class="votes">
+    <div id="Vu116178">
+    <a href="https://www.php.net/manual/vote-note.php?id=116178&amp;page=function.iconv&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd116178">
+    <a href="https://www.php.net/manual/vote-note.php?id=116178&amp;page=function.iconv&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V116178" title="69% like this...">
+    9
+    </div>
+  </div>
+  <a href="function.iconv.php.html#116178" class="name">
+  <strong class="user"><em>atelier at degoy dot com</em></strong></a><a class="genanchor" href="function.iconv.php.html#116178"> &para;</a><div class="date" title="2014-11-19 07:41"><strong>9 years ago</strong></div>
+  <div class="text" id="Hcom116178">
+<div class="phpcode"><code><span class="html">There may be situations when a new version of a web site, all in UTF-8, has to display some old data remaining in the database with ISO-8859-1 accents. The problem is iconv("ISO-8859-1", "UTF-8", $string) should not be applied if $string is already UTF-8 encoded.<br /><br />I use this function that does'nt need any extension :<br /><br />function convert_utf8( $string ) { <br />    if ( strlen(utf8_decode($string)) == strlen($string) ) {   <br />        // $string is not UTF-8<br />        return iconv("ISO-8859-1", "UTF-8", $string);<br />    } else {<br />        // already UTF-8<br />        return $string;<br />    }<br />}<br /><br /> I have not tested it extensively, hope it may help.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="124410">  <div class="votes">
+    <div id="Vu124410">
+    <a href="https://www.php.net/manual/vote-note.php?id=124410&amp;page=function.iconv&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd124410">
+    <a href="https://www.php.net/manual/vote-note.php?id=124410&amp;page=function.iconv&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V124410" title="71% like this...">
+    3
+    </div>
+  </div>
+  <a href="function.iconv.php.html#124410" class="name">
+  <strong class="user"><em>Daniel Klein</em></strong></a><a class="genanchor" href="function.iconv.php.html#124410"> &para;</a><div class="date" title="2019-11-18 01:41"><strong>4 years ago</strong></div>
+  <div class="text" id="Hcom124410">
+<div class="phpcode"><code><span class="html">If you want to convert to a Unicode encoding without the byte order mark (BOM), add the endianness to the encoding, e.g. instead of "UTF-16" which will add a BOM to the start of the string, use "UTF-16BE" which will convert the string without adding a BOM.<br /><br />i.e.<br /><br /><span class="default">&lt;?php<br />iconv</span><span class="keyword">(</span><span class="string">'CP1252'</span><span class="keyword">, </span><span class="string">'UTF-16'</span><span class="keyword">, </span><span class="default">$text</span><span class="keyword">); </span><span class="comment">// with BOM<br /></span><span class="default">iconv</span><span class="keyword">(</span><span class="string">'CP1252'</span><span class="keyword">, </span><span class="string">'UTF-16BE'</span><span class="keyword">, </span><span class="default">$text</span><span class="keyword">); </span><span class="comment">// without BOM</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="47428">  <div class="votes">
+    <div id="Vu47428">
+    <a href="https://www.php.net/manual/vote-note.php?id=47428&amp;page=function.iconv&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd47428">
+    <a href="https://www.php.net/manual/vote-note.php?id=47428&amp;page=function.iconv&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V47428" title="72% like this...">
+    5
+    </div>
+  </div>
+  <a href="function.iconv.php.html#47428" class="name">
+  <strong class="user"><em>vitek at 4rome dot ru</em></strong></a><a class="genanchor" href="function.iconv.php.html#47428"> &para;</a><div class="date" title="2004-11-15 11:53"><strong>19 years ago</strong></div>
+  <div class="text" id="Hcom47428">
+<div class="phpcode"><code><span class="html">On some systems there may be no such function as iconv(); this is due to the following reason: a constant is defined named `iconv` with the value `libiconv`. So, the string PHP_FUNCTION(iconv) transforms to PHP_FUNCTION(libiconv), and you have to call libiconv() function instead of iconv().<br />I had seen this on FreeBSD, but I am sure that was a rather special build.<br />If you'd want not to be dependent on this behaviour, add the following to your script:<br /><span class="default">&lt;?php<br /></span><span class="keyword">if (!</span><span class="default">function_exists</span><span class="keyword">(</span><span class="string">'iconv'</span><span class="keyword">) &amp;&amp; </span><span class="default">function_exists</span><span class="keyword">(</span><span class="string">'libiconv'</span><span class="keyword">)) {<br />    function </span><span class="default">iconv</span><span class="keyword">(</span><span class="default">$input_encoding</span><span class="keyword">, </span><span class="default">$output_encoding</span><span class="keyword">, </span><span class="default">$string</span><span class="keyword">) {<br />        return </span><span class="default">libiconv</span><span class="keyword">(</span><span class="default">$input_encoding</span><span class="keyword">, </span><span class="default">$output_encoding</span><span class="keyword">, </span><span class="default">$string</span><span class="keyword">);<br />    }<br />}<br /></span><span class="default">?&gt;<br /></span>Thanks to tony2001 at phpclub.net for explaining this behaviour.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="77315">  <div class="votes">
+    <div id="Vu77315">
+    <a href="https://www.php.net/manual/vote-note.php?id=77315&amp;page=function.iconv&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd77315">
+    <a href="https://www.php.net/manual/vote-note.php?id=77315&amp;page=function.iconv&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V77315" title="70% like this...">
+    8
+    </div>
+  </div>
+  <a href="function.iconv.php.html#77315" class="name">
+  <strong class="user"><em>gree:.. (gree 4T grees D0T net)</em></strong></a><a class="genanchor" href="function.iconv.php.html#77315"> &para;</a><div class="date" title="2007-08-24 02:19"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom77315">
+<div class="phpcode"><code><span class="html">In my case, I had to change:<br /><span class="default">&lt;?php<br />setlocale</span><span class="keyword">(</span><span class="default">LC_CTYPE</span><span class="keyword">, </span><span class="string">'cs_CZ'</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span>to <br /><span class="default">&lt;?php<br />setlocale</span><span class="keyword">(</span><span class="default">LC_CTYPE</span><span class="keyword">, </span><span class="string">'cs_CZ.UTF-8'</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span>Otherwise it returns question marks.<br /><br />When I asked my linux for locale (by locale command) it returns "cs_CZ.UTF-8", so there is maybe correlation between it.<br /><br />iconv (GNU libc) 2.6.1<br />glibc 2.3.6</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="59030">  <div class="votes">
+    <div id="Vu59030">
+    <a href="https://www.php.net/manual/vote-note.php?id=59030&amp;page=function.iconv&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd59030">
+    <a href="https://www.php.net/manual/vote-note.php?id=59030&amp;page=function.iconv&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V59030" title="71% like this...">
+    6
+    </div>
+  </div>
+  <a href="function.iconv.php.html#59030" class="name">
+  <strong class="user"><em>nilcolor at gmail dot coom</em></strong></a><a class="genanchor" href="function.iconv.php.html#59030"> &para;</a><div class="date" title="2005-11-24 03:29"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom59030">
+<div class="phpcode"><code><span class="html">Didn't know its a feature or not but its works for me (PHP 5.0.4)<br /><br />iconv('', 'UTF-8', $str)<br /><br />test it to convert from windows-1251 (stored in DB) to UTF-8 (which i use for web pages).<br />BTW i convert each array i fetch from DB with array_walk_recursive...</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="116951">  <div class="votes">
+    <div id="Vu116951">
+    <a href="https://www.php.net/manual/vote-note.php?id=116951&amp;page=function.iconv&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd116951">
+    <a href="https://www.php.net/manual/vote-note.php?id=116951&amp;page=function.iconv&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V116951" title="68% like this...">
+    7
+    </div>
+  </div>
+  <a href="function.iconv.php.html#116951" class="name">
+  <strong class="user"><em>Nopius</em></strong></a><a class="genanchor" href="function.iconv.php.html#116951"> &para;</a><div class="date" title="2015-03-26 02:08"><strong>8 years ago</strong></div>
+  <div class="text" id="Hcom116951">
+<div class="phpcode"><code><span class="html">As orrd101 said, there is a bug with //IGNORE in recent PHP versions (we use 5.6.5) where we couldn't convert some strings (i.e. "∙" from UTF8 to CP1251 with //IGNORE). <br />But we have found a workaround and now we use both //TRANSLIT and //IGNORE flags:<br />$text="∙";<br />iconv("UTF8", "CP1251//TRANSLIT//IGNORE", $text);</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="101871">  <div class="votes">
+    <div id="Vu101871">
+    <a href="https://www.php.net/manual/vote-note.php?id=101871&amp;page=function.iconv&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd101871">
+    <a href="https://www.php.net/manual/vote-note.php?id=101871&amp;page=function.iconv&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V101871" title="65% like this...">
+    12
+    </div>
+  </div>
+  <a href="function.iconv.php.html#101871" class="name">
+  <strong class="user"><em>ameten</em></strong></a><a class="genanchor" href="function.iconv.php.html#101871"> &para;</a><div class="date" title="2011-01-14 04:17"><strong>13 years ago</strong></div>
+  <div class="text" id="Hcom101871">
+<div class="phpcode"><code><span class="html">I have used iconv to convert from cp1251 into UTF-8. I spent a day to investigate why a string with Russian capital 'Р' (sounds similar to 'r') at the end cannot be inserted into a database.<br /><br />The problem is not in iconv. But 'Р' in cp1251 is chr(208) and 'Р' in UTF-8 is chr(208).chr(106). chr(106) is one of the space symbol which match '\s' in regex. So, it can be taken by a greedy '+' or '*' operator. In that case, you loose 'Р' in your string.<br /><br />For example, 'ГР   ' (Russian, UTF-8). Function preg_match. Regex is '(.+?)[\s]*'. Then '(.+?)' matches 'Г'.chr(208) and '[\s]*' matches chr(106).'   '.<br /><br />Although, it is not a bug of iconv, but it looks like it very much. That's why I put this comment here.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="119137">  <div class="votes">
+    <div id="Vu119137">
+    <a href="https://www.php.net/manual/vote-note.php?id=119137&amp;page=function.iconv&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd119137">
+    <a href="https://www.php.net/manual/vote-note.php?id=119137&amp;page=function.iconv&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V119137" title="66% like this...">
+    4
+    </div>
+  </div>
+  <a href="function.iconv.php.html#119137" class="name">
+  <strong class="user"><em>Daniel Klein</em></strong></a><a class="genanchor" href="function.iconv.php.html#119137"> &para;</a><div class="date" title="2016-04-08 09:12"><strong>7 years ago</strong></div>
+  <div class="text" id="Hcom119137">
+<div class="phpcode"><code><span class="html">I just found out today that the Windows and *NIX versions of PHP use different iconv libraries and are not very consistent with each other.<br /><br />Here is a repost of my earlier code that now works on more systems. It converts as much as possible and replaces the rest with question marks:<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">if (!</span><span class="default">function_exists</span><span class="keyword">(</span><span class="string">'utf8_to_ascii'</span><span class="keyword">)) {<br />  </span><span class="default">setlocale</span><span class="keyword">(</span><span class="default">LC_CTYPE</span><span class="keyword">, </span><span class="string">'en_AU.utf8'</span><span class="keyword">);<br />  if (@</span><span class="default">iconv</span><span class="keyword">(</span><span class="string">"UTF-8"</span><span class="keyword">, </span><span class="string">"ASCII//IGNORE//TRANSLIT"</span><span class="keyword">, </span><span class="string">'é'</span><span class="keyword">) === </span><span class="default">false</span><span class="keyword">) {<br />    </span><span class="comment">// PHP is probably using the glibc library (*NIX)<br />    </span><span class="keyword">function </span><span class="default">utf8_to_ascii</span><span class="keyword">(</span><span class="default">$text</span><span class="keyword">) {<br />      return </span><span class="default">iconv</span><span class="keyword">(</span><span class="string">"UTF-8"</span><span class="keyword">, </span><span class="string">"ASCII//TRANSLIT"</span><span class="keyword">, </span><span class="default">$text</span><span class="keyword">);<br />    }<br />  }<br />  else {<br />    </span><span class="comment">// PHP is probably using the libiconv library (Windows)<br />    </span><span class="keyword">function </span><span class="default">utf8_to_ascii</span><span class="keyword">(</span><span class="default">$text</span><span class="keyword">) {<br />      if (</span><span class="default">is_string</span><span class="keyword">(</span><span class="default">$text</span><span class="keyword">)) {<br />        </span><span class="comment">// Includes combinations of characters that present as a single glyph<br />        </span><span class="default">$text </span><span class="keyword">= </span><span class="default">preg_replace_callback</span><span class="keyword">(</span><span class="string">'/\X/u'</span><span class="keyword">, </span><span class="default">__FUNCTION__</span><span class="keyword">, </span><span class="default">$text</span><span class="keyword">);<br />      }<br />      elseif (</span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$text</span><span class="keyword">) &amp;&amp; </span><span class="default">count</span><span class="keyword">(</span><span class="default">$text</span><span class="keyword">) == </span><span class="default">1 </span><span class="keyword">&amp;&amp; </span><span class="default">is_string</span><span class="keyword">(</span><span class="default">$text</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">])) {<br />        </span><span class="comment">// IGNORE characters that can't be TRANSLITerated to ASCII<br />        </span><span class="default">$text </span><span class="keyword">= </span><span class="default">iconv</span><span class="keyword">(</span><span class="string">"UTF-8"</span><span class="keyword">, </span><span class="string">"ASCII//IGNORE//TRANSLIT"</span><span class="keyword">, </span><span class="default">$text</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">]);<br />        </span><span class="comment">// The documentation says that iconv() returns false on failure but it returns ''<br />        </span><span class="keyword">if (</span><span class="default">$text </span><span class="keyword">=== </span><span class="string">'' </span><span class="keyword">|| !</span><span class="default">is_string</span><span class="keyword">(</span><span class="default">$text</span><span class="keyword">)) {<br />          </span><span class="default">$text </span><span class="keyword">= </span><span class="string">'?'</span><span class="keyword">;<br />        }<br />        elseif (</span><span class="default">preg_match</span><span class="keyword">(</span><span class="string">'/\w/'</span><span class="keyword">, </span><span class="default">$text</span><span class="keyword">)) {        </span><span class="comment">// If the text contains any letters...<br />          </span><span class="default">$text </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'/\W+/'</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">, </span><span class="default">$text</span><span class="keyword">); </span><span class="comment">// ...then remove all non-letters<br />        </span><span class="keyword">}<br />      }<br />      else {  </span><span class="comment">// $text was not a string<br />        </span><span class="default">$text </span><span class="keyword">= </span><span class="string">''</span><span class="keyword">;<br />      }<br />      return </span><span class="default">$text</span><span class="keyword">;<br />    }<br />  }<br />}</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="49548">  <div class="votes">
+    <div id="Vu49548">
+    <a href="https://www.php.net/manual/vote-note.php?id=49548&amp;page=function.iconv&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd49548">
+    <a href="https://www.php.net/manual/vote-note.php?id=49548&amp;page=function.iconv&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V49548" title="66% like this...">
+    6
+    </div>
+  </div>
+  <a href="function.iconv.php.html#49548" class="name">
+  <strong class="user"><em>zhawari at hotmail dot com</em></strong></a><a class="genanchor" href="function.iconv.php.html#49548"> &para;</a><div class="date" title="2005-02-01 03:27"><strong>19 years ago</strong></div>
+  <div class="text" id="Hcom49548">
+<div class="phpcode"><code><span class="html">Here is how to convert UTF-8 numbers to UCS-2 numbers in hex:<br /><br /><span class="default">&lt;?php<br /> <br /></span><span class="keyword">function </span><span class="default">utf8toucs2</span><span class="keyword">(</span><span class="default">$str</span><span class="keyword">)<br />{<br />       for (</span><span class="default">$i</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">;</span><span class="default">$i</span><span class="keyword">&lt;</span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$str</span><span class="keyword">);</span><span class="default">$i</span><span class="keyword">+=</span><span class="default">2</span><span class="keyword">)<br />       {<br />                </span><span class="default">$substring1 </span><span class="keyword">= </span><span class="default">$str</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">].</span><span class="default">$str</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">+</span><span class="default">1</span><span class="keyword">];  <br />                </span><span class="default">$substring2 </span><span class="keyword">= </span><span class="default">$str</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">+</span><span class="default">2</span><span class="keyword">].</span><span class="default">$str</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">+</span><span class="default">3</span><span class="keyword">]; <br />               <br />                if (</span><span class="default">hexdec</span><span class="keyword">(</span><span class="default">$substring1</span><span class="keyword">) &lt; </span><span class="default">127</span><span class="keyword">)<br />                        </span><span class="default">$results </span><span class="keyword">= </span><span class="string">"00"</span><span class="keyword">.</span><span class="default">$str</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">].</span><span class="default">$str</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">+</span><span class="default">1</span><span class="keyword">];<br />                else<br />                {<br />                        </span><span class="default">$results </span><span class="keyword">= </span><span class="default">dechex</span><span class="keyword">((</span><span class="default">hexdec</span><span class="keyword">(</span><span class="default">$substring1</span><span class="keyword">)-</span><span class="default">192</span><span class="keyword">)*</span><span class="default">64 </span><span class="keyword">+ (</span><span class="default">hexdec</span><span class="keyword">(</span><span class="default">$substring2</span><span class="keyword">)-</span><span class="default">128</span><span class="keyword">));<br />                        if (</span><span class="default">$results </span><span class="keyword">&lt; </span><span class="default">1000</span><span class="keyword">) </span><span class="default">$results </span><span class="keyword">= </span><span class="string">"0"</span><span class="keyword">.</span><span class="default">$results</span><span class="keyword">; <br />                        </span><span class="default">$i</span><span class="keyword">+=</span><span class="default">2</span><span class="keyword">;<br />                }<br />                </span><span class="default">$ucs2 </span><span class="keyword">.= </span><span class="default">$results</span><span class="keyword">;<br />        }<br />        return </span><span class="default">$ucs2</span><span class="keyword">;<br />}<br /> <br />echo </span><span class="default">strtoupper</span><span class="keyword">(</span><span class="default">utf8toucs2</span><span class="keyword">(</span><span class="string">"D985D8B1D8AD"</span><span class="keyword">)).</span><span class="string">"\n"</span><span class="keyword">;<br />echo </span><span class="default">strtoupper</span><span class="keyword">(</span><span class="default">utf8toucs2</span><span class="keyword">(</span><span class="string">"456725"</span><span class="keyword">)).</span><span class="string">"\n"</span><span class="keyword">;<br /> <br /></span><span class="default">?&gt;<br /></span><br />Input:<br />D985D8B1D8AD<br />Output:<br />06450631062D<br /><br />Input:<br />456725<br />Output:<br />004500670025</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="43463">  <div class="votes">
+    <div id="Vu43463">
+    <a href="https://www.php.net/manual/vote-note.php?id=43463&amp;page=function.iconv&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd43463">
+    <a href="https://www.php.net/manual/vote-note.php?id=43463&amp;page=function.iconv&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V43463" title="66% like this...">
+    5
+    </div>
+  </div>
+  <a href="function.iconv.php.html#43463" class="name">
+  <strong class="user"><em>ng4rrjanbiah at rediffmail dot com</em></strong></a><a class="genanchor" href="function.iconv.php.html#43463"> &para;</a><div class="date" title="2004-06-22 08:10"><strong>19 years ago</strong></div>
+  <div class="text" id="Hcom43463">
+<div class="phpcode"><code><span class="html">Here is a code to convert ISO 8859-1 to UTF-8 and vice versa without using iconv.<br /><br /><span class="default">&lt;?php<br /></span><span class="comment">//Logic from <a href="http://twiki.org/cgi-bin/view/Codev/InternationalisationUTF8" rel="nofollow" target="_blank">http://twiki.org/cgi-bin/view/Codev/InternationalisationUTF8</a><br /></span><span class="default">$str_iso8859_1 </span><span class="keyword">= </span><span class="string">'foo in ISO 8859-1'</span><span class="keyword">;<br /></span><span class="comment">//ISO 8859-1 to UTF-8<br /></span><span class="default">$str_utf8 </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">"/([\x80-\xFF])/e"</span><span class="keyword">, <br />            </span><span class="string">"chr(0xC0|ord('\\1')&gt;&gt;6).chr(0x80|ord('\\1')&amp;0x3F)"</span><span class="keyword">,<br />             </span><span class="default">$str_iso8859_1</span><span class="keyword">);<br /></span><span class="comment">//UTF-8 to ISO 8859-1<br /></span><span class="default">$str_iso8859_1 </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">"/([\xC2\xC3])([\x80-\xBF])/e"</span><span class="keyword">, <br />                </span><span class="string">"chr(ord('\\1')&lt;&lt;6&amp;0xC0|ord('\\2')&amp;0x3F)"</span><span class="keyword">,<br />                 </span><span class="default">$str_utf8</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />HTH,<br />R. Rajesh Jeba Anbiah</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="80838">  <div class="votes">
+    <div id="Vu80838">
+    <a href="https://www.php.net/manual/vote-note.php?id=80838&amp;page=function.iconv&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd80838">
+    <a href="https://www.php.net/manual/vote-note.php?id=80838&amp;page=function.iconv&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V80838" title="66% like this...">
+    3
+    </div>
+  </div>
+  <a href="function.iconv.php.html#80838" class="name">
+  <strong class="user"><em>anton dot vakulchik at gmail dot com</em></strong></a><a class="genanchor" href="function.iconv.php.html#80838"> &para;</a><div class="date" title="2008-02-02 10:40"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom80838">
+<div class="phpcode"><code><span class="html">function detectUTF8($string)<br />{<br />        return preg_match('%(?:<br />        [\xC2-\xDF][\x80-\xBF]        # non-overlong 2-byte<br />        |\xE0[\xA0-\xBF][\x80-\xBF]               # excluding overlongs<br />        |[\xE1-\xEC\xEE\xEF][\x80-\xBF]{2}      # straight 3-byte<br />        |\xED[\x80-\x9F][\x80-\xBF]               # excluding surrogates<br />        |\xF0[\x90-\xBF][\x80-\xBF]{2}    # planes 1-3<br />        |[\xF1-\xF3][\x80-\xBF]{3}                  # planes 4-15<br />        |\xF4[\x80-\x8F][\x80-\xBF]{2}    # plane 16<br />        )+%xs', $string);<br />}<br /><br />function cp1251_utf8( $sInput )<br />{<br />    $sOutput = "";<br /><br />    for ( $i = 0; $i &lt; strlen( $sInput ); $i++ )<br />    {<br />        $iAscii = ord( $sInput[$i] );<br /><br />        if ( $iAscii &gt;= 192 &amp;&amp; $iAscii &lt;= 255 )<br />            $sOutput .=  "&amp;#".( 1040 + ( $iAscii - 192 ) ).";";<br />        else if ( $iAscii == 168 )<br />            $sOutput .= "&amp;#".( 1025 ).";";<br />        else if ( $iAscii == 184 )<br />            $sOutput .= "&amp;#".( 1105 ).";";<br />        else<br />            $sOutput .= $sInput[$i];<br />    }<br />    <br />    return $sOutput;<br />}<br /><br />function encoding($string){<br />    if (function_exists('iconv')) {    <br />        if (@!iconv('utf-8', 'cp1251', $string)) {<br />            $string = iconv('cp1251', 'utf-8', $string);<br />        }<br />        return $string;<br />    } else {<br />        if (detectUTF8($string)) {<br />            return $string;        <br />        } else {<br />            return cp1251_utf8($string);<br />        }<br />    }<br />}<br />echo encoding($string);</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="47499">  <div class="votes">
+    <div id="Vu47499">
+    <a href="https://www.php.net/manual/vote-note.php?id=47499&amp;page=function.iconv&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd47499">
+    <a href="https://www.php.net/manual/vote-note.php?id=47499&amp;page=function.iconv&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V47499" title="66% like this...">
+    4
+    </div>
+  </div>
+  <a href="function.iconv.php.html#47499" class="name">
+  <strong class="user"><em>nikolai-dot-zujev-at-gmail-dot-com</em></strong></a><a class="genanchor" href="function.iconv.php.html#47499"> &para;</a><div class="date" title="2004-11-18 01:14"><strong>19 years ago</strong></div>
+  <div class="text" id="Hcom47499">
+<div class="phpcode"><code><span class="html">Here is an example how to convert windows-1251 (windows) or cp1251(Linux/Unix) encoded string to UTF-8 encoding.<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">cp1251_utf8</span><span class="keyword">( </span><span class="default">$sInput </span><span class="keyword">)<br />{<br />    </span><span class="default">$sOutput </span><span class="keyword">= </span><span class="string">""</span><span class="keyword">;<br /><br />    for ( </span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">strlen</span><span class="keyword">( </span><span class="default">$sInput </span><span class="keyword">); </span><span class="default">$i</span><span class="keyword">++ )<br />    {<br />        </span><span class="default">$iAscii </span><span class="keyword">= </span><span class="default">ord</span><span class="keyword">( </span><span class="default">$sInput</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">] );<br /><br />        if ( </span><span class="default">$iAscii </span><span class="keyword">&gt;= </span><span class="default">192 </span><span class="keyword">&amp;&amp; </span><span class="default">$iAscii </span><span class="keyword">&lt;= </span><span class="default">255 </span><span class="keyword">)<br />            </span><span class="default">$sOutput </span><span class="keyword">.=  </span><span class="string">"&amp;#"</span><span class="keyword">.( </span><span class="default">1040 </span><span class="keyword">+ ( </span><span class="default">$iAscii </span><span class="keyword">- </span><span class="default">192 </span><span class="keyword">) ).</span><span class="string">";"</span><span class="keyword">;<br />        else if ( </span><span class="default">$iAscii </span><span class="keyword">== </span><span class="default">168 </span><span class="keyword">)<br />            </span><span class="default">$sOutput </span><span class="keyword">.= </span><span class="string">"&amp;#"</span><span class="keyword">.( </span><span class="default">1025 </span><span class="keyword">).</span><span class="string">";"</span><span class="keyword">;<br />        else if ( </span><span class="default">$iAscii </span><span class="keyword">== </span><span class="default">184 </span><span class="keyword">)<br />            </span><span class="default">$sOutput </span><span class="keyword">.= </span><span class="string">"&amp;#"</span><span class="keyword">.( </span><span class="default">1105 </span><span class="keyword">).</span><span class="string">";"</span><span class="keyword">;<br />        else<br />            </span><span class="default">$sOutput </span><span class="keyword">.= </span><span class="default">$sInput</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">];<br />    }<br />    <br />    return </span><span class="default">$sOutput</span><span class="keyword">;<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="89075">  <div class="votes">
+    <div id="Vu89075">
+    <a href="https://www.php.net/manual/vote-note.php?id=89075&amp;page=function.iconv&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd89075">
+    <a href="https://www.php.net/manual/vote-note.php?id=89075&amp;page=function.iconv&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V89075" title="64% like this...">
+    4
+    </div>
+  </div>
+  <a href="function.iconv.php.html#89075" class="name">
+  <strong class="user"><em>kikke</em></strong></a><a class="genanchor" href="function.iconv.php.html#89075"> &para;</a><div class="date" title="2009-02-20 04:50"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom89075">
+<div class="phpcode"><code><span class="html">You can use native iconv in Linux via passthru if all else failed.<br />Use the -c parameter to suppress error messages.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="53365">  <div class="votes">
+    <div id="Vu53365">
+    <a href="https://www.php.net/manual/vote-note.php?id=53365&amp;page=function.iconv&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd53365">
+    <a href="https://www.php.net/manual/vote-note.php?id=53365&amp;page=function.iconv&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V53365" title="63% like this...">
+    3
+    </div>
+  </div>
+  <a href="function.iconv.php.html#53365" class="name">
+  <strong class="user"><em>anyean at gmail dot com</em></strong></a><a class="genanchor" href="function.iconv.php.html#53365"> &para;</a><div class="date" title="2005-05-30 03:23"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom53365">
+<div class="phpcode"><code><span class="html"><span class="default">&lt;?php<br /></span><span class="comment">//script from <a href="http://zizi.kxup.com/" rel="nofollow" target="_blank">http://zizi.kxup.com/</a><br />//javascript unesape<br /></span><span class="keyword">function </span><span class="default">unescape</span><span class="keyword">(</span><span class="default">$str</span><span class="keyword">) {<br />  </span><span class="default">$str </span><span class="keyword">= </span><span class="default">rawurldecode</span><span class="keyword">(</span><span class="default">$str</span><span class="keyword">);<br />  </span><span class="default">preg_match_all</span><span class="keyword">(</span><span class="string">"/(?:%u.{4})|&amp;#x.{4};|&amp;#\d+;|.+/U"</span><span class="keyword">,</span><span class="default">$str</span><span class="keyword">,</span><span class="default">$r</span><span class="keyword">);<br />  </span><span class="default">$ar </span><span class="keyword">= </span><span class="default">$r</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">];<br /></span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$ar</span><span class="keyword">);<br />  foreach(</span><span class="default">$ar </span><span class="keyword">as </span><span class="default">$k</span><span class="keyword">=&gt;</span><span class="default">$v</span><span class="keyword">) {<br />    if(</span><span class="default">substr</span><span class="keyword">(</span><span class="default">$v</span><span class="keyword">,</span><span class="default">0</span><span class="keyword">,</span><span class="default">2</span><span class="keyword">) == </span><span class="string">"%u"</span><span class="keyword">)<br />      </span><span class="default">$ar</span><span class="keyword">[</span><span class="default">$k</span><span class="keyword">] = </span><span class="default">iconv</span><span class="keyword">(</span><span class="string">"UCS-2"</span><span class="keyword">,</span><span class="string">"UTF-8"</span><span class="keyword">,</span><span class="default">pack</span><span class="keyword">(</span><span class="string">"H4"</span><span class="keyword">,</span><span class="default">substr</span><span class="keyword">(</span><span class="default">$v</span><span class="keyword">,-</span><span class="default">4</span><span class="keyword">)));<br />    elseif(</span><span class="default">substr</span><span class="keyword">(</span><span class="default">$v</span><span class="keyword">,</span><span class="default">0</span><span class="keyword">,</span><span class="default">3</span><span class="keyword">) == </span><span class="string">"&amp;#x"</span><span class="keyword">)<br />      </span><span class="default">$ar</span><span class="keyword">[</span><span class="default">$k</span><span class="keyword">] = </span><span class="default">iconv</span><span class="keyword">(</span><span class="string">"UCS-2"</span><span class="keyword">,</span><span class="string">"UTF-8"</span><span class="keyword">,</span><span class="default">pack</span><span class="keyword">(</span><span class="string">"H4"</span><span class="keyword">,</span><span class="default">substr</span><span class="keyword">(</span><span class="default">$v</span><span class="keyword">,</span><span class="default">3</span><span class="keyword">,-</span><span class="default">1</span><span class="keyword">)));<br />    elseif(</span><span class="default">substr</span><span class="keyword">(</span><span class="default">$v</span><span class="keyword">,</span><span class="default">0</span><span class="keyword">,</span><span class="default">2</span><span class="keyword">) == </span><span class="string">"&amp;#"</span><span class="keyword">) {<br />echo </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$v</span><span class="keyword">,</span><span class="default">2</span><span class="keyword">,-</span><span class="default">1</span><span class="keyword">).</span><span class="string">"&lt;br&gt;"</span><span class="keyword">;<br />      </span><span class="default">$ar</span><span class="keyword">[</span><span class="default">$k</span><span class="keyword">] = </span><span class="default">iconv</span><span class="keyword">(</span><span class="string">"UCS-2"</span><span class="keyword">,</span><span class="string">"UTF-8"</span><span class="keyword">,</span><span class="default">pack</span><span class="keyword">(</span><span class="string">"n"</span><span class="keyword">,</span><span class="default">substr</span><span class="keyword">(</span><span class="default">$v</span><span class="keyword">,</span><span class="default">2</span><span class="keyword">,-</span><span class="default">1</span><span class="keyword">)));<br />    }<br />  }<br />  return </span><span class="default">join</span><span class="keyword">(</span><span class="string">""</span><span class="keyword">,</span><span class="default">$ar</span><span class="keyword">);<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="93609">  <div class="votes">
+    <div id="Vu93609">
+    <a href="https://www.php.net/manual/vote-note.php?id=93609&amp;page=function.iconv&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd93609">
+    <a href="https://www.php.net/manual/vote-note.php?id=93609&amp;page=function.iconv&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V93609" title="61% like this...">
+    3
+    </div>
+  </div>
+  <a href="function.iconv.php.html#93609" class="name">
+  <strong class="user"><em>phpmanualspam at netebb dot com</em></strong></a><a class="genanchor" href="function.iconv.php.html#93609"> &para;</a><div class="date" title="2009-09-17 11:53"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom93609">
+<div class="phpcode"><code><span class="html">mirek code, dated 16-May-2008 10:17, added the characters `^~'" to the output.<br />This function will strip out these extra characters:<br /><span class="default">&lt;?php<br />setlocale</span><span class="keyword">(</span><span class="default">LC_ALL</span><span class="keyword">, </span><span class="string">'en_US.UTF8'</span><span class="keyword">);<br />function </span><span class="default">clearUTF</span><span class="keyword">(</span><span class="default">$s</span><span class="keyword">)<br />{<br />    </span><span class="default">$r </span><span class="keyword">= </span><span class="string">''</span><span class="keyword">;<br />    </span><span class="default">$s1 </span><span class="keyword">= @</span><span class="default">iconv</span><span class="keyword">(</span><span class="string">'UTF-8'</span><span class="keyword">, </span><span class="string">'ASCII//TRANSLIT'</span><span class="keyword">, </span><span class="default">$s</span><span class="keyword">);<br />    </span><span class="default">$j </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br />    for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$s1</span><span class="keyword">); </span><span class="default">$i</span><span class="keyword">++) {<br />        </span><span class="default">$ch1 </span><span class="keyword">= </span><span class="default">$s1</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">];<br />        </span><span class="default">$ch2 </span><span class="keyword">= @</span><span class="default">mb_substr</span><span class="keyword">(</span><span class="default">$s</span><span class="keyword">, </span><span class="default">$j</span><span class="keyword">++, </span><span class="default">1</span><span class="keyword">, </span><span class="string">'UTF-8'</span><span class="keyword">);<br />        if (</span><span class="default">strstr</span><span class="keyword">(</span><span class="string">'`^~\'"'</span><span class="keyword">, </span><span class="default">$ch1</span><span class="keyword">) !== </span><span class="default">false</span><span class="keyword">) {<br />            if (</span><span class="default">$ch1 </span><span class="keyword">&lt;&gt; </span><span class="default">$ch2</span><span class="keyword">) {<br />                --</span><span class="default">$j</span><span class="keyword">;<br />                continue;<br />            }<br />        }<br />        </span><span class="default">$r </span><span class="keyword">.= (</span><span class="default">$ch1</span><span class="keyword">==</span><span class="string">'?'</span><span class="keyword">) ? </span><span class="default">$ch2 </span><span class="keyword">: </span><span class="default">$ch1</span><span class="keyword">;<br />    }<br />    return </span><span class="default">$r</span><span class="keyword">;<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="78972">  <div class="votes">
+    <div id="Vu78972">
+    <a href="https://www.php.net/manual/vote-note.php?id=78972&amp;page=function.iconv&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd78972">
+    <a href="https://www.php.net/manual/vote-note.php?id=78972&amp;page=function.iconv&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V78972" title="62% like this...">
+    2
+    </div>
+  </div>
+  <a href="function.iconv.php.html#78972" class="name">
+  <strong class="user"><em>mightye at gmail dot com</em></strong></a><a class="genanchor" href="function.iconv.php.html#78972"> &para;</a><div class="date" title="2007-11-05 05:01"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom78972">
+<div class="phpcode"><code><span class="html">To strip bogus characters from your input (such as data from an unsanitized or other source which you can't trust to necessarily give you strings encoded according to their advertised encoding set), use the same character set as both the input and the output, with //IGNORE on the output charcter set.<br /><span class="default">&lt;?php<br /></span><span class="comment">// assuming '†' is actually UTF8, htmlentities will assume it's iso-8859  <br />// since we did not specify in the 3rd argument of htmlentities.<br />// This generates "&amp;acirc;[bad utf-8 character]"<br />// If passed to any libxml, it will generate a fatal error.<br /></span><span class="default">$badUTF8 </span><span class="keyword">= </span><span class="default">htmlentities</span><span class="keyword">(</span><span class="string">'†'</span><span class="keyword">);<br /><br /></span><span class="comment">// iconv() can ignore characters which cannot be encoded in the target character set<br /></span><span class="default">$goodUTF8 </span><span class="keyword">= </span><span class="default">iconv</span><span class="keyword">(</span><span class="string">"utf-8"</span><span class="keyword">, </span><span class="string">"utf-8//IGNORE"</span><span class="keyword">, </span><span class="default">$badUTF8</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span>The result of the example does not give you back the dagger character which was the original input (it got lost when htmlentities was misused to encode it incorrectly, though this is common from people not accustomed to dealing with extended character sets), but it does at least give you data which is sane in your target character set.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="124205">  <div class="votes">
+    <div id="Vu124205">
+    <a href="https://www.php.net/manual/vote-note.php?id=124205&amp;page=function.iconv&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd124205">
+    <a href="https://www.php.net/manual/vote-note.php?id=124205&amp;page=function.iconv&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V124205" title="60% like this...">
+    1
+    </div>
+  </div>
+  <a href="function.iconv.php.html#124205" class="name">
+  <strong class="user"><em>phpnet at dariosulser dot ch</em></strong></a><a class="genanchor" href="function.iconv.php.html#124205"> &para;</a><div class="date" title="2019-09-18 01:12"><strong>4 years ago</strong></div>
+  <div class="text" id="Hcom124205">
+<div class="phpcode"><code><span class="html">ANSI = Windows-1252 = CP1252<br />So UTF-8 -&gt; ANSI:<br /><br /><span class="default">&lt;?php<br />      $string </span><span class="keyword">= </span><span class="string">"Winkel γ=200 für 1€"</span><span class="keyword">; </span><span class="comment">//"γ"=HTML:&amp;gamma;<br />      </span><span class="default">$result </span><span class="keyword">= </span><span class="default">iconv</span><span class="keyword">(</span><span class="string">'UTF-8'</span><span class="keyword">, </span><span class="string">'CP1252//IGNORE'</span><span class="keyword">, </span><span class="default">$string</span><span class="keyword">);<br />      echo </span><span class="default">$result</span><span class="keyword">;<br /></span><span class="default">?&gt;<br /></span><br />Note1<br /><span class="default">&lt;?php<br />      $string </span><span class="keyword">= </span><span class="string">"Winkel γ=200 für 1€"</span><span class="keyword">;<br />      </span><span class="default">$result </span><span class="keyword">= </span><span class="default">iconv</span><span class="keyword">(</span><span class="string">'UTF-8'</span><span class="keyword">, </span><span class="string">'CP1252'</span><span class="keyword">, </span><span class="default">$string</span><span class="keyword">);<br />      echo </span><span class="default">$result</span><span class="keyword">; </span><span class="comment">//"conv(): Detected an illegal character in input string"<br /></span><span class="default">?&gt;<br /></span><br />Note2 (ANSI is better than decode in ISO 8859-1 (ISO-8859-1==Latin-1)<br /><span class="default">&lt;?php<br />      $string </span><span class="keyword">= </span><span class="string">"Winkel γ=200 für 1€"</span><span class="keyword">;<br />      </span><span class="default">$result </span><span class="keyword">= </span><span class="default">utf8_decode</span><span class="keyword">(</span><span class="default">$string</span><span class="keyword">);<br />      echo </span><span class="default">$result</span><span class="keyword">; </span><span class="comment">//"Winkel ?=200 für 1?"<br /></span><span class="default">?&gt;<br /></span><br />Note3 of used languages on Websites:<br />93.0% = UTF-8;<br />3.5% = Latin-1; <br />0.6% = ANSI &lt;----- you shoud use (or utf-8 if your page is in Chinese or has Maths)</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="115285">  <div class="votes">
+    <div id="Vu115285">
+    <a href="https://www.php.net/manual/vote-note.php?id=115285&amp;page=function.iconv&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd115285">
+    <a href="https://www.php.net/manual/vote-note.php?id=115285&amp;page=function.iconv&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V115285" title="60% like this...">
+    1
+    </div>
+  </div>
+  <a href="function.iconv.php.html#115285" class="name">
+  <strong class="user"><em>rasmus at mindplay dot dk</em></strong></a><a class="genanchor" href="function.iconv.php.html#115285"> &para;</a><div class="date" title="2014-06-27 11:52"><strong>9 years ago</strong></div>
+  <div class="text" id="Hcom115285">
+<div class="phpcode"><code><span class="html">Note an important difference between iconv() and mb_convert_encoding() - if you're working with strings, as opposed to files, you most likely want mb_convert_encoding() and not iconv(), because iconv() will add a byte-order marker to the beginning of (for example) a UTF-32 string when converting from e.g. ISO-8859-1, which can throw off all your subsequent calculations and operations on the resulting string.<br /><br />In other words, iconv() appears to be intended for use when converting the contents of files - whereas mb_convert_encoding() is intended for use when juggling strings internally, e.g. strings that aren't being read/written to/from files, but exchanged with some other media.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="111652">  <div class="votes">
+    <div id="Vu111652">
+    <a href="https://www.php.net/manual/vote-note.php?id=111652&amp;page=function.iconv&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd111652">
+    <a href="https://www.php.net/manual/vote-note.php?id=111652&amp;page=function.iconv&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V111652" title="58% like this...">
+    2
+    </div>
+  </div>
+  <a href="function.iconv.php.html#111652" class="name">
+  <strong class="user"><em>Daniel Klein</em></strong></a><a class="genanchor" href="function.iconv.php.html#111652"> &para;</a><div class="date" title="2013-03-13 12:17"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom111652">
+<div class="phpcode"><code><span class="html">You can use 'CP1252' instead of 'Windows-1252':<br /><span class="default">&lt;?php<br /></span><span class="comment">// These two lines are equivalent<br /></span><span class="default">$result </span><span class="keyword">= </span><span class="default">iconv</span><span class="keyword">(</span><span class="string">'Windows-1252'</span><span class="keyword">, </span><span class="string">'UTF-8'</span><span class="keyword">, </span><span class="default">$string</span><span class="keyword">);<br /></span><span class="default">$result </span><span class="keyword">= </span><span class="default">iconv</span><span class="keyword">(</span><span class="string">'CP1252'</span><span class="keyword">, </span><span class="string">'UTF-8'</span><span class="keyword">, </span><span class="default">$string</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span>Note: The following code points are not valid in CP1252 and will cause errors.<br />129 (0x81)<br />141 (0x8D)<br />143 (0x8F)<br />144 (0x90)<br />157 (0x9D)<br />Use the following instead:<br /><span class="default">&lt;?php<br /></span><span class="comment">// Remove invalid code points, convert everything else<br /></span><span class="default">$result </span><span class="keyword">= </span><span class="default">iconv</span><span class="keyword">(</span><span class="string">'CP1252'</span><span class="keyword">, </span><span class="string">'UTF-8//IGNORE'</span><span class="keyword">, </span><span class="default">$string</span><span class="keyword">);<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="91190">  <div class="votes">
+    <div id="Vu91190">
+    <a href="https://www.php.net/manual/vote-note.php?id=91190&amp;page=function.iconv&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd91190">
+    <a href="https://www.php.net/manual/vote-note.php?id=91190&amp;page=function.iconv&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V91190" title="58% like this...">
+    2
+    </div>
+  </div>
+  <a href="function.iconv.php.html#91190" class="name">
+  <strong class="user"><em>martin at front of mind dot co dot uk</em></strong></a><a class="genanchor" href="function.iconv.php.html#91190"> &para;</a><div class="date" title="2009-05-29 03:33"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom91190">
+<div class="phpcode"><code><span class="html">For transcoding values in an Excel generated CSV the following seems to work:<br /><br /><span class="default">&lt;?php <br />$value </span><span class="keyword">= </span><span class="default">iconv</span><span class="keyword">(</span><span class="string">'Windows-1252'</span><span class="keyword">, </span><span class="string">'UTF-8//TRANSLIT'</span><span class="keyword">, </span><span class="default">$value</span><span class="keyword">);<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="71192">  <div class="votes">
+    <div id="Vu71192">
+    <a href="https://www.php.net/manual/vote-note.php?id=71192&amp;page=function.iconv&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd71192">
+    <a href="https://www.php.net/manual/vote-note.php?id=71192&amp;page=function.iconv&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V71192" title="57% like this...">
+    4
+    </div>
+  </div>
+  <a href="function.iconv.php.html#71192" class="name">
+  <strong class="user"><em>Locoluis</em></strong></a><a class="genanchor" href="function.iconv.php.html#71192"> &para;</a><div class="date" title="2006-11-15 12:36"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom71192">
+<div class="phpcode"><code><span class="html">The following are Microsoft encodings that are based on ISO-8859 but with the addition of those stupid control characters.<br /><br />CP1250 is Eastern European (not ISO-8859-2)<br />CP1251 is Cyrillic (not ISO-8859-5)<br />CP1252 is Western European (not ISO-8859-1)<br />CP1253 is Greek (not ISO-8859-7)<br />CP1254 is Turkish (not ISO-8859-9)<br />CP1255 is Hebrew (not ISO-8859-8)<br />CP1256 is Arabic (not ISO-8859-6)<br />CP1257 is Baltic (not ISO-8859-4)<br /><br />If you know you're getting input from a Windows machine with those encodings, use one of these as a parameter to iconv.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="113316">  <div class="votes">
+    <div id="Vu113316">
+    <a href="https://www.php.net/manual/vote-note.php?id=113316&amp;page=function.iconv&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd113316">
+    <a href="https://www.php.net/manual/vote-note.php?id=113316&amp;page=function.iconv&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V113316" title="57% like this...">
+    1
+    </div>
+  </div>
+  <a href="function.iconv.php.html#113316" class="name">
+  <strong class="user"><em>chicopeste at gmail dot com</em></strong></a><a class="genanchor" href="function.iconv.php.html#113316"> &para;</a><div class="date" title="2013-09-25 07:45"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom113316">
+<div class="phpcode"><code><span class="html">iconv also support CP850.<br />I used iconv("CP850", "UTF-8//TRANSLIT", $var);<br />to convert from SQL_Latin1_General_CP850_CI_AI to UTF-8.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="112489">  <div class="votes">
+    <div id="Vu112489">
+    <a href="https://www.php.net/manual/vote-note.php?id=112489&amp;page=function.iconv&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd112489">
+    <a href="https://www.php.net/manual/vote-note.php?id=112489&amp;page=function.iconv&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V112489" title="57% like this...">
+    1
+    </div>
+  </div>
+  <a href="function.iconv.php.html#112489" class="name">
+  <strong class="user"><em>jessie at hotmail dot com</em></strong></a><a class="genanchor" href="function.iconv.php.html#112489"> &para;</a><div class="date" title="2013-06-21 09:44"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom112489">
+<div class="phpcode"><code><span class="html">Provided that there is no invalid code point in the character chain for the input encoding, the //IGNORE option works as expected. No bug here.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="81494">  <div class="votes">
+    <div id="Vu81494">
+    <a href="https://www.php.net/manual/vote-note.php?id=81494&amp;page=function.iconv&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd81494">
+    <a href="https://www.php.net/manual/vote-note.php?id=81494&amp;page=function.iconv&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V81494" title="57% like this...">
+    3
+    </div>
+  </div>
+  <a href="function.iconv.php.html#81494" class="name">
+  <strong class="user"><em>berserk220 at mail dot ru</em></strong></a><a class="genanchor" href="function.iconv.php.html#81494"> &para;</a><div class="date" title="2008-02-29 06:44"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom81494">
+<div class="phpcode"><code><span class="html">So, as iconv() does not always work correctly, in most cases, much easier to use htmlentities(). <br />Example: <span class="default">&lt;?php $content</span><span class="keyword">=</span><span class="default">htmlentities</span><span class="keyword">(</span><span class="default">file_get_contents</span><span class="keyword">(</span><span class="string">"incoming.txt"</span><span class="keyword">), </span><span class="default">ENT_QUOTES</span><span class="keyword">, </span><span class="string">"Windows-1252"</span><span class="keyword">);  </span><span class="default">file_put_contents</span><span class="keyword">(</span><span class="string">"outbound.txt"</span><span class="keyword">, </span><span class="default">html_entity_decode</span><span class="keyword">(</span><span class="default">$content</span><span class="keyword">, </span><span class="default">ENT_QUOTES </span><span class="keyword">, </span><span class="string">"utf-8"</span><span class="keyword">)); </span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="111909">  <div class="votes">
+    <div id="Vu111909">
+    <a href="https://www.php.net/manual/vote-note.php?id=111909&amp;page=function.iconv&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd111909">
+    <a href="https://www.php.net/manual/vote-note.php?id=111909&amp;page=function.iconv&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V111909" title="53% like this...">
+    1
+    </div>
+  </div>
+  <a href="function.iconv.php.html#111909" class="name">
+  <strong class="user"><em>admin at iecw dot net</em></strong></a><a class="genanchor" href="function.iconv.php.html#111909"> &para;</a><div class="date" title="2013-04-10 05:39"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom111909">
+<div class="phpcode"><code><span class="html">If you want to normalize a filename on Mac OS X, because it is in UTF-8 NFD and you need UTF-8 NFC<br />(See: <a href="http://en.wikipedia.org/wiki/Unicode_equivalence#Combining_and_precomposed_characters" rel="nofollow" target="_blank">http://en.wikipedia.org/wiki/Unicode_equivalence#Combining_and_precomposed_characters</a>)<br />you may use:<br /><span class="default">&lt;?php<br />$filename_nfc </span><span class="keyword">= </span><span class="default">iconv</span><span class="keyword">(</span><span class="string">"UTF-8-MAC"</span><span class="keyword">, </span><span class="string">"UTF-8"</span><span class="keyword">, </span><span class="default">$filename_nfd</span><span class="keyword">);<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="47784">  <div class="votes">
+    <div id="Vu47784">
+    <a href="https://www.php.net/manual/vote-note.php?id=47784&amp;page=function.iconv&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd47784">
+    <a href="https://www.php.net/manual/vote-note.php?id=47784&amp;page=function.iconv&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V47784" title="55% like this...">
+    1
+    </div>
+  </div>
+  <a href="function.iconv.php.html#47784" class="name">
+  <strong class="user"><em>aissam at yahoo dot com</em></strong></a><a class="genanchor" href="function.iconv.php.html#47784"> &para;</a><div class="date" title="2004-11-29 08:20"><strong>19 years ago</strong></div>
+  <div class="text" id="Hcom47784">
+<div class="phpcode"><code><span class="html">For those who have troubles in displaying UCS-2 data on browser, here's a simple function that convert ucs2 to html unicode entities :<br /><br /><span class="default">&lt;?php<br /><br /> </span><span class="keyword">function </span><span class="default">ucs2html</span><span class="keyword">(</span><span class="default">$str</span><span class="keyword">) {<br />    </span><span class="default">$str</span><span class="keyword">=</span><span class="default">trim</span><span class="keyword">(</span><span class="default">$str</span><span class="keyword">); </span><span class="comment">// if you are reading from file<br />    </span><span class="default">$len</span><span class="keyword">=</span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$str</span><span class="keyword">);<br />    </span><span class="default">$html</span><span class="keyword">=</span><span class="string">''</span><span class="keyword">;<br />    for(</span><span class="default">$i</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">;</span><span class="default">$i</span><span class="keyword">&lt;</span><span class="default">$len</span><span class="keyword">;</span><span class="default">$i</span><span class="keyword">+=</span><span class="default">2</span><span class="keyword">)<br />        </span><span class="default">$html</span><span class="keyword">.=</span><span class="string">'&amp;#'</span><span class="keyword">.</span><span class="default">hexdec</span><span class="keyword">(</span><span class="default">dechex</span><span class="keyword">(</span><span class="default">ord</span><span class="keyword">(</span><span class="default">$str</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">+</span><span class="default">1</span><span class="keyword">])).<br />                   </span><span class="default">sprintf</span><span class="keyword">(</span><span class="string">"%02s"</span><span class="keyword">,</span><span class="default">dechex</span><span class="keyword">(</span><span class="default">ord</span><span class="keyword">(</span><span class="default">$str</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">])))).</span><span class="string">';'</span><span class="keyword">;<br />    return(</span><span class="default">$html</span><span class="keyword">);<br /> }<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="98917">  <div class="votes">
+    <div id="Vu98917">
+    <a href="https://www.php.net/manual/vote-note.php?id=98917&amp;page=function.iconv&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd98917">
+    <a href="https://www.php.net/manual/vote-note.php?id=98917&amp;page=function.iconv&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V98917" title="52% like this...">
+    1
+    </div>
+  </div>
+  <a href="function.iconv.php.html#98917" class="name">
+  <strong class="user"><em>vb (at) bertola.eu</em></strong></a><a class="genanchor" href="function.iconv.php.html#98917"> &para;</a><div class="date" title="2010-07-15 06:35"><strong>13 years ago</strong></div>
+  <div class="text" id="Hcom98917">
+<div class="phpcode"><code><span class="html">On my system, according to tests, and also as reported by other people elsewhere, you can combine TRANSLIT and IGNORE only by appending<br /><br />//IGNORE//TRANSLIT<br /><br />strictly in that order, but NOT by appending //TRANSLIT//IGNORE, which would lead to //IGNORE being ignored ( :) ).<br /><br />Anyway, it's hard to understand how one could devise a system of passing options that does not allow to couple both options in a neat manner, and also to understand why the default behaviour should be the less useful and most dangerous one (throwing away most of your data at the first unexpected character). Software design FAIL :-/</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="95726">  <div class="votes">
+    <div id="Vu95726">
+    <a href="https://www.php.net/manual/vote-note.php?id=95726&amp;page=function.iconv&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd95726">
+    <a href="https://www.php.net/manual/vote-note.php?id=95726&amp;page=function.iconv&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V95726" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="function.iconv.php.html#95726" class="name">
+  <strong class="user"><em>Anonymous</em></strong></a><a class="genanchor" href="function.iconv.php.html#95726"> &para;</a><div class="date" title="2010-01-18 11:37"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom95726">
+<div class="phpcode"><code><span class="html">For text with special characters such as (é) &amp;eacute; which appears at 0xE9 in the ISO-8859-1 and at 0x82 in IBM-850. The correct output character set is 'IBM850' as:<br />('ISO-8859-1', 'IBM850', 'Québec')</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="94481">  <div class="votes">
+    <div id="Vu94481">
+    <a href="https://www.php.net/manual/vote-note.php?id=94481&amp;page=function.iconv&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd94481">
+    <a href="https://www.php.net/manual/vote-note.php?id=94481&amp;page=function.iconv&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V94481" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="function.iconv.php.html#94481" class="name">
+  <strong class="user"><em>Andries Seutens</em></strong></a><a class="genanchor" href="function.iconv.php.html#94481"> &para;</a><div class="date" title="2009-11-07 11:38"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom94481">
+<div class="phpcode"><code><span class="html">When doing transliteration, you have to make sure that your LC_COLLATE is properly set, otherwise the default POSIX will be used.<br /><br />To transform "rené" into "rene" we could use the following code snippet:<br /><br /><span class="default">&lt;?php<br /><br />setlocale</span><span class="keyword">(</span><span class="default">LC_CTYPE</span><span class="keyword">, </span><span class="string">'nl_BE.utf8'</span><span class="keyword">);<br /><br /></span><span class="default">$string </span><span class="keyword">= </span><span class="string">'rené'</span><span class="keyword">;<br /></span><span class="default">$string </span><span class="keyword">= </span><span class="default">iconv</span><span class="keyword">(</span><span class="string">'UTF-8'</span><span class="keyword">, </span><span class="string">'ASCII//TRANSLIT'</span><span class="keyword">, </span><span class="default">$string</span><span class="keyword">);<br /><br />echo </span><span class="default">$string</span><span class="keyword">; </span><span class="comment">// outputs rene<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="83238">  <div class="votes">
+    <div id="Vu83238">
+    <a href="https://www.php.net/manual/vote-note.php?id=83238&amp;page=function.iconv&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd83238">
+    <a href="https://www.php.net/manual/vote-note.php?id=83238&amp;page=function.iconv&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V83238" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="function.iconv.php.html#83238" class="name">
+  <strong class="user"><em>mirek at burkon dot org</em></strong></a><a class="genanchor" href="function.iconv.php.html#83238"> &para;</a><div class="date" title="2008-05-16 03:17"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom83238">
+<div class="phpcode"><code><span class="html">If you need to strip as many national characters from UTF-8 as possible and keep the rest of input unchanged (i.e. convert whatever can be converted to ASCII and leave the rest), you can do it like this:<br /><br /><span class="default">&lt;?php<br />setlocale</span><span class="keyword">(</span><span class="default">LC_ALL</span><span class="keyword">, </span><span class="string">'en_US.UTF8'</span><span class="keyword">);<br /><br />function </span><span class="default">clearUTF</span><span class="keyword">(</span><span class="default">$s</span><span class="keyword">)<br />{<br />    </span><span class="default">$r </span><span class="keyword">= </span><span class="string">''</span><span class="keyword">;<br />    </span><span class="default">$s1 </span><span class="keyword">= </span><span class="default">iconv</span><span class="keyword">(</span><span class="string">'UTF-8'</span><span class="keyword">, </span><span class="string">'ASCII//TRANSLIT'</span><span class="keyword">, </span><span class="default">$s</span><span class="keyword">);<br />    for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$s1</span><span class="keyword">); </span><span class="default">$i</span><span class="keyword">++)<br />    {<br />        </span><span class="default">$ch1 </span><span class="keyword">= </span><span class="default">$s1</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">];<br />        </span><span class="default">$ch2 </span><span class="keyword">= </span><span class="default">mb_substr</span><span class="keyword">(</span><span class="default">$s</span><span class="keyword">, </span><span class="default">$i</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">);<br /><br />        </span><span class="default">$r </span><span class="keyword">.= </span><span class="default">$ch1</span><span class="keyword">==</span><span class="string">'?'</span><span class="keyword">?</span><span class="default">$ch2</span><span class="keyword">:</span><span class="default">$ch1</span><span class="keyword">;<br />    }<br />    return </span><span class="default">$r</span><span class="keyword">;<br />}<br /><br />echo </span><span class="default">clearUTF</span><span class="keyword">(</span><span class="string">'Šíleně žluťoučký Vašek úpěl olol! This will remain untranslated: ᾡᾧῘઍિ૮'</span><span class="keyword">);<br /></span><span class="comment">//outputs Silene zlutoucky Vasek upel olol! This will remain untranslated: ᾡᾧῘઍિ૮<br /></span><span class="default">?&gt;<br /></span><br />Just remember you HAVE TO set locale to some unicode encoding to make iconv handle //TRANSLIT correctly!</span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=function.iconv&amp;redirect=https://www.php.net/manual/ru/function.iconv.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="ref.iconv.php.html">Функции iconv</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="function.iconv-get-encoding.php.html" title="iconv_&#8203;get_&#8203;encoding">iconv_&#8203;get_&#8203;encoding</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.iconv-mime-decode-headers.php.html" title="iconv_&#8203;mime_&#8203;decode_&#8203;headers">iconv_&#8203;mime_&#8203;decode_&#8203;headers</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.iconv-mime-decode.php.html" title="iconv_&#8203;mime_&#8203;decode">iconv_&#8203;mime_&#8203;decode</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.iconv-mime-encode.php.html" title="iconv_&#8203;mime_&#8203;encode">iconv_&#8203;mime_&#8203;encode</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.iconv-set-encoding.php.html" title="iconv_&#8203;set_&#8203;encoding">iconv_&#8203;set_&#8203;encoding</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.iconv-strlen.php.html" title="iconv_&#8203;strlen">iconv_&#8203;strlen</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.iconv-strpos.php.html" title="iconv_&#8203;strpos">iconv_&#8203;strpos</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.iconv-strrpos.php.html" title="iconv_&#8203;strrpos">iconv_&#8203;strrpos</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.iconv-substr.php.html" title="iconv_&#8203;substr">iconv_&#8203;substr</a>
+                        </li>
+                                                <li class="current">
+                            <a href="function.iconv.php.html" title="iconv">iconv</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.ob-iconv-handler.php.html" title="ob_&#8203;iconv_&#8203;handler">ob_&#8203;iconv_&#8203;handler</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

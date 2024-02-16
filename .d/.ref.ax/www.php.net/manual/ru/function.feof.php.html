@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: feof - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="function.feof.php.html">
+ <link rel="shorturl" href="https://www.php.net/feof">
+ <link rel="alternate" href="https://www.php.net/feof" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="ref.filesystem.php.html">
+ <link rel="prev" href="function.fdatasync.php.html">
+ <link rel="next" href="function.fflush.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/function.feof.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/function.feof.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/function.feof.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/function.feof.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/function.feof.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/function.feof.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/function.feof.php" hreflang="pt_BR">
+ <link rel="alternate" href="function.feof.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/function.feof.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/function.feof.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="function.fflush.php.html">
+          fflush &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="function.fdatasync.php.html">
+          &laquo; fdatasync        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.fileprocess.file.php.html'>Модули для работы с файловой системой</a></li>      <li><a href='book.filesystem.php.html'>Файловая система</a></li>      <li><a href='ref.filesystem.php.html'>Функции файловой системы</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/function.feof.php'>English</option>
+            <option value='de/function.feof.php'>German</option>
+            <option value='es/function.feof.php'>Spanish</option>
+            <option value='fr/function.feof.php'>French</option>
+            <option value='it/function.feof.php'>Italian</option>
+            <option value='ja/function.feof.php'>Japanese</option>
+            <option value='pt_BR/function.feof.php'>Brazilian Portuguese</option>
+            <option value='ru/function.feof.php' selected="selected">Russian</option>
+            <option value='tr/function.feof.php'>Turkish</option>
+            <option value='zh/function.feof.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/filesystem/functions/feof.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Ffunction.feof%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="function.feof" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">feof</h1>
+  <p class="verinfo">(PHP 4, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">feof</span> &mdash; <span class="dc-title">Проверяет, достигнут ли конец файла</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.feof-description">
+  <h3 class="title">Описание</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="methodname"><strong>feof</strong></span>(<span class="methodparam"><span class="type">resource</span> <code class="parameter">$stream</code></span>): <span class="type">bool</span></div>
+
+  <p class="para rdfs-comment">
+   Проверяет, достигнут ли конец файла.
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.feof-parameters">
+  <h3 class="title">Список параметров</h3>
+  <p class="para">
+   <dl>
+    
+     <dt>
+<code class="parameter">stream</code></dt>
+
+     <dd>
+
+      <p class="para">Указатель на файл должен быть корректным и указывать
+на файл, успешно открытый функциями <span class="function"><a href="function.fopen.php.html" class="function">fopen()</a></span> или
+<span class="function"><a href="function.fsockopen.php.html" class="function">fsockopen()</a></span> (и всё ещё не закрытый функцией <span class="function"><a href="function.fclose.php.html" class="function">fclose()</a></span>).</p>
+     </dd>
+
+    
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.feof-returnvalues">
+  <h3 class="title">Возвращаемые значения</h3>
+  <p class="para">
+   Возвращает <strong><code>true</code></strong>, если указатель файла указывает на EOF или
+   произошла ошибка (в том числе превышено время ожидания сокета), иначе возвращает <strong><code>false</code></strong>.
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.feof-notes">
+  <h3 class="title">Примечания</h3>
+  <div class="warning"><strong class="warning">Внимание</strong>
+   <p class="para">
+    Если подключение, открытое при помощи <span class="function"><a href="function.fsockopen.php.html" class="function">fsockopen()</a></span>,
+    не было закрыто сервером, <span class="function"><strong>feof()</strong></span> повиснет.
+    Для варианта обхода этого поведения смотрите следующий пример:
+    <div class="example" id="">
+     <p><strong>Пример #1 Обработка времени ожидания с функцией <span class="function"><strong>feof()</strong></span></strong></p>
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function </span><span style="color: #0000BB">safe_feof</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">, &amp;</span><span style="color: #0000BB">$start </span><span style="color: #007700">= </span><span style="color: #0000BB">NULL</span><span style="color: #007700">) {<br /> </span><span style="color: #0000BB">$start </span><span style="color: #007700">= </span><span style="color: #0000BB">microtime</span><span style="color: #007700">(</span><span style="color: #0000BB">true</span><span style="color: #007700">);<br /><br /> return </span><span style="color: #0000BB">feof</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #FF8000">/* Предположим, что $fp был ранее открыт с помощью fsockopen() */<br /><br /></span><span style="color: #0000BB">$start </span><span style="color: #007700">= </span><span style="color: #0000BB">NULL</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$timeout </span><span style="color: #007700">= </span><span style="color: #0000BB">ini_get</span><span style="color: #007700">(</span><span style="color: #DD0000">'default_socket_timeout'</span><span style="color: #007700">);<br /><br />while(!</span><span style="color: #0000BB">safe_feof</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">, </span><span style="color: #0000BB">$start</span><span style="color: #007700">) &amp;&amp; (</span><span style="color: #0000BB">microtime</span><span style="color: #007700">(</span><span style="color: #0000BB">true</span><span style="color: #007700">) - </span><span style="color: #0000BB">$start</span><span style="color: #007700">) &lt; </span><span style="color: #0000BB">$timeout</span><span style="color: #007700">)<br />{<br /> </span><span style="color: #FF8000">/* Обработка */<br /></span><span style="color: #007700">}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+     </div>
+
+    </div>
+   </p>
+  </div>
+  <div class="warning"><strong class="warning">Внимание</strong>
+   <p class="para">
+    Если передан неверный файловый указатель, то вы можете получить
+    бесконечный цикл, так как <span class="function"><strong>feof()</strong></span> не сможет
+    вернуть <strong><code>true</code></strong>.
+    <div class="example" id="">
+     <p><strong>Пример #2 Пример <span class="function"><strong>feof()</strong></span> с неверным файловым указателем</strong></p>
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// если файл не может быть прочтён или не существует, fopen вернёт FALSE<br /></span><span style="color: #0000BB">$file </span><span style="color: #007700">= @</span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #DD0000">"no_such_file"</span><span style="color: #007700">, </span><span style="color: #DD0000">"r"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// FALSE от fopen вызовет предупреждение и следующий цикл станет бесконечным<br /></span><span style="color: #007700">while (!</span><span style="color: #0000BB">feof</span><span style="color: #007700">(</span><span style="color: #0000BB">$file</span><span style="color: #007700">)) {<br />}<br /><br /></span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$file</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+     </div>
+
+    </div>
+   </p>
+  </div>
+ </div>
+
+
+</div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=function.feof&amp;redirect=https://www.php.net/manual/ru/function.feof.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">16 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="67261">  <div class="votes">
+    <div id="Vu67261">
+    <a href="https://www.php.net/manual/vote-note.php?id=67261&amp;page=function.feof&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd67261">
+    <a href="https://www.php.net/manual/vote-note.php?id=67261&amp;page=function.feof&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V67261" title="70% like this...">
+    45
+    </div>
+  </div>
+  <a href="function.feof.php.html#67261" class="name">
+  <strong class="user"><em>ironoxid at libero dot it</em></strong></a><a class="genanchor" href="function.feof.php.html#67261"> &para;</a><div class="date" title="2006-06-06 06:52"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom67261">
+<div class="phpcode"><code><span class="html">I really thought that the feof() was TRUE when the logical file pointer is a EOF.<br />but no ! <br />we need to read and get an empty record before the eof() reports TRUE.<br /><br />So<br /><br />$fp = fopen('test.bin','rb');<br />while(!feof($fp)) {<br />  $c = fgetc($fp);<br />  // ... do something with $c <br />  echo ftell($fp), ",";<br />}<br />echo 'EOF!';<br /><br />prints for two time the last byte position.<br />If our file length is 5 byte this code prints <br /><br />0,1,2,3,4,5,5,EOF!<br /><br />Because of this, you have to do another check to verify if fgetc really reads another byte (to prevent error on "do something with $c" ^_^).<br /><br />To prevent errors you have to use this code<br /><br />$fp = fopen('test.bin','rb');<br />while(!feof($fp)) {<br />  $c = fgetc($fp);<br />  if($c === false) break;<br />  // ... do something with $c <br />}<br /><br />but this is the same of<br /><br />$fp = fopen('test.bin','rb');<br />while(($c = fgetc($fp))!==false) {<br />  // ... do something with $c <br />}<br /><br />Consequently feof() is simply useless.<br />Before write this note I want to submit this as a php bug but one php developer said that this does not imply a bug in PHP itself (<a href="http://bugs.php.net/bug.php?id=35136&amp;edit=2" rel="nofollow" target="_blank">http://bugs.php.net/bug.php?id=35136&amp;edit=2</a>).<br /><br />If this is not a bug I think that this need at least to be noticed.<br /><br />Sorry for my bad english.<br />Bye ;)</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="96074">  <div class="votes">
+    <div id="Vu96074">
+    <a href="https://www.php.net/manual/vote-note.php?id=96074&amp;page=function.feof&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd96074">
+    <a href="https://www.php.net/manual/vote-note.php?id=96074&amp;page=function.feof&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V96074" title="75% like this...">
+    15
+    </div>
+  </div>
+  <a href="function.feof.php.html#96074" class="name">
+  <strong class="user"><em>sudo dot adam dot carruthers at gmail dot com</em></strong></a><a class="genanchor" href="function.feof.php.html#96074"> &para;</a><div class="date" title="2010-02-06 09:01"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom96074">
+<div class="phpcode"><code><span class="html">When using feof() on a TCP stream, i found the following to work (after many hours of frustration and anger):<br /><br />NOTE: I used ";" to denote the end of data transmission.  This can be modified to whatever the server's end of file or in this case, end of output character is.<br /><br /><span class="default">&lt;?php<br />        $cursor </span><span class="keyword">= </span><span class="string">""</span><span class="keyword">;<br />        </span><span class="default">$inData </span><span class="keyword">= </span><span class="string">""</span><span class="keyword">;<br /><br />        while(</span><span class="default">strcmp</span><span class="keyword">(</span><span class="default">$cursor</span><span class="keyword">, </span><span class="string">";"</span><span class="keyword">) != </span><span class="default">0</span><span class="keyword">) {<br />            </span><span class="default">$cursor </span><span class="keyword">= </span><span class="default">fgetc</span><span class="keyword">(</span><span class="default">$sock</span><span class="keyword">);<br />            </span><span class="default">$inData</span><span class="keyword">.= </span><span class="default">$cursor</span><span class="keyword">;<br />        }<br />        </span><span class="default">fclose</span><span class="keyword">(</span><span class="default">$sock</span><span class="keyword">);<br />        echo(</span><span class="default">$inData</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />Since strcmp() returns 0 when the two strings are equal, it will return non zero as long as the cursor is not ";".  Using the above method will add ";" to the string, but the fix for this is simple.<br /><br /><span class="default">&lt;?php<br />        $cursor </span><span class="keyword">= </span><span class="string">""</span><span class="keyword">;<br />        </span><span class="default">$inData </span><span class="keyword">= </span><span class="string">""</span><span class="keyword">;<br /><br />         </span><span class="default">$cursor </span><span class="keyword">= </span><span class="default">fgetc</span><span class="keyword">(</span><span class="default">$sock</span><span class="keyword">);<br />        while(</span><span class="default">strcmp</span><span class="keyword">(</span><span class="default">$cursor</span><span class="keyword">, </span><span class="string">";"</span><span class="keyword">) != </span><span class="default">0</span><span class="keyword">) {<br />            </span><span class="default">$inData</span><span class="keyword">.= </span><span class="default">$cursor</span><span class="keyword">;<br />        }<br />        </span><span class="default">fclose</span><span class="keyword">(</span><span class="default">$sock</span><span class="keyword">);<br />        echo(</span><span class="default">$inData</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />I hope this helps someone.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="122925">  <div class="votes">
+    <div id="Vu122925">
+    <a href="https://www.php.net/manual/vote-note.php?id=122925&amp;page=function.feof&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd122925">
+    <a href="https://www.php.net/manual/vote-note.php?id=122925&amp;page=function.feof&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V122925" title="66% like this...">
+    2
+    </div>
+  </div>
+  <a href="function.feof.php.html#122925" class="name">
+  <strong class="user"><em>DimeCadmium</em></strong></a><a class="genanchor" href="function.feof.php.html#122925"> &para;</a><div class="date" title="2018-07-10 07:22"><strong>5 years ago</strong></div>
+  <div class="text" id="Hcom122925">
+<div class="phpcode"><code><span class="html">feof() does not test for the actual end of a file, it tests for an exceptional condition known as end-of-file. (It's based on the C function of the same name which "tests the  end-of-file  indicator  for  the  stream")<br /><br />That is to say, feof() only tells you whether fread() (and friends) have run into EOF, to allow you to differentiate it from other errors. You should be testing the return value of fread() (or whatever function you're using to read), not feof().<br /><br />In particular, if your filehandle is invalid (file doesn't exist / permissions issue / etc.) or fread() encounters some other error, feof will return false, and your code will be running an infinite loop processing the FALSE returned from fread().<br /><br />From the (C) manpage for fread():<br />       fread() does not distinguish between end-of-file and error, and callers<br />       must use feof(3) and ferror(3) to determine which occurred.<br />That is the SOLE purpose for feof().</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="70715">  <div class="votes">
+    <div id="Vu70715">
+    <a href="https://www.php.net/manual/vote-note.php?id=70715&amp;page=function.feof&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd70715">
+    <a href="https://www.php.net/manual/vote-note.php?id=70715&amp;page=function.feof&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V70715" title="60% like this...">
+    6
+    </div>
+  </div>
+  <a href="function.feof.php.html#70715" class="name">
+  <strong class="user"><em>Tom</em></strong></a><a class="genanchor" href="function.feof.php.html#70715"> &para;</a><div class="date" title="2006-10-24 03:27"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom70715">
+<div class="phpcode"><code><span class="html">feof() is, in fact, reliable.  However, you have to use it carefully in conjunction with fgets().  A common (but incorrect) approach is to try something like this:<br /><br />&lt;?<br />$fp = fopen("myfile.txt", "r");<br />while (!feof($fp)) {<br />  $current_line = fgets($fp);<br />  // do stuff to the current line here<br />}<br />fclose($fp);<br />?&gt;<br /><br />The problem when processing plain text files is that feof() will not return true after getting the last line of input.  You need to try to get input _and fail_ before feof() returns true.  You can think of the loop above working like this:<br /><br />* (merrily looping, getting lines and processing them)<br />* fgets used to get 2nd to last line<br />* line is processed<br />* loop back up -- feof returns false, so do the steps inside the loop<br />* fgets used to get last line<br />* line is processed<br />* loop back up -- since the last call to fgets worked (you got the last line), feof still returns false, so you do the steps inside the loop again<br />* fgets used to try to get another line (but there's nothing there!)<br />* your code doesn't realize this, and tries to process this non-existent line (typically by doing the same actions again)<br />* now when your code loops back up, feof returns true, and your loop ends<br /><br />There's two ways to solve this:<br /><br />1. You can put an additional test for feof() inside the loop<br />2. You can move around your calls to fgets() so that the testing of feof() happens in a better location<br /><br />Here's solution 1:<br /><br />&lt;?<br />$fp = fopen("myfile.txt", "r");<br />while(!feof($fp)) {<br />  $current_line = fgets($fp);<br />  if (!feof($fp)) {<br />    // process current line<br />  }<br />}<br />fclose($fp);<br />?&gt;<br /><br />And here's solution 2 (IMHO, more elegant):<br /><br />&lt;?<br />$fp = fopen("myfile.txt", "r");<br />$current_line = fgets($fp);<br />while (!feof($fp)) {<br />  // process current line<br />  $current_line = fgets($fp);<br />}<br />fclose($fp);<br />?&gt;<br /><br />FYI, the eof() function in C++ works the exact same way, so this isn't just some weird PHP thing...</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="117809">  <div class="votes">
+    <div id="Vu117809">
+    <a href="https://www.php.net/manual/vote-note.php?id=117809&amp;page=function.feof&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd117809">
+    <a href="https://www.php.net/manual/vote-note.php?id=117809&amp;page=function.feof&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V117809" title="61% like this...">
+    3
+    </div>
+  </div>
+  <a href="function.feof.php.html#117809" class="name">
+  <strong class="user"><em>line dot loic at gmail dot com</em></strong></a><a class="genanchor" href="function.feof.php.html#117809"> &para;</a><div class="date" title="2015-08-13 09:13"><strong>8 years ago</strong></div>
+  <div class="text" id="Hcom117809">
+<div class="phpcode"><code><span class="html">To avoid infinite loops and the warning :<br />"Warning: feof() expects parameter 1 to be resource, boolean given"<br /><br />You need to check that the fopen function return the correct type.<br />This can be achieved very easily with gettype().<br />Here is an example :<br /><br />$source = fopen($xml_uri, "r");<br />$xml = "";<br />                    <br />if(gettype($source) == "resource") { // Check here !<br />    while (!feof($source)) {<br />        $xml .= fgets($source, 4096);<br />    }<br />}<br /><br />echo $xml;</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="81436">  <div class="votes">
+    <div id="Vu81436">
+    <a href="https://www.php.net/manual/vote-note.php?id=81436&amp;page=function.feof&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd81436">
+    <a href="https://www.php.net/manual/vote-note.php?id=81436&amp;page=function.feof&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V81436" title="61% like this...">
+    3
+    </div>
+  </div>
+  <a href="function.feof.php.html#81436" class="name">
+  <strong class="user"><em>honzam+php at ipdgroup dot com</em></strong></a><a class="genanchor" href="function.feof.php.html#81436"> &para;</a><div class="date" title="2008-02-28 02:17"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom81436">
+<div class="phpcode"><code><span class="html">Johannes: Remember note from stream_get_meta_data page: For socket streams this member [eof] can be TRUE  even when unread_bytes  is non-zero. To determine if there is more data to be read, use feof() instead of reading this item. <br /><br />Another thing: better not rely on the "including socket timeout" part of when feof returns true. Just found program looping two days in while(!feof($fd)) fread ... with 20 seconds timeout in PHP 4.3.10.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="60284">  <div class="votes">
+    <div id="Vu60284">
+    <a href="https://www.php.net/manual/vote-note.php?id=60284&amp;page=function.feof&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd60284">
+    <a href="https://www.php.net/manual/vote-note.php?id=60284&amp;page=function.feof&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V60284" title="62% like this...">
+    2
+    </div>
+  </div>
+  <a href="function.feof.php.html#60284" class="name"><strong class="user"><em>Anonymous</em></strong></a><a class="genanchor" href="function.feof.php.html#60284"> &para;</a><div class="date" title="2006-01-01 06:27"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom60284">
+<div class="phpcode"><code><span class="html">if you use fseek function to pos the pointer exceed the size the file,feof still return true.so note that when you use feof as the condition of while loop.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="67114">  <div class="votes">
+    <div id="Vu67114">
+    <a href="https://www.php.net/manual/vote-note.php?id=67114&amp;page=function.feof&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd67114">
+    <a href="https://www.php.net/manual/vote-note.php?id=67114&amp;page=function.feof&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V67114" title="60% like this...">
+    3
+    </div>
+  </div>
+  <a href="function.feof.php.html#67114" class="name">
+  <strong class="user"><em>m a p o p a at g m a i l. c o m</em></strong></a><a class="genanchor" href="function.feof.php.html#67114"> &para;</a><div class="date" title="2006-06-03 05:58"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom67114">
+<div class="phpcode"><code><span class="html">you  can avoid the infinite loop and filling the error logs <br />by an simple if statement <br />Here is the example<br /><br />    $handle = fopen("<a href="http://xml.weather.yahoo.com/forecastrss?p=AYXX0008&amp;u=f" rel="nofollow" target="_blank">http://xml.weather.yahoo.com/forecastrss?p=AYXX0008&amp;u=f</a>", "r");<br />    $xml = "";<br />    if ($handle)<br />    {<br />       while (!feof($handle))<br />       {<br />           $xml .= fread($handle, 128);<br />       }<br />        fclose($handle);<br />    }</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="71252">  <div class="votes">
+    <div id="Vu71252">
+    <a href="https://www.php.net/manual/vote-note.php?id=71252&amp;page=function.feof&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd71252">
+    <a href="https://www.php.net/manual/vote-note.php?id=71252&amp;page=function.feof&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V71252" title="58% like this...">
+    4
+    </div>
+  </div>
+  <a href="function.feof.php.html#71252" class="name">
+  <strong class="user"><em>cmr at forestfactory dot de</em></strong></a><a class="genanchor" href="function.feof.php.html#71252"> &para;</a><div class="date" title="2006-11-19 08:57"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom71252">
+<div class="phpcode"><code><span class="html">Here's solution 3:<br /><br />&lt;?<br />$fp = fopen("myfile.txt", "r");<br />while ( ($current_line = fgets($fp)) !== false ) {<br />  // do stuff to the current line here<br />}<br />fclose($fp);<br />?&gt;<br /><br />AFAICS fgets() never returns an empty string, so we can also write:<br /><br />&lt;?<br />$fp = fopen("myfile.txt", "r");<br />while ( $current_line = fgets($fp) ) {<br />  // do stuff to the current line here<br />}<br />fclose($fp);<br />?&gt;</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="113366">  <div class="votes">
+    <div id="Vu113366">
+    <a href="https://www.php.net/manual/vote-note.php?id=113366&amp;page=function.feof&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd113366">
+    <a href="https://www.php.net/manual/vote-note.php?id=113366&amp;page=function.feof&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V113366" title="58% like this...">
+    2
+    </div>
+  </div>
+  <a href="function.feof.php.html#113366" class="name">
+  <strong class="user"><em>Alwar</em></strong></a><a class="genanchor" href="function.feof.php.html#113366"> &para;</a><div class="date" title="2013-10-02 07:41"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom113366">
+<div class="phpcode"><code><span class="html">Don't use feof to test if you have readed all data sent by the other end of the socket. As i know it would return true only when the other end closes the connection.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="50613">  <div class="votes">
+    <div id="Vu50613">
+    <a href="https://www.php.net/manual/vote-note.php?id=50613&amp;page=function.feof&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd50613">
+    <a href="https://www.php.net/manual/vote-note.php?id=50613&amp;page=function.feof&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V50613" title="60% like this...">
+    2
+    </div>
+  </div>
+  <a href="function.feof.php.html#50613" class="name"><strong class="user"><em>Anonymous</em></strong></a><a class="genanchor" href="function.feof.php.html#50613"> &para;</a><div class="date" title="2005-03-04 09:02"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom50613">
+<div class="phpcode"><code><span class="html">if you're worried the file pointer is invalid, TEST IT before you go into your loop... that way it'll never be an infinite loop.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="77912">  <div class="votes">
+    <div id="Vu77912">
+    <a href="https://www.php.net/manual/vote-note.php?id=77912&amp;page=function.feof&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd77912">
+    <a href="https://www.php.net/manual/vote-note.php?id=77912&amp;page=function.feof&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V77912" title="57% like this...">
+    3
+    </div>
+  </div>
+  <a href="function.feof.php.html#77912" class="name">
+  <strong class="user"><em>Jet</em></strong></a><a class="genanchor" href="function.feof.php.html#77912"> &para;</a><div class="date" title="2007-09-19 07:03"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom77912">
+<div class="phpcode"><code><span class="html">To avoid infinite loop with fgets() just use do..while statement.<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">if (</span><span class="default">$f </span><span class="keyword">= </span><span class="default">fopen</span><span class="keyword">(</span><span class="string">'myfile.txt'</span><span class="keyword">, </span><span class="string">'r'</span><span class="keyword">)) do {<br />    </span><span class="default">$line </span><span class="keyword">= </span><span class="default">fgets</span><span class="keyword">(</span><span class="default">$f</span><span class="keyword">);<br />    </span><span class="comment">// do any stuff here...<br /></span><span class="keyword">} while (!</span><span class="default">feof</span><span class="keyword">(</span><span class="default">$f</span><span class="keyword">));<br /></span><span class="default">fclose</span><span class="keyword">(</span><span class="default">$f</span><span class="keyword">);</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="107449">  <div class="votes">
+    <div id="Vu107449">
+    <a href="https://www.php.net/manual/vote-note.php?id=107449&amp;page=function.feof&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd107449">
+    <a href="https://www.php.net/manual/vote-note.php?id=107449&amp;page=function.feof&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V107449" title="54% like this...">
+    2
+    </div>
+  </div>
+  <a href="function.feof.php.html#107449" class="name">
+  <strong class="user"><em>dewi at dewimorgan dot com</em></strong></a><a class="genanchor" href="function.feof.php.html#107449"> &para;</a><div class="date" title="2012-02-09 11:17"><strong>12 years ago</strong></div>
+  <div class="text" id="Hcom107449">
+<div class="phpcode"><code><span class="html">Return values in the documentation are incorrectly stated. It says: <br /><br />Returns TRUE if the file pointer is at EOF or an error occurs (including socket timeout); otherwise returns FALSE.<br /><br />Correct text would be more like:<br /><br />Returns FALSE if no filehandle was passed; <br />returns NULL if no filehandle was passed; <br />returns TRUE if the file pointer is at EOF or an error occurs (including socket timeout);<br />otherwise returns FALSE.<br /><br />As an example, running the following from the commandline:<br /><br />php -r 'echo <br />    "Empty: ".var_export(feof(), true)."\n".<br />    "Null: ".var_export(feof(NULL), true)."\n".<br />    "Undefined: ".var_export(feof($undef), true)."\n"<br />;'<br /><br />This will output:<br /><br />PHP Warning:  Wrong parameter count for feof() in Command line code on line 1<br />PHP Warning:  feof(): supplied argument is not a valid stream resource in Command line code on line 1<br />PHP Warning:  feof(): supplied argument is not a valid stream resource in Command line code on line 1<br /><br />Empty: NULL<br />Null: false<br />Undefined: false<br /><br />This can, as other commenters have reported, result in infinite loops and massive PHP error logfiles, if the file handle returned by fopen() is invalid for any reason.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="117578">  <div class="votes">
+    <div id="Vu117578">
+    <a href="https://www.php.net/manual/vote-note.php?id=117578&amp;page=function.feof&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd117578">
+    <a href="https://www.php.net/manual/vote-note.php?id=117578&amp;page=function.feof&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V117578" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="function.feof.php.html#117578" class="name">
+  <strong class="user"><em>lulzury at Yahoo dot com</em></strong></a><a class="genanchor" href="function.feof.php.html#117578"> &para;</a><div class="date" title="2015-07-01 05:34"><strong>8 years ago</strong></div>
+  <div class="text" id="Hcom117578">
+<div class="phpcode"><code><span class="html">From washington dot edu css342:<br />On unix/linux, every line in a file has an End-Of-Line (EOL) character and the EOF character is after the last line. On windows, each line has an EOL characters except the last line. So unix/linux file's last line is <br />      stuff, EOL, EOF <br />whereas windows file's last line, if the cursor is on the line, is <br />      stuff, EOF <br /><br />So set up data files on windows to be the same as on unix/linux. This way, you will correctly determine eof under both unix/linux and windows. In general, you must exit all loops and all functions immediately when you are attempting to read an item that would be past the eof. <br /><br />Here is a typical set up that will work correctly. Suppose in a data file, there are multiple lines of data. In some function is the loop where you are reading and handling this data. This loop will look similar to the following.<br />     // infinite loop to read and handle a line of data<br />     for (;;) {<br />        $ln = fgets($fp);<br />        if (feof($fp)) break;<br /><br />        // read the rest of the line<br />        // do whatever with data<br />     }<br />If you dislike infinite loops, you can accomplish this same thing using a while loop by priming the loop and reading again at the end:<br />    $ln = fgets($fp);<br />     while (!feof($fp)) {<br />        // read the rest of the line<br />        // do whatever with data<br /><br />        $ln = fgets($fp);<br />     }</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="95425">  <div class="votes">
+    <div id="Vu95425">
+    <a href="https://www.php.net/manual/vote-note.php?id=95425&amp;page=function.feof&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd95425">
+    <a href="https://www.php.net/manual/vote-note.php?id=95425&amp;page=function.feof&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V95425" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="function.feof.php.html#95425" class="name">
+  <strong class="user"><em>jakicoll</em></strong></a><a class="genanchor" href="function.feof.php.html#95425"> &para;</a><div class="date" title="2010-01-02 04:59"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom95425">
+<div class="phpcode"><code><span class="html">Please note that feof() used with TCP-Connections, returns false as long as the connection is open.<br />It even returns false when there is no data available.<br /><br />BTW: Using feof() with HTTP for a single request, you should always make sure that you set the HTTP-Header "Connection" to "close" and _not_ to "keep-alive".</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="40717">  <div class="votes">
+    <div id="Vu40717">
+    <a href="https://www.php.net/manual/vote-note.php?id=40717&amp;page=function.feof&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd40717">
+    <a href="https://www.php.net/manual/vote-note.php?id=40717&amp;page=function.feof&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V40717" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="function.feof.php.html#40717" class="name">
+  <strong class="user"><em>Johannes</em></strong></a><a class="genanchor" href="function.feof.php.html#40717"> &para;</a><div class="date" title="2004-03-12 02:47"><strong>19 years ago</strong></div>
+  <div class="text" id="Hcom40717">
+<div class="phpcode"><code><span class="html">I found feof() to be a slow function when using a non-blocking connection.<br /><br />The function stream_get_meta_data() returns much quicker and has a return field 'eof'.</span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=function.feof&amp;redirect=https://www.php.net/manual/ru/function.feof.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="ref.filesystem.php.html">Функции файловой системы</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="function.basename.php.html" title="basename">basename</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.chgrp.php.html" title="chgrp">chgrp</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.chmod.php.html" title="chmod">chmod</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.chown.php.html" title="chown">chown</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.clearstatcache.php.html" title="clearstatcache">clearstatcache</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.copy.php.html" title="copy">copy</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.delete.php.html" title="delete">delete</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.dirname.php.html" title="dirname">dirname</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.disk-free-space.php.html" title="disk_&#8203;free_&#8203;space">disk_&#8203;free_&#8203;space</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.disk-total-space.php.html" title="disk_&#8203;total_&#8203;space">disk_&#8203;total_&#8203;space</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.diskfreespace.php.html" title="diskfreespace">diskfreespace</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.fclose.php.html" title="fclose">fclose</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.fdatasync.php.html" title="fdatasync">fdatasync</a>
+                        </li>
+                                                <li class="current">
+                            <a href="function.feof.php.html" title="feof">feof</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.fflush.php.html" title="fflush">fflush</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.fgetc.php.html" title="fgetc">fgetc</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.fgetcsv.php.html" title="fgetcsv">fgetcsv</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.fgets.php.html" title="fgets">fgets</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.fgetss.php.html" title="fgetss">fgetss</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.file-exists.php.html" title="file_&#8203;exists">file_&#8203;exists</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.file-get-contents.php.html" title="file_&#8203;get_&#8203;contents">file_&#8203;get_&#8203;contents</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.file-put-contents.php.html" title="file_&#8203;put_&#8203;contents">file_&#8203;put_&#8203;contents</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.file.php.html" title="file">file</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.fileatime.php.html" title="fileatime">fileatime</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.filectime.php.html" title="filectime">filectime</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.filegroup.php.html" title="filegroup">filegroup</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.fileinode.php.html" title="fileinode">fileinode</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.filemtime.php.html" title="filemtime">filemtime</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.fileowner.php.html" title="fileowner">fileowner</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.fileperms.php.html" title="fileperms">fileperms</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.filesize.php.html" title="filesize">filesize</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.filetype.php.html" title="filetype">filetype</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.flock.php.html" title="flock">flock</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.fnmatch.php.html" title="fnmatch">fnmatch</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.fopen.php.html" title="fopen">fopen</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.fpassthru.php.html" title="fpassthru">fpassthru</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.fputcsv.php.html" title="fputcsv">fputcsv</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.fputs.php.html" title="fputs">fputs</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.fread.php.html" title="fread">fread</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.fscanf.php.html" title="fscanf">fscanf</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.fseek.php.html" title="fseek">fseek</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.fstat.php.html" title="fstat">fstat</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.fsync.php.html" title="fsync">fsync</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.ftell.php.html" title="ftell">ftell</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.ftruncate.php.html" title="ftruncate">ftruncate</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.fwrite.php.html" title="fwrite">fwrite</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.glob.php.html" title="glob">glob</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.is-dir.php.html" title="is_&#8203;dir">is_&#8203;dir</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.is-executable.php.html" title="is_&#8203;executable">is_&#8203;executable</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.is-file.php.html" title="is_&#8203;file">is_&#8203;file</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.is-link.php.html" title="is_&#8203;link">is_&#8203;link</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.is-readable.php.html" title="is_&#8203;readable">is_&#8203;readable</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.is-uploaded-file.php.html" title="is_&#8203;uploaded_&#8203;file">is_&#8203;uploaded_&#8203;file</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.is-writable.php.html" title="is_&#8203;writable">is_&#8203;writable</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.is-writeable.php.html" title="is_&#8203;writeable">is_&#8203;writeable</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.lchgrp.php.html" title="lchgrp">lchgrp</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.lchown.php.html" title="lchown">lchown</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.link.php.html" title="link">link</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.linkinfo.php.html" title="linkinfo">linkinfo</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.lstat.php.html" title="lstat">lstat</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.mkdir.php.html" title="mkdir">mkdir</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.move-uploaded-file.php.html" title="move_&#8203;uploaded_&#8203;file">move_&#8203;uploaded_&#8203;file</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.parse-ini-file.php.html" title="parse_&#8203;ini_&#8203;file">parse_&#8203;ini_&#8203;file</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.parse-ini-string.php.html" title="parse_&#8203;ini_&#8203;string">parse_&#8203;ini_&#8203;string</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.pathinfo.php.html" title="pathinfo">pathinfo</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.pclose.php.html" title="pclose">pclose</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.popen.php.html" title="popen">popen</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.readfile.php.html" title="readfile">readfile</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.readlink.php.html" title="readlink">readlink</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.realpath-cache-get.php.html" title="realpath_&#8203;cache_&#8203;get">realpath_&#8203;cache_&#8203;get</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.realpath-cache-size.php.html" title="realpath_&#8203;cache_&#8203;size">realpath_&#8203;cache_&#8203;size</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.realpath.php.html" title="realpath">realpath</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.rename.php.html" title="rename">rename</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.rewind.php.html" title="rewind">rewind</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.rmdir.php.html" title="rmdir">rmdir</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.set-file-buffer.php.html" title="set_&#8203;file_&#8203;buffer">set_&#8203;file_&#8203;buffer</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.stat.php.html" title="stat">stat</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.symlink.php.html" title="symlink">symlink</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.tempnam.php.html" title="tempnam">tempnam</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.tmpfile.php.html" title="tmpfile">tmpfile</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.touch.php.html" title="touch">touch</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.umask.php.html" title="umask">umask</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.unlink.php.html" title="unlink">unlink</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

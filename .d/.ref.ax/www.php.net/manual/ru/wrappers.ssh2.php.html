@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: ssh2:// - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="wrappers.ssh2.php.html">
+ <link rel="shorturl" href="wrappers.ssh2.php.html">
+ <link rel="alternate" href="wrappers.ssh2.php.html" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="wrappers.php.html">
+ <link rel="prev" href="wrappers.phar.php.html">
+ <link rel="next" href="wrappers.rar.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/wrappers.ssh2.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/wrappers.ssh2.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/wrappers.ssh2.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/wrappers.ssh2.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/wrappers.ssh2.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/wrappers.ssh2.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/wrappers.ssh2.php" hreflang="pt_BR">
+ <link rel="alternate" href="wrappers.ssh2.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/wrappers.ssh2.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/wrappers.ssh2.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="wrappers.rar.php.html">
+          rar:// &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="wrappers.phar.php.html">
+          &laquo; phar://        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='langref.php.html'>Справочник языка</a></li>      <li><a href='wrappers.php.html'>Поддерживаемые протоколы и обёртки</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/wrappers.ssh2.php'>English</option>
+            <option value='de/wrappers.ssh2.php'>German</option>
+            <option value='es/wrappers.ssh2.php'>Spanish</option>
+            <option value='fr/wrappers.ssh2.php'>French</option>
+            <option value='it/wrappers.ssh2.php'>Italian</option>
+            <option value='ja/wrappers.ssh2.php'>Japanese</option>
+            <option value='pt_BR/wrappers.ssh2.php'>Brazilian Portuguese</option>
+            <option value='ru/wrappers.ssh2.php' selected="selected">Russian</option>
+            <option value='tr/wrappers.ssh2.php'>Turkish</option>
+            <option value='zh/wrappers.ssh2.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/language/wrappers/ssh2.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Fwrappers.ssh2%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="wrappers.ssh2" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">ssh2://</h1>
+  <p class="refpurpose"><span class="refname">ssh2://</span> &mdash; <span class="dc-title">Secure Shell 2</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-wrappers.ssh2-description">
+  <h3 class="title">Описание</h3>
+  <p class="para">
+   <var class="filename">ssh2.shell://</var>
+   <var class="filename">ssh2.exec://</var>
+   <var class="filename">ssh2.tunnel://</var>
+   <var class="filename">ssh2.sftp://</var>
+   <var class="filename">ssh2.scp://</var>
+   (PECL)
+  </p>
+
+  <blockquote class="note"><p><strong class="note">Замечание</strong>: 
+   <strong>Эта обёртка не включена по умолчанию</strong><br />
+   <span class="simpara">
+    Для того, чтобы использовать обёртки <var class="filename">ssh2.*://</var>
+    необходимо установить модуль <a href="https://pecl.php.net/package/ssh2" class="link external">&raquo;&nbsp;SSH2</a>,
+    доступный в репозитории <a href="https://pecl.php.net/" class="link external">&raquo;&nbsp;PECL</a>.
+   </span>
+  </p></blockquote>
+
+  <p class="simpara">
+   Кроме получения традиционных данных для входа к URI, обёртки ssh2
+   также будут повторно использовать открытые соединения, передавая ресурс соединения
+   в хост-часть URL.
+  </p>
+ </div>
+
+
+ <div class="refsect1 usage" id="refsect1-wrappers.ssh2-usage"> 
+  <h3 class="title">Использование</h3>
+  <ul class="itemizedlist">
+   <li class="listitem"><span class="simpara"><var class="filename">ssh2.shell://user:pass@example.com:22/xterm</var></span></li>
+   <li class="listitem"><span class="simpara"><var class="filename">ssh2.exec://user:pass@example.com:22/usr/local/bin/somecmd</var></span></li>
+   <li class="listitem"><span class="simpara"><var class="filename">ssh2.tunnel://user:pass@example.com:22/192.168.0.1:14</var></span></li>
+   <li class="listitem"><span class="simpara"><var class="filename">ssh2.sftp://user:pass@example.com:22/path/to/filename</var></span></li>
+  </ul>
+ </div>
+ 
+
+ <div class="refsect1 options" id="refsect1-wrappers.ssh2-options">
+  <h3 class="title">Опции</h3>
+  <p class="para">
+   <table class="doctable table">
+    <caption><strong>Основная информация</strong></caption>
+    
+     <thead>
+      <tr>
+       <th>Атрибут</th>
+       <th>ssh2.shell</th>
+       <th>ssh2.exec</th>
+       <th>ssh2.tunnel</th>
+       <th>ssh2.sftp</th>
+       <th>ssh2.scp</th>
+      </tr>
+
+     </thead>
+
+     <tbody class="tbody">
+      <tr>
+       <td>Ограничение по <a href="filesystem.configuration.php.html#ini.allow-url-fopen" class="link">allow_url_fopen</a></td>
+       <td>Да</td>
+       <td>Да</td>
+       <td>Да</td>
+       <td>Да</td>
+       <td>Да</td>
+      </tr>
+
+      <tr>
+       <td>Чтение</td>
+       <td>Да</td>
+       <td>Да</td>
+       <td>Да</td>
+       <td>Да</td>
+       <td>Да</td>
+      </tr>
+
+      <tr>
+       <td>Запись</td>
+       <td>Да</td>
+       <td>Да</td>
+       <td>Да</td>
+       <td>Да</td>
+       <td>Нет</td>
+      </tr>
+
+      <tr>
+       <td>Добавление</td>
+       <td>Нет</td>
+       <td>Нет</td>
+       <td>Нет</td>
+       <td>Да (когда поддерживается сервером)</td>
+       <td>Нет</td>
+      </tr>
+
+      <tr>
+       <td>Одновременная чтение и запись</td>
+       <td>Да</td>
+       <td>Да</td>
+       <td>Да</td>
+       <td>Да</td>
+       <td>Нет</td>
+      </tr>
+
+      <tr>
+       <td>Поддержка <span class="function"><a href="function.stat.php.html" class="function">stat()</a></span></td>
+       <td>Нет</td>
+       <td>Нет</td>
+       <td>Нет</td>
+       <td>Да</td>
+       <td>Нет</td>
+      </tr>
+
+      <tr>
+       <td>Поддержка <span class="function"><a href="function.unlink.php.html" class="function">unlink()</a></span></td>
+       <td>Нет</td>
+       <td>Нет</td>
+       <td>Нет</td>
+       <td>Да</td>
+       <td>Нет</td>
+      </tr>
+
+      <tr>
+       <td>Поддержка <span class="function"><a href="function.rename.php.html" class="function">rename()</a></span></td>
+       <td>Нет</td>
+       <td>Нет</td>
+       <td>Нет</td>
+       <td>Да</td>
+       <td>Нет</td>
+      </tr>
+
+      <tr>
+       <td>Поддержка <span class="function"><a href="function.mkdir.php.html" class="function">mkdir()</a></span></td>
+       <td>Нет</td>
+       <td>Нет</td>
+       <td>Нет</td>
+       <td>Да</td>
+       <td>Нет</td>
+      </tr>
+
+      <tr>
+       <td>Поддержка <span class="function"><a href="function.rmdir.php.html" class="function">rmdir()</a></span></td>
+       <td>Нет</td>
+       <td>Нет</td>
+       <td>Нет</td>
+       <td>Да</td>
+       <td>Нет</td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+
+  <p class="para">
+   <table class="doctable table">
+    <caption><strong>Опции контекста</strong></caption>
+    
+     <thead>
+      <tr>
+       <th>Имя</th>
+       <th>Использование</th>
+       <th>По умолчанию</th>
+      </tr>
+
+     </thead>
+
+     <tbody class="tbody">
+      <tr>
+       <td><code class="literal">session</code></td>
+       <td>Предварительно соединённый ресурс ssh2 для повторного использования</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr>
+       <td><code class="literal">sftp</code></td>
+       <td>Предварительно выделенный ресурс sftp для повторного использования</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr>
+       <td><code class="literal">methods</code></td>
+       <td>Обмен ключами, ключ хоста, шифр, компрессия и методы MAC для использования</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr>
+       <td><code class="literal">callbacks</code></td>
+       <td class="empty">&nbsp;</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr>
+       <td><code class="literal">username</code></td>
+       <td>Имя пользователя для соединения</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr>
+       <td><code class="literal">password</code></td>
+       <td>Пароль для аутентификации</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr>
+       <td><code class="literal">pubkey_file</code></td>
+       <td>Имя файла, в котором находится открытый ключ для аутентификации</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr>
+       <td><code class="literal">privkey_file</code></td>
+       <td>Имя файла, в котором находится приватный ключ для аутентификации</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr>
+       <td><code class="literal">env</code></td>
+       <td>Ассоциативный массив с переменными окружения, которые необходимо установить</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr>
+       <td><code class="literal">term</code></td>
+       <td>Тип эмуляции терминала для запроса, когда выделяется pty</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr>
+       <td><code class="literal">term_width</code></td>
+       <td>Ширина терминала, запрашивается когда выделяется pty</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr>
+       <td><code class="literal">term_height</code></td>
+       <td>Высота терминала, запрашивается когда выделяется pty</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr>
+       <td><code class="literal">term_units</code></td>
+       <td>Единицы, в которых измеряются term_width и term_height</td>
+       <td><strong><code>SSH2_TERM_UNIT_CHARS</code></strong></td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+ 
+
+ <div class="refsect1 examples" id="refsect1-wrappers.ssh2-examples">
+  <h3 class="title">Примеры</h3>
+  <div class="example" id="example-1282">
+   <p><strong>Пример #1 Открытие потока из активного соединения</strong></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$session </span><span style="color: #007700">= </span><span style="color: #0000BB">ssh2_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">'example.com'</span><span style="color: #007700">, </span><span style="color: #0000BB">22</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">ssh2_auth_pubkey_file</span><span style="color: #007700">(</span><span style="color: #0000BB">$session</span><span style="color: #007700">, </span><span style="color: #DD0000">'username'</span><span style="color: #007700">, </span><span style="color: #DD0000">'/home/username/.ssh/id_rsa.pub'</span><span style="color: #007700">,<br />                                            </span><span style="color: #DD0000">'/home/username/.ssh/id_rsa'</span><span style="color: #007700">, </span><span style="color: #DD0000">'secret'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$stream </span><span style="color: #007700">= </span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #DD0000">"ssh2.tunnel://</span><span style="color: #0000BB">$session</span><span style="color: #DD0000">/remote.example.com:1234"</span><span style="color: #007700">, </span><span style="color: #DD0000">'r'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+   </div>
+
+  </div>
+  <div class="example" id="db2-last-insert-id.example.basic">
+   <p><strong>Пример #2 Переменная <var class="varname">$session</var> должна быть доступна!</strong></p>
+   <div class="example-contents"><p>
+    Для использования каких-либо из обёрток <var class="filename">ssh2.*://$session</var>,
+    необходимо сохранить доступным ресурс, хранящийся в переменной <var class="varname">$session</var>.
+    Следующий код не будет иметь желаемого эффекта:
+   </p></div>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$session </span><span style="color: #007700">= </span><span style="color: #0000BB">ssh2_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">'example.com'</span><span style="color: #007700">, </span><span style="color: #0000BB">22</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">ssh2_auth_pubkey_file</span><span style="color: #007700">(</span><span style="color: #0000BB">$session</span><span style="color: #007700">, </span><span style="color: #DD0000">'username'</span><span style="color: #007700">, </span><span style="color: #DD0000">'/home/username/.ssh/id_rsa.pub'</span><span style="color: #007700">,<br />                                            </span><span style="color: #DD0000">'/home/username/.ssh/id_rsa'</span><span style="color: #007700">, </span><span style="color: #DD0000">'secret'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$connection_string </span><span style="color: #007700">= </span><span style="color: #DD0000">"ssh2.sftp://</span><span style="color: #0000BB">$session</span><span style="color: #DD0000">/"</span><span style="color: #007700">;<br />unset(</span><span style="color: #0000BB">$session</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$stream </span><span style="color: #007700">= </span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #0000BB">$connection_string </span><span style="color: #007700">. </span><span style="color: #DD0000">"path/to/file"</span><span style="color: #007700">, </span><span style="color: #DD0000">'r'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+   </div>
+
+   <div class="example-contents"><p>
+    unset() закрывает сессию, потому что <var class="varname">$connection_string</var> не
+    является ссылкой на переменную <var class="varname">$session</var>, а только её текстовым
+    представлением. Это также происходит и в случае неявного вызова <span class="function"><a href="function.unset.php.html" class="function">unset()</a></span>
+    при выходе из области видимости (например, из функции).
+   </p></div>
+  </div>
+
+ </div>
+
+
+</div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=wrappers.ssh2&amp;redirect=https://www.php.net/manual/ru/wrappers.ssh2.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">4 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="112564">  <div class="votes">
+    <div id="Vu112564">
+    <a href="https://www.php.net/manual/vote-note.php?id=112564&amp;page=wrappers.ssh2&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd112564">
+    <a href="https://www.php.net/manual/vote-note.php?id=112564&amp;page=wrappers.ssh2&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V112564" title="87% like this...">
+    6
+    </div>
+  </div>
+  <a href="wrappers.ssh2.php.html#112564" class="name">
+  <strong class="user"><em>exptom</em></strong></a><a class="genanchor" href="wrappers.ssh2.php.html#112564"> &para;</a><div class="date" title="2013-06-30 09:37"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom112564">
+<div class="phpcode"><code><span class="html">The "password" context option can also be used to provide the passphrase for the keyfile supplied by "privkey_file" and "pubkey_file".<br /><br />Note this bug: <a href="https://bugs.php.net/bug.php?id=58573" rel="nofollow" target="_blank">https://bugs.php.net/bug.php?id=58573</a><br />Encrypted keys may not work unless you build libssh2 against openssl. (It only worked for me on Debian Wheezy once I recompiled the library).</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="121849">  <div class="votes">
+    <div id="Vu121849">
+    <a href="https://www.php.net/manual/vote-note.php?id=121849&amp;page=wrappers.ssh2&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd121849">
+    <a href="https://www.php.net/manual/vote-note.php?id=121849&amp;page=wrappers.ssh2&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V121849" title="77% like this...">
+    5
+    </div>
+  </div>
+  <a href="wrappers.ssh2.php.html#121849" class="name">
+  <strong class="user"><em>guilhem at no dot spam dot answeb dot net</em></strong></a><a class="genanchor" href="wrappers.ssh2.php.html#121849"> &para;</a><div class="date" title="2017-11-09 03:39"><strong>6 years ago</strong></div>
+  <div class="text" id="Hcom121849">
+<div class="phpcode"><code><span class="html">Please beware of a PHP bug, noted by thomas at gielfeldt dot dk, that you must intval() the connection variable before putting it in the connection string :<br /><br /><span class="default">&lt;?php<br />$connection </span><span class="keyword">= </span><span class="default">ssh2_connect</span><span class="keyword">(</span><span class="string">'shell.example.com'</span><span class="keyword">, </span><span class="default">22</span><span class="keyword">);<br /></span><span class="default">ssh2_auth_password</span><span class="keyword">(</span><span class="default">$connection</span><span class="keyword">, </span><span class="string">'username'</span><span class="keyword">, </span><span class="string">'password'</span><span class="keyword">);<br /></span><span class="default">$sftp </span><span class="keyword">= </span><span class="default">ssh2_sftp</span><span class="keyword">(</span><span class="default">$connection</span><span class="keyword">);<br /></span><span class="comment">// See: <a href="https://bugs.php.net/bug.php?id=73597" rel="nofollow" target="_blank">https://bugs.php.net/bug.php?id=73597</a><br /></span><span class="default">$stream </span><span class="keyword">= </span><span class="default">fopen</span><span class="keyword">(</span><span class="string">"ssh2.s<a href="ftp://" rel="nofollow" target="_blank">ftp://</a>" </span><span class="keyword">. </span><span class="default">intval</span><span class="keyword">(</span><span class="default">$sftp</span><span class="keyword">) . </span><span class="string">"/path/to/file"</span><span class="keyword">, </span><span class="string">'r'</span><span class="keyword">);<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="112128">  <div class="votes">
+    <div id="Vu112128">
+    <a href="https://www.php.net/manual/vote-note.php?id=112128&amp;page=wrappers.ssh2&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd112128">
+    <a href="https://www.php.net/manual/vote-note.php?id=112128&amp;page=wrappers.ssh2&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V112128" title="72% like this...">
+    5
+    </div>
+  </div>
+  <a href="wrappers.ssh2.php.html#112128" class="name">
+  <strong class="user"><em>bluej100 at gmail dot com</em></strong></a><a class="genanchor" href="wrappers.ssh2.php.html#112128"> &para;</a><div class="date" title="2013-05-07 10:42"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom112128">
+<div class="phpcode"><code><span class="html">Be aware that opendir is currently broken on sftp root directories, but you can work around it by appending a dot. See <a href="https://bugs.php.net/bug.php?id=64169" rel="nofollow" target="_blank">https://bugs.php.net/bug.php?id=64169</a> and <a href="http://stackoverflow.com/a/16238476/69173." rel="nofollow" target="_blank">http://stackoverflow.com/a/16238476/69173.</a></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="120870">  <div class="votes">
+    <div id="Vu120870">
+    <a href="https://www.php.net/manual/vote-note.php?id=120870&amp;page=wrappers.ssh2&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd120870">
+    <a href="https://www.php.net/manual/vote-note.php?id=120870&amp;page=wrappers.ssh2&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V120870" title="46% like this...">
+    -1
+    </div>
+  </div>
+  <a href="wrappers.ssh2.php.html#120870" class="name">
+  <strong class="user"><em>thomas at gielfeldt dot dk</em></strong></a><a class="genanchor" href="wrappers.ssh2.php.html#120870"> &para;</a><div class="date" title="2017-03-25 11:32"><strong>6 years ago</strong></div>
+  <div class="text" id="Hcom120870">
+<div class="phpcode"><code><span class="html"><span class="default">&lt;?php<br /></span><span class="comment">// Connect with public key.<br /></span><span class="default">$session </span><span class="keyword">= </span><span class="default">ssh2_connect</span><span class="keyword">(</span><span class="string">'example.com'</span><span class="keyword">, </span><span class="default">22</span><span class="keyword">);<br /></span><span class="default">$result </span><span class="keyword">= </span><span class="default">ssh2_auth_pubkey_file</span><span class="keyword">(</span><span class="default">$session</span><span class="keyword">, </span><span class="string">'remote-username'</span><span class="keyword">, </span><span class="string">'/home/local-username/.ssh/id_rsa.pub'</span><span class="keyword">,<br />                                                             </span><span class="string">'/home/local-username/.ssh/id_rsa'</span><span class="keyword">, <br />                                                             </span><span class="string">'secret'</span><span class="keyword">);<br /></span><span class="comment">// Setup sftp stream wrapper<br /></span><span class="default">$sftp </span><span class="keyword">= </span><span class="default">ssh2_sftp</span><span class="keyword">(</span><span class="default">$session</span><span class="keyword">);<br /></span><span class="comment">// See: <a href="https://bugs.php.net/bug.php?id=73597" rel="nofollow" target="_blank">https://bugs.php.net/bug.php?id=73597</a><br /></span><span class="default">$connection_string </span><span class="keyword">= </span><span class="string">'ssh2.s<a href="ftp://" rel="nofollow" target="_blank">ftp://</a>' </span><span class="keyword">. </span><span class="default">intval</span><span class="keyword">(</span><span class="default">$sftp</span><span class="keyword">);<br /><br /></span><span class="comment">// List files in remote homedir.<br /></span><span class="default">$i </span><span class="keyword">= new </span><span class="default">\RecursiveDirectoryIterator</span><span class="keyword">(</span><span class="string">"</span><span class="default">$connection_string</span><span class="string">/home/remote-username"</span><span class="keyword">);<br /></span><span class="default">$r </span><span class="keyword">= new </span><span class="default">\RecursiveIteratorIterator</span><span class="keyword">(</span><span class="default">$i</span><span class="keyword">);<br />foreach (</span><span class="default">$r </span><span class="keyword">as </span><span class="default">$f</span><span class="keyword">) {<br />    print </span><span class="default">$f</span><span class="keyword">-&gt;</span><span class="default">getPathname</span><span class="keyword">() . </span><span class="string">"\n"</span><span class="keyword">;<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=wrappers.ssh2&amp;redirect=https://www.php.net/manual/ru/wrappers.ssh2.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="wrappers.php.html">Поддерживаемые протоколы и обёртки</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="wrappers.file.php.html" title="file://">file://</a>
+                        </li>
+                                                <li class="">
+                            <a href="wrappers.http.php.html" title="http://">http://</a>
+                        </li>
+                                                <li class="">
+                            <a href="wrappers.ftp.php.html" title="ftp://">ftp://</a>
+                        </li>
+                                                <li class="">
+                            <a href="wrappers.php.php.html" title="php://">php://</a>
+                        </li>
+                                                <li class="">
+                            <a href="wrappers.compression.php.html" title="zlib://">zlib://</a>
+                        </li>
+                                                <li class="">
+                            <a href="wrappers.data.php.html" title="data://">data://</a>
+                        </li>
+                                                <li class="">
+                            <a href="wrappers.glob.php.html" title="glob://">glob://</a>
+                        </li>
+                                                <li class="">
+                            <a href="wrappers.phar.php.html" title="phar://">phar://</a>
+                        </li>
+                                                <li class="current">
+                            <a href="wrappers.ssh2.php.html" title="ssh2://">ssh2://</a>
+                        </li>
+                                                <li class="">
+                            <a href="wrappers.rar.php.html" title="rar://">rar://</a>
+                        </li>
+                                                <li class="">
+                            <a href="wrappers.audio.php.html" title="ogg://">ogg://</a>
+                        </li>
+                                                <li class="">
+                            <a href="wrappers.expect.php.html" title="expect://">expect://</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: Изменения OpenSSL в PHP 5.6.x - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="migration56.openssl.php.html">
+ <link rel="shorturl" href="migration56.openssl.php.html">
+ <link rel="alternate" href="migration56.openssl.php.html" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="migration56.php.html">
+ <link rel="prev" href="migration56.new-functions.php.html">
+ <link rel="next" href="migration56.extensions.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/migration56.openssl.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/migration56.openssl.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/migration56.openssl.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/migration56.openssl.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/migration56.openssl.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/migration56.openssl.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/migration56.openssl.php" hreflang="pt_BR">
+ <link rel="alternate" href="migration56.openssl.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/migration56.openssl.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/migration56.openssl.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="migration56.extensions.php.html">
+          Другие изменения в модулях &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="migration56.new-functions.php.html">
+          &laquo; Новые функции        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='appendices.php.html'>Приложения</a></li>      <li><a href='migration56.php.html'>Миграция с PHP 5.5.x на PHP 5.6.x</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/migration56.openssl.php'>English</option>
+            <option value='de/migration56.openssl.php'>German</option>
+            <option value='es/migration56.openssl.php'>Spanish</option>
+            <option value='fr/migration56.openssl.php'>French</option>
+            <option value='it/migration56.openssl.php'>Italian</option>
+            <option value='ja/migration56.openssl.php'>Japanese</option>
+            <option value='pt_BR/migration56.openssl.php'>Brazilian Portuguese</option>
+            <option value='ru/migration56.openssl.php' selected="selected">Russian</option>
+            <option value='tr/migration56.openssl.php'>Turkish</option>
+            <option value='zh/migration56.openssl.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/appendices/migration56/openssl.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Fmigration56.openssl%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="migration56.openssl" class="sect1">
+ <h2 class="title">Изменения OpenSSL в PHP 5.6.x</h2>
+
+ <div class="sect2" id="migration56.openssl.peer-verification">
+  <h3 class="title">Обёртки потоков теперь по умолчанию проверяют сертификаты узлов и имена хостов при использовании SSL/TLS</h3>
+
+  
+<p class="para">
+ Все шифруемые клиентские потоки теперь по умолчанию включают проверку пиров.
+ По умолчанию сертификат
+ пира проверяется пакетом OpenSSL CA. Обычно не нужно ничего делать для
+ соединения с серверами с правильным SSL-сертификатом, так как
+ OpenSSL настроен так, что уже работает с хорошими CA-пакетами.
+</p>
+
+<p class="para">
+ Стандартный CA пакет может быть переопределён глобально с помощью
+ установки или openssl.cafile или openssl.capath строк конфигурации,
+ или же на уровне каждого запроса используя опции контекста
+ <a href="context.ssl.php.html#context.ssl.cafile" class="link"><code class="parameter">cafile</code></a> или
+ <a href="context.ssl.php.html#context.ssl.capath" class="link"><code class="parameter">capath</code></a>.
+</p>
+
+<p class="para">
+ Хотя это и не рекомендуется, но можно отключить проверку сертификата пира
+ для запроса, установив <a href="context.ssl.php.html#context.ssl.verify-peer" class="link"><code class="parameter">verify_peer</code></a>
+ опцию контекста в <strong><code>false</code></strong>, и можно отключить проверку имени пира, установив
+ <a href="context.ssl.php.html#context.ssl.verify-peer-name" class="link"><code class="parameter">verify_peer_name</code></a> в <strong><code>false</code></strong>.
+</p>
+
+ </div>
+
+ <div class="sect2" id="migration56.openssl.fingerprint">
+  <h3 class="title">Сигнатура сертификата</h3>
+
+  <p class="para">
+   Была добавлена поддержка извлечения и проверки сигнатуры сертификата.
+   Для извлечения сигнатур сертификатов X.509 добавлена функция
+   <span class="function"><a href="function.openssl-x509-fingerprint.php.html" class="function">openssl_x509_fingerprint()</a></span>. Также были добавлены две
+   опции <a href="context.ssl.php.html" class="link">контекста потока SSL</a>:
+   <code class="literal">capture_peer_cert</code> для захвата узлового сертификата X.509,
+   и <code class="literal">peer_fingerprint</code> для проверки сертификата на соответствие
+   заданной сигнатуре.
+  </p>
+ </div>
+
+ <div class="sect2" id="migration56.openssl.ciphers">
+  <h3 class="title">Обновлены шифры по умолчанию</h3>
+
+  <p class="para">
+   Список шифров по умолчанию, используемых PHP, был обновлён на более
+   безопасный в соответствии с <a href="https://wiki.mozilla.org/Security/Server_Side_TLS#Recommended_Ciphersuite" class="link external">&raquo;&nbsp;
+   рекомендациями по шифрам от Mozilla</a>, с двумя дополнительными
+   исключениями: анонимные шифры Диффи-Хеллмана и RC4.
+  </p>
+
+  <p class="para">
+   Этот список доступен через новую константу
+   <strong><code>OPENSSL_DEFAULT_STREAM_CIPHERS</code></strong>, и может быть переопределён
+   (как и в предыдущих версиях PHP) установкой опцией контекста
+   <a href="context.ssl.php.html#context.ssl.ciphers" class="link"><code class="parameter">ciphers</code></a>.
+  </p>
+ </div>
+
+ <div class="sect2" id="migration56.openssl.tls-compression">
+  <h3 class="title">Сжатие запрещено по умолчанию</h3>
+
+  <p class="para">
+   Сжатие SSL/TLS было запрещено по умолчанию для compression уменьшения
+   вероятности атаки типа CRIME. В PHP 5.4.13 была добавлена опция контекста
+   <a href="context.ssl.php.html#context.ssl.disable-compression" class="link"><code class="parameter">disable_compression</code></a>
+   для возможности запретить компрессию и теперь она по умолчанию установлена
+   как <strong><code>true</code></strong> (то есть компрессия запрещена).
+  </p>
+ </div>
+
+ <div class="sect2" id="migration56.openssl.honor-cipher-order">
+  <h3 class="title">Разрешение серверу определять свой собственный порядок шифров</h3>
+
+  <p class="para">
+   Была добавлена опция контекста <code class="parameter">honor_cipher_order</code>,
+   которая позволяет серверу обслуживающему зашифрованный поток самому
+   определять шифры, которыми будет пользоваться клиент. Это позволить снизить
+   риск атаки типа BEAST.
+  </p>
+ </div>
+
+ <div class="sect2" id="migration56.openssl.metadata">
+  <h3 class="title">Доступ к согласованному протоколу и шифру</h3>
+
+  <p class="para">
+   Протокол и шифр, согласованные для шифрованного потока, доступны
+   с помощью функций <span class="function"><a href="function.stream-get-meta-data.php.html" class="function">stream_get_meta_data()</a></span> или
+   <span class="function"><a href="function.stream-context-get-options.php.html" class="function">stream_context_get_options()</a></span>, если опция контекста SSL
+   <code class="parameter">capture_session_meta</code> установлена как <strong><code>true</code></strong>.
+  </p>
+
+  <div class="informalexample">
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$ctx </span><span style="color: #007700">= </span><span style="color: #0000BB">stream_context_create</span><span style="color: #007700">([</span><span style="color: #DD0000">'ssl' </span><span style="color: #007700">=&gt; [<br />    </span><span style="color: #DD0000">'capture_session_meta' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">TRUE<br /></span><span style="color: #007700">]]);<br /><br /></span><span style="color: #0000BB">$html </span><span style="color: #007700">= </span><span style="color: #0000BB">file_get_contents</span><span style="color: #007700">(</span><span style="color: #DD0000">'https://google.com/'</span><span style="color: #007700">, </span><span style="color: #0000BB">FALSE</span><span style="color: #007700">, </span><span style="color: #0000BB">$ctx</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$meta </span><span style="color: #007700">= </span><span style="color: #0000BB">stream_context_get_options</span><span style="color: #007700">(</span><span style="color: #0000BB">$ctx</span><span style="color: #007700">)[</span><span style="color: #DD0000">'ssl'</span><span style="color: #007700">][</span><span style="color: #DD0000">'session_meta'</span><span style="color: #007700">];<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$meta</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+   </div>
+
+   
+<p class="para">
+ Результат выполнения приведённого примера:
+</p>
+
+   <div class="example-contents screen">
+<div class="cdata"><pre>
+array(4) {
+  [&quot;protocol&quot;]=&gt;
+  string(5) &quot;TLSv1&quot;
+  [&quot;cipher_name&quot;]=&gt;
+  string(20) &quot;ECDHE-RSA-AES128-SHA&quot;
+  [&quot;cipher_bits&quot;]=&gt;
+  int(128)
+  [&quot;cipher_version&quot;]=&gt;
+  string(11) &quot;TLSv1/SSLv3&quot;
+}
+</pre></div>
+   </div>
+  </div>
+ </div>
+
+ <div class="sect2" id="migration56.openssl.forward-secrecy">
+  <h3 class="title">Новые возможности для совершенной прямой секретности (PFS) для серверов, обслуживающих шифрованные потоки</h3>
+
+  <p class="para">
+   Шифрованные потоки клиента уже поддерживают совершенную прямую
+   секретность, поскольку она, как правило, контролируется сервером.
+   Серверы PHP, обслуживающие шифрованные потоки, использующие сертификаты
+   поддерживающие совершенную прямую секретность не нуждаются в каких
+   либо дополнительных действиях для включения PFS; однако, было добавлено
+   некоторое количество новых опций контекста SSL для более точного контроля
+   над PFS и для решения возможных проблем.
+  </p>
+
+  <dl>
+   
+    <dt>
+<code class="parameter">ecdh_curve</code></dt>
+
+    <dd>
+
+     <p class="para">
+      Эта опция позволяет выбрать кривую для использования в шифрах ECDH.
+      Если не задано, то будет использоваться <code class="literal">prime256v1</code>.
+     </p>
+    </dd>
+
+   
+   
+    <dt>
+<code class="parameter">dh_param</code></dt>
+
+    <dd>
+
+     <p class="para">
+      Путь к файлу, содержащему параметры для обмена ключами Диффи-Хеллмана,
+      созданного, например, с помощью такой команды:
+     </p>
+     <div class="example-contents">
+<div class="shellcode"><pre class="shellcode">openssl dhparam -out /path/to/my/certs/dh-2048.pem 2048</pre>
+</div>
+     </div>
+
+    </dd>
+
+   
+   
+    <dt>
+<code class="parameter">single_dh_use</code></dt>
+
+    <dd>
+
+     <p class="para">
+      Если установлено как <strong><code>true</code></strong>, новая пара ключей будет создана, используя
+      параметры Диффи-Хеллмана, тем самым улучшая прямую секретность.
+     </p>
+    </dd>
+
+   
+   
+    <dt>
+<code class="parameter">single_ecdh_use</code></dt>
+
+    <dd>
+
+     <p class="para">
+      Если установлено как <strong><code>true</code></strong>, новая пара ключей будет генерироваться всегда,
+      при согласовании шифра ECDH. Это улучшает прямую секретность.
+     </p>
+    </dd>
+
+   
+  </dl>
+
+ </div>
+
+ <div class="sect2" id="migration56.openssl.crypto-method">
+  <h3 class="title">Выбор версии SSL/TLS</h3>
+
+  <p class="para">
+   Теперь возможно выбирать конкретную версию SSL и TLS с помощью опции
+   контекста <code class="parameter">crypto_method</code> или указывая конкретный
+   транспорт при создании обёртки потока (например с помощью вызова
+   <span class="function"><a href="function.stream-socket-client.php.html" class="function">stream_socket_client()</a></span> или
+   <span class="function"><a href="function.stream-socket-server.php.html" class="function">stream_socket_server()</a></span>).
+  </p>
+
+  <p class="para">
+   Опция контекста SSL <code class="parameter">crypto_method</code> принимает битовую
+   маску, перечисляющую допустимые протоколы, также как это задаётся в
+   параметре <code class="parameter">crypto_type</code> функции
+   <span class="function"><a href="function.stream-socket-enable-crypto.php.html" class="function">stream_socket_enable_crypto()</a></span>.
+   
+  </p>
+
+  <table class="segmentedlist">
+   <caption><strong>Выбранная версия протокола и соответствующие опции</strong></caption>
+   <thead><tr><th>Протокол</th>
+   <th>Флаг клиента</th>
+   <th>Флаг сервера</th>
+   <th>Транспорт</th>
+   </tr></thead><tbody><tr class="seglistitem">
+    <td class="seg">Любые версии TLS или SSL</td>
+    <td class="seg"><strong><code>STREAM_CRYPTO_METHOD_ANY_CLIENT</code></strong></td>
+    <td class="seg"><strong><code>STREAM_CRYPTO_METHOD_ANY_SERVER</code></strong></td>
+    <td class="seg"><code class="literal">ssl://</code></td>
+   </tr>
+   <tr class="seglistitem">
+    <td class="seg">Любая версия TLS</td>
+    <td class="seg"><strong><code>STREAM_CRYPTO_METHOD_TLS_CLIENT</code></strong></td>
+    <td class="seg"><strong><code>STREAM_CRYPTO_METHOD_TLS_SERVER</code></strong></td>
+    <td class="seg"><code class="literal">tls://</code></td>
+   </tr>
+   <tr class="seglistitem">
+    <td class="seg">TLS 1.0</td>
+    <td class="seg"><strong><code>STREAM_CRYPTO_METHOD_TLSv1_0_CLIENT</code></strong></td>
+    <td class="seg"><strong><code>STREAM_CRYPTO_METHOD_TLSv1_0_SERVER</code></strong></td>
+    <td class="seg"><code class="literal">tlsv1.0://</code></td>
+   </tr>
+   <tr class="seglistitem">
+    <td class="seg">TLS 1.1</td>
+    <td class="seg"><strong><code>STREAM_CRYPTO_METHOD_TLSv1_1_CLIENT</code></strong></td>
+    <td class="seg"><strong><code>STREAM_CRYPTO_METHOD_TLSv1_1_SERVER</code></strong></td>
+    <td class="seg"><code class="literal">tlsv1.1://</code></td>
+   </tr>
+   <tr class="seglistitem">
+    <td class="seg">TLS 1.2</td>
+    <td class="seg"><strong><code>STREAM_CRYPTO_METHOD_TLSv1_2_CLIENT</code></strong></td>
+    <td class="seg"><strong><code>STREAM_CRYPTO_METHOD_TLSv1_2_SERVER</code></strong></td>
+    <td class="seg"><code class="literal">tlsv1.2://</code></td>
+   </tr>
+   <tr class="seglistitem">
+    <td class="seg">SSL 3</td>
+    <td class="seg"><strong><code>STREAM_CRYPTO_METHOD_SSLv3_CLIENT</code></strong></td>
+    <td class="seg"><strong><code>STREAM_CRYPTO_METHOD_SSLv3_SERVER</code></strong></td>
+    <td class="seg"><code class="literal">sslv3://</code></td>
+   </tr>
+  </tbody></table>
+
+  <div class="informalexample">
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">// Требуется TLS 1.0 или выше для использования file_get_contents():<br /></span><span style="color: #0000BB">$ctx </span><span style="color: #007700">= </span><span style="color: #0000BB">stream_context_create</span><span style="color: #007700">([<br />    </span><span style="color: #DD0000">'ssl' </span><span style="color: #007700">=&gt; [<br />        </span><span style="color: #DD0000">'crypto_method' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">STREAM_CRYPTO_METHOD_TLS_CLIENT</span><span style="color: #007700">,<br />    ],<br />]);<br /></span><span style="color: #0000BB">$html </span><span style="color: #007700">= </span><span style="color: #0000BB">file_get_contents</span><span style="color: #007700">(</span><span style="color: #DD0000">'https://google.com/'</span><span style="color: #007700">, </span><span style="color: #0000BB">false</span><span style="color: #007700">, </span><span style="color: #0000BB">$ctx</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Требуется TLS 1.1 или 1.2:<br /></span><span style="color: #0000BB">$ctx </span><span style="color: #007700">= </span><span style="color: #0000BB">stream_context_create</span><span style="color: #007700">([<br />    </span><span style="color: #DD0000">'ssl' </span><span style="color: #007700">=&gt; [<br />        </span><span style="color: #DD0000">'crypto_method' </span><span style="color: #007700">=&gt; </span><span style="color: #0000BB">STREAM_CRYPTO_METHOD_TLSv1_1_CLIENT </span><span style="color: #007700">|<br />                           </span><span style="color: #0000BB">STREAM_CRYPTO_METHOD_TLSv1_2_CLIENT</span><span style="color: #007700">,<br />    ],<br />]);<br /></span><span style="color: #0000BB">$html </span><span style="color: #007700">= </span><span style="color: #0000BB">file_get_contents</span><span style="color: #007700">(</span><span style="color: #DD0000">'https://google.com/'</span><span style="color: #007700">, </span><span style="color: #0000BB">false</span><span style="color: #007700">, </span><span style="color: #0000BB">$ctx</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">// Соединяемся с использованием транспорта потокового сокета tlsv1.2://<br /></span><span style="color: #0000BB">$sock </span><span style="color: #007700">= </span><span style="color: #0000BB">stream_socket_client</span><span style="color: #007700">(</span><span style="color: #DD0000">'tlsv1.2://google.com:443/'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+   </div>
+
+  </div>
+ </div>
+
+ <div class="sect2" id="migration56.openssl.default-certificate-paths">
+  <h3 class="title">Добавлена функция <span class="function"><a href="function.openssl-get-cert-locations.php.html" class="function">openssl_get_cert_locations()</a></span></h3>
+
+  <p class="para">
+   Была добавлена функция <span class="function"><a href="function.openssl-get-cert-locations.php.html" class="function">openssl_get_cert_locations()</a></span>:
+   она возвращает расположения, в которых PHP будет искать пакеты CA по
+   умолчанию.
+  </p>
+
+  <div class="informalexample">
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">openssl_get_cert_locations</span><span style="color: #007700">());<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+   </div>
+
+   
+<p class="para">
+ Результат выполнения приведённого примера:
+</p>
+
+   <div class="example-contents screen">
+<div class="cdata"><pre>
+array(8) {
+  [&quot;default_cert_file&quot;]=&gt;
+  string(21) &quot;/etc/pki/tls/cert.pem&quot;
+  [&quot;default_cert_file_env&quot;]=&gt;
+  string(13) &quot;SSL_CERT_FILE&quot;
+  [&quot;default_cert_dir&quot;]=&gt;
+  string(18) &quot;/etc/pki/tls/certs&quot;
+  [&quot;default_cert_dir_env&quot;]=&gt;
+  string(12) &quot;SSL_CERT_DIR&quot;
+  [&quot;default_private_dir&quot;]=&gt;
+  string(20) &quot;/etc/pki/tls/private&quot;
+  [&quot;default_default_cert_area&quot;]=&gt;
+  string(12) &quot;/etc/pki/tls&quot;
+  [&quot;ini_cafile&quot;]=&gt;
+  string(0) &quot;&quot;
+  [&quot;ini_capath&quot;]=&gt;
+  string(0) &quot;&quot;
+}
+</pre></div>
+   </div>
+  </div>
+ </div>
+
+ <div class="sect2" id="migration56.openssl.spki">
+  <h3 class="title">Поддержка SPKI</h3>
+
+  <p class="para">
+   Была добавлена поддержка для создания, извлечения и проверки подписанных
+   публичных ключей и опознавательных строк (SPKAC).
+   Были добавлены функции <span class="function"><a href="function.openssl-spki-new.php.html" class="function">openssl_spki_new()</a></span>,
+   <span class="function"><a href="function.openssl-spki-verify.php.html" class="function">openssl_spki_verify()</a></span>,
+   <span class="function"><a href="function.openssl-spki-export-challenge.php.html" class="function">openssl_spki_export_challenge()</a></span> и
+   <span class="function"><a href="function.openssl-spki-export.php.html" class="function">openssl_spki_export()</a></span> для создания, проверки экспорта <abbr title="Privacy-Enhanced Mail">PEM</abbr>
+   публичных ключей и соответствующих опознавательных строк из SPKAC,
+   созданных из элементов HTML5 <code class="literal">KeyGen</code>.
+  </p>
+
+  <dl>
+   
+    <dt>
+<code class="parameter">openssl_spki_new</code></dt>
+
+    <dd>
+
+     <p class="para">
+      Генерация нового SPKAC с использованием приватного ключа, опознавательной строки
+      и алгоритма хеширования.
+     </p>
+
+     <div class="informalexample">
+      <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$pkey </span><span style="color: #007700">= </span><span style="color: #0000BB">openssl_pkey_new</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">openssl_pkey_export</span><span style="color: #007700">(</span><span style="color: #0000BB">$pkey</span><span style="color: #007700">, </span><span style="color: #DD0000">'secret passphrase'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$spkac </span><span style="color: #007700">= </span><span style="color: #0000BB">openssl_spki_new</span><span style="color: #007700">(</span><span style="color: #0000BB">$pkey</span><span style="color: #007700">, </span><span style="color: #DD0000">'challenge string'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+      </div>
+
+      
+<p class="para">
+ Результат выполнения приведённого примера:
+</p>
+
+      <div class="example-contents screen">
+<div class="cdata"><pre>
+SPKAC=MIIBXjCByDCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEA3L0IfUijj7+A8CPC8EmhcdNoe5fUAog7OrBdhn7EkxFButUp40P7+LiYiygYG1TmoI/a5EgsLU3s9twEz3hmgY9mYIqb/rb+SF8qlD/K6KVyUORC7Wlz1Df4L8O3DuRGzx6/+3jIW6cPBpfgH1sVuYS1vDBsP/gMMIxwTsKJ4P0CAwEAARYkYjViMzYxMTktNjY5YS00ZDljLWEyYzctMGZjNGFhMjVlMmE2MA0GCSqGSIb3DQEBAwUAA4GBAF7hu0ifzmjonhAak2FhhBRsKFDzXdKIkrWxVNe8e0bZzMrWOxFM/rqBgeH3/gtOUDRS5Fnzyq425UsTYbjfiKzxGeCYCQJb1KJ2V5Ij/mIJHZr53WYEXHQTNMGR8RPm7IxwVXVSHIgAfXsXZ9IXNbFbcaLRiSTr9/N4U+MXUWL7
+</pre></div>
+      </div>
+     </div>
+    </dd>
+
+   
+
+   
+    <dt>
+<code class="parameter">openssl_spki_verify</code></dt>
+
+    <dd>
+
+     <p class="para">
+      Проверка предоставленного SPKAC.
+     </p>
+
+     <div class="informalexample">
+      <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$pkey </span><span style="color: #007700">= </span><span style="color: #0000BB">openssl_pkey_new</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">openssl_pkey_export</span><span style="color: #007700">(</span><span style="color: #0000BB">$pkey</span><span style="color: #007700">, </span><span style="color: #DD0000">'secret passphrase'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$spkac </span><span style="color: #007700">= </span><span style="color: #0000BB">openssl_spki_new</span><span style="color: #007700">(</span><span style="color: #0000BB">$pkey</span><span style="color: #007700">, </span><span style="color: #DD0000">'challenge string'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">openssl_spki_verify</span><span style="color: #007700">(</span><span style="color: #0000BB">$spkac</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+      </div>
+
+     </div>
+    </dd>
+
+   
+
+   
+    <dt>
+<code class="parameter">openssl_spki_export_challenge</code></dt>
+
+    <dd>
+
+     <p class="para">
+      Экспорт связанной опознавательной строки из предоставленного SPKAC.
+     </p>
+
+     <div class="informalexample">
+      <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$pkey </span><span style="color: #007700">= </span><span style="color: #0000BB">openssl_pkey_new</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">openssl_pkey_export</span><span style="color: #007700">(</span><span style="color: #0000BB">$pkey</span><span style="color: #007700">, </span><span style="color: #DD0000">'secret passphrase'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$spkac </span><span style="color: #007700">= </span><span style="color: #0000BB">openssl_spki_new</span><span style="color: #007700">(</span><span style="color: #0000BB">$pkey</span><span style="color: #007700">, </span><span style="color: #DD0000">'challenge string'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$challenge </span><span style="color: #007700">= </span><span style="color: #0000BB">openssl_spki_export_challenge</span><span style="color: #007700">(</span><span style="color: #0000BB">$spkac</span><span style="color: #007700">);<br />echo </span><span style="color: #0000BB">$challenge</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+      </div>
+
+      
+<p class="para">
+ Результат выполнения приведённого примера:
+</p>
+
+      <div class="example-contents screen">
+<div class="cdata"><pre>
+challenge string
+</pre></div>
+      </div>
+     </div>
+    </dd>
+
+   
+
+   
+    <dt>
+<code class="parameter">openssl_spki_export</code></dt>
+
+    <dd>
+
+     <p class="para">
+      Экспорт публичного ключа (<abbr title="Privacy-Enhanced Mail">PEM</abbr>) RSA в формате из SPKAC.
+     </p>
+
+     <div class="informalexample">
+      <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$pkey </span><span style="color: #007700">= </span><span style="color: #0000BB">openssl_pkey_new</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">openssl_pkey_export</span><span style="color: #007700">(</span><span style="color: #0000BB">$pkey</span><span style="color: #007700">, </span><span style="color: #DD0000">'secret passphrase'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$spkac </span><span style="color: #007700">= </span><span style="color: #0000BB">openssl_spki_new</span><span style="color: #007700">(</span><span style="color: #0000BB">$pkey</span><span style="color: #007700">, </span><span style="color: #DD0000">'challenge string'</span><span style="color: #007700">);<br />echo </span><span style="color: #0000BB">openssl_spki_export</span><span style="color: #007700">(</span><span style="color: #0000BB">$spkac</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+      </div>
+
+      
+<p class="para">
+ Результат выполнения приведённого примера:
+</p>
+
+      <div class="example-contents screen">
+<div class="cdata"><pre>
+-----BEGIN PUBLIC KEY-----
+MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDcvQh9SKOPv4DwI8LwSaFx02h7
+l9QCiDs6sF2GfsSTEUG61SnjQ/v4uJiLKBgbVOagj9rkSCwtTez23ATPeGaBj2Zg
+ipv+tv5IXyqUP8ropXJQ5ELtbXPUN/gvw7cO5EbPHr/7eMhbpw8Gl+AfWxW5hLW8
+MGw/+AwwjHBOwong/QIDAQAB
+-----END PUBLIC KEY-----
+</pre></div>
+      </div>
+     </div>
+    </dd>
+
+   
+  </dl>
+
+ </div>
+</div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=migration56.openssl&amp;redirect=https://www.php.net/manual/ru/migration56.openssl.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes </h3>
+ </div>
+ <div class="note">There are no user contributed notes for this page.</div></section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="migration56.php.html">Миграция с PHP 5.5.x на PHP 5.6.x</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="migration56.incompatible.php.html" title="Изменения, ломающие обратную совместимость">Изменения, ломающие обратную совместимость</a>
+                        </li>
+                                                <li class="">
+                            <a href="migration56.new-features.php.html" title="Новые возможности">Новые возможности</a>
+                        </li>
+                                                <li class="">
+                            <a href="migration56.deprecated.php.html" title="Функционал, объявленный устаревшим в PHP 5.6.x">Функционал, объявленный устаревшим в PHP 5.6.x</a>
+                        </li>
+                                                <li class="">
+                            <a href="migration56.changed-functions.php.html" title="Изменённые функции">Изменённые функции</a>
+                        </li>
+                                                <li class="">
+                            <a href="migration56.new-functions.php.html" title="Новые функции">Новые функции</a>
+                        </li>
+                                                <li class="current">
+                            <a href="migration56.openssl.php.html" title="Изменения OpenSSL в PHP 5.6.x">Изменения OpenSSL в PHP 5.6.x</a>
+                        </li>
+                                                <li class="">
+                            <a href="migration56.extensions.php.html" title="Другие изменения в модулях">Другие изменения в модулях</a>
+                        </li>
+                                                <li class="">
+                            <a href="migration56.constants.php.html" title="Новые глобальные константы">Новые глобальные константы</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

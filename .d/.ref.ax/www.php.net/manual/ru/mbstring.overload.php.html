@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: Механизм перегрузки функций - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="mbstring.overload.php.html">
+ <link rel="shorturl" href="mbstring.overload.php.html">
+ <link rel="alternate" href="mbstring.overload.php.html" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="book.mbstring.php.html">
+ <link rel="prev" href="mbstring.supported-encodings.php.html">
+ <link rel="next" href="mbstring.php4.req.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/mbstring.overload.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/mbstring.overload.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/mbstring.overload.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/mbstring.overload.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/mbstring.overload.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/mbstring.overload.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/mbstring.overload.php" hreflang="pt_BR">
+ <link rel="alternate" href="mbstring.overload.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/mbstring.overload.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/mbstring.overload.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="mbstring.php4.req.php.html">
+          Требования, предъявляемые к кодировкам символов в PHP &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="mbstring.supported-encodings.php.html">
+          &laquo; Поддерживаемые кодировки символов        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.international.php.html'>Поддержка языков и кодировок</a></li>      <li><a href='book.mbstring.php.html'>Многобайтовые строки</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/mbstring.overload.php'>English</option>
+            <option value='de/mbstring.overload.php'>German</option>
+            <option value='es/mbstring.overload.php'>Spanish</option>
+            <option value='fr/mbstring.overload.php'>French</option>
+            <option value='it/mbstring.overload.php'>Italian</option>
+            <option value='ja/mbstring.overload.php'>Japanese</option>
+            <option value='pt_BR/mbstring.overload.php'>Brazilian Portuguese</option>
+            <option value='ru/mbstring.overload.php' selected="selected">Russian</option>
+            <option value='tr/mbstring.overload.php'>Turkish</option>
+            <option value='zh/mbstring.overload.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/mbstring/overloading.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Fmbstring.overload%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="mbstring.overload" class="chapter">
+ <h1>
+  Механизм перегрузки функций
+ </h1>
+
+
+ <p class="para">
+  <div class="warning"><strong class="warning">Внимание</strong><p class="simpara">Эта функциональность объявлена
+<em>УСТАРЕВШЕЙ</em> начиная с PHP 7.2.0 и была <em>УДАЛЕНА</em> в версии PHP 8.0.0. Использовать эту
+функцию крайне не рекомендуется.</p></div>
+ </p>
+
+ <p class="para">
+  Зачастую заставить работать существующее PHP-приложение в многобайтовом
+  окружении оказывается довольно трудной задачей. Это происходит, потому что
+  большинство PHP-приложений написано с использованием стандартных функций
+  обработки строк, таких как <span class="function"><a href="function.substr.php.html" class="function">substr()</a></span>, которые не умеют
+  работать со строками в многобайтовых кодировках.
+ </p>
+ <p class="para">
+  mbstring поддерживает механизм &#039;перегрузки функций&#039;, который позволяет
+  сообщить приложению о том, что используется многобайтовая кодировка, без
+  модификации кода, отвечающего за работу со строками. Например, если включена
+  перегрузка функций, то функция <span class="function"><a href="function.mb-substr.php.html" class="function">mb_substr()</a></span> будет вызываться
+  вместо <span class="function"><a href="function.substr.php.html" class="function">substr()</a></span>. Этот механизм во многих случаях позволяет
+  портировать приложения, поддерживающие только однобайтовые кодировки, в
+  многобайтное окружение.
+ </p>
+ <p class="para">
+  Для использования механизма перегрузки функций нужно задать настройке
+  <code class="literal">mbstring.func_overload</code> в <var class="filename">php.ini</var> положительное значение,
+  которое представляет собой комбинацию битовых масок, определяющих категории
+  функций, которые нужно перегружать. Это будет число 1 для перегрузки функции
+  <span class="function"><a href="function.mail.php.html" class="function">mail()</a></span>. 2 для строковых функций, 4 для функций регулярных
+  выражений. Например, если значение настройки равно 7, то почтовые, строковые и
+  функции регулярных выражений будут перегружаться. Список перегружаемых функций
+  приведён ниже.
+  <table class="doctable table">
+   <caption><strong>Функции, которые будут перегружены</strong></caption>
+   
+    <thead>
+     <tr>
+      <th>значение настройки mbstring.func_overload</th>
+      <th>исходная функция</th>
+      <th>перегруженная функция</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+      <td>1</td>
+      <td><span class="function"><a href="function.mail.php.html" class="function">mail()</a></span></td>
+      <td><span class="function"><a href="function.mb-send-mail.php.html" class="function">mb_send_mail()</a></span></td>
+    </tr>
+
+    <tr>
+     <td>2</td>
+     <td><span class="function"><a href="function.strlen.php.html" class="function">strlen()</a></span></td>
+     <td><span class="function"><a href="function.mb-strlen.php.html" class="function">mb_strlen()</a></span></td>
+    </tr>
+
+    <tr>
+     <td>2</td>
+     <td><span class="function"><a href="function.strpos.php.html" class="function">strpos()</a></span></td>
+     <td><span class="function"><a href="function.mb-strpos.php.html" class="function">mb_strpos()</a></span></td>
+    </tr>
+
+    <tr>
+     <td>2</td>
+     <td><span class="function"><a href="function.strrpos.php.html" class="function">strrpos()</a></span></td>
+     <td><span class="function"><a href="function.mb-strrpos.php.html" class="function">mb_strrpos()</a></span></td>
+    </tr>
+
+    <tr>
+     <td>2</td>
+     <td><span class="function"><a href="function.substr.php.html" class="function">substr()</a></span></td>
+     <td><span class="function"><a href="function.mb-substr.php.html" class="function">mb_substr()</a></span></td>
+    </tr>
+
+    <tr>
+     <td>2</td>
+     <td><span class="function"><a href="function.strtolower.php.html" class="function">strtolower()</a></span></td>
+     <td><span class="function"><a href="function.mb-strtolower.php.html" class="function">mb_strtolower()</a></span></td>
+    </tr>
+
+    <tr>
+     <td>2</td>
+     <td><span class="function"><a href="function.strtoupper.php.html" class="function">strtoupper()</a></span></td>
+     <td><span class="function"><a href="function.mb-strtoupper.php.html" class="function">mb_strtoupper()</a></span></td>
+    </tr>
+
+    <tr>
+     <td>2</td>
+     <td><span class="function"><a href="function.stripos.php.html" class="function">stripos()</a></span></td>
+     <td><span class="function"><a href="function.mb-stripos.php.html" class="function">mb_stripos()</a></span></td>
+    </tr>
+
+    <tr>
+     <td>2</td>
+     <td><span class="function"><a href="function.strripos.php.html" class="function">strripos()</a></span></td>
+     <td><span class="function"><a href="function.mb-strripos.php.html" class="function">mb_strripos()</a></span></td>
+    </tr>
+
+    <tr>
+     <td>2</td>
+     <td><span class="function"><a href="function.strstr.php.html" class="function">strstr()</a></span></td>
+     <td><span class="function"><a href="function.mb-strstr.php.html" class="function">mb_strstr()</a></span></td>
+    </tr>
+
+    <tr>
+     <td>2</td>
+     <td><span class="function"><a href="function.stristr.php.html" class="function">stristr()</a></span></td>
+     <td><span class="function"><a href="function.mb-stristr.php.html" class="function">mb_stristr()</a></span></td>
+    </tr>
+
+    <tr>
+     <td>2</td>
+     <td><span class="function"><a href="function.strrchr.php.html" class="function">strrchr()</a></span></td>
+     <td><span class="function"><a href="function.mb-strrchr.php.html" class="function">mb_strrchr()</a></span></td>
+    </tr>
+
+    <tr>
+     <td>2</td>
+     <td><span class="function"><a href="function.substr-count.php.html" class="function">substr_count()</a></span></td>
+     <td><span class="function"><a href="function.mb-substr-count.php.html" class="function">mb_substr_count()</a></span></td>
+    </tr>
+
+    </tbody>
+   
+  </table>
+
+ </p>
+ <blockquote class="note"><p><strong class="note">Замечание</strong>: 
+  <p class="para">
+   Не рекомендуется использовать перегрузку функций в контексте
+   каждой директории, так как добиться стабильной работы в этом случае пока
+   не удалось, и это может привести к неожидаемому поведению приложения.
+  </p>
+ </p></blockquote>
+</div>
+<section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=mbstring.overload&amp;redirect=https://www.php.net/manual/ru/mbstring.overload.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">4 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="119022">  <div class="votes">
+    <div id="Vu119022">
+    <a href="https://www.php.net/manual/vote-note.php?id=119022&amp;page=mbstring.overload&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd119022">
+    <a href="https://www.php.net/manual/vote-note.php?id=119022&amp;page=mbstring.overload&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V119022" title="84% like this...">
+    49
+    </div>
+  </div>
+  <a href="mbstring.overload.php.html#119022" class="name">
+  <strong class="user"><em>Anonymous</em></strong></a><a class="genanchor" href="mbstring.overload.php.html#119022"> &para;</a><div class="date" title="2016-03-18 04:40"><strong>7 years ago</strong></div>
+  <div class="text" id="Hcom119022">
+<div class="phpcode"><code><span class="html">it's kinda evil and gives you tons of headache.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="120856">  <div class="votes">
+    <div id="Vu120856">
+    <a href="https://www.php.net/manual/vote-note.php?id=120856&amp;page=mbstring.overload&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd120856">
+    <a href="https://www.php.net/manual/vote-note.php?id=120856&amp;page=mbstring.overload&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V120856" title="92% like this...">
+    33
+    </div>
+  </div>
+  <a href="mbstring.overload.php.html#120856" class="name">
+  <strong class="user"><em>Anonymous</em></strong></a><a class="genanchor" href="mbstring.overload.php.html#120856"> &para;</a><div class="date" title="2017-03-23 08:20"><strong>6 years ago</strong></div>
+  <div class="text" id="Hcom120856">
+<div class="phpcode"><code><span class="html">I took over a project with this "feature" enabled... took me a while to figure out why strings behaved non language standard. So, if you like to make grown men cry - by all means enable this deathtrap.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="115219">  <div class="votes">
+    <div id="Vu115219">
+    <a href="https://www.php.net/manual/vote-note.php?id=115219&amp;page=mbstring.overload&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd115219">
+    <a href="https://www.php.net/manual/vote-note.php?id=115219&amp;page=mbstring.overload&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V115219" title="70% like this...">
+    20
+    </div>
+  </div>
+  <a href="mbstring.overload.php.html#115219" class="name">
+  <strong class="user"><em>Grandt</em></strong></a><a class="genanchor" href="mbstring.overload.php.html#115219"> &para;</a><div class="date" title="2014-06-16 11:10"><strong>9 years ago</strong></div>
+  <div class="text" id="Hcom115219">
+<div class="phpcode"><code><span class="html">In short, only use mbstring.func_overload if you are 100% certain that nothing on your site relies on manipulating binary data in PHP.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="99067">  <div class="votes">
+    <div id="Vu99067">
+    <a href="https://www.php.net/manual/vote-note.php?id=99067&amp;page=mbstring.overload&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd99067">
+    <a href="https://www.php.net/manual/vote-note.php?id=99067&amp;page=mbstring.overload&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V99067" title="47% like this...">
+    -2
+    </div>
+  </div>
+  <a href="mbstring.overload.php.html#99067" class="name">
+  <strong class="user"><em>Oliver Baltz</em></strong></a><a class="genanchor" href="mbstring.overload.php.html#99067"> &para;</a><div class="date" title="2010-07-26 02:25"><strong>13 years ago</strong></div>
+  <div class="text" id="Hcom99067">
+<div class="phpcode"><code><span class="html">In case you need to (de)activate the overloading for a specific directory, try setting an appropriate php_admin_value in your httpd.conf, e.g.<br /><br />&lt;Directory ...&gt;<br />   ...<br />   php_admin_value mbstring.func_overload 7<br />&lt;/Directory&gt;<br /><br />I'm not 100% sure if one can rely on that, but it seems to work for me.</span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=mbstring.overload&amp;redirect=https://www.php.net/manual/ru/mbstring.overload.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="book.mbstring.php.html">Многобайтовые строки</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="intro.mbstring.php.html" title="Введение">Введение</a>
+                        </li>
+                                                <li class="">
+                            <a href="mbstring.setup.php.html" title="Установка и настройка">Установка и настройка</a>
+                        </li>
+                                                <li class="">
+                            <a href="mbstring.constants.php.html" title="Предопределённые константы">Предопределённые константы</a>
+                        </li>
+                                                <li class="">
+                            <a href="mbstring.encodings.php.html" title="Краткий обзор поддерживаемых кодировок">Краткий обзор поддерживаемых кодировок</a>
+                        </li>
+                                                <li class="">
+                            <a href="mbstring.ja-basic.php.html" title="Основы японских многобайтных кодировок">Основы японских многобайтных кодировок</a>
+                        </li>
+                                                <li class="">
+                            <a href="mbstring.http.php.html" title="Ввод и вывод HTTP">Ввод и вывод HTTP</a>
+                        </li>
+                                                <li class="">
+                            <a href="mbstring.supported-encodings.php.html" title="Поддерживаемые кодировки символов">Поддерживаемые кодировки символов</a>
+                        </li>
+                                                <li class="current">
+                            <a href="mbstring.overload.php.html" title="Механизм перегрузки функций">Механизм перегрузки функций</a>
+                        </li>
+                                                <li class="">
+                            <a href="mbstring.php4.req.php.html" title="Требования, предъявляемые к кодировкам символов в PHP">Требования, предъявляемые к кодировкам символов в PHP</a>
+                        </li>
+                                                <li class="">
+                            <a href="ref.mbstring.php.html" title="Функции для работы с многобайтовыми строками">Функции для работы с многобайтовыми строками</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: Настройка во время выполнения - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="wincache.configuration.php.html">
+ <link rel="shorturl" href="wincache.configuration.php.html">
+ <link rel="alternate" href="wincache.configuration.php.html" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="wincache.setup.php.html">
+ <link rel="prev" href="wincache.installation.php.html">
+ <link rel="next" href="wincache.stats.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/wincache.configuration.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/wincache.configuration.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/wincache.configuration.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/wincache.configuration.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/wincache.configuration.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/wincache.configuration.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/wincache.configuration.php" hreflang="pt_BR">
+ <link rel="alternate" href="wincache.configuration.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/wincache.configuration.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/wincache.configuration.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="wincache.stats.php.html">
+          Скрипт статистики WinCache &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="wincache.installation.php.html">
+          &laquo; Установка        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.basic.php.php.html'>Изменение поведения PHP</a></li>      <li><a href='book.wincache.php.html'>WinCache</a></li>      <li><a href='wincache.setup.php.html'>Установка и настройка</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/wincache.configuration.php'>English</option>
+            <option value='de/wincache.configuration.php'>German</option>
+            <option value='es/wincache.configuration.php'>Spanish</option>
+            <option value='fr/wincache.configuration.php'>French</option>
+            <option value='it/wincache.configuration.php'>Italian</option>
+            <option value='ja/wincache.configuration.php'>Japanese</option>
+            <option value='pt_BR/wincache.configuration.php'>Brazilian Portuguese</option>
+            <option value='ru/wincache.configuration.php' selected="selected">Russian</option>
+            <option value='tr/wincache.configuration.php'>Turkish</option>
+            <option value='zh/wincache.configuration.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/wincache/ini.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Fwincache.configuration%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="wincache.configuration" class="section">
+ <h2 class="title">Настройка во время выполнения</h2>
+ <p class="simpara">
+Поведение этих функций зависит от установок в <var class="filename">php.ini</var>.
+</p>
+ <p class="para">
+  В таблице представлен список конфигурационных параметров
+  модуля WinCache:
+ </p>
+ <p class="para">
+  <table class="doctable table">
+   <caption><strong>Конфигурационные параметры WinCache</strong></caption>
+   
+    <thead>
+     <tr>
+      <th>Имя</th>
+      <th>По умолчанию</th>
+      <th>Минимум</th>
+      <th>Максимум</th>
+      <th>Место изменения</th>
+      <th>Список изменений</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+      <td><a href="wincache.configuration.php.html#ini.wincache.fcenabled" class="link">wincache.fcenabled</a></td>
+      <td>&quot;1&quot;</td>
+      <td>&quot;0&quot;</td>
+      <td>&quot;1&quot;</td>
+      <td><strong><code>INI_ALL</code></strong></td>
+      <td>Доступно с WinCache 1.0.0</td>
+     </tr>
+
+     <tr>
+      <td><a href="wincache.configuration.php.html#ini.wincache.fcenabledfilter" class="link">wincache.fcenabledfilter</a></td>
+      <td>&quot;NULL&quot;</td>
+      <td>&quot;NULL&quot;</td>
+      <td>&quot;NULL&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td>Доступно с WinCache 1.0.0</td>
+     </tr>
+
+     <tr>
+      <td><a href="wincache.configuration.php.html#ini.wincache.fcachesize" class="link">wincache.fcachesize</a></td>
+      <td>&quot;24&quot;</td>
+      <td>&quot;5&quot;</td>
+      <td>&quot;255&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td>Доступно с WinCache 1.0.0</td>
+     </tr>
+
+     <tr>
+      <td><a href="wincache.configuration.php.html#ini.wincache.fcndetect" class="link">wincache.fcndetect</a></td>
+      <td>&quot;1&quot;</td>
+      <td>&quot;0&quot;</td>
+      <td>&quot;1&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td>Доступно с WinCache 1.1.0</td>
+     </tr>
+
+     <tr>
+      <td><a href="wincache.configuration.php.html#ini.wincache.maxfilesize" class="link">wincache.maxfilesize</a></td>
+      <td>&quot;256&quot;</td>
+      <td>&quot;10&quot;</td>
+      <td>&quot;2048&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td>Доступно с WinCache 1.0.0</td>
+     </tr>
+
+     <tr>
+      <td><a href="wincache.configuration.php.html#ini.wincache.ocenabled" class="link">wincache.ocenabled</a></td>
+      <td>&quot;1&quot;</td>
+      <td>&quot;0&quot;</td>
+      <td>&quot;1&quot;</td>
+      <td><strong><code>INI_ALL</code></strong></td>
+      <td>Доступно с WinCache 1.0.0. Удалено в 2.0.0.0</td>
+     </tr>
+
+     <tr>
+      <td><a href="wincache.configuration.php.html#ini.wincache.ocenabledfilter" class="link">wincache.ocenabledfilter</a></td>
+      <td>&quot;NULL&quot;</td>
+      <td>&quot;NULL&quot;</td>
+      <td>&quot;NULL&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td>Доступно с WinCache 1.0.0. Удалено в 2.0.0.0</td>
+     </tr>
+
+     <tr>
+      <td><a href="wincache.configuration.php.html#ini.wincache.ocachesize" class="link">wincache.ocachesize</a></td>
+      <td>&quot;96&quot;</td>
+      <td>&quot;15&quot;</td>
+      <td>&quot;255&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td>Доступно с WinCache 1.0.0. Удалено в 2.0.0.0</td>
+     </tr>
+
+     <tr>
+      <td><a href="wincache.configuration.php.html#ini.wincache.filecount" class="link">wincache.filecount</a></td>
+      <td>&quot;4096&quot;</td>
+      <td>&quot;1024&quot;</td>
+      <td>&quot;16384&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td>Доступно с WinCache 1.0.0</td>
+     </tr>
+
+     <tr>
+      <td><a href="wincache.configuration.php.html#ini.wincache.chkinterval" class="link">wincache.chkinterval</a></td>
+      <td>&quot;30&quot;</td>
+      <td>&quot;0&quot;</td>
+      <td>&quot;300&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td>Доступно с WinCache 1.0.0</td>
+     </tr>
+
+     <tr>
+      <td><a href="wincache.configuration.php.html#ini.wincache.ttlmax" class="link">wincache.ttlmax</a></td>
+      <td>&quot;1200&quot;</td>
+      <td>&quot;0&quot;</td>
+      <td>&quot;7200&quot;</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td>Доступно с WinCache 1.0.0</td>
+     </tr>
+
+     <tr>
+      <td><a href="wincache.configuration.php.html#ini.wincache.enablecli" class="link">wincache.enablecli</a></td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td>Доступно с WinCache 1.0.0</td>
+     </tr>
+
+     <tr>
+      <td><a href="wincache.configuration.php.html#ini.wincache.ignorelist" class="link">wincache.ignorelist</a></td>
+      <td>NULL</td>
+      <td>NULL</td>
+      <td>NULL</td>
+      <td><strong><code>INI_ALL</code></strong></td>
+      <td>Доступно с WinCache 1.0.0</td>
+     </tr>
+
+     <tr>
+      <td><a href="wincache.configuration.php.html#ini.wincache.namesalt" class="link">wincache.namesalt</a></td>
+      <td>NULL</td>
+      <td>NULL</td>
+      <td>NULL</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td>Доступно с WinCache 1.0.0</td>
+     </tr>
+
+     <tr>
+      <td><a href="wincache.configuration.php.html#ini.wincache.ucenabled" class="link">wincache.ucenabled</a></td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td>Доступно с WinCache 1.1.0</td>
+     </tr>
+
+     <tr>
+      <td><a href="wincache.configuration.php.html#ini.wincache.ucachesize" class="link">wincache.ucachesize</a></td>
+      <td>8</td>
+      <td>5</td>
+      <td>85</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td>Доступно с WinCache 1.1.0</td>
+     </tr>
+
+     <tr>
+      <td><a href="wincache.configuration.php.html#ini.wincache.scachesize" class="link">wincache.scachesize</a></td>
+      <td>8</td>
+      <td>5</td>
+      <td>85</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td>Доступно с WinCache 1.1.0</td>
+     </tr>
+
+     <tr>
+      <td><a href="wincache.configuration.php.html#ini.wincache.rerouteini" class="link">wincache.rerouteini</a></td>
+      <td>NULL</td>
+      <td>NULL</td>
+      <td>NULL</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td>Доступно с WinCache 1.2.0. Удалено в 1.3.7</td>
+     </tr>
+
+     <tr>
+      <td><a href="wincache.configuration.php.html#ini.wincache.reroute_enabled" class="link">wincache.reroute_enabled</a></td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td><strong><code>INI_SYSTEM</code></strong>|<strong><code>INI_PERDIR</code></strong></td>
+      <td>Доступно с WinCache 1.3.7</td>
+     </tr>
+
+     <tr>
+      <td><a href="wincache.configuration.php.html#ini.wincache.srwlocks" class="link">wincache.srwlocks</a></td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td>Доступно с WinCache 1.3.6.3. Удалено в 2.0.0.0</td>
+     </tr>
+
+     <tr>
+      <td><a href="wincache.configuration.php.html#ini.wincache.filemapdir" class="link">wincache.filemapdir</a></td>
+      <td>NULL</td>
+      <td>NULL</td>
+      <td>NULL</td>
+      <td><strong><code>INI_SYSTEM</code></strong></td>
+      <td>Доступно с WinCache 1.3.7.4</td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
+  Дополнительная информация и описания режимов
+INI_* даны в разделе «<a href="configuration.changes.modes.php.html" class="xref">Места установки параметров конфигурации</a>».
+ </p>
+
+ <p class="para">Краткое разъяснение конфигурационных
+директив.</p>
+
+ <p class="para">
+  <dl>
+   
+    <dt id="ini.wincache.fcenabled">
+     <code class="parameter">wincache.fcenabled</code>
+     <span class="type">bool</span>
+    </dt>
+
+    <dd>
+
+     <span class="simpara">Включает/отключает файловое кеширование.</span>
+    </dd>
+
+   
+   
+    <dt id="ini.wincache.fcenabledfilter">
+     <code class="parameter">wincache.fcenabledfilter</code>
+     <span class="type">string</span>
+    </dt>
+
+    <dd>
+
+     <span class="simpara">
+      Определяет список идентификаторов IIS веб-серверов, разделённых запятой,
+      для которых должно быть разрешено/запрещено файловое кеширование.
+      Эта настройка работает в паре с <code class="literal">wincache.fcenabled</code>: если
+      <code class="literal">wincache.fcenabled</code> установлено в 1, то для серверов,
+      перечисленных в <code class="literal">wincache.fcenabledfilter</code> файловое кеширование
+      будет отключено; если <code class="literal">wincache.fcenabled</code> установлено как 0, то
+      для серверов, перечисленных в <code class="literal">wincache.fcenabledfilter</code>
+      файловое кеширование будет включено.
+     </span>
+    </dd>
+
+   
+   
+    <dt id="ini.wincache.fcachesize">
+     <code class="parameter">wincache.fcachesize</code>
+     <span class="type">int</span>
+    </dt>
+
+    <dd>
+
+     <span class="simpara">
+      Определяет максимальный размер памяти (в мегабайтах) для файлового кеша.
+      Когда размер всех закешированных файлов превысит это значение, из кеша
+      будут удалены самые устаревшие файлы.
+     </span>
+    </dd>
+
+   
+   
+    <dt id="ini.wincache.fcndetect">
+     <code class="parameter">wincache.fcndetect</code>
+     <span class="type">bool</span>
+    </dt>
+
+    <dd>
+
+     <span class="simpara">
+      Включает/отключает функциональность оповещения об изменении файла. Если функционал
+      оповещения об изменениях файла поддерживается, то он может быть использован для
+      обновления кеша опкодов и файлового кеша при получении соответствующих
+      оповещений. Если подобный механизм не поддерживается, например, при использовании
+      сетевых папок, wincache будет самостоятельно проверять файлы на предмет
+      изменения через заданные в настройке <code class="literal">wincache.chkinterval</code>
+      интервалы времени.
+     </span>
+    </dd>
+
+   
+   
+    <dt id="ini.wincache.maxfilesize">
+     <code class="parameter">wincache.maxfilesize</code>
+     <span class="type">int</span>
+    </dt>
+
+    <dd>
+
+     <span class="simpara">
+      Определяет максимальный размер одного файла (в килобайтах) для
+      файлового кеша. Если размер файла превышает заданное значение, то он
+      не будет закеширован. Данная настройка применяется только к файловому кешу.
+     </span>
+    </dd>
+
+   
+   
+    <dt id="ini.wincache.ocenabled">
+     <code class="parameter">wincache.ocenabled</code>
+     <span class="type">bool</span>
+    </dt>
+
+    <dd>
+
+     <div class="warning"><strong class="warning">Внимание</strong><p class="simpara">Эта опция была <em>УДАЛЕНА</em> в версии 2.0.0.0</p></div>
+     <span class="simpara">Включает/отключает кеширование опкодов</span>
+    </dd>
+
+   
+   
+    <dt id="ini.wincache.ocenabledfilter">
+     <code class="parameter">wincache.ocenabledfilter</code>
+     <span class="type">string</span>
+    </dt>
+
+    <dd>
+
+     <div class="warning"><strong class="warning">Внимание</strong><p class="simpara">Эта опция была <em>УДАЛЕНА</em> в версии 2.0.0.0</p></div>
+     <span class="simpara">
+      Определяет список идентификаторов IIS веб-серверов, разделённых запятой,
+      для которых должно быть разрешено/запрещено кеширование опкодов.
+      Эта настройка работает в паре с <code class="literal">wincache.ocenabled</code>: если
+      <code class="literal">wincache.ocenabled</code> установлено в 1, то для серверов,
+      перечисленных в <code class="literal">wincache.ocenabledfilter</code> файловое кеширование
+      будет отключено; если <code class="literal">wincache.ocenabled</code> установлено как 0, то
+      для серверов, перечисленных в <code class="literal">wincache.ocenabledfilter</code>
+      файловое кеширование будет разрешено.
+     </span>
+    </dd>
+
+   
+   
+    <dt id="ini.wincache.ocachesize">
+     <code class="parameter">wincache.ocachesize</code>
+     <span class="type">int</span>
+    </dt>
+
+    <dd>
+
+     <div class="warning"><strong class="warning">Внимание</strong><p class="simpara">Эта опция была <em>УДАЛЕНА</em> в версии 2.0.0.0</p></div>
+     <span class="simpara">
+      Определяет максимальный размер памяти (в мегабайтах) для кеша опкодов.
+      Когда размер всех закешированных опкодов превысит это значение, из кеша
+      будут удалены самые устаревшие из них. Обратите внимание, что
+      кеш опкодов должен быть как минимум в 3 раза больше файлового кеша.
+      Если это не так, то размер кеша опкодов будет автоматически увеличен.
+     </span>
+    </dd>
+
+   
+   
+    <dt id="ini.wincache.filecount">
+     <code class="parameter">wincache.filecount</code>
+     <span class="type">int</span>
+    </dt>
+
+    <dd>
+
+     <span class="simpara">
+      Определяет, сколько примерно файлов будет закешировано модулем, чтобы
+      при старте был выделен соответствующий кусок памяти. Если количество файлов
+      превысит заданное значение, то WinCache произведёт переаллокацию памяти.
+     </span>
+    </dd>
+
+   
+   
+    <dt id="ini.wincache.chkinterval">
+     <code class="parameter">wincache.chkinterval</code>
+     <span class="type">int</span>
+    </dt>
+
+    <dd>
+
+     <span class="simpara">
+      Определяет насколько часто (в секундах) модуль будет проверять файлы
+      на предмет их изменения для обновления кешей. Значение 0 отключает данный
+      функционал. Изменения файлов не будут отражены в кеше до тех пор, пока
+      закешированная запись не будет удалена из кеша сборщиком устаревших
+      записей, либо пока не будет переработан пул приложений IIS, либо
+      не будет вызвана функция wincache_refresh_if_changed.
+     </span>
+    </dd>
+
+   
+   
+    <dt id="ini.wincache.ttlmax">
+     <code class="parameter">wincache.ttlmax</code>
+     <span class="type">int</span>
+    </dt>
+
+    <dd>
+
+     <span class="simpara">
+      Определяет максимальное время (в секундах) невостребованности для записи в кеше.
+      Установка в 0 отключает процесс удаления устаревших записей, что приведёт к
+      тому, что запись будет лежать в кеше пока сервер IIS не будет остановлен.
+     </span>
+    </dd>
+
+   
+   
+    <dt id="ini.wincache.enablecli">
+     <code class="parameter">wincache.enablecli</code>
+     <span class="type">bool</span>
+    </dt>
+
+    <dd>
+
+     <span class="simpara">
+      Определяет, разрешено ли кеширование при работе PHP из командной строки (CLI).
+     </span>
+    </dd>
+
+   
+   
+    <dt id="ini.wincache.ignorelist">
+     <code class="parameter">wincache.ignorelist</code>
+     <span class="type">string</span>
+    </dt>
+
+    <dd>
+
+     <p class="para">
+      Определяет список файлов, которые не нужно кешировать.
+      Указываются только имена файлов. Символ разделитель - вертикальная черта &quot;|&quot;.
+      <div class="example" id="example-1954">
+       <p><strong>Пример #1 Пример использования <code class="literal">wincache.ignorelist</code></strong></p>
+       <div class="example-contents">
+<div class="inicode"><pre class="inicode">wincache.ignorelist = &quot;index.php|misc.php|admin.php&quot;</pre>
+</div>
+       </div>
+
+      </div>
+     </p>
+    </dd>
+
+   
+   
+    <dt id="ini.wincache.namesalt">
+     <code class="parameter">wincache.namesalt</code>
+     <span class="type">string</span>
+    </dt>
+
+    <dd>
+
+     <span class="simpara">
+      Определяет строку, которая будет использоваться при именовании
+      объектов, помещаемых в разделяемую память. Это необходимо для
+      предотвращения коллизий, когда несколько процессов работают
+      с разделяемой памятью. Длина данной строки не должна
+      превышать 8 символов.
+     </span>
+    </dd>
+
+   
+   
+    <dt id="ini.wincache.ucenabled">
+     <code class="parameter">wincache.ucenabled</code>
+     <span class="type">bool</span>
+    </dt>
+
+    <dd>
+
+     <span class="simpara">
+      Включает/отключает пользовательский кеш.
+     </span>
+    </dd>
+
+   
+   
+    <dt id="ini.wincache.ucachesize">
+     <code class="parameter">wincache.ucachesize</code>
+     <span class="type">int</span>
+    </dt>
+
+    <dd>
+
+     <span class="simpara">
+      Определяет максимальный размер памяти (в мегабайтах) для пользовательского кеша.
+      Когда размер всех закешированных переменных превысит это значение, из кеша
+      будут удалены самые устаревшие переменные.
+     </span>
+    </dd>
+
+   
+   
+    <dt id="ini.wincache.scachesize">
+     <code class="parameter">wincache.scachesize</code>
+     <span class="type">int</span>
+    </dt>
+
+    <dd>
+
+     <span class="simpara">
+      Определяет максимальный размер памяти (в мегабайтах) для сессионного кеша.
+      Когда размер всех закешированных данных превысит это значение, из кеша
+      будут удалены самые устаревшие данные.
+     </span>
+    </dd>
+
+   
+   
+    <dt id="ini.wincache.rerouteini">
+     <code class="parameter">wincache.rerouteini</code>
+     <span class="type">string</span>
+    </dt>
+
+    <dd>
+
+     <div class="warning"><strong class="warning">Внимание</strong><p class="simpara">
+      Эта опция была <em>УДАЛЕНА</em> в версии 1.3.7.
+      Начиная с 1.3.7. вместо неё используйте <code class="literal">wincache.reroute_enabled</code>.
+      </p></div>
+     <span class="simpara">
+      Задаёт абсолютный или относительный путь к reroute.ini, который содержит список
+      функций PHP, чья реализация должна быть подменена реализацией из модуля
+      WinCache. Если задан относительный путь, то он будет разрешаться относительно
+      местоположения файла php-cgi.exe.
+     </span>
+    </dd>
+
+   
+   
+    <dt id="ini.wincache.reroute_enabled">
+     <code class="parameter">wincache.reroute_enabled</code>
+     <span class="type">bool</span>
+    </dt>
+
+    <dd>
+
+     <span class="simpara">
+      Включает/отключает перенаправление некоторых функций файлового ввода/вывода
+      для работы через файловый кеш.
+     </span>
+    </dd>
+
+   
+   
+    <dt id="ini.wincache.srwlocks">
+     <code class="parameter">wincache.srwlocks</code>
+     <span class="type">bool</span>
+    </dt>
+
+    <dd>
+
+     <div class="warning"><strong class="warning">Внимание</strong><p class="simpara">Эта опция была <em>УДАЛЕНА</em> в версии 2.0.0.0</p></div>
+     <span class="simpara">
+      Включает/отключает использование разделяемых блокировок чтения/записи.
+      Выключение полезно при отладке ситуаций взаимных блокировок в WinCache.
+     </span>
+    </dd>
+
+   
+   
+    <dt id="ini.wincache.filemapdir">
+     <code class="parameter">wincache.filemapdir</code>
+     <span class="type">string</span>
+    </dt>
+
+    <dd>
+
+     <span class="simpara">
+      Задаёт абсолютный путь к директории, где WinCache будет держать временные файлы
+      для сегментов разделяемой памяти.
+     </span>
+     <span class="simpara">
+      Эта директория должна располагаться на локальной машине и ни в коем случае не
+      на сетевой файловой системе.
+     </span>
+     <span class="simpara">
+      Если директория не указана, то WinCache будет использовать Windows System Page File.
+     </span>
+    </dd>
+
+   
+  </dl>
+
+ </p>
+</div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=wincache.configuration&amp;redirect=https://www.php.net/manual/ru/wincache.configuration.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">2 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="116641">  <div class="votes">
+    <div id="Vu116641">
+    <a href="https://www.php.net/manual/vote-note.php?id=116641&amp;page=wincache.configuration&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd116641">
+    <a href="https://www.php.net/manual/vote-note.php?id=116641&amp;page=wincache.configuration&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V116641" title="57% like this...">
+    1
+    </div>
+  </div>
+  <a href="wincache.configuration.php.html#116641" class="name">
+  <strong class="user"><em>ericsten at php dot net</em></strong></a><a class="genanchor" href="wincache.configuration.php.html#116641"> &para;</a><div class="date" title="2015-02-02 11:33"><strong>9 years ago</strong></div>
+  <div class="text" id="Hcom116641">
+<div class="phpcode"><code><span class="html">[Editor's note: fixed typo]<br /><br />Just a quick note about something I've discovered through debugging a recent WinCache issue:<br /><br />If you change the wincache.scachesize value, you MUST shutdown all php-cgi.exe instances and manually delete the wincache_session_*.tmp file. <br /><br />The wincache_session_*.tmp file will in the directory specified by session.save_path in the php.ini file.<br /><br />An example session file name would look like: wincache_session_1_565779.tmp<br /><br />If you don't delete this file, you will run into corruption in cross-process shared memory segments for the WinCache session handler.  These will show up as 500 errors from your IIS server.<br /><br />Thx!<br /><br />    --E.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="124675">  <div class="votes">
+    <div id="Vu124675">
+    <a href="https://www.php.net/manual/vote-note.php?id=124675&amp;page=wincache.configuration&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd124675">
+    <a href="https://www.php.net/manual/vote-note.php?id=124675&amp;page=wincache.configuration&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V124675" title="no votes...">
+    0
+    </div>
+  </div>
+  <a href="wincache.configuration.php.html#124675" class="name">
+  <strong class="user"><em>software journalist</em></strong></a><a class="genanchor" href="wincache.configuration.php.html#124675"> &para;</a><div class="date" title="2020-02-03 05:17"><strong>4 years ago</strong></div>
+  <div class="text" id="Hcom124675">
+<div class="phpcode"><code><span class="html">wincache.php showed in Session Cache Overview that the Available Memory was returning NAN B.  <br /><br />A Google search returned nothing specific to this.  <br /><br />Stopping the App Pool and Deleting the *session*.tmp file in the windows temp directory solved this issue. (Thanks to previous noter)</span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=wincache.configuration&amp;redirect=https://www.php.net/manual/ru/wincache.configuration.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="wincache.setup.php.html">Установка и настройка</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="wincache.requirements.php.html" title="Требования">Требования</a>
+                        </li>
+                                                <li class="">
+                            <a href="wincache.installation.php.html" title="Установка">Установка</a>
+                        </li>
+                                                <li class="current">
+                            <a href="wincache.configuration.php.html" title="Настройка во время выполнения">Настройка во время выполнения</a>
+                        </li>
+                                                <li class="">
+                            <a href="wincache.stats.php.html" title="Скрипт статистики WinCache">Скрипт статистики WinCache</a>
+                        </li>
+                                                <li class="">
+                            <a href="wincache.sessionhandler.php.html" title="Обработчик сессий WinCache">Обработчик сессий WinCache</a>
+                        </li>
+                                                <li class="">
+                            <a href="wincache.reroutes.php.html" title="Перенаправление функций WinCache">Перенаправление функций WinCache</a>
+                        </li>
+                                                <li class="">
+                            <a href="wincache.resources.php.html" title="Типы ресурсов">Типы ресурсов</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

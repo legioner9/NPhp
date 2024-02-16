@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: Работа с соединениями - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="features.connection-handling.php.html">
+ <link rel="shorturl" href="https://www.php.net/connection-handling">
+ <link rel="alternate" href="https://www.php.net/connection-handling" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="features.php.html">
+ <link rel="prev" href="features.remote-files.php.html">
+ <link rel="next" href="features.persistent-connections.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/features.connection-handling.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/features.connection-handling.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/features.connection-handling.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/features.connection-handling.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/features.connection-handling.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/features.connection-handling.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/features.connection-handling.php" hreflang="pt_BR">
+ <link rel="alternate" href="features.connection-handling.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/features.connection-handling.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/features.connection-handling.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="features.persistent-connections.php.html">
+          Постоянные соединения с базами данных &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="features.remote-files.php.html">
+          &laquo; Работа с удалёнными файлами        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='features.php.html'>Особенности</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/features.connection-handling.php'>English</option>
+            <option value='de/features.connection-handling.php'>German</option>
+            <option value='es/features.connection-handling.php'>Spanish</option>
+            <option value='fr/features.connection-handling.php'>French</option>
+            <option value='it/features.connection-handling.php'>Italian</option>
+            <option value='ja/features.connection-handling.php'>Japanese</option>
+            <option value='pt_BR/features.connection-handling.php'>Brazilian Portuguese</option>
+            <option value='ru/features.connection-handling.php' selected="selected">Russian</option>
+            <option value='tr/features.connection-handling.php'>Turkish</option>
+            <option value='zh/features.connection-handling.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/features/connection-handling.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Ffeatures.connection-handling%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="features.connection-handling" class="chapter">
+ <h1>Работа с соединениями</h1>
+
+
+ <p class="para">
+  Статус соединения сохраняется внутренними механизмами PHP.
+  Ниже перечислены четыре возможные состояния:
+  <ul class="itemizedlist">
+   <li class="listitem"><span class="simpara">0 - NORMAL</span></li>
+   <li class="listitem"><span class="simpara">1 - ABORTED</span></li>
+   <li class="listitem"><span class="simpara">2 - TIMEOUT</span></li>
+   <li class="listitem"><span class="simpara">3 - ABORTED и TIMEOUT</span></li>
+  </ul>
+ </p>
+
+ <p class="simpara">
+  Во время штатного выполнения PHP-скрипта установлен статус NORMAL.
+  В случае, если удалённый клиент разорвал соединение, статус изменяется
+  на ABORTED. Чаще всего отсоединение удалённого клиента происходит при
+  нажатии кнопки &quot;Stop&quot; в браузере. В случае, если достигается
+  установленный временной лимит (ознакомьтесь с функцией
+  <span class="function"><a href="function.set-time-limit.php.html" class="function">set_time_limit()</a></span>), будет установлен статус TIMEOUT.
+ </p>
+
+ <p class="simpara">
+  Вы можете решать, приводит ли отключение клиента к завершению вашего
+  скрипта. Иногда бывает необходимо, чтобы скрипт выполнился до конца,  даже
+  если отсутствует удалённый браузер, которому адресован весь вывод.
+  По умолчанию скрипт завершает свою работу при отключении клиента. Это
+  поведение может быть изменено при помощи опции ignore_user_abort
+  в конфигурационном файле <var class="filename">php.ini</var>. Такого же результата
+  можно добиться, указав <code class="literal">php_value ignore_user_abort</code> в конфигурационном
+  файле Apache <var class="filename">httpd.conf</var> или воспользовавшись функцией
+  <span class="function"><a href="function.ignore-user-abort.php.html" class="function">ignore_user_abort()</a></span>.
+  Если вы явно не указали на необходимость игнорировать разрыв соединения
+  с клиентом, выполнение скрипта будет прервано. Исключением является
+  тот случай, если используя <span class="function"><a href="function.register-shutdown-function.php.html" class="function">register_shutdown_function()</a></span>,
+  вы указали специальную функцию, вызываемую при завершении скрипта.
+  В таком случае после того, как пользователь нажал кнопку &quot;Stop&quot; в своём
+  браузере, при первой же попытке что-либо вывести PHP обнаруживает, что
+  соединение с клиентом было утеряно, и вызывает завершающую функцию.
+  Эта функция также вызывается при нормальном завершении работы вашего
+  скрипта, поэтому для того, чтобы выполнить некоторые специфические
+  действия при отсоединении клиента, вам понадобится функция
+  <span class="function"><a href="function.connection-aborted.php.html" class="function">connection_aborted()</a></span>, которая возвращает
+  <strong><code>true</code></strong>, если соединение было разорвано.
+ </p>
+
+ <p class="simpara">
+  Выполнение вашего скрипта также может быть прервано встроенным таймером.
+  Стандартное ограничение по времени составляет 30 секунд, изменить его
+  можно при помощи директивы <strong class="option unknown">max_execution_time</strong> в конфигурационном
+  файле <var class="filename">php.ini</var>. Такого же результата можно достичь,
+  добавив <code class="literal">php_value max_execution_time</code> в конфигурационный файл Apache
+  <var class="filename">httpd.conf</var> или воспользовавшись функцией <span class="function"><a href="function.set-time-limit.php.html" class="function">set_time_limit()</a></span>.
+  При достижении скриптом временного лимита выполнение скрипта прерывается
+  и вызывается завершающая функция, если она была указана. Уточнить
+  причину завершения скрипта вы можете при помощи функции
+  <span class="function"><a href="function.connection-status.php.html" class="function">connection_status()</a></span>, которая возвращает
+  2, если скрипт был прерван по достижению временного ограничения.
+ </p>
+
+ <p class="simpara">
+  Единственное, что следует заметить - что оба статуса: ABORTED и TIMEOUT, -
+  могут быть установлены одновременно. Это может произойти в том случае,
+  если вы явно указали необходимость игнорировать отсоединение удалённого
+  клиента. В таком случае после разрыва соединения, отметив этот факт,
+  PHP продолжит выполнение скрипта, и при достижении временного лимита будет
+  вызвана завершающая функция, если таковая была указана. В этой точке
+  вы можете обнаружить, что <span class="function"><a href="function.connection-status.php.html" class="function">connection_status()</a></span>
+  вернёт значение 3.
+ </p>
+</div>
+<section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=features.connection-handling&amp;redirect=https://www.php.net/manual/ru/features.connection-handling.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">12 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="93441">  <div class="votes">
+    <div id="Vu93441">
+    <a href="https://www.php.net/manual/vote-note.php?id=93441&amp;page=features.connection-handling&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd93441">
+    <a href="https://www.php.net/manual/vote-note.php?id=93441&amp;page=features.connection-handling&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V93441" title="65% like this...">
+    50
+    </div>
+  </div>
+  <a href="features.connection-handling.php.html#93441" class="name">
+  <strong class="user"><em>tom lgold2003 at gmail dot com</em></strong></a><a class="genanchor" href="features.connection-handling.php.html#93441"> &para;</a><div class="date" title="2009-09-09 11:43"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom93441">
+<div class="phpcode"><code><span class="html">hey, thanks to arr1, and it is very useful for me, when I need to return to the user fast and then do something else.<br /><br />When using the codes, it nearly drive me mad and I found another thing that may affect the codes:<br /><br />Content-Encoding: gzip<br /><br />This is because the zlib is on and the content will be compressed. But this will not output the buffer until all output is over.<br /><br />So, it may need to send the header to prevent this problem.<br /><br />now, the code becomes:<br /><br /><span class="default">&lt;?php<br />ob_end_clean</span><span class="keyword">();<br /></span><span class="default">header</span><span class="keyword">(</span><span class="string">"Connection: close\r\n"</span><span class="keyword">);<br /></span><span class="default">header</span><span class="keyword">(</span><span class="string">"Content-Encoding: none\r\n"</span><span class="keyword">);<br /></span><span class="default">ignore_user_abort</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">); </span><span class="comment">// optional<br /></span><span class="default">ob_start</span><span class="keyword">();<br />echo (</span><span class="string">'Text user will see'</span><span class="keyword">);<br /></span><span class="default">$size </span><span class="keyword">= </span><span class="default">ob_get_length</span><span class="keyword">();<br /></span><span class="default">header</span><span class="keyword">(</span><span class="string">"Content-Length: </span><span class="default">$size</span><span class="string">"</span><span class="keyword">);<br /></span><span class="default">ob_end_flush</span><span class="keyword">();     </span><span class="comment">// Strange behaviour, will not work<br /></span><span class="default">flush</span><span class="keyword">();            </span><span class="comment">// Unless both are called !<br /></span><span class="default">ob_end_clean</span><span class="keyword">();<br /><br /></span><span class="comment">//do processing here<br /></span><span class="default">sleep</span><span class="keyword">(</span><span class="default">5</span><span class="keyword">);<br /><br />echo(</span><span class="string">'Text user will never see'</span><span class="keyword">);<br /></span><span class="comment">//do some processing<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="71172">  <div class="votes">
+    <div id="Vu71172">
+    <a href="https://www.php.net/manual/vote-note.php?id=71172&amp;page=features.connection-handling&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd71172">
+    <a href="https://www.php.net/manual/vote-note.php?id=71172&amp;page=features.connection-handling&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V71172" title="66% like this...">
+    35
+    </div>
+  </div>
+  <a href="features.connection-handling.php.html#71172" class="name">
+  <strong class="user"><em>arr1 at hotmail dot co dot uk</em></strong></a><a class="genanchor" href="features.connection-handling.php.html#71172"> &para;</a><div class="date" title="2006-11-14 11:51"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom71172">
+<div class="phpcode"><code><span class="html">Closing the users browser connection whilst keeping your php script running has been an issue since 4.1, when the behaviour of register_shutdown_function() was modified so that it would not automatically close the users connection.<br /><br />sts at mail dot xubion dot hu<br />Posted the original solution:<br /><br /><span class="default">&lt;?php<br />header</span><span class="keyword">(</span><span class="string">"Connection: close"</span><span class="keyword">);<br /></span><span class="default">ob_start</span><span class="keyword">();<br /></span><span class="default">phpinfo</span><span class="keyword">();<br /></span><span class="default">$size</span><span class="keyword">=</span><span class="default">ob_get_length</span><span class="keyword">();<br /></span><span class="default">header</span><span class="keyword">(</span><span class="string">"Content-Length: </span><span class="default">$size</span><span class="string">"</span><span class="keyword">);<br /></span><span class="default">ob_end_flush</span><span class="keyword">();<br /></span><span class="default">flush</span><span class="keyword">();<br /></span><span class="default">sleep</span><span class="keyword">(</span><span class="default">13</span><span class="keyword">);<br /></span><span class="default">error_log</span><span class="keyword">(</span><span class="string">"do something in the background"</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />Which works fine until you substitute phpinfo() for <br />echo ('text I want user to see'); in which case the headers are never sent!<br /><br />The solution is to explicitly turn off output buffering and clear the buffer prior to sending your header information.<br /><br />example:<br /><br /><span class="default">&lt;?php<br /> ob_end_clean</span><span class="keyword">();<br /> </span><span class="default">header</span><span class="keyword">(</span><span class="string">"Connection: close"</span><span class="keyword">);<br /> </span><span class="default">ignore_user_abort</span><span class="keyword">(); </span><span class="comment">// optional<br /> </span><span class="default">ob_start</span><span class="keyword">();<br /> echo (</span><span class="string">'Text the user will see'</span><span class="keyword">);<br /> </span><span class="default">$size </span><span class="keyword">= </span><span class="default">ob_get_length</span><span class="keyword">();<br /> </span><span class="default">header</span><span class="keyword">(</span><span class="string">"Content-Length: </span><span class="default">$size</span><span class="string">"</span><span class="keyword">);<br /> </span><span class="default">ob_end_flush</span><span class="keyword">(); </span><span class="comment">// Strange behaviour, will not work<br /> </span><span class="default">flush</span><span class="keyword">();            </span><span class="comment">// Unless both are called !<br /> // Do processing here <br /> </span><span class="default">sleep</span><span class="keyword">(</span><span class="default">30</span><span class="keyword">);<br /> echo(</span><span class="string">'Text user will never see'</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span> <br />Just spent 3 hours trying to figure this one out, hope it helps someone :)<br /><br />Tested in:<br />IE 7.5730.11<br />Mozilla Firefox 1.81</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="45779">  <div class="votes">
+    <div id="Vu45779">
+    <a href="https://www.php.net/manual/vote-note.php?id=45779&amp;page=features.connection-handling&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd45779">
+    <a href="https://www.php.net/manual/vote-note.php?id=45779&amp;page=features.connection-handling&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V45779" title="68% like this...">
+    20
+    </div>
+  </div>
+  <a href="features.connection-handling.php.html#45779" class="name">
+  <strong class="user"><em>Lee</em></strong></a><a class="genanchor" href="features.connection-handling.php.html#45779"> &para;</a><div class="date" title="2004-09-18 03:16"><strong>19 years ago</strong></div>
+  <div class="text" id="Hcom45779">
+<div class="phpcode"><code><span class="html">The point mentioned in the last comment isn't always the case.<br /><br />If a user's connection is lost half way through an order processing script is confirming a user's credit card/adding them to a DB, etc (due to their ISP going down, network trouble... whatever) and your script tries to send back output (such as, "pre-processing order" or any other type of confirmation), then your script will abort -- and this could cause problems for your process.<br /><br />I have an order script that adds data to a InnoDB database (through MySQL) and only commits the transactions upon successful completion. Without ignore_user_abort(), I have had times when a user's connection dropped during the processing phase... and their card was charged, but they weren't added to my local DB.<br /><br />So, it's always safe to ignore any aborts if you are processing sensitive transactions that should go ahead, whether your user is "watching" on the other end or not.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="95087">  <div class="votes">
+    <div id="Vu95087">
+    <a href="https://www.php.net/manual/vote-note.php?id=95087&amp;page=features.connection-handling&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd95087">
+    <a href="https://www.php.net/manual/vote-note.php?id=95087&amp;page=features.connection-handling&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V95087" title="66% like this...">
+    21
+    </div>
+  </div>
+  <a href="features.connection-handling.php.html#95087" class="name">
+  <strong class="user"><em>a1n2ton at gmail dot com</em></strong></a><a class="genanchor" href="features.connection-handling.php.html#95087"> &para;</a><div class="date" title="2009-12-12 01:09"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom95087">
+<div class="phpcode"><code><span class="html">PHP changes directory on connection abort so code like this will not do what you want:<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">abort</span><span class="keyword">()<br />{<br />     if(</span><span class="default">connection_aborted</span><span class="keyword">())<br />           </span><span class="default">unlink</span><span class="keyword">(</span><span class="string">'file.ini'</span><span class="keyword">);<br />}<br /></span><span class="default">register_shutdown_function</span><span class="keyword">(</span><span class="string">'abort'</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />actually it will delete file in apaches's root dir so if you want to unlink file in your script's dir on abort or write to it you have to store directory<br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">abort</span><span class="keyword">()<br />{<br />     global </span><span class="default">$dsd</span><span class="keyword">;<br />     if(</span><span class="default">connection_aborted</span><span class="keyword">())<br />           </span><span class="default">unlink</span><span class="keyword">(</span><span class="default">$dsd</span><span class="keyword">.</span><span class="string">'/file.ini'</span><span class="keyword">);<br />}<br /></span><span class="default">register_shutdown_function</span><span class="keyword">(</span><span class="string">'abort'</span><span class="keyword">);<br /></span><span class="default">$dsd</span><span class="keyword">=</span><span class="default">getcwd</span><span class="keyword">();<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="112843">  <div class="votes">
+    <div id="Vu112843">
+    <a href="https://www.php.net/manual/vote-note.php?id=112843&amp;page=features.connection-handling&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd112843">
+    <a href="https://www.php.net/manual/vote-note.php?id=112843&amp;page=features.connection-handling&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V112843" title="64% like this...">
+    24
+    </div>
+  </div>
+  <a href="features.connection-handling.php.html#112843" class="name">
+  <strong class="user"><em>mheumann at comciencia dot cl</em></strong></a><a class="genanchor" href="features.connection-handling.php.html#112843"> &para;</a><div class="date" title="2013-07-29 02:38"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom112843">
+<div class="phpcode"><code><span class="html">I had a lot of problems getting a redirect to work, after which my script was intended to keep working in the background. The redirect to another page of my site simply would only work once the original page had finished processing.<br /><br />I finally found out what was wrong:<br />The session only gets closed by PHP at the very end of the script, and since access to the session data is locked to prevent more than one page writing to it simultaneously, the new page cannot load until the original processing has finished.<br /><br />Solution:<br />Close the session manually when redirecting using session_write_close():<br /><br /><span class="default">&lt;?php<br />ignore_user_abort</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">);<br /></span><span class="default">set_time_limit</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">);<br /><br /></span><span class="default">$strURL </span><span class="keyword">= </span><span class="string">"PUT YOUR REDIRCT HERE"</span><span class="keyword">;<br /></span><span class="default">header</span><span class="keyword">(</span><span class="string">"Location: </span><span class="default">$strURL</span><span class="string">"</span><span class="keyword">, </span><span class="default">true</span><span class="keyword">);<br /></span><span class="default">header</span><span class="keyword">(</span><span class="string">"Connection: close"</span><span class="keyword">, </span><span class="default">true</span><span class="keyword">);<br /></span><span class="default">header</span><span class="keyword">(</span><span class="string">"Content-Encoding: none\r\n"</span><span class="keyword">);<br /></span><span class="default">header</span><span class="keyword">(</span><span class="string">"Content-Length: 0"</span><span class="keyword">, </span><span class="default">true</span><span class="keyword">);<br /><br /></span><span class="default">flush</span><span class="keyword">();<br /></span><span class="default">ob_flush</span><span class="keyword">();<br /><br /></span><span class="default">session_write_close</span><span class="keyword">();<br /><br /></span><span class="comment">// Continue processing...<br /><br /></span><span class="default">sleep</span><span class="keyword">(</span><span class="default">100</span><span class="keyword">);<br />exit;<br /></span><span class="default">?&gt;<br /></span><br />But careful:<br />Make sure that your script doesn't write to the session after session_write_close(), i.e. in your background processing code.  That won't work.  Also avoid reading, remember, the next script may already have modified the data.<br /><br />So try to read out the data you need prior to redirecting.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="120770">  <div class="votes">
+    <div id="Vu120770">
+    <a href="https://www.php.net/manual/vote-note.php?id=120770&amp;page=features.connection-handling&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd120770">
+    <a href="https://www.php.net/manual/vote-note.php?id=120770&amp;page=features.connection-handling&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V120770" title="67% like this...">
+    13
+    </div>
+  </div>
+  <a href="features.connection-handling.php.html#120770" class="name">
+  <strong class="user"><em>Marco</em></strong></a><a class="genanchor" href="features.connection-handling.php.html#120770"> &para;</a><div class="date" title="2017-03-08 05:58"><strong>6 years ago</strong></div>
+  <div class="text" id="Hcom120770">
+<div class="phpcode"><code><span class="html">The CONNECTION_XXX constants that are not listed here for some reason are:<br /><br />0 = CONNECTION_NORMAL<br />1 = CONNECTION_ABORTED<br />2 = CONNECTION_TIMEOUT<br />3 = CONNECTION_ABORTED &amp; CONNECTION_TIMEOUT<br /><br />Number 3 is effectively tested like this:<br />if (CONNECTION_ABORTED &amp; CONNECTION_TIMEOUT)<br />    echo 'Connection both aborted and timed out';</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="34800">  <div class="votes">
+    <div id="Vu34800">
+    <a href="https://www.php.net/manual/vote-note.php?id=34800&amp;page=features.connection-handling&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd34800">
+    <a href="https://www.php.net/manual/vote-note.php?id=34800&amp;page=features.connection-handling&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V34800" title="62% like this...">
+    13
+    </div>
+  </div>
+  <a href="features.connection-handling.php.html#34800" class="name">
+  <strong class="user"><em>pulstar at mail dot com</em></strong></a><a class="genanchor" href="features.connection-handling.php.html#34800"> &para;</a><div class="date" title="2003-08-06 11:32"><strong>20 years ago</strong></div>
+  <div class="text" id="Hcom34800">
+<div class="phpcode"><code><span class="html">These functions are very useful for example if you need to control when a visitor in your website place an order and you need to check if he/she didn't clicked the submit button twice or cancelled the submit just after have clicked the submit button. <br />If your visitor click the stop button just after have submitted it, your script may stop in the middle of the process of registering the products and do not finish the list, generating inconsistency in your database.<br />With the ignore_user_abort() function you can make your script finish everything fine and after you can check with register_shutdown_function() and connection_aborted() if the visitor cancelled the submission or lost his/her connection. If he/she did, you can set the order as not confirmed and when the visitor came back, you can present the old order again.<br />To prevent a double click of the submit button, you can disable it with javascript or in your script you can set a flag for that order, which will be recorded into the database. Before accept a new submission, the script will check if the same order was not placed before and reject it. This will work fine, as the script have finished the job before.<br />Note that if you use ob_start("callback_function") in the begin of your script, you can specify a callback function that will act like the shutdown function when our script ends and also will let you to work on the generated page before send it to the visitor.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="110184">  <div class="votes">
+    <div id="Vu110184">
+    <a href="https://www.php.net/manual/vote-note.php?id=110184&amp;page=features.connection-handling&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd110184">
+    <a href="https://www.php.net/manual/vote-note.php?id=110184&amp;page=features.connection-handling&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V110184" title="58% like this...">
+    14
+    </div>
+  </div>
+  <a href="features.connection-handling.php.html#110184" class="name">
+  <strong class="user"><em>Ilya Penyaev</em></strong></a><a class="genanchor" href="features.connection-handling.php.html#110184"> &para;</a><div class="date" title="2012-09-27 06:25"><strong>11 years ago</strong></div>
+  <div class="text" id="Hcom110184">
+<div class="phpcode"><code><span class="html">I was quite stuck when trying to make my script redirect the client to another URL and then continue processing. The reason was php-fpm. All possible buffer flushes did not work, unless I called fastcgi_finish_request();<br /><br />For example:<br /><br /><span class="default">&lt;?php<br />    </span><span class="comment">// redirecting...<br />    </span><span class="default">ignore_user_abort</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">);<br />    </span><span class="default">header</span><span class="keyword">(</span><span class="string">"Location: "</span><span class="keyword">.</span><span class="default">$redirectUrl</span><span class="keyword">, </span><span class="default">true</span><span class="keyword">);<br />    </span><span class="default">header</span><span class="keyword">(</span><span class="string">"Connection: close"</span><span class="keyword">, </span><span class="default">true</span><span class="keyword">);<br />    </span><span class="default">header</span><span class="keyword">(</span><span class="string">"Content-Length: 0"</span><span class="keyword">, </span><span class="default">true</span><span class="keyword">);<br />    </span><span class="default">ob_end_flush</span><span class="keyword">();<br />    </span><span class="default">flush</span><span class="keyword">();<br />    </span><span class="default">fastcgi_finish_request</span><span class="keyword">(); </span><span class="comment">// important when using php-fpm!<br />    <br />    </span><span class="default">sleep </span><span class="keyword">(</span><span class="default">5</span><span class="keyword">); </span><span class="comment">// User won't feel this sleep because he'll already be away<br />    <br />    // do some work after user has been redirected<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="79134">  <div class="votes">
+    <div id="Vu79134">
+    <a href="https://www.php.net/manual/vote-note.php?id=79134&amp;page=features.connection-handling&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd79134">
+    <a href="https://www.php.net/manual/vote-note.php?id=79134&amp;page=features.connection-handling&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V79134" title="59% like this...">
+    14
+    </div>
+  </div>
+  <a href="features.connection-handling.php.html#79134" class="name">
+  <strong class="user"><em>Anonymous</em></strong></a><a class="genanchor" href="features.connection-handling.php.html#79134"> &para;</a><div class="date" title="2007-11-13 02:06"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom79134">
+<div class="phpcode"><code><span class="html">in regards of posting from:<br />arr1 at hotmail dot co dot uk<br /><br />if you use/write sessions you need to do this before:<br />(otherwise it does not work)<br /><br />session_write_close();<br /><br />and if wanted:<br /><br />ignore_user_abort(TRUE);<br />instead of ignore_user_abort();</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="107027">  <div class="votes">
+    <div id="Vu107027">
+    <a href="https://www.php.net/manual/vote-note.php?id=107027&amp;page=features.connection-handling&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd107027">
+    <a href="https://www.php.net/manual/vote-note.php?id=107027&amp;page=features.connection-handling&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V107027" title="58% like this...">
+    11
+    </div>
+  </div>
+  <a href="features.connection-handling.php.html#107027" class="name">
+  <strong class="user"><em>Anonymous</em></strong></a><a class="genanchor" href="features.connection-handling.php.html#107027"> &para;</a><div class="date" title="2011-12-29 05:52"><strong>12 years ago</strong></div>
+  <div class="text" id="Hcom107027">
+<div class="phpcode"><code><span class="html">This simple function outputs a string and closes the connection. It considers compression using "ob_gzhandler"<br /><br />It took me a little while to put this all together, mostly because setting the encoding to none, as some people noted here, didn't work.<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">outputStringAndCloseConnection2</span><span class="keyword">(</span><span class="default">$stringToOutput</span><span class="keyword">)<br />{    <br />    </span><span class="default">set_time_limit</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">);<br />    </span><span class="default">ignore_user_abort</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">);    <br />    </span><span class="comment">// buffer all upcoming output - make sure we care about compression:<br />    </span><span class="keyword">if(!</span><span class="default">ob_start</span><span class="keyword">(</span><span class="string">"ob_gzhandler"</span><span class="keyword">))<br />        </span><span class="default">ob_start</span><span class="keyword">();         <br />    echo </span><span class="default">$stringToOutput</span><span class="keyword">;    <br />    </span><span class="comment">// get the size of the output<br />    </span><span class="default">$size </span><span class="keyword">= </span><span class="default">ob_get_length</span><span class="keyword">();    <br />    </span><span class="comment">// send headers to tell the browser to close the connection    <br />    </span><span class="default">header</span><span class="keyword">(</span><span class="string">"Content-Length: </span><span class="default">$size</span><span class="string">"</span><span class="keyword">);<br />    </span><span class="default">header</span><span class="keyword">(</span><span class="string">'Connection: close'</span><span class="keyword">);    <br />    </span><span class="comment">// flush all output<br />    </span><span class="default">ob_end_flush</span><span class="keyword">();<br />    </span><span class="default">ob_flush</span><span class="keyword">();<br />    </span><span class="default">flush</span><span class="keyword">();    <br />    </span><span class="comment">// close current session<br />    </span><span class="keyword">if (</span><span class="default">session_id</span><span class="keyword">()) </span><span class="default">session_write_close</span><span class="keyword">();<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="82225">  <div class="votes">
+    <div id="Vu82225">
+    <a href="https://www.php.net/manual/vote-note.php?id=82225&amp;page=features.connection-handling&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd82225">
+    <a href="https://www.php.net/manual/vote-note.php?id=82225&amp;page=features.connection-handling&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V82225" title="54% like this...">
+    5
+    </div>
+  </div>
+  <a href="features.connection-handling.php.html#82225" class="name">
+  <strong class="user"><em>Jean Charles MAMMANA</em></strong></a><a class="genanchor" href="features.connection-handling.php.html#82225"> &para;</a><div class="date" title="2008-04-01 01:25"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom82225">
+<div class="phpcode"><code><span class="html">connection_status() return ABORTED state ONLY if the client disconnects gracefully (with STOP button). In this case the browser send the RST TCP packet that notify PHP the connection is closed.<br />But.... If the connection is stopped by networs troubles (wifi link down by exemple) the script doesn't know that the client is disconnected :(<br /><br />I've tried to use fopen("php://output") with stream_select() on writting to detect write locks (due to full buffer) but php give me this error : "cannot represent a stream of type Output as a select()able descriptor"<br /><br />So I don't know how to detect correctly network trouble connection...</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="119170">  <div class="votes">
+    <div id="Vu119170">
+    <a href="https://www.php.net/manual/vote-note.php?id=119170&amp;page=features.connection-handling&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd119170">
+    <a href="https://www.php.net/manual/vote-note.php?id=119170&amp;page=features.connection-handling&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V119170" title="27% like this...">
+    -40
+    </div>
+  </div>
+  <a href="features.connection-handling.php.html#119170" class="name">
+  <strong class="user"><em>robert at go dot rw</em></strong></a><a class="genanchor" href="features.connection-handling.php.html#119170"> &para;</a><div class="date" title="2016-04-14 01:54"><strong>7 years ago</strong></div>
+  <div class="text" id="Hcom119170">
+<div class="phpcode"><code><span class="html">01<br />02<br />03<br />04<br />05<br />06<br />07<br />08<br />09<br />10<br />11<br />12<br />13<br />14<br />15<br />16<br />17<br />18<br />/*<br /> * Anti-Pattern<br /> */<br /> <br /># Connect<br />mysql_connect('localhost', 'username', 'password') or die('Could not connect: ' . mysql_error());<br /> <br /># Choose a database<br />mysql_select_db('someDatabase') or die('Could not select database');<br /> <br /># Perform database query<br />$query = "SELECT * from someTable";<br />$result = mysql_query($query) or die('Query failed: ' . mysql_error());<br /> <br /># Filter through rows and echo desired information<br />while ($row = mysql_fetch_object($result)) {<br />    echo $row-&gt;name;<br />}</span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=features.connection-handling&amp;redirect=https://www.php.net/manual/ru/features.connection-handling.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="features.php.html">Особенности</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="features.http-auth.php.html" title="HTTP-&#8203;аутентификация в PHP">HTTP-&#8203;аутентификация в PHP</a>
+                        </li>
+                                                <li class="">
+                            <a href="features.cookies.php.html" title="Cookies">Cookies</a>
+                        </li>
+                                                <li class="">
+                            <a href="features.sessions.php.html" title="Сессии">Сессии</a>
+                        </li>
+                                                <li class="">
+                            <a href="features.xforms.php.html" title="Работа с XForms">Работа с XForms</a>
+                        </li>
+                                                <li class="">
+                            <a href="features.file-upload.php.html" title="Загрузка файлов на сервер">Загрузка файлов на сервер</a>
+                        </li>
+                                                <li class="">
+                            <a href="features.remote-files.php.html" title="Работа с удалёнными файлами">Работа с удалёнными файлами</a>
+                        </li>
+                                                <li class="current">
+                            <a href="features.connection-handling.php.html" title="Работа с соединениями">Работа с соединениями</a>
+                        </li>
+                                                <li class="">
+                            <a href="features.persistent-connections.php.html" title="Постоянные соединения с базами данных">Постоянные соединения с базами данных</a>
+                        </li>
+                                                <li class="">
+                            <a href="features.commandline.php.html" title="Работа с PHP из командной строки">Работа с PHP из командной строки</a>
+                        </li>
+                                                <li class="">
+                            <a href="features.gc.php.html" title="Сборка мусора">Сборка мусора</a>
+                        </li>
+                                                <li class="">
+                            <a href="features.dtrace.php.html" title="Динамическая трассировка DTrace">Динамическая трассировка DTrace</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

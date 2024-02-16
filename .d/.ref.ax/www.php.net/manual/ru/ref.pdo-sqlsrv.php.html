@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: MS SQL Server (PDO) - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="ref.pdo-sqlsrv.php.html">
+ <link rel="shorturl" href="https://www.php.net/pdo-sqlsrv">
+ <link rel="alternate" href="https://www.php.net/pdo-sqlsrv" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="pdo.drivers.php.html">
+ <link rel="prev" href="ref.pdo-mysql.connection.php.html">
+ <link rel="next" href="ref.pdo-sqlsrv.connection.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/ref.pdo-sqlsrv.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/ref.pdo-sqlsrv.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/ref.pdo-sqlsrv.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/ref.pdo-sqlsrv.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/ref.pdo-sqlsrv.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/ref.pdo-sqlsrv.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/ref.pdo-sqlsrv.php" hreflang="pt_BR">
+ <link rel="alternate" href="ref.pdo-sqlsrv.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/ref.pdo-sqlsrv.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/ref.pdo-sqlsrv.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="ref.pdo-sqlsrv.connection.php.html">
+          PDO_SQLSRV DSN &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="ref.pdo-mysql.connection.php.html">
+          &laquo; PDO_MYSQL DSN        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.database.php.html'>Модули для работы с базами данных</a></li>      <li><a href='refs.database.abstract.php.html'>Уровни абстракции</a></li>      <li><a href='book.pdo.php.html'>PDO</a></li>      <li><a href='pdo.drivers.php.html'>Драйверы PDO</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/ref.pdo-sqlsrv.php'>English</option>
+            <option value='de/ref.pdo-sqlsrv.php'>German</option>
+            <option value='es/ref.pdo-sqlsrv.php'>Spanish</option>
+            <option value='fr/ref.pdo-sqlsrv.php'>French</option>
+            <option value='it/ref.pdo-sqlsrv.php'>Italian</option>
+            <option value='ja/ref.pdo-sqlsrv.php'>Japanese</option>
+            <option value='pt_BR/ref.pdo-sqlsrv.php'>Brazilian Portuguese</option>
+            <option value='ru/ref.pdo-sqlsrv.php' selected="selected">Russian</option>
+            <option value='tr/ref.pdo-sqlsrv.php'>Turkish</option>
+            <option value='zh/ref.pdo-sqlsrv.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/pdo_sqlsrv/reference.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Fref.pdo-sqlsrv%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="ref.pdo-sqlsrv" class="reference">
+ 
+ <h1 class="title">Функции модуля PDO_SQLSRV для Microsoft SQL Server</h1>
+ 
+ <div class="partintro">
+
+  <div class="section" id="pdo-sqlsrv.intro">
+   <h2 class="title">Введение</h2>
+   <p class="para">
+    PDO_SQLSRV — это драйвер, реализующий интерфейс <a href="intro.pdo.php.html" class="link">PHP
+    Data Objects (PDO)</a> для получения доступа из PHP к базам данных MS SQL Server
+    (начиная с версии SQL Server 2005) и SQL Azure.
+   </p>
+  </div>
+  
+
+
+<div class="section" id="ref.pdo-sqlsrv.installation">
+ <h2 class="title">Установка</h2>
+ <p class="para">
+  Последняя версия драйвера доступна для скачивания по ссылке:
+  <a href="http://msdn.microsoft.com/en-us/sqlserver/ff657782.aspx" class="link external">&raquo;&nbsp;Загрузка SQLSRV</a>.
+  Исходный код драйвера размещён в <a href="https://github.com/microsoft/msphpsql" class="link external">&raquo;&nbsp;публичном репозитории</a>.
+ </p>
+ <p class="para">
+  За подробностями о системных требованиях обратитесь к разделу
+  <a href="http://msdn.microsoft.com/en-us/library/cc296170.aspx" class="link external">&raquo;&nbsp;Системные требования SQLSRV</a>.
+ </p>
+ <p class="para">
+  В Windows модуль PDO_SQLSRV включается путём загрузки и добавления необходимых DLL-файлов
+  в каталог модулей PHP и добавления в файл <var class="filename">php.ini</var> записи, которая загрузит модуль.
+ </p>
+ <p class="para">
+  В Linux и macOS модуль PDO_SQLSRV можно установить из библиотеки <a href="https://pecl.php.net/" class="link external">&raquo;&nbsp;PECL</a>.
+  Подробности смотрите в <a href="https://docs.microsoft.com/en-us/sql/connect/php/installation-tutorial-linux-mac" class="link external">&raquo;&nbsp;руководстве по установке</a>.
+ </p>
+</div>
+
+
+  
+
+
+<div class="section" id="pdo-sqlsrv.constants">
+ <h2 class="title">Предопределённые константы</h2>
+ <p class="simpara">Перечисленные ниже константы определены этим драйвером и будут доступны только в случае, если PHP был собран с поддержкой этого модуля, или модуль был динамически загружен во время выполнения. Вдобавок, эти зависимые от драйвера константы должны быть использованы только совместно с этим драйвером. Использование атрибутов, специфичных для некоторого драйвера с другим драйвером может вызвать неожиданное поведение. Если ваш код выполняется с несколькими драйверами, то можно использовать функцию <span class="function"><a href="pdo.getattribute.php.html" class="function">PDO::getAttribute()</a></span> для получения атрибута <strong><code>PDO::ATTR_DRIVER_NAME</code></strong> для проверки драйвера.</p>
+ <dl>
+  
+   <dt id="pdo.constants.sqlsrv-txn-read-uncommitted">
+    <strong><code>PDO::SQLSRV_TXN_READ_UNCOMMITTED</code></strong>
+    (<span class="type">int</span>)
+   </dt>
+
+   <dd>
+
+    <span class="simpara">
+     Данная константа - допустимое значение для ключа TransactionIsolation SQLSRV DSN.
+     Устанавливает уровень изоляции транзакций для соединения в значение Read Uncommitted.
+    </span>
+   </dd>
+
+  
+  
+   <dt id="pdo.constants.sqlsrv-txn-read-committed">
+    <strong><code>PDO::SQLSRV_TXN_READ_COMMITTED</code></strong>
+    (<span class="type">int</span>)
+   </dt>
+
+   <dd>
+
+    <span class="simpara">
+     Данная константа - допустимое значение для ключа TransactionIsolation SQLSRV DSN.
+     Устанавливает уровень изоляции транзакций для соединения в значение Read Committed.
+    </span>
+   </dd>
+
+  
+  
+   <dt id="pdo.constants.sqlsrv-txn-repeatable-read">
+    <strong><code>PDO::SQLSRV_TXN_REPEATABLE_READ</code></strong>
+    (<span class="type">int</span>)
+   </dt>
+
+   <dd>
+
+    <span class="simpara">
+     Данная константа - допустимое значение для ключа TransactionIsolation SQLSRV DSN.
+     Устанавливает уровень изоляции транзакций для соединения в значение Repeateable Read.
+    </span>
+   </dd>
+
+  
+  
+   <dt id="pdo.constants.sqlsrv-txn-snapshot">
+    <strong><code>PDO::SQLSRV_TXN_SNAPSHOT</code></strong>
+    (<span class="type">int</span>)
+   </dt>
+
+   <dd>
+
+    <span class="simpara">
+     Данная константа - допустимое значение для ключа TransactionIsolation SQLSRV DSN.
+     Устанавливает уровень изоляции транзакций для соединения в значение Snapshot.
+    </span>
+   </dd>
+
+  
+  
+   <dt id="pdo.constants.sqlsrv-txn-serializable">
+    <strong><code>PDO::SQLSRV_TXN_SERIALIZABLE</code></strong>
+    (<span class="type">int</span>)
+   </dt>
+
+   <dd>
+
+    <span class="simpara">
+     Данная константа - допустимое значение для ключа TransactionIsolation SQLSRV DSN.
+     Устанавливает уровень изоляции транзакций для соединения в значение Serializable.
+    </span>
+   </dd>
+
+  
+  
+   <dt id="pdo.constants.sqlsrv-encoding-binary">
+    <strong><code>PDO::SQLSRV_ENCODING_BINARY</code></strong>
+    (<span class="type">int</span>)
+   </dt>
+
+   <dd>
+
+    <span class="simpara">
+     Определяет, что данные отправляются/получаются в виде потока байтов к/от сервера
+     без выполнения преобразования кодировки или другого преобразования. Константа может
+     быть передана в функции PDOStatement::setAttribute, PDO::prepare,
+     PDOStatement::bindColumn и PDOStatement::bindParam.
+    </span>
+   </dd>
+
+  
+  
+   <dt id="pdo.constants.sqlsrv-encoding-system">
+    <strong><code>PDO::SQLSRV_ENCODING_SYSTEM</code></strong>
+    (<span class="type">int</span>)
+   </dt>
+
+   <dd>
+
+    <span class="simpara">
+     Определяет, что данные отправляются/получаются к/от сервера в
+     8ми-битной кодировке локали Windows, установленной в системе.
+     Все мультибайтовые символы и символы, не преобразуемые в данную кодировку, заменяются
+     символом вопроса (?). Константа может
+     быть передана в функции PDOStatement::setAttribute, PDO::setAttribute, PDO::prepare,
+     PDOStatement::bindColumn и PDOStatement::bindParam.
+    </span>
+   </dd>
+
+  
+  
+   <dt id="pdo.constants.sqlsrv-encoding-utf8">
+    <strong><code>PDO::SQLSRV_ENCODING_UTF8</code></strong>
+    (<span class="type">int</span>)
+   </dt>
+
+   <dd>
+
+    <span class="simpara">
+     Определяет, что данные отправляются/получаются к/от сервера в кодировке
+     UTF-8. Константа может быть передана в функции
+     PDOStatement::setAttribute, PDO::setAttribute, PDO::prepare,
+     PDOStatement::bindColumn и PDOStatement::bindParam.
+    </span>
+   </dd>
+
+  
+  
+   <dt id="pdo.constants.sqlsrv-encoding-default">
+    <strong><code>PDO::SQLSRV_ENCODING_DEFAULT</code></strong>
+    (<span class="type">int</span>)
+   </dt>
+
+   <dd>
+
+    <span class="simpara">
+     Определяет, что данные отправляются/получаются к/от сервера согласно
+     значению PDO::SQLSRV_ENCODING_SYSTEM, указанному при подключении. Для подключения
+     может использоваться кодировка, указанная при подготовке выражения.
+     Константа может быть передана в функции PDOStatement::setAttribute,
+     PDO::setAttribute, PDO::prepare, PDOStatement::bindColumn и PDOStatement::bindParam.
+    </span>
+   </dd>
+
+  
+  
+   <dt id="pdo.constants.sqlsrv-attr-query-timeout">
+    <strong><code>PDO::SQLSRV_ATTR_QUERY_TIMEOUT</code></strong>
+    (<span class="type">int</span>)
+   </dt>
+
+   <dd>
+
+    <span class="simpara">
+     Неотрицательное целое число, отражающее время ожидания в секундах. Ноль (0) -
+     это значение по умолчанию, означающее, что время ожидания не учитывается.
+     Константа может быть передана в функции
+     PDOStatement::setAttribute, PDO::setAttribute и PDO::prepare.
+    </span>
+   </dd>
+
+  
+  
+   <dt id="pdo.constants.sqlsrv-attr-direct-query">
+    <strong><code>PDO::SQLSRV_ATTR_DIRECT_QUERY</code></strong>
+    (<span class="type">int</span>)
+   </dt>
+
+   <dd>
+
+    <span class="simpara">
+     Показывает, что запрос должен быть немедленно выполнен, без подготовки выражения.
+     Константа может быть передана в функции PDO::setAttribute и PDO::prepare.
+     За подробностями обратитесь к разделу документации
+     <a href="http://msdn.microsoft.com/en-us/library/ff754356.aspx" class="link external">&raquo;&nbsp;Немедленное выполнение выражений и выполнение подготовленных выражений</a>.
+    </span>
+   </dd>
+
+  
+ </dl>
+
+</div>
+
+
+ </div>
+
+ 
+
+<h2>Содержание</h2><ul class="chunklist chunklist_reference"><li><a href="ref.pdo-sqlsrv.connection.php.html">PDO_SQLSRV DSN</a> — Подключение к базам данных MS SQL Server и SQL Azure</li></ul>
+</div>
+<section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=ref.pdo-sqlsrv&amp;redirect=https://www.php.net/manual/ru/ref.pdo-sqlsrv.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">4 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="117123">  <div class="votes">
+    <div id="Vu117123">
+    <a href="https://www.php.net/manual/vote-note.php?id=117123&amp;page=ref.pdo-sqlsrv&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd117123">
+    <a href="https://www.php.net/manual/vote-note.php?id=117123&amp;page=ref.pdo-sqlsrv&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V117123" title="54% like this...">
+    9
+    </div>
+  </div>
+  <a href="ref.pdo-sqlsrv.php.html#117123" class="name">
+  <strong class="user"><em>Peter</em></strong></a><a class="genanchor" href="ref.pdo-sqlsrv.php.html#117123"> &para;</a><div class="date" title="2015-04-17 06:04"><strong>8 years ago</strong></div>
+  <div class="text" id="Hcom117123">
+<div class="phpcode"><code><span class="html">SQLSRV 3.2 is now available from Microsoft that supports PHP 5.6<br /><br /><a href="http://www.microsoft.com/en-us/download/details.aspx?id=20098" rel="nofollow" target="_blank">http://www.microsoft.com/en-us/download/details.aspx?id=20098</a></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="120103">  <div class="votes">
+    <div id="Vu120103">
+    <a href="https://www.php.net/manual/vote-note.php?id=120103&amp;page=ref.pdo-sqlsrv&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd120103">
+    <a href="https://www.php.net/manual/vote-note.php?id=120103&amp;page=ref.pdo-sqlsrv&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V120103" title="54% like this...">
+    6
+    </div>
+  </div>
+  <a href="ref.pdo-sqlsrv.php.html#120103" class="name">
+  <strong class="user"><em>ian at helastel dot com</em></strong></a><a class="genanchor" href="ref.pdo-sqlsrv.php.html#120103"> &para;</a><div class="date" title="2016-10-31 04:52"><strong>7 years ago</strong></div>
+  <div class="text" id="Hcom120103">
+<div class="phpcode"><code><span class="html">An updated driver compatible with both PHP 7.0 and Linux is available on the PHP-7.0-Linux branch of <a href="https://github.com/Microsoft/msphpsql/" rel="nofollow" target="_blank">https://github.com/Microsoft/msphpsql/</a><br /><br />This is more up to date and supports some additional features over the ODBC / DBLIB drivers.<br /><br />It is currently considered an 'Early Technical Preview' and hence has some limitations, but in my experience it has been stable.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="116349">  <div class="votes">
+    <div id="Vu116349">
+    <a href="https://www.php.net/manual/vote-note.php?id=116349&amp;page=ref.pdo-sqlsrv&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd116349">
+    <a href="https://www.php.net/manual/vote-note.php?id=116349&amp;page=ref.pdo-sqlsrv&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V116349" title="49% like this...">
+    -1
+    </div>
+  </div>
+  <a href="ref.pdo-sqlsrv.php.html#116349" class="name">
+  <strong class="user"><em>John P</em></strong></a><a class="genanchor" href="ref.pdo-sqlsrv.php.html#116349"> &para;</a><div class="date" title="2014-12-16 05:29"><strong>9 years ago</strong></div>
+  <div class="text" id="Hcom116349">
+<div class="phpcode"><code><span class="html">As of 12/12/2014, Microsoft has officially released Version 3.1.<br /><br />Support for 5.5 has 4 drivers<br />php_pdo_sqlsrv_55_nts.dll<br />php_pdo_sqlsrv_55_ts.dll<br />php_sqlsrv_55_nts.dll<br />php_sqlsrv_55_ts.dll<br /><br />Note: Version 3.1 now supports PHP 5.5 and requires Microsoft ODBC Driver 11 (or higher) <br /><br />You can downlod the new driver from <br /><a href="http://www.microsoft.com/en-us/download/details.aspx?id=20098" rel="nofollow" target="_blank">http://www.microsoft.com/en-us/download/details.aspx?id=20098</a></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="121652">  <div class="votes">
+    <div id="Vu121652">
+    <a href="https://www.php.net/manual/vote-note.php?id=121652&amp;page=ref.pdo-sqlsrv&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd121652">
+    <a href="https://www.php.net/manual/vote-note.php?id=121652&amp;page=ref.pdo-sqlsrv&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V121652" title="38% like this...">
+    -6
+    </div>
+  </div>
+  <a href="ref.pdo-sqlsrv.php.html#121652" class="name">
+  <strong class="user"><em>fleduc dot perso at gmail dot com</em></strong></a><a class="genanchor" href="ref.pdo-sqlsrv.php.html#121652"> &para;</a><div class="date" title="2017-09-18 01:35"><strong>6 years ago</strong></div>
+  <div class="text" id="Hcom121652">
+<div class="phpcode"><code><span class="html">Watch out!<br /><br />If you use PDO SQLSRV on windows 7, using 32 bit php on XAMMP, you might encounter driver problems : "This extension requires the Microsoft ODBC Driver 11 for SQL Server to communicate with SQL Server"<br /><br />The reason, Microsoft 32-bit ODBC driver doesn't install properly on 64-bit Windows 7.<br /><br />Check the solution to PDO SQLSRV driver problem here in StackOverflow<br /><br /><a href="https://stackoverflow.com/a/46245990/1330248" rel="nofollow" target="_blank">https://stackoverflow.com/a/46245990/1330248</a></span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=ref.pdo-sqlsrv&amp;redirect=https://www.php.net/manual/ru/ref.pdo-sqlsrv.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="pdo.drivers.php.html">Драйверы PDO</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="ref.pdo-cubrid.php.html" title="CUBRID (PDO)">CUBRID (PDO)</a>
+                        </li>
+                                                <li class="">
+                            <a href="ref.pdo-dblib.php.html" title="MS SQL Server (PDO_&#8203;DBLIB)">MS SQL Server (PDO_&#8203;DBLIB)</a>
+                        </li>
+                                                <li class="">
+                            <a href="ref.pdo-firebird.php.html" title="Firebird (PDO)">Firebird (PDO)</a>
+                        </li>
+                                                <li class="">
+                            <a href="ref.pdo-ibm.php.html" title="IBM (PDO)">IBM (PDO)</a>
+                        </li>
+                                                <li class="">
+                            <a href="ref.pdo-informix.php.html" title="Informix (PDO)">Informix (PDO)</a>
+                        </li>
+                                                <li class="">
+                            <a href="ref.pdo-mysql.php.html" title="MySQL (PDO)">MySQL (PDO)</a>
+                        </li>
+                                                <li class="current">
+                            <a href="ref.pdo-sqlsrv.php.html" title="MS SQL Server (PDO)">MS SQL Server (PDO)</a>
+                        </li>
+                                                <li class="">
+                            <a href="ref.pdo-oci.php.html" title="Oracle (PDO)">Oracle (PDO)</a>
+                        </li>
+                                                <li class="">
+                            <a href="ref.pdo-odbc.php.html" title="ODBC и DB2 (PDO)">ODBC и DB2 (PDO)</a>
+                        </li>
+                                                <li class="">
+                            <a href="ref.pdo-pgsql.php.html" title="PostgreSQL (PDO)">PostgreSQL (PDO)</a>
+                        </li>
+                                                <li class="">
+                            <a href="ref.pdo-sqlite.php.html" title="SQLite (PDO)">SQLite (PDO)</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

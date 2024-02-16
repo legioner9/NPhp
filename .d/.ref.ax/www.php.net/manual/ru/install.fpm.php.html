@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: Менеджер процессов FastCGI (FPM) - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="install.fpm.php.html">
+ <link rel="shorturl" href="install.fpm.php.html">
+ <link rel="alternate" href="install.fpm.php.html" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="install.php.html">
+ <link rel="prev" href="install.cloud.digitalocean.php.html">
+ <link rel="next" href="install.fpm.install.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/install.fpm.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/install.fpm.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/install.fpm.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/install.fpm.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/install.fpm.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/install.fpm.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/install.fpm.php" hreflang="pt_BR">
+ <link rel="alternate" href="install.fpm.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/install.fpm.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/install.fpm.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="install.fpm.install.php.html">
+          Установка &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="install.cloud.digitalocean.php.html">
+          &laquo; DigitalOcean        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='install.php.html'>Установка и настройка</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/install.fpm.php'>English</option>
+            <option value='de/install.fpm.php'>German</option>
+            <option value='es/install.fpm.php'>Spanish</option>
+            <option value='fr/install.fpm.php'>French</option>
+            <option value='it/install.fpm.php'>Italian</option>
+            <option value='ja/install.fpm.php'>Japanese</option>
+            <option value='pt_BR/install.fpm.php'>Brazilian Portuguese</option>
+            <option value='ru/install.fpm.php' selected="selected">Russian</option>
+            <option value='tr/install.fpm.php'>Turkish</option>
+            <option value='zh/install.fpm.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/install/fpm/index.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Finstall.fpm%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="install.fpm" class="chapter">
+ <h1>Менеджер процессов FastCGI (FPM)</h1>
+<h2>Содержание</h2><ul class="chunklist chunklist_chapter"><li><a href="install.fpm.install.php.html">Установка</a></li><li><a href="install.fpm.configuration.php.html">Настройка</a></li></ul>
+
+ <p class="para">FPM (FastCGI Process Manager, менеджер процессов FastCGI) является альтернативной реализацией PHP FastCGI
+с несколькими дополнительными возможностями обычно используемыми для высоконагруженных сайтов.
+</p>
+ <p class="para">
+  Эти возможности включают в себя:
+  <ul class="itemizedlist">
+   <li class="listitem">
+    <p class="para">
+     Продвинутое управление процессами с корректной (graceful)
+     процедурой остановки и запуска;
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     Пулы, дающие возможность запуска воркеров с разными uid/gid/chroot/окружением,
+     прослушивая разные порты и используя разные php.ini (замещение safe_mode);
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     Настраиваемое ведение журнала потоков вывода (stdout) и ошибок (stderr);
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     Аварийный перезапуск в случае внезапного разрушения opcode-кеша;
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     Поддержка ускоренной загрузки (accelerated upload);
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     &quot;slowlog&quot; - логирование необычно медленно выполняющихся скриптов
+     (не только их имена, но также и их трассировки. Это достигается с помощью
+     ptrace и других подобных утилит для чтения данных исполнения удалённых процессов);
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     <span class="function"><a href="function.fastcgi-finish-request.php.html" class="function">fastcgi_finish_request()</a></span> - специальная функция для
+     завершения запроса и сброса всех буферов данных, причём процесс может
+     продолжать выполнение каких-либо длительных действий (конвертирование видео,
+     обработка статистики и т.п.);
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     Динамическое/по требованию/статическое порождение дочерних процессов;
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     Базовая и расширенная информация о состоянии (аналогично Apache mod_status) с поддержкой различных форматов,
+     таких как json, xml и openmetrics;
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     Конфигурационный файл, основанный на php.ini.
+    </p>
+   </li>
+  </ul>
+ </p>
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+</div>
+<section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=install.fpm&amp;redirect=https://www.php.net/manual/ru/install.fpm.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">11 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="112045">  <div class="votes">
+    <div id="Vu112045">
+    <a href="https://www.php.net/manual/vote-note.php?id=112045&amp;page=install.fpm&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd112045">
+    <a href="https://www.php.net/manual/vote-note.php?id=112045&amp;page=install.fpm&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V112045" title="59% like this...">
+    23
+    </div>
+  </div>
+  <a href="install.fpm.php.html#112045" class="name">
+  <strong class="user"><em>kokushibyou at gmail dot com</em></strong></a><a class="genanchor" href="install.fpm.php.html#112045"> &para;</a><div class="date" title="2013-04-25 10:04"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom112045">
+<div class="phpcode"><code><span class="html">PHP-FPM is FAST - but be wary of using it while your code base is stored on NFS - under average load your NFS server will feel some serious strain. I have yet to find a work around for this bug: <a href="https://bugs.php.net/bug.php?id=52312" rel="nofollow" target="_blank">https://bugs.php.net/bug.php?id=52312</a></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="121890">  <div class="votes">
+    <div id="Vu121890">
+    <a href="https://www.php.net/manual/vote-note.php?id=121890&amp;page=install.fpm&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd121890">
+    <a href="https://www.php.net/manual/vote-note.php?id=121890&amp;page=install.fpm&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V121890" title="61% like this...">
+    16
+    </div>
+  </div>
+  <a href="install.fpm.php.html#121890" class="name">
+  <strong class="user"><em>ganlvtech at qq dot com</em></strong></a><a class="genanchor" href="install.fpm.php.html#121890"> &para;</a><div class="date" title="2017-11-21 09:23"><strong>6 years ago</strong></div>
+  <div class="text" id="Hcom121890">
+<div class="phpcode"><code><span class="html">php-fpm is not avaliable on Windows, but you can use IIS or Apache as the "fastcgi process manager".<br /><br />If you have to use Nginx, here is a solution. Nginx provides a load balancing module. We can distribute the request to different php-cgi.exe process.<br /><br />&lt;<a href="http://nginx.org/en/docs/http/load_balancing.html&gt;" rel="nofollow" target="_blank">http://nginx.org/en/docs/http/load_balancing.html&gt;</a><br />&lt;<a href="http://nginx.org/en/docs/http/ngx_http_upstream_module.html&gt;" rel="nofollow" target="_blank">http://nginx.org/en/docs/http/ngx_http_upstream_module.html&gt;</a><br /><br />This is the origin nginx conf.<br />```<br />location ~ \.php$ {<br />    try_files  $uri = 404;<br />    fastcgi_pass  127.0.0.1:9000;<br />    fastcgi_index  index.php;<br />    include  fastcgi.conf;<br />}<br />```<br /><br />You can replace it by<br />```<br />upstream php {<br />    server  127.0.0.1:9000;<br />    server  127.0.0.1:9001;<br />    server  127.0.0.1:9002;<br />    server  127.0.0.1:9003;<br />}<br /><br />location ~ \.php$ {<br />    try_files  $uri = 404;<br />    fastcgi_pass  php;<br />    fastcgi_index  index.php;<br />    include  fastcgi.conf;<br />}<br />```<br /><br />CAUTION!!<br /><br />php-cgi.exe process will die after several requests, so you have to restart the php-cgi.exe manually to keep a process listening the port.<br /><br />DON'T USE THIS SOLUTION IN PRODUCTION!!</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="104691">  <div class="votes">
+    <div id="Vu104691">
+    <a href="https://www.php.net/manual/vote-note.php?id=104691&amp;page=install.fpm&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd104691">
+    <a href="https://www.php.net/manual/vote-note.php?id=104691&amp;page=install.fpm&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V104691" title="56% like this...">
+    17
+    </div>
+  </div>
+  <a href="install.fpm.php.html#104691" class="name">
+  <strong class="user"><em>joel k</em></strong></a><a class="genanchor" href="install.fpm.php.html#104691"> &para;</a><div class="date" title="2011-06-30 12:56"><strong>12 years ago</strong></div>
+  <div class="text" id="Hcom104691">
+<div class="phpcode"><code><span class="html">the fpm process supports the USER2 signal, which is used to reload the config file.<br /><br />kill -USR2 [pid]<br /><br />should do the trick.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="123758">  <div class="votes">
+    <div id="Vu123758">
+    <a href="https://www.php.net/manual/vote-note.php?id=123758&amp;page=install.fpm&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd123758">
+    <a href="https://www.php.net/manual/vote-note.php?id=123758&amp;page=install.fpm&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V123758" title="63% like this...">
+    12
+    </div>
+  </div>
+  <a href="install.fpm.php.html#123758" class="name">
+  <strong class="user"><em>info at f1-outsourcing dot eu</em></strong></a><a class="genanchor" href="install.fpm.php.html#123758"> &para;</a><div class="date" title="2019-04-08 10:22"><strong>4 years ago</strong></div>
+  <div class="text" id="Hcom123758">
+<div class="phpcode"><code><span class="html">It looks like the php-fpm daemon is not able to use its groups it is running with.<br /><br /><a href="https://bugs.php.net/bug.php?id=77837" rel="nofollow" target="_blank">https://bugs.php.net/bug.php?id=77837</a></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="101366">  <div class="votes">
+    <div id="Vu101366">
+    <a href="https://www.php.net/manual/vote-note.php?id=101366&amp;page=install.fpm&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd101366">
+    <a href="https://www.php.net/manual/vote-note.php?id=101366&amp;page=install.fpm&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V101366" title="52% like this...">
+    18
+    </div>
+  </div>
+  <a href="install.fpm.php.html#101366" class="name">
+  <strong class="user"><em>robin at robinwinslow dot co dot uk</em></strong></a><a class="genanchor" href="install.fpm.php.html#101366"> &para;</a><div class="date" title="2010-12-12 10:05"><strong>13 years ago</strong></div>
+  <div class="text" id="Hcom101366">
+<div class="phpcode"><code><span class="html">Init script setup<br />===<br /><br />You will probably want to create an init script for your new php-fpm. Fortunately, PHP 5.3.3 provides one for you, which you should copy to your init directory and change permissions:<br /><br />$ cp &lt;php-5.3.3-source-dir&gt;/sapi/fpm/init.d.php-fpm.in /etc/init.d/php-fpm<br />$ chmod 755 /etc/init.d/php-fpm<br /><br />It requires a certain amount of setup. First of all, make sure your php-fpm.conf file is set up to  create a PID file when php-fpm starts. E.g.:<br />----<br />pid = /var/run/php-fpm.pid<br />----<br />(also make sure your php-fpm user has permission to create this file).<br /><br />Now open up your new init script (/etc/init.d/php-fpm) and set the variables at the top to their relevant values. E.g.:<br />---<br />prefix=<br />exec_prefix=<br />php_fpm_BIN=/sbin/php-fpm<br />php_fpm_CONF=/etc/php-fpm.conf<br />php_fpm_PID=/var/run/php-fpm.pid<br />---<br /><br />Your init script is now ready. You should now be able to start, stop and reload php-fpm:<br /><br />$ /etc/init.d/php-fpm start<br />$ /etc/init.d/php-fpm stop<br />$ /etc/init.d/php-fpm reload<br /><br />The one remaining thing you may wish to do is to add your new php-fpm init script to system start-up. E.g. in CentOS:<br /><br />$ /sbin/chkconfig php-fpm on<br /><br />===========<br /><br />Disclaimer: Although I did just do this on my own server about 20 mins ago, everything I've written here is off the top of my head, so it may not be 100% correct. Also, allow for differences in system setup. Some understanding of what you are doing is assumed.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="121725">  <div class="votes">
+    <div id="Vu121725">
+    <a href="https://www.php.net/manual/vote-note.php?id=121725&amp;page=install.fpm&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd121725">
+    <a href="https://www.php.net/manual/vote-note.php?id=121725&amp;page=install.fpm&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V121725" title="60% like this...">
+    12
+    </div>
+  </div>
+  <a href="install.fpm.php.html#121725" class="name">
+  <strong class="user"><em>user at NOSPAM dot example dot com</em></strong></a><a class="genanchor" href="install.fpm.php.html#121725"> &para;</a><div class="date" title="2017-10-04 06:15"><strong>6 years ago</strong></div>
+  <div class="text" id="Hcom121725">
+<div class="phpcode"><code><span class="html">It is important to note that FPM is not built with the windows binaries.  Many of the guides you may find online rely on php-cgi.exe.  Unfortunately they call it FPM but this is incorrect!<br /><br />The executable php-cgi.exe that is bundled with the windows binaries is a FastCGI interface but it is *not* FPM (Fastcgi Process Manager).  php-cgi.exe does not have multi-threading or concurrent request support, nor support for any of the FPM configuration options.<br /><br />The only solid information I've gathered into why FPM is not available is a bug report explaining that FPM is built around fork(), which is not natively available on windows (<a href="https://bugs.php.net/bug.php?id=62447" rel="nofollow" target="_blank">https://bugs.php.net/bug.php?id=62447</a>).</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="115045">  <div class="votes">
+    <div id="Vu115045">
+    <a href="https://www.php.net/manual/vote-note.php?id=115045&amp;page=install.fpm&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd115045">
+    <a href="https://www.php.net/manual/vote-note.php?id=115045&amp;page=install.fpm&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V115045" title="56% like this...">
+    13
+    </div>
+  </div>
+  <a href="install.fpm.php.html#115045" class="name">
+  <strong class="user"><em>dreamcat4 at gmail dot com</em></strong></a><a class="genanchor" href="install.fpm.php.html#115045"> &para;</a><div class="date" title="2014-05-16 03:17"><strong>9 years ago</strong></div>
+  <div class="text" id="Hcom115045">
+<div class="phpcode"><code><span class="html">Doesn't work? Enable logging!<br /><br />The php-fpm.log file is a great place to fault-find errors and get to the bottom of a problem. But be sure to enable logging for your specific worker pool. Or you won't see anything!<br /><br />Example:<br /><br />To enable error logging for the default [www] worker pool, add this line in the [www] section of your php-fpm.conf:<br /><br />[www]<br />catch_workers_output = yes</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="122457">  <div class="votes">
+    <div id="Vu122457">
+    <a href="https://www.php.net/manual/vote-note.php?id=122457&amp;page=install.fpm&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd122457">
+    <a href="https://www.php.net/manual/vote-note.php?id=122457&amp;page=install.fpm&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V122457" title="56% like this...">
+    7
+    </div>
+  </div>
+  <a href="install.fpm.php.html#122457" class="name">
+  <strong class="user"><em>ikrabbe dot ask at gmail dot com</em></strong></a><a class="genanchor" href="install.fpm.php.html#122457"> &para;</a><div class="date" title="2018-02-28 11:45"><strong>5 years ago</strong></div>
+  <div class="text" id="Hcom122457">
+<div class="phpcode"><code><span class="html">I'm very unhappy with the way php-fpm handles requests.<br />There isn't even some SCRIPT_FILENAME in the RFC for CGI, an that's the only standard I found to handle the requests.<br /><br />Actually what you are doing with PATH_TRANSLATED is supposed to translate to the path, which is broken by media wikis, as they use the PATH_INFO to find the ressource, not some script.<br /><br />In the original CGI context, the PATH_INFO is passed to the CGI binary to specify some ressource argument. So actually<br /><br />    SCRIPT_NAME  ~ argv0<br />    PATH_INFO      ~ argv1<br /><br />in command context.<br /><br />Conclusion: We should rewrite php-fpm to obey the rfc3875 CGI standard.<br />Having SCRIPT_NAME pointing to /something.php, must translate to <br /><br />    CWD/something.php<br /><br />CWD is the working directory where php-fpm is started (or configured to change to).<br /><br />In case of chroot CWD = "".<br /><br />In any case the SCRIPT_NAME php script can be found with ./SCRIPT_NAME, from the CWD. So the undocumented not standardized SCRIPT_FILENAME should vanish! It breaks the CGI standard.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="128948">  <div class="votes">
+    <div id="Vu128948">
+    <a href="https://www.php.net/manual/vote-note.php?id=128948&amp;page=install.fpm&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd128948">
+    <a href="https://www.php.net/manual/vote-note.php?id=128948&amp;page=install.fpm&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V128948" title="100% like this...">
+    1
+    </div>
+  </div>
+  <a href="install.fpm.php.html#128948" class="name">
+  <strong class="user"><em>&amp;#34;atesin&amp;#34; at the free google mail service</em></strong></a><a class="genanchor" href="install.fpm.php.html#128948"> &para;</a><div class="date" title="2023-10-13 03:04"><strong>4 months ago</strong></div>
+  <div class="text" id="Hcom128948">
+<div class="phpcode"><code><span class="html">in response to "ikrabbe dot ask at gmail dot com" about SCRIPT_NAME and PATH_INFO being empty, this could be related...<br /><br />while configuring php-fpm with nginx in debian (actually raspberry pi), a comment line in .conf grabbed my attention<br /><br />there is a "feature" (that looks more like a bug) reported about 10 years ago in <a href="http://trac.nginx.org/nginx/ticket/321" rel="nofollow" target="_blank">http://trac.nginx.org/nginx/ticket/321</a> ... in which "try_files" could reset the contents of $fastcgi_script_name and $fastcgi_path_info ... this is a workaround mentioned in forums by user "zakaria"<br /><br /><span class="default">&lt;?php </span><span class="comment">/* not actual php code but nginx .conf */<br /></span><span class="default">location </span><span class="keyword">~ [^/]\.</span><span class="default">php</span><span class="keyword">(/|$)<br />{<br /></span><span class="default">fastcgi_split_path_info </span><span class="keyword">^(.+?\.</span><span class="default">php</span><span class="keyword">)(/.*)$;<br /></span><span class="comment"># Save the $fastcgi_path_info before try_files clear it<br /></span><span class="default">set $path_info $fastcgi_path_info</span><span class="keyword">;<br /></span><span class="default">fastcgi_param PATH_INFO $path_info</span><span class="keyword">;<br /></span><span class="default">try_files $fastcgi_script_name </span><span class="keyword">=</span><span class="default">404</span><span class="keyword">;<br /><br /></span><span class="default">fastcgi_pass unix</span><span class="keyword">:/var/</span><span class="default">run</span><span class="keyword">/</span><span class="default">php5</span><span class="keyword">-</span><span class="default">fpm</span><span class="keyword">.</span><span class="default">sock</span><span class="keyword">;<br /></span><span class="default">fastcgi_index index</span><span class="keyword">.</span><span class="default">php</span><span class="keyword">;<br />include </span><span class="default">fastcgi_params</span><span class="keyword">;<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="128604">  <div class="votes">
+    <div id="Vu128604">
+    <a href="https://www.php.net/manual/vote-note.php?id=128604&amp;page=install.fpm&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd128604">
+    <a href="https://www.php.net/manual/vote-note.php?id=128604&amp;page=install.fpm&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V128604" title="100% like this...">
+    1
+    </div>
+  </div>
+  <a href="install.fpm.php.html#128604" class="name">
+  <strong class="user"><em>jpmkn.iki.fi</em></strong></a><a class="genanchor" href="install.fpm.php.html#128604"> &para;</a><div class="date" title="2023-06-11 09:56"><strong>8 months ago</strong></div>
+  <div class="text" id="Hcom128604">
+<div class="phpcode"><code><span class="html">@ ikrabbe you might want to look at mod_rewrite to address the environment variable variation(!) between cgi and cli php.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="128950">  <div class="votes">
+    <div id="Vu128950">
+    <a href="https://www.php.net/manual/vote-note.php?id=128950&amp;page=install.fpm&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd128950">
+    <a href="https://www.php.net/manual/vote-note.php?id=128950&amp;page=install.fpm&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V128950" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="install.fpm.php.html#128950" class="name">
+  <strong class="user"><em>&amp;#34;atesin&amp;#34; at the free google mail service</em></strong></a><a class="genanchor" href="install.fpm.php.html#128950"> &para;</a><div class="date" title="2023-10-13 03:13"><strong>4 months ago</strong></div>
+  <div class="text" id="Hcom128950">
+<div class="phpcode"><code><span class="html">in response to "dreamcat4 at gmail dot com" about enabling logs in php-fpm<br /><br />i *hate* going blind, so enabling logs is generally the first thing i do...<br /><br />by doing dreamcat4 suggestion, logs got enabled but mixed with php process logs ... instead doing that and to isolate logs from [www] worker pool in its own file, these directives worked for me in "www" worker .ini file (you have to set directories and permissions before)<br /><br />php_admin_flag[log_errors] = on<br />php_admin_value[error_log] = /var/log/php-fpm/www-error.log</span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=install.fpm&amp;redirect=https://www.php.net/manual/ru/install.fpm.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="install.php.html">Установка и настройка</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="install.general.php.html" title="Общие инструкции по установке">Общие инструкции по установке</a>
+                        </li>
+                                                <li class="">
+                            <a href="install.unix.php.html" title="Установка на Unix-&#8203;системы">Установка на Unix-&#8203;системы</a>
+                        </li>
+                                                <li class="">
+                            <a href="install.macosx.php.html" title="Установка на macOS">Установка на macOS</a>
+                        </li>
+                                                <li class="">
+                            <a href="install.windows.php.html" title="Установка в системах Windows">Установка в системах Windows</a>
+                        </li>
+                                                <li class="">
+                            <a href="install.cloud.php.html" title="Установка на платформах Cloud Computing">Установка на платформах Cloud Computing</a>
+                        </li>
+                                                <li class="current">
+                            <a href="install.fpm.php.html" title="Менеджер процессов FastCGI (FPM)">Менеджер процессов FastCGI (FPM)</a>
+                        </li>
+                                                <li class="">
+                            <a href="install.pecl.php.html" title="Установка модулей PECL">Установка модулей PECL</a>
+                        </li>
+                                                <li class="">
+                            <a href="install.problems.php.html" title="Проблемы?">Проблемы?</a>
+                        </li>
+                                                <li class="">
+                            <a href="configuration.php.html" title="Конфигурация времени выполнения">Конфигурация времени выполнения</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

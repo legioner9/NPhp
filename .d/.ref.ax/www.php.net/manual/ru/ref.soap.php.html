@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: Функции SOAP - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="ref.soap.php.html">
+ <link rel="shorturl" href="https://www.php.net/soap">
+ <link rel="alternate" href="https://www.php.net/soap" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="book.soap.php.html">
+ <link rel="prev" href="soap.constants.php.html">
+ <link rel="next" href="function.is-soap-fault.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/ref.soap.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/ref.soap.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/ref.soap.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/ref.soap.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/ref.soap.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/ref.soap.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/ref.soap.php" hreflang="pt_BR">
+ <link rel="alternate" href="ref.soap.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/ref.soap.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/ref.soap.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="function.is-soap-fault.php.html">
+          is_soap_fault &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="soap.constants.php.html">
+          &laquo; Предопределённые константы        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.webservice.php.html'>Веб-сервисы</a></li>      <li><a href='book.soap.php.html'>SOAP</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/ref.soap.php'>English</option>
+            <option value='de/ref.soap.php'>German</option>
+            <option value='es/ref.soap.php'>Spanish</option>
+            <option value='fr/ref.soap.php'>French</option>
+            <option value='it/ref.soap.php'>Italian</option>
+            <option value='ja/ref.soap.php'>Japanese</option>
+            <option value='pt_BR/ref.soap.php'>Brazilian Portuguese</option>
+            <option value='ru/ref.soap.php' selected="selected">Russian</option>
+            <option value='tr/ref.soap.php'>Turkish</option>
+            <option value='zh/ref.soap.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/soap/reference.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Fref.soap%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="ref.soap" class="reference">
+ <h1 class="title">Функции SOAP</h1>
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2>Содержание</h2><ul class="chunklist chunklist_reference"><li><a href="function.is-soap-fault.php.html">is_soap_fault</a> — Проверяет, произошла ли ошибка при вызове SOAP</li><li><a href="function.use-soap-error-handler.php.html">use_soap_error_handler</a> — Установить, следует ли использовать обработчик ошибок SOAP</li></ul>
+</div>
+<section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=ref.soap&amp;redirect=https://www.php.net/manual/ru/ref.soap.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">30 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="62490">  <div class="votes">
+    <div id="Vu62490">
+    <a href="https://www.php.net/manual/vote-note.php?id=62490&amp;page=ref.soap&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd62490">
+    <a href="https://www.php.net/manual/vote-note.php?id=62490&amp;page=ref.soap&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V62490" title="62% like this...">
+    4
+    </div>
+  </div>
+  <a href="ref.soap.php.html#62490" class="name">
+  <strong class="user"><em>adm</em></strong></a><a class="genanchor" href="ref.soap.php.html#62490"> &para;</a><div class="date" title="2006-03-01 11:27"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom62490">
+<div class="phpcode"><code><span class="html">Wondering why the function you just added to your WSDL file is not available to your SOAP client? Turn off WSDL caching, which (as the documentation says) is on by default.<br /><br />At the top of your script, use: <br /><br />$ini = ini_set("soap.wsdl_cache_enabled","0");</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="50210">  <div class="votes">
+    <div id="Vu50210">
+    <a href="https://www.php.net/manual/vote-note.php?id=50210&amp;page=ref.soap&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd50210">
+    <a href="https://www.php.net/manual/vote-note.php?id=50210&amp;page=ref.soap&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V50210" title="61% like this...">
+    4
+    </div>
+  </div>
+  <a href="ref.soap.php.html#50210" class="name">
+  <strong class="user"><em>Norman Clarke &lt;norman at dontblink dot com&gt;</em></strong></a><a class="genanchor" href="ref.soap.php.html#50210"> &para;</a><div class="date" title="2005-02-21 04:29"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom50210">
+<div class="phpcode"><code><span class="html">Note that if you should need to set the timeout for your soap request,  you can use ini_set to change the value for the default_socket_timeout. I previously used NuSOAP, whose soap client class has a timeout option, and it took me a while to figure out that PHP's soap uses the same socket options as everything else.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="60803">  <div class="votes">
+    <div id="Vu60803">
+    <a href="https://www.php.net/manual/vote-note.php?id=60803&amp;page=ref.soap&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd60803">
+    <a href="https://www.php.net/manual/vote-note.php?id=60803&amp;page=ref.soap&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V60803" title="52% like this...">
+    4
+    </div>
+  </div>
+  <a href="ref.soap.php.html#60803" class="name">
+  <strong class="user"><em>ckl at ecw dot de</em></strong></a><a class="genanchor" href="ref.soap.php.html#60803"> &para;</a><div class="date" title="2006-01-16 11:54"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom60803">
+<div class="phpcode"><code><span class="html">To debug a SOAP service using SoapServer(), a WSDL file and Zend Studio Client/Server, you have to append ?start_debug=1&amp;amp;debug_port=10000 to the service location:<br />--- snip ---<br />... method / service definition ....<br /><br />&lt;service name="SOAPService"&gt;<br />  &lt;port <br />    name="SOAPServicePort"<br />    binding="typens:SOAPServiceBinding"&gt;<br />   &lt;soap:address<br />   location="$URL?start_debug=1&amp;amp;debug_port=10000"/&gt;<br />  &lt;/port&gt;<br />&lt;/service&gt;<br />--- snap ---</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="54955">  <div class="votes">
+    <div id="Vu54955">
+    <a href="https://www.php.net/manual/vote-note.php?id=54955&amp;page=ref.soap&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd54955">
+    <a href="https://www.php.net/manual/vote-note.php?id=54955&amp;page=ref.soap&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V54955" title="57% like this...">
+    3
+    </div>
+  </div>
+  <a href="ref.soap.php.html#54955" class="name">
+  <strong class="user"><em>Darryl</em></strong></a><a class="genanchor" href="ref.soap.php.html#54955"> &para;</a><div class="date" title="2005-07-20 11:46"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom54955">
+<div class="phpcode"><code><span class="html">Having trouble passing complex types over SOAP using a PHP SoapServer in WSDL mode?  Not getting decoded properly?  This may be the solution you're looking for!<br /><br />When using ComplexType in the schema portion of the WSDL file, You need use an additional step to tell PHP SOAP how to encode the objects.  The first method would be to explicitely encapsulate the object in a SoapVar object - telling PHP to use generalized SOAP encoding rules (which encodes all ComplexTypes as Structs).  This won't work, though, if the client is expecting the objects to be encoded according to the WSDL's schema.  So, The actual way to do this is:<br /><br />* First, define a specific PHP class which is actually just a data structure holding the various properties, and the appropriate  ComplexType in the WSDL.<br /><br /><span class="default">&lt;?php<br /> </span><span class="keyword">class </span><span class="default">MyComplexDataType </span><span class="keyword">{<br />     public </span><span class="default">$myProperty1</span><span class="keyword">;<br />     public </span><span class="default">$myProperty2</span><span class="keyword">;<br /> }<br /></span><span class="default">?&gt;<br /></span> &lt;complexType name="MyWSDLStructure"&gt;<br /> &lt;sequence&gt;<br />    &lt;element name="MyProperty1" type="xsd:integer"/&gt;<br />    &lt;element name="MyProperty2" type="xsd:string"/&gt;<br /> &lt;/sequence&gt;<br /> &lt;/complexType&gt;<br /><br />* Next, Tell the SoapServer when you initialize it to map these two structures together.<br /><br /><span class="default">&lt;?php<br /> $classmap </span><span class="keyword">= array(</span><span class="string">'MyWSDLStructure' </span><span class="keyword">=&gt; </span><span class="string">'MyComplexDataType'</span><span class="keyword">);<br /> </span><span class="default">$server </span><span class="keyword">= new </span><span class="default">SoapServer</span><span class="keyword">(</span><span class="string">"<a href="http://MyServer/MyService.wsdl" rel="nofollow" target="_blank">http://MyServer/MyService.wsdl</a>"</span><span class="keyword">, array(</span><span class="string">'classmap' </span><span class="keyword">=&gt; </span><span class="default">$classmap</span><span class="keyword">))<br /></span><span class="default">?&gt;<br /></span><br />* Finally, have your method return an instance of your class directly, and let the SoapServer take care of encoding!<br /><br /><span class="default">&lt;?php<br /> </span><span class="keyword">public function </span><span class="default">MySoapCall</span><span class="keyword">() {<br />     </span><span class="default">$o </span><span class="keyword">= new </span><span class="default">MyComplexDataType</span><span class="keyword">();<br /> <br />     </span><span class="default">$o</span><span class="keyword">-&gt;</span><span class="default">myProperty1 </span><span class="keyword">= </span><span class="default">1</span><span class="keyword">;<br />     </span><span class="default">$o</span><span class="keyword">-&gt;</span><span class="default">myProperty2 </span><span class="keyword">= </span><span class="string">"MyString"</span><span class="keyword">;<br /> <br />     return </span><span class="default">$o<br /> </span><span class="keyword">}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="79421">  <div class="votes">
+    <div id="Vu79421">
+    <a href="https://www.php.net/manual/vote-note.php?id=79421&amp;page=ref.soap&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd79421">
+    <a href="https://www.php.net/manual/vote-note.php?id=79421&amp;page=ref.soap&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V79421" title="60% like this...">
+    2
+    </div>
+  </div>
+  <a href="ref.soap.php.html#79421" class="name">
+  <strong class="user"><em>Anonymous</em></strong></a><a class="genanchor" href="ref.soap.php.html#79421"> &para;</a><div class="date" title="2007-11-26 11:54"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom79421">
+<div class="phpcode"><code><span class="html">when dealing with wsdl and flash soap with php<br />(not exactly php, but proper wsdl - took me hours to figure it to work properly in flash webservice)<br /><br />when naming definitions,<br />don't use "tns:" but use "typens:"<br /><br />makesure your "definitions/targetNamespace"<br />is same as your "soap:body" namespace<br />example: "urn:mynamespace"<br /><br />makesure your "binding/type" is declared with "typens"<br /><br />makesure your service/port/binding is set to 'typens:...'<br /><br />if you did not do it properly, you will end up with<br />WSDL.UnrecognizedNamespace - in flash<br />but seems okay in php soapclient...<br /><br />happy coding :)<br />hope this help you to save your time on the wsdl :)</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="73116">  <div class="votes">
+    <div id="Vu73116">
+    <a href="https://www.php.net/manual/vote-note.php?id=73116&amp;page=ref.soap&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd73116">
+    <a href="https://www.php.net/manual/vote-note.php?id=73116&amp;page=ref.soap&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V73116" title="60% like this...">
+    2
+    </div>
+  </div>
+  <a href="ref.soap.php.html#73116" class="name">
+  <strong class="user"><em>kroesjnov at hotmail dot com</em></strong></a><a class="genanchor" href="ref.soap.php.html#73116"> &para;</a><div class="date" title="2007-02-09 07:38"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom73116">
+<div class="phpcode"><code><span class="html">If you dont want to manually maintain the classmap, make sure you use the same names for your PHP object classes and your WSDL complexTypes, and use the following code:<br /><br />$classmap = array();<br />$tmpClient = new SoapClient("soapserver.wsdl");<br />    <br />foreach($tmpClient-&gt;__getTypes() as $type)<br />{<br />    $array = split(" ", $type);<br />    if($array[0] == "struct" &amp;&amp; class_exists($array[1]))<br />    {<br />        $classmap[$array[1]] = $array[1];<br />    }<br />}<br />unset($tmpClient);<br />    <br />$server = new SoapServer("soapserver.wsdl", array("classmap" =&gt; $classmap));<br />unset($classmap);<br />$server-&gt;setClass("someclass");<br />$server-&gt;handle();</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="75899">  <div class="votes">
+    <div id="Vu75899">
+    <a href="https://www.php.net/manual/vote-note.php?id=75899&amp;page=ref.soap&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd75899">
+    <a href="https://www.php.net/manual/vote-note.php?id=75899&amp;page=ref.soap&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V75899" title="58% like this...">
+    2
+    </div>
+  </div>
+  <a href="ref.soap.php.html#75899" class="name">
+  <strong class="user"><em>dirk at waferthin dot com</em></strong></a><a class="genanchor" href="ref.soap.php.html#75899"> &para;</a><div class="date" title="2007-06-20 04:31"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom75899">
+<div class="phpcode"><code><span class="html">I hope this will save someone time. When developing and testing your SOAP server, remember to disable WSDL caching in BOTH client and server:<br /><br />$ini = ini_set("soap.wsdl_cache_enabled", 0);</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="67991">  <div class="votes">
+    <div id="Vu67991">
+    <a href="https://www.php.net/manual/vote-note.php?id=67991&amp;page=ref.soap&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd67991">
+    <a href="https://www.php.net/manual/vote-note.php?id=67991&amp;page=ref.soap&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V67991" title="55% like this...">
+    2
+    </div>
+  </div>
+  <a href="ref.soap.php.html#67991" class="name">
+  <strong class="user"><em>mini at freebsd dot org</em></strong></a><a class="genanchor" href="ref.soap.php.html#67991"> &para;</a><div class="date" title="2006-07-08 04:54"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom67991">
+<div class="phpcode"><code><span class="html">wokan at cox dot net is incorrect about the security of URI-passed values to HTTPS URIs.  HTTPS connections are HTTP inside SSL -- all of the HTTP traffic, including the request, are encrypted.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="57702">  <div class="votes">
+    <div id="Vu57702">
+    <a href="https://www.php.net/manual/vote-note.php?id=57702&amp;page=ref.soap&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd57702">
+    <a href="https://www.php.net/manual/vote-note.php?id=57702&amp;page=ref.soap&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V57702" title="55% like this...">
+    1
+    </div>
+  </div>
+  <a href="ref.soap.php.html#57702" class="name">
+  <strong class="user"><em>Bob</em></strong></a><a class="genanchor" href="ref.soap.php.html#57702"> &para;</a><div class="date" title="2005-10-11 01:17"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom57702">
+<div class="phpcode"><code><span class="html">If you are scratching your head why NuSOAP not working on PHP 5.x , the reason is this built-in SOAP Extenstion uses same soapclient() class name as Nusoap. <br /><br />replace 'soapclient' with 'soapclient_xxx'  in nusoap.php and you are good to go...</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="75676">  <div class="votes">
+    <div id="Vu75676">
+    <a href="https://www.php.net/manual/vote-note.php?id=75676&amp;page=ref.soap&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd75676">
+    <a href="https://www.php.net/manual/vote-note.php?id=75676&amp;page=ref.soap&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V75676" title="53% like this...">
+    1
+    </div>
+  </div>
+  <a href="ref.soap.php.html#75676" class="name">
+  <strong class="user"><em>jochen dot munz at municons dot com</em></strong></a><a class="genanchor" href="ref.soap.php.html#75676"> &para;</a><div class="date" title="2007-06-11 08:56"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom75676">
+<div class="phpcode"><code><span class="html">When encountering an error message like this<br /><br />[faultstring] =&gt; Function ("yourMethod") is not a valid method for this service<br /><br />although it is present in the WSDL etc., be aware that PHP caches the wsdl locally for better performance. You can disable the caching via php.ini/.htaccess completely or remove the cache file (/tmp/wsdl-.. if you are on Linux) to force regeneration of it.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="79666">  <div class="votes">
+    <div id="Vu79666">
+    <a href="https://www.php.net/manual/vote-note.php?id=79666&amp;page=ref.soap&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd79666">
+    <a href="https://www.php.net/manual/vote-note.php?id=79666&amp;page=ref.soap&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V79666" title="53% like this...">
+    1
+    </div>
+  </div>
+  <a href="ref.soap.php.html#79666" class="name">
+  <strong class="user"><em>Dominik</em></strong></a><a class="genanchor" href="ref.soap.php.html#79666"> &para;</a><div class="date" title="2007-12-07 01:31"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom79666">
+<div class="phpcode"><code><span class="html">If you are working<br />- on localhost <br />- in WSDL mode <br />and encounter the following error when you try to connect the soap client with the soap server<br /><br />Fatal error: Uncaught SoapFault exception: [HTTP] Could not connect to host... <br /><br />then change "localhost" to "127.0.0.1" in your WSDL file:<br />&lt;soap:address location='<a href="http://127.0.0.1/soap-server.php" rel="nofollow" target="_blank">http://127.0.0.1/soap-server.php</a>'/&gt;</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="58090">  <div class="votes">
+    <div id="Vu58090">
+    <a href="https://www.php.net/manual/vote-note.php?id=58090&amp;page=ref.soap&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd58090">
+    <a href="https://www.php.net/manual/vote-note.php?id=58090&amp;page=ref.soap&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V58090" title="54% like this...">
+    1
+    </div>
+  </div>
+  <a href="ref.soap.php.html#58090" class="name">
+  <strong class="user"><em>ChrisB</em></strong></a><a class="genanchor" href="ref.soap.php.html#58090"> &para;</a><div class="date" title="2005-10-23 11:03"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom58090">
+<div class="phpcode"><code><span class="html">Heads up for anyone using PHP Soap + Sessions + PEAR DB classes.<br /><br />Every time you make a call, via the soap client to your web service, your PEAR DB session is put to sleep and it doesnt by default wake upon the next request.<br /><br />To fix this I simply called my particular database close call ifx_close() below my $soap-&gt;handle();</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="74140">  <div class="votes">
+    <div id="Vu74140">
+    <a href="https://www.php.net/manual/vote-note.php?id=74140&amp;page=ref.soap&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd74140">
+    <a href="https://www.php.net/manual/vote-note.php?id=74140&amp;page=ref.soap&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V74140" title="53% like this...">
+    1
+    </div>
+  </div>
+  <a href="ref.soap.php.html#74140" class="name">
+  <strong class="user"><em>albert at jool dot nl</em></strong></a><a class="genanchor" href="ref.soap.php.html#74140"> &para;</a><div class="date" title="2007-03-27 02:59"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom74140">
+<div class="phpcode"><code><span class="html">A note for ppl who use certificates with SOAP under a Windows config: it seems to be required to give the full path to the certificate file - and don't prepend 'file://' :<br /><br /><span class="default">&lt;?php<br /><br />$wsdl </span><span class="keyword">= </span><span class="string">"test.wsdl"</span><span class="keyword">;<br /></span><span class="default">$local_cert </span><span class="keyword">= </span><span class="string">"c:\htdocs\mycert.pem"</span><span class="keyword">;<br /></span><span class="default">$passphrase </span><span class="keyword">= </span><span class="string">"xyz"</span><span class="keyword">;<br /><br /></span><span class="default">$client </span><span class="keyword">= new </span><span class="default">SoapClient</span><span class="keyword">(</span><span class="default">$wsdl</span><span class="keyword">, array(</span><span class="string">'local_cert' </span><span class="keyword">=&gt; </span><span class="default">$local_cert</span><span class="keyword">, </span><span class="string">'passphrase' </span><span class="keyword">=&gt; </span><span class="default">$passphrase</span><span class="keyword">);<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="71306">  <div class="votes">
+    <div id="Vu71306">
+    <a href="https://www.php.net/manual/vote-note.php?id=71306&amp;page=ref.soap&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd71306">
+    <a href="https://www.php.net/manual/vote-note.php?id=71306&amp;page=ref.soap&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V71306" title="53% like this...">
+    1
+    </div>
+  </div>
+  <a href="ref.soap.php.html#71306" class="name">
+  <strong class="user"><em>Olaf Krische</em></strong></a><a class="genanchor" href="ref.soap.php.html#71306"> &para;</a><div class="date" title="2006-11-21 01:48"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom71306">
+<div class="phpcode"><code><span class="html">If you use SSL with a cert and password authentication:<br /><br />$wsdl = "<a href="https://ws.ecopatz.de/ProductInfo?wsdl" rel="nofollow" target="_blank">https://ws.ecopatz.de/ProductInfo?wsdl</a>";<br />$pass = 'a password';<br />$certFile = "./mycert.pem";<br /><br />  $client = new SoapClient($wsdl,<br />    array(<br />     'local_cert' =&gt; $certFile,<br />     'passphrase' =&gt; $pass<br />    )<br />  );<br /><br />If you have problems with the certfile like this:<br /><br />  Warning: SoapClient::__construct(): Unable to set local cert chain file `./mycert.pem'; Check that your cafile/capath settings include details of your certificate and its issuer in productinfo.php on line 27<br /><br />then the certFile is probably in the "wrong format" (the wrong format for php maybe). It worked for me, when i appended the content of the private key file and the certificate file to a single file "mycert.pem":<br /><br />  cat mycert.key &gt;mycert.pem # mycert.key was the private key<br />  cat mycert.crt &gt;&gt;mycert.pem # mycert.crt was the signed certificate<br /><br />Thanks to an author somewhere, who pointed to "curl --cert", where this little "so unimportant" dependency has been mentioned.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="79457">  <div class="votes">
+    <div id="Vu79457">
+    <a href="https://www.php.net/manual/vote-note.php?id=79457&amp;page=ref.soap&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd79457">
+    <a href="https://www.php.net/manual/vote-note.php?id=79457&amp;page=ref.soap&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V79457" title="52% like this...">
+    1
+    </div>
+  </div>
+  <a href="ref.soap.php.html#79457" class="name">
+  <strong class="user"><em>AL13N</em></strong></a><a class="genanchor" href="ref.soap.php.html#79457"> &para;</a><div class="date" title="2007-11-28 04:05"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom79457">
+<div class="phpcode"><code><span class="html">this might be helpful, as it took quite some time for me to find this out:<br /><br />if you're using some .wsdl and there's a sequence that can be there more than once (ie: maxOccurs &gt; 1), you can specify an non-associative array for it if you have more than 1 items OR you could just specify the one item if there is only one:<br /><br /><span class="default">&lt;?php<br /></span><span class="string">'items' </span><span class="keyword">=&gt; array(<br />    array(<br />        </span><span class="string">'itemId' </span><span class="keyword">=&gt; </span><span class="default">5</span><span class="keyword">,<br />        </span><span class="string">'name' </span><span class="keyword">=&gt; </span><span class="string">'some name'</span><span class="keyword">,<br />    ),<br />    array(<br />        </span><span class="string">'itemId' </span><span class="keyword">=&gt; </span><span class="default">6</span><span class="keyword">,<br />        </span><span class="string">'name' </span><span class="keyword">=&gt; </span><span class="string">'some other name'</span><span class="keyword">,<br />    ),<br />),<br /></span><span class="default">?&gt;<br /></span><br />this also works:<br /><br /><span class="default">&lt;?php<br /></span><span class="string">'items' </span><span class="keyword">=&gt; array(<br />    </span><span class="string">'itemId' </span><span class="keyword">=&gt; </span><span class="default">5</span><span class="keyword">,<br />    </span><span class="string">'name' </span><span class="keyword">=&gt; </span><span class="string">'some name'</span><span class="keyword">,<br />),<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="52758">  <div class="votes">
+    <div id="Vu52758">
+    <a href="https://www.php.net/manual/vote-note.php?id=52758&amp;page=ref.soap&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd52758">
+    <a href="https://www.php.net/manual/vote-note.php?id=52758&amp;page=ref.soap&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V52758" title="53% like this...">
+    1
+    </div>
+  </div>
+  <a href="ref.soap.php.html#52758" class="name">
+  <strong class="user"><em>flobee at gmail dot com</em></strong></a><a class="genanchor" href="ref.soap.php.html#52758"> &para;</a><div class="date" title="2005-05-11 01:25"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom52758">
+<div class="phpcode"><code><span class="html">wow, actually a cool program and soap is new for me.<br />I found out some interessting things i can not debug because the scripts exit without any error messages or notes. :-(<br /><br />you may have problems with the memory and/or especially on "shared servers" when server load is high. <br />sometimes the script does the job, sometimes it just stopping at any unknown point.<br />these are the steps my script does:<br />* get data from remote server ( ~ 4.5 MB)<br />* parsing requested object and store the data in a database.<br /><br />the return with debug messages was intressting:<br />-&gt; check Mem limit: 30M<br />-&gt; $client = new new SoapClient($url_wsdl, $options);<br />-&gt; Memory usage: 185888<br />-&gt; $client-&gt;[requested_method_to_get_data]();<br />-&gt; check: __getLastResponseHeaders() - after:<br />-&gt; HTTP/1.1 200 OK // remote server is fine with me :-)<br />-&gt; Content-Length: 4586742  // I got the data<br />-&gt; check: Memory usage now: 23098872 // ups !!! this can't be true!!<br /><br />so, and if now someone on the server takes the rest of RAM  the walk thought the data breaks :-(<br /><br />so, i need to store the xml tree ($client-&gt;client-&gt;__last_response) and parsing it by the classical way. (if you would request more RAM, you may get in trouble with the admin if you run a script like this more often! (on shared servers)</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="72436">  <div class="votes">
+    <div id="Vu72436">
+    <a href="https://www.php.net/manual/vote-note.php?id=72436&amp;page=ref.soap&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd72436">
+    <a href="https://www.php.net/manual/vote-note.php?id=72436&amp;page=ref.soap&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V72436" title="52% like this...">
+    1
+    </div>
+  </div>
+  <a href="ref.soap.php.html#72436" class="name">
+  <strong class="user"><em>brephophagist</em></strong></a><a class="genanchor" href="ref.soap.php.html#72436"> &para;</a><div class="date" title="2007-01-18 09:45"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom72436">
+<div class="phpcode"><code><span class="html">For those working from a wsdl full of complex types that just want a class structure to hang your code on and not worry about typing in long parameter lists (or creating a script to do so): wsdl2php is a wonderful time-saver. Gets a structure going so you can go in and add what validation and special data munging you need: <a href="http://www.urdalen.no/wsdl2php/" rel="nofollow" target="_blank">http://www.urdalen.no/wsdl2php/</a><br /><br />Big up yourself, Knut.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="51283">  <div class="votes">
+    <div id="Vu51283">
+    <a href="https://www.php.net/manual/vote-note.php?id=51283&amp;page=ref.soap&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd51283">
+    <a href="https://www.php.net/manual/vote-note.php?id=51283&amp;page=ref.soap&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V51283" title="51% like this...">
+    1
+    </div>
+  </div>
+  <a href="ref.soap.php.html#51283" class="name">
+  <strong class="user"><em>kucerar at hhmi dot org</em></strong></a><a class="genanchor" href="ref.soap.php.html#51283"> &para;</a><div class="date" title="2005-03-25 12:04"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom51283">
+<div class="phpcode"><code><span class="html">Here are 73 test cases that detail the kinds of schemas that PHP5 currently supports and the structures you are expected to plug into them for the return value from your services.   Much better than trying to guess!<br /><br /><a href="http://cvs.php.net/co.php/pecl/soap/tests/schema" rel="nofollow" target="_blank">http://cvs.php.net/co.php/pecl/soap/tests/schema</a><br /><br />You can cycle through the listings by changing the main index in the URL below,  rather than go in and out of the pages<br /><br /><a href="http://cvs.php.net/co.php/pecl/soap/tests/schema/schema052.phpt?r=1.2" rel="nofollow" target="_blank">http://cvs.php.net/co.php/pecl/soap/tests/schema/schema052.phpt?r=1.2</a><br /><br />I downloaded the whole thing with this,  CVS might work too.<br /><a href="http://www.httrack.com/" rel="nofollow" target="_blank">http://www.httrack.com/</a><br /><br />With them all downloaded I just browse them with Textpad.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="83410">  <div class="votes">
+    <div id="Vu83410">
+    <a href="https://www.php.net/manual/vote-note.php?id=83410&amp;page=ref.soap&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd83410">
+    <a href="https://www.php.net/manual/vote-note.php?id=83410&amp;page=ref.soap&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V83410" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="ref.soap.php.html#83410" class="name">
+  <strong class="user"><em>nodkz at mail dot ru</em></strong></a><a class="genanchor" href="ref.soap.php.html#83410"> &para;</a><div class="date" title="2008-05-24 02:28"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom83410">
+<div class="phpcode"><code><span class="html">PROBLEM (with SOAP extension under PHP5) of transferring object, that contains objects or array of objects. Nested object would not transfer.<br /><br />SOLUTION:<br />This class was developed by trial and error by me. So this 23 lines of code for most developers writing under PHP5 solves fate of using SOAP extension.<br /><br /><span class="default">&lt;?php<br /></span><span class="comment">/*<br />According to specific of organization process of SOAP class in PHP5, we must wrap up complex objects in SoapVar class. Otherwise objects would not be encoded properly and could not be loaded on remote SOAP handler.<br /><br />Function "getAsSoap" call for encoding object for transmission. After encoding it can be properly transmitted.<br />*/<br /></span><span class="keyword">abstract class </span><span class="default">SOAPable </span><span class="keyword">{<br />    public function </span><span class="default">getAsSOAP</span><span class="keyword">() {<br />        foreach(</span><span class="default">$this </span><span class="keyword">as </span><span class="default">$key</span><span class="keyword">=&gt;&amp;</span><span class="default">$value</span><span class="keyword">) {<br />            </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">prepareSOAPrecursive</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">$key</span><span class="keyword">);<br />        }<br />        return </span><span class="default">$this</span><span class="keyword">;<br />    }<br /><br />    private function </span><span class="default">prepareSOAPrecursive</span><span class="keyword">(&amp;</span><span class="default">$element</span><span class="keyword">) {<br />        if(</span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$element</span><span class="keyword">)) {<br />            foreach(</span><span class="default">$element </span><span class="keyword">as </span><span class="default">$key</span><span class="keyword">=&gt;&amp;</span><span class="default">$val</span><span class="keyword">) {<br />                </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">prepareSOAPrecursive</span><span class="keyword">(</span><span class="default">$val</span><span class="keyword">);<br />            }<br />            </span><span class="default">$element</span><span class="keyword">=new </span><span class="default">SoapVar</span><span class="keyword">(</span><span class="default">$element</span><span class="keyword">,</span><span class="default">SOAP_ENC_ARRAY</span><span class="keyword">);<br />        }elseif(</span><span class="default">is_object</span><span class="keyword">(</span><span class="default">$element</span><span class="keyword">)) {<br />            if(</span><span class="default">$element </span><span class="keyword">instanceof </span><span class="default">SOAPable</span><span class="keyword">) {<br />                </span><span class="default">$element</span><span class="keyword">-&gt;</span><span class="default">getAsSOAP</span><span class="keyword">();<br />            }<br />            </span><span class="default">$element</span><span class="keyword">=new </span><span class="default">SoapVar</span><span class="keyword">(</span><span class="default">$element</span><span class="keyword">,</span><span class="default">SOAP_ENC_OBJECT</span><span class="keyword">);<br />        }<br />    }<br />}<br /><br /></span><span class="comment">// ------------------------------------------<br />//  ABSTRACT EXAMPLE<br />// ------------------------------------------<br /><br /></span><span class="keyword">class </span><span class="default">PersonList </span><span class="keyword">extends </span><span class="default">SOAPable </span><span class="keyword">{<br />  protected </span><span class="default">$ArrayOfPerson</span><span class="keyword">; </span><span class="comment">// variable MUST be protected or public!<br /></span><span class="keyword">}<br /><br />class </span><span class="default">Person </span><span class="keyword">extends </span><span class="default">SOAPable </span><span class="keyword">{<br />   </span><span class="comment">//any data<br /></span><span class="keyword">} <br /><br /></span><span class="default">$client</span><span class="keyword">=new </span><span class="default">SoapClient</span><span class="keyword">(</span><span class="string">"test.wsdl"</span><span class="keyword">, array( </span><span class="string">'soap_version'</span><span class="keyword">=&gt;</span><span class="default">SOAP_1_2</span><span class="keyword">, </span><span class="string">'trace'</span><span class="keyword">=&gt;</span><span class="default">1</span><span class="keyword">, </span><span class="string">'classmap' </span><span class="keyword">=&gt; array(</span><span class="string">'Person' </span><span class="keyword">=&gt; </span><span class="string">"Person"</span><span class="keyword">, </span><span class="string">'PersonList' </span><span class="keyword">=&gt; </span><span class="string">"PersonList"</span><span class="keyword">)  ));<br /><br /></span><span class="default">$PersonList</span><span class="keyword">=new </span><span class="default">PersonList</span><span class="keyword">;<br /><br /></span><span class="comment">// some actions<br /><br /></span><span class="default">$PersonList</span><span class="keyword">-&gt;</span><span class="default">getAsSOAP</span><span class="keyword">();<br /><br /></span><span class="default">$client</span><span class="keyword">-&gt;</span><span class="default">someMethod</span><span class="keyword">(</span><span class="default">$PersonList</span><span class="keyword">);<br /><br /></span><span class="default">?&gt;<br /></span><br />So every class, which will transfer via SOAP, must be extends from class SOAPable.  <br />As you can see, in code above, function prepareSOAPrecursive search another nested objects in parent object or in arrays, and if does it, tries call function getAsSOAP() for preparation of nested objects, after that simply wrap up via SoapVar class.<br /><br />So in code before transmitting simply call $obj-&gt;getAsSOAP()</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="82919">  <div class="votes">
+    <div id="Vu82919">
+    <a href="https://www.php.net/manual/vote-note.php?id=82919&amp;page=ref.soap&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd82919">
+    <a href="https://www.php.net/manual/vote-note.php?id=82919&amp;page=ref.soap&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V82919" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="ref.soap.php.html#82919" class="name">
+  <strong class="user"><em>rlee at melbournechapter dot net</em></strong></a><a class="genanchor" href="ref.soap.php.html#82919"> &para;</a><div class="date" title="2008-05-01 05:38"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom82919">
+<div class="phpcode"><code><span class="html">Just a note on "DTD not recognised..." faults. Check to make sure your wsdl file contains:<br /><br />&lt;?xml version ='1.0' encoding ='UTF-8' ?&gt;  <br /><br />Also make sure you use full paths, to your service (in the wsdl, client and server) <br />...<br />&lt;wsdlsoap:address location='<a href="http://www.mysite.com.au/web_services/myserver.php" rel="nofollow" target="_blank">http://www.mysite.com.au/web_services/myserver.php</a>' /&gt;<br />...<br /><span class="default">&lt;?php<br /></span><span class="comment">// SOAP Server<br /></span><span class="default">$server </span><span class="keyword">= new </span><span class="default">SoapServer</span><span class="keyword">(</span><span class="string">'<a href="http://www.mysite.com.au/web_services/hello.wsdl" rel="nofollow" target="_blank">http://www.mysite.com.au/web_services/hello.wsdl</a>'</span><span class="keyword">);<br />...<br />...<br /></span><span class="default">?&gt;<br /></span><br /><span class="default">&lt;?php<br /></span><span class="comment">// SOAP Client<br /> </span><span class="default">$client </span><span class="keyword">= new </span><span class="default">SoapClient</span><span class="keyword">(</span><span class="string">'<a href="http://www.mysite.com.au/web_services/hello.wsdl" rel="nofollow" target="_blank">http://www.mysite.com.au/web_services/hello.wsdl</a>'</span><span class="keyword">);<br />...<br />...<br /></span><span class="default">?&gt;<br /></span><br />FYI im no SOAP expert but I hope this helps someone out ;)</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="80394">  <div class="votes">
+    <div id="Vu80394">
+    <a href="https://www.php.net/manual/vote-note.php?id=80394&amp;page=ref.soap&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd80394">
+    <a href="https://www.php.net/manual/vote-note.php?id=80394&amp;page=ref.soap&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V80394" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="ref.soap.php.html#80394" class="name">
+  <strong class="user"><em>Drydenmaker</em></strong></a><a class="genanchor" href="ref.soap.php.html#80394"> &para;</a><div class="date" title="2008-01-13 07:59"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom80394">
+<div class="phpcode"><code><span class="html">Working with a third party service I got: "SOAP-ERROR: Parsing Schema: unexpected &lt;text&gt; in restriction"<br /><br />Thought it would be worth it to share.  What it is saying is that there is some text in an invalid place.  C# seems to ignore it, and if you are using nusoap it doesn't notice it either.  But what was causing my problem was something like:<br />&lt;types&gt;<br />    &lt;schema ...<br /><br />            &lt;simpleType name="some type"&gt;<br />                &lt;restriction base="xsd:string"&gt;<br />                    &lt;enumeration value="foo"/&gt;;<br />                &lt;/restriction&gt;<br />            &lt;/simpleType&gt;<br /><br />Note the semicolon (;).  Filter that out and your good.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="79384">  <div class="votes">
+    <div id="Vu79384">
+    <a href="https://www.php.net/manual/vote-note.php?id=79384&amp;page=ref.soap&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd79384">
+    <a href="https://www.php.net/manual/vote-note.php?id=79384&amp;page=ref.soap&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V79384" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="ref.soap.php.html#79384" class="name">
+  <strong class="user"><em>james at mercstudio dot com</em></strong></a><a class="genanchor" href="ref.soap.php.html#79384"> &para;</a><div class="date" title="2007-11-24 01:45"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom79384">
+<div class="phpcode"><code><span class="html">If you use wsdl,<br /><br />makesure you define the input correctly.<br />if your method does not contain any input parameter,<br />you got to makesure that you:<br /><br /> - do not create the message tag for the input..<br /> - do not put input within porttype / operation<br /> - do not put input within binding / operation <br /><br />if not, you will get the error:<br />[Client] looks like we got no XML<br /><br />d***, took me several hours figuring that out...</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="69173">  <div class="votes">
+    <div id="Vu69173">
+    <a href="https://www.php.net/manual/vote-note.php?id=69173&amp;page=ref.soap&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd69173">
+    <a href="https://www.php.net/manual/vote-note.php?id=69173&amp;page=ref.soap&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V69173" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="ref.soap.php.html#69173" class="name">
+  <strong class="user"><em>nico</em></strong></a><a class="genanchor" href="ref.soap.php.html#69173"> &para;</a><div class="date" title="2006-08-25 06:20"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom69173">
+<div class="phpcode"><code><span class="html">If you want to build a Soap Server for Microsoft Office's client (like Microsoft Office Research Service) you need to rewrite SOAP's namespaces :<br /><br /><span class="default">&lt;?php <br /></span><span class="comment">// (...)<br /><br /></span><span class="default">$server </span><span class="keyword">= new </span><span class="default">SoapServer</span><span class="keyword">(</span><span class="default">$wsdl</span><span class="keyword">, array(</span><span class="string">'uri' </span><span class="keyword">=&gt; </span><span class="default">$uri</span><span class="keyword">, </span><span class="string">'classmap' </span><span class="keyword">=&gt; </span><span class="default">$classmap</span><span class="keyword">));<br /></span><span class="default">$server</span><span class="keyword">-&gt;</span><span class="default">setClass</span><span class="keyword">(</span><span class="default">$class</span><span class="keyword">);<br />function </span><span class="default">callback</span><span class="keyword">(</span><span class="default">$buffer</span><span class="keyword">)<br />{<br />    </span><span class="default">$s </span><span class="keyword">= array(</span><span class="string">'&lt;ns1:RegistrationResponse&gt;'</span><span class="keyword">, </span><span class="string">'ns1:'</span><span class="keyword">, </span><span class="string">'xmlns:ns1="urn:Microsoft.Search"'</span><span class="keyword">);<br />    </span><span class="default">$r </span><span class="keyword">= array(</span><span class="string">'&lt;RegistrationResponse xmlns="urn:Microsoft.Search"&gt;'</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">);<br />   return (</span><span class="default">str_replace</span><span class="keyword">(</span><span class="default">$s</span><span class="keyword">, </span><span class="default">$r</span><span class="keyword">, </span><span class="default">$buffer</span><span class="keyword">));<br />}<br /></span><span class="default">ob_start</span><span class="keyword">(</span><span class="string">'callback'</span><span class="keyword">);<br /></span><span class="default">$server</span><span class="keyword">-&gt;</span><span class="default">handle</span><span class="keyword">();<br /></span><span class="default">ob_end_flush</span><span class="keyword">();<br /><br /></span><span class="comment">// (...)<br /></span><span class="default">?&gt;<br /></span><br />There are a complete example at this URL : <a href="http://touv.ouvaton.org/article.php3?id_article=104" rel="nofollow" target="_blank">http://touv.ouvaton.org/article.php3?id_article=104</a></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="59860">  <div class="votes">
+    <div id="Vu59860">
+    <a href="https://www.php.net/manual/vote-note.php?id=59860&amp;page=ref.soap&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd59860">
+    <a href="https://www.php.net/manual/vote-note.php?id=59860&amp;page=ref.soap&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V59860" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="ref.soap.php.html#59860" class="name">
+  <strong class="user"><em>Rui Martins</em></strong></a><a class="genanchor" href="ref.soap.php.html#59860"> &para;</a><div class="date" title="2005-12-18 08:33"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom59860">
+<div class="phpcode"><code><span class="html">Here's an example on how to pass ArrayOfAnyType arguments<br />containing complex types.<br /><br />Suppose your WSDL file defines "<a href="http://any.url.com/" rel="nofollow" target="_blank">http://any.url.com/</a>" as the default namespace and a complex type "SomeComplexType".<br /><br />If you want to call a WebServices which takes an ArrayOfAnyType argument of "SomeComplexType"s you need to perform the following:<br /><br /><span class="default">&lt;?php<br /></span><span class="comment">// complexTypes being an array containing several instances of SomeComplexType<br /><br /></span><span class="default">myWSParameter </span><span class="keyword">= array();<br />foreach (</span><span class="default">complexTypes </span><span class="keyword">as </span><span class="default">ct</span><span class="keyword">)<br />{<br />   </span><span class="comment">// Don't misspell the type or the namespace. Also note that php won't assume the default namespace defined in the WSDL file.<br />   </span><span class="default">myWSParameter </span><span class="keyword">[]= new </span><span class="default">SoapVar</span><span class="keyword">(</span><span class="default">ct</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="string">"SomeComplexType"</span><span class="keyword">, </span><span class="string">"<a href="http://any.url.com/" rel="nofollow" target="_blank">http://any.url.com/</a>"</span><span class="keyword">); <br />}<br /></span><span class="default">?&gt;<br /></span><br />On the other hand, when a WebService returns an ArrayOfAnyType you have to do the following to access each of its elements.<br /><br /><span class="default">&lt;?php<br /></span><span class="comment">// Here, we will be echoing each return item<br /></span><span class="default">$res </span><span class="keyword">= </span><span class="default">$someWS</span><span class="keyword">-&gt;</span><span class="default">myFunction</span><span class="keyword">(</span><span class="default">$myArgs</span><span class="keyword">)<br /><br /></span><span class="comment">// If only one element is returned, an array won't be built<br /></span><span class="keyword">if (</span><span class="default">is_array</span><span class="keyword">(</span><span class="default">myFunctionResult</span><span class="keyword">-&gt;</span><span class="default">anyType</span><span class="keyword">))<br />{<br />   foreach (</span><span class="default">myFunctionResult</span><span class="keyword">-&gt;</span><span class="default">anyType </span><span class="keyword">as </span><span class="default">$soapVar</span><span class="keyword">)<br />   {<br />      echo </span><span class="default">$soapVar</span><span class="keyword">-&gt;</span><span class="default">enc_value</span><span class="keyword">;<br />   }<br />}<br />else<br />{<br />   echo </span><span class="default">myFunctionResult</span><span class="keyword">-&gt;</span><span class="default">anyType</span><span class="keyword">-&gt;</span><span class="default">enc_value</span><span class="keyword">;<br />}<br /></span><span class="default">?&gt;<br /></span><br />This has all been tested using a .NET WebService.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="57065">  <div class="votes">
+    <div id="Vu57065">
+    <a href="https://www.php.net/manual/vote-note.php?id=57065&amp;page=ref.soap&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd57065">
+    <a href="https://www.php.net/manual/vote-note.php?id=57065&amp;page=ref.soap&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V57065" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="ref.soap.php.html#57065" class="name">
+  <strong class="user"><em>johnjawed at gmail dot com</em></strong></a><a class="genanchor" href="ref.soap.php.html#57065"> &para;</a><div class="date" title="2005-09-22 09:29"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom57065">
+<div class="phpcode"><code><span class="html">For those wondering on how to set attributes on nodes with PHP5 SOAP, it would be done as such:<br /><br />&lt;... soap env/header&gt;<br />&lt;foo bar="blah"&gt;12345&lt;/foo&gt;<br /><br />array("foo" =&gt; array("_" =&gt; 12345, "bar" =&gt; "blah"));</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="54691">  <div class="votes">
+    <div id="Vu54691">
+    <a href="https://www.php.net/manual/vote-note.php?id=54691&amp;page=ref.soap&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd54691">
+    <a href="https://www.php.net/manual/vote-note.php?id=54691&amp;page=ref.soap&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V54691" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="ref.soap.php.html#54691" class="name">
+  <strong class="user"><em>Jim Plush</em></strong></a><a class="genanchor" href="ref.soap.php.html#54691"> &para;</a><div class="date" title="2005-07-12 04:45"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom54691">
+<div class="phpcode"><code><span class="html">If you're trying to use the SOAP Extension over SSL with a custom PEM file you need to do this:<br /><br />$client-&gt;_local_cert = "C:\\path\myCert.pem";</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="52004">  <div class="votes">
+    <div id="Vu52004">
+    <a href="https://www.php.net/manual/vote-note.php?id=52004&amp;page=ref.soap&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd52004">
+    <a href="https://www.php.net/manual/vote-note.php?id=52004&amp;page=ref.soap&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V52004" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="ref.soap.php.html#52004" class="name">
+  <strong class="user"><em>OrionI</em></strong></a><a class="genanchor" href="ref.soap.php.html#52004"> &para;</a><div class="date" title="2005-04-18 08:12"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom52004">
+<div class="phpcode"><code><span class="html">If you're having problems calling a .NET web service, see the comments over on <a href="http://php.net/soap_soapclient_soapcall" rel="nofollow" target="_blank">http://php.net/soap_soapclient_soapcall</a> (the __soapCall method).</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="49710">  <div class="votes">
+    <div id="Vu49710">
+    <a href="https://www.php.net/manual/vote-note.php?id=49710&amp;page=ref.soap&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd49710">
+    <a href="https://www.php.net/manual/vote-note.php?id=49710&amp;page=ref.soap&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V49710" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="ref.soap.php.html#49710" class="name">
+  <strong class="user"><em>wokan at cox dot net</em></strong></a><a class="genanchor" href="ref.soap.php.html#49710"> &para;</a><div class="date" title="2005-02-05 05:06"><strong>19 years ago</strong></div>
+  <div class="text" id="Hcom49710">
+<div class="phpcode"><code><span class="html">It's not good security practice to pass the username and password in the URI when the point of SSL is to prevent that information from being intercepted.  Putting that information in the URI makes it interceptable.  HTTPS-Posted values are safe because values passed in the headers are sent after the SSL handshake has been completed.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="41068">  <div class="votes">
+    <div id="Vu41068">
+    <a href="https://www.php.net/manual/vote-note.php?id=41068&amp;page=ref.soap&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd41068">
+    <a href="https://www.php.net/manual/vote-note.php?id=41068&amp;page=ref.soap&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V41068" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="ref.soap.php.html#41068" class="name">
+  <strong class="user"><em>mikx at mikx dot de</em></strong></a><a class="genanchor" href="ref.soap.php.html#41068"> &para;</a><div class="date" title="2004-03-29 08:12"><strong>19 years ago</strong></div>
+  <div class="text" id="Hcom41068">
+<div class="phpcode"><code><span class="html">It took me a while to properly establish a password protected client connection via https on windows/apache1.3. Here my little guide:<br /><br />1. The SOAP extension isn't activated by default (PHP5 RC1). Just add "extension=php_soap.dll" to the php.ini and don't forget to set the extension_dir properly (in most cases "c:\php\ext").<br /><br />2. Add "extension=php_openssl.dll" to the php.ini. This module depends on libeay32.dll and ssleay32.dll - copy them from your php folder to your system32 folder.<br /><br />3. Restart apache <br /><br />4. The sourcecode<br /><br />$client = new SoapClient("<a href="https://yourLogin:yourPassword@foo.com/bar.wsdl" rel="nofollow" target="_blank">https://yourLogin:yourPassword@foo.com/bar.wsdl</a>", array(<br />    "login"      =&gt; "yourLogin", <br />    "password"   =&gt; "yourPassword",<br />    "trace"      =&gt; 1, <br />    "exceptions" =&gt; 0)); <br /><br />$client-&gt;yourFunction();<br /><br />print "&lt;pre&gt;\n"; <br />print "Request: \n".htmlspecialchars($client-&gt;__getLastRequest()) ."\n"; <br />print "Response: \n".htmlspecialchars($client-&gt;__getLastResponse())."\n"; <br />print "&lt;/pre&gt;"; <br /><br />Currently it seems to be necessary to add your login and password both in the uri and in the options array. Not sure if this is the expected behavior.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="85905">  <div class="votes">
+    <div id="Vu85905">
+    <a href="https://www.php.net/manual/vote-note.php?id=85905&amp;page=ref.soap&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd85905">
+    <a href="https://www.php.net/manual/vote-note.php?id=85905&amp;page=ref.soap&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V85905" title="48% like this...">
+    -1
+    </div>
+  </div>
+  <a href="ref.soap.php.html#85905" class="name">
+  <strong class="user"><em>vIceBerg</em></strong></a><a class="genanchor" href="ref.soap.php.html#85905"> &para;</a><div class="date" title="2008-09-23 07:18"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom85905">
+<div class="phpcode"><code><span class="html">I have PHP 5.2.5 on my computer. I get this result:<br /><br />Array<br />(<br />    [0] =&gt; stdClass Object<br />        (<br />            [Client] =&gt; stdClass Object<br />                (<br />                    [Nom] =&gt; LeNom:00000<br />                    [Prenom] =&gt; LePrenom:00000<br />                )<br /><br />        )<br /><br />My host have 5.1.6, the same call returns this result:<br />Array<br />(<br />    [0] =&gt; stdClass Object<br />        (<br />            [Client] =&gt; Array<br />                (<br />                    [0] =&gt; stdClass Object<br />                        (<br />                            [Nom] =&gt; LeNom:00000<br />                            [Prenom] =&gt; LePrenom:00000<br /><br />                        )<br /><br />5.2.5 is the good structure.<br /><br />Take care of the version you're using. It can be a lot of work to change all the code</span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=ref.soap&amp;redirect=https://www.php.net/manual/ru/ref.soap.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="book.soap.php.html">SOAP</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="intro.soap.php.html" title="Введение">Введение</a>
+                        </li>
+                                                <li class="">
+                            <a href="soap.setup.php.html" title="Установка и настройка">Установка и настройка</a>
+                        </li>
+                                                <li class="">
+                            <a href="soap.constants.php.html" title="Предопределённые константы">Предопределённые константы</a>
+                        </li>
+                                                <li class="current">
+                            <a href="ref.soap.php.html" title="Функции SOAP">Функции SOAP</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.soapclient.php.html" title="SoapClient">SoapClient</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.soapserver.php.html" title="SoapServer">SoapServer</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.soapfault.php.html" title="SoapFault">SoapFault</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.soapheader.php.html" title="SoapHeader">SoapHeader</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.soapparam.php.html" title="SoapParam">SoapParam</a>
+                        </li>
+                                                <li class="">
+                            <a href="class.soapvar.php.html" title="SoapVar">SoapVar</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

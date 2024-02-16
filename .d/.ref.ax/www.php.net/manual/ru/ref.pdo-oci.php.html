@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: Oracle (PDO) - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="ref.pdo-oci.php.html">
+ <link rel="shorturl" href="https://www.php.net/pdo-oci">
+ <link rel="alternate" href="https://www.php.net/pdo-oci" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="pdo.drivers.php.html">
+ <link rel="prev" href="ref.pdo-sqlsrv.connection.php.html">
+ <link rel="next" href="ref.pdo-oci.connection.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/ref.pdo-oci.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/ref.pdo-oci.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/ref.pdo-oci.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/ref.pdo-oci.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/ref.pdo-oci.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/ref.pdo-oci.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/ref.pdo-oci.php" hreflang="pt_BR">
+ <link rel="alternate" href="ref.pdo-oci.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/ref.pdo-oci.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/ref.pdo-oci.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="ref.pdo-oci.connection.php.html">
+          PDO_OCI DSN &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="ref.pdo-sqlsrv.connection.php.html">
+          &laquo; PDO_SQLSRV DSN        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.database.php.html'>Модули для работы с базами данных</a></li>      <li><a href='refs.database.abstract.php.html'>Уровни абстракции</a></li>      <li><a href='book.pdo.php.html'>PDO</a></li>      <li><a href='pdo.drivers.php.html'>Драйверы PDO</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/ref.pdo-oci.php'>English</option>
+            <option value='de/ref.pdo-oci.php'>German</option>
+            <option value='es/ref.pdo-oci.php'>Spanish</option>
+            <option value='fr/ref.pdo-oci.php'>French</option>
+            <option value='it/ref.pdo-oci.php'>Italian</option>
+            <option value='ja/ref.pdo-oci.php'>Japanese</option>
+            <option value='pt_BR/ref.pdo-oci.php'>Brazilian Portuguese</option>
+            <option value='ru/ref.pdo-oci.php' selected="selected">Russian</option>
+            <option value='tr/ref.pdo-oci.php'>Turkish</option>
+            <option value='zh/ref.pdo-oci.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/pdo_oci/reference.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Fref.pdo-oci%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="ref.pdo-oci" class="reference">
+ 
+ <h1 class="title">Функции Oracle (PDO_OCI)</h1>
+ 
+ <div class="partintro">
+
+  
+
+
+
+<div class="section" id="ref.pdo-oci.installation">
+ <h2 class="title">Установка</h2>
+ <p class="para">
+  Если база данных Oracle находится на том же компьютере, что и PHP, программное обеспечение базы данных
+  уже содержит необходимые библиотеки. Если PHP находится на
+  другом компьютере, используйте бесплатные библиотеки
+  <a href="https://www.oracle.com/database/technologies/instant-client.html" class="link external">&raquo;&nbsp;Oracle Instant Client</a>.
+  Подробнее смотрите в <a href="oci8.requirements.php.html" class="link">требованиях OCI8</a>.
+ </p>
+ <p class="para">
+  Для установки модуля PDO Oracle OCI используйте опцию
+  <strong class="option configure">--with-pdo-oci[=DIR]</strong>, где
+  <code class="literal">[=DIR]</code> - необязательное значение, указывающее на
+  домашнюю директорию Oracle. По умолчанию <code class="literal">[=DIR]</code> принимает
+  значение переменной окружения <var class="varname">$ORACLE_HOME</var>.
+ </p>
+ <p class="para">
+  Используйте опцию <strong class="option configure">--with-pdo-oci=instantclient,prefix,version</strong>
+  Для Oracle Instant Client <abbr>SDK</abbr>,
+  с указанными префиксом и версией.
+ </p>
+ <p class="para">
+  <div class="example-contents screen">
+<div class="cdata"><pre>
+// Использование $ORACLE_HOME
+$ ./configure --with-pdo-oci
+
+// Использование OIC для Linux с версией 10.2.0.3 и префиксом /usr
+$ ./configure --with-pdo-oci=instantclient,/usr,10.2.0.3
+</pre></div>
+  </div>
+ </p>
+</div>
+
+
+  
+
+
+
+<div class="section" id="pdo-oci.constants">
+ <h2 class="title">Предопределённые константы</h2>
+ <p class="simpara">Перечисленные ниже константы определены этим драйвером и будут доступны только в случае, если PHP был собран с поддержкой этого модуля, или модуль был динамически загружен во время выполнения. Вдобавок, эти зависимые от драйвера константы должны быть использованы только совместно с этим драйвером. Использование атрибутов, специфичных для некоторого драйвера с другим драйвером может вызвать неожиданное поведение. Если ваш код выполняется с несколькими драйверами, то можно использовать функцию <span class="function"><a href="pdo.getattribute.php.html" class="function">PDO::getAttribute()</a></span> для получения атрибута <strong><code>PDO::ATTR_DRIVER_NAME</code></strong> для проверки драйвера.</p>
+ <dl>
+
+  
+   <dt id="pdo.constants.oci-attr-action">
+    <strong><code>PDO::OCI_ATTR_ACTION</code></strong>
+    (<span class="type">int</span>)
+   </dt>
+
+   <dd>
+
+    <p class="para">
+     Позволяет задать действие для сессии.
+    </p>
+    <p class="para">
+     Существует начиная с PHP  7.2.16 и 7.3.3
+    </p>
+   </dd>
+
+  
+
+  
+   <dt id="pdo.constants.oci-attr-client-info">
+    <strong><code>PDO::OCI_ATTR_CLIENT_INFO</code></strong>
+    (<span class="type">int</span>)
+   </dt>
+
+   <dd>
+
+    <p class="para">
+     Позволяет задать информацию по клиенту для сессии.
+    </p>
+    <p class="para">
+     Существует начиная с PHP  7.2.16 и 7.3.3
+    </p>
+   </dd>
+
+  
+
+  
+   <dt id="pdo.constants.oci-attr-client-identifier">
+    <strong><code>PDO::OCI_ATTR_CLIENT_IDENTIFIER</code></strong>
+    (<span class="type">int</span>)
+   </dt>
+
+   <dd>
+
+    <p class="para">
+     Позволяет задать идентификатор клиента для сессии.
+    </p>
+    <p class="para">
+     Существует начиная с PHP  7.2.16 и 7.3.3
+    </p>
+   </dd>
+
+  
+
+  
+   <dt id="pdo.constants.oci-attr-module">
+    <strong><code>PDO::OCI_ATTR_MODULE</code></strong>
+    (<span class="type">int</span>)
+   </dt>
+
+   <dd>
+
+    <p class="para">
+     Позволяет задать модуль для сессии.
+    </p>
+    <p class="para">
+     Существует начиная с PHP  7.2.16 и 7.3.3
+    </p>
+   </dd>
+
+  
+
+ </dl>
+
+</div>
+
+
+
+ </div>
+
+ 
+
+<h2>Содержание</h2><ul class="chunklist chunklist_reference"><li><a href="ref.pdo-oci.connection.php.html">PDO_OCI DSN</a> — Соединение с базой данных Oracle</li></ul>
+</div>
+<section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=ref.pdo-oci&amp;redirect=https://www.php.net/manual/ru/ref.pdo-oci.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">14 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="128538">  <div class="votes">
+    <div id="Vu128538">
+    <a href="https://www.php.net/manual/vote-note.php?id=128538&amp;page=ref.pdo-oci&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd128538">
+    <a href="https://www.php.net/manual/vote-note.php?id=128538&amp;page=ref.pdo-oci&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V128538" title="80% like this...">
+    3
+    </div>
+  </div>
+  <a href="ref.pdo-oci.php.html#128538" class="name">
+  <strong class="user"><em>Wolfgang Riedmann</em></strong></a><a class="genanchor" href="ref.pdo-oci.php.html#128538"> &para;</a><div class="date" title="2023-05-15 05:03"><strong>8 months ago</strong></div>
+  <div class="text" id="Hcom128538">
+<div class="phpcode"><code><span class="html">An important hint: if you are using prebuilt PHP packages where PDO_OCI is not compiled in, you should download the original PHP sources for the PHP version your server is using.<br />These sources contain the PDO_OCI source in the ext/pdo_oci directory.<br />Change to that directory, build the module using <br />phpize<br />./configure<br />make<br />and then install the newly build module to your PHP extension directory and add it to your configuration.<br />For me this has worked on a Debian server with the sury.org modules (PHP 8.2).</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="106139">  <div class="votes">
+    <div id="Vu106139">
+    <a href="https://www.php.net/manual/vote-note.php?id=106139&amp;page=ref.pdo-oci&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd106139">
+    <a href="https://www.php.net/manual/vote-note.php?id=106139&amp;page=ref.pdo-oci&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V106139" title="58% like this...">
+    7
+    </div>
+  </div>
+  <a href="ref.pdo-oci.php.html#106139" class="name">
+  <strong class="user"><em>php at ideacode dot com</em></strong></a><a class="genanchor" href="ref.pdo-oci.php.html#106139"> &para;</a><div class="date" title="2011-10-13 07:28"><strong>12 years ago</strong></div>
+  <div class="text" id="Hcom106139">
+<div class="phpcode"><code><span class="html">If you're getting the "I'm too dumb to find oci.h" error, try creating a variety of paths.  One variety uses just the major and minor of your OIC version (eg, 11.2 for 11.2.0.2) and another variety uses client64 as well as client.<br /><br />Something like this (for 11.2.0.2):<br />ln -s /usr/include/oracle/11.2.0.2/ /usr/include/oracle/11.2<br />ln -s /usr/include/oracle/11.2/client /usr/include/oracle/11.2/client64<br />ln -s /usr/lib/oracle/11.2.0.2/ /usr/lib/oracle/11.2<br />ln -s /usr/lib/oracle/11.2/client /usr/lib/oracle/11.2/client64<br /><br />This should cover your bases for 64-bit systems, as well as PHP patched to use the major.minor version number only.  See also PHP bug #44989.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="64819">  <div class="votes">
+    <div id="Vu64819">
+    <a href="https://www.php.net/manual/vote-note.php?id=64819&amp;page=ref.pdo-oci&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd64819">
+    <a href="https://www.php.net/manual/vote-note.php?id=64819&amp;page=ref.pdo-oci&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V64819" title="55% like this...">
+    8
+    </div>
+  </div>
+  <a href="ref.pdo-oci.php.html#64819" class="name">
+  <strong class="user"><em>cursade at hotmail dot com</em></strong></a><a class="genanchor" href="ref.pdo-oci.php.html#64819"> &para;</a><div class="date" title="2006-04-20 11:29"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom64819">
+<div class="phpcode"><code><span class="html">if oracle and oracle instant client has been installed,<br />without db in the same host<br /><br />For UNIX/LINUX，set $LD_LIBRARY_PATH<br />appent your instant client path  and  client/lib path to it,<br /><br />For windows set PATH like this<br /><br />After set the path ,set TNS_ADMIN everioment ,point to <br />where  tnsnames.ora located.<br /><br />Then,you can use service name to connect to your Database<br /><br />Test coding<br /><br /><span class="default">&lt;?php<br />$param </span><span class="keyword">= </span><span class="default">$_POST</span><span class="keyword">;<br /></span><span class="default">$db_username </span><span class="keyword">= </span><span class="string">"youusername"</span><span class="keyword">;<br /></span><span class="default">$db_password </span><span class="keyword">= </span><span class="string">"yourpassword"</span><span class="keyword">;<br /></span><span class="default">$db </span><span class="keyword">= </span><span class="string">"oci:dbname=yoursid"</span><span class="keyword">;<br /></span><span class="default">$conn </span><span class="keyword">= new </span><span class="default">PDO</span><span class="keyword">(</span><span class="default">$db</span><span class="keyword">,</span><span class="default">$db_username</span><span class="keyword">,</span><span class="default">$db_password</span><span class="keyword">);<br /></span><span class="default">$name </span><span class="keyword">= </span><span class="default">$param</span><span class="keyword">[</span><span class="string">'module'</span><span class="keyword">];<br /></span><span class="default">$file </span><span class="keyword">= </span><span class="default">$param</span><span class="keyword">[</span><span class="string">'file'</span><span class="keyword">];<br /></span><span class="default">$stmt </span><span class="keyword">= </span><span class="default">$conn</span><span class="keyword">-&gt;</span><span class="default">exec</span><span class="keyword">(</span><span class="string">"INSERT INTO AL_MODULE (AL_MODULENAME, AL_MODULEFILE) VALUES ('</span><span class="default">$name</span><span class="string">', '</span><span class="default">$file</span><span class="string">')"</span><span class="keyword">);<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="88331">  <div class="votes">
+    <div id="Vu88331">
+    <a href="https://www.php.net/manual/vote-note.php?id=88331&amp;page=ref.pdo-oci&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd88331">
+    <a href="https://www.php.net/manual/vote-note.php?id=88331&amp;page=ref.pdo-oci&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V88331" title="54% like this...">
+    3
+    </div>
+  </div>
+  <a href="ref.pdo-oci.php.html#88331" class="name">
+  <strong class="user"><em>fernando dot wendt at gmail dot com</em></strong></a><a class="genanchor" href="ref.pdo-oci.php.html#88331"> &para;</a><div class="date" title="2009-01-20 05:18"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom88331">
+<div class="phpcode"><code><span class="html">To enable PDO support on PHP for Oracle Instant Client 11.1.x, you should follow the syntax above in the compile command, just as pointed by Andrew <a href="http://bugs.php.net/bug.php?id=39312," rel="nofollow" target="_blank">http://bugs.php.net/bug.php?id=39312,</a> taking by default you have installed the OIC at /usr/lib/oracle (instant client and sdk at subfolder):<br /><br />./configure --with-oci8=shared,instantclient,/usr/lib/oracle<br />--with-pdo-oci=instantclient,/usr/lib/oracle,11.1<br /><br />Just saying your release version from the Oracle OIC.<br /><br />It compiles fine then.<br /><br />Best regards.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="98629">  <div class="votes">
+    <div id="Vu98629">
+    <a href="https://www.php.net/manual/vote-note.php?id=98629&amp;page=ref.pdo-oci&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd98629">
+    <a href="https://www.php.net/manual/vote-note.php?id=98629&amp;page=ref.pdo-oci&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V98629" title="41% like this...">
+    -2
+    </div>
+  </div>
+  <a href="ref.pdo-oci.php.html#98629" class="name">
+  <strong class="user"><em>geompse at gmail dot com</em></strong></a><a class="genanchor" href="ref.pdo-oci.php.html#98629"> &para;</a><div class="date" title="2010-06-27 09:49"><strong>13 years ago</strong></div>
+  <div class="text" id="Hcom98629">
+<div class="phpcode"><code><span class="html">Notice the red block at the beginning of this page... pdo_oci is HIGHLY experimental.<br /><br />Even though it is under dev from 2004, it lakes today support for things that _do_ matters :<br /> - bind a varchar2 of 3500 chars <br /> - get selected metas<br /> - left join with blobs/clobs<br /> - etc.<br /><br />For the story, since we use pdo_pgsql in our software, I thought it would be viable to use pdo_oci for running under Oracle. After a long battle, I finally won :<br /><br />1) If requested driver has a non-experimental pdo version available, use it.<br />2) else (well, for pdo_oci at least), use an abstraction layer of your own.<br />3) you're done.<br /><br />What I did in more details...<br /><br />2 "main" classes for being compliant with "$obj instanceof PDO" or such :<br /> - class PhpDb extends PDO<br /> - class PhpDbStatement extends PDOStatement<br />2 "abstract" classes that defines what PDO actually does :<br /> - abstract class PhpDbAbstract<br /> - abstract class PhpDbAbstractStatement<br />And at last for each driver, 2 classes doing the abstraction :<br /> - class PhpDbDriverOracle extends PhpDbAbstract<br /> - class PhpDbDriverOracleStatement extends PhpDbAbstractStatement<br /><br />"main" classes are accessed from your script, simply replace "new PDO" with "new PhpDb".<br />"abstract" classes are mainly there for the documentation :p<br />"driver" classes do the job in background, they are instances by the main classes.<br /><br />My PhpDb will be in an open source project sooner or later, search google or mail me !</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="104350">  <div class="votes">
+    <div id="Vu104350">
+    <a href="https://www.php.net/manual/vote-note.php?id=104350&amp;page=ref.pdo-oci&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd104350">
+    <a href="https://www.php.net/manual/vote-note.php?id=104350&amp;page=ref.pdo-oci&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V104350" title="42% like this...">
+    -4
+    </div>
+  </div>
+  <a href="ref.pdo-oci.php.html#104350" class="name">
+  <strong class="user"><em>redlorry919 at gmail dot com</em></strong></a><a class="genanchor" href="ref.pdo-oci.php.html#104350"> &para;</a><div class="date" title="2011-06-10 03:15"><strong>12 years ago</strong></div>
+  <div class="text" id="Hcom104350">
+<div class="phpcode"><code><span class="html">Take note of the note at the top, this really is an experimental extension. I had a problem trying to read data from Oracle which resulted in some strange behaviour in PHP. i.e. foreach loops not ending, with no error messages. I also managed to get the data from Oracle into an array in PHP, but then couldn't return the array from a function.<br /><br />After pulling my hair out for a day, it turned out to be a CLOB column in Oracle that caused the strange behaviour in PHP. I assume this extension doesn't fully support them.<br /><br />Instead I've typecast it within the SQL to a VARCHAR2 which seems to resolve it:<br /><br />SELECT CAST(columnx AS VARCHAR2(4000)) AS columnx ...<br /><br />It might help someone else having similar issues.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="64756">  <div class="votes">
+    <div id="Vu64756">
+    <a href="https://www.php.net/manual/vote-note.php?id=64756&amp;page=ref.pdo-oci&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd64756">
+    <a href="https://www.php.net/manual/vote-note.php?id=64756&amp;page=ref.pdo-oci&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V64756" title="46% like this...">
+    -6
+    </div>
+  </div>
+  <a href="ref.pdo-oci.php.html#64756" class="name">
+  <strong class="user"><em>cursade at hotmail dot com</em></strong></a><a class="genanchor" href="ref.pdo-oci.php.html#64756"> &para;</a><div class="date" title="2006-04-20 02:43"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom64756">
+<div class="phpcode"><code><span class="html">If instant client has been installed but the full oracle client<br />not yet ,you can use pdo to connect to oracle database<br />like following coding:<br /><br /><span class="default">&lt;?php<br />$tns </span><span class="keyword">= </span><span class="string">"  <br />(DESCRIPTION =<br />    (ADDRESS_LIST =<br />      (ADDRESS = (PROTOCOL = TCP)(HOST = yourip)(PORT = 1521))<br />    )<br />    (CONNECT_DATA =<br />      (SERVICE_NAME = orcl)<br />    )<br />  )<br />       "</span><span class="keyword">;<br /></span><span class="default">$db_username </span><span class="keyword">= </span><span class="string">"youname"</span><span class="keyword">;<br /></span><span class="default">$db_password </span><span class="keyword">= </span><span class="string">"yourpassword"</span><span class="keyword">;<br />try{<br />    </span><span class="default">$conn </span><span class="keyword">= new </span><span class="default">PDO</span><span class="keyword">(</span><span class="string">"oci:dbname="</span><span class="keyword">.</span><span class="default">$tns</span><span class="keyword">,</span><span class="default">$db_username</span><span class="keyword">,</span><span class="default">$db_password</span><span class="keyword">);<br />}catch(</span><span class="default">PDOException $e</span><span class="keyword">){<br />    echo (</span><span class="default">$e</span><span class="keyword">-&gt;</span><span class="default">getMessage</span><span class="keyword">());<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="80881">  <div class="votes">
+    <div id="Vu80881">
+    <a href="https://www.php.net/manual/vote-note.php?id=80881&amp;page=ref.pdo-oci&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd80881">
+    <a href="https://www.php.net/manual/vote-note.php?id=80881&amp;page=ref.pdo-oci&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V80881" title="39% like this...">
+    -5
+    </div>
+  </div>
+  <a href="ref.pdo-oci.php.html#80881" class="name">
+  <strong class="user"><em>ken at xpressconnex dot com</em></strong></a><a class="genanchor" href="ref.pdo-oci.php.html#80881"> &para;</a><div class="date" title="2008-02-05 08:17"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom80881">
+<div class="phpcode"><code><span class="html">Wow, cursade.  That's a lot of typing to use the lite client.<br /><br />Try this:<br /><br />$db = '//hostname/servicename'; //e.g. '//192.168.1.1/orcl'<br />$user = 'username';<br />$pass = 'password';<br /><br />$conn = new PDO($db,$user,$pass);</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="66972">  <div class="votes">
+    <div id="Vu66972">
+    <a href="https://www.php.net/manual/vote-note.php?id=66972&amp;page=ref.pdo-oci&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd66972">
+    <a href="https://www.php.net/manual/vote-note.php?id=66972&amp;page=ref.pdo-oci&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V66972" title="33% like this...">
+    -3
+    </div>
+  </div>
+  <a href="ref.pdo-oci.php.html#66972" class="name">
+  <strong class="user"><em>moc.aciremi@yvelj</em></strong></a><a class="genanchor" href="ref.pdo-oci.php.html#66972"> &para;</a><div class="date" title="2006-06-01 12:25"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom66972">
+<div class="phpcode"><code><span class="html">A Statement of Warning:<br /><br />PDO::oci does not support REF CURSORS.<br /><br />This is mentioned nowhere (until now!) on this page. <br /><br />And now you know!<br /><br />If you want ref cursors avoid PDO for now. <br /><br />My Reference for this claim:<br /><a href="http://www.oracle.com/technology/pub/articles/" rel="nofollow" target="_blank">http://www.oracle.com/technology/pub/articles/</a><br />php_experts/otn_pdo_oracle5.html<br /><br />GREAT article, excellent piece, really. It's not clear to me <br />how old this document is, but it must have some dust on it, <br />given it's references to "PHP5.1 ...' which is a little way off yet' "<br />... as of 2006-06-01, PHP5.1 has been with us for quite some time.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="91826">  <div class="votes">
+    <div id="Vu91826">
+    <a href="https://www.php.net/manual/vote-note.php?id=91826&amp;page=ref.pdo-oci&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd91826">
+    <a href="https://www.php.net/manual/vote-note.php?id=91826&amp;page=ref.pdo-oci&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V91826" title="31% like this...">
+    -7
+    </div>
+  </div>
+  <a href="ref.pdo-oci.php.html#91826" class="name">
+  <strong class="user"><em>sixd at php dot net</em></strong></a><a class="genanchor" href="ref.pdo-oci.php.html#91826"> &para;</a><div class="date" title="2009-06-26 11:53"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom91826">
+<div class="phpcode"><code><span class="html">From the PHP 5.3 UPGRADING file:<br /><br />- The PDO_OCI php_pdo_oci8.dll library (for use with Oracle version 8 client<br />  libraries) is no longer being built [with PHP 5.3]. Instead, use php_pdo_oci.dll (note no<br />  '8') with Oracle 10 or 11 client libraries. Connection to other database<br />  versions is still supported.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="119619">  <div class="votes">
+    <div id="Vu119619">
+    <a href="https://www.php.net/manual/vote-note.php?id=119619&amp;page=ref.pdo-oci&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd119619">
+    <a href="https://www.php.net/manual/vote-note.php?id=119619&amp;page=ref.pdo-oci&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V119619" title="22% like this...">
+    -10
+    </div>
+  </div>
+  <a href="ref.pdo-oci.php.html#119619" class="name">
+  <strong class="user"><em>wagner dot lague at gmail dot com</em></strong></a><a class="genanchor" href="ref.pdo-oci.php.html#119619"> &para;</a><div class="date" title="2016-07-18 06:29"><strong>7 years ago</strong></div>
+  <div class="text" id="Hcom119619">
+<div class="phpcode"><code><span class="html">Whe I try connect the server returns the error: "SQLSTATE[HY000]: pdo_oci_handle_factory: ORA-12560: TNS:erro de adaptador de protocolo (ext\pdo_oci\oci_driver.c:579)"<br /><br />Too fix it, I used that:<br /><br /> $conn = new PDO("oci:dbname=DBNAME;host=NN.NN.NN.NNN",'USER','PASSWORD');<br /><br />eg:<br /><br /> $conn = new PDO("oci:dbname=DB_FOO;host=10.10.48.245",'FOO','Foo%&amp;5b');</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="97139">  <div class="votes">
+    <div id="Vu97139">
+    <a href="https://www.php.net/manual/vote-note.php?id=97139&amp;page=ref.pdo-oci&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd97139">
+    <a href="https://www.php.net/manual/vote-note.php?id=97139&amp;page=ref.pdo-oci&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V97139" title="18% like this...">
+    -7
+    </div>
+  </div>
+  <a href="ref.pdo-oci.php.html#97139" class="name">
+  <strong class="user"><em>av01 at bugfix dot cc</em></strong></a><a class="genanchor" href="ref.pdo-oci.php.html#97139"> &para;</a><div class="date" title="2010-04-03 08:57"><strong>13 years ago</strong></div>
+  <div class="text" id="Hcom97139">
+<div class="phpcode"><code><span class="html">In order to get this compiled on my CentOS 5.4 x86_64 box, I had to do some extra settings that might be useful for others:<br /><br />Install oracle-instantclient11.2-basic and oracle-instantclient11.2-devel RPMs from Oracle<br /><br />Create some symbolic links because configure contains some outdated assumptions about path names and doesn't care about 64-bit systems:<br />ln -s /usr/lib/oracle/11.2/client64 /usr/lib/oracle/11.2/client<br />ln -s /usr/include/oracle/11.2/client64  /usr/lib/oracle/11.2/client/include<br /><br />Add the following to your configure command:<br />--with-pdo-oci=shared,instantclient,/usr,11.2</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="114083">  <div class="votes">
+    <div id="Vu114083">
+    <a href="https://www.php.net/manual/vote-note.php?id=114083&amp;page=ref.pdo-oci&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd114083">
+    <a href="https://www.php.net/manual/vote-note.php?id=114083&amp;page=ref.pdo-oci&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V114083" title="29% like this...">
+    -19
+    </div>
+  </div>
+  <a href="ref.pdo-oci.php.html#114083" class="name">
+  <strong class="user"><em>sebastian dot la dot spina at gmail dot com</em></strong></a><a class="genanchor" href="ref.pdo-oci.php.html#114083"> &para;</a><div class="date" title="2014-01-09 09:03"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom114083">
+<div class="phpcode"><code><span class="html">For Red hat 6, 64bits, client 11.2, <br />After touch config.m4 and tune up libs symlinks.. <br />I get a compilation error "pdo_oci.c:34: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘pdo_oci_functions’"<br />To solve it just change function_entry to zend_function_entry @pdo_oci.c file.<br /><br />:)</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="112387">  <div class="votes">
+    <div id="Vu112387">
+    <a href="https://www.php.net/manual/vote-note.php?id=112387&amp;page=ref.pdo-oci&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd112387">
+    <a href="https://www.php.net/manual/vote-note.php?id=112387&amp;page=ref.pdo-oci&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V112387" title="22% like this...">
+    -17
+    </div>
+  </div>
+  <a href="ref.pdo-oci.php.html#112387" class="name">
+  <strong class="user"><em>paul dot pratt at atmel dot com</em></strong></a><a class="genanchor" href="ref.pdo-oci.php.html#112387"> &para;</a><div class="date" title="2013-06-10 10:45"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom112387">
+<div class="phpcode"><code><span class="html">Is PHP-to-Oracle much slower  than Php-to-MySql ?  I have battled my way through a conversion of Php4/MySql to Php5/Oracle (stumbling over Clobs and php5-variable-initialization).   Everything works, but...<br />  Querys that took 8 seconds in MySql, now take 3 mintues with Oracle.  Yes, I have indexes on the Oracle tables.  Are Oracle connections that much more expensive than MySql? I did use oci_pconnect.</span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=ref.pdo-oci&amp;redirect=https://www.php.net/manual/ru/ref.pdo-oci.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="pdo.drivers.php.html">Драйверы PDO</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="ref.pdo-cubrid.php.html" title="CUBRID (PDO)">CUBRID (PDO)</a>
+                        </li>
+                                                <li class="">
+                            <a href="ref.pdo-dblib.php.html" title="MS SQL Server (PDO_&#8203;DBLIB)">MS SQL Server (PDO_&#8203;DBLIB)</a>
+                        </li>
+                                                <li class="">
+                            <a href="ref.pdo-firebird.php.html" title="Firebird (PDO)">Firebird (PDO)</a>
+                        </li>
+                                                <li class="">
+                            <a href="ref.pdo-ibm.php.html" title="IBM (PDO)">IBM (PDO)</a>
+                        </li>
+                                                <li class="">
+                            <a href="ref.pdo-informix.php.html" title="Informix (PDO)">Informix (PDO)</a>
+                        </li>
+                                                <li class="">
+                            <a href="ref.pdo-mysql.php.html" title="MySQL (PDO)">MySQL (PDO)</a>
+                        </li>
+                                                <li class="">
+                            <a href="ref.pdo-sqlsrv.php.html" title="MS SQL Server (PDO)">MS SQL Server (PDO)</a>
+                        </li>
+                                                <li class="current">
+                            <a href="ref.pdo-oci.php.html" title="Oracle (PDO)">Oracle (PDO)</a>
+                        </li>
+                                                <li class="">
+                            <a href="ref.pdo-odbc.php.html" title="ODBC и DB2 (PDO)">ODBC и DB2 (PDO)</a>
+                        </li>
+                                                <li class="">
+                            <a href="ref.pdo-pgsql.php.html" title="PostgreSQL (PDO)">PostgreSQL (PDO)</a>
+                        </li>
+                                                <li class="">
+                            <a href="ref.pdo-sqlite.php.html" title="SQLite (PDO)">SQLite (PDO)</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

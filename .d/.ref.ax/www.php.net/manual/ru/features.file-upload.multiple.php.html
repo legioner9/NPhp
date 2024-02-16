@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: Загрузка нескольких файлов - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="features.file-upload.multiple.php.html">
+ <link rel="shorturl" href="https://www.php.net/file-upload.multiple">
+ <link rel="alternate" href="https://www.php.net/file-upload.multiple" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="features.file-upload.php.html">
+ <link rel="prev" href="features.file-upload.common-pitfalls.php.html">
+ <link rel="next" href="features.file-upload.put-method.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/features.file-upload.multiple.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/features.file-upload.multiple.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/features.file-upload.multiple.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/features.file-upload.multiple.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/features.file-upload.multiple.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/features.file-upload.multiple.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/features.file-upload.multiple.php" hreflang="pt_BR">
+ <link rel="alternate" href="features.file-upload.multiple.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/features.file-upload.multiple.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/features.file-upload.multiple.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="features.file-upload.put-method.php.html">
+          Поддержка метода PUT &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="features.file-upload.common-pitfalls.php.html">
+          &laquo; Наиболее распространённые ошибки        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='features.php.html'>Особенности</a></li>      <li><a href='features.file-upload.php.html'>Загрузка файлов на сервер</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/features.file-upload.multiple.php'>English</option>
+            <option value='de/features.file-upload.multiple.php'>German</option>
+            <option value='es/features.file-upload.multiple.php'>Spanish</option>
+            <option value='fr/features.file-upload.multiple.php'>French</option>
+            <option value='it/features.file-upload.multiple.php'>Italian</option>
+            <option value='ja/features.file-upload.multiple.php'>Japanese</option>
+            <option value='pt_BR/features.file-upload.multiple.php'>Brazilian Portuguese</option>
+            <option value='ru/features.file-upload.multiple.php' selected="selected">Russian</option>
+            <option value='tr/features.file-upload.multiple.php'>Turkish</option>
+            <option value='zh/features.file-upload.multiple.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/features/file-upload.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Ffeatures.file-upload.multiple%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="features.file-upload.multiple" class="sect1">
+   <h2 class="title">Загрузка нескольких файлов</h2>
+   <p class="simpara">
+    Загрузку нескольких файлов можно реализовать используя, например,
+    различные значения <code class="literal">name</code> для тега <code class="literal">input</code>.
+   </p>
+   <p class="simpara">
+    Также можно одновременно загружать несколько файлов и
+    автоматически получить их в виде массива.
+    Для реализации такой возможности используйте тот же синтаксис
+    массива в HTML-форме, что и для множественных полей select и checkbox:
+   </p>
+   <p class="para">
+    <div class="example" id="example-1375">
+     <p><strong>Пример #1 Загрузка нескольких файлов</strong></p>
+     <div class="example-contents">
+<div class="htmlcode"><pre class="htmlcode">&lt;form action=&quot;file-upload.php&quot; method=&quot;post&quot; enctype=&quot;multipart/form-data&quot;&gt;
+  Файлы:&lt;br /&gt;
+  &lt;input name=&quot;userfile[]&quot; type=&quot;file&quot; /&gt;&lt;br /&gt;
+  &lt;input name=&quot;userfile[]&quot; type=&quot;file&quot; /&gt;&lt;br /&gt;
+  &lt;input type=&quot;submit&quot; value=&quot;Отправить&quot; /&gt;
+&lt;/form&gt;</pre>
+</div>
+     </div>
+
+    </div>
+   </p>
+   <p class="simpara">
+    В случае, если такая форма была отправлена, массивы
+    <var class="varname"><a href="reserved.variables.files.php.html" class="classname">$_FILES['userfile']</a></var>,
+    <var class="varname"><a href="reserved.variables.files.php.html" class="classname">$_FILES['userfile']['name']</a></var>, и
+    <var class="varname"><a href="reserved.variables.files.php.html" class="classname">$_FILES['userfile']['size']</a></var> будут
+    инициализированы.
+   </p>
+   <p class="simpara">
+    Например, предположим, что были загружены файлы
+    <var class="filename">/home/test/review.html</var> и
+    <var class="filename">/home/test/xwp.out</var>. В таком случае переменная
+    <var class="varname"><a href="reserved.variables.files.php.html" class="classname">$_FILES['userfile']['name'][0]</a></var> будет установлена
+    значением <var class="filename">review.html</var>, а переменная
+    <var class="varname"><a href="reserved.variables.files.php.html" class="classname">$_FILES['userfile']['name'][1]</a></var> - значением
+    <var class="filename">xwp.out</var>. Аналогично, переменная
+    <var class="varname"><a href="reserved.variables.files.php.html" class="classname">$_FILES['userfile']['size'][0]</a></var> будет содержать размер
+    файла <var class="filename">review.html</var> и так далее.
+   </p>
+   <p class="simpara">
+    Переменные <var class="varname"><a href="reserved.variables.files.php.html" class="classname">$_FILES['userfile']['name'][0]</a></var>,
+    <var class="varname"><a href="reserved.variables.files.php.html" class="classname">$_FILES['userfile']['tmp_name'][0]</a></var>,
+    <var class="varname"><a href="reserved.variables.files.php.html" class="classname">$_FILES['userfile']['size'][0]</a></var> и
+    <var class="varname"><a href="reserved.variables.files.php.html" class="classname">$_FILES['userfile']['type'][0]</a></var> также будут
+    инициализированы.
+   </p>
+   <div class="warning"><strong class="warning">Внимание</strong>
+    <p class="simpara">
+     Конфигурационная директива
+     <a href="ini.core.php.html#ini.max-file-uploads" class="link">max_file_uploads</a>
+     регулирует лимит одновременно загружаемых файлов в течение одного
+     запроса. Вам необходимо будет убедиться, что ваша форма
+     не пытается загрузить файлов больше этого лимита за один запрос.
+    </p>
+   </div>
+   <p class="para">
+    <div class="example" id="example-1378">
+     <p><strong>Пример #2 Загрузка всего каталога</strong></p>
+     <div class="example-contents"><p>
+      В полях загрузки HTML-файла можно загрузить весь каталог с помощью атрибута <code class="literal">webkitdirectory</code>.
+      Он поддерживается большинством современных браузеров.
+     </p></div>
+     <div class="example-contents"><p>
+      С помощью информации <code class="literal">full_path</code> можно сохранить относительные пути
+      или восстановить тот же каталог на сервере.
+     </p></div>
+     <div class="example-contents">
+<div class="htmlcode"><pre class="htmlcode">&lt;form action=&quot;file-upload.php&quot; method=&quot;post&quot; enctype=&quot;multipart/form-data&quot;&gt;
+  Загрузка каталога:&lt;br /&gt;
+  &lt;input name=&quot;userfile[]&quot; type=&quot;file&quot; webkitdirectory multiple /&gt;
+  &lt;input type=&quot;submit&quot; value=&quot;Загрузить файлы&quot; /&gt;
+&lt;/form&gt;</pre>
+</div>
+     </div>
+
+    </div>
+
+    <div class="warning"><strong class="warning">Внимание</strong>
+     <p class="simpara">
+      Атрибут <code class="literal">webkitdirectory</code> нестандартен и не входит в стандартную поставку.
+      Не используйте его на рабочих сайтах: он работает не у всех пользователей.
+      Между реализациями также может быть большая несовместимость, также поведение может измениться в будущем.
+     </p>
+     <p class="simpara">
+      PHP анализирует только информацию об относительном пути, отправленную браузером/пользовательским агентом
+      и передаёт эту информацию в массив <var class="varname"><a href="reserved.variables.files.php.html" class="classname">$_FILES</a></var>.
+      Нет никакой гарантии, что значения в массиве <code class="literal">full_path</code> содержат реальную структуру каталогов
+      и приложение PHP не должно доверять этой информации.
+     </p>
+    </div>
+   </p>
+  </div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=features.file-upload.multiple&amp;redirect=https://www.php.net/manual/ru/features.file-upload.multiple.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">19 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="53240">  <div class="votes">
+    <div id="Vu53240">
+    <a href="https://www.php.net/manual/vote-note.php?id=53240&amp;page=features.file-upload.multiple&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd53240">
+    <a href="https://www.php.net/manual/vote-note.php?id=53240&amp;page=features.file-upload.multiple&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V53240" title="64% like this...">
+    348
+    </div>
+  </div>
+  <a href="features.file-upload.multiple.php.html#53240" class="name">
+  <strong class="user"><em>phpuser at gmail dot com</em></strong></a><a class="genanchor" href="features.file-upload.multiple.php.html#53240"> &para;</a><div class="date" title="2005-05-26 08:09"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom53240">
+<div class="phpcode"><code><span class="html">When uploading multiple files, the $_FILES variable is created in the form:<br /><br />Array<br />(<br />    [name] =&gt; Array<br />        (<br />            [0] =&gt; foo.txt<br />            [1] =&gt; bar.txt<br />        )<br /><br />    [type] =&gt; Array<br />        (<br />            [0] =&gt; text/plain<br />            [1] =&gt; text/plain<br />        )<br /><br />    [tmp_name] =&gt; Array<br />        (<br />            [0] =&gt; /tmp/phpYzdqkD<br />            [1] =&gt; /tmp/phpeEwEWG<br />        )<br /><br />    [error] =&gt; Array<br />        (<br />            [0] =&gt; 0<br />            [1] =&gt; 0<br />        )<br /><br />    [size] =&gt; Array<br />        (<br />            [0] =&gt; 123<br />            [1] =&gt; 456<br />        )<br />)<br /><br />I found it made for a little cleaner code if I had the uploaded files array in the form<br /><br />Array<br />(<br />    [0] =&gt; Array<br />        (<br />            [name] =&gt; foo.txt<br />            [type] =&gt; text/plain<br />            [tmp_name] =&gt; /tmp/phpYzdqkD<br />            [error] =&gt; 0<br />            [size] =&gt; 123<br />        )<br /><br />    [1] =&gt; Array<br />        (<br />            [name] =&gt; bar.txt<br />            [type] =&gt; text/plain<br />            [tmp_name] =&gt; /tmp/phpeEwEWG<br />            [error] =&gt; 0<br />            [size] =&gt; 456<br />        )<br />)<br /><br />I wrote a quick function that would convert the $_FILES array to the cleaner (IMHO) array.<br /><br /><span class="default">&lt;?php<br /><br /></span><span class="keyword">function </span><span class="default">reArrayFiles</span><span class="keyword">(&amp;</span><span class="default">$file_post</span><span class="keyword">) {<br /><br />    </span><span class="default">$file_ary </span><span class="keyword">= array();<br />    </span><span class="default">$file_count </span><span class="keyword">= </span><span class="default">count</span><span class="keyword">(</span><span class="default">$file_post</span><span class="keyword">[</span><span class="string">'name'</span><span class="keyword">]);<br />    </span><span class="default">$file_keys </span><span class="keyword">= </span><span class="default">array_keys</span><span class="keyword">(</span><span class="default">$file_post</span><span class="keyword">);<br /><br />    for (</span><span class="default">$i</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">&lt;</span><span class="default">$file_count</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++) {<br />        foreach (</span><span class="default">$file_keys </span><span class="keyword">as </span><span class="default">$key</span><span class="keyword">) {<br />            </span><span class="default">$file_ary</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">][</span><span class="default">$key</span><span class="keyword">] = </span><span class="default">$file_post</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">][</span><span class="default">$i</span><span class="keyword">];<br />        }<br />    }<br /><br />    return </span><span class="default">$file_ary</span><span class="keyword">;<br />}<br /><br /></span><span class="default">?&gt;<br /></span><br />Now I can do the following:<br /><br /><span class="default">&lt;?php<br /><br /></span><span class="keyword">if (</span><span class="default">$_FILES</span><span class="keyword">[</span><span class="string">'upload'</span><span class="keyword">]) {<br />    </span><span class="default">$file_ary </span><span class="keyword">= </span><span class="default">reArrayFiles</span><span class="keyword">(</span><span class="default">$_FILES</span><span class="keyword">[</span><span class="string">'ufile'</span><span class="keyword">]);<br /><br />    foreach (</span><span class="default">$file_ary </span><span class="keyword">as </span><span class="default">$file</span><span class="keyword">) {<br />        print </span><span class="string">'File Name: ' </span><span class="keyword">. </span><span class="default">$file</span><span class="keyword">[</span><span class="string">'name'</span><span class="keyword">];<br />        print </span><span class="string">'File Type: ' </span><span class="keyword">. </span><span class="default">$file</span><span class="keyword">[</span><span class="string">'type'</span><span class="keyword">];<br />        print </span><span class="string">'File Size: ' </span><span class="keyword">. </span><span class="default">$file</span><span class="keyword">[</span><span class="string">'size'</span><span class="keyword">];<br />    }<br />}<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="125035">  <div class="votes">
+    <div id="Vu125035">
+    <a href="https://www.php.net/manual/vote-note.php?id=125035&amp;page=features.file-upload.multiple&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd125035">
+    <a href="https://www.php.net/manual/vote-note.php?id=125035&amp;page=features.file-upload.multiple&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V125035" title="72% like this...">
+    11
+    </div>
+  </div>
+  <a href="features.file-upload.multiple.php.html#125035" class="name">
+  <strong class="user"><em>i.g.e.o@ya (dot) ru</em></strong></a><a class="genanchor" href="features.file-upload.multiple.php.html#125035"> &para;</a><div class="date" title="2020-05-22 05:10"><strong>3 years ago</strong></div>
+  <div class="text" id="Hcom125035">
+<div class="phpcode"><code><span class="html">A bit update to 14 year ago note from "phpuser at gmail dot com".<br />That update converts to a really more friendly array form incoming _POST info for uploaded files. <br />And that variants works identical for non-multiple uploads and multiple uploads:<br /><span class="default">&lt;?php<br /></span><span class="comment">//Функция переформатирует массив поданных POST'ом файлов<br /></span><span class="keyword">function </span><span class="default">reArrayFiles</span><span class="keyword">(&amp;</span><span class="default">$file_post</span><span class="keyword">){<br />    </span><span class="default">$isMulti    </span><span class="keyword">= </span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$file_post</span><span class="keyword">[</span><span class="string">'name'</span><span class="keyword">]);<br />    </span><span class="default">$file_count    </span><span class="keyword">= </span><span class="default">$isMulti</span><span class="keyword">?</span><span class="default">count</span><span class="keyword">(</span><span class="default">$file_post</span><span class="keyword">[</span><span class="string">'name'</span><span class="keyword">]):</span><span class="default">1</span><span class="keyword">;<br />    </span><span class="default">$file_keys    </span><span class="keyword">= </span><span class="default">array_keys</span><span class="keyword">(</span><span class="default">$file_post</span><span class="keyword">);<br /><br />    </span><span class="default">$file_ary    </span><span class="keyword">= [];    </span><span class="comment">//Итоговый массив<br />    </span><span class="keyword">for(</span><span class="default">$i</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">&lt;</span><span class="default">$file_count</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++)<br />        foreach(</span><span class="default">$file_keys </span><span class="keyword">as </span><span class="default">$key</span><span class="keyword">)<br />            if(</span><span class="default">$isMulti</span><span class="keyword">)<br />                </span><span class="default">$file_ary</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">][</span><span class="default">$key</span><span class="keyword">] = </span><span class="default">$file_post</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">][</span><span class="default">$i</span><span class="keyword">];<br />            else<br />                </span><span class="default">$file_ary</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">][</span><span class="default">$key</span><span class="keyword">]    = </span><span class="default">$file_post</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">];<br /><br />    return </span><span class="default">$file_ary</span><span class="keyword">;<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="114235">  <div class="votes">
+    <div id="Vu114235">
+    <a href="https://www.php.net/manual/vote-note.php?id=114235&amp;page=features.file-upload.multiple&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd114235">
+    <a href="https://www.php.net/manual/vote-note.php?id=114235&amp;page=features.file-upload.multiple&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V114235" title="57% like this...">
+    46
+    </div>
+  </div>
+  <a href="features.file-upload.multiple.php.html#114235" class="name">
+  <strong class="user"><em>wizzard351 at yahoo dot com</em></strong></a><a class="genanchor" href="features.file-upload.multiple.php.html#114235"> &para;</a><div class="date" title="2014-01-27 06:12"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom114235">
+<div class="phpcode"><code><span class="html">This is also needed for &lt;input type=file multiple&gt; elements.<br /><br />So, if you have an input element like this:<br />&lt;input type="file" multiple="multiple" name="foobar" /&gt;<br />This should be written as<br />&lt;input type="file" multiple="multiple" name="foobar[]" /&gt;<br />else you'll only be able to get one of the files.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="96983">  <div class="votes">
+    <div id="Vu96983">
+    <a href="https://www.php.net/manual/vote-note.php?id=96983&amp;page=features.file-upload.multiple&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd96983">
+    <a href="https://www.php.net/manual/vote-note.php?id=96983&amp;page=features.file-upload.multiple&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V96983" title="55% like this...">
+    11
+    </div>
+  </div>
+  <a href="features.file-upload.multiple.php.html#96983" class="name">
+  <strong class="user"><em>Corey Ballou</em></strong></a><a class="genanchor" href="features.file-upload.multiple.php.html#96983"> &para;</a><div class="date" title="2010-03-25 01:10"><strong>13 years ago</strong></div>
+  <div class="text" id="Hcom96983">
+<div class="phpcode"><code><span class="html">Here is a function to fix the indices of a multi-dimensional for easier parsing when dealing with file uploads.  It takes a single $_FILES field array as a parameter and separates each individual uploaded file by numeric key.  This allows for iterating like:<br /><br /><span class="default">&lt;?php<br />fixFilesArray</span><span class="keyword">(</span><span class="default">$_FILES</span><span class="keyword">[</span><span class="string">'array_of_files'</span><span class="keyword">]);<br />foreach (</span><span class="default">$_FILES</span><span class="keyword">[</span><span class="string">'array_of_files'</span><span class="keyword">] as </span><span class="default">$position </span><span class="keyword">=&gt; </span><span class="default">$file</span><span class="keyword">) {<br />    </span><span class="comment">// should output array with indices name, type, tmp_name, error, size<br />    </span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">);<br />}<br /></span><span class="default">?&gt;<br /></span><br />Here's the code:<br /><br /><span class="default">&lt;?php<br /></span><span class="comment">/**<br /> * Fixes the odd indexing of multiple file uploads from the format:<br /> *<br /> * $_FILES['field']['key']['index']<br /> *<br /> * To the more standard and appropriate:<br /> *<br /> * $_FILES['field']['index']['key']<br /> *<br /> * @param array $files<br /> * @author Corey Ballou<br /> * @link <a href="http://www.jqueryin.com" rel="nofollow" target="_blank">http://www.jqueryin.com</a><br /> */<br /></span><span class="keyword">function </span><span class="default">fixFilesArray</span><span class="keyword">(&amp;</span><span class="default">$files</span><span class="keyword">)<br />{<br />    </span><span class="default">$names </span><span class="keyword">= array( </span><span class="string">'name' </span><span class="keyword">=&gt; </span><span class="default">1</span><span class="keyword">, </span><span class="string">'type' </span><span class="keyword">=&gt; </span><span class="default">1</span><span class="keyword">, </span><span class="string">'tmp_name' </span><span class="keyword">=&gt; </span><span class="default">1</span><span class="keyword">, </span><span class="string">'error' </span><span class="keyword">=&gt; </span><span class="default">1</span><span class="keyword">, </span><span class="string">'size' </span><span class="keyword">=&gt; </span><span class="default">1</span><span class="keyword">);<br /><br />    foreach (</span><span class="default">$files </span><span class="keyword">as </span><span class="default">$key </span><span class="keyword">=&gt; </span><span class="default">$part</span><span class="keyword">) {<br />        </span><span class="comment">// only deal with valid keys and multiple files<br />        </span><span class="default">$key </span><span class="keyword">= (string) </span><span class="default">$key</span><span class="keyword">;<br />        if (isset(</span><span class="default">$names</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">]) &amp;&amp; </span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$part</span><span class="keyword">)) {<br />            foreach (</span><span class="default">$part </span><span class="keyword">as </span><span class="default">$position </span><span class="keyword">=&gt; </span><span class="default">$value</span><span class="keyword">) {<br />                </span><span class="default">$files</span><span class="keyword">[</span><span class="default">$position</span><span class="keyword">][</span><span class="default">$key</span><span class="keyword">] = </span><span class="default">$value</span><span class="keyword">;<br />            }<br />            </span><span class="comment">// remove old key reference<br />            </span><span class="keyword">unset(</span><span class="default">$files</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">]);<br />        }<br />    }<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="106565">  <div class="votes">
+    <div id="Vu106565">
+    <a href="https://www.php.net/manual/vote-note.php?id=106565&amp;page=features.file-upload.multiple&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd106565">
+    <a href="https://www.php.net/manual/vote-note.php?id=106565&amp;page=features.file-upload.multiple&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V106565" title="54% like this...">
+    15
+    </div>
+  </div>
+  <a href="features.file-upload.multiple.php.html#106565" class="name">
+  <strong class="user"><em>timspeelman at live dot nl</em></strong></a><a class="genanchor" href="features.file-upload.multiple.php.html#106565"> &para;</a><div class="date" title="2011-11-18 03:48"><strong>12 years ago</strong></div>
+  <div class="text" id="Hcom106565">
+<div class="phpcode"><code><span class="html">The cleanest way to rearrange the $_FILES<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">rearrange</span><span class="keyword">( </span><span class="default">$arr </span><span class="keyword">){<br />    foreach( </span><span class="default">$arr </span><span class="keyword">as </span><span class="default">$key </span><span class="keyword">=&gt; </span><span class="default">$all </span><span class="keyword">){<br />        foreach( </span><span class="default">$all </span><span class="keyword">as </span><span class="default">$i </span><span class="keyword">=&gt; </span><span class="default">$val </span><span class="keyword">){<br />            </span><span class="default">$new</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">][</span><span class="default">$key</span><span class="keyword">] = </span><span class="default">$val</span><span class="keyword">;    <br />        }    <br />    }<br />    return </span><span class="default">$new</span><span class="keyword">;<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="125338">  <div class="votes">
+    <div id="Vu125338">
+    <a href="https://www.php.net/manual/vote-note.php?id=125338&amp;page=features.file-upload.multiple&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd125338">
+    <a href="https://www.php.net/manual/vote-note.php?id=125338&amp;page=features.file-upload.multiple&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V125338" title="53% like this...">
+    1
+    </div>
+  </div>
+  <a href="features.file-upload.multiple.php.html#125338" class="name">
+  <strong class="user"><em>sabryabdelmohsen at gmail dot com</em></strong></a><a class="genanchor" href="features.file-upload.multiple.php.html#125338"> &para;</a><div class="date" title="2020-09-08 05:48"><strong>3 years ago</strong></div>
+  <div class="text" id="Hcom125338">
+<div class="phpcode"><code><span class="html">function reArrayImages($file_post) {<br />    $file_ary = [];<br />    $file_keys = array_keys($file_post);<br />    foreach ($file_post as $key =&gt; $value) {<br />      foreach ($value as $key2 =&gt; $value2) {<br />        $file_ary[$key2][$key] = $value2;<br />      }<br />    }<br />    return $file_ary;<br />}</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="119143">  <div class="votes">
+    <div id="Vu119143">
+    <a href="https://www.php.net/manual/vote-note.php?id=119143&amp;page=features.file-upload.multiple&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd119143">
+    <a href="https://www.php.net/manual/vote-note.php?id=119143&amp;page=features.file-upload.multiple&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V119143" title="52% like this...">
+    6
+    </div>
+  </div>
+  <a href="features.file-upload.multiple.php.html#119143" class="name">
+  <strong class="user"><em>lookphp at gmail dot com</em></strong></a><a class="genanchor" href="features.file-upload.multiple.php.html#119143"> &para;</a><div class="date" title="2016-04-10 05:50"><strong>7 years ago</strong></div>
+  <div class="text" id="Hcom119143">
+<div class="phpcode"><code><span class="html">This is a very simple example:<br /><br />Part I : HTML<br /><br />&lt;!doctype html&gt;<br />&lt;html lang="en"&gt;<br />&lt;head&gt;<br />    &lt;meta charset="UTF-8"&gt;<br />    &lt;title&gt;Document&lt;/title&gt;<br />&lt;/head&gt;<br />&lt;body&gt;<br />    &lt;form action="upload.php" method="post" multipart="" enctype="multipart/form-data"&gt;<br />        &lt;input type="file" name="img[]" multiple&gt;<br />        &lt;input type="submit"&gt;<br />    &lt;/form&gt;<br />&lt;/body&gt;<br />&lt;/html&gt;<br /><br />Part II : PHP<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">echo </span><span class="string">'&lt;pre&gt;'</span><span class="keyword">;<br /></span><span class="default">$img </span><span class="keyword">= </span><span class="default">$_FILES</span><span class="keyword">[</span><span class="string">'img'</span><span class="keyword">];<br /><br />if(!empty(</span><span class="default">$img</span><span class="keyword">))<br />{<br />    </span><span class="default">$img_desc </span><span class="keyword">= </span><span class="default">reArrayFiles</span><span class="keyword">(</span><span class="default">$img</span><span class="keyword">);<br />    </span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$img_desc</span><span class="keyword">);<br />    <br />    foreach(</span><span class="default">$img_desc </span><span class="keyword">as </span><span class="default">$val</span><span class="keyword">)<br />    {<br />        </span><span class="default">$newname </span><span class="keyword">= </span><span class="default">date</span><span class="keyword">(</span><span class="string">'YmdHis'</span><span class="keyword">,</span><span class="default">time</span><span class="keyword">()).</span><span class="default">mt_rand</span><span class="keyword">().</span><span class="string">'.jpg'</span><span class="keyword">;<br />        </span><span class="default">move_uploaded_file</span><span class="keyword">(</span><span class="default">$val</span><span class="keyword">[</span><span class="string">'tmp_name'</span><span class="keyword">],</span><span class="string">'./uploads/'</span><span class="keyword">.</span><span class="default">$newname</span><span class="keyword">);<br />    }<br />}<br /><br />function </span><span class="default">reArrayFiles</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">)<br />{<br />    </span><span class="default">$file_ary </span><span class="keyword">= array();<br />    </span><span class="default">$file_count </span><span class="keyword">= </span><span class="default">count</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">[</span><span class="string">'name'</span><span class="keyword">]);<br />    </span><span class="default">$file_key </span><span class="keyword">= </span><span class="default">array_keys</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">);<br />    <br />    for(</span><span class="default">$i</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">;</span><span class="default">$i</span><span class="keyword">&lt;</span><span class="default">$file_count</span><span class="keyword">;</span><span class="default">$i</span><span class="keyword">++)<br />    {<br />        foreach(</span><span class="default">$file_key </span><span class="keyword">as </span><span class="default">$val</span><span class="keyword">)<br />        {<br />            </span><span class="default">$file_ary</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">][</span><span class="default">$val</span><span class="keyword">] = </span><span class="default">$file</span><span class="keyword">[</span><span class="default">$val</span><span class="keyword">][</span><span class="default">$i</span><span class="keyword">];<br />        }<br />    }<br />    return </span><span class="default">$file_ary</span><span class="keyword">;<br />}</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="129014">  <div class="votes">
+    <div id="Vu129014">
+    <a href="https://www.php.net/manual/vote-note.php?id=129014&amp;page=features.file-upload.multiple&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd129014">
+    <a href="https://www.php.net/manual/vote-note.php?id=129014&amp;page=features.file-upload.multiple&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V129014" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="features.file-upload.multiple.php.html#129014" class="name">
+  <strong class="user"><em>steam dot bakyt2 at gmail dot com</em></strong></a><a class="genanchor" href="features.file-upload.multiple.php.html#129014"> &para;</a><div class="date" title="2023-11-07 08:29"><strong>3 months ago</strong></div>
+  <div class="text" id="Hcom129014">
+<div class="phpcode"><code><span class="html">Just combine temporary path with the filename which will result an array like:<br /><br />array(2) {<br />  ["/tmp/phpAYCvcc"]=&gt; string(10) "file1.jpg"<br />  ["/tmp/phpCDg79o"]=&gt; string(10) "file2.jpg"<br />}<br /><br />The code:<br /><br />$files = array_combine(<br />     $_FILES['receipt']['tmp_name'], <br />     $_FILES['receipt']['name']<br />);<br /><br />foreach ($files as $key =&gt; $value) {<br />    // save your files locally<br />}</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="89333">  <div class="votes">
+    <div id="Vu89333">
+    <a href="https://www.php.net/manual/vote-note.php?id=89333&amp;page=features.file-upload.multiple&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd89333">
+    <a href="https://www.php.net/manual/vote-note.php?id=89333&amp;page=features.file-upload.multiple&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V89333" title="47% like this...">
+    -5
+    </div>
+  </div>
+  <a href="features.file-upload.multiple.php.html#89333" class="name">
+  <strong class="user"><em>jess at semlabs dot co dot uk</em></strong></a><a class="genanchor" href="features.file-upload.multiple.php.html#89333"> &para;</a><div class="date" title="2009-03-03 12:32"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom89333">
+<div class="phpcode"><code><span class="html">If you try and upload files with multi-dimensional names like this:<br /><br />&lt;input type="file" name="submission[screenshot]" /&gt;<br />&lt;input type="file" name="other[dem][][img][]" /&gt;<br /><br />You will get an unexpected format like this:<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">array(<br />    </span><span class="string">'submission' </span><span class="keyword">=&gt; array<br />        (<br />            </span><span class="string">'name' </span><span class="keyword">=&gt; array( </span><span class="string">'screenshot' </span><span class="keyword">=&gt; </span><span class="string">'monster_wallpaper.jpg' </span><span class="keyword">),<br />            </span><span class="string">'type' </span><span class="keyword">=&gt; array( </span><span class="string">'screenshot' </span><span class="keyword">=&gt; </span><span class="string">'image/jpeg' </span><span class="keyword">),<br />            </span><span class="string">'tmp_name' </span><span class="keyword">=&gt; array( </span><span class="string">'screenshot' </span><span class="keyword">=&gt; </span><span class="string">'/tmp/php48lX2Y' </span><span class="keyword">),<br />            </span><span class="string">'error' </span><span class="keyword">=&gt; array( </span><span class="string">'screenshot' </span><span class="keyword">=&gt; </span><span class="default">0 </span><span class="keyword">),<br />            </span><span class="string">'size' </span><span class="keyword">=&gt; array( </span><span class="string">'screenshot' </span><span class="keyword">=&gt; </span><span class="default">223262 </span><span class="keyword">),<br />        ),<br />....<br /></span><span class="default">?&gt;<br /></span><br />You can use the following function to re-format the array recursively in the usual format:<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">format_files_array</span><span class="keyword">( </span><span class="default">$files</span><span class="keyword">, </span><span class="default">$name </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">, &amp;</span><span class="default">$new </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">, </span><span class="default">$path </span><span class="keyword">= </span><span class="default">false </span><span class="keyword">){<br />    </span><span class="default">$names </span><span class="keyword">= array( </span><span class="string">'name' </span><span class="keyword">=&gt; </span><span class="string">'name'</span><span class="keyword">, </span><span class="string">'type' </span><span class="keyword">=&gt; </span><span class="string">'type'</span><span class="keyword">, </span><span class="string">'tmp_name' </span><span class="keyword">=&gt; </span><span class="string">'tmp_name'</span><span class="keyword">, </span><span class="string">'error' </span><span class="keyword">=&gt; </span><span class="string">'error'</span><span class="keyword">, </span><span class="string">'size' </span><span class="keyword">=&gt; </span><span class="string">'size' </span><span class="keyword">);<br />    <br />    foreach( </span><span class="default">$files </span><span class="keyword">as </span><span class="default">$key </span><span class="keyword">=&gt; &amp;</span><span class="default">$part </span><span class="keyword">)<br />    {<br />        </span><span class="default">$key </span><span class="keyword">= ( string ) </span><span class="default">$key</span><span class="keyword">;<br />        if( </span><span class="default">in_array</span><span class="keyword">( </span><span class="default">$key</span><span class="keyword">, </span><span class="default">$names </span><span class="keyword">) )<br />            </span><span class="default">$name </span><span class="keyword">= </span><span class="default">$key</span><span class="keyword">;<br />        if( !</span><span class="default">in_array</span><span class="keyword">( </span><span class="default">$key</span><span class="keyword">, </span><span class="default">$names </span><span class="keyword">) )<br />            </span><span class="default">$path</span><span class="keyword">[] = </span><span class="default">$key</span><span class="keyword">;<br />        if( </span><span class="default">is_array</span><span class="keyword">( </span><span class="default">$part </span><span class="keyword">) )<br />            </span><span class="default">$part </span><span class="keyword">= </span><span class="default">format_files_array</span><span class="keyword">( </span><span class="default">$part</span><span class="keyword">, </span><span class="default">$name</span><span class="keyword">, </span><span class="default">$new</span><span class="keyword">, </span><span class="default">$path </span><span class="keyword">);<br />        elseif( !</span><span class="default">is_array</span><span class="keyword">( </span><span class="default">$part </span><span class="keyword">) )<br />        {<br />            </span><span class="default">$current </span><span class="keyword">=&amp; </span><span class="default">$new</span><span class="keyword">;<br />            foreach( </span><span class="default">$path </span><span class="keyword">as </span><span class="default">$p </span><span class="keyword">)<br />                </span><span class="default">$current </span><span class="keyword">=&amp; </span><span class="default">$current</span><span class="keyword">[</span><span class="default">$p</span><span class="keyword">];<br />            </span><span class="default">$current</span><span class="keyword">[</span><span class="default">$name</span><span class="keyword">] = </span><span class="default">$part</span><span class="keyword">;<br />            unset( </span><span class="default">$path </span><span class="keyword">);<br />            </span><span class="default">$name </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">;<br />        }<br />    }<br />    <br />    return </span><span class="default">$new</span><span class="keyword">;<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="118180">  <div class="votes">
+    <div id="Vu118180">
+    <a href="https://www.php.net/manual/vote-note.php?id=118180&amp;page=features.file-upload.multiple&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd118180">
+    <a href="https://www.php.net/manual/vote-note.php?id=118180&amp;page=features.file-upload.multiple&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V118180" title="42% like this...">
+    -7
+    </div>
+  </div>
+  <a href="features.file-upload.multiple.php.html#118180" class="name">
+  <strong class="user"><em>swayalex at gmail dot com</em></strong></a><a class="genanchor" href="features.file-upload.multiple.php.html#118180"> &para;</a><div class="date" title="2015-10-21 02:20"><strong>8 years ago</strong></div>
+  <div class="text" id="Hcom118180">
+<div class="phpcode"><code><span class="html">Recursive solution for complex situations (supports any nested arrays including indexed arrays)<br /><br />function getFixedFilesArray() {<br />    $walker = function ($arr, $fileInfokey, callable $walker) {<br />        $ret = array();<br />        foreach ($arr as $k =&gt; $v) {<br />            if (is_array($v)) {<br />                $ret[$k] = $walker($v, $fileInfokey, $walker);<br />            } else {<br />                $ret[$k][$fileInfokey] = $v;<br />            }<br />        }<br />        return $ret;<br />    };<br /><br />    $files = array();<br />    foreach ($_FILES as $name =&gt; $values) {<br />        // init for array_merge<br />        if (!isset($files[$name])) {<br />            $files[$name] = array();<br />        }<br />        if (!is_array($values['error'])) {<br />            // normal syntax<br />            $files[$name] = $values;<br />        } else {<br />            // html array feature<br />            foreach ($values as $fileInfoKey =&gt; $subArray) {<br />                $files[$name] = array_replace_recursive($files[$name], $walker($subArray, $fileInfoKey, $walker));<br />            }<br />        }<br />    }<br /><br />    return $files;<br />}</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="118390">  <div class="votes">
+    <div id="Vu118390">
+    <a href="https://www.php.net/manual/vote-note.php?id=118390&amp;page=features.file-upload.multiple&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd118390">
+    <a href="https://www.php.net/manual/vote-note.php?id=118390&amp;page=features.file-upload.multiple&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V118390" title="42% like this...">
+    -6
+    </div>
+  </div>
+  <a href="features.file-upload.multiple.php.html#118390" class="name">
+  <strong class="user"><em>Eric</em></strong></a><a class="genanchor" href="features.file-upload.multiple.php.html#118390"> &para;</a><div class="date" title="2015-11-28 11:17"><strong>8 years ago</strong></div>
+  <div class="text" id="Hcom118390">
+<div class="phpcode"><code><span class="html">This is just a modification of the code which is the top note by "phpuser" here. His/her version requires that the $file_post array passed in to the function was created by a form submitted with the multiple attribute set. With multiple set in the html input tag, $_FILES["fileInputName"]["name"] is an array no matter if only one file is sent or multiple. But when &lt;input type="file"&gt; is used without the multiple attribute then $_FILES["fileInputName"]["name"] is not an array, it contains the the string with the filename. To use this neat function with or without multiple set and to get back an array which you can "foreach" over in either case, use this modification:<br /><br />function reArrayFiles(&amp;$file_post)<br />{<br />    $file_ary = array();<br />    $multiple = is_array($file_post['name']);<br /><br />    $file_count = $multiple ? count($file_post['name']) : 1;<br />    $file_keys = array_keys($file_post);<br /><br />    for ($i=0; $i&lt;$file_count; $i++)<br />    {<br />        foreach ($file_keys as $key)<br />        {<br />            $file_ary[$i][$key] = $multiple ? $file_post[$key][$i] : $file_post[$key];<br />        }<br />    }<br /><br />    return $file_ary;<br />}</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="78095">  <div class="votes">
+    <div id="Vu78095">
+    <a href="https://www.php.net/manual/vote-note.php?id=78095&amp;page=features.file-upload.multiple&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd78095">
+    <a href="https://www.php.net/manual/vote-note.php?id=78095&amp;page=features.file-upload.multiple&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V78095" title="42% like this...">
+    -8
+    </div>
+  </div>
+  <a href="features.file-upload.multiple.php.html#78095" class="name">
+  <strong class="user"><em>hotmail.com[at]notdefix</em></strong></a><a class="genanchor" href="features.file-upload.multiple.php.html#78095"> &para;</a><div class="date" title="2007-09-27 07:47"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom78095">
+<div class="phpcode"><code><span class="html">With multiple file uploads<br /><br />post_max_size: the total amount of data posted by the client (all files, and all other form field)<br /><br />upload_max_filesize: the maximum size of 1 single file. (just like &lt;input type="hidden" name="MAX_FILE_SIZE" value="..."/&gt;)<br /><br />so, with the directives:<br /> post_max_size 25M<br /> upload_max_filesize 2M<br /><br />you can send 12 files of up to 2 MB and use up to 1 MB for your additional form-values.<br /><br />As long as you read only a single copy of 1 file into memory, the memory_limit directive can be held reasonable small as well.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="104976">  <div class="votes">
+    <div id="Vu104976">
+    <a href="https://www.php.net/manual/vote-note.php?id=104976&amp;page=features.file-upload.multiple&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd104976">
+    <a href="https://www.php.net/manual/vote-note.php?id=104976&amp;page=features.file-upload.multiple&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V104976" title="41% like this...">
+    -13
+    </div>
+  </div>
+  <a href="features.file-upload.multiple.php.html#104976" class="name">
+  <strong class="user"><em>contato at dgmike dot com dot br</em></strong></a><a class="genanchor" href="features.file-upload.multiple.php.html#104976"> &para;</a><div class="date" title="2011-07-19 11:33"><strong>12 years ago</strong></div>
+  <div class="text" id="Hcom104976">
+<div class="phpcode"><code><span class="html">I prefer something like this!<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">public function </span><span class="default">arrayImages </span><span class="keyword">( &amp;</span><span class="default">$file_post </span><span class="keyword">)<br />{<br />    if( empty( </span><span class="default">$file_post </span><span class="keyword">) ) {<br />        return </span><span class="default">$file_post</span><span class="keyword">;<br />    }<br />    if( </span><span class="string">'array'</span><span class="keyword">!==</span><span class="default">gettype</span><span class="keyword">(</span><span class="default">$file_post</span><span class="keyword">[</span><span class="string">'name'</span><span class="keyword">]) ) {<br />        return </span><span class="default">$file_post</span><span class="keyword">;<br />    }<br />    </span><span class="default">$keys </span><span class="keyword">= </span><span class="default">array_keys</span><span class="keyword">(</span><span class="default">$file_post</span><span class="keyword">[</span><span class="string">'name'</span><span class="keyword">]);<br />    </span><span class="default">$file_array </span><span class="keyword">= array();<br />    foreach (</span><span class="default">$keys </span><span class="keyword">as </span><span class="default">$key</span><span class="keyword">) {<br />       foreach (</span><span class="default">$file_post </span><span class="keyword">as </span><span class="default">$res</span><span class="keyword">=&gt;</span><span class="default">$item</span><span class="keyword">) {<br />           </span><span class="default">$file_array</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">][</span><span class="default">$res</span><span class="keyword">] = </span><span class="default">$item</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">];<br />       }<br />   }<br />   return </span><span class="default">$file_array</span><span class="keyword">;<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="119622">  <div class="votes">
+    <div id="Vu119622">
+    <a href="https://www.php.net/manual/vote-note.php?id=119622&amp;page=features.file-upload.multiple&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd119622">
+    <a href="https://www.php.net/manual/vote-note.php?id=119622&amp;page=features.file-upload.multiple&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V119622" title="34% like this...">
+    -9
+    </div>
+  </div>
+  <a href="features.file-upload.multiple.php.html#119622" class="name">
+  <strong class="user"><em>jefrey no spam please at jefrey dot ml</em></strong></a><a class="genanchor" href="features.file-upload.multiple.php.html#119622"> &para;</a><div class="date" title="2016-07-19 02:39"><strong>7 years ago</strong></div>
+  <div class="text" id="Hcom119622">
+<div class="phpcode"><code><span class="html">Once I had to do a maintenance in a huge ERP that had several multiple upload inputs inside an array. Just like this:<br /><br />&lt;form method="post" enctype="multipart/form-data"&gt;<br />&lt;input type="file" multiple name="upload[avatar]" /&gt;<br />&lt;input type="file" multiple name="upload[attachment]" /&gt;<br />&lt;input type="file" multiple name="upload2[avatar]" /&gt;<br />&lt;input type="file" multiple name="upload2[attachment]" /&gt;<br />&lt;input type="submit" /&gt;<br />&lt;/form&gt;<br /><br />The $_FILES array is created like this:<br /><br />Array<br />(<br />    [upload] =&gt; Array<br />        (<br />            [name] =&gt; Array<br />                (<br />                    [avatar] =&gt; teste.c<br />                    [attachment] =&gt; teste<br />                )<br /><br />            [type] =&gt; Array<br />                (<br />                    [avatar] =&gt; text/x-csrc<br />                    [attachment] =&gt; application/octet-stream<br />                )<br /><br />            [tmp_name] =&gt; Array<br />                (<br />                    [avatar] =&gt; /opt/lampp/temp/phpuf3KNj<br />                    [attachment] =&gt; /opt/lampp/temp/php0yPZap<br />                )<br /><br />            [error] =&gt; Array<br />                (<br />                    [avatar] =&gt; 0<br />                    [attachment] =&gt; 0<br />                )<br /><br />            [size] =&gt; Array<br />                (<br />                    [avatar] =&gt; 1960<br />                    [attachment] =&gt; 8661<br />                )<br /><br />        )<br /><br />    [upload2] =&gt; Array<br />        (<br />            [name] =&gt; Array<br />                (<br />                    [avatar] =&gt; jefrey.html<br />                    [attachment] =&gt; notas.txt<br />                )<br /><br />            [type] =&gt; Array<br />                (<br />                    [avatar] =&gt; text/html<br />                    [attachment] =&gt; text/plain<br />                )<br /><br />            [tmp_name] =&gt; Array<br />                (<br />                    [avatar] =&gt; /opt/lampp/temp/php87nfyu<br />                    [attachment] =&gt; /opt/lampp/temp/phpUBlvVz<br />                )<br /><br />            [error] =&gt; Array<br />                (<br />                    [avatar] =&gt; 0<br />                    [attachment] =&gt; 0<br />                )<br /><br />            [size] =&gt; Array<br />                (<br />                    [avatar] =&gt; 583<br />                    [attachment] =&gt; 191<br />                )<br /><br />        )<br /><br />)<br /><br />I've managed to re-arrange this array like this:<br /><br />Array<br />(<br />    [upload] =&gt; Array<br />        (<br />            [avatar] =&gt; Array<br />                (<br />                    [name] =&gt; teste.c<br />                    [type] =&gt; text/x-csrc<br />                    [tmp_name] =&gt; /opt/lampp/temp/phpuf3KNj<br />                    [error] =&gt; 0<br />                    [size] =&gt; 1960<br />                )<br /><br />            [attachment] =&gt; Array<br />                (<br />                    [name] =&gt; teste<br />                    [type] =&gt; application/octet-stream<br />                    [tmp_name] =&gt; /opt/lampp/temp/php0yPZap<br />                    [error] =&gt; 0<br />                    [size] =&gt; 8661<br />                )<br /><br />        )<br /><br />    [upload2] =&gt; Array<br />        (<br />            [avatar] =&gt; Array<br />                (<br />                    [name] =&gt; jefrey.html<br />                    [type] =&gt; text/html<br />                    [tmp_name] =&gt; /opt/lampp/temp/php87nfyu<br />                    [error] =&gt; 0<br />                    [size] =&gt; 583<br />                )<br /><br />            [attachment] =&gt; Array<br />                (<br />                    [name] =&gt; notas.txt<br />                    [type] =&gt; text/plain<br />                    [tmp_name] =&gt; /opt/lampp/temp/phpUBlvVz<br />                    [error] =&gt; 0<br />                    [size] =&gt; 191<br />                )<br /><br />        )<br /><br />)<br /><br />Here's my snippet:<br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">reArrayFilesMultiple</span><span class="keyword">(&amp;</span><span class="default">$files</span><span class="keyword">) {<br />    </span><span class="default">$uploads </span><span class="keyword">= array();<br />    foreach(</span><span class="default">$_FILES </span><span class="keyword">as </span><span class="default">$key0</span><span class="keyword">=&gt;</span><span class="default">$FILES</span><span class="keyword">) {<br />        foreach(</span><span class="default">$FILES </span><span class="keyword">as </span><span class="default">$key</span><span class="keyword">=&gt;</span><span class="default">$value</span><span class="keyword">) {<br />            foreach(</span><span class="default">$value </span><span class="keyword">as </span><span class="default">$key2</span><span class="keyword">=&gt;</span><span class="default">$value2</span><span class="keyword">) {<br />                </span><span class="default">$uploads</span><span class="keyword">[</span><span class="default">$key0</span><span class="keyword">][</span><span class="default">$key2</span><span class="keyword">][</span><span class="default">$key</span><span class="keyword">] = </span><span class="default">$value2</span><span class="keyword">;<br />            }<br />        }<br />    }<br />    </span><span class="default">$files </span><span class="keyword">= </span><span class="default">$uploads</span><span class="keyword">;<br />    return </span><span class="default">$uploads</span><span class="keyword">; </span><span class="comment">// prevent misuse issue<br /></span><span class="keyword">}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="114325">  <div class="votes">
+    <div id="Vu114325">
+    <a href="https://www.php.net/manual/vote-note.php?id=114325&amp;page=features.file-upload.multiple&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd114325">
+    <a href="https://www.php.net/manual/vote-note.php?id=114325&amp;page=features.file-upload.multiple&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V114325" title="30% like this...">
+    -32
+    </div>
+  </div>
+  <a href="features.file-upload.multiple.php.html#114325" class="name">
+  <strong class="user"><em>javad dot geek at gmail dot com</em></strong></a><a class="genanchor" href="features.file-upload.multiple.php.html#114325"> &para;</a><div class="date" title="2014-02-07 02:14"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom114325">
+<div class="phpcode"><code><span class="html">$countarray = count($_FILES['uploadfile']['name']);<br />                $newarray = array();<br />                for($i=0;$i&lt;$countarray;$i++){<br />                    $newarray[$i]['name']=$_FILES['uploadfile']['name'][$i];<br />                    $newarray[$i]['type']=$_FILES['uploadfile']['type'][$i];<br />                    $newarray[$i]['tmp_name']=$_FILES['uploadfile']['tmp_name'][$i];<br />                    $newarray[$i]['error']=$_FILES['uploadfile']['error'][$i];<br />                    $newarray[$i]['size']=$_FILES['uploadfile']['size'][$i];<br />                }</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="113001">  <div class="votes">
+    <div id="Vu113001">
+    <a href="https://www.php.net/manual/vote-note.php?id=113001&amp;page=features.file-upload.multiple&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd113001">
+    <a href="https://www.php.net/manual/vote-note.php?id=113001&amp;page=features.file-upload.multiple&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V113001" title="27% like this...">
+    -37
+    </div>
+  </div>
+  <a href="features.file-upload.multiple.php.html#113001" class="name">
+  <strong class="user"><em>ohcnim at hotmail dot com</em></strong></a><a class="genanchor" href="features.file-upload.multiple.php.html#113001"> &para;</a><div class="date" title="2013-08-16 11:18"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom113001">
+<div class="phpcode"><code><span class="html">by simply naming differently each file input you'll get easily accesible arrays from $_FILES, in the form $_FILES['input_name']['file_attribute'].  For example:<br /><br />$_FILES['input_name1']['name']...['input_name1']['size']<br />$_FILES['input_name2']['name']...['input_name2']['size']<br />$_FILES['input_nameX']['name']...['input_nameX']['size']</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="117877">  <div class="votes">
+    <div id="Vu117877">
+    <a href="https://www.php.net/manual/vote-note.php?id=117877&amp;page=features.file-upload.multiple&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd117877">
+    <a href="https://www.php.net/manual/vote-note.php?id=117877&amp;page=features.file-upload.multiple&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V117877" title="21% like this...">
+    -35
+    </div>
+  </div>
+  <a href="features.file-upload.multiple.php.html#117877" class="name">
+  <strong class="user"><em>Pako</em></strong></a><a class="genanchor" href="features.file-upload.multiple.php.html#117877"> &para;</a><div class="date" title="2015-08-25 01:30"><strong>8 years ago</strong></div>
+  <div class="text" id="Hcom117877">
+<div class="phpcode"><code><span class="html">If you want to upload multiple file at once, remember "multiple" attribute:<br /><br />&lt;input type="file" multiple="multiple" name="file[]" enctype="multipart/form-data"/&gt;</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="125831">  <div class="votes">
+    <div id="Vu125831">
+    <a href="https://www.php.net/manual/vote-note.php?id=125831&amp;page=features.file-upload.multiple&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd125831">
+    <a href="https://www.php.net/manual/vote-note.php?id=125831&amp;page=features.file-upload.multiple&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V125831" title="14% like this...">
+    -5
+    </div>
+  </div>
+  <a href="features.file-upload.multiple.php.html#125831" class="name">
+  <strong class="user"><em>simbiat at outlook dot com</em></strong></a><a class="genanchor" href="features.file-upload.multiple.php.html#125831"> &para;</a><div class="date" title="2021-02-16 12:12"><strong>2 years ago</strong></div>
+  <div class="text" id="Hcom125831">
+<div class="phpcode"><code><span class="html">While code from phpuser.at.gmail.dot.com is good and i.g.e.o@ya.(dot).ru is even better, there is no end to perfection. We can live without temporary variables<br /><span class="default">&lt;?php<br /></span><span class="keyword">foreach (</span><span class="default">$_FILES </span><span class="keyword">as </span><span class="default">$field</span><span class="keyword">=&gt;</span><span class="default">$files</span><span class="keyword">) {<br />    </span><span class="comment">#Check if multiple files were uploaded to a field and process the values accordingly<br />    </span><span class="keyword">if (</span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$files</span><span class="keyword">[</span><span class="string">'name'</span><span class="keyword">])) {<br />        foreach (</span><span class="default">$files</span><span class="keyword">[</span><span class="string">'name'</span><span class="keyword">] as </span><span class="default">$key</span><span class="keyword">=&gt;</span><span class="default">$file</span><span class="keyword">) {<br />            </span><span class="default">$_FILES</span><span class="keyword">[</span><span class="default">$field</span><span class="keyword">][</span><span class="default">$key</span><span class="keyword">][</span><span class="string">'name'</span><span class="keyword">] = </span><span class="default">$file</span><span class="keyword">;<br />            </span><span class="default">$_FILES</span><span class="keyword">[</span><span class="default">$field</span><span class="keyword">][</span><span class="default">$key</span><span class="keyword">][</span><span class="string">'type'</span><span class="keyword">] = </span><span class="default">$files</span><span class="keyword">[</span><span class="string">'type'</span><span class="keyword">][</span><span class="default">$key</span><span class="keyword">];<br />            </span><span class="default">$_FILES</span><span class="keyword">[</span><span class="default">$field</span><span class="keyword">][</span><span class="default">$key</span><span class="keyword">][</span><span class="string">'size'</span><span class="keyword">] = </span><span class="default">$files</span><span class="keyword">[</span><span class="string">'size'</span><span class="keyword">][</span><span class="default">$key</span><span class="keyword">];<br />            </span><span class="default">$_FILES</span><span class="keyword">[</span><span class="default">$field</span><span class="keyword">][</span><span class="default">$key</span><span class="keyword">][</span><span class="string">'tmp_name'</span><span class="keyword">] = </span><span class="default">$files</span><span class="keyword">[</span><span class="string">'tmp_name'</span><span class="keyword">][</span><span class="default">$key</span><span class="keyword">];<br />            </span><span class="default">$_FILES</span><span class="keyword">[</span><span class="default">$field</span><span class="keyword">][</span><span class="default">$key</span><span class="keyword">][</span><span class="string">'error'</span><span class="keyword">] = </span><span class="default">$files</span><span class="keyword">[</span><span class="string">'error'</span><span class="keyword">][</span><span class="default">$key</span><span class="keyword">];<br />        }<br />    } else {<br />        </span><span class="default">$_FILES</span><span class="keyword">[</span><span class="default">$field</span><span class="keyword">][</span><span class="default">0</span><span class="keyword">][</span><span class="string">'name'</span><span class="keyword">] = </span><span class="default">$files</span><span class="keyword">[</span><span class="string">'name'</span><span class="keyword">];<br />        </span><span class="default">$_FILES</span><span class="keyword">[</span><span class="default">$field</span><span class="keyword">][</span><span class="default">0</span><span class="keyword">][</span><span class="string">'type'</span><span class="keyword">] = </span><span class="default">$files</span><span class="keyword">[</span><span class="string">'type'</span><span class="keyword">];<br />        </span><span class="default">$_FILES</span><span class="keyword">[</span><span class="default">$field</span><span class="keyword">][</span><span class="default">0</span><span class="keyword">][</span><span class="string">'size'</span><span class="keyword">] = </span><span class="default">$files</span><span class="keyword">[</span><span class="string">'size'</span><span class="keyword">];<br />        </span><span class="default">$_FILES</span><span class="keyword">[</span><span class="default">$field</span><span class="keyword">][</span><span class="default">0</span><span class="keyword">][</span><span class="string">'tmp_name'</span><span class="keyword">] = </span><span class="default">$files</span><span class="keyword">[</span><span class="string">'tmp_name'</span><span class="keyword">];<br />        </span><span class="default">$_FILES</span><span class="keyword">[</span><span class="default">$field</span><span class="keyword">][</span><span class="default">0</span><span class="keyword">][</span><span class="string">'error'</span><span class="keyword">] = </span><span class="default">$files</span><span class="keyword">[</span><span class="string">'error'</span><span class="keyword">];<br />    }<br />    unset(</span><span class="default">$_FILES</span><span class="keyword">[</span><span class="default">$field</span><span class="keyword">][</span><span class="string">'name'</span><span class="keyword">], </span><span class="default">$_FILES</span><span class="keyword">[</span><span class="default">$field</span><span class="keyword">][</span><span class="string">'type'</span><span class="keyword">], </span><span class="default">$_FILES</span><span class="keyword">[</span><span class="default">$field</span><span class="keyword">][</span><span class="string">'size'</span><span class="keyword">], </span><span class="default">$_FILES</span><span class="keyword">[</span><span class="default">$field</span><span class="keyword">][</span><span class="string">'tmp_name'</span><span class="keyword">], </span><span class="default">$_FILES</span><span class="keyword">[</span><span class="default">$field</span><span class="keyword">][</span><span class="string">'error'</span><span class="keyword">]);<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="118223">  <div class="votes">
+    <div id="Vu118223">
+    <a href="https://www.php.net/manual/vote-note.php?id=118223&amp;page=features.file-upload.multiple&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd118223">
+    <a href="https://www.php.net/manual/vote-note.php?id=118223&amp;page=features.file-upload.multiple&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V118223" title="15% like this...">
+    -32
+    </div>
+  </div>
+  <a href="features.file-upload.multiple.php.html#118223" class="name">
+  <strong class="user"><em>Roman</em></strong></a><a class="genanchor" href="features.file-upload.multiple.php.html#118223"> &para;</a><div class="date" title="2015-10-29 12:56"><strong>8 years ago</strong></div>
+  <div class="text" id="Hcom118223">
+<div class="phpcode"><code><span class="html">function reorganize($files) {<br />    foreach ($files as $var =&gt; $params) {<br />        foreach ($params as $name =&gt; $i) {<br />            foreach ($i as $num =&gt; $val) {<br />                $images[$var][$name] = $val;<br />                $arr[$num] = $images;<br />            }<br />        }<br />    }<br />    return $arr;<br />}<br /><br />Array (<br />     [0] =&gt; Array ( <br />         [image] =&gt; Array (<br />             [name] =&gt; white-rabbit-med-crop.jpg<br />             [type] =&gt; image/jpeg <br />             [tmp_name] =&gt; E:\xampp\tmp\phpC008.tmp <br />             [error] =&gt; 0 <br />             [size] =&gt; 343326 ) <br />        ) <br />    [1] =&gt; Array ( <br />         [image] =&gt; Array ( <br />             [name] =&gt; white-rabbit-med-crop.jpg <br />             [type] =&gt; image/jpeg <br />             [tmp_name] =&gt; E:\xampp\tmp\phpC008.tmp <br />             [error] =&gt; 0 <br />             [size] =&gt; 1429802 )<br />        )<br />)</span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=features.file-upload.multiple&amp;redirect=https://www.php.net/manual/ru/features.file-upload.multiple.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="features.file-upload.php.html">Загрузка файлов на сервер</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="features.file-upload.post-method.php.html" title="Загрузка файлов методом POST">Загрузка файлов методом POST</a>
+                        </li>
+                                                <li class="">
+                            <a href="features.file-upload.errors.php.html" title="Объяснение сообщений об ошибках">Объяснение сообщений об ошибках</a>
+                        </li>
+                                                <li class="">
+                            <a href="features.file-upload.common-pitfalls.php.html" title="Наиболее распространённые ошибки">Наиболее распространённые ошибки</a>
+                        </li>
+                                                <li class="current">
+                            <a href="features.file-upload.multiple.php.html" title="Загрузка нескольких файлов">Загрузка нескольких файлов</a>
+                        </li>
+                                                <li class="">
+                            <a href="features.file-upload.put-method.php.html" title="Поддержка метода PUT">Поддержка метода PUT</a>
+                        </li>
+                                                <li class="">
+                            <a href="features.file-upload.errors.seealso.php.html" title="Смотрите также">Смотрите также</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

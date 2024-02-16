@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: Работа библиотеки PHP с драйвером MongoDB (PHPLIB) - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="mongodb.tutorial.library.php.html">
+ <link rel="shorturl" href="mongodb.tutorial.library.php.html">
+ <link rel="alternate" href="mongodb.tutorial.library.php.html" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="mongodb.tutorial.php.html">
+ <link rel="prev" href="mongodb.tutorial.php.html">
+ <link rel="next" href="mongodb.tutorial.apm.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/mongodb.tutorial.library.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/mongodb.tutorial.library.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/mongodb.tutorial.library.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/mongodb.tutorial.library.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/mongodb.tutorial.library.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/mongodb.tutorial.library.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/mongodb.tutorial.library.php" hreflang="pt_BR">
+ <link rel="alternate" href="mongodb.tutorial.library.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/mongodb.tutorial.library.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/mongodb.tutorial.library.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="mongodb.tutorial.apm.php.html">
+          Мониторинг производительности приложения (Application Performance Monitoring или APM) &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="mongodb.tutorial.php.html">
+          &laquo; Обучающие материалы        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.database.php.html'>Модули для работы с базами данных</a></li>      <li><a href='refs.database.vendors.php.html'>Модули для работы с базами данных отдельных производителей</a></li>      <li><a href='set.mongodb.php.html'>MongoDB</a></li>      <li><a href='mongodb.tutorial.php.html'>Обучающие материалы</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/mongodb.tutorial.library.php'>English</option>
+            <option value='de/mongodb.tutorial.library.php'>German</option>
+            <option value='es/mongodb.tutorial.library.php'>Spanish</option>
+            <option value='fr/mongodb.tutorial.library.php'>French</option>
+            <option value='it/mongodb.tutorial.library.php'>Italian</option>
+            <option value='ja/mongodb.tutorial.library.php'>Japanese</option>
+            <option value='pt_BR/mongodb.tutorial.library.php'>Brazilian Portuguese</option>
+            <option value='ru/mongodb.tutorial.library.php' selected="selected">Russian</option>
+            <option value='tr/mongodb.tutorial.library.php'>Turkish</option>
+            <option value='zh/mongodb.tutorial.library.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/mongodb/tutorial/library.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Fmongodb.tutorial.library%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="mongodb.tutorial.library" class="chapter">
+ <h1>Работа библиотеки PHP с драйвером MongoDB (PHPLIB)</h1>
+
+
+ <p class="para">
+  После первоначальной настройки драйвера продолжится объяснение того, как начать
+  работу с драйвером MongoDB и пользовательской библиотекой
+  чтобы создать первый проект.
+ </p>
+
+ <div class="section">
+  <h2 class="title">Установка библиотеки PHP через Composer</h2>
+
+  <p class="para">
+   Последнее, что необходимо установить перед тем,
+   как начать писать приложение, — это библиотека PHP.
+  </p>
+
+  <p class="para">
+   Библиотеку будем устанавливать через пакетный менеджер
+   <a href="https://getcomposer.org/" class="link external">&raquo;&nbsp;Composer</a>.
+   Инструкции по установке Composer на разные платформы опубликованы на его сайте.
+  </p>
+
+  <p class="para">
+   Библиотеку устанавливают так:
+   <div class="example-contents">
+<div class="shellcode"><pre class="shellcode">$ composer require mongodb/mongodb</pre>
+</div>
+    </div>
+
+  </p>
+
+  <p class="para">
+   Будет выведено что-то вроде:
+
+   <div class="example-contents">
+<div class="textcode"><pre class="textcode">./composer.json has been created
+Loading composer repositories with package information
+Updating dependencies (including require-dev)
+  - Installing mongodb/mongodb (1.0.0)
+    Downloading: 100%
+
+Writing lock file
+Generating autoload files</pre>
+</div>
+    </div>
+
+  </p>
+
+  <p class="para">
+   Composer создаст несколько файлов: <code class="code">composer.json</code>,
+   <code class="code">composer.lock</code> и директорию <code class="code">vendor</code>,
+   содержащую саму библиотеку и другие зависимости, которые потребуются
+   в проекте.
+  </p>
+ </div>
+
+ <div class="section">
+  <h2 class="title">Работа с библиотекой PHP</h2>
+
+  <p class="para">
+   Кроме управления зависимостями, Composer также содержит
+   автозагрузчик классов для этих зависимостей. Необходимо убедиться,
+   что этот автозагрузчик включён в начало скрипта
+   или в код начальной загрузки приложения:
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// Этот путь должен указывать на автозагрузчик Composer<br /></span><span style="color: #007700">require </span><span style="color: #DD0000">'vendor/autoload.php'</span><span style="color: #007700">;</span></span></code></div>
+    </div>
+
+   </p>
+
+   <p class="para">
+    После этого можно использовать библиотеку
+    как описано <a href="https://www.mongodb.com/docs/php-library/current/" class="link external">&raquo;&nbsp;в документации</a>.
+   </p>
+
+   <p class="para">
+    Если ранее приходилось работать с драйвером MongoDB в других языках, API библиотеки
+    будет выглядеть знакомым. Он содержит
+    класс <a href="https://www.mongodb.com/docs/php-library/master/reference/class/MongoDBClient/" class="link external">&raquo;&nbsp;Client</a>
+    для соединения с MongoDB,
+    класс <a href="https://www.mongodb.com/docs/php-library/master/reference/class/MongoDBDatabase/" class="link external">&raquo;&nbsp;Database</a>
+    для операций уровня базы данных (например, команды, управление коллекциями)
+    и класс
+    <a href="https://www.mongodb.com/docs/php-library/master/reference/class/MongoDBCollection" class="link external">&raquo;&nbsp;Collection</a>
+    для операций уровня коллекций (например, операций
+    <a href="https://en.wikipedia.org/wiki/Create,_read,_update_and_delete" class="link external">&raquo;&nbsp;CRUD</a>, управление индексами).
+   </p>
+
+   <p class="para">
+    Например, вот как вставить документ в коллекцию
+    <em>beers</em> базы данных <em>demo</em>:
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">require </span><span style="color: #DD0000">'vendor/autoload.php'</span><span style="color: #007700">; </span><span style="color: #FF8000">// подключаем автозагрузчик классов Composer<br /><br /></span><span style="color: #0000BB">$client </span><span style="color: #007700">= new </span><span style="color: #0000BB">MongoDB\Client</span><span style="color: #007700">(</span><span style="color: #DD0000">"mongodb://localhost:27017"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$collection </span><span style="color: #007700">= </span><span style="color: #0000BB">$client</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">demo</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">beers</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$result </span><span style="color: #007700">= </span><span style="color: #0000BB">$collection</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">insertOne</span><span style="color: #007700">( [ </span><span style="color: #DD0000">'name' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'Hinterland'</span><span style="color: #007700">, </span><span style="color: #DD0000">'brewery' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'BrewDog' </span><span style="color: #007700">] );<br /><br />echo </span><span style="color: #DD0000">"Идентификатор вставленного документа '</span><span style="color: #007700">{</span><span style="color: #0000BB">$result</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getInsertedId</span><span style="color: #007700">()}</span><span style="color: #DD0000">'"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+    </div>
+
+   </p>
+
+   <p class="para">
+    Поскольку вставленный документ не содержал поля <code class="code">_id</code>,
+    драйвер сгенерирует для сервера объект <span class="classname"><a href="class.mongodb-bson-objectid.php.html" class="classname">MongoDB\BSON\ObjectId</a></span>,
+    чтобы использовать как <code class="code">_id</code>. Это значение также становится доступно
+    вызываемому на объекте результата методу <code class="code">insertOne</code>.
+   </p>
+
+   <p class="para">
+    После вставки можно запросить только что вставленные данные.
+    Для этого вызывают метод <code class="code">find</code>, который возвращает итерируемый
+    курсор:
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">require </span><span style="color: #DD0000">'vendor/autoload.php'</span><span style="color: #007700">; </span><span style="color: #FF8000">// подключаем автозагрузчик классов Composer<br /><br /></span><span style="color: #0000BB">$client </span><span style="color: #007700">= new </span><span style="color: #0000BB">MongoDB\Client</span><span style="color: #007700">(</span><span style="color: #DD0000">"mongodb://localhost:27017"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$collection </span><span style="color: #007700">= </span><span style="color: #0000BB">$client</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">demo</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">beers</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$result </span><span style="color: #007700">= </span><span style="color: #0000BB">$collection</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">find</span><span style="color: #007700">( [ </span><span style="color: #DD0000">'name' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'Hinterland'</span><span style="color: #007700">, </span><span style="color: #DD0000">'brewery' </span><span style="color: #007700">=&gt; </span><span style="color: #DD0000">'BrewDog' </span><span style="color: #007700">] );<br /><br />foreach (</span><span style="color: #0000BB">$result </span><span style="color: #007700">as </span><span style="color: #0000BB">$entry</span><span style="color: #007700">) {<br />    echo </span><span style="color: #0000BB">$entry</span><span style="color: #007700">[</span><span style="color: #DD0000">'_id'</span><span style="color: #007700">], </span><span style="color: #DD0000">': '</span><span style="color: #007700">, </span><span style="color: #0000BB">$entry</span><span style="color: #007700">[</span><span style="color: #DD0000">'name'</span><span style="color: #007700">], </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+    </div>
+
+   </p>
+
+   <p class="para">
+    Хотя после знакомства с примерами может быть неочевидно, но документы BSON и массивы по умолчанию
+    десериализованы как типы классов в библиотеке. Эти классы дают гарантию, что
+    значения сохранят типы при сериализации обратно в BSON,
+    что исключает проблемы со старыми драйверами, когда массивы могли преобразоваться
+    в документы и наоборот. А также этот тип классов расширяет
+    класс <span class="classname"><a href="class.arrayobject.php.html" class="classname">ArrayObject</a></span>, что повышает удобство работы с ними.
+    Подробнее о сериализации и десериализации между переменными PHP
+    и BSON рассказано в спецификации <a href="mongodb.persistence.php.html" class="xref">Постоянные данные</a>.
+   </p>
+ </div>
+</div>
+<section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=mongodb.tutorial.library&amp;redirect=https://www.php.net/manual/ru/mongodb.tutorial.library.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">7 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="124121">  <div class="votes">
+    <div id="Vu124121">
+    <a href="https://www.php.net/manual/vote-note.php?id=124121&amp;page=mongodb.tutorial.library&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd124121">
+    <a href="https://www.php.net/manual/vote-note.php?id=124121&amp;page=mongodb.tutorial.library&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V124121" title="83% like this...">
+    8
+    </div>
+  </div>
+  <a href="mongodb.tutorial.library.php.html#124121" class="name">
+  <strong class="user"><em>salos_12 at hotmail dot com</em></strong></a><a class="genanchor" href="mongodb.tutorial.library.php.html#124121"> &para;</a><div class="date" title="2019-08-16 07:16"><strong>4 years ago</strong></div>
+  <div class="text" id="Hcom124121">
+<div class="phpcode"><code><span class="html">When your database name contains a "-" (e.g. database-name) you need to use a string instead.<br /><br /><span class="default">&lt;?php<br /><br />$client </span><span class="keyword">= new </span><span class="default">MongoDB\Client</span><span class="keyword">(</span><span class="string">"mongodb://ip_address:port"</span><span class="keyword">);<br /></span><span class="default">$collection </span><span class="keyword">= </span><span class="default">$client</span><span class="keyword">-&gt;{</span><span class="string">'database-name'</span><span class="keyword">}-&gt;</span><span class="default">collection</span><span class="keyword">;<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="122519">  <div class="votes">
+    <div id="Vu122519">
+    <a href="https://www.php.net/manual/vote-note.php?id=122519&amp;page=mongodb.tutorial.library&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd122519">
+    <a href="https://www.php.net/manual/vote-note.php?id=122519&amp;page=mongodb.tutorial.library&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V122519" title="66% like this...">
+    20
+    </div>
+  </div>
+  <a href="mongodb.tutorial.library.php.html#122519" class="name">
+  <strong class="user"><em>surajtiwari020 at gmail dot com</em></strong></a><a class="genanchor" href="mongodb.tutorial.library.php.html#122519"> &para;</a><div class="date" title="2018-03-16 05:03"><strong>5 years ago</strong></div>
+  <div class="text" id="Hcom122519">
+<div class="phpcode"><code><span class="html">Well most of the tutorials didn't explained well, So i hope this might help someone <br />Note: this is a part of my laravel project  <br /><br />//getting data from a collection<br /><span class="default">&lt;?php<br /><br /></span><span class="keyword">use </span><span class="default">MongoDB\Client </span><span class="keyword">as </span><span class="default">Mongo</span><span class="keyword">;<br /><br /></span><span class="default">$user </span><span class="keyword">= </span><span class="string">"admin"</span><span class="keyword">;<br /></span><span class="default">$pwd </span><span class="keyword">= </span><span class="string">'password'</span><span class="keyword">;<br /><br /></span><span class="default">$mongo </span><span class="keyword">= new </span><span class="default">Mongo</span><span class="keyword">(</span><span class="string">"mongodb://</span><span class="keyword">${</span><span class="default">user</span><span class="keyword">}</span><span class="string">:</span><span class="keyword">${</span><span class="default">pwd</span><span class="keyword">}</span><span class="string">@127.0.0.1:27017"</span><span class="keyword">);<br /></span><span class="default">$collection </span><span class="keyword">= </span><span class="default">$mongo</span><span class="keyword">-&gt;</span><span class="default">db_name</span><span class="keyword">-&gt;</span><span class="default">collection</span><span class="keyword">;<br /></span><span class="default">$result </span><span class="keyword">= </span><span class="default">$collection</span><span class="keyword">-&gt;</span><span class="default">find</span><span class="keyword">()-&gt;</span><span class="default">toArray</span><span class="keyword">();<br /><br /></span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$result</span><span class="keyword">);<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="124329">  <div class="votes">
+    <div id="Vu124329">
+    <a href="https://www.php.net/manual/vote-note.php?id=124329&amp;page=mongodb.tutorial.library&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd124329">
+    <a href="https://www.php.net/manual/vote-note.php?id=124329&amp;page=mongodb.tutorial.library&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V124329" title="66% like this...">
+    2
+    </div>
+  </div>
+  <a href="mongodb.tutorial.library.php.html#124329" class="name">
+  <strong class="user"><em>wpg</em></strong></a><a class="genanchor" href="mongodb.tutorial.library.php.html#124329"> &para;</a><div class="date" title="2019-10-23 05:40"><strong>4 years ago</strong></div>
+  <div class="text" id="Hcom124329">
+<div class="phpcode"><code><span class="html">If you have a number of JSON documents with nested elements such as 'responseId' below and you want to know how many documents have a responseId:<br />{"result":{"responseId":"xyz"}}<br />{"result":NULL}<br />{"result":{"responseId":"abc"}}<br /><br />I was not having luck with the following format<br /><span class="default">&lt;?php <br /></span><span class="comment">// trying to get the count of documents where responseId is not equal to NULL (did not work for me)<br /></span><span class="default">$intCount </span><span class="keyword">= </span><span class="default">$collection</span><span class="keyword">-&gt;</span><span class="default">count</span><span class="keyword">([</span><span class="string">'result' </span><span class="keyword">=&gt; [</span><span class="string">'responseId' </span><span class="keyword">=&gt; [</span><span class="string">'$ne' </span><span class="keyword">=&gt; </span><span class="default">NULL</span><span class="keyword">]]]);<br /></span><span class="default">?&gt;<br /></span><br />Instead I needed to use a period between the JSON elements:<br /><span class="default">&lt;?php<br /></span><span class="comment">// get the count of documents where responseId is not equal to NULL<br /></span><span class="default">$intCount </span><span class="keyword">= </span><span class="default">$collection</span><span class="keyword">-&gt;</span><span class="default">count</span><span class="keyword">([</span><span class="string">'result.responseId' </span><span class="keyword">=&gt; [</span><span class="string">'$ne' </span><span class="keyword">=&gt; </span><span class="default">NULL</span><span class="keyword">]]);<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="121084">  <div class="votes">
+    <div id="Vu121084">
+    <a href="https://www.php.net/manual/vote-note.php?id=121084&amp;page=mongodb.tutorial.library&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd121084">
+    <a href="https://www.php.net/manual/vote-note.php?id=121084&amp;page=mongodb.tutorial.library&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V121084" title="60% like this...">
+    10
+    </div>
+  </div>
+  <a href="mongodb.tutorial.library.php.html#121084" class="name">
+  <strong class="user"><em>crystale dot darck at gmail dot com</em></strong></a><a class="genanchor" href="mongodb.tutorial.library.php.html#121084"> &para;</a><div class="date" title="2017-05-15 04:03"><strong>6 years ago</strong></div>
+  <div class="text" id="Hcom121084">
+<div class="phpcode"><code><span class="html">To test your connection string, you can do something like this:<br /><br /><span class="default">&lt;?php<br />$mongo </span><span class="keyword">= new </span><span class="default">MongoDB\Client</span><span class="keyword">(</span><span class="string">'mongodb://my_server_does_not_exist_here:27017'</span><span class="keyword">);<br />try <br />{<br />    </span><span class="default">$dbs </span><span class="keyword">= </span><span class="default">$mongo</span><span class="keyword">-&gt;</span><span class="default">listDatabases</span><span class="keyword">();<br />}<br />catch (</span><span class="default">MongoDB\Driver\Exception\ConnectionTimeoutException $e</span><span class="keyword">)<br />{<br />    </span><span class="comment">// PHP cannot find a MongoDB server using the MongoDB connection string specified<br />    // do something here<br /></span><span class="keyword">}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="118888">  <div class="votes">
+    <div id="Vu118888">
+    <a href="https://www.php.net/manual/vote-note.php?id=118888&amp;page=mongodb.tutorial.library&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd118888">
+    <a href="https://www.php.net/manual/vote-note.php?id=118888&amp;page=mongodb.tutorial.library&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V118888" title="55% like this...">
+    5
+    </div>
+  </div>
+  <a href="mongodb.tutorial.library.php.html#118888" class="name">
+  <strong class="user"><em>Dc Shiman</em></strong></a><a class="genanchor" href="mongodb.tutorial.library.php.html#118888"> &para;</a><div class="date" title="2016-02-23 03:53"><strong>7 years ago</strong></div>
+  <div class="text" id="Hcom118888">
+<div class="phpcode"><code><span class="html">Do a text search on the collection with projection<br /><br />$search['$text'] = ['$search' =&gt; "foo"];<br />$options["projection"] = ['score' =&gt; ['$meta' =&gt; "textScore"]];<br />$options["sort"] = ["score" =&gt; ['$meta' =&gt; "textScore"]];<br /><br />$cursor = $collection-&gt;find($search, $options);</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="119729">  <div class="votes">
+    <div id="Vu119729">
+    <a href="https://www.php.net/manual/vote-note.php?id=119729&amp;page=mongodb.tutorial.library&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd119729">
+    <a href="https://www.php.net/manual/vote-note.php?id=119729&amp;page=mongodb.tutorial.library&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V119729" title="51% like this...">
+    1
+    </div>
+  </div>
+  <a href="mongodb.tutorial.library.php.html#119729" class="name">
+  <strong class="user"><em>Basher</em></strong></a><a class="genanchor" href="mongodb.tutorial.library.php.html#119729"> &para;</a><div class="date" title="2016-08-12 04:10"><strong>7 years ago</strong></div>
+  <div class="text" id="Hcom119729">
+<div class="phpcode"><code><span class="html">Pecl MongoDB at time of writing can be installed (see phpinfo()) but composer will complain that it's not present.<br /><br />$  composer require "mongodb/mongodb=^1.0.0"<br />...<br />Your requirements could not be resolved to an installable set of packages.<br /><br />If you see this try <br /><br />$ composer require "mongodb/mongodb=^1.0.0" --ignore-platform-reqs</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="123179">  <div class="votes">
+    <div id="Vu123179">
+    <a href="https://www.php.net/manual/vote-note.php?id=123179&amp;page=mongodb.tutorial.library&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd123179">
+    <a href="https://www.php.net/manual/vote-note.php?id=123179&amp;page=mongodb.tutorial.library&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V123179" title="12% like this...">
+    -47
+    </div>
+  </div>
+  <a href="mongodb.tutorial.library.php.html#123179" class="name">
+  <strong class="user"><em>myname</em></strong></a><a class="genanchor" href="mongodb.tutorial.library.php.html#123179"> &para;</a><div class="date" title="2018-09-30 05:53"><strong>5 years ago</strong></div>
+  <div class="text" id="Hcom123179">
+<div class="phpcode"><code><span class="html">What folder we need to be in to run composer? I can't get it to work.</span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=mongodb.tutorial.library&amp;redirect=https://www.php.net/manual/ru/mongodb.tutorial.library.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="mongodb.tutorial.php.html">Обучающие материалы</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="current">
+                            <a href="mongodb.tutorial.library.php.html" title="Работа библиотеки PHP с драйвером MongoDB (PHPLIB)">Работа библиотеки PHP с драйвером MongoDB (PHPLIB)</a>
+                        </li>
+                                                <li class="">
+                            <a href="mongodb.tutorial.apm.php.html" title="Мониторинг производительности приложения (Application Performance Monitoring или APM)">Мониторинг производительности приложения (Application Performance Monitoring или APM)</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

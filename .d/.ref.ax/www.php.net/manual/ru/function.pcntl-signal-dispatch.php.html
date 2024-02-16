@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: pcntl_signal_dispatch - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="function.pcntl-signal-dispatch.php.html">
+ <link rel="shorturl" href="https://www.php.net/pcntl-signal-dispatch">
+ <link rel="alternate" href="https://www.php.net/pcntl-signal-dispatch" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="ref.pcntl.php.html">
+ <link rel="prev" href="function.pcntl-setpriority.php.html">
+ <link rel="next" href="function.pcntl-signal-get-handler.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/function.pcntl-signal-dispatch.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/function.pcntl-signal-dispatch.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/function.pcntl-signal-dispatch.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/function.pcntl-signal-dispatch.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/function.pcntl-signal-dispatch.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/function.pcntl-signal-dispatch.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/function.pcntl-signal-dispatch.php" hreflang="pt_BR">
+ <link rel="alternate" href="function.pcntl-signal-dispatch.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/function.pcntl-signal-dispatch.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/function.pcntl-signal-dispatch.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="function.pcntl-signal-get-handler.php.html">
+          pcntl_signal_get_handler &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="function.pcntl-setpriority.php.html">
+          &laquo; pcntl_setpriority        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.fileprocess.process.php.html'>Модули для управления процессами программ</a></li>      <li><a href='book.pcntl.php.html'>PCNTL</a></li>      <li><a href='ref.pcntl.php.html'>Функции PCNTL</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/function.pcntl-signal-dispatch.php'>English</option>
+            <option value='de/function.pcntl-signal-dispatch.php'>German</option>
+            <option value='es/function.pcntl-signal-dispatch.php'>Spanish</option>
+            <option value='fr/function.pcntl-signal-dispatch.php'>French</option>
+            <option value='it/function.pcntl-signal-dispatch.php'>Italian</option>
+            <option value='ja/function.pcntl-signal-dispatch.php'>Japanese</option>
+            <option value='pt_BR/function.pcntl-signal-dispatch.php'>Brazilian Portuguese</option>
+            <option value='ru/function.pcntl-signal-dispatch.php' selected="selected">Russian</option>
+            <option value='tr/function.pcntl-signal-dispatch.php'>Turkish</option>
+            <option value='zh/function.pcntl-signal-dispatch.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/pcntl/functions/pcntl-signal-dispatch.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Ffunction.pcntl-signal-dispatch%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="function.pcntl-signal-dispatch" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">pcntl_signal_dispatch</h1>
+  <p class="verinfo">(PHP 5 &gt;= 5.3.0, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">pcntl_signal_dispatch</span> &mdash; <span class="dc-title">Вызывает обработчики для ожидающих сигналов</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.pcntl-signal-dispatch-description">
+  <h3 class="title">Описание</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="methodname"><strong>pcntl_signal_dispatch</strong></span>(): <span class="type">bool</span></div>
+
+  <p class="para rdfs-comment">
+   Функция <span class="function"><strong>pcntl_signal_dispatch()</strong></span> вызывает обработчики
+   сигналов, установленные функцией <span class="function"><a href="function.pcntl-signal.php.html" class="function">pcntl_signal()</a></span>,
+   для каждого ожидающего сигнала.
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.pcntl-signal-dispatch-parameters">
+  <h3 class="title">Список параметров</h3>
+  
+<p class="para">
+ У этой функции нет параметров.
+</p>
+
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.pcntl-signal-dispatch-returnvalues">
+  <h3 class="title">Возвращаемые значения</h3>
+  <p class="para">
+   Возвращает <strong><code>true</code></strong> в случае успешного выполнения или <strong><code>false</code></strong> в случае возникновения ошибки.
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.pcntl-signal-dispatch-examples">
+  <h3 class="title">Примеры</h3>
+  <p class="para">
+   <div class="example" id="">
+    <p><strong>Пример #1 Пример использования <span class="function"><strong>pcntl_signal_dispatch()</strong></span>:</strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">echo </span><span style="color: #DD0000">"Установка обработчика сигнала SIGHUP...\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">pcntl_signal</span><span style="color: #007700">(</span><span style="color: #0000BB">SIGHUP</span><span style="color: #007700">,  function(</span><span style="color: #0000BB">$signo</span><span style="color: #007700">) {<br />     echo </span><span style="color: #DD0000">"Вызван обработчик сигнала SIGHUP\n"</span><span style="color: #007700">;<br />});<br /><br />echo </span><span style="color: #DD0000">"Посылаем сигнал SIGHUP самому себе...\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">posix_kill</span><span style="color: #007700">(</span><span style="color: #0000BB">posix_getpid</span><span style="color: #007700">(), </span><span style="color: #0000BB">SIGHUP</span><span style="color: #007700">);<br /><br />echo </span><span style="color: #DD0000">"Отравка всех сигналов...\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">pcntl_signal_dispatch</span><span style="color: #007700">();<br /><br />echo </span><span style="color: #DD0000">"Завершено.\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+    </div>
+
+    
+<div class="example-contents"><p>
+ Вывод приведённого примера будет похож на:
+</p></div>
+
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Установка обработчика сигнала SIGHUP...
+Посылаем сигнал SIGHUP самому себе...
+Отравка всех сигналов...
+Вызван обработчик сигнала SIGHUP
+Завершено.
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.pcntl-signal-dispatch-seealso">
+  <h3 class="title">Смотрите также</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.pcntl-signal.php.html" class="function" rel="rdfs-seeAlso">pcntl_signal()</a> - Установка обработчика сигнала</span></li>
+    <li class="member"><span class="function"><a href="function.pcntl-sigprocmask.php.html" class="function" rel="rdfs-seeAlso">pcntl_sigprocmask()</a> - Задаёт и извлекает список блокируемых сигналов</span></li>
+    <li class="member"><span class="function"><a href="function.pcntl-sigwaitinfo.php.html" class="function" rel="rdfs-seeAlso">pcntl_sigwaitinfo()</a> - Ожидание сигналов</span></li>
+    <li class="member"><span class="function"><a href="function.pcntl-sigtimedwait.php.html" class="function" rel="rdfs-seeAlso">pcntl_sigtimedwait()</a> - Ожидает сигналы в течение заданного времени</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=function.pcntl-signal-dispatch&amp;redirect=https://www.php.net/manual/ru/function.pcntl-signal-dispatch.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">4 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="92812">  <div class="votes">
+    <div id="Vu92812">
+    <a href="https://www.php.net/manual/vote-note.php?id=92812&amp;page=function.pcntl-signal-dispatch&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd92812">
+    <a href="https://www.php.net/manual/vote-note.php?id=92812&amp;page=function.pcntl-signal-dispatch&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V92812" title="95% like this...">
+    40
+    </div>
+  </div>
+  <a href="function.pcntl-signal-dispatch.php.html#92812" class="name">
+  <strong class="user"><em>webmaster at ajeux dot com</em></strong></a><a class="genanchor" href="function.pcntl-signal-dispatch.php.html#92812"> &para;</a><div class="date" title="2009-08-10 10:50"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom92812">
+<div class="phpcode"><code><span class="html">If you are running PHP as CLI and as a "daemon" (i.e. in a loop), this function must be called in each loop  to check if new signals are waiting dispatching.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="114234">  <div class="votes">
+    <div id="Vu114234">
+    <a href="https://www.php.net/manual/vote-note.php?id=114234&amp;page=function.pcntl-signal-dispatch&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd114234">
+    <a href="https://www.php.net/manual/vote-note.php?id=114234&amp;page=function.pcntl-signal-dispatch&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V114234" title="85% like this...">
+    10
+    </div>
+  </div>
+  <a href="function.pcntl-signal-dispatch.php.html#114234" class="name">
+  <strong class="user"><em>me at subsonic dot cz</em></strong></a><a class="genanchor" href="function.pcntl-signal-dispatch.php.html#114234"> &para;</a><div class="date" title="2014-01-27 05:33"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom114234">
+<div class="phpcode"><code><span class="html">Note that calling pcntl_signal_dispatch() from within a signal handler invoked by a previous pcntl_signal_dispatch() will not trigger handlers for any new pending signals. This means that if you write a CLI daemon which forks off child processes in response to a signal, then those child processes won't be able to respond to signals. This gave me a headache for a while as pcntl_signal_dispatch() doesn't raise any errors when this occurs. One solution is to set a flag within the signal handler and react upon it (by forking off the needed child processes) elsewhere in the parent process's main loop.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="115015">  <div class="votes">
+    <div id="Vu115015">
+    <a href="https://www.php.net/manual/vote-note.php?id=115015&amp;page=function.pcntl-signal-dispatch&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd115015">
+    <a href="https://www.php.net/manual/vote-note.php?id=115015&amp;page=function.pcntl-signal-dispatch&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V115015" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="function.pcntl-signal-dispatch.php.html#115015" class="name">
+  <strong class="user"><em>stefanis</em></strong></a><a class="genanchor" href="function.pcntl-signal-dispatch.php.html#115015"> &para;</a><div class="date" title="2014-05-13 12:40"><strong>9 years ago</strong></div>
+  <div class="text" id="Hcom115015">
+<div class="phpcode"><code><span class="html">As noted by "me at subsonic dot net" calling pcntl_signal_dispatch() from within a signal handler invoked by a previous pcntl_signal_dispatch() will not trigger handlers for any new pending signals. This seems to be true even if you pcntl_exec() a new PHP processor to execute an entirely different script.<br /><br />The solution seems to be to explicitly call pcntl_signal_dispatch()inside a ticks_handler() . And use sig_handler(int) as a push function to a queue. Immediately following the call to dispatch in the ticks_handler, pop your queue doing what you would have done in the signal_handler until the queue is empty.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="115022">  <div class="votes">
+    <div id="Vu115022">
+    <a href="https://www.php.net/manual/vote-note.php?id=115022&amp;page=function.pcntl-signal-dispatch&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd115022">
+    <a href="https://www.php.net/manual/vote-note.php?id=115022&amp;page=function.pcntl-signal-dispatch&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V115022" title="40% like this...">
+    -1
+    </div>
+  </div>
+  <a href="function.pcntl-signal-dispatch.php.html#115022" class="name">
+  <strong class="user"><em>stefanis</em></strong></a><a class="genanchor" href="function.pcntl-signal-dispatch.php.html#115022"> &para;</a><div class="date" title="2014-05-13 06:45"><strong>9 years ago</strong></div>
+  <div class="text" id="Hcom115022">
+<div class="phpcode"><code><span class="html">Well I misspoke before. It is not enough to process signals outside of the signal handler. They must be processed outside of the tick handler (explicit or implied). So... <br /><br />Register a tick handler that calls pcntl_signal_dispatch();<br />In the signal handler, enqueue your signal;<br />In the main loop of your script, process your signals;<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">declare(</span><span class="default">ticks</span><span class="keyword">=</span><span class="default">1</span><span class="keyword">);<br />global </span><span class="default">$sig_queue</span><span class="keyword">;<br />global </span><span class="default">$use_queue</span><span class="keyword">;<br /></span><span class="default">$sig_queue </span><span class="keyword">= array();<br /></span><span class="default">$use_queue </span><span class="keyword">= </span><span class="default">true</span><span class="keyword">;   </span><span class="comment">// set to false to do it the old way<br /><br /></span><span class="keyword">function </span><span class="default">tick_handler</span><span class="keyword">()<br />{<br />     </span><span class="default">pcntl_signal_dispatch</span><span class="keyword">();<br />}<br /><br />function </span><span class="default">sig_handler</span><span class="keyword">(</span><span class="default">$sig</span><span class="keyword">)<br />{<br />     global </span><span class="default">$sig_queue</span><span class="keyword">;<br />     global </span><span class="default">$use_queue</span><span class="keyword">;<br /><br />     if(isset(</span><span class="default">$use_queue</span><span class="keyword">) &amp;&amp; </span><span class="default">$use_queue</span><span class="keyword">)<br />     {<br />          </span><span class="default">$sig_queue</span><span class="keyword">[] = </span><span class="default">$sig</span><span class="keyword">;<br />     }<br />     else<br />     {<br />          </span><span class="default">sig_helper</span><span class="keyword">(</span><span class="default">$sig</span><span class="keyword">);<br />     }<br />}<br /><br />function </span><span class="default">sig_helper</span><span class="keyword">(</span><span class="default">$sig</span><span class="keyword">)<br />{<br />     switch(</span><span class="default">$sig</span><span class="keyword">)<br />     {<br />     case </span><span class="default">SIGHUP</span><span class="keyword">:<br />          </span><span class="default">$pid </span><span class="keyword">= </span><span class="default">pcntl_fork</span><span class="keyword">();<br />          if(</span><span class="default">$pid</span><span class="keyword">) print(</span><span class="string">"forked </span><span class="default">$pid</span><span class="string">\n"</span><span class="keyword">);<br />          break;<br /><br />     default:<br />          print(</span><span class="string">"unhandled sig: </span><span class="default">$sig</span><span class="string">\n"</span><span class="keyword">);<br />     }<br />}<br /><br /></span><span class="default">pcntl_signal</span><span class="keyword">(</span><span class="default">SIGHUP</span><span class="keyword">,   </span><span class="string">"sig_handler"</span><span class="keyword">);<br /><br />while(</span><span class="default">true</span><span class="keyword">)<br />{<br />     if(</span><span class="default">$use_queue</span><span class="keyword">) foreach(</span><span class="default">$sig_queue </span><span class="keyword">as </span><span class="default">$idx</span><span class="keyword">=&gt;</span><span class="default">$sig</span><span class="keyword">)<br />     {<br />           </span><span class="default">sig_helper</span><span class="keyword">(</span><span class="default">$sig</span><span class="keyword">);<br />           unset(</span><span class="default">$sig_queue</span><span class="keyword">[</span><span class="default">$idx</span><span class="keyword">]);<br />     }<br />     </span><span class="default">sleep</span><span class="keyword">(</span><span class="default">1</span><span class="keyword">);<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=function.pcntl-signal-dispatch&amp;redirect=https://www.php.net/manual/ru/function.pcntl-signal-dispatch.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="ref.pcntl.php.html">Функции PCNTL</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="function.pcntl-alarm.php.html" title="pcntl_&#8203;alarm">pcntl_&#8203;alarm</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.pcntl-async-signals.php.html" title="pcntl_&#8203;async_&#8203;signals">pcntl_&#8203;async_&#8203;signals</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.pcntl-errno.php.html" title="pcntl_&#8203;errno">pcntl_&#8203;errno</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.pcntl-exec.php.html" title="pcntl_&#8203;exec">pcntl_&#8203;exec</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.pcntl-fork.php.html" title="pcntl_&#8203;fork">pcntl_&#8203;fork</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.pcntl-get-last-error.php.html" title="pcntl_&#8203;get_&#8203;last_&#8203;error">pcntl_&#8203;get_&#8203;last_&#8203;error</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.pcntl-getpriority.php.html" title="pcntl_&#8203;getpriority">pcntl_&#8203;getpriority</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.pcntl-rfork.php.html" title="pcntl_&#8203;rfork">pcntl_&#8203;rfork</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.pcntl-setpriority.php.html" title="pcntl_&#8203;setpriority">pcntl_&#8203;setpriority</a>
+                        </li>
+                                                <li class="current">
+                            <a href="function.pcntl-signal-dispatch.php.html" title="pcntl_&#8203;signal_&#8203;dispatch">pcntl_&#8203;signal_&#8203;dispatch</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.pcntl-signal-get-handler.php.html" title="pcntl_&#8203;signal_&#8203;get_&#8203;handler">pcntl_&#8203;signal_&#8203;get_&#8203;handler</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.pcntl-signal.php.html" title="pcntl_&#8203;signal">pcntl_&#8203;signal</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.pcntl-sigprocmask.php.html" title="pcntl_&#8203;sigprocmask">pcntl_&#8203;sigprocmask</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.pcntl-sigtimedwait.php.html" title="pcntl_&#8203;sigtimedwait">pcntl_&#8203;sigtimedwait</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.pcntl-sigwaitinfo.php.html" title="pcntl_&#8203;sigwaitinfo">pcntl_&#8203;sigwaitinfo</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.pcntl-strerror.php.html" title="pcntl_&#8203;strerror">pcntl_&#8203;strerror</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.pcntl-unshare.php.html" title="pcntl_&#8203;unshare">pcntl_&#8203;unshare</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.pcntl-wait.php.html" title="pcntl_&#8203;wait">pcntl_&#8203;wait</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.pcntl-waitpid.php.html" title="pcntl_&#8203;waitpid">pcntl_&#8203;waitpid</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.pcntl-wexitstatus.php.html" title="pcntl_&#8203;wexitstatus">pcntl_&#8203;wexitstatus</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.pcntl-wifexited.php.html" title="pcntl_&#8203;wifexited">pcntl_&#8203;wifexited</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.pcntl-wifsignaled.php.html" title="pcntl_&#8203;wifsignaled">pcntl_&#8203;wifsignaled</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.pcntl-wifstopped.php.html" title="pcntl_&#8203;wifstopped">pcntl_&#8203;wifstopped</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.pcntl-wstopsig.php.html" title="pcntl_&#8203;wstopsig">pcntl_&#8203;wstopsig</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.pcntl-wtermsig.php.html" title="pcntl_&#8203;wtermsig">pcntl_&#8203;wtermsig</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

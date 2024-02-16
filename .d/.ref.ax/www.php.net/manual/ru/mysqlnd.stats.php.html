@@ -1,0 +1,1534 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: Статистика - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="mysqlnd.stats.php.html">
+ <link rel="shorturl" href="mysqlnd.stats.php.html">
+ <link rel="alternate" href="mysqlnd.stats.php.html" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="book.mysqlnd.php.html">
+ <link rel="prev" href="mysqlnd.persist.php.html">
+ <link rel="next" href="mysqlnd.notes.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/mysqlnd.stats.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/mysqlnd.stats.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/mysqlnd.stats.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/mysqlnd.stats.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/mysqlnd.stats.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/mysqlnd.stats.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/mysqlnd.stats.php" hreflang="pt_BR">
+ <link rel="alternate" href="mysqlnd.stats.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/mysqlnd.stats.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/mysqlnd.stats.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="mysqlnd.notes.php.html">
+          Замечания &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="mysqlnd.persist.php.html">
+          &laquo; Постоянное соединение        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.database.php.html'>Модули для работы с базами данных</a></li>      <li><a href='refs.database.vendors.php.html'>Модули для работы с базами данных отдельных производителей</a></li>      <li><a href='set.mysqlinfo.php.html'>MySQL</a></li>      <li><a href='book.mysqlnd.php.html'>Mysqlnd</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/mysqlnd.stats.php'>English</option>
+            <option value='de/mysqlnd.stats.php'>German</option>
+            <option value='es/mysqlnd.stats.php'>Spanish</option>
+            <option value='fr/mysqlnd.stats.php'>French</option>
+            <option value='it/mysqlnd.stats.php'>Italian</option>
+            <option value='ja/mysqlnd.stats.php'>Japanese</option>
+            <option value='pt_BR/mysqlnd.stats.php'>Brazilian Portuguese</option>
+            <option value='ru/mysqlnd.stats.php' selected="selected">Russian</option>
+            <option value='tr/mysqlnd.stats.php'>Turkish</option>
+            <option value='zh/mysqlnd.stats.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/mysqlnd/stats.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Fmysqlnd.stats%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="mysqlnd.stats" class="chapter">
+ <h1>Статистика</h1>
+
+ <p class="para">
+  <strong>Использование статистических данных</strong>
+ </p>
+ <p class="para">
+  MySQL Native Driver поддерживает сбор статистики по взаимодействию
+  клиента с сервером. Статистика собирается с двух основных точек:
+ </p>
+ <ul class="itemizedlist">
+  <li class="listitem">
+   <p class="para">
+    Клиентская статистика
+   </p>
+  </li>
+  <li class="listitem">
+   <p class="para">
+    Статистика соединения
+   </p>
+  </li>
+ </ul>
+ <p class="para">
+  Если вы используете модуль <code class="literal">mysqli</code>, эта статистика
+  доступна с помощью двух функций, обращающихся к API:
+ </p>
+ <ul class="itemizedlist">
+  <li class="listitem">
+   <p class="para">
+    <span class="function"><a href="function.mysqli-get-client-stats.php.html" class="function">mysqli_get_client_stats()</a></span>
+   </p>
+  </li>
+  <li class="listitem">
+   <p class="para">
+    <span class="function"><a href="mysqli.get-connection-stats.php.html" class="function">mysqli_get_connection_stats()</a></span>
+   </p>
+  </li>
+ </ul>
+ <blockquote class="note"><p><strong class="note">Замечание</strong>: 
+  <p class="para">
+   Статистика агрегируется со всех модулей, использующих MySQL Native
+   Driver. К примеру, если подключить и <code class="literal">ext/mysql</code>
+   и <code class="literal">ext/mysqli</code> через MySQL Native Driver, как вызовы
+   функций <code class="literal">ext/mysql</code> так и <code class="literal">ext/mysqli</code>
+   будут внесены в общую статистику. Возможность разделить статистику
+   в зависимости от использованного модуля отсутствует. Вы можете
+   сконфигурировать драйвера PDO MySQL, <code class="literal">ext/mysql</code> и
+   <code class="literal">ext/mysqli</code> для опционального использования
+   MySQL Native Driver. При этом все три модуля будут изменять статистику.
+  </p>
+ </p></blockquote>
+ <p class="para">
+  <strong>Доступ к клиентской статистике</strong>
+ </p>
+ <p class="para">
+  Для получения клиентской статистике необходимо выполнить функцию
+  <span class="function"><a href="function.mysqli-get-client-stats.php.html" class="function">mysqli_get_client_stats()</a></span>. Функция вызывается без параметров.
+ </p>
+ <p class="para">
+  Функция возвращает ассоциативный массив, использующий в качестве ключей
+  названия метрик статистики и в качестве значения этих метрик, собственно, значения.
+ </p>
+ <p class="para">
+  Также клиентская статистика доступна с помощью функции
+  <span class="function"><a href="function.phpinfo.php.html" class="function">phpinfo()</a></span>.
+ </p>
+ <p class="para">
+  <strong>Доступ к статистике соединения</strong>
+ </p>
+ <p class="para">
+  Для получения статистики соединения, выполните функцию
+  <span class="function"><a href="mysqli.get-connection-stats.php.html" class="function">mysqli_get_connection_stats()</a></span>, передав в качестве
+  параметра ресурс соединения.
+ </p>
+ <p class="para">
+  Функция возвращает ассоциативный массив, использующий в качестве ключей
+  названия метрик статистики и в качестве значения этих метрик, собственно, значения.
+ </p>
+ <p class="para">
+  <strong>Буферизованные и небуферизованные результирующие наборы</strong>
+ </p>
+ <p class="para">
+  Результирующие наборы могут быть буферизованными и небуферизованными.
+  При использовании настроек по умолчанию, <code class="literal">ext/mysql</code> и
+  <code class="literal">ext/mysqli</code> работают с буферизованными результирующими
+  наборами при использовании нормальных (не подготовленных) запросов.
+  Буферизованные результирующие наборы кешируются на стороне клиента.
+  После выполнения запроса, все результаты передаются на клиента, где
+  сохраняются в кеше. Преимущество буферизованных запросов в том, что
+  сразу высвобождаются серверные ресурсы, связанные с хранением результирующего
+  набора.
+ </p>
+ <p class="para">
+  Небуферизованные результирующие наборы, с другой стороны,
+  сохраняются на сервере гораздо дольше. Если вы хотите сократить потребление
+  памяти на клиенте, но при этом нагрузить сервер, используйте небуферизованные
+  результирующие наборы. Если узким местом в вашей системе является сервер
+  баз данных, то вам стоит задуматься о скорейшем перемещении результатов
+  на клиента. Обычно клиенты масштабируются гораздо легче, чем сервера БД.
+  <q class="quote">Нагрузка</q> ложится не только на память, но и
+  на прочие ресурсы, которые должна поддерживать база данных для обслуживания
+  соединения, такие как открытые файловые дескрипторы и нити исполнения.
+ </p>
+ <p class="para">
+  Подготовленные запросы по умолчанию используют небуферизованные
+  результирующие наборы. В любом случае, вы можете использовать
+  функцию <span class="function"><a href="mysqli-stmt.store-result.php.html" class="function">mysqli_stmt_store_result()</a></span> для буферизации результатов.
+ </p>
+ <p class="para">
+  <strong>Статистика возвращаемая MySQL Native Driver</strong>
+ </p>
+ <p class="para">
+  Следующая таблица демонстрирует список возвращаемой
+  функциями <span class="function"><a href="function.mysqli-get-client-stats.php.html" class="function">mysqli_get_client_stats()</a></span> и
+  <span class="function"><a href="mysqli.get-connection-stats.php.html" class="function">mysqli_get_connection_stats()</a></span> статистики.
+ </p>
+ <table id="mysqlnd.stats.returns" class="doctable table">
+  <caption><strong>Статистика mysqlnd: Сеть</strong></caption>
+  
+   <col width="10*" />
+   <col width="10*" />
+   <col width="40*" />
+   <col width="40*" />
+   <thead>
+    <tr>
+     <th>Метрика</th>
+     <th>Область применения</th>
+     <th>Описание</th>
+     <th>Замечания</th>
+    </tr>
+
+   </thead>
+
+   <tbody class="tbody">
+    <tr>
+     <td><code class="literal">bytes_sent</code></td>
+     <td>Соединение</td>
+     <td>Количество байт переданных от PHP на сервер MySQL</td>
+     <td>Может использоваться для проверки эффективности протокола сжатия</td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">bytes_received</code></td>
+     <td>Соединение</td>
+     <td>Количество байт полученных от сервера MySQL</td>
+     <td>Может использоваться для проверки эффективности протокола сжатия</td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">packets_sent</code></td>
+     <td>Соединение</td>
+     <td>Количество пакетов посланных от клиента серверу MySQL</td>
+     <td>Используется для отладки реализации клиент-серверного протокола</td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">packets_received</code></td>
+     <td>Соединение</td>
+     <td>Количество пакетов принятых клиентом от сервера MySQL</td>
+     <td>Используется для отладки реализации клиент-серверного протокола</td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">protocol_overhead_in</code></td>
+     <td>Соединение</td>
+     <td>накладные расходы клиент-серверного протокола MySQL в байтах для входящего трафика.
+      на данный момент только заголовок пакета (4 байта) считается за накладные расходы.
+      protocol_overhead_in = packets_received * 4</td>
+     <td>Используется для отладки реализации клиент-серверного протокола</td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">protocol_overhead_out</code></td>
+     <td>Соединение</td>
+     <td>MySQL Client Server protocol overhead in bytes for outgoing traffic.
+      Currently only the Packet Header (4 bytes) is considered as
+      overhead. protocol_overhead_out = packets_sent * 4</td>
+     <td>Используется для отладки реализации клиент-серверного протокола</td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">bytes_received_ok_packet</code></td>
+     <td>Соединение</td>
+     <td>Общее количество байт принятых ОК-пакетов клиент-серверного протокола MySQL.
+      OK-пакеты могут содержать статусные сообщения. Длина статусных сообщений может
+      меняться, следовательно размер ОК-пакетов не фиксирована.</td>
+     <td>Используется для отладки реализации клиент-серверного протокола. Обратите внимание,
+      что общий размер включает в себя заголовочный пакет, размером 4 байта.</td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">packets_received_ok</code></td>
+     <td>Соединение</td>
+     <td>Количество принятых OK-пакетов</td>
+     <td>Используется для отладки реализации клиент-серверного протокола. Обратите внимание,
+      что общий размер включает в себя заголовочный пакет, размером 4 байта.</td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">bytes_received_eof_packet</code></td>
+     <td>Соединение</td>
+     <td>Общее количество байт принятых EOF-пакетов. Размер EOF-пакета может изменяться
+      в зависимости от версии сервера. Также, EOF-пакеты могут использоваться как
+      транспорт для сообщений об ошибках.</td>
+     <td>Используется для отладки реализации клиент-серверного протокола. Обратите внимание,
+      что общий размер включает в себя заголовочный пакет, размером 4 байта.</td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">packets_received_eof</code></td>
+     <td>Соединение</td>
+     <td>Количество принятых EOF-пакетов. Как и для прочей статистики
+      по пакетам, это число может увеличиваться каждый раз, когда PHP не получает
+      ожидаемый пакет, а, к примеру, получает сообщение об ошибке.</td>
+     <td>Используется для отладки реализации клиент-серверного протокола. Обратите внимание,
+      что общий размер включает в себя заголовочный пакет, размером 4 байта.</td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">bytes_received_rset_header_packet</code></td>
+     <td>Соединение</td>
+     <td>Общее количество байт принятых заголовочных пакетов результирующих наборов.
+      Размер пакетов зависит от полезной нагрузки (<code class="literal">LOAD LOCAL INFILE</code>,
+      <code class="literal">INSERT</code>, <code class="literal">UPDATE</code>, <code class="literal">SELECT</code>, сообщение об ошибке).
+     </td>
+     <td>Используется для отладки реализации клиент-серверного протокола. Обратите внимание,
+      что общий размер включает в себя заголовочный пакет, размером 4 байта.</td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">packets_received_rset_header</code></td>
+     <td>Соединение</td>
+     <td>Количество пакетов заголовков результирующих наборов.</td>
+     <td>Используется для отладки реализации клиент-серверного протокола. Обратите внимание,
+      что общий размер включает в себя заголовочный пакет, размером 4 байта.</td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">bytes_received_rset_field_meta_packet</code></td>
+     <td>Соединение</td>
+     <td>Общий размер в байтах полученных пакетов с метаданными результирующих наборов
+      (информации о столбцах). Естественно размер каждого пакета индивидуален.
+      Эти пакеты могут выступать транспортом для ошибок и EOF-пакетов в случае COM_LIST_FIELDS.</td>
+     <td>Используется для отладки реализации клиент-серверного протокола. Обратите внимание,
+      что общий размер включает в себя заголовочный пакет, размером 4 байта.</td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">packets_received_rset_field_meta</code></td>
+     <td>Соединение</td>
+     <td>Общее количество полученных пакетов с метаданными результирующих наборов
+      (информации о столбцах).</td>
+     <td>Используется для отладки реализации клиент-серверного протокола. Обратите внимание,
+      что общий размер включает в себя заголовочный пакет, размером 4 байта.</td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">bytes_received_rset_row_packet</code></td>
+     <td>Соединение</td>
+     <td>Общий размер в байтах полученных пакетов с данными результирующего набора.
+      Эти пакеты могут служить транспортом для ошибок и в качестве EOF-пакетов.
+      Вы можете вычислить количество ошибок и EOF-пакетов отняв
+      <code class="literal">rows_fetched_from_server_normal</code> и
+      <code class="literal">rows_fetched_from_server_ps</code> от
+      <code class="literal">bytes_received_rset_row_packet</code>.</td>
+     <td>Используется для отладки реализации клиент-серверного протокола. Обратите внимание,
+      что общий размер включает в себя заголовочный пакет, размером 4 байта.</td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">packets_received_rset_row</code></td>
+     <td>Соединение</td>
+     <td>Количество пакетов с данными результирующих наборов и их суммарный объем в байтах.</td>
+     <td>Используется для отладки реализации клиент-серверного протокола. Обратите внимание,
+      что общий размер включает в себя заголовочный пакет, размером 4 байта.</td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">bytes_received_prepare_response_packet</code></td>
+     <td>Соединение</td>
+     <td>Общий размер в байтах ОК-пакетов инициализации подготовленных запросов.
+      (инициализирующие пакеты подготовленных запросов). Эти пакеты могут выступать транспортом
+      для ошибок. Размер пакета зависит от версии Mysql: 9 байт для MySQL4.1 и 12 байт начиная с 5.0.
+      Нет надёжного способа узнать количество ошибок. Вы можете определить, что случилась
+      ошибка, если, например, вы работаете с MySQL 5.0 или новее, а
+      <code class="literal">bytes_received_prepare_response_packet</code> !=
+      <code class="literal">packets_received_prepare_response</code> * 12. Также смотрите
+      <code class="literal">ps_prepared_never_executed</code>, <code class="literal">ps_prepared_once_executed</code>.
+     </td>
+     <td>Используется для отладки реализации клиент-серверного протокола. Обратите внимание,
+      что общий размер включает в себя заголовочный пакет, размером 4 байта.</td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">packets_received_prepare_response</code></td>
+     <td>Соединение</td>
+     <td>Количество полученных ОК-пакетов для инициализации подготовленных запросов.</td>
+     <td>Используется для отладки реализации клиент-серверного протокола. Обратите внимание,
+      что общий размер включает в себя заголовочный пакет, размером 4 байта.</td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">bytes_received_change_user_packet</code></td>
+     <td>Соединение</td>
+     <td>Общий размер в байтах полученных пакетов COM_CHANGE_USER.
+      Пакеты могут служить транспортом для ошибок и EOF-пакетов.</td>
+     <td>Используется для отладки реализации клиент-серверного протокола. Обратите внимание,
+      что общий размер включает в себя заголовочный пакет, размером 4 байта.</td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">packets_received_change_user</code></td>
+     <td>Соединение</td>
+     <td>Количество принятых пакетов COM_CHANGE_USER</td>
+     <td>Используется для отладки реализации клиент-серверного протокола. Обратите внимание,
+      что общий размер включает в себя заголовочный пакет, размером 4 байта.</td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">packets_sent_command</code></td>
+     <td>Соединение</td>
+     <td>Количество команд посланных от PHP серверу MySQL.
+      Возможность узнать, какие конкретно и в каких количествах посылались команды отсутствует.
+      Лучшее, для чего вы можете использовать эту метрику, это проверять,
+      что посылает команды серверу MySQL и поддержка MySQL в PHP не запрещена.
+      Также отсутствует возможность определить количество ошибок, возникших
+      при отправке этих команд. Единственная опознаваемая ошибка - это
+      command_buffer_too_small (смотрите ниже).</td>
+     <td>Используется для отладки реализации клиент-серверного протокола</td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">bytes_received_real_data_normal</code></td>
+     <td>Соединение</td>
+     <td>Количество байт полезной нагрузки извлечённой клиентом PHP из
+      <code class="literal">mysqlnd</code> с использованием текстового протокола.</td>
+     <td>Это актуальный размер данных содержащихся в результирующем наборе,
+      которые клиент PHP уже загрузил.
+      Обратите внимание, что хоть возможно <code class="literal">mysqlnd</code> забрал и полный
+      результирующий набор с сервера MySQL, но в этой метрике учитываются только данные
+      уже полученные клиентом PHP от <code class="literal">mysqlnd</code>.
+      К примеру, следующий код увеличит значение метрики:
+      <div class="example-contents">
+<div class="cdata"><pre>
+$mysqli = new mysqli();
+$res = $mysqli-&gt;query(&quot;SELECT &#039;abc&#039;&quot;);
+$res-&gt;fetch_assoc();
+$res-&gt;close();
+</pre></div>
+      </div>
+
+      <p class="para">
+       Каждая операция извлечения увеличивает это число.
+      </p>
+
+      <p class="para">
+       Статистика не изменится, если результирующий набор был только буферизован,
+       но не извлечён, как в этом примере:
+      </p>
+      <div class="example-contents">
+<div class="cdata"><pre>
+$mysqli = new mysqli();
+$res = $mysqli-&gt;query(&quot;SELECT &#039;abc&#039;&quot;);
+$res-&gt;close();
+</pre></div>
+      </div>
+
+     </td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">bytes_received_real_data_ps</code></td>
+     <td>Соединение</td>
+     <td>Количество байт полезной нагрузки, извлечённой клиентом PHP из
+      <code class="literal">mysqlnd</code> используя подготовленные запросы.</td>
+     <td>Это размер только тех данных, которые были извлечены клиентом PHP.
+      Значение метрики не будет увеличиваться если клиент PHP не будет запрашивать эти данные.
+      Обратите внимание, что хоть возможно <code class="literal">mysqlnd</code> забрал и полный
+      результирующий набор с сервера MySQL, но в этой метрике учитываются только данные
+      уже полученные клиентом PHP от <code class="literal">mysqlnd</code>.
+      Также смотрите <code class="literal">bytes_received_real_data_normal</code>.
+     </td>
+    </tr>
+
+   </tbody>
+  
+ </table>
+
+ <p class="para">
+  <strong>Результирующий набор</strong>
+ </p>
+ <table id="mysqlnd.stats.results" class="doctable table">
+  <caption><strong>Статистика mysqlnd: результирующий набор</strong></caption>
+  
+   <col width="10*" />
+   <col width="10*" />
+   <col width="40*" />
+   <col width="40*" />
+   <thead>
+    <tr>
+     <th>Метрика</th>
+     <th>Область применения</th>
+     <th>Описание</th>
+     <th>Замечания</th>
+    </tr>
+
+   </thead>
+
+   <tbody class="tbody">
+    <tr>
+     <td><code class="literal">result_set_queries</code></td>
+     <td>Соединение</td>
+     <td>Количество запросов, по которым был создан результирующий набор.
+      Пример запросов, создающих результирующий набор: <code class="literal">SELECT</code>, <code class="literal">SHOW</code>.
+      Статистика не будет увеличиваться в случае возникновения ошибки чтения заголовочного
+      пакета результирующего набора.</td>
+     <td>Вы можете использовать эту метрику, как опосредованный счётчик выполненных запросов,
+      например для обнаружения клиента, создающего большую нагрузку на БД.</td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">non_result_set_queries</code></td>
+     <td>Соединение</td>
+     <td>Количество запросов, по которым не был создан результирующий набор.
+      Пример запросов, не создающих результирующий набор:
+      <code class="literal">INSERT</code>, <code class="literal">UPDATE</code>,
+      <code class="literal">LOAD DATA</code>.
+      Статистика не будет увеличиваться в случае возникновения ошибки чтения заголовочного
+      пакета результирующего набора.</td>
+     <td>Вы можете использовать эту метрику, как опосредованный счётчик выполненных запросов,
+      например для обнаружения клиента, создающего большую нагрузку на БД.</td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">no_index_used</code></td>
+     <td>Соединение</td>
+     <td>Количество запросов, создающих результирующий набор, но не использовавших
+      индексы (также смотрите опцию запуска mysqld –log-queries-not-using-indexes).
+      Если вы хотите получать отчёты о подобных запросах, вы можете
+      использовать mysqli_report(MYSQLI_REPORT_INDEX) для того, чтобы
+      ext/mysqli выбрасывал исключение. Если вы предпочитаете просто предупреждение,
+      используйте mysqli_report(MYSQLI_REPORT_INDEX ^ MYSQLI_REPORT_STRICT).</td>
+     <td class="empty">&nbsp;</td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">bad_index_used</code></td>
+     <td>Соединение</td>
+     <td>Количество запросов, создающих результирующий набор, но не использовавших
+      хорошие индексы (также смотрите опцию запуска mysqld –log-slow-queries).</td>
+     <td>Если вы хотите получать отчёты о подобных запросах, вы можете
+      использовать mysqli_report(MYSQLI_REPORT_INDEX)для того, чтобы
+      ext/mysqli выбрасывал исключение. Если вы предпочитаете просто предупреждение,
+      используйте mysqli_report(MYSQLI_REPORT_INDEX ^ MYSQLI_REPORT_STRICT)</td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">slow_queries</code></td>
+     <td>Соединение</td>
+     <td>SQL-запросы, выполнявшиеся дольше чем <code class="literal">long_query_time</code>
+      секунд и потребовавшие перебора более чем <code class="literal">min_examined_row_limit</code>
+      строк.</td>
+     <td>Не извлекается с помощью <span class="function"><a href="function.mysqli-report.php.html" class="function">mysqli_report()</a></span></td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">buffered_sets</code></td>
+     <td>Соединение</td>
+     <td>Количество буферизированных результирующих наборов возвращённых
+      <q class="quote">нормальными</q> запросами.
+      <q class="quote">Нормальные</q>, здесь и дальше значит <q class="quote">не подготовленные</q>.</td>
+     <td>Примеры вызовов API, буферизующих результирующий набор на клиенте:
+      <span class="function"><a href="function.mysql-query.php.html" class="function">mysql_query()</a></span>,
+      <span class="function"><a href="mysqli.query.php.html" class="function">mysqli_query()</a></span>,
+      <span class="function"><a href="mysqli.store-result.php.html" class="function">mysqli_store_result()</a></span>,
+      <span class="function"><a href="mysqli-stmt.get-result.php.html" class="function">mysqli_stmt_get_result()</a></span>. Буферизация результирующего
+      набора на клиенте гарантирует, что серверные ресурсы будут освобождены
+      так быстро, как возможно и делает позиционирование более простым.
+      Плохая новость в том, что это будет стоит дополнительного расхода памяти на клиенте.
+      Обратите внимание, что mysqlnd (в отличие от клиентской библиотеки MySQL) зависит
+      от ограничений PHP на память, поскольку использует внутренний менеджер памяти
+      PHP. Это является одной из причин, почему <span class="function"><a href="function.memory-get-usage.php.html" class="function">memory_get_usage()</a></span>
+      при использовании mysqlnd показывает большие значение, чем при использовании
+      клиентской библиотеки MySQL. <span class="function"><a href="function.memory-get-usage.php.html" class="function">memory_get_usage()</a></span> не замеряет
+      потребление памяти клиентской библиотекой MySQL, поскольку он
+      не использует внутренний менеджер памяти PHP.</td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">unbuffered_sets</code></td>
+     <td>Соединение</td>
+     <td>Количество небуферизованных результирующих наборов возвращённых нормальными
+      (не подготовленными) запросами.</td>
+     <td>Примеры вызовов API, не буферизующих результирующий набор на клиенте:
+      <span class="function"><a href="mysqli.use-result.php.html" class="function">mysqli_use_result()</a></span></td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">ps_buffered_sets</code></td>
+     <td>Соединение</td>
+     <td>Количество буферизованных результирующих наборов возвращённых
+      подготовленными запросами. По умолчанию, подготовленные запросы
+      не буферизируются.</td>
+     <td>Примеры вызовов API, буферизующих результирующий набор на клиенте:
+      <code class="literal">mysqli_stmt_store_result</code></td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">ps_unbuffered_sets</code></td>
+     <td>Соединение</td>
+     <td>Количество небуферизованных результирующих наборов возвращённых
+      подготовленными запросами.</td>
+     <td>По умолчанию, подготовленные запросы
+      не буферизируются.</td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">flushed_normal_sets</code></td>
+     <td>Соединение</td>
+     <td>Количество результирующих наборов возвращённых нормальными (не подготовленными)
+      запросами с непрочитанными данными, которые были обнулены прозрачно для вас.
+      Подобное происходит только с небуферизированными результирующими наборами.</td>
+     <td>Небуферизированные результирующие наборы должны быть полностью извлечены,
+      прежде чем будет возможно запустить новый запрос в том же соединении с MySQL, в противном
+      случае произойдёт ошибка. Если приложение не извлекло все строки небуферизированного
+      результирующего набора, mysqlnd принудительно извлечёт его, чтобы освободить ресурсы
+      сервера. Также смотрите <code class="literal">rows_skipped_normal</code> и
+      <code class="literal">rows_skipped_ps</code>. Возможные причины, ведущие к принудительному обнулению:
+      <ul class="itemizedlist">
+       <li class="listitem">
+        <p class="para">
+         Ошибка клиентского приложения
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         Клиент перестал извлекать записи, так как нашёл, что искал, но
+         результирующий набор ещё не был извлечён до конца
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         Аварийное завершение клиентского приложения
+        </p>
+       </li>
+      </ul></td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">flushed_ps_sets</code></td>
+     <td>Соединение</td>
+     <td>Количество результирующих наборов возвращённых подготовленными
+      запросами с непрочитанными данными, которые были обнулены прозрачно для вас.
+      Подобное происходит только с небуферизированными результирующими наборами.</td>
+     <td>Небуферизированные результирующие наборы должны быть полностью извлечены,
+      прежде чем будет возможно запустить новый запрос в том же соединении с MySQL, в противном
+      случае произойдёт ошибка. Если приложение не извлекло все строки небуферизированного
+      результирующего набора, mysqlnd принудительно извлечёт его, чтобы освободить ресурсы
+      сервера. Также смотрите <code class="literal">rows_skipped_normal</code> и
+      <code class="literal">rows_skipped_ps</code>. Возможные причины, ведущие к принудительному обнулению:
+      <ul class="itemizedlist">
+       <li class="listitem">
+        <p class="para">
+         Ошибка клиентского приложения
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         Клиент перестал извлекать записи, так как нашёл, что искал, но
+         результирующий набор ещё не был извлечён до конца
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         Аварийное завершение клиентского приложения
+        </p>
+       </li>
+      </ul></td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">ps_prepared_never_executed</code></td>
+     <td>Соединение</td>
+     <td>Количество подготовленных, но не запущенных запросов.</td>
+     <td>Подготовленные запросы потребляют серверные ресурсы. Вы не должны
+      подготавливать запросы, если не будете их запускать.</td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">ps_prepared_once_executed</code></td>
+     <td>Соединение</td>
+     <td>Количество подготовленных запросов, запущенных только один раз.</td>
+     <td>Главная идея подготовленных запросов в том, что один и тот же запрос
+      будет запускаться несколько раз, но, возможно, с другими параметрами. Это
+      позволяет сэкономить на подготовке запросов, позволяя произвести разбор
+      запроса только один раз, а потом просто подставлять в него параметры и запускать.
+      При подготовке запроса происходит <q class="quote">кеширование</q> результата, например
+      можно многократно использовать дерево разбора, созданное один раз на этапе подготовки.
+      Если же вы запускаете подготовленный запрос всего один раз, то никакого выигрыша
+      по сравнению с <q class="quote">нормальными</q> запросами не будет, даже наоборот, будут
+      дополнительные накладные расходы на кеширование подготовленного запроса.
+      Таким образом, подготовленные запросы, которые используются всего один раз,
+      ведут к ухудшению производительности.</td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">rows_fetched_from_server_normal</code>,
+      <code class="literal">rows_fetched_from_server_ps</code></td>
+     <td>Соединение</td>
+     <td>Общее количество успешно извлечённых строк из базы MySQL,
+      независимо от того, использованы они были приложением или нет.
+      Часть строк могут не извлекаться приложением, но при этом
+      принудительно обнуляться.</td>
+     <td>Также смотрите <code class="literal">packets_received_rset_row</code></td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">rows_buffered_from_client_normal</code>,
+      <code class="literal">rows_buffered_from_client_ps</code></td>
+     <td>Соединение</td>
+     <td>Общее количество успешно буферизованных строк, полученных
+      при выполнении &quot;нормальных&quot; запросов. Это количество строк, извлечённых
+      из MySQL и буферизованных на клиенте. Обратите внимание, что существует
+      две независимые метрики для буферизованных строк и (переданных
+      от MySQL в буфер mysqlnd) и строк, прочтённых приложением (переданных
+      из буфера mysqlnd клиентскому приложению). Если количество буферизованных
+      строк больше чем число извлечённых клиентом, то стоит обратить
+      внимание на клиентские запросы, так как они извлекают больше данных, чем
+      им на самом деле нужно.</td>
+     <td>Пример запросов, буферизующих результирующие наборы:
+      <span class="function"><a href="mysqli.query.php.html" class="function">mysqli_query()</a></span>,
+      <span class="function"><a href="mysqli.store-result.php.html" class="function">mysqli_store_result()</a></span></td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">rows_fetched_from_client_normal_buffered</code>,
+      <code class="literal">rows_fetched_from_client_ps_buffered</code></td>
+     <td>Соединение</td>
+     <td>Общее количество извлечённых клиентов строк из буферизованных
+      результирующих наборов для любого типа запросов.</td>
+     <td class="empty">&nbsp;</td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">rows_fetched_from_client_normal_unbuffered</code>,
+      <code class="literal">rows_fetched_from_client_ps_unbuffered</code></td>
+     <td>Соединение</td>
+     <td>Total number of rows fetched by the client from a unbuffered result set
+      created by a &quot;normal&quot; query or a prepared statement.</td>
+     <td class="empty">&nbsp;</td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">rows_fetched_from_client_ps_cursor</code></td>
+     <td>Соединение</td>
+     <td>Общее количество извлечённых клиентов строк из небуферизованных
+      результирующих наборов для любого типа запросов.</td>
+     <td class="empty">&nbsp;</td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">rows_skipped_normal</code>,
+      <code class="literal">rows_skipped_ps</code></td>
+     <td>Соединение</td>
+     <td>Зарезервировано для использования в будущем и в данный момент не поддерживается</td>
+     <td class="empty">&nbsp;</td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">copy_on_write_saved</code>,
+      <code class="literal">copy_on_write_performed</code></td>
+     <td>Процесс</td>
+     <td>Если используется mysqlnd: переменные, возвращённые модулем, указывают
+      на внутренний сетевой буфер результатов mysqlnd. Если вы не меняли переменные,
+      извлечённые данные будут сохранены в памяти один раз. Если вы
+      меняли переменные, mysqlnd выполнит копирование при записи для
+      защиты внутренних сетевых буферов результата от изменения.
+      Если используется клиентская библиотека MySQL: вы всегда держите
+      извлечённые данные в памяти в двух экземплярах. Один раз во внутренних
+      буферах клиентской библиотеки MySQL, и ещё один раз в переменных, возвращённых
+      модулем. В теории, mysqlnd может до 40% сократить потребление памяти.
+      В любом случае помните, что эту экономию не удастся замерить
+      с помощью <span class="function"><a href="function.memory-get-usage.php.html" class="function">memory_get_usage()</a></span>.</td>
+     <td class="empty">&nbsp;</td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">explicit_free_result</code>,
+      <code class="literal">implicit_free_result</code></td>
+     <td>Соединение, процесс (только на стадии очистки подготовленных запросов)</td>
+     <td>Общее количество высвобожденных результирующих наборов.</td>
+     <td>Очистка всегда производится явно, но для результирующих наборов, созданных
+      инициализирующими командами, например
+      <code class="literal">mysqli_options(MYSQLI_INIT_COMMAND , ...)</code></td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">proto_text_fetched_null</code>,
+      <code class="literal">proto_text_fetched_bit</code>,
+      <code class="literal">proto_text_fetched_tinyint</code>
+      <code class="literal">proto_text_fetched_short</code>,
+      <code class="literal">proto_text_fetched_int24</code>,
+      <code class="literal">proto_text_fetched_int</code>
+      <code class="literal">proto_text_fetched_bigint</code>,
+      <code class="literal">proto_text_fetched_decimal</code>,
+      <code class="literal">proto_text_fetched_float</code>
+      <code class="literal">proto_text_fetched_double</code>,
+      <code class="literal">proto_text_fetched_date</code>,
+      <code class="literal">proto_text_fetched_year</code>
+      <code class="literal">proto_text_fetched_time</code>,
+      <code class="literal">proto_text_fetched_datetime</code>,
+      <code class="literal">proto_text_fetched_timestamp</code>
+      <code class="literal">proto_text_fetched_string</code>,
+      <code class="literal">proto_text_fetched_blob</code>,
+      <code class="literal">proto_text_fetched_enum</code>
+      <code class="literal">proto_text_fetched_set</code>,
+      <code class="literal">proto_text_fetched_geometry</code>,
+      <code class="literal">proto_text_fetched_other</code></td>
+     <td>Соединение</td>
+     <td>Общее количество столбцов определённого типа, извлечённых нормальными запросами
+      (текстовый протокол MySQL).</td>
+     <td>Связка метаданных C API / MySQL с именами метрик статистики:
+      <ul class="itemizedlist">
+       <li class="listitem">
+        <p class="para">
+         <code class="literal">MYSQL_TYPE_NULL</code> - proto_text_fetched_null
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         <code class="literal">MYSQL_TYPE_BIT</code> - proto_text_fetched_bit
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         <code class="literal">MYSQL_TYPE_TINY</code> - proto_text_fetched_tinyint
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         <code class="literal">MYSQL_TYPE_SHORT</code> - proto_text_fetched_short
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         <code class="literal">MYSQL_TYPE_INT24</code> - proto_text_fetched_int24
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         <code class="literal">MYSQL_TYPE_LONG</code> - proto_text_fetched_int
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         <code class="literal">MYSQL_TYPE_LONGLONG</code> -
+         proto_text_fetched_bigint
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         <code class="literal">MYSQL_TYPE_DECIMAL</code>,
+         <code class="literal">MYSQL_TYPE_NEWDECIMAL</code> -
+         proto_text_fetched_decimal
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         <code class="literal">MYSQL_TYPE_FLOAT</code> - proto_text_fetched_float
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         <code class="literal">MYSQL_TYPE_DOUBLE</code> -
+         proto_text_fetched_double
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         <code class="literal">MYSQL_TYPE_DATE</code>,
+         <code class="literal">MYSQL_TYPE_NEWDATE</code> - proto_text_fetched_date
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         <code class="literal">MYSQL_TYPE_YEAR</code> - proto_text_fetched_year
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         <code class="literal">MYSQL_TYPE_TIME</code> - proto_text_fetched_time
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         <code class="literal">MYSQL_TYPE_DATETIME</code> -
+         proto_text_fetched_datetime
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         <code class="literal">MYSQL_TYPE_TIMESTAMP</code> -
+         proto_text_fetched_timestamp
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         <code class="literal">MYSQL_TYPE_STRING</code>,
+         <code class="literal">MYSQL_TYPE_VARSTRING</code>,
+         <code class="literal">MYSQL_TYPE_VARCHAR</code> -
+         proto_text_fetched_string
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         <code class="literal">MYSQL_TYPE_TINY_BLOB</code>,
+         <code class="literal">MYSQL_TYPE_MEDIUM_BLOB</code>,
+         <code class="literal">MYSQL_TYPE_LONG_BLOB</code>,
+         <code class="literal">MYSQL_TYPE_BLOB</code> - proto_text_fetched_blob
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         <code class="literal">MYSQL_TYPE_ENUM</code> - proto_text_fetched_enum
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         <code class="literal">MYSQL_TYPE_SET</code> - proto_text_fetched_set
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         <code class="literal">MYSQL_TYPE_GEOMETRY</code> -
+         proto_text_fetched_geometry
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         Любые не перечисленные <code class="literal">MYSQL_TYPE_*</code> - proto_text_fetched_other
+        </p>
+       </li>
+      </ul>
+      <p class="para">
+       Обратите внимание, что константы типов MYSQL_* могут не ассоциироваться с одинаковыми
+       столбцами SQL для разных версий MySQL.
+      </p></td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">proto_binary_fetched_null</code>,
+      <code class="literal">proto_binary_fetched_bit</code>,
+      <code class="literal">proto_binary_fetched_tinyint</code>
+      <code class="literal">proto_binary_fetched_short</code>,
+      <code class="literal">proto_binary_fetched_int24</code>,
+      <code class="literal">proto_binary_fetched_int</code>,
+      <code class="literal">proto_binary_fetched_bigint</code>,
+      <code class="literal">proto_binary_fetched_decimal</code>,
+      <code class="literal">proto_binary_fetched_float</code>,
+      <code class="literal">proto_binary_fetched_double</code>,
+      <code class="literal">proto_binary_fetched_date</code>,
+      <code class="literal">proto_binary_fetched_year</code>,
+      <code class="literal">proto_binary_fetched_time</code>,
+      <code class="literal">proto_binary_fetched_datetime</code>,
+      <code class="literal">proto_binary_fetched_timestamp</code>,
+      <code class="literal">proto_binary_fetched_string</code>,
+      <code class="literal">proto_binary_fetched_blob</code>,
+      <code class="literal">proto_binary_fetched_enum</code>,
+      <code class="literal">proto_binary_fetched_set</code>,
+      <code class="literal">proto_binary_fetched_geometry</code>,
+      <code class="literal">proto_binary_fetched_other</code></td>
+     <td>Соединение</td>
+     <td>Общее количество столбцов определённого типа, извлечённых подготовленными запросами
+      (бинарный протокол MySQL).</td>
+     <td>Связь типов с <code class="literal">proto_text_*</code> смотрите в предыдущем пункте.</td>
+    </tr>
+
+   </tbody>
+  
+ </table>
+
+ <table id="mysqlnd.stats.connection" class="doctable table">
+  <caption><strong>Статистика mysqlnd: Соединение</strong></caption>
+  
+   <col width="10*" />
+   <col width="10*" />
+   <col width="40*" />
+   <col width="40*" />
+   <thead>
+    <tr>
+     <th>Метрика</th>
+     <th>Область применения</th>
+     <th>Описание</th>
+     <th>Замечания</th>
+    </tr>
+
+   </thead>
+
+   <tbody class="tbody">
+    <tr>
+     <td><code class="literal">connect_success</code>, <code class="literal">connect_failure</code></td>
+     <td>Соединение</td>
+     <td>Общее количество удачных/неудачных попыток соединения.</td>
+     <td>Переиспользованные и прочие типы соединений включаются.</td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">reconnect</code></td>
+     <td>Процесс</td>
+     <td>Общее количество попыток выполнить real_connect на уже открытом соединении.</td>
+     <td>Следующий код <code class="literal">$link = new mysqli(...);
+      $link-&gt;real_connect(...)</code> приведёт к пересоединению. Но
+      <code class="literal">$link = new mysqli(...); $link-&gt;connect(...)</code>
+      не приведёт, так как <code class="literal">$link-&gt;connect(...)</code> принудительно
+      закроет существующее соединение перед созданием нового.</td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">pconnect_success</code></td>
+     <td>Соединение</td>
+     <td>Общее количество успешных попыток открыть постоянное соединение</td>
+     <td>Обратите внимание, что <code class="literal">connect_success</code> содержит суммарное
+      количество обычных и постоянных соединений. Так что количество обычных
+      соединений можно вычислить так: <code class="literal">connect_success</code> -
+      <code class="literal">pconnect_success</code>.</td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">active_connections</code></td>
+     <td>Соединение</td>
+     <td>Общее количество активных соединений, как обычных, так и постоянных.</td>
+     <td class="empty">&nbsp;</td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">active_persistent_connections</code></td>
+     <td>Соединение</td>
+     <td>Общее количество активных постоянных соединений.</td>
+     <td>Общее количество активных непостоянных соединений равно:
+      <code class="literal">active_connections</code> -
+      <code class="literal">active_persistent_connections</code>.</td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">explicit_close</code></td>
+     <td>Соединение</td>
+     <td>Общее количество явно закрытых соединений (только ext/mysqli).</td>
+     <td>Пример кода, в котором явно закрывается соединение:
+      <div class="example-contents">
+<div class="cdata"><pre>
+$link = new mysqli(...); $link-&gt;close(...)
+$link = new mysqli(...); $link-&gt;connect(...)
+</pre></div>
+      </div>
+</td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">implicit_close</code></td>
+     <td>Соединение</td>
+     <td>Общее количество неявно закрытых соединений (только ext/mysqli).</td>
+     <td>Пример кода, в котором соединение закрывается не явно:
+      <ul class="itemizedlist">
+       <li class="listitem">
+        <p class="para">
+         <code class="literal">$link = new mysqli(...);
+          $link-&gt;real_connect(...)</code>
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         <code class="literal">unset($link)</code>
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         Постоянное соединение: соединение было создано с помощью
+         real_connect и, возможно, с неизвестным набором опций - закрывается
+         неявно для предотвращения переиспользования соединения с неизвестным набором опций
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         Постоянное соединение: ping/change_user завершаются с ошибкой и ext/mysqli
+         закрывает соединение
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         Окончание работы скрипта: закрываются соединения, не закрытые пользователем явно
+        </p>
+       </li>
+      </ul></td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">disconnect_close</code></td>
+     <td>Соединение</td>
+     <td>Ошибки соединения возвращаемые при вызове C API
+      <span class="function"><strong>mysql_real_connect()</strong></span> во время установления соединения.</td>
+     <td>Вызывается <code class="literal">disconnect_close</code>, потому, что идентификатор
+      соединения, переданный в вызов C API, должен быть закрыт.</td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">in_middle_of_command_close</code></td>
+     <td>Процесс</td>
+     <td>Соединение закрыто во время исполнения команды
+      (результирующий набор не извлечён, после запуска запроса и до
+      получения ответа, во время извлечения данных, во время загрузки
+      данных с помощью LOAD DATA).</td>
+     <td>Если вы не используете асинхронные запросы, подобное может произойти
+      только в том случае, если работа скрипта неожиданно прервалась и PHP автоматически закрыл
+      соединение.</td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">init_command_executed_count</code></td>
+     <td>Соединение</td>
+     <td>Общее количество запусков инициализирующих команд, к примеру
+      <code class="literal">mysqli_options(MYSQLI_INIT_COMMAND , ...)</code>.</td>
+     <td>Количество успешно запущенных команд равно
+      <code class="literal">init_command_executed_count</code> -
+      <code class="literal">init_command_failed_count</code>.</td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">init_command_failed_count</code></td>
+     <td>Соединение</td>
+     <td>Общее количество неудачных инициализирующих команд.</td>
+     <td class="empty">&nbsp;</td>
+    </tr>
+
+   </tbody>
+  
+ </table>
+
+ <table id="mysqlnd.stats.com" class="doctable table">
+  <caption><strong>Статистика mysqlnd: Команды COM_*</strong></caption>
+  
+   <col width="10*" />
+   <col width="10*" />
+   <col width="40*" />
+   <col width="40*" />
+   <thead>
+    <tr>
+     <th>Метрика</th>
+     <th>Область применения</th>
+     <th>Описание</th>
+     <th>Замечания</th>
+    </tr>
+
+   </thead>
+
+   <tbody class="tbody">
+    <tr>
+     <td><code class="literal">com_quit</code>, <code class="literal">com_init_db</code>,
+      <code class="literal">com_query</code>, <code class="literal">com_field_list</code>,
+      <code class="literal">com_create_db</code>, <code class="literal">com_drop_db</code>,
+      <code class="literal">com_refresh</code>, <code class="literal">com_shutdown</code>,
+      <code class="literal">com_statistics</code>,
+      <code class="literal">com_process_info</code>,
+      <code class="literal">com_connect</code>,
+      <code class="literal">com_process_kill</code>, <code class="literal">com_debug</code>,
+      <code class="literal">com_ping</code>, <code class="literal">com_time</code>,
+      <code class="literal">com_delayed_insert</code>,
+      <code class="literal">com_change_user</code>,
+      <code class="literal">com_binlog_dump</code>,
+      <code class="literal">com_table_dump</code>,
+      <code class="literal">com_connect_out</code>,
+      <code class="literal">com_register_slave</code>,
+      <code class="literal">com_stmt_prepare</code>,
+      <code class="literal">com_stmt_execute</code>,
+      <code class="literal">com_stmt_send_long_data</code>,
+      <code class="literal">com_stmt_close</code>,
+      <code class="literal">com_stmt_reset</code>,
+      <code class="literal">com_stmt_set_option</code>,
+      <code class="literal">com_stmt_fetch</code>, <code class="literal">com_daemon</code></td>
+     <td>Соединение</td>
+     <td>Общее количество попыток послать одну из COM_* команд из PHP серверу MySQL.</td>
+     <td><p class="para">
+      Метрика увеличивается после проверки синтаксиса команды и непосредственно
+      перед отсылкой соответствующего пакета серверу MySQL.
+      Если mysqlnd не удалось послать пакет, метрика не будет уменьшена.
+      В случае неудачной посылки mysqlnd вернёт предупреждение <q class="quote">Error while sending %s packet.
+      PID=%d.</q>
+      </p>
+
+      <p class="para">
+       Примеры использования:
+      </p>
+      <ul class="itemizedlist">
+       <li class="listitem">
+        <p class="para">
+         Отследить, что PHP посылает определённые команды серверу,
+         например, что клиент шлёт <code class="literal">COM_PROCESS_KILL</code>
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         Посчитать среднее количество запусков подготовленных запросов,
+         сравнив <code class="literal">COM_EXECUTE</code> с
+         <code class="literal">COM_PREPARE</code>
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         Проверить, что PHP исполняет неподготовленные запросы, убедившись,
+         что <code class="literal">COM_QUERY</code> равно нулю
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         Определить скрипт PHP, выполняющий множество запросов,
+         проверив <code class="literal">COM_QUERY</code> и
+         <code class="literal">COM_EXECUTE</code>
+        </p>
+       </li>
+      </ul></td>
+    </tr>
+
+   </tbody>
+  
+ </table>
+
+ <p class="para">
+  <strong>Прочее</strong>
+ </p>
+ <table id="mysqlnd.stats.misc" class="doctable table">
+  <caption><strong>Статистика mysqlnd: Прочее</strong></caption>
+  
+   <col width="10*" />
+   <col width="10*" />
+   <col width="40*" />
+   <col width="40*" />
+   <thead>
+    <tr>
+     <th>Метрика</th>
+     <th>Область применения</th>
+     <th>Описание</th>
+     <th>Замечания</th>
+    </tr>
+
+   </thead>
+
+   <tbody class="tbody">
+    <tr>
+     <td><code class="literal">explicit_stmt_close</code>,
+      <code class="literal">implicit_stmt_close</code></td>
+     <td>Процесс</td>
+     <td>Общее количество закрытых подготовленных запросов.</td>
+     <td>Закрытие всегда происходит явно, за исключением ошибок при подготовке.</td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">mem_emalloc_count</code>,
+      <code class="literal">mem_emalloc_ammount</code>,
+      <code class="literal">mem_ecalloc_count</code>,
+      <code class="literal">mem_ecalloc_ammount</code>,
+      <code class="literal">mem_erealloc_count</code>,
+      <code class="literal">mem_erealloc_ammount</code>,
+      <code class="literal">mem_efree_count</code>,
+      <code class="literal">mem_malloc_count</code>,
+      <code class="literal">mem_malloc_ammount</code>,
+      <code class="literal">mem_calloc_count</code>,
+      <code class="literal">mem_calloc_ammount</code>,
+      <code class="literal">mem_realloc_count</code>,
+      <code class="literal">mem_realloc_ammount</code>,
+      <code class="literal">mem_free_count</code></td>
+     <td>Процесс</td>
+     <td>Вызовы менеджера памяти.</td>
+     <td>Только для разработчиков.</td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">command_buffer_too_small</code></td>
+     <td>Соединение</td>
+     <td>Количество модулей сетевого командного буфера в процессе отправки
+      команды от PHP серверу MySQL.</td>
+     <td><p class="para">
+      mysqlnd выделяет внутренний командный/сетевой буфер размера
+      <code class="literal">mysqlnd.net_cmd_buffer_size</code>
+      (<var class="filename">php.ini</var>) байт для каждого соединения.
+      Если команда клиент-серверного протокола MySQL, к примеру
+      <code class="literal">COM_QUERY</code> (обычный запрос), не помещается в него,
+      mysqlnd увеличивает размер буфера до необходимого размера.
+      Каждый раз, когда размер буфера увеличивается для соединения,
+      <code class="literal">command_buffer_too_small</code> увеличивается на единицу.
+      </p>
+
+      <p class="para">
+       Если mysqlnd увеличивает размер буфера более его начального размера
+       <code class="literal">mysqlnd.net_cmd_buffer_size</code>
+       (<var class="filename">php.ini</var>) практически для каждого соединения,
+       вам стоит задуматься об изменении этого значения.
+      </p>
+
+      <p class="para">
+       Размер буфера по умолчанию составляет 4096 байт, что является наименьшим возможным значением. Это значение можно поменять
+       в <var class="filename">php.ini</var> изменив значение ключа
+       <code class="literal">mysqlnd.net_cmd_buffer_size</code> или используя
+       <code class="literal">mysqli_options(MYSQLI_OPT_NET_CMD_BUFFER_SIZE, int
+        size)</code>.
+      </p></td>
+    </tr>
+
+    <tr>
+     <td><code class="literal">connection_reused</code></td>
+     <td class="empty">&nbsp;</td>
+     <td class="empty">&nbsp;</td>
+     <td class="empty">&nbsp;</td>
+    </tr>
+
+   </tbody>
+  
+ </table>
+
+</div>
+<section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=mysqlnd.stats&amp;redirect=https://www.php.net/manual/ru/mysqlnd.stats.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes </h3>
+ </div>
+ <div class="note">There are no user contributed notes for this page.</div></section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="book.mysqlnd.php.html">Mysqlnd</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="intro.mysqlnd.php.html" title="Введение">Введение</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqlnd.overview.php.html" title="Обзор">Обзор</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqlnd.install.php.html" title="Установка">Установка</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqlnd.config.php.html" title="Настройка во время выполнения">Настройка во время выполнения</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqlnd.incompatibilities.php.html" title="Несовместимости">Несовместимости</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqlnd.persist.php.html" title="Постоянное соединение">Постоянное соединение</a>
+                        </li>
+                                                <li class="current">
+                            <a href="mysqlnd.stats.php.html" title="Статистика">Статистика</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqlnd.notes.php.html" title="Замечания">Замечания</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqlnd.memory.php.html" title="Управление памятью">Управление памятью</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqlnd.plugin.php.html" title="API для плагинов к встроенному драйверу MySQL">API для плагинов к встроенному драйверу MySQL</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: Автоматическая загрузка классов - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="language.oop5.autoload.php.html">
+ <link rel="shorturl" href="https://www.php.net/oop5.autoload">
+ <link rel="alternate" href="https://www.php.net/oop5.autoload" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="language.oop5.php.html">
+ <link rel="prev" href="language.oop5.constants.php.html">
+ <link rel="next" href="language.oop5.decon.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/language.oop5.autoload.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/language.oop5.autoload.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/language.oop5.autoload.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/language.oop5.autoload.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/language.oop5.autoload.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/language.oop5.autoload.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/language.oop5.autoload.php" hreflang="pt_BR">
+ <link rel="alternate" href="language.oop5.autoload.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/language.oop5.autoload.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/language.oop5.autoload.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="language.oop5.decon.php.html">
+          Конструкторы и деструкторы &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="language.oop5.constants.php.html">
+          &laquo; Константы классов        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='langref.php.html'>Справочник языка</a></li>      <li><a href='language.oop5.php.html'>Классы и объекты</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/language.oop5.autoload.php'>English</option>
+            <option value='de/language.oop5.autoload.php'>German</option>
+            <option value='es/language.oop5.autoload.php'>Spanish</option>
+            <option value='fr/language.oop5.autoload.php'>French</option>
+            <option value='it/language.oop5.autoload.php'>Italian</option>
+            <option value='ja/language.oop5.autoload.php'>Japanese</option>
+            <option value='pt_BR/language.oop5.autoload.php'>Brazilian Portuguese</option>
+            <option value='ru/language.oop5.autoload.php' selected="selected">Russian</option>
+            <option value='tr/language.oop5.autoload.php'>Turkish</option>
+            <option value='zh/language.oop5.autoload.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/language/oop5/autoload.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Flanguage.oop5.autoload%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="language.oop5.autoload" class="sect1">
+ <h2 class="title">Автоматическая загрузка классов</h2>
+ <p class="para">
+  Большинство разработчиков объектно-ориентированных приложений
+  используют такое соглашение именования файлов, в котором
+  каждый класс хранится в отдельно созданном для него файле.
+  Одна из самых больших неприятностей -
+  необходимость писать в начале каждого скрипта
+  длинный список подгружаемых файлов (по одному для каждого класса).
+ </p>
+ <p class="para">
+  Функция <span class="function"><a href="function.spl-autoload-register.php.html" class="function">spl_autoload_register()</a></span>
+  позволяет зарегистрировать необходимое количество автозагрузчиков для
+  автоматической загрузки классов и интерфейсов, если они в настоящее время не определены.
+  Регистрируя автозагрузчики, PHP получает последний шанс для интерпретатора загрузить класс
+  прежде, чем он закончит выполнение скрипта с ошибкой.
+ </p>
+ <p class="para">
+  Любая конструкция, подобная классу может быть автоматически загружена таким же образом,
+  включая классы, интерфейсы, трейты и перечисления.
+ </p>
+ <div class="caution"><strong class="caution">Предостережение</strong>
+  <p class="para">
+   До PHP 8.0.0 можно было использовать <span class="function"><a href="function.autoload.php.html" class="function">__autoload()</a></span> для автозагрузки
+   классов и интерфейсов. Однако это менее гибкая альтернатива <span class="function"><a href="function.spl-autoload-register.php.html" class="function">spl_autoload_register()</a></span>,
+   функция <span class="function"><a href="function.autoload.php.html" class="function">__autoload()</a></span> объявлена устаревшей в PHP 7.2.0 и удалена в PHP 8.0.0.
+  </p>
+ </div>
+ <blockquote class="note"><p><strong class="note">Замечание</strong>: 
+  <p class="para">
+   Функция <span class="function"><a href="function.spl-autoload-register.php.html" class="function">spl_autoload_register()</a></span> может быть вызвана несколько раз,
+   чтобы зарегистрировать несколько автозагрузчиков. Выброс исключения из функции автозагрузки,
+   однако, прервёт этот процесс и не позволит запускать дальнейшие функции автозагрузки.
+   По этой причине выбрасывать исключения из функции автозагрузки настоятельно не рекомендуется.
+  </p>
+ </p></blockquote>
+ <p class="para">
+  <div class="example" id="example-676">
+   <p><strong>Пример #1 Пример автоматической загрузки</strong></p>
+   <div class="example-contents"><p>
+    В этом примере функция пытается загрузить классы <code class="literal">MyClass1</code>
+    и <code class="literal">MyClass2</code> из файлов <var class="filename">MyClass1.php</var>
+    и <var class="filename">MyClass2.php</var> соответственно.
+   </p></div>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />spl_autoload_register</span><span style="color: #007700">(function (</span><span style="color: #0000BB">$class_name</span><span style="color: #007700">) {<br />    include </span><span style="color: #0000BB">$class_name </span><span style="color: #007700">. </span><span style="color: #DD0000">'.php'</span><span style="color: #007700">;<br />});<br /><br /></span><span style="color: #0000BB">$obj  </span><span style="color: #007700">= new </span><span style="color: #0000BB">MyClass1</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$obj2 </span><span style="color: #007700">= new </span><span style="color: #0000BB">MyClass2</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+    </div>
+
+   </div>
+   <div class="example" id="example-679">
+    <p><strong>Пример #2 Ещё один пример автоматической загрузки</strong></p>
+    <div class="example-contents"><p>
+     В этом примере представлена попытка загрузки интерфейса <code class="literal">ITest</code>.
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br />spl_autoload_register</span><span style="color: #007700">(function (</span><span style="color: #0000BB">$name</span><span style="color: #007700">) {<br />    </span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$name</span><span style="color: #007700">);<br />});<br /><br />class </span><span style="color: #0000BB">Foo </span><span style="color: #007700">implements </span><span style="color: #0000BB">ITest </span><span style="color: #007700">{<br />}<br /><br /></span><span style="color: #FF8000">/*<br />string(5) "ITest"<br /><br />Fatal error: Interface 'ITest' not found in ...<br />*/<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+    </div>
+
+   </div>
+  </p>
+
+  <div class="simplesect">
+   <h3 class="title">Смотрите также</h3>
+   <p class="para">
+    <ul class="simplelist">
+     <li class="member"><span class="function"><a href="function.unserialize.php.html" class="function">unserialize()</a></span></li>
+     <li class="member"><a href="var.configuration.php.html#ini.unserialize-callback-func" class="link">unserialize_callback_func</a></li>
+     <li class="member"><a href="var.configuration.php.html#ini.unserialize-max-depth" class="link">unserialize_max_depth</a></li>
+     <li class="member"><span class="function"><a href="function.spl-autoload-register.php.html" class="function">spl_autoload_register()</a></span></li>
+     <li class="member"><span class="function"><a href="function.spl-autoload.php.html" class="function">spl_autoload()</a></span></li>
+     <li class="member"><span class="function"><a href="function.autoload.php.html" class="function">__autoload()</a></span></li>
+    </ul>
+   </p>
+  </div>
+
+</div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=language.oop5.autoload&amp;redirect=https://www.php.net/manual/ru/language.oop5.autoload.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">6 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="89448">  <div class="votes">
+    <div id="Vu89448">
+    <a href="https://www.php.net/manual/vote-note.php?id=89448&amp;page=language.oop5.autoload&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd89448">
+    <a href="https://www.php.net/manual/vote-note.php?id=89448&amp;page=language.oop5.autoload&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V89448" title="69% like this...">
+    103
+    </div>
+  </div>
+  <a href="language.oop5.autoload.php.html#89448" class="name">
+  <strong class="user"><em>jarret dot minkler at gmail dot com</em></strong></a><a class="genanchor" href="language.oop5.autoload.php.html#89448"> &para;</a><div class="date" title="2009-03-07 10:55"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom89448">
+<div class="phpcode"><code><span class="html">You should not have to use require_once inside the autoloader, as if the class is not found it wouldn't be trying to look for it by using the autoloader. <br /><br />Just use require(), which will be better on performance as well as it does not have to check if it is unique.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="120258">  <div class="votes">
+    <div id="Vu120258">
+    <a href="https://www.php.net/manual/vote-note.php?id=120258&amp;page=language.oop5.autoload&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd120258">
+    <a href="https://www.php.net/manual/vote-note.php?id=120258&amp;page=language.oop5.autoload&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V120258" title="67% like this...">
+    57
+    </div>
+  </div>
+  <a href="language.oop5.autoload.php.html#120258" class="name">
+  <strong class="user"><em>str at maphpia dot com</em></strong></a><a class="genanchor" href="language.oop5.autoload.php.html#120258"> &para;</a><div class="date" title="2016-12-01 07:36"><strong>7 years ago</strong></div>
+  <div class="text" id="Hcom120258">
+<div class="phpcode"><code><span class="html">This is my autoloader for my PSR-4 clases. I prefer to use composer's autoloader, but this works for legacy projects that can't use composer.<br /><br /><span class="default">&lt;?php<br /></span><span class="comment">/**<br /> * Simple autoloader, so we don't need Composer just for this.<br /> */<br /></span><span class="keyword">class </span><span class="default">Autoloader<br /></span><span class="keyword">{<br />    public static function </span><span class="default">register</span><span class="keyword">()<br />    {<br />        </span><span class="default">spl_autoload_register</span><span class="keyword">(function (</span><span class="default">$class</span><span class="keyword">) {<br />            </span><span class="default">$file </span><span class="keyword">= </span><span class="default">str_replace</span><span class="keyword">(</span><span class="string">'\\'</span><span class="keyword">, </span><span class="default">DIRECTORY_SEPARATOR</span><span class="keyword">, </span><span class="default">$class</span><span class="keyword">).</span><span class="string">'.php'</span><span class="keyword">;<br />            if (</span><span class="default">file_exists</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">)) {<br />                require </span><span class="default">$file</span><span class="keyword">;<br />                return </span><span class="default">true</span><span class="keyword">;<br />            }<br />            return </span><span class="default">false</span><span class="keyword">;<br />        });<br />    }<br />}<br /></span><span class="default">Autoloader</span><span class="keyword">::</span><span class="default">register</span><span class="keyword">();</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="124770">  <div class="votes">
+    <div id="Vu124770">
+    <a href="https://www.php.net/manual/vote-note.php?id=124770&amp;page=language.oop5.autoload&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd124770">
+    <a href="https://www.php.net/manual/vote-note.php?id=124770&amp;page=language.oop5.autoload&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V124770" title="77% like this...">
+    29
+    </div>
+  </div>
+  <a href="language.oop5.autoload.php.html#124770" class="name">
+  <strong class="user"><em>toi]n[enkayt[attaat]gmaal.com</em></strong></a><a class="genanchor" href="language.oop5.autoload.php.html#124770"> &para;</a><div class="date" title="2020-02-27 03:36"><strong>3 years ago</strong></div>
+  <div class="text" id="Hcom124770">
+<div class="phpcode"><code><span class="html">Autoloading plain functions is not supported by PHP at the time of writing. There is however a simple way to trick the autoloader to do this. The only thing that is needed is that the autoloader finds the searched class (or any other autoloadable piece of code) from the files it goes through and the whole file will be included to the runtime.<br /><br />Let's say you have a namespaced file for functions you wish to autoload. Simply adding a class of the same name to that file with a single constant property is enough to trigger the autoloader to seek for the file. Autoloading can then be triggered by accessing the constant property.<br /><br />The constant could be replaced by any static property or method or by default constructor. However, I personally find a constant named 'load' elegant and informative. After all this is a workaround. Another thing to keep in mind is that this introduces an unnecessary class to the runtime. The benefit of this is that there is no need to manually include or require files containing functions by path which in turn makes code maintaining easier. Such behaviour makes it easier to alter the project structure since manual includes need not to be fixed. Only the autoloader needs to be able to locate the moved files which can be automated.<br /><br />A code file containing functions.<br />/Some/Namespace/Functions.php<br /><span class="default">&lt;?php<br /></span><span class="keyword">namespace </span><span class="default">Some\Namespace</span><span class="keyword">;<br /><br />class </span><span class="default">Functions </span><span class="keyword">{ const </span><span class="default">load </span><span class="keyword">= </span><span class="default">1</span><span class="keyword">; }<br /><br />function </span><span class="default">a </span><span class="keyword">() {<br />}<br /><br />function </span><span class="default">b </span><span class="keyword">() {<br />}<br /></span><span class="default">?&gt;<br /></span><br />Triggering autoloading of the file containing functions.<br />main.php<br /><span class="default">&lt;?php<br />\Some\Namespace\Functions</span><span class="keyword">::</span><span class="default">load</span><span class="keyword">;<br /><br /></span><span class="default">a </span><span class="keyword">();<br /></span><span class="default">b </span><span class="keyword">();<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="96099">  <div class="votes">
+    <div id="Vu96099">
+    <a href="https://www.php.net/manual/vote-note.php?id=96099&amp;page=language.oop5.autoload&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd96099">
+    <a href="https://www.php.net/manual/vote-note.php?id=96099&amp;page=language.oop5.autoload&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V96099" title="67% like this...">
+    19
+    </div>
+  </div>
+  <a href="language.oop5.autoload.php.html#96099" class="name">
+  <strong class="user"><em>Anonymous</em></strong></a><a class="genanchor" href="language.oop5.autoload.php.html#96099"> &para;</a><div class="date" title="2010-02-08 03:35"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom96099">
+<div class="phpcode"><code><span class="html">It's worth to mention, if your operating system is case-sensitive you need to name your file with same case as in source code eg. MyClass.php instead of myclass.php</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="86195">  <div class="votes">
+    <div id="Vu86195">
+    <a href="https://www.php.net/manual/vote-note.php?id=86195&amp;page=language.oop5.autoload&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd86195">
+    <a href="https://www.php.net/manual/vote-note.php?id=86195&amp;page=language.oop5.autoload&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V86195" title="51% like this...">
+    1
+    </div>
+  </div>
+  <a href="language.oop5.autoload.php.html#86195" class="name">
+  <strong class="user"><em>kalkamar at web dot de</em></strong></a><a class="genanchor" href="language.oop5.autoload.php.html#86195"> &para;</a><div class="date" title="2008-10-07 10:23"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom86195">
+<div class="phpcode"><code><span class="html">Because static classes have no constructor I use this to initialize such classes.<br />The function init will (if available) be called when you first use the class.<br />The class must not be included before, otherwise the init-function wont be called as autoloading is not used.<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">__autoload</span><span class="keyword">(</span><span class="default">$class_name</span><span class="keyword">)<br />{<br />    require_once(</span><span class="default">CLASSES_PATH</span><span class="keyword">.</span><span class="default">$class_name</span><span class="keyword">.</span><span class="string">'.cls.php'</span><span class="keyword">);<br />    if(</span><span class="default">method_exists</span><span class="keyword">(</span><span class="default">$class_name</span><span class="keyword">,</span><span class="string">'init'</span><span class="keyword">))<br />        </span><span class="default">call_user_func</span><span class="keyword">(array(</span><span class="default">$class_name</span><span class="keyword">,</span><span class="string">'init'</span><span class="keyword">));<br />    return </span><span class="default">true</span><span class="keyword">;<br />}<br /></span><span class="default">?&gt;<br /></span><br />I use it for example to establish the mysql-connection on demand.<br /><br />It is also possilbe do add a destructor by adding this lines to the function:<br /><span class="default">&lt;?php<br /></span><span class="keyword">if(</span><span class="default">method_exists</span><span class="keyword">(</span><span class="default">$class_name</span><span class="keyword">,</span><span class="string">'destruct'</span><span class="keyword">))<br />    </span><span class="default">register_shutdown_function</span><span class="keyword">(array(</span><span class="default">$class_name</span><span class="keyword">,</span><span class="string">'destruct'</span><span class="keyword">));<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="127184">  <div class="votes">
+    <div id="Vu127184">
+    <a href="https://www.php.net/manual/vote-note.php?id=127184&amp;page=language.oop5.autoload&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd127184">
+    <a href="https://www.php.net/manual/vote-note.php?id=127184&amp;page=language.oop5.autoload&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V127184" title="44% like this...">
+    -3
+    </div>
+  </div>
+  <a href="language.oop5.autoload.php.html#127184" class="name">
+  <strong class="user"><em>info at atomosmaestoso dot com</em></strong></a><a class="genanchor" href="language.oop5.autoload.php.html#127184"> &para;</a><div class="date" title="2022-06-18 11:57"><strong>1 year ago</strong></div>
+  <div class="text" id="Hcom127184">
+<div class="phpcode"><code><span class="html">Autoloading Classes with  spl_autoload_register() or spl_autoload() is the best and most modern way to securely code for API integration. <br /><br />It restricts the various attacks that can be faced by using a "polyfill" or framework that is subject to data injection. Low level attacks, polyfill and framework vulnerabilities are some exploitations limited in using the core functionalities of your host programming language.<br /><br />Your loop-holes and target endpoints are vastly removed to the level of programming experience of the developer - in not exposing the threats espoused to your programming language and its security protocols.<br /><br />Each event you transfer data from one program to the next reveals another threat and another attack endpoint. When you are production, it is at this point composer and other tools that gather requirements specific secure integration should limit its use, such as PCI-DSS, HIPAA, or GDPR.<br /><br />The use of a framework or polyfill gives an attacker hints at what point a function will access memory to produce intended results. Visiting the late L1-Cache Terminal Fault - attacks that use machine language to access memory and read what actually is happening will have all the details of what process is taking place and when.<br /><br />Not to mention, when a product is open-source, the code is editable and easily compiled. Using access to machine level integrations a simply 10 second loss of time to process could well as infer the entire application has experienced an overhaul. <br /><br />To deter this, and ensure maximum security for piece of mind and money-wise. The embedded resources of a programming language should be utilized at maximal capacity to prevent an overhaul on multiple endpoints. Visiting a system in use is not deletable or easily moved, removed or altered.</span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=language.oop5.autoload&amp;redirect=https://www.php.net/manual/ru/language.oop5.autoload.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="language.oop5.php.html">Классы и объекты</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="oop5.intro.php.html" title="Введение">Введение</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.basic.php.html" title="Основы">Основы</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.properties.php.html" title="Свойства">Свойства</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.constants.php.html" title="Константы классов">Константы классов</a>
+                        </li>
+                                                <li class="current">
+                            <a href="language.oop5.autoload.php.html" title="Автоматическая загрузка классов">Автоматическая загрузка классов</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.decon.php.html" title="Конструкторы и деструкторы">Конструкторы и деструкторы</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.visibility.php.html" title="Область видимости">Область видимости</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.inheritance.php.html" title="Наследование">Наследование</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.paamayim-nekudotayim.php.html" title="Оператор разрешения области видимости (::)">Оператор разрешения области видимости (::)</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.static.php.html" title="Ключевое слово static">Ключевое слово static</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.abstract.php.html" title="Абстрактные классы">Абстрактные классы</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.interfaces.php.html" title="Интерфейсы объектов">Интерфейсы объектов</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.traits.php.html" title="Трейты">Трейты</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.anonymous.php.html" title="Анонимные классы">Анонимные классы</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.overloading.php.html" title="Перегрузка">Перегрузка</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.iterations.php.html" title="Итераторы объектов">Итераторы объектов</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.magic.php.html" title="Магические методы">Магические методы</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.final.php.html" title="Ключевое слово final">Ключевое слово final</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.cloning.php.html" title="Клонирование объектов">Клонирование объектов</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.object-comparison.php.html" title="Сравнение объектов">Сравнение объектов</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.late-static-bindings.php.html" title="Позднее статическое связывание">Позднее статическое связывание</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.references.php.html" title="Объекты и ссылки">Объекты и ссылки</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.serialization.php.html" title="Сериализация объектов">Сериализация объектов</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.variance.php.html" title="Ковариантность и контравариантность">Ковариантность и контравариантность</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.changelog.php.html" title="Журнал изменений ООП">Журнал изменений ООП</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

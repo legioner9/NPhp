@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: Установка PHP на Lighttpd 1.4 на Unix-системах - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="install.unix.lighttpd-14.php.html">
+ <link rel="shorturl" href="install.unix.lighttpd-14.php.html">
+ <link rel="alternate" href="install.unix.lighttpd-14.php.html" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="install.unix.php.html">
+ <link rel="prev" href="install.unix.nginx.php.html">
+ <link rel="next" href="install.unix.litespeed.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/install.unix.lighttpd-14.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/install.unix.lighttpd-14.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/install.unix.lighttpd-14.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/install.unix.lighttpd-14.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/install.unix.lighttpd-14.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/install.unix.lighttpd-14.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/install.unix.lighttpd-14.php" hreflang="pt_BR">
+ <link rel="alternate" href="install.unix.lighttpd-14.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/install.unix.lighttpd-14.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/install.unix.lighttpd-14.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="install.unix.litespeed.php.html">
+          Веб-сервер LiteSpeed/OpenLiteSpeed на системах Unix &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="install.unix.nginx.php.html">
+          &laquo; Установка Nginx 1.4.x на систему Unix        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='install.php.html'>Установка и настройка</a></li>      <li><a href='install.unix.php.html'>Установка на Unix-системы</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/install.unix.lighttpd-14.php'>English</option>
+            <option value='de/install.unix.lighttpd-14.php'>German</option>
+            <option value='es/install.unix.lighttpd-14.php'>Spanish</option>
+            <option value='fr/install.unix.lighttpd-14.php'>French</option>
+            <option value='it/install.unix.lighttpd-14.php'>Italian</option>
+            <option value='ja/install.unix.lighttpd-14.php'>Japanese</option>
+            <option value='pt_BR/install.unix.lighttpd-14.php'>Brazilian Portuguese</option>
+            <option value='ru/install.unix.lighttpd-14.php' selected="selected">Russian</option>
+            <option value='tr/install.unix.lighttpd-14.php'>Turkish</option>
+            <option value='zh/install.unix.lighttpd-14.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/install/unix/lighttpd-14.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Finstall.unix.lighttpd-14%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="install.unix.lighttpd-14" class="sect1">
+ <h2 class="title">Установка PHP на Lighttpd 1.4 на Unix-системах</h2>
+
+ <p class="para">
+  Этот раздел содержит информацию по установке PHP на Unix-системы
+  с сервером Lighttpd 1.4.
+ </p>
+
+ <p class="para">
+  Прочитайте, пожалуйста, инструкции по установке Lighttpd в
+  <a href="http://trac.lighttpd.net/trac/" class="link external">&raquo;&nbsp;документации по Lighttpd</a>
+  перед установкой PHP.
+ </p>
+
+ <p class="para">
+  FastCGI - предпочитаемый интерфейс для связи PHP и Lighttpd. FastCGI доступен
+  по умолчанию в php-cgi.
+ </p>
+
+ <div class="sect2" id="install.unix.lighttpd-14.lighttpd-spawn">
+  <h3 class="title">Управление процессами php через Lighttpd</h3>
+
+  <p class="para">
+   Для настройки Lighttpd на соединение с PHP и порождения процессов FastCGI
+   необходимо отредактировать конфигурационный файл <var class="filename">lighttpd.conf</var>. Предпочтительнее
+   подключаться к процессам FastCGI используя Unix-сокеты.
+  </p>
+
+  <div class="example" id="example-25">
+   <p><strong>Пример #1 Пример части файла lighttpd.conf</strong></p>
+   <div class="example-contents screen">
+<div class="cdata"><pre>
+server.modules += ( &quot;mod_fastcgi&quot; )
+
+fastcgi.server = ( &quot;.php&quot; =&gt;
+  ((
+    &quot;socket&quot; =&gt; &quot;/tmp/php.socket&quot;,
+    &quot;bin-path&quot; =&gt; &quot;/usr/local/bin/php-cgi&quot;,
+    &quot;bin-environment&quot; =&gt; (
+      &quot;PHP_FCGI_CHILDREN&quot; =&gt; &quot;16&quot;,
+      &quot;PHP_FCGI_MAX_REQUESTS&quot; =&gt; &quot;10000&quot;
+    ),
+    &quot;min-procs&quot; =&gt; 1,
+    &quot;max-procs&quot; =&gt; 1,
+    &quot;idle-timeout&quot; =&gt; 20
+  ))
+)
+</pre></div>
+
+   </div>
+  </div>
+
+  <p class="para">
+   Директива <var class="filename">bin-path</var> позволяет lighttpd динамически запускать процессы FastCGI.
+   Lighttpd будет динамически создавать дочерние процессы php,
+   согласно переменной окружения <var class="envar">PHP_FCGI_CHILDREN</var>.
+   Директива <code class="literal">bin-environment</code> задаёт настройки для
+   дочерних процессов. <var class="envar">PHP_FCGI_MAX_REQUESTS</var> определяет порог, при достижении
+   которого PHP завершит дочерний процесс. Директив <code class="literal">min-procs</code> и <code class="literal">max-procs</code>
+   обычно стоит избегать. PHP управляет только своими дочерними процессами, и
+   инструменты кеширования в байт-код (например, APC) будут использоваться
+   только в этих дочерних процессах.
+   Если значение <code class="literal">min-procs</code> установлено больше <code class="literal">1</code>, общее количество процессов,
+   обрабатывающих запросы, будет равно <var class="envar">PHP_FCGI_CHILDREN</var> * min-procs.
+  </p>
+ </div>
+
+ <div class="sect2" id="install.unix.lighttpd-14.spawn-fcgi">
+  <h3 class="title">Управление процессами с помощью spawn-fcgi</h3>
+
+  <p class="para">
+   Lighttpd предоставляет программу spawn-fcgi для облегчения управления
+   дочерними процессами FastCGI.
+  </p>
+ </div>
+
+ <div class="sect2" id="install.unix.lighttpd-14.spawn-php">
+  <h3 class="title">Управление процессами с помощью php-cgi</h3>
+
+  <p class="para">
+   Управлять процессами можно и без spawn-fcgi, но это потребует некоторых
+   доработок. Переменная окружения <var class="envar">PHP_FCGI_CHILDREN</var> указывает количество
+   дочерних процессов, запускаемых PHP для обработки входящих запросов.
+   Переменная <var class="envar">PHP_FCGI_MAX_REQUESTS</var> отвечает за количество запросов,
+   которые обработает один процесс. Ниже приведён простой bash-скрипт,
+   облегчающий создание дочерних процессов.
+  </p>
+
+  <div class="example" id="example-28">
+   <p><strong>Пример #2 Создание FastCGI-обработчиков</strong></p>
+   <div class="example-contents screen">
+<div class="cdata"><pre>
+#!/bin/sh
+
+# Местоположение бинарного файла php-cgi
+PHP=/usr/local/bin/php-cgi
+
+# Местоположение PID-файла
+PHP_PID=/tmp/php.pid
+
+# Привязка к адресу
+#FCGI_BIND_ADDRESS=10.0.1.1:10000
+# Привязка к сокету
+FCGI_BIND_ADDRESS=/tmp/php.sock
+
+PHP_FCGI_CHILDREN=16
+PHP_FCGI_MAX_REQUESTS=10000
+
+env -i PHP_FCGI_CHILDREN=$PHP_FCGI_CHILDREN \
+       PHP_FCGI_MAX_REQUESTS=$PHP_FCGI_MAX_REQUESTS \
+       $PHP -b $FCGI_BIND_ADDRESS &amp;
+
+echo $! &gt; &quot;$PHP_PID&quot;
+
+</pre></div>
+   </div>
+  </div>
+ </div>
+
+ <div class="sect2" id="install.unix.lighttpd-14.remote-fcgi">
+  <h3 class="title">Подключение к удалённым процессам FCGI</h3>
+
+  <p class="para">
+   Обработчики FastCGI могут находиться на нескольких отдельных машинах
+   для масштабирования нагрузки.
+  </p>
+
+  <div class="example" id="example-31">
+   <p><strong>Пример #3 Подключение к удалённым процессам fastcgi</strong></p>
+   <div class="example-contents screen">
+<div class="cdata"><pre>
+fastcgi.server = ( &quot;.php&quot; =&gt;
+   (( &quot;host&quot; =&gt; &quot;10.0.0.2&quot;, &quot;port&quot; =&gt; 1030 ),
+    ( &quot;host&quot; =&gt; &quot;10.0.0.3&quot;, &quot;port&quot; =&gt; 1030 ))
+)
+</pre></div>
+   </div>
+  </div>
+ </div>
+</div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=install.unix.lighttpd-14&amp;redirect=https://www.php.net/manual/ru/install.unix.lighttpd-14.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes </h3>
+ </div>
+ <div class="note">There are no user contributed notes for this page.</div></section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="install.unix.php.html">Установка на Unix-системы</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="install.unix.apache2.php.html" title="Apache 2.x на Unix системах">Apache 2.x на Unix системах</a>
+                        </li>
+                                                <li class="">
+                            <a href="install.unix.nginx.php.html" title="Установка Nginx 1.4.x на систему Unix">Установка Nginx 1.4.x на систему Unix</a>
+                        </li>
+                                                <li class="current">
+                            <a href="install.unix.lighttpd-14.php.html" title="Установка PHP на Lighttpd 1.4 на Unix-&#8203;системах">Установка PHP на Lighttpd 1.4 на Unix-&#8203;системах</a>
+                        </li>
+                                                <li class="">
+                            <a href="install.unix.litespeed.php.html" title="Веб-&#8203;сервер LiteSpeed/OpenLiteSpeed на системах Unix">Веб-&#8203;сервер LiteSpeed/OpenLiteSpeed на системах Unix</a>
+                        </li>
+                                                <li class="">
+                            <a href="install.unix.commandline.php.html" title="Установка с интерфейсами CGI и командной строки">Установка с интерфейсами CGI и командной строки</a>
+                        </li>
+                                                <li class="">
+                            <a href="install.unix.openbsd.php.html" title="OpenBSD, замечания по установке">OpenBSD, замечания по установке</a>
+                        </li>
+                                                <li class="">
+                            <a href="install.unix.solaris.php.html" title="Инструкции по инсталляции для ОС Solaris">Инструкции по инсталляции для ОС Solaris</a>
+                        </li>
+                                                <li class="">
+                            <a href="install.unix.debian.php.html" title="Инструкции по установке на Debian GNU/Linux">Инструкции по установке на Debian GNU/Linux</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

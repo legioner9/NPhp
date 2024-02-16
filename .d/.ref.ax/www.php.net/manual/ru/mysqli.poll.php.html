@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: mysqli::poll - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="mysqli.poll.php.html">
+ <link rel="shorturl" href="mysqli.poll.php.html">
+ <link rel="alternate" href="mysqli.poll.php.html" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="class.mysqli.php.html">
+ <link rel="prev" href="mysqli.ping.php.html">
+ <link rel="next" href="mysqli.prepare.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/mysqli.poll.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/mysqli.poll.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/mysqli.poll.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/mysqli.poll.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/mysqli.poll.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/mysqli.poll.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/mysqli.poll.php" hreflang="pt_BR">
+ <link rel="alternate" href="mysqli.poll.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/mysqli.poll.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/mysqli.poll.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="mysqli.prepare.php.html">
+          mysqli::prepare &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="mysqli.ping.php.html">
+          &laquo; mysqli::ping        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.database.php.html'>Модули для работы с базами данных</a></li>      <li><a href='refs.database.vendors.php.html'>Модули для работы с базами данных отдельных производителей</a></li>      <li><a href='set.mysqlinfo.php.html'>MySQL</a></li>      <li><a href='book.mysqli.php.html'>MySQLi</a></li>      <li><a href='class.mysqli.php.html'>mysqli</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/mysqli.poll.php'>English</option>
+            <option value='de/mysqli.poll.php'>German</option>
+            <option value='es/mysqli.poll.php'>Spanish</option>
+            <option value='fr/mysqli.poll.php'>French</option>
+            <option value='it/mysqli.poll.php'>Italian</option>
+            <option value='ja/mysqli.poll.php'>Japanese</option>
+            <option value='pt_BR/mysqli.poll.php'>Brazilian Portuguese</option>
+            <option value='ru/mysqli.poll.php' selected="selected">Russian</option>
+            <option value='tr/mysqli.poll.php'>Turkish</option>
+            <option value='zh/mysqli.poll.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/mysqli/mysqli/poll.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Fmysqli.poll%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="mysqli.poll" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">mysqli::poll</h1>
+  <h1 class="refname">mysqli_poll</h1>
+  <p class="verinfo">(PHP 5 &gt;= 5.3.0, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">mysqli::poll</span> -- <span class="refname">mysqli_poll</span> &mdash; <span class="dc-title">Опрос подключений</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-mysqli.poll-description">
+  <h3 class="title">Описание</h3>
+  <p class="para">Объектно-ориентированный стиль</p>
+  <div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="modifier">static</span> <span class="methodname"><strong>mysqli::poll</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">?</span><span class="type"><span class="type">array</span><span class="type"></span></span> <code class="parameter reference">&$read</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">?</span><span class="type"><span class="type">array</span><span class="type"></span></span> <code class="parameter reference">&$error</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">array</span> <code class="parameter reference">&$reject</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$seconds</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$microseconds</code><span class="initializer"> = 0</span></span><br>): <span class="type"><span class="type">int</span>|<span class="type"><span class="type false">false</span></span></span></div>
+
+  <p class="para rdfs-comment">Процедурный стиль</p>
+  <div class="methodsynopsis dc-description"><span class="methodname"><strong>mysqli_poll</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">?</span><span class="type"><span class="type">array</span><span class="type"></span></span> <code class="parameter reference">&$read</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">?</span><span class="type"><span class="type">array</span><span class="type"></span></span> <code class="parameter reference">&$error</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">array</span> <code class="parameter reference">&$reject</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$seconds</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$microseconds</code><span class="initializer"> = 0</span></span><br>): <span class="type"><span class="type">int</span>|<span class="type"><span class="type false">false</span></span></span></div>
+
+  <p class="para rdfs-comment">
+   Опрос подключений.
+   Метод может использоваться как
+   <a href="language.oop5.static.php.html" class="link">статический</a>.
+  </p>
+  <blockquote class="note"><p><strong class="note">Замечание</strong>: 
+   <p class="para">
+    Доступно только с модулем <a href="book.mysqlnd.php.html" class="link">mysqlnd</a>.
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-mysqli.poll-parameters">
+  <h3 class="title">Список параметров</h3>
+  <p class="para">
+   <dl>
+    
+     <dt>
+<code class="parameter">read</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Список соединений для проверки наличия оставшихся результатов, которые можно прочитать.
+      </p>
+     </dd>
+
+    
+    
+     <dt>
+<code class="parameter">error</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Список соединений, на которых произошли ошибки, например,
+       не удался запрос или соединение было потеряно.
+      </p>
+     </dd>
+
+    
+    
+     <dt>
+<code class="parameter">reject</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Список соединений, которые были отклонены, потому что
+       на них не был запущен асинхронный запрос, с которым функция может получить результат опроса.
+      </p>
+     </dd>
+
+    
+    
+     <dt>
+<code class="parameter">seconds</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Максимальное количество секунд ожидания, должно быть неотрицательным.
+      </p>
+     </dd>
+
+    
+    
+     <dt>
+<code class="parameter">microseconds</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Максимальное количество миллисекунд ожидания, должно быть неотрицательным.
+      </p>
+     </dd>
+
+    
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-mysqli.poll-returnvalues">
+  <h3 class="title">Возвращаемые значения</h3>
+  <p class="para">
+   Возвращает количество готовых к работе соединений в случае успешного выполнения,
+   <strong><code>false</code></strong> в случае неудачи.
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-mysqli.poll-examples">
+  <h3 class="title">Примеры</h3>
+  <p class="para">
+   <div class="example" id="example-4450">
+    <p><strong>Пример #1 Пример использования <span class="function"><strong>mysqli_poll()</strong></span></strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$link1 </span><span style="color: #007700">= </span><span style="color: #0000BB">mysqli_connect</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$link1</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">query</span><span style="color: #007700">(</span><span style="color: #DD0000">"SELECT 'test'"</span><span style="color: #007700">, </span><span style="color: #0000BB">MYSQLI_ASYNC</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$all_links </span><span style="color: #007700">= array(</span><span style="color: #0000BB">$link1</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$processed </span><span style="color: #007700">= </span><span style="color: #0000BB">0</span><span style="color: #007700">;<br />do {<br />    </span><span style="color: #0000BB">$links </span><span style="color: #007700">= </span><span style="color: #0000BB">$errors </span><span style="color: #007700">= </span><span style="color: #0000BB">$reject </span><span style="color: #007700">= array();<br />    foreach (</span><span style="color: #0000BB">$all_links </span><span style="color: #007700">as </span><span style="color: #0000BB">$link</span><span style="color: #007700">) {<br />        </span><span style="color: #0000BB">$links</span><span style="color: #007700">[] = </span><span style="color: #0000BB">$errors</span><span style="color: #007700">[] = </span><span style="color: #0000BB">$reject</span><span style="color: #007700">[] = </span><span style="color: #0000BB">$link</span><span style="color: #007700">;<br />    }<br />    if (!</span><span style="color: #0000BB">mysqli_poll</span><span style="color: #007700">(</span><span style="color: #0000BB">$links</span><span style="color: #007700">, </span><span style="color: #0000BB">$errors</span><span style="color: #007700">, </span><span style="color: #0000BB">$reject</span><span style="color: #007700">, </span><span style="color: #0000BB">1</span><span style="color: #007700">)) {<br />        continue;<br />    }<br />    foreach (</span><span style="color: #0000BB">$links </span><span style="color: #007700">as </span><span style="color: #0000BB">$link</span><span style="color: #007700">) {<br />        if (</span><span style="color: #0000BB">$result </span><span style="color: #007700">= </span><span style="color: #0000BB">$link</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">reap_async_query</span><span style="color: #007700">()) {<br />            </span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$result</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fetch_row</span><span style="color: #007700">());<br />            if (</span><span style="color: #0000BB">is_object</span><span style="color: #007700">(</span><span style="color: #0000BB">$result</span><span style="color: #007700">))<br />                </span><span style="color: #0000BB">mysqli_free_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$result</span><span style="color: #007700">);<br />        } else die(</span><span style="color: #0000BB">sprintf</span><span style="color: #007700">(</span><span style="color: #DD0000">"Ошибка MySQLi: %s"</span><span style="color: #007700">, </span><span style="color: #0000BB">mysqli_error</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">)));<br />        </span><span style="color: #0000BB">$processed</span><span style="color: #007700">++;<br />    }<br />} while (</span><span style="color: #0000BB">$processed </span><span style="color: #007700">&lt; </span><span style="color: #0000BB">count</span><span style="color: #007700">(</span><span style="color: #0000BB">$all_links</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+    </div>
+
+    
+<div class="example-contents"><p>
+ Результат выполнения приведённого примера:
+</p></div>
+
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Array
+(
+    [0] =&gt; test
+)
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-mysqli.poll-seealso">
+  <h3 class="title">Смотрите также</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="mysqli.query.php.html" class="function" rel="rdfs-seeAlso">mysqli_query()</a> - Выполняет запрос к базе данных</span></li>
+    <li class="member"><span class="function"><a href="mysqli.reap-async-query.php.html" class="function" rel="rdfs-seeAlso">mysqli_reap_async_query()</a> - Получение результата асинхронного запроса</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=mysqli.poll&amp;redirect=https://www.php.net/manual/ru/mysqli.poll.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">5 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="115424">  <div class="votes">
+    <div id="Vu115424">
+    <a href="https://www.php.net/manual/vote-note.php?id=115424&amp;page=mysqli.poll&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd115424">
+    <a href="https://www.php.net/manual/vote-note.php?id=115424&amp;page=mysqli.poll&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V115424" title="88% like this...">
+    7
+    </div>
+  </div>
+  <a href="mysqli.poll.php.html#115424" class="name">
+  <strong class="user"><em>l_sanczyk at hotmail dot com</em></strong></a><a class="genanchor" href="mysqli.poll.php.html#115424"> &para;</a><div class="date" title="2014-07-21 07:56"><strong>9 years ago</strong></div>
+  <div class="text" id="Hcom115424">
+<div class="phpcode"><code><span class="html">You can use the following code to execute, for example, 10 simultaneous queries:<br /><br />$query = "SELECT `field1`, `field2` FROM `table` WHERE `field1`='something'";<br /><br />$all_links = array();<br />for($i=0; $i&lt;10; $i++) {<br />    $link = mysqli_connect("your.mysql.server.here","your@user","pa$$w0rd",DataBase_Name");<br />    $link-&gt;query($query, MYSQLI_ASYNC);<br />    $all_links[] = $link;<br />}<br /><br />$processed = 0;<br />do {<br />    $links = $errors = $reject = array();<br />    foreach ($all_links as $link) {<br />        $links[] = $errors[] = $reject[] = $link;<br />    }<br />    if (!mysqli_poll($links, $errors, $reject, 1)) {<br />        continue;<br />    }<br />    foreach ($links as $link) {<br />        if ($result = $link-&gt;reap_async_query()) {<br />            print_r($result-&gt;fetch_row());<br />            if (is_object($result))<br />                mysqli_free_result($result);<br />        } else die(sprintf("MySQLi Error: %s", mysqli_error($link)));<br />        $processed++;<br />    }<br />} while ($processed &lt; count($all_links));<br /><br />NOTE: If you get a "Warning: mysqli::query() expects parameter 2 to be long, string given" you have a mysqlnd installation or configuration issue.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="118700">  <div class="votes">
+    <div id="Vu118700">
+    <a href="https://www.php.net/manual/vote-note.php?id=118700&amp;page=mysqli.poll&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd118700">
+    <a href="https://www.php.net/manual/vote-note.php?id=118700&amp;page=mysqli.poll&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V118700" title="85% like this...">
+    5
+    </div>
+  </div>
+  <a href="mysqli.poll.php.html#118700" class="name">
+  <strong class="user"><em>shestero at meta dot ua</em></strong></a><a class="genanchor" href="mysqli.poll.php.html#118700"> &para;</a><div class="date" title="2016-01-21 12:24"><strong>8 years ago</strong></div>
+  <div class="text" id="Hcom118700">
+<div class="phpcode"><code><span class="html">Sometime it's not clear what does it mean as connection is "ready" . Does it mean the query completed or just some records ready to read?<br />Is it possible to use asynchronous (unblocking) and unbuffered SELECT-query? I.e. with both MYSQLI_ASYNC|MYSQLI_USE_RESULT<br /><br />I want some poll-like code inside my loop that has four case-options:<br />1. Poll wait time-out is over but no records of result set is ready.<br />2. One or more records are ready to read (but the query still running).<br />3. Query is successfully over (completed; no more records).<br />4. Error.<br /><br />Is it possible?<br /><br />As I understood the operation of reading a record from unbuffered query is blocking if there are no ready records at the moment, and there is no functions to get out how much records are ready ?</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="128017">  <div class="votes">
+    <div id="Vu128017">
+    <a href="https://www.php.net/manual/vote-note.php?id=128017&amp;page=mysqli.poll&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd128017">
+    <a href="https://www.php.net/manual/vote-note.php?id=128017&amp;page=mysqli.poll&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V128017" title="100% like this...">
+    1
+    </div>
+  </div>
+  <a href="mysqli.poll.php.html#128017" class="name">
+  <strong class="user"><em>marcin dot wanat at gmail dot com</em></strong></a><a class="genanchor" href="mysqli.poll.php.html#128017"> &para;</a><div class="date" title="2022-12-14 02:23"><strong>1 year ago</strong></div>
+  <div class="text" id="Hcom128017">
+<div class="phpcode"><code><span class="html">It is worth to note that example from this docs will results in waiting for all queries to be executed before you can reap your results.<br /><br />5 years ago bishop from php.net has posted solution that allow to fetch results of each query immediately after executed. For some reason this has never been merged to php manual.<br /><br /><a href="https://bugs.php.net/bug.php?id=70505" rel="nofollow" target="_blank">https://bugs.php.net/bug.php?id=70505</a><br /><br />The documentation for mysqli_poll suggests iterating through the links after running the poll:<br /><br />    foreach ($links as $link) {<br />        if ($result = $link-&gt;reap_async_query()) {<br />            print_r($result-&gt;fetch_row());<br />            if (is_object($result))<br />                mysqli_free_result($result);<br />        } else die(sprintf("MySQLi Error: %s", mysqli_error($link)));<br />        $processed++;<br />    }<br /><br />This is not a good way to go about it when you have queries of different run-times, because mysqli_reap_async_query() blocks until the query resolves, which is contrary to the nature of the async poll.<br /><br />An approach that respects multiple queries of different run times is to run a reaping function over each of the modified arrays:<br /><br />    $count = mysqli_poll($read, $error, $reject, 1);<br />    if (0 &lt; $count) {<br />        array_walk($read,   'reap');<br />        array_walk($error,  'reap');<br />        array_walk($reject, 'reap');<br />    }<br /><br />function reap($link) {<br />    $result = mysqli_reap_async_query($link);<br />    if (is_object($result)) {<br />        print_r($result-&gt;fetch_assoc()));<br />        mysqli_free_result($result);<br />    } else if (false !== $result) {<br />        print_r($link);<br />    } else {<br />        die(mysqli_error($link));<br />    }<br />}<br /><br />This also handles the case where the query is a CRUD and the result of reap_async_query isn't a result object.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="121726">  <div class="votes">
+    <div id="Vu121726">
+    <a href="https://www.php.net/manual/vote-note.php?id=121726&amp;page=mysqli.poll&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd121726">
+    <a href="https://www.php.net/manual/vote-note.php?id=121726&amp;page=mysqli.poll&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V121726" title="no votes...">
+    0
+    </div>
+  </div>
+  <a href="mysqli.poll.php.html#121726" class="name">
+  <strong class="user"><em>ekalashnikov at gmail dot com</em></strong></a><a class="genanchor" href="mysqli.poll.php.html#121726"> &para;</a><div class="date" title="2017-10-04 07:07"><strong>6 years ago</strong></div>
+  <div class="text" id="Hcom121726">
+<div class="phpcode"><code><span class="html">Improved version of using polling to check for slow query,<br />"KILL #ID" does not work if id of the myqsli link is the same as the one that kills it,<br />so you have to disconnect from mysqli and connect again with new link to <br />kill the #ID.<br /><span class="default">&lt;?php<br /></span><span class="comment">// Slow SQL Query<br />      </span><span class="default">$SelectSql </span><span class="keyword">= </span><span class="string">'SELECT * FROM SLOW_QUERY'</span><span class="keyword">;<br />      </span><span class="default">$link </span><span class="keyword">= </span><span class="default">mysqli_connect</span><span class="keyword">(</span><span class="string">'localhost'</span><span class="keyword">,</span><span class="string">'user'</span><span class="keyword">,</span><span class="string">'pass'</span><span class="keyword">,</span><span class="string">'database'</span><span class="keyword">);<br />      </span><span class="default">mysqli_query</span><span class="keyword">(</span><span class="default">$SelectSql</span><span class="keyword">, </span><span class="default">MYSQLI_ASYNC</span><span class="keyword">);<br />      </span><span class="default">$thread_id </span><span class="keyword">= </span><span class="default">mysqli_thread_id</span><span class="keyword">(</span><span class="default">$link</span><span class="keyword">);<br />      </span><span class="comment">// Ignore user abort so we can kill the query<br />      </span><span class="default">ignore_user_abort</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">);<br />      </span><span class="default">$MaxTime </span><span class="keyword">= </span><span class="default">5</span><span class="keyword">; </span><span class="comment">// seconds<br />      </span><span class="default">$Overtime </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;<br />      </span><span class="default">$StartTime </span><span class="keyword">= </span><span class="default">time</span><span class="keyword">();<br />      do<br />      {<br />          </span><span class="comment">// Poll MySQL<br />        </span><span class="default">$links </span><span class="keyword">= </span><span class="default">$errors </span><span class="keyword">= </span><span class="default">$reject </span><span class="keyword">= array(</span><span class="default">$link</span><span class="keyword">);<br />        </span><span class="default">$poll </span><span class="keyword">= </span><span class="default">mysqli_poll</span><span class="keyword">(</span><span class="default">$links</span><span class="keyword">, </span><span class="default">$errors</span><span class="keyword">, </span><span class="default">$reject</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">500000</span><span class="keyword">);<br />         </span><span class="comment">// Check if the connection is aborted and the query was killed<br />        </span><span class="keyword">if (</span><span class="default">connection_aborted</span><span class="keyword">()) {<br />          </span><span class="default">$link_new </span><span class="keyword">= </span><span class="default">mysqli_connect</span><span class="keyword">(</span><span class="string">'localhost'</span><span class="keyword">,</span><span class="string">'user'</span><span class="keyword">,</span><span class="string">'pass'</span><span class="keyword">,</span><span class="string">'database'</span><span class="keyword">);<br />          </span><span class="default">mysqli_kill</span><span class="keyword">(</span><span class="default">$link_new</span><span class="keyword">, </span><span class="default">$thread_id</span><span class="keyword">);<br />          </span><span class="default">$kill </span><span class="keyword">= </span><span class="default">mysqli_kill</span><span class="keyword">(</span><span class="default">$link_new</span><span class="keyword">, </span><span class="default">$thread_id</span><span class="keyword">);<br />          if (</span><span class="default">$kill</span><span class="keyword">)<br />          {<br />            die();<br />          }<br />        }<br />        </span><span class="default">$EndTime </span><span class="keyword">= </span><span class="default">time</span><span class="keyword">();<br />        </span><span class="comment">// Check overtime, kill if detected overtime<br />        </span><span class="keyword">if (</span><span class="default">$EndTime </span><span class="keyword">- </span><span class="default">$StartTime </span><span class="keyword">&gt; </span><span class="default">$MaxTime</span><span class="keyword">)<br />        {<br />          </span><span class="default">$link_new </span><span class="keyword">= </span><span class="default">mysqli_connect</span><span class="keyword">(</span><span class="string">'localhost'</span><span class="keyword">,</span><span class="string">'user'</span><span class="keyword">,</span><span class="string">'pass'</span><span class="keyword">,</span><span class="string">'database'</span><span class="keyword">);<br />          </span><span class="default">mysqli_kill</span><span class="keyword">(</span><span class="default">$link_new</span><span class="keyword">, </span><span class="default">$thread_id</span><span class="keyword">);<br />          </span><span class="default">$Overtime </span><span class="keyword">= </span><span class="default">true</span><span class="keyword">;<br />          echo </span><span class="string">'Error: Query took over '</span><span class="keyword">.</span><span class="default">$Overtime</span><span class="keyword">.</span><span class="string">'.'</span><span class="keyword">;<br />        }<br />      } while (!</span><span class="default">$poll </span><span class="keyword">&amp;&amp; </span><span class="default">$Overtime </span><span class="keyword">== </span><span class="default">false</span><span class="keyword">);<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="121723">  <div class="votes">
+    <div id="Vu121723">
+    <a href="https://www.php.net/manual/vote-note.php?id=121723&amp;page=mysqli.poll&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd121723">
+    <a href="https://www.php.net/manual/vote-note.php?id=121723&amp;page=mysqli.poll&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V121723" title="33% like this...">
+    -1
+    </div>
+  </div>
+  <a href="mysqli.poll.php.html#121723" class="name">
+  <strong class="user"><em>ekalashnikov at gmail dot com</em></strong></a><a class="genanchor" href="mysqli.poll.php.html#121723"> &para;</a><div class="date" title="2017-10-03 09:54"><strong>6 years ago</strong></div>
+  <div class="text" id="Hcom121723">
+<div class="phpcode"><code><span class="html">This is how you can test and terminate slow query with polling.<br /><br /><span class="default">&lt;?php<br /></span><span class="comment">// Slow SQL Query<br />      </span><span class="default">$SelectSql </span><span class="keyword">= </span><span class="string">'SELECT * FROM SLOW_QUERY'</span><span class="keyword">;<br />      </span><span class="default">$link </span><span class="keyword">= </span><span class="default">mysqli_connect</span><span class="keyword">(</span><span class="string">'localhost'</span><span class="keyword">,</span><span class="string">'user'</span><span class="keyword">,</span><span class="string">'pass'</span><span class="keyword">,</span><span class="string">'database'</span><span class="keyword">);<br />      </span><span class="default">mysqli_query</span><span class="keyword">(</span><span class="default">$SelectSql</span><span class="keyword">, </span><span class="default">MYSQLI_ASYNC</span><span class="keyword">);<br />      </span><span class="default">$thread_id </span><span class="keyword">= </span><span class="default">mysqli_thread_id</span><span class="keyword">(</span><span class="default">$link</span><span class="keyword">);<br />      </span><span class="comment">// Ignore user abort so we can kill the query<br />      </span><span class="default">ignore_user_abort</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">);<br />      </span><span class="default">$MaxTime </span><span class="keyword">= </span><span class="default">5</span><span class="keyword">; </span><span class="comment">// seconds<br />      </span><span class="default">$Overtime </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;<br />      </span><span class="default">$StartTime </span><span class="keyword">= </span><span class="default">time</span><span class="keyword">();<br />      do<br />      {<br />          </span><span class="comment">// Poll MySQL<br />        </span><span class="default">$links </span><span class="keyword">= </span><span class="default">$errors </span><span class="keyword">= </span><span class="default">$reject </span><span class="keyword">= array(</span><span class="default">$link</span><span class="keyword">);<br />        </span><span class="default">$poll </span><span class="keyword">= </span><span class="default">mysqli_poll</span><span class="keyword">(</span><span class="default">$links</span><span class="keyword">, </span><span class="default">$errors</span><span class="keyword">, </span><span class="default">$reject</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">500000</span><span class="keyword">);<br />         </span><span class="comment">// Check if the connection is aborted and the query was killed<br />        </span><span class="keyword">if (</span><span class="default">connection_aborted</span><span class="keyword">() &amp;&amp; </span><span class="default">mysqli_kill</span><span class="keyword">(</span><span class="default">$link</span><span class="keyword">, </span><span class="default">$thread_id</span><span class="keyword">)) {<br />            die();<br />        }<br />        </span><span class="default">$EndTime </span><span class="keyword">= </span><span class="default">time</span><span class="keyword">();<br />        </span><span class="comment">// Check overtime, kill if detected overtime<br />        </span><span class="keyword">if (</span><span class="default">$EndTime </span><span class="keyword">- </span><span class="default">$StartTime </span><span class="keyword">&gt; </span><span class="default">$MaxTime</span><span class="keyword">)<br />        {<br />          </span><span class="default">mysqli_kill</span><span class="keyword">(</span><span class="default">$link</span><span class="keyword">, </span><span class="default">$thread_id</span><span class="keyword">);<br />          </span><span class="default">$Overtime </span><span class="keyword">= </span><span class="default">true</span><span class="keyword">;<br />          echo </span><span class="string">'Error: Query took over '</span><span class="keyword">.</span><span class="default">$Overtime</span><span class="keyword">.</span><span class="string">'.'</span><span class="keyword">;<br />        }<br />      } while (!</span><span class="default">$poll </span><span class="keyword">&amp;&amp; </span><span class="default">$Overtime </span><span class="keyword">== </span><span class="default">false</span><span class="keyword">);<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=mysqli.poll&amp;redirect=https://www.php.net/manual/ru/mysqli.poll.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="class.mysqli.php.html">mysqli</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="mysqli.affected-rows.php.html" title="$affected_&#8203;rows">$affected_&#8203;rows</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.autocommit.php.html" title="autocommit">autocommit</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.begin-transaction.php.html" title="begin_&#8203;transaction">begin_&#8203;transaction</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.change-user.php.html" title="change_&#8203;user">change_&#8203;user</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.character-set-name.php.html" title="character_&#8203;set_&#8203;name">character_&#8203;set_&#8203;name</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.close.php.html" title="close">close</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.commit.php.html" title="commit">commit</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.connect-errno.php.html" title="$connect_&#8203;errno">$connect_&#8203;errno</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.connect-error.php.html" title="$connect_&#8203;error">$connect_&#8203;error</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.construct.php.html" title="_&#8203;_&#8203;construct">_&#8203;_&#8203;construct</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.debug.php.html" title="debug">debug</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.dump-debug-info.php.html" title="dump_&#8203;debug_&#8203;info">dump_&#8203;debug_&#8203;info</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.errno.php.html" title="$errno">$errno</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.error-list.php.html" title="$error_&#8203;list">$error_&#8203;list</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.error.php.html" title="$error">$error</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.execute-query.php.html" title="execute_&#8203;query">execute_&#8203;query</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.field-count.php.html" title="$field_&#8203;count">$field_&#8203;count</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.get-charset.php.html" title="get_&#8203;charset">get_&#8203;charset</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.get-client-info.php.html" title="$client_&#8203;info">$client_&#8203;info</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.get-client-version.php.html" title="$client_&#8203;version">$client_&#8203;version</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.get-connection-stats.php.html" title="get_&#8203;connection_&#8203;stats">get_&#8203;connection_&#8203;stats</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.get-host-info.php.html" title="$host_&#8203;info">$host_&#8203;info</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.get-proto-info.php.html" title="$protocol_&#8203;version">$protocol_&#8203;version</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.get-server-info.php.html" title="$server_&#8203;info">$server_&#8203;info</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.get-server-version.php.html" title="$server_&#8203;version">$server_&#8203;version</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.get-warnings.php.html" title="get_&#8203;warnings">get_&#8203;warnings</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.info.php.html" title="$info">$info</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.insert-id.php.html" title="$insert_&#8203;id">$insert_&#8203;id</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.kill.php.html" title="kill">kill</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.more-results.php.html" title="more_&#8203;results">more_&#8203;results</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.multi-query.php.html" title="multi_&#8203;query">multi_&#8203;query</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.next-result.php.html" title="next_&#8203;result">next_&#8203;result</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.options.php.html" title="options">options</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.ping.php.html" title="ping">ping</a>
+                        </li>
+                                                <li class="current">
+                            <a href="mysqli.poll.php.html" title="poll">poll</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.prepare.php.html" title="prepare">prepare</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.query.php.html" title="query">query</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.real-connect.php.html" title="real_&#8203;connect">real_&#8203;connect</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.real-escape-string.php.html" title="real_&#8203;escape_&#8203;string">real_&#8203;escape_&#8203;string</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.real-query.php.html" title="real_&#8203;query">real_&#8203;query</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.reap-async-query.php.html" title="reap_&#8203;async_&#8203;query">reap_&#8203;async_&#8203;query</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.refresh.php.html" title="refresh">refresh</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.release-savepoint.php.html" title="release_&#8203;savepoint">release_&#8203;savepoint</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.rollback.php.html" title="rollback">rollback</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.savepoint.php.html" title="savepoint">savepoint</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.select-db.php.html" title="select_&#8203;db">select_&#8203;db</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.set-charset.php.html" title="set_&#8203;charset">set_&#8203;charset</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.sqlstate.php.html" title="$sqlstate">$sqlstate</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.ssl-set.php.html" title="ssl_&#8203;set">ssl_&#8203;set</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.stat.php.html" title="stat">stat</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.stmt-init.php.html" title="stmt_&#8203;init">stmt_&#8203;init</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.store-result.php.html" title="store_&#8203;result">store_&#8203;result</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.thread-id.php.html" title="$thread_&#8203;id">$thread_&#8203;id</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.thread-safe.php.html" title="thread_&#8203;safe">thread_&#8203;safe</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.use-result.php.html" title="use_&#8203;result">use_&#8203;result</a>
+                        </li>
+                                                <li class="">
+                            <a href="mysqli.warning-count.php.html" title="$warning_&#8203;count">$warning_&#8203;count</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                        <li>
+                <span class="header">Deprecated</span>
+                <ul class="child-menu-list">
+                                    <li class="">
+                        <a href="mysqli.init.php.html" title="init">init</a>
+                    </li>
+                                </ul>
+            </li>
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

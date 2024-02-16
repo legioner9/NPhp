@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: scandir - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="function.scandir.php.html">
+ <link rel="shorturl" href="https://www.php.net/scandir">
+ <link rel="alternate" href="https://www.php.net/scandir" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="ref.dir.php.html">
+ <link rel="prev" href="function.rewinddir.php.html">
+ <link rel="next" href="book.fileinfo.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/function.scandir.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/function.scandir.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/function.scandir.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/function.scandir.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/function.scandir.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/function.scandir.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/function.scandir.php" hreflang="pt_BR">
+ <link rel="alternate" href="function.scandir.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/function.scandir.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/function.scandir.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="book.fileinfo.php.html">
+          FileInfo &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="function.rewinddir.php.html">
+          &laquo; rewinddir        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.fileprocess.file.php.html'>Модули для работы с файловой системой</a></li>      <li><a href='book.dir.php.html'>Каталоги</a></li>      <li><a href='ref.dir.php.html'>Функции для работы с каталогами</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/function.scandir.php'>English</option>
+            <option value='de/function.scandir.php'>German</option>
+            <option value='es/function.scandir.php'>Spanish</option>
+            <option value='fr/function.scandir.php'>French</option>
+            <option value='it/function.scandir.php'>Italian</option>
+            <option value='ja/function.scandir.php'>Japanese</option>
+            <option value='pt_BR/function.scandir.php'>Brazilian Portuguese</option>
+            <option value='ru/function.scandir.php' selected="selected">Russian</option>
+            <option value='tr/function.scandir.php'>Turkish</option>
+            <option value='zh/function.scandir.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/dir/functions/scandir.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Ffunction.scandir%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="function.scandir" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">scandir</h1>
+  <p class="verinfo">(PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">scandir</span> &mdash; <span class="dc-title">Получает список файлов и каталогов, расположенных по указанному пути</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.scandir-description">
+  <h3 class="title">Описание</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="methodname"><strong>scandir</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$directory</code></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter">$sorting_order</code><span class="initializer"> = <strong><code>SCANDIR_SORT_ASCENDING</code></strong></span></span>, <span class="methodparam"><span class="type">?</span><span class="type"><span class="type">resource</span><span class="type"></span></span> <code class="parameter">$context</code><span class="initializer"> = <strong><code>null</code></strong></span></span>): <span class="type"><span class="type">array</span>|<span class="type"><span class="type false">false</span></span></span></div>
+
+  <p class="para rdfs-comment">
+   Возвращает массив (<span class="type">array</span>), содержащий имена файлов и каталогов,
+   расположенных по пути, переданном в параметре <code class="parameter">directory</code>.
+  </p>
+
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.scandir-parameters">
+  <h3 class="title">Список параметров</h3>
+  <p class="para">
+   <dl>
+    
+     <dt>
+<code class="parameter">directory</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Сканируемый каталог.
+      </p>
+     </dd>
+
+    
+    
+     <dt>
+<code class="parameter">sorting_order</code></dt>
+
+     <dd>
+
+      <p class="para">
+       По умолчанию сортировка производится в алфавитном порядке
+       по возрастанию. Если необязательный параметр
+       <code class="parameter">sorting_order</code> установлен в значение
+       <strong><code>SCANDIR_SORT_DESCENDING</code></strong>, сортировка производится
+       в алфавитном порядке по убыванию. Если же он установлен в значение
+       <strong><code>SCANDIR_SORT_NONE</code></strong>, то сортировка не производится.
+      </p>
+     </dd>
+
+    
+    
+     <dt>
+<code class="parameter">context</code></dt>
+
+     <dd>
+
+      <p class="para">
+       За описанием параметра <code class="parameter">context</code>
+       обратитесь к разделу <a href="ref.stream.php.html" class="link">Потоки</a>
+       данного руководства.
+      </p>
+     </dd>
+
+    
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.scandir-returnvalues">
+  <h3 class="title">Возвращаемые значения</h3>
+  <p class="para">
+   Возвращает массив (<span class="type">array</span>) имён файлов в случае успешного выполнения или
+   <strong><code>false</code></strong> в случае возникновения ошибки. Если <code class="parameter">directory</code> не
+   является каталогом, возвращается <strong><code>false</code></strong> и генерируется сообщение
+   об ошибке уровня <strong><code>E_WARNING</code></strong>.
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.scandir-changelog">
+  <h3 class="title">Список изменений</h3>
+  <table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>Версия</th>
+      <th>Описание</th>
+     </tr>
+
+    </thead>
+
+    <tbody class="tbody">
+     <tr>
+      <td>8.0.0</td>
+      <td>
+       <code class="parameter">context</code> теперь допускает значение null.
+      </td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.scandir-examples">
+  <h3 class="title">Примеры</h3>
+  <p class="para">
+   <div class="example" id="">
+    <p><strong>Пример #1 Простой пример использования функции <span class="function"><strong>scandir()</strong></span></strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$dir    </span><span style="color: #007700">= </span><span style="color: #DD0000">'/tmp'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$files1 </span><span style="color: #007700">= </span><span style="color: #0000BB">scandir</span><span style="color: #007700">(</span><span style="color: #0000BB">$dir</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$files2 </span><span style="color: #007700">= </span><span style="color: #0000BB">scandir</span><span style="color: #007700">(</span><span style="color: #0000BB">$dir</span><span style="color: #007700">, </span><span style="color: #0000BB">SCANDIR_SORT_DESCENDING</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$files1</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$files2</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+    </div>
+
+    
+<div class="example-contents"><p>
+ Вывод приведённого примера будет похож на:
+</p></div>
+
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Array
+(
+    [0] =&gt; .
+    [1] =&gt; ..
+    [2] =&gt; bar.php
+    [3] =&gt; foo.txt
+    [4] =&gt; somedir
+)
+Array
+(
+    [0] =&gt; somedir
+    [1] =&gt; foo.txt
+    [2] =&gt; bar.php
+    [3] =&gt; ..
+    [4] =&gt; .
+)
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.scandir-notes">
+  <h3 class="title">Примечания</h3>
+  <div class="tip"><strong class="tip">Подсказка</strong><p class="simpara">В эту функцию в качестве имени файла
+можно передавать URL-адреса, если была включена директива <a href="filesystem.configuration.php.html#ini.allow-url-fopen" class="link">fopen wrappers</a>.
+Подробнее о том, как указать имя файла, рассказано в описании функции <span class="function"><a href="function.fopen.php.html" class="function">fopen()</a></span>.
+В разделе «<a href="wrappers.php.html" class="xref">Поддерживаемые протоколы и обёртки</a>» также даны ссылки на информацию о способностях поддерживаемых обёрток,
+замечания по работе с ними и список
+предопределённых переменных, которые они дают.</p></div>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.scandir-seealso">
+  <h3 class="title">Смотрите также</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.opendir.php.html" class="function" rel="rdfs-seeAlso">opendir()</a> - Открывает дескриптор каталога</span></li>
+    <li class="member"><span class="function"><a href="function.readdir.php.html" class="function" rel="rdfs-seeAlso">readdir()</a> - Получает элемент каталога по его дескриптору</span></li>
+    <li class="member"><span class="function"><a href="function.glob.php.html" class="function" rel="rdfs-seeAlso">glob()</a> - Находит файловые пути, совпадающие с шаблоном</span></li>
+    <li class="member"><span class="function"><a href="function.is-dir.php.html" class="function" rel="rdfs-seeAlso">is_dir()</a> - Определяет, является ли имя файла директорией</span></li>
+    <li class="member"><span class="function"><a href="function.sort.php.html" class="function" rel="rdfs-seeAlso">sort()</a> - Сортирует массив по возрастанию</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=function.scandir&amp;redirect=https://www.php.net/manual/ru/function.scandir.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">38 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="107215">  <div class="votes">
+    <div id="Vu107215">
+    <a href="https://www.php.net/manual/vote-note.php?id=107215&amp;page=function.scandir&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd107215">
+    <a href="https://www.php.net/manual/vote-note.php?id=107215&amp;page=function.scandir&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V107215" title="84% like this...">
+    834
+    </div>
+  </div>
+  <a href="function.scandir.php.html#107215" class="name">
+  <strong class="user"><em>dwieeb at gmail dot com</em></strong></a><a class="genanchor" href="function.scandir.php.html#107215"> &para;</a><div class="date" title="2012-01-22 08:06"><strong>12 years ago</strong></div>
+  <div class="text" id="Hcom107215">
+<div class="phpcode"><code><span class="html">Easy way to get rid of the dots that scandir() picks up in Linux environments:<br /><br /><span class="default">&lt;?php<br />$directory </span><span class="keyword">= </span><span class="string">'/path/to/my/directory'</span><span class="keyword">;<br /></span><span class="default">$scanned_directory </span><span class="keyword">= </span><span class="default">array_diff</span><span class="keyword">(</span><span class="default">scandir</span><span class="keyword">(</span><span class="default">$directory</span><span class="keyword">), array(</span><span class="string">'..'</span><span class="keyword">, </span><span class="string">'.'</span><span class="keyword">));<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="110570">  <div class="votes">
+    <div id="Vu110570">
+    <a href="https://www.php.net/manual/vote-note.php?id=110570&amp;page=function.scandir&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd110570">
+    <a href="https://www.php.net/manual/vote-note.php?id=110570&amp;page=function.scandir&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V110570" title="71% like this...">
+    172
+    </div>
+  </div>
+  <a href="function.scandir.php.html#110570" class="name">
+  <strong class="user"><em>mmda dot nl at gmail dot com</em></strong></a><a class="genanchor" href="function.scandir.php.html#110570"> &para;</a><div class="date" title="2012-11-08 12:43"><strong>11 years ago</strong></div>
+  <div class="text" id="Hcom110570">
+<div class="phpcode"><code><span class="html">Here is my 2 cents. I wanted to create an array of my directory structure recursively. I wanted to easely access data in a certain directory using foreach. I came up with the following:<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">dirToArray</span><span class="keyword">(</span><span class="default">$dir</span><span class="keyword">) {<br />   <br />   </span><span class="default">$result </span><span class="keyword">= array();<br /><br />   </span><span class="default">$cdir </span><span class="keyword">= </span><span class="default">scandir</span><span class="keyword">(</span><span class="default">$dir</span><span class="keyword">);<br />   foreach (</span><span class="default">$cdir </span><span class="keyword">as </span><span class="default">$key </span><span class="keyword">=&gt; </span><span class="default">$value</span><span class="keyword">)<br />   {<br />      if (!</span><span class="default">in_array</span><span class="keyword">(</span><span class="default">$value</span><span class="keyword">,array(</span><span class="string">"."</span><span class="keyword">,</span><span class="string">".."</span><span class="keyword">)))<br />      {<br />         if (</span><span class="default">is_dir</span><span class="keyword">(</span><span class="default">$dir </span><span class="keyword">. </span><span class="default">DIRECTORY_SEPARATOR </span><span class="keyword">. </span><span class="default">$value</span><span class="keyword">))<br />         {<br />            </span><span class="default">$result</span><span class="keyword">[</span><span class="default">$value</span><span class="keyword">] = </span><span class="default">dirToArray</span><span class="keyword">(</span><span class="default">$dir </span><span class="keyword">. </span><span class="default">DIRECTORY_SEPARATOR </span><span class="keyword">. </span><span class="default">$value</span><span class="keyword">);<br />         }<br />         else<br />         {<br />            </span><span class="default">$result</span><span class="keyword">[] = </span><span class="default">$value</span><span class="keyword">;<br />         } <br />      }<br />   }<br />   <br />   return </span><span class="default">$result</span><span class="keyword">;<br />}<br /></span><span class="default">?&gt;<br /></span><br />Output<br />Array<br />(<br />   [subdir1] =&gt; Array<br />   (<br />      [0] =&gt; file1.txt<br />      [subsubdir] =&gt; Array<br />      (<br />         [0] =&gt; file2.txt<br />         [1] =&gt; file3.txt<br />      )<br />   )<br />   [subdir2] =&gt; Array<br />   (<br />    [0] =&gt; file4.txt<br />   }<br />)</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="122438">  <div class="votes">
+    <div id="Vu122438">
+    <a href="https://www.php.net/manual/vote-note.php?id=122438&amp;page=function.scandir&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd122438">
+    <a href="https://www.php.net/manual/vote-note.php?id=122438&amp;page=function.scandir&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V122438" title="63% like this...">
+    26
+    </div>
+  </div>
+  <a href="function.scandir.php.html#122438" class="name">
+  <strong class="user"><em>info at remark dot no</em></strong></a><a class="genanchor" href="function.scandir.php.html#122438"> &para;</a><div class="date" title="2018-02-25 07:08"><strong>5 years ago</strong></div>
+  <div class="text" id="Hcom122438">
+<div class="phpcode"><code><span class="html">Someone wrote that array_slice could be used to quickly remove directory entries "." and "..". However, "-" is a valid entry that would come before those, so array_slice would remove the wrong entries.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="107117">  <div class="votes">
+    <div id="Vu107117">
+    <a href="https://www.php.net/manual/vote-note.php?id=107117&amp;page=function.scandir&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd107117">
+    <a href="https://www.php.net/manual/vote-note.php?id=107117&amp;page=function.scandir&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V107117" title="61% like this...">
+    21
+    </div>
+  </div>
+  <a href="function.scandir.php.html#107117" class="name">
+  <strong class="user"><em>kodlee at kodleeshare dot net</em></strong></a><a class="genanchor" href="function.scandir.php.html#107117"> &para;</a><div class="date" title="2012-01-08 03:51"><strong>12 years ago</strong></div>
+  <div class="text" id="Hcom107117">
+<div class="phpcode"><code><span class="html">I needed to find a way to get the full path of all files in the directory and all subdirectories of a directory.<br />Here's my solution: Recursive functions!<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">find_all_files</span><span class="keyword">(</span><span class="default">$dir</span><span class="keyword">)<br />{<br />    </span><span class="default">$root </span><span class="keyword">= </span><span class="default">scandir</span><span class="keyword">(</span><span class="default">$dir</span><span class="keyword">);<br />    foreach(</span><span class="default">$root </span><span class="keyword">as </span><span class="default">$value</span><span class="keyword">)<br />    {<br />        if(</span><span class="default">$value </span><span class="keyword">=== </span><span class="string">'.' </span><span class="keyword">|| </span><span class="default">$value </span><span class="keyword">=== </span><span class="string">'..'</span><span class="keyword">) {continue;}<br />        if(</span><span class="default">is_file</span><span class="keyword">(</span><span class="string">"</span><span class="default">$dir</span><span class="string">/</span><span class="default">$value</span><span class="string">"</span><span class="keyword">)) {</span><span class="default">$result</span><span class="keyword">[]=</span><span class="string">"</span><span class="default">$dir</span><span class="string">/</span><span class="default">$value</span><span class="string">"</span><span class="keyword">;continue;}<br />        foreach(</span><span class="default">find_all_files</span><span class="keyword">(</span><span class="string">"</span><span class="default">$dir</span><span class="string">/</span><span class="default">$value</span><span class="string">"</span><span class="keyword">) as </span><span class="default">$value</span><span class="keyword">)<br />        {<br />            </span><span class="default">$result</span><span class="keyword">[]=</span><span class="default">$value</span><span class="keyword">;<br />        }<br />    }<br />    return </span><span class="default">$result</span><span class="keyword">;<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="114184">  <div class="votes">
+    <div id="Vu114184">
+    <a href="https://www.php.net/manual/vote-note.php?id=114184&amp;page=function.scandir&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd114184">
+    <a href="https://www.php.net/manual/vote-note.php?id=114184&amp;page=function.scandir&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V114184" title="59% like this...">
+    17
+    </div>
+  </div>
+  <a href="function.scandir.php.html#114184" class="name">
+  <strong class="user"><em>gambit_642 AT hotmailDOTcom</em></strong></a><a class="genanchor" href="function.scandir.php.html#114184"> &para;</a><div class="date" title="2014-01-22 02:04"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom114184">
+<div class="phpcode"><code><span class="html">Needed something that could return the contents of single or multiple directories, recursively or non-recursively,<br />for all files or specified file extensions that would be<br />accessible easily from any scope or script.<br /><br />And I wanted to allow overloading cause sometimes I'm too lazy to pass all params.<br /><span class="default">&lt;?php<br /></span><span class="keyword">class </span><span class="default">scanDir </span><span class="keyword">{<br />    static private </span><span class="default">$directories</span><span class="keyword">, </span><span class="default">$files</span><span class="keyword">, </span><span class="default">$ext_filter</span><span class="keyword">, </span><span class="default">$recursive</span><span class="keyword">;<br /><br /></span><span class="comment">// ----------------------------------------------------------------------------------------------<br />    // scan(dirpath::string|array, extensions::string|array, recursive::true|false)<br />    </span><span class="keyword">static public function </span><span class="default">scan</span><span class="keyword">(){<br />        </span><span class="comment">// Initialize defaults<br />        </span><span class="default">self</span><span class="keyword">::</span><span class="default">$recursive </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;<br />        </span><span class="default">self</span><span class="keyword">::</span><span class="default">$directories </span><span class="keyword">= array();<br />        </span><span class="default">self</span><span class="keyword">::</span><span class="default">$files </span><span class="keyword">= array();<br />        </span><span class="default">self</span><span class="keyword">::</span><span class="default">$ext_filter </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;<br /><br />        </span><span class="comment">// Check we have minimum parameters<br />        </span><span class="keyword">if(!</span><span class="default">$args </span><span class="keyword">= </span><span class="default">func_get_args</span><span class="keyword">()){<br />            die(</span><span class="string">"Must provide a path string or array of path strings"</span><span class="keyword">);<br />        }<br />        if(</span><span class="default">gettype</span><span class="keyword">(</span><span class="default">$args</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">]) != </span><span class="string">"string" </span><span class="keyword">&amp;&amp; </span><span class="default">gettype</span><span class="keyword">(</span><span class="default">$args</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">]) != </span><span class="string">"array"</span><span class="keyword">){<br />            die(</span><span class="string">"Must provide a path string or array of path strings"</span><span class="keyword">);<br />        }<br /><br />        </span><span class="comment">// Check if recursive scan | default action: no sub-directories<br />        </span><span class="keyword">if(isset(</span><span class="default">$args</span><span class="keyword">[</span><span class="default">2</span><span class="keyword">]) &amp;&amp; </span><span class="default">$args</span><span class="keyword">[</span><span class="default">2</span><span class="keyword">] == </span><span class="default">true</span><span class="keyword">){</span><span class="default">self</span><span class="keyword">::</span><span class="default">$recursive </span><span class="keyword">= </span><span class="default">true</span><span class="keyword">;}<br /><br />        </span><span class="comment">// Was a filter on file extensions included? | default action: return all file types<br />        </span><span class="keyword">if(isset(</span><span class="default">$args</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">])){<br />            if(</span><span class="default">gettype</span><span class="keyword">(</span><span class="default">$args</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">]) == </span><span class="string">"array"</span><span class="keyword">){</span><span class="default">self</span><span class="keyword">::</span><span class="default">$ext_filter </span><span class="keyword">= </span><span class="default">array_map</span><span class="keyword">(</span><span class="string">'strtolower'</span><span class="keyword">, </span><span class="default">$args</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">]);}<br />            else<br />            if(</span><span class="default">gettype</span><span class="keyword">(</span><span class="default">$args</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">]) == </span><span class="string">"string"</span><span class="keyword">){</span><span class="default">self</span><span class="keyword">::</span><span class="default">$ext_filter</span><span class="keyword">[] = </span><span class="default">strtolower</span><span class="keyword">(</span><span class="default">$args</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">]);}<br />        }<br /><br />        </span><span class="comment">// Grab path(s)<br />        </span><span class="default">self</span><span class="keyword">::</span><span class="default">verifyPaths</span><span class="keyword">(</span><span class="default">$args</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">]);<br />        return </span><span class="default">self</span><span class="keyword">::</span><span class="default">$files</span><span class="keyword">;<br />    }<br /><br />    static private function </span><span class="default">verifyPaths</span><span class="keyword">(</span><span class="default">$paths</span><span class="keyword">){<br />        </span><span class="default">$path_errors </span><span class="keyword">= array();<br />        if(</span><span class="default">gettype</span><span class="keyword">(</span><span class="default">$paths</span><span class="keyword">) == </span><span class="string">"string"</span><span class="keyword">){</span><span class="default">$paths </span><span class="keyword">= array(</span><span class="default">$paths</span><span class="keyword">);}<br /><br />        foreach(</span><span class="default">$paths </span><span class="keyword">as </span><span class="default">$path</span><span class="keyword">){<br />            if(</span><span class="default">is_dir</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">)){<br />                </span><span class="default">self</span><span class="keyword">::</span><span class="default">$directories</span><span class="keyword">[] = </span><span class="default">$path</span><span class="keyword">;<br />                </span><span class="default">$dirContents </span><span class="keyword">= </span><span class="default">self</span><span class="keyword">::</span><span class="default">find_contents</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">);<br />            } else {<br />                </span><span class="default">$path_errors</span><span class="keyword">[] = </span><span class="default">$path</span><span class="keyword">;<br />            }<br />        }<br /><br />        if(</span><span class="default">$path_errors</span><span class="keyword">){echo </span><span class="string">"The following directories do not exists&lt;br /&gt;"</span><span class="keyword">;die(</span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$path_errors</span><span class="keyword">));}<br />    }<br /><br />    </span><span class="comment">// This is how we scan directories<br />    </span><span class="keyword">static private function </span><span class="default">find_contents</span><span class="keyword">(</span><span class="default">$dir</span><span class="keyword">){<br />        </span><span class="default">$result </span><span class="keyword">= array();<br />        </span><span class="default">$root </span><span class="keyword">= </span><span class="default">scandir</span><span class="keyword">(</span><span class="default">$dir</span><span class="keyword">);<br />        foreach(</span><span class="default">$root </span><span class="keyword">as </span><span class="default">$value</span><span class="keyword">){<br />            if(</span><span class="default">$value </span><span class="keyword">=== </span><span class="string">'.' </span><span class="keyword">|| </span><span class="default">$value </span><span class="keyword">=== </span><span class="string">'..'</span><span class="keyword">) {continue;}<br />            if(</span><span class="default">is_file</span><span class="keyword">(</span><span class="default">$dir</span><span class="keyword">.</span><span class="default">DIRECTORY_SEPARATOR</span><span class="keyword">.</span><span class="default">$value</span><span class="keyword">)){<br />                if(!</span><span class="default">self</span><span class="keyword">::</span><span class="default">$ext_filter </span><span class="keyword">|| </span><span class="default">in_array</span><span class="keyword">(</span><span class="default">strtolower</span><span class="keyword">(</span><span class="default">pathinfo</span><span class="keyword">(</span><span class="default">$dir</span><span class="keyword">.</span><span class="default">DIRECTORY_SEPARATOR</span><span class="keyword">.</span><span class="default">$value</span><span class="keyword">, </span><span class="default">PATHINFO_EXTENSION</span><span class="keyword">)), </span><span class="default">self</span><span class="keyword">::</span><span class="default">$ext_filter</span><span class="keyword">)){<br />                    </span><span class="default">self</span><span class="keyword">::</span><span class="default">$files</span><span class="keyword">[] = </span><span class="default">$result</span><span class="keyword">[] = </span><span class="default">$dir</span><span class="keyword">.</span><span class="default">DIRECTORY_SEPARATOR</span><span class="keyword">.</span><span class="default">$value</span><span class="keyword">;<br />                }<br />                continue;<br />            }<br />            if(</span><span class="default">self</span><span class="keyword">::</span><span class="default">$recursive</span><span class="keyword">){<br />                foreach(</span><span class="default">self</span><span class="keyword">::</span><span class="default">find_contents</span><span class="keyword">(</span><span class="default">$dir</span><span class="keyword">.</span><span class="default">DIRECTORY_SEPARATOR</span><span class="keyword">.</span><span class="default">$value</span><span class="keyword">) as </span><span class="default">$value</span><span class="keyword">) {<br />                    </span><span class="default">self</span><span class="keyword">::</span><span class="default">$files</span><span class="keyword">[] = </span><span class="default">$result</span><span class="keyword">[] = </span><span class="default">$value</span><span class="keyword">;<br />                }<br />            }<br />        }<br />        </span><span class="comment">// Return required for recursive search<br />        </span><span class="keyword">return </span><span class="default">$result</span><span class="keyword">;<br />    }<br />}<br /></span><span class="default">?&gt;<br /></span><br />Usage:<br />scanDir::scan(path(s):string|array, [file_extensions:string|array], [subfolders?:true|false]);<br /><span class="default">&lt;?php<br /></span><span class="comment">//Scan a single directory for all files, no sub-directories<br /></span><span class="default">$files </span><span class="keyword">= </span><span class="default">scanDir</span><span class="keyword">::</span><span class="default">scan</span><span class="keyword">(</span><span class="string">'D:\Websites\temp'</span><span class="keyword">);<br /><br /></span><span class="comment">//Scan multiple directories for all files, no sub-dirs<br /></span><span class="default">$dirs </span><span class="keyword">= array(<br />    </span><span class="string">'D:\folder'</span><span class="keyword">;<br />    </span><span class="string">'D:\folder2'</span><span class="keyword">;<br />    </span><span class="string">'C:\Other'</span><span class="keyword">;<br />);<br /></span><span class="default">$files </span><span class="keyword">= </span><span class="default">scanDir</span><span class="keyword">::</span><span class="default">scan</span><span class="keyword">(</span><span class="default">$dirs</span><span class="keyword">);<br /><br /></span><span class="comment">// Scan multiple directories for files with provided file extension,<br />// no sub-dirs<br /></span><span class="default">$files </span><span class="keyword">= </span><span class="default">scanDir</span><span class="keyword">::</span><span class="default">scan</span><span class="keyword">(</span><span class="default">$dirs</span><span class="keyword">, </span><span class="string">"jpg"</span><span class="keyword">);<br /></span><span class="comment">//or with an array of extensions<br /></span><span class="default">$file_ext </span><span class="keyword">= array(<br />    </span><span class="string">"jpg"</span><span class="keyword">,<br />    </span><span class="string">"bmp"</span><span class="keyword">,<br />    </span><span class="string">"png"<br /></span><span class="keyword">);<br /></span><span class="default">$files </span><span class="keyword">= </span><span class="default">scanDir</span><span class="keyword">::</span><span class="default">scan</span><span class="keyword">(</span><span class="default">$dirs</span><span class="keyword">, </span><span class="default">$file_ext</span><span class="keyword">);<br /><br /></span><span class="comment">// Scan multiple directories for files with any extension,<br />// include files in recursive sub-folders<br /></span><span class="default">$files </span><span class="keyword">= </span><span class="default">scanDir</span><span class="keyword">::</span><span class="default">scan</span><span class="keyword">(</span><span class="default">$dirs</span><span class="keyword">, </span><span class="default">false</span><span class="keyword">, </span><span class="default">true</span><span class="keyword">);<br /><br /></span><span class="comment">// Multiple dirs, with specified extensions, include sub-dir files<br /></span><span class="default">$files </span><span class="keyword">= </span><span class="default">scanDir</span><span class="keyword">::</span><span class="default">scan</span><span class="keyword">(</span><span class="default">$dirs</span><span class="keyword">, </span><span class="default">$file_ext</span><span class="keyword">, </span><span class="default">true</span><span class="keyword">);<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="115871">  <div class="votes">
+    <div id="Vu115871">
+    <a href="https://www.php.net/manual/vote-note.php?id=115871&amp;page=function.scandir&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd115871">
+    <a href="https://www.php.net/manual/vote-note.php?id=115871&amp;page=function.scandir&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V115871" title="56% like this...">
+    48
+    </div>
+  </div>
+  <a href="function.scandir.php.html#115871" class="name">
+  <strong class="user"><em>eep2004 at ukr dot net</em></strong></a><a class="genanchor" href="function.scandir.php.html#115871"> &para;</a><div class="date" title="2014-10-07 09:28"><strong>9 years ago</strong></div>
+  <div class="text" id="Hcom115871">
+<div class="phpcode"><code><span class="html">Fastest way to get a list of files without dots.<br /><span class="default">&lt;?php<br />$files </span><span class="keyword">= </span><span class="default">array_slice</span><span class="keyword">(</span><span class="default">scandir</span><span class="keyword">(</span><span class="string">'/path/to/directory/'</span><span class="keyword">), </span><span class="default">2</span><span class="keyword">);</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="123647">  <div class="votes">
+    <div id="Vu123647">
+    <a href="https://www.php.net/manual/vote-note.php?id=123647&amp;page=function.scandir&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd123647">
+    <a href="https://www.php.net/manual/vote-note.php?id=123647&amp;page=function.scandir&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V123647" title="57% like this...">
+    4
+    </div>
+  </div>
+  <a href="function.scandir.php.html#123647" class="name">
+  <strong class="user"><em>artmanniako at gmail dot com</em></strong></a><a class="genanchor" href="function.scandir.php.html#123647"> &para;</a><div class="date" title="2019-03-02 11:28"><strong>4 years ago</strong></div>
+  <div class="text" id="Hcom123647">
+<div class="phpcode"><code><span class="html">How i solved problem with '.' and '..'<br /><br />$x = scandir__DIR__; //any directory<br />foreach ($x as $key =&gt; $value) {<br />        if ('.' !== $value &amp;&amp; '..' !== $value){<br />               echo $value;<br />   } <br />}<br />Simple and working</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="126663">  <div class="votes">
+    <div id="Vu126663">
+    <a href="https://www.php.net/manual/vote-note.php?id=126663&amp;page=function.scandir&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd126663">
+    <a href="https://www.php.net/manual/vote-note.php?id=126663&amp;page=function.scandir&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V126663" title="56% like this...">
+    5
+    </div>
+  </div>
+  <a href="function.scandir.php.html#126663" class="name">
+  <strong class="user"><em>coolbikram0 at gmail dot com</em></strong></a><a class="genanchor" href="function.scandir.php.html#126663"> &para;</a><div class="date" title="2021-12-04 05:53"><strong>2 years ago</strong></div>
+  <div class="text" id="Hcom126663">
+<div class="phpcode"><code><span class="html">A simple recursive function to list all files and subdirectories in a directory:<br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">listAllFiles</span><span class="keyword">(</span><span class="default">$dir</span><span class="keyword">) {<br />  </span><span class="default">$array </span><span class="keyword">= </span><span class="default">array_diff</span><span class="keyword">(</span><span class="default">scandir</span><span class="keyword">(</span><span class="default">$dir</span><span class="keyword">), array(</span><span class="string">'.'</span><span class="keyword">, </span><span class="string">'..'</span><span class="keyword">));<br />  <br />  foreach (</span><span class="default">$array </span><span class="keyword">as &amp;</span><span class="default">$item</span><span class="keyword">) {<br />    </span><span class="default">$item </span><span class="keyword">= </span><span class="default">$dir </span><span class="keyword">. </span><span class="default">$item</span><span class="keyword">;<br />  }<br />  unset(</span><span class="default">$item</span><span class="keyword">);<br />  foreach (</span><span class="default">$array </span><span class="keyword">as </span><span class="default">$item</span><span class="keyword">) {<br />    if (</span><span class="default">is_dir</span><span class="keyword">(</span><span class="default">$item</span><span class="keyword">)) {<br />     </span><span class="default">$array </span><span class="keyword">= </span><span class="default">array_merge</span><span class="keyword">(</span><span class="default">$array</span><span class="keyword">, </span><span class="default">listAllFiles</span><span class="keyword">(</span><span class="default">$item </span><span class="keyword">. </span><span class="default">DIRECTORY_SEPARATOR</span><span class="keyword">));<br />    }<br />  }<br />  return </span><span class="default">$array</span><span class="keyword">;<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="46872">  <div class="votes">
+    <div id="Vu46872">
+    <a href="https://www.php.net/manual/vote-note.php?id=46872&amp;page=function.scandir&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd46872">
+    <a href="https://www.php.net/manual/vote-note.php?id=46872&amp;page=function.scandir&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V46872" title="59% like this...">
+    5
+    </div>
+  </div>
+  <a href="function.scandir.php.html#46872" class="name">
+  <strong class="user"><em>Stan P. van de Burgt</em></strong></a><a class="genanchor" href="function.scandir.php.html#46872"> &para;</a><div class="date" title="2004-10-26 09:05"><strong>19 years ago</strong></div>
+  <div class="text" id="Hcom46872">
+<div class="phpcode"><code><span class="html">scandir() with regexp matching on file name and sorting options based on stat().<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">myscandir</span><span class="keyword">(</span><span class="default">$dir</span><span class="keyword">, </span><span class="default">$exp</span><span class="keyword">, </span><span class="default">$how</span><span class="keyword">=</span><span class="string">'name'</span><span class="keyword">, </span><span class="default">$desc</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">)<br />{<br />    </span><span class="default">$r </span><span class="keyword">= array();<br />    </span><span class="default">$dh </span><span class="keyword">= @</span><span class="default">opendir</span><span class="keyword">(</span><span class="default">$dir</span><span class="keyword">);<br />    if (</span><span class="default">$dh</span><span class="keyword">) {<br />        while ((</span><span class="default">$fname </span><span class="keyword">= </span><span class="default">readdir</span><span class="keyword">(</span><span class="default">$dh</span><span class="keyword">)) !== </span><span class="default">false</span><span class="keyword">) {<br />            if (</span><span class="default">preg_match</span><span class="keyword">(</span><span class="default">$exp</span><span class="keyword">, </span><span class="default">$fname</span><span class="keyword">)) {<br />                </span><span class="default">$stat </span><span class="keyword">= </span><span class="default">stat</span><span class="keyword">(</span><span class="string">"</span><span class="default">$dir</span><span class="string">/</span><span class="default">$fname</span><span class="string">"</span><span class="keyword">);<br />                </span><span class="default">$r</span><span class="keyword">[</span><span class="default">$fname</span><span class="keyword">] = (</span><span class="default">$how </span><span class="keyword">== </span><span class="string">'name'</span><span class="keyword">)? </span><span class="default">$fname</span><span class="keyword">: </span><span class="default">$stat</span><span class="keyword">[</span><span class="default">$how</span><span class="keyword">];<br />            }<br />        }<br />        </span><span class="default">closedir</span><span class="keyword">(</span><span class="default">$dh</span><span class="keyword">);<br />        if (</span><span class="default">$desc</span><span class="keyword">) {<br />            </span><span class="default">arsort</span><span class="keyword">(</span><span class="default">$r</span><span class="keyword">);<br />        }<br />        else {<br />            </span><span class="default">asort</span><span class="keyword">(</span><span class="default">$r</span><span class="keyword">);<br />        }<br />    }<br />    return(</span><span class="default">array_keys</span><span class="keyword">(</span><span class="default">$r</span><span class="keyword">));<br />}<br /><br /></span><span class="default">$r </span><span class="keyword">= </span><span class="default">myscandir</span><span class="keyword">(</span><span class="string">'./book/'</span><span class="keyword">, </span><span class="string">'/^article[0-9]{4}\.txt$/i'</span><span class="keyword">, </span><span class="string">'ctime'</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">);<br /></span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$r</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />files can be sorted on name and stat() attributes, ascending and descending:<br /><br />name    file name<br />dev     device number<br />ino     inode number<br />mode    inode protection mode<br />nlink   number of links<br />uid     userid of owner<br />gid     groupid of owner<br />rdev    device type, if inode device *<br />size    size in bytes<br />atime   time of last access (Unix timestamp)<br />mtime   time of last modification (Unix timestamp)<br />ctime   time of last inode change (Unix timestamp)<br />blksize blocksize of filesystem IO *<br />blocks  number of blocks allocated</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="50623">  <div class="votes">
+    <div id="Vu50623">
+    <a href="https://www.php.net/manual/vote-note.php?id=50623&amp;page=function.scandir&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd50623">
+    <a href="https://www.php.net/manual/vote-note.php?id=50623&amp;page=function.scandir&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V50623" title="58% like this...">
+    2
+    </div>
+  </div>
+  <a href="function.scandir.php.html#50623" class="name">
+  <strong class="user"><em>csaba at alum dot mit dot edu</em></strong></a><a class="genanchor" href="function.scandir.php.html#50623"> &para;</a><div class="date" title="2005-03-04 03:19"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom50623">
+<div class="phpcode"><code><span class="html">Scandir on steroids:<br />For when you want to filter your file list, or only want to list so many levels of subdirectories...<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">dirList</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">=</span><span class="string">""</span><span class="keyword">, </span><span class="default">$types</span><span class="keyword">=</span><span class="default">2</span><span class="keyword">, </span><span class="default">$levels</span><span class="keyword">=</span><span class="default">1</span><span class="keyword">, </span><span class="default">$aFilter</span><span class="keyword">=array()) {<br /></span><span class="comment">//  returns an array of the specified files/directories<br />//  start search in $path (defaults to current working directory)<br />//  return $types:  2 =&gt; files; 1 =&gt; directories; 3 =&gt; both;<br />//  $levels: 1 =&gt; look in the $path only; 2 =&gt; $path and all children;<br />//          3 =&gt; $path, children, grandchildren; 0 =&gt; $path and all subdirectories;<br />//          less than 0 =&gt; complement of -$levels, OR everything starting -$levels down<br />//                e.g. -1 =&gt; everthing except $path; -2 =&gt; all descendants except $path + children<br />//  Remaining argument(s) is(are) a filter array(list) of regular expressions which operate on the full path.<br />//    First character (before the '/' of the regExp) '-' =&gt; NOT.<br />//    First character (after a possible '-') 'd' =&gt; apply to directory name<br />//    The filters may be passed in as an array of strings or as a list of strings<br />//  Note that output directories are prefixed with a '*' (done in the line above the return)<br />   </span><span class="default">$dS </span><span class="keyword">= </span><span class="default">DIRECTORY_SEPARATOR</span><span class="keyword">;<br />   if (!(</span><span class="default">$path </span><span class="keyword">= </span><span class="default">realpath</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">?</span><span class="default">$path</span><span class="keyword">:</span><span class="default">getcwd</span><span class="keyword">()))) return array();    </span><span class="comment">// bad path<br />   // next line rids terminating \ on drives (works since c: == c:\ on PHP).  OK in *nix?<br />   </span><span class="keyword">if (</span><span class="default">substr</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">,-</span><span class="default">1</span><span class="keyword">)==</span><span class="default">$dS</span><span class="keyword">) </span><span class="default">$path </span><span class="keyword">= </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">,</span><span class="default">0</span><span class="keyword">,-</span><span class="default">1</span><span class="keyword">);<br />   if (</span><span class="default">is_null</span><span class="keyword">(</span><span class="default">$types</span><span class="keyword">)) </span><span class="default">$types </span><span class="keyword">= </span><span class="default">2</span><span class="keyword">;<br />   if (</span><span class="default">is_null</span><span class="keyword">(</span><span class="default">$levels</span><span class="keyword">)) </span><span class="default">$levels </span><span class="keyword">= </span><span class="default">1</span><span class="keyword">;<br />   if (</span><span class="default">is_null</span><span class="keyword">(</span><span class="default">$aFilter</span><span class="keyword">)) </span><span class="default">$aFilter</span><span class="keyword">=array();<br /><br />   </span><span class="comment">// last argument may be passed as a list or as an array<br />   </span><span class="default">$aFilter </span><span class="keyword">= </span><span class="default">array_slice</span><span class="keyword">(</span><span class="default">func_get_args</span><span class="keyword">(),</span><span class="default">3</span><span class="keyword">);<br />   if (</span><span class="default">$aFilter </span><span class="keyword">&amp;&amp; </span><span class="default">gettype</span><span class="keyword">(</span><span class="default">$aFilter</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">])==</span><span class="string">"array"</span><span class="keyword">) </span><span class="default">$aFilter</span><span class="keyword">=</span><span class="default">$aFilter</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">];<br />   </span><span class="default">$adFilter </span><span class="keyword">= array();<br />   </span><span class="comment">// now move directory filters to separate array:<br />   </span><span class="keyword">foreach (</span><span class="default">$aFilter </span><span class="keyword">as </span><span class="default">$i</span><span class="keyword">=&gt;</span><span class="default">$filter</span><span class="keyword">)                  </span><span class="comment">// for each directory filter...<br />     </span><span class="keyword">if ((</span><span class="default">$pos</span><span class="keyword">=</span><span class="default">stripos</span><span class="keyword">(</span><span class="string">" </span><span class="default">$filter</span><span class="string">"</span><span class="keyword">,</span><span class="string">"d"</span><span class="keyword">)) &amp;&amp; </span><span class="default">$pos</span><span class="keyword">&lt;</span><span class="default">3</span><span class="keyword">) {  </span><span class="comment">// next line eliminates the 'd'<br />         </span><span class="default">$adFilter</span><span class="keyword">[] = </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$filter</span><span class="keyword">,</span><span class="default">0</span><span class="keyword">,</span><span class="default">$pos</span><span class="keyword">-</span><span class="default">1</span><span class="keyword">) . </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$filter</span><span class="keyword">,</span><span class="default">$pos</span><span class="keyword">);<br />         unset(</span><span class="default">$aFilter</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">]); }<br />   </span><span class="default">$aFilter </span><span class="keyword">= </span><span class="default">array_merge</span><span class="keyword">(</span><span class="default">$aFilter</span><span class="keyword">);    </span><span class="comment">// reset indeces<br /><br />   </span><span class="default">$aRes </span><span class="keyword">= array();                    </span><span class="comment">// results, $aAcc is an Accumulator<br />   </span><span class="default">$aDir </span><span class="keyword">= array(</span><span class="default">$path</span><span class="keyword">);    </span><span class="comment">// dirs to check<br />   </span><span class="keyword">for (</span><span class="default">$i</span><span class="keyword">=</span><span class="default">$levels</span><span class="keyword">&gt;</span><span class="default">0</span><span class="keyword">?</span><span class="default">$levels</span><span class="keyword">++:-</span><span class="default">1</span><span class="keyword">;(</span><span class="default">$aAcc</span><span class="keyword">=array())||</span><span class="default">$i</span><span class="keyword">--&amp;&amp;</span><span class="default">$aDir</span><span class="keyword">;</span><span class="default">$aDir</span><span class="keyword">=</span><span class="default">$aAcc</span><span class="keyword">)<br />     while (</span><span class="default">$dir </span><span class="keyword">= </span><span class="default">array_shift</span><span class="keyword">(</span><span class="default">$aDir</span><span class="keyword">))<br />         foreach (</span><span class="default">scandir </span><span class="keyword">(</span><span class="default">$dir</span><span class="keyword">) as </span><span class="default">$fileOrDir</span><span class="keyword">)<br />           if (</span><span class="default">$fileOrDir</span><span class="keyword">!=</span><span class="string">"." </span><span class="keyword">&amp;&amp; </span><span class="default">$fileOrDir</span><span class="keyword">!=</span><span class="string">".."</span><span class="keyword">) {<br />               if (</span><span class="default">$dirP </span><span class="keyword">= </span><span class="default">is_dir </span><span class="keyword">(</span><span class="default">$rp</span><span class="keyword">=</span><span class="string">"</span><span class="default">$dir$dS$fileOrDir</span><span class="string">"</span><span class="keyword">))<br />                 if (</span><span class="default">pathFilter</span><span class="keyword">(</span><span class="string">"</span><span class="default">$rp$dS</span><span class="string">"</span><span class="keyword">, </span><span class="default">$adFilter</span><span class="keyword">))<br />                     </span><span class="default">$aAcc</span><span class="keyword">[] = </span><span class="default">$rp</span><span class="keyword">;<br />               if (</span><span class="default">$i</span><span class="keyword">&lt;</span><span class="default">$levels</span><span class="keyword">-</span><span class="default">1 </span><span class="keyword">&amp;&amp; (</span><span class="default">$types </span><span class="keyword">&amp; (</span><span class="default">2</span><span class="keyword">-</span><span class="default">$dirP</span><span class="keyword">)))<br />                 if (</span><span class="default">pathFilter</span><span class="keyword">(</span><span class="default">$rp</span><span class="keyword">, </span><span class="default">$aFilter</span><span class="keyword">))<br />                     </span><span class="default">$aRes</span><span class="keyword">[] = (</span><span class="default">$dirP</span><span class="keyword">?</span><span class="string">"*"</span><span class="keyword">:</span><span class="string">""</span><span class="keyword">) . </span><span class="default">$rp</span><span class="keyword">; }<br />   return </span><span class="default">$aRes</span><span class="keyword">;<br />}<br /></span><span class="default">?&gt;<br /></span><br />example usage:<br /><span class="default">&lt;?php<br />define </span><span class="keyword">(</span><span class="string">"_"</span><span class="keyword">, </span><span class="default">NULL</span><span class="keyword">);<br /></span><span class="comment">// this will find all non .jpg, non .Thumbs.db files under c:\Photo<br /></span><span class="default">$aFiles </span><span class="keyword">= </span><span class="default">dirList</span><span class="keyword">(</span><span class="string">'c:\Photo'</span><span class="keyword">, </span><span class="default">_</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="string">'-/\.jpg$/i'</span><span class="keyword">, </span><span class="string">'-/\\\\Thumbs.db$/'</span><span class="keyword">);<br /></span><span class="default">$aFiles </span><span class="keyword">= </span><span class="default">dirList</span><span class="keyword">();    </span><span class="comment">// find the files in the current directory<br />// next lines will find .jpg files in non Photo(s) subdirectories, excluding Temporary Internet Files<br /></span><span class="default">set_time_limit</span><span class="keyword">(</span><span class="default">60</span><span class="keyword">);        </span><span class="comment">// iterating from the top level can take a while<br /></span><span class="default">$aFiles </span><span class="keyword">= </span><span class="default">dirList</span><span class="keyword">(</span><span class="string">"c:\\"</span><span class="keyword">, </span><span class="default">_</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="string">'/\.jpg$/i'</span><span class="keyword">, </span><span class="string">'-d/\\\\Photos?$/i'</span><span class="keyword">, </span><span class="string">'-d/Temporary Internet/i'</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />Note that this function will consume a lot of time if scanning large<br />directory structures (which is the reason for the '[-]d/.../' filters).<br /><br />Csaba Gabor from Vienna</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="124079">  <div class="votes">
+    <div id="Vu124079">
+    <a href="https://www.php.net/manual/vote-note.php?id=124079&amp;page=function.scandir&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd124079">
+    <a href="https://www.php.net/manual/vote-note.php?id=124079&amp;page=function.scandir&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V124079" title="55% like this...">
+    1
+    </div>
+  </div>
+  <a href="function.scandir.php.html#124079" class="name">
+  <strong class="user"><em>Nerbert</em></strong></a><a class="genanchor" href="function.scandir.php.html#124079"> &para;</a><div class="date" title="2019-07-29 12:58"><strong>4 years ago</strong></div>
+  <div class="text" id="Hcom124079">
+<div class="phpcode"><code><span class="html">If you use array_diff() to eliminate "." and ".." you must use array_values() on the result because array_diff() will return an associative array, which may cause problems for a for loop beginning at 0.<br /><br />$files = array_values(array_diff(scandir($directory), array('..', '.')));</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="108229">  <div class="votes">
+    <div id="Vu108229">
+    <a href="https://www.php.net/manual/vote-note.php?id=108229&amp;page=function.scandir&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd108229">
+    <a href="https://www.php.net/manual/vote-note.php?id=108229&amp;page=function.scandir&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V108229" title="55% like this...">
+    2
+    </div>
+  </div>
+  <a href="function.scandir.php.html#108229" class="name">
+  <strong class="user"><em>fazle dot elahee at gmail dot com</em></strong></a><a class="genanchor" href="function.scandir.php.html#108229"> &para;</a><div class="date" title="2012-04-09 06:52"><strong>11 years ago</strong></div>
+  <div class="text" id="Hcom108229">
+<div class="phpcode"><code><span class="html">/**<br /> * This function will scan all files recursively in the sub-folder and folder.<br /> *<br /> * @author Fazle Elahee<br /> *<br /> */<br /><br />function scanFileNameRecursivly($path = '', &amp;$name = array() )<br />{<br />  $path = $path == ''? dirname(__FILE__) : $path;<br />  $lists = @scandir($path);<br />  <br />  if(!empty($lists))<br />  {<br />      foreach($lists as $f)<br />      { <br />    <br />      if(is_dir($path.DIRECTORY_SEPARATOR.$f) &amp;&amp; $f != ".." &amp;&amp; $f != ".")<br />      {<br />          scanFileNameRecursivly($path.DIRECTORY_SEPARATOR.$f, &amp;$name); <br />      }<br />      else<br />      {<br />          $name[] = $path.DIRECTORY_SEPARATOR.$f;<br />      }<br />      }<br />  }<br />  return $name;<br />}<br /><br />$path = "/var/www/SimplejQueryDropdowns";<br />$file_names = scanFileNameRecursivly($path);<br /><br />echo "&lt;pre&gt;";<br />var_dump($file_names);<br />echo "&lt;/pre&gt;";</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="52755">  <div class="votes">
+    <div id="Vu52755">
+    <a href="https://www.php.net/manual/vote-note.php?id=52755&amp;page=function.scandir&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd52755">
+    <a href="https://www.php.net/manual/vote-note.php?id=52755&amp;page=function.scandir&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V52755" title="56% like this...">
+    3
+    </div>
+  </div>
+  <a href="function.scandir.php.html#52755" class="name">
+  <strong class="user"><em>Pawel Dlugosz</em></strong></a><a class="genanchor" href="function.scandir.php.html#52755"> &para;</a><div class="date" title="2005-05-11 11:18"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom52755">
+<div class="phpcode"><code><span class="html">For directory containing files like (for example) -.jpg the results of scandir are a little "weird" ;)<br /><br /><span class="default">&lt;?php<br />   <br />   $dir </span><span class="keyword">= </span><span class="string">'/somedir'</span><span class="keyword">;<br />   </span><span class="default">$files </span><span class="keyword">= </span><span class="default">scandir</span><span class="keyword">(</span><span class="default">$dir</span><span class="keyword">);<br />   </span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$files</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />Array<br />(<br />    [0] =&gt; -.jpg<br />    [1] =&gt; .<br />    [2] =&gt; ..<br />    [3] =&gt; foo.txt<br />    [4] =&gt; somedir<br />)<br /><br />Beware - sorting is in ASCII order :)</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="90628">  <div class="votes">
+    <div id="Vu90628">
+    <a href="https://www.php.net/manual/vote-note.php?id=90628&amp;page=function.scandir&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd90628">
+    <a href="https://www.php.net/manual/vote-note.php?id=90628&amp;page=function.scandir&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V90628" title="53% like this...">
+    2
+    </div>
+  </div>
+  <a href="function.scandir.php.html#90628" class="name">
+  <strong class="user"><em>phpdotnet at lavavortex dot com</em></strong></a><a class="genanchor" href="function.scandir.php.html#90628"> &para;</a><div class="date" title="2009-05-01 05:05"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom90628">
+<div class="phpcode"><code><span class="html">How a ninja may retrieve a list of files, files filtered by extension, or directories:<br /><br /><span class="default">&lt;?php<br /></span><span class="comment">//NNNIIIinnnjaaa::<br />//array of files without directories... optionally filtered by extension<br /></span><span class="keyword">function </span><span class="default">file_list</span><span class="keyword">(</span><span class="default">$d</span><span class="keyword">,</span><span class="default">$x</span><span class="keyword">){<br />       foreach(</span><span class="default">array_diff</span><span class="keyword">(</span><span class="default">scandir</span><span class="keyword">(</span><span class="default">$d</span><span class="keyword">),array(</span><span class="string">'.'</span><span class="keyword">,</span><span class="string">'..'</span><span class="keyword">)) as </span><span class="default">$f</span><span class="keyword">)if(</span><span class="default">is_file</span><span class="keyword">(</span><span class="default">$d</span><span class="keyword">.</span><span class="string">'/'</span><span class="keyword">.</span><span class="default">$f</span><span class="keyword">)&amp;&amp;((</span><span class="default">$x</span><span class="keyword">)?</span><span class="default">ereg</span><span class="keyword">(</span><span class="default">$x</span><span class="keyword">.</span><span class="string">'$'</span><span class="keyword">,</span><span class="default">$f</span><span class="keyword">):</span><span class="default">1</span><span class="keyword">))</span><span class="default">$l</span><span class="keyword">[]=</span><span class="default">$f</span><span class="keyword">;<br />       return </span><span class="default">$l</span><span class="keyword">;<br />}<br /><br /></span><span class="comment">//NNNIIIinnnjaaa::<br />//array of directories<br /></span><span class="keyword">function </span><span class="default">dir_list</span><span class="keyword">(</span><span class="default">$d</span><span class="keyword">){<br />       foreach(</span><span class="default">array_diff</span><span class="keyword">(</span><span class="default">scandir</span><span class="keyword">(</span><span class="default">$d</span><span class="keyword">),array(</span><span class="string">'.'</span><span class="keyword">,</span><span class="string">'..'</span><span class="keyword">)) as </span><span class="default">$f</span><span class="keyword">)if(</span><span class="default">is_dir</span><span class="keyword">(</span><span class="default">$d</span><span class="keyword">.</span><span class="string">'/'</span><span class="keyword">.</span><span class="default">$f</span><span class="keyword">))</span><span class="default">$l</span><span class="keyword">[]=</span><span class="default">$f</span><span class="keyword">;<br />       return </span><span class="default">$l</span><span class="keyword">;<br />}<br /><br /></span><span class="comment">/********************************************************************\<br />                    PRETTY PRETTY LIGHTS (DOCUMENTATION)<br />\********************************************************************/<br /><br />/********************************************************************<br />Overloaded PHP file listing function:<br />array file_list ( string $directory [, string $file_extension] )<br /><br />$directory<br />  path without backslash, e.g. "/home/public_html/blarg"<br /><br />$file_extention<br />  optionally filter specific filename extentions, e.g. ".jpg"<br /><br />&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; TRANSLATION &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;<br />file_list("/home");          //return list of files (no directories)<br />file_list("/home", ".jpg");  //return only .jpg file list<br />\********************************************************************/<br /><br />//(note: one slash (/) below and you enable all your test functions, guess where ;-))<br />/********************************************************************\<br />// TEST FUNCTIONS... IF THESE WORK, THIS FUNCTION WORKS ON THIS PLATFORM<br />echo "&lt;hr&gt;&lt;b&gt;File List:&lt;/b&gt;&lt;br&gt;";<br />$n = file_list(getcwd());<br />if($n) foreach($n as $f) echo "$f&lt;br&gt;";             //current files<br /><br />echo "&lt;hr&gt;&lt;b&gt;Files with extension .php:&lt;/b&gt;&lt;br&gt;";<br />$n = file_list(getcwd(),".php");<br />if($n) foreach($n as $f) echo "$f&lt;br&gt;";             //files with .php extensions<br /><br />echo "&lt;hr&gt;&lt;b&gt;Directories:&lt;/b&gt;&lt;br&gt;";<br />$d = dir_list(getcwd());<br />if($d) foreach($d as $f) echo "$f&lt;br&gt;";             //directories<br />/********************************************************************/<br /><br />/************\<br />RUNTIME NOTES:<br />file_list($arg1); // php issues a warning that there is no second parameter, but we know that, izz ok<br />\************/<br /><br />/*******************************\<br />TESTED AND WORKING ON 2009.04.30:<br />OS:     Linux 2.6.9-78.0.17.ELsmp<br />APACHE: 2.2.9<br />PHP:    5.2.5<br />\*******************************/<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="128279">  <div class="votes">
+    <div id="Vu128279">
+    <a href="https://www.php.net/manual/vote-note.php?id=128279&amp;page=function.scandir&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd128279">
+    <a href="https://www.php.net/manual/vote-note.php?id=128279&amp;page=function.scandir&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V128279" title="100% like this...">
+    1
+    </div>
+  </div>
+  <a href="function.scandir.php.html#128279" class="name">
+  <strong class="user"><em>arthur dot am dot app at gmail dot com</em></strong></a><a class="genanchor" href="function.scandir.php.html#128279"> &para;</a><div class="date" title="2023-03-03 01:53"><strong>11 months ago</strong></div>
+  <div class="text" id="Hcom128279">
+<div class="phpcode"><code><span class="html">$path_abs = __DIR__ .'/test/';<br /><br />if( DIRECTORY_SEPARATOR != substr($path, -1) || (DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR) == substr($path, -2))<br />{<br />    throw new Error("A non-standard path is specified. `{$path}`");<br />}<br /><br />$scandir_result = scandir( $path, SCANDIR_SORT_DESCENDING );<br /><br />for( $n = 0, $e = count($scandir_result) - 2; $n &lt; $e; $n++ )<br />{<br />    echo ($path  .  $scandir_result[$n])  .'&lt;br/&gt;';<br />}</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="80057">  <div class="votes">
+    <div id="Vu80057">
+    <a href="https://www.php.net/manual/vote-note.php?id=80057&amp;page=function.scandir&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd80057">
+    <a href="https://www.php.net/manual/vote-note.php?id=80057&amp;page=function.scandir&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V80057" title="52% like this...">
+    1
+    </div>
+  </div>
+  <a href="function.scandir.php.html#80057" class="name">
+  <strong class="user"><em>fatpratmatt dot  at  dot gmail dot com</em></strong></a><a class="genanchor" href="function.scandir.php.html#80057"> &para;</a><div class="date" title="2007-12-27 04:28"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom80057">
+<div class="phpcode"><code><span class="html">This function generates a list of all files in the chosen directory and all subdirectories, throws them into a NON-multidimentional array and returns them.<br /><br />Most of the recursive functions on this page only return a multi-dimensional array.<br /><br />This is actually a modification of some one else's function (thanks mail at bartrail dot de ;])<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">scanDirectories</span><span class="keyword">(</span><span class="default">$rootDir</span><span class="keyword">, </span><span class="default">$allData</span><span class="keyword">=array()) {<br />    </span><span class="comment">// set filenames invisible if you want<br />    </span><span class="default">$invisibleFileNames </span><span class="keyword">= array(</span><span class="string">"."</span><span class="keyword">, </span><span class="string">".."</span><span class="keyword">, </span><span class="string">".htaccess"</span><span class="keyword">, </span><span class="string">".htpasswd"</span><span class="keyword">);<br />    </span><span class="comment">// run through content of root directory<br />    </span><span class="default">$dirContent </span><span class="keyword">= </span><span class="default">scandir</span><span class="keyword">(</span><span class="default">$rootDir</span><span class="keyword">);<br />    foreach(</span><span class="default">$dirContent </span><span class="keyword">as </span><span class="default">$key </span><span class="keyword">=&gt; </span><span class="default">$content</span><span class="keyword">) {<br />        </span><span class="comment">// filter all files not accessible<br />        </span><span class="default">$path </span><span class="keyword">= </span><span class="default">$rootDir</span><span class="keyword">.</span><span class="string">'/'</span><span class="keyword">.</span><span class="default">$content</span><span class="keyword">;<br />        if(!</span><span class="default">in_array</span><span class="keyword">(</span><span class="default">$content</span><span class="keyword">, </span><span class="default">$invisibleFileNames</span><span class="keyword">)) {<br />            </span><span class="comment">// if content is file &amp; readable, add to array<br />            </span><span class="keyword">if(</span><span class="default">is_file</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">) &amp;&amp; </span><span class="default">is_readable</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">)) {<br />                </span><span class="comment">// save file name with path<br />                </span><span class="default">$allData</span><span class="keyword">[] = </span><span class="default">$path</span><span class="keyword">;<br />            </span><span class="comment">// if content is a directory and readable, add path and name<br />            </span><span class="keyword">}elseif(</span><span class="default">is_dir</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">) &amp;&amp; </span><span class="default">is_readable</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">)) {<br />                </span><span class="comment">// recursive callback to open new directory<br />                </span><span class="default">$allData </span><span class="keyword">= </span><span class="default">scanDirectories</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">, </span><span class="default">$allData</span><span class="keyword">);<br />            }<br />        }<br />    }<br />    return </span><span class="default">$allData</span><span class="keyword">;<br />}<br /></span><span class="default">?&gt;<br /></span><br />Example output:<br /><br />print_r(scanDirectories("www"));<br />---<br />Array<br />(<br />    [0] =&gt; www/index.php<br />    [1] =&gt; www/admin.php<br />    [3] =&gt; www/css/css.css<br />    [4] =&gt; www/articles/2007/article1.txt<br />    [4] =&gt; www/articles/2006/article1.txt<br />    [8] =&gt; www/img/img1.png<br />)</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="121183">  <div class="votes">
+    <div id="Vu121183">
+    <a href="https://www.php.net/manual/vote-note.php?id=121183&amp;page=function.scandir&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd121183">
+    <a href="https://www.php.net/manual/vote-note.php?id=121183&amp;page=function.scandir&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V121183" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="function.scandir.php.html#121183" class="name">
+  <strong class="user"><em>SPekary</em></strong></a><a class="genanchor" href="function.scandir.php.html#121183"> &para;</a><div class="date" title="2017-06-03 06:30"><strong>6 years ago</strong></div>
+  <div class="text" id="Hcom121183">
+<div class="phpcode"><code><span class="html">Unless you specify no sorting, file names are sorted in ASCII alphabetic order, meaning numbers first, then uppercase, then lowercase letters, even on operating systems whose file system ignores the case of file names when it does its own sorting.<br /><br />For example, on Mac OS, the following files will appear in this order in the Finder, when your disk is formated using the standard file system:<br />1file.php<br />a.inc<br />B.txt<br />c.txt<br /><br />However, scandir will produce an array in the following order:<br />1file.php<br />B.txt<br />a.inc<br />c.txt</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="109140">  <div class="votes">
+    <div id="Vu109140">
+    <a href="https://www.php.net/manual/vote-note.php?id=109140&amp;page=function.scandir&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd109140">
+    <a href="https://www.php.net/manual/vote-note.php?id=109140&amp;page=function.scandir&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V109140" title="50% like this...">
+    1
+    </div>
+  </div>
+  <a href="function.scandir.php.html#109140" class="name">
+  <strong class="user"><em>carneiro at isharelife dot com dot br</em></strong></a><a class="genanchor" href="function.scandir.php.html#109140"> &para;</a><div class="date" title="2012-06-22 06:47"><strong>11 years ago</strong></div>
+  <div class="text" id="Hcom109140">
+<div class="phpcode"><code><span class="html"><span class="default">&lt;?php<br /></span><span class="comment">/**<br />     * Get an array that represents directory tree<br />     * @param string $directory     Directory path<br />     * @param bool $recursive         Include sub directories<br />     * @param bool $listDirs         Include directories on listing<br />     * @param bool $listFiles         Include files on listing<br />     * @param regex $exclude         Exclude paths that matches this regex<br />     */<br />    </span><span class="keyword">function </span><span class="default">directoryToArray</span><span class="keyword">(</span><span class="default">$directory</span><span class="keyword">, </span><span class="default">$recursive </span><span class="keyword">= </span><span class="default">true</span><span class="keyword">, </span><span class="default">$listDirs </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">, </span><span class="default">$listFiles </span><span class="keyword">= </span><span class="default">true</span><span class="keyword">, </span><span class="default">$exclude </span><span class="keyword">= </span><span class="string">''</span><span class="keyword">) {<br />        </span><span class="default">$arrayItems </span><span class="keyword">= array();<br />        </span><span class="default">$skipByExclude </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;<br />        </span><span class="default">$handle </span><span class="keyword">= </span><span class="default">opendir</span><span class="keyword">(</span><span class="default">$directory</span><span class="keyword">);<br />        if (</span><span class="default">$handle</span><span class="keyword">) {<br />            while (</span><span class="default">false </span><span class="keyword">!== (</span><span class="default">$file </span><span class="keyword">= </span><span class="default">readdir</span><span class="keyword">(</span><span class="default">$handle</span><span class="keyword">))) {<br />            </span><span class="default">preg_match</span><span class="keyword">(</span><span class="string">"/(^(([\.]){1,2})$|(\.(svn|git|md))|(Thumbs\.db|\.DS_STORE))$/iu"</span><span class="keyword">, </span><span class="default">$file</span><span class="keyword">, </span><span class="default">$skip</span><span class="keyword">);<br />            if(</span><span class="default">$exclude</span><span class="keyword">){<br />                </span><span class="default">preg_match</span><span class="keyword">(</span><span class="default">$exclude</span><span class="keyword">, </span><span class="default">$file</span><span class="keyword">, </span><span class="default">$skipByExclude</span><span class="keyword">);<br />            }<br />            if (!</span><span class="default">$skip </span><span class="keyword">&amp;&amp; !</span><span class="default">$skipByExclude</span><span class="keyword">) {<br />                if (</span><span class="default">is_dir</span><span class="keyword">(</span><span class="default">$directory</span><span class="keyword">. </span><span class="default">DIRECTORY_SEPARATOR </span><span class="keyword">. </span><span class="default">$file</span><span class="keyword">)) {<br />                    if(</span><span class="default">$recursive</span><span class="keyword">) {<br />                        </span><span class="default">$arrayItems </span><span class="keyword">= </span><span class="default">array_merge</span><span class="keyword">(</span><span class="default">$arrayItems</span><span class="keyword">, </span><span class="default">directoryToArray</span><span class="keyword">(</span><span class="default">$directory</span><span class="keyword">. </span><span class="default">DIRECTORY_SEPARATOR </span><span class="keyword">. </span><span class="default">$file</span><span class="keyword">, </span><span class="default">$recursive</span><span class="keyword">, </span><span class="default">$listDirs</span><span class="keyword">, </span><span class="default">$listFiles</span><span class="keyword">, </span><span class="default">$exclude</span><span class="keyword">));<br />                    }<br />                    if(</span><span class="default">$listDirs</span><span class="keyword">){<br />                        </span><span class="default">$file </span><span class="keyword">= </span><span class="default">$directory </span><span class="keyword">. </span><span class="default">DIRECTORY_SEPARATOR </span><span class="keyword">. </span><span class="default">$file</span><span class="keyword">;<br />                        </span><span class="default">$arrayItems</span><span class="keyword">[] = </span><span class="default">$file</span><span class="keyword">;<br />                    }<br />                } else {<br />                    if(</span><span class="default">$listFiles</span><span class="keyword">){<br />                        </span><span class="default">$file </span><span class="keyword">= </span><span class="default">$directory </span><span class="keyword">. </span><span class="default">DIRECTORY_SEPARATOR </span><span class="keyword">. </span><span class="default">$file</span><span class="keyword">;<br />                        </span><span class="default">$arrayItems</span><span class="keyword">[] = </span><span class="default">$file</span><span class="keyword">;<br />                    }<br />                }<br />            }<br />        }<br />        </span><span class="default">closedir</span><span class="keyword">(</span><span class="default">$handle</span><span class="keyword">);<br />        }<br />        return </span><span class="default">$arrayItems</span><span class="keyword">;<br />    }<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="119422">  <div class="votes">
+    <div id="Vu119422">
+    <a href="https://www.php.net/manual/vote-note.php?id=119422&amp;page=function.scandir&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd119422">
+    <a href="https://www.php.net/manual/vote-note.php?id=119422&amp;page=function.scandir&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V119422" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="function.scandir.php.html#119422" class="name">
+  <strong class="user"><em>simon dot riget at gmail dot com</em></strong></a><a class="genanchor" href="function.scandir.php.html#119422"> &para;</a><div class="date" title="2016-06-02 07:28"><strong>7 years ago</strong></div>
+  <div class="text" id="Hcom119422">
+<div class="phpcode"><code><span class="html">This is a simple and versatile function that returns an array tree of files, matching wildcards:<br /><br /><span class="default">&lt;?php<br /></span><span class="comment">// List files in tree, matching wildcards * and ?<br /></span><span class="keyword">function </span><span class="default">tree</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">){<br />  static </span><span class="default">$match</span><span class="keyword">;<br /><br />  </span><span class="comment">// Find the real directory part of the path, and set the match parameter<br />  </span><span class="default">$last</span><span class="keyword">=</span><span class="default">strrpos</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">,</span><span class="string">"/"</span><span class="keyword">);<br />  if(!</span><span class="default">is_dir</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">)){<br />    </span><span class="default">$match</span><span class="keyword">=</span><span class="default">substr</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">,</span><span class="default">$last</span><span class="keyword">);<br />    while(!</span><span class="default">is_dir</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">=</span><span class="default">substr</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">,</span><span class="default">0</span><span class="keyword">,</span><span class="default">$last</span><span class="keyword">)) &amp;&amp; </span><span class="default">$last</span><span class="keyword">!==</span><span class="default">false</span><span class="keyword">)<br />      </span><span class="default">$last</span><span class="keyword">=</span><span class="default">strrpos</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">,</span><span class="string">"/"</span><span class="keyword">,-</span><span class="default">1</span><span class="keyword">);<br />  }<br />  if(empty(</span><span class="default">$match</span><span class="keyword">)) </span><span class="default">$match</span><span class="keyword">=</span><span class="string">"/*"</span><span class="keyword">;<br />  if(!</span><span class="default">$path</span><span class="keyword">=</span><span class="default">realpath</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">)) return;<br /><br />  </span><span class="comment">// List files<br />  </span><span class="keyword">foreach(</span><span class="default">glob</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">.</span><span class="default">$match</span><span class="keyword">) as </span><span class="default">$file</span><span class="keyword">){<br />    </span><span class="default">$list</span><span class="keyword">[]=</span><span class="default">substr</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">,</span><span class="default">strrpos</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">,</span><span class="string">"/"</span><span class="keyword">)+</span><span class="default">1</span><span class="keyword">);<br />  }  <br /><br />  </span><span class="comment">// Process sub directories<br />  </span><span class="keyword">foreach(</span><span class="default">glob</span><span class="keyword">(</span><span class="string">"</span><span class="default">$path</span><span class="string">/*"</span><span class="keyword">, </span><span class="default">GLOB_ONLYDIR</span><span class="keyword">) as </span><span class="default">$dir</span><span class="keyword">){<br />    </span><span class="default">$list</span><span class="keyword">[</span><span class="default">substr</span><span class="keyword">(</span><span class="default">$dir</span><span class="keyword">,</span><span class="default">strrpos</span><span class="keyword">(</span><span class="default">$dir</span><span class="keyword">,</span><span class="string">"/"</span><span class="keyword">,-</span><span class="default">1</span><span class="keyword">)+</span><span class="default">1</span><span class="keyword">)]=</span><span class="default">tree</span><span class="keyword">(</span><span class="default">$dir</span><span class="keyword">);<br />  }<br />  <br />  return @</span><span class="default">$list</span><span class="keyword">;<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="116581">  <div class="votes">
+    <div id="Vu116581">
+    <a href="https://www.php.net/manual/vote-note.php?id=116581&amp;page=function.scandir&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd116581">
+    <a href="https://www.php.net/manual/vote-note.php?id=116581&amp;page=function.scandir&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V116581" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="function.scandir.php.html#116581" class="name">
+  <strong class="user"><em>Tom</em></strong></a><a class="genanchor" href="function.scandir.php.html#116581"> &para;</a><div class="date" title="2015-01-24 04:01"><strong>9 years ago</strong></div>
+  <div class="text" id="Hcom116581">
+<div class="phpcode"><code><span class="html">Just was curious to count files and lines in a project<br /><br /><span class="default">&lt;?php<br /><br />  </span><span class="keyword">function </span><span class="default">DirLineCounter</span><span class="keyword">( </span><span class="default">$dir </span><span class="keyword">, </span><span class="default">$result </span><span class="keyword">= array(</span><span class="string">'lines_html' </span><span class="keyword">=&gt; </span><span class="default">false</span><span class="keyword">, </span><span class="string">'files_count' </span><span class="keyword">=&gt; </span><span class="default">false</span><span class="keyword">, </span><span class="string">'lines_count' </span><span class="keyword">=&gt; </span><span class="default">false </span><span class="keyword">), </span><span class="default">$complete_table </span><span class="keyword">= </span><span class="default">true </span><span class="keyword">)<br />  {<br /><br />      </span><span class="default">$file_read </span><span class="keyword">= array( </span><span class="string">'php'</span><span class="keyword">, </span><span class="string">'html'</span><span class="keyword">, </span><span class="string">'js'</span><span class="keyword">, </span><span class="string">'css' </span><span class="keyword">);<br />      </span><span class="default">$dir_ignore </span><span class="keyword">= array();<br />      <br />      </span><span class="default">$scan_result </span><span class="keyword">= </span><span class="default">scandir</span><span class="keyword">( </span><span class="default">$dir </span><span class="keyword">);<br />      <br />      foreach ( </span><span class="default">$scan_result </span><span class="keyword">as </span><span class="default">$key </span><span class="keyword">=&gt; </span><span class="default">$value </span><span class="keyword">) {<br />        <br />          if ( !</span><span class="default">in_array</span><span class="keyword">( </span><span class="default">$value</span><span class="keyword">, array( </span><span class="string">'.'</span><span class="keyword">, </span><span class="string">'..' </span><span class="keyword">) ) ) {<br />            <br />              if ( </span><span class="default">is_dir</span><span class="keyword">( </span><span class="default">$dir </span><span class="keyword">. </span><span class="default">DIRECTORY_SEPARATOR </span><span class="keyword">. </span><span class="default">$value </span><span class="keyword">) ) {<br />                <br />                  if ( </span><span class="default">in_array</span><span class="keyword">( </span><span class="default">$value</span><span class="keyword">, </span><span class="default">$dir_ignore </span><span class="keyword">) ) {<br />                    continue;<br />                  }<br />                <br />                  </span><span class="default">$result </span><span class="keyword">= </span><span class="default">DirLineCounter</span><span class="keyword">( </span><span class="default">$dir </span><span class="keyword">. </span><span class="default">DIRECTORY_SEPARATOR </span><span class="keyword">. </span><span class="default">$value</span><span class="keyword">, </span><span class="default">$result</span><span class="keyword">, </span><span class="default">false </span><span class="keyword">);<br />                  <br />              }<br />              else {<br />                <br />              </span><span class="default">$type </span><span class="keyword">= </span><span class="default">explode</span><span class="keyword">( </span><span class="string">'.'</span><span class="keyword">, </span><span class="default">$value </span><span class="keyword">); <br />              </span><span class="default">$type </span><span class="keyword">= </span><span class="default">array_reverse</span><span class="keyword">( </span><span class="default">$type </span><span class="keyword">);<br />              if( !</span><span class="default">in_array</span><span class="keyword">( </span><span class="default">$type</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">], </span><span class="default">$file_read </span><span class="keyword">) ) {<br />                continue;<br />              }<br />              <br />              </span><span class="default">$lines </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br />              </span><span class="default">$handle </span><span class="keyword">= </span><span class="default">fopen</span><span class="keyword">( </span><span class="default">$dir </span><span class="keyword">. </span><span class="default">DIRECTORY_SEPARATOR </span><span class="keyword">. </span><span class="default">$value</span><span class="keyword">, </span><span class="string">'r' </span><span class="keyword">);<br /><br />              while ( !</span><span class="default">feof</span><span class="keyword">( </span><span class="default">$handle </span><span class="keyword">) ) {<br /><br />                  if ( </span><span class="default">is_bool</span><span class="keyword">( </span><span class="default">$handle </span><span class="keyword">) ) {<br />                      break;<br />                  }<br /><br />                  </span><span class="default">$line </span><span class="keyword">= </span><span class="default">fgets</span><span class="keyword">( </span><span class="default">$handle </span><span class="keyword">);<br />                  </span><span class="default">$lines</span><span class="keyword">++;<br />              }<br /><br />              </span><span class="default">fclose</span><span class="keyword">( </span><span class="default">$handle </span><span class="keyword">);<br /><br />              </span><span class="default">$result</span><span class="keyword">[</span><span class="string">'lines_html'</span><span class="keyword">][] = </span><span class="string">'&lt;tr&gt;&lt;td&gt;' </span><span class="keyword">. </span><span class="default">$dir </span><span class="keyword">. </span><span class="string">'&lt;/td&gt;&lt;td&gt;' </span><span class="keyword">. </span><span class="default">$value </span><span class="keyword">. </span><span class="string">'&lt;/td&gt;&lt;td&gt;' </span><span class="keyword">. </span><span class="default">$lines </span><span class="keyword">. </span><span class="string">'&lt;/td&gt;&lt;/tr&gt;'</span><span class="keyword">; <br />              </span><span class="default">$result</span><span class="keyword">[</span><span class="string">'lines_count'</span><span class="keyword">] = </span><span class="default">$result</span><span class="keyword">[</span><span class="string">'lines_count'</span><span class="keyword">] + </span><span class="default">$lines</span><span class="keyword">;<br />              </span><span class="default">$result</span><span class="keyword">[</span><span class="string">'files_count'</span><span class="keyword">] = </span><span class="default">$result</span><span class="keyword">[</span><span class="string">'files_count'</span><span class="keyword">] + </span><span class="default">1</span><span class="keyword">;<br />                             <br />              }<br />          }<br />      }<br />      <br />      if ( </span><span class="default">$complete_table </span><span class="keyword">) {<br />        <br />        </span><span class="default">$lines_html </span><span class="keyword">= </span><span class="default">implode</span><span class="keyword">(</span><span class="string">''</span><span class="keyword">, </span><span class="default">$result</span><span class="keyword">[</span><span class="string">'lines_html'</span><span class="keyword">]) . </span><span class="string">'&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td style="border: 1px solid #222"&gt;Files Total: ' </span><span class="keyword">. </span><span class="default">$result</span><span class="keyword">[</span><span class="string">'files_count'</span><span class="keyword">] . </span><span class="string">'&lt;/td&gt;&lt;td style="border: 1px solid #222"&gt;Lines Total: ' </span><span class="keyword">. </span><span class="default">$result</span><span class="keyword">[</span><span class="string">'lines_count'</span><span class="keyword">] . </span><span class="string">'&lt;/td&gt;&lt;/tr&gt;'</span><span class="keyword">;<br />        return </span><span class="string">'&lt;table&gt;&lt;tr&gt;&lt;td style="width: 60%; background-color:#ddd;"&gt;Dir&lt;/td&gt;&lt;td style="width: 30%; background-color:#ddd;"&gt;File&lt;/td&gt;&lt;td style="width: 10%; background-color:#ddd;"&gt;Lines&lt;/td&gt;&lt;/tr&gt;' </span><span class="keyword">. </span><span class="default">$lines_html </span><span class="keyword">. </span><span class="string">'&lt;/table&gt;'</span><span class="keyword">;<br />        <br />      }<br />      else {<br />        return </span><span class="default">$result</span><span class="keyword">;<br />      }<br />      <br />  }<br /><br />  echo </span><span class="default">DirLineCounter</span><span class="keyword">( </span><span class="string">'.' </span><span class="keyword">);<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="109115">  <div class="votes">
+    <div id="Vu109115">
+    <a href="https://www.php.net/manual/vote-note.php?id=109115&amp;page=function.scandir&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd109115">
+    <a href="https://www.php.net/manual/vote-note.php?id=109115&amp;page=function.scandir&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V109115" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="function.scandir.php.html#109115" class="name">
+  <strong class="user"><em>2bbasic at gmail dot com</em></strong></a><a class="genanchor" href="function.scandir.php.html#109115"> &para;</a><div class="date" title="2012-06-21 11:35"><strong>11 years ago</strong></div>
+  <div class="text" id="Hcom109115">
+<div class="phpcode"><code><span class="html"><span class="default">&lt;?php<br /></span><span class="comment">//-- Directory Navigation with SCANDIR<br />//-- <br />//-- optional placemenet<br /></span><span class="default">$exclude_list </span><span class="keyword">= array(</span><span class="string">"."</span><span class="keyword">, </span><span class="string">".."</span><span class="keyword">, </span><span class="string">"example.txt"</span><span class="keyword">);<br />if (isset(</span><span class="default">$_GET</span><span class="keyword">[</span><span class="string">"dir"</span><span class="keyword">])) {<br />  </span><span class="default">$dir_path </span><span class="keyword">= </span><span class="default">$_SERVER</span><span class="keyword">[</span><span class="string">"DOCUMENT_ROOT"</span><span class="keyword">].</span><span class="string">"/"</span><span class="keyword">.</span><span class="default">$_GET</span><span class="keyword">[</span><span class="string">"dir"</span><span class="keyword">];<br />}<br />else {<br />  </span><span class="default">$dir_path </span><span class="keyword">= </span><span class="default">$_SERVER</span><span class="keyword">[</span><span class="string">"DOCUMENT_ROOT"</span><span class="keyword">].</span><span class="string">"/"</span><span class="keyword">;<br />}<br /></span><span class="comment">//-- until here<br /></span><span class="keyword">function </span><span class="default">dir_nav</span><span class="keyword">() {<br />  global </span><span class="default">$exclude_list</span><span class="keyword">, </span><span class="default">$dir_path</span><span class="keyword">;<br />  </span><span class="default">$directories </span><span class="keyword">= </span><span class="default">array_diff</span><span class="keyword">(</span><span class="default">scandir</span><span class="keyword">(</span><span class="default">$dir_path</span><span class="keyword">), </span><span class="default">$exclude_list</span><span class="keyword">);<br />  echo </span><span class="string">"&lt;ul style='list-style:none;padding:0'&gt;"</span><span class="keyword">;<br />  foreach(</span><span class="default">$directories </span><span class="keyword">as </span><span class="default">$entry</span><span class="keyword">) {<br />    if(</span><span class="default">is_dir</span><span class="keyword">(</span><span class="default">$dir_path</span><span class="keyword">.</span><span class="default">$entry</span><span class="keyword">)) {<br />      echo </span><span class="string">"&lt;li style='margin-left:1em;'&gt;[`] &lt;a href='?dir="</span><span class="keyword">.</span><span class="default">$_GET</span><span class="keyword">[</span><span class="string">"dir"</span><span class="keyword">].</span><span class="default">$entry</span><span class="keyword">.</span><span class="string">"/"</span><span class="keyword">.</span><span class="string">"'&gt;"</span><span class="keyword">.</span><span class="default">$entry</span><span class="keyword">.</span><span class="string">"&lt;/a&gt;&lt;/li&gt;"</span><span class="keyword">;<br />    }<br />  }<br />  echo </span><span class="string">"&lt;/ul&gt;"</span><span class="keyword">;<br />  </span><span class="comment">//-- separator<br />  </span><span class="keyword">echo </span><span class="string">"&lt;ul style='list-style:none;padding:0'&gt;"</span><span class="keyword">;<br />  foreach(</span><span class="default">$directories </span><span class="keyword">as </span><span class="default">$entry</span><span class="keyword">) {<br />    if(</span><span class="default">is_file</span><span class="keyword">(</span><span class="default">$dir_path</span><span class="keyword">.</span><span class="default">$entry</span><span class="keyword">)) {<br />      echo </span><span class="string">"&lt;li style='margin-left:1em;'&gt;[ ] &lt;a href='?file="</span><span class="keyword">.</span><span class="default">$_GET</span><span class="keyword">[</span><span class="string">"dir"</span><span class="keyword">].</span><span class="default">$entry</span><span class="keyword">.</span><span class="string">"'&gt;"</span><span class="keyword">.</span><span class="default">$entry</span><span class="keyword">.</span><span class="string">"&lt;/a&gt;&lt;/li&gt;"</span><span class="keyword">;<br />    }<br />  }<br />  echo </span><span class="string">"&lt;/ul&gt;"</span><span class="keyword">;<br />}<br /></span><span class="default">dir_nav</span><span class="keyword">();<br /></span><span class="comment">//-- optional placement<br /></span><span class="keyword">if (isset(</span><span class="default">$_GET</span><span class="keyword">[</span><span class="string">"file"</span><span class="keyword">])) {<br />  echo </span><span class="string">"&lt;div style='margin:1em;border:1px solid Silver;'&gt;"</span><span class="keyword">;<br />  </span><span class="default">highlight_file</span><span class="keyword">(</span><span class="default">$dir_path</span><span class="keyword">.</span><span class="default">$_GET</span><span class="keyword">[</span><span class="string">'file'</span><span class="keyword">]);<br />  echo </span><span class="string">"&lt;/div&gt;"</span><span class="keyword">;<br />}<br /></span><span class="comment">//-- until here<br />//--<br />//-- Because I love php.net<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="95913">  <div class="votes">
+    <div id="Vu95913">
+    <a href="https://www.php.net/manual/vote-note.php?id=95913&amp;page=function.scandir&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd95913">
+    <a href="https://www.php.net/manual/vote-note.php?id=95913&amp;page=function.scandir&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V95913" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="function.scandir.php.html#95913" class="name">
+  <strong class="user"><em>moik78 at gmail dot com</em></strong></a><a class="genanchor" href="function.scandir.php.html#95913"> &para;</a><div class="date" title="2010-01-28 05:43"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom95913">
+<div class="phpcode"><code><span class="html">This is a function to count the number of files of a directory<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">countFiles</span><span class="keyword">(</span><span class="default">$dir</span><span class="keyword">){<br />    </span><span class="default">$files </span><span class="keyword">= array();<br />    </span><span class="default">$directory </span><span class="keyword">= </span><span class="default">opendir</span><span class="keyword">(</span><span class="default">$dir</span><span class="keyword">); <br />    while(</span><span class="default">$item </span><span class="keyword">= </span><span class="default">readdir</span><span class="keyword">(</span><span class="default">$directory</span><span class="keyword">)){<br />    </span><span class="comment">// We filter the elements that we don't want to appear ".", ".." and ".svn" <br />         </span><span class="keyword">if((</span><span class="default">$item </span><span class="keyword">!= </span><span class="string">"."</span><span class="keyword">) &amp;&amp; (</span><span class="default">$item </span><span class="keyword">!= </span><span class="string">".."</span><span class="keyword">) &amp;&amp; (</span><span class="default">$item </span><span class="keyword">!= </span><span class="string">".svn"</span><span class="keyword">) ){ <br />              </span><span class="default">$files</span><span class="keyword">[] = </span><span class="default">$item</span><span class="keyword">; <br />         } <br />    }<br />    </span><span class="default">$numFiles </span><span class="keyword">= </span><span class="default">count</span><span class="keyword">(</span><span class="default">$files</span><span class="keyword">);<br />    return </span><span class="default">$numFiles</span><span class="keyword">;<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="117575">  <div class="votes">
+    <div id="Vu117575">
+    <a href="https://www.php.net/manual/vote-note.php?id=117575&amp;page=function.scandir&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd117575">
+    <a href="https://www.php.net/manual/vote-note.php?id=117575&amp;page=function.scandir&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V117575" title="48% like this...">
+    -1
+    </div>
+  </div>
+  <a href="function.scandir.php.html#117575" class="name">
+  <strong class="user"><em>telefoontoestel59 at hotmail dot com</em></strong></a><a class="genanchor" href="function.scandir.php.html#117575"> &para;</a><div class="date" title="2015-07-01 02:12"><strong>8 years ago</strong></div>
+  <div class="text" id="Hcom117575">
+<div class="phpcode"><code><span class="html">I was looking for an easy way to get only files from a certain directory. I came up with the following line of code that will result in an array listing only files. the samen can be done for directories ofcourse.<br /><br /><span class="default">&lt;?php<br />$files </span><span class="keyword">= </span><span class="default">array_filter</span><span class="keyword">(</span><span class="default">scandir</span><span class="keyword">(</span><span class="default">$directory</span><span class="keyword">), function(</span><span class="default">$file</span><span class="keyword">) { return </span><span class="default">is_file</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">); })<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="114116">  <div class="votes">
+    <div id="Vu114116">
+    <a href="https://www.php.net/manual/vote-note.php?id=114116&amp;page=function.scandir&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd114116">
+    <a href="https://www.php.net/manual/vote-note.php?id=114116&amp;page=function.scandir&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V114116" title="47% like this...">
+    -1
+    </div>
+  </div>
+  <a href="function.scandir.php.html#114116" class="name">
+  <strong class="user"><em>Patrick</em></strong></a><a class="genanchor" href="function.scandir.php.html#114116"> &para;</a><div class="date" title="2014-01-12 09:10"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom114116">
+<div class="phpcode"><code><span class="html">Here is my recursive function, placing directories into new array keys and its contents within.<br /><br />/* find_files( string, &amp;array )<br />** Recursive function to return a multidimensional array of folders and files<br />** that are contained within the directory given<br />*/<br />function find_files($dir, &amp;$dir_array)<br />{<br />    // Create array of current directory<br />    $files = scandir($dir);<br />    <br />    if(is_array($files))<br />    {<br />        foreach($files as $val)<br />        {<br />            // Skip home and previous listings<br />            if($val == '.' || $val == '..')<br />                continue;<br />            <br />            // If directory then dive deeper, else add file to directory key<br />            if(is_dir($dir.'/'.$val))<br />            {<br />                // Add value to current array, dir or file<br />                $dir_array[$dir][] = $val;<br />                <br />                find_files($dir.'/'.$val, $dir_array);<br />            }<br />            else<br />            {<br />                $dir_array[$dir][] = $val;<br />            }<br />        }<br />    }<br />    ksort($dir_array);<br />}<br /><br />// Example<br />$folder_list = array();<br />find_files('/path', $folder_list)<br /><br />var_dump($folder_list);<br /><br />array(3) {<br />  ["directory_01"]=&gt;<br />  array(4) {<br />    [0]=&gt;<br />    string(12) "directory_02"<br />    [1]=&gt;<br />    string(12) "directory_03"<br />    [2]=&gt;<br />    string(11) "file_01.txt"<br />    [3]=&gt;<br />    string(11) "file_02.txt"<br />  }<br />  ["directory_01/directory_02"]=&gt;<br />  array(2) {<br />    [0]=&gt;<br />    string(11) "file_03.txt"<br />    [1]=&gt;<br />    string(11) "file_04.txt"<br />  }<br />  ["directory_01/directory_03"]=&gt;<br />  array(2) {<br />    [0]=&gt;<br />    string(11) "file_05.txt"<br />    [1]=&gt;<br />    string(11) "file_06.txt"<br />  }<br />}</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="91380">  <div class="votes">
+    <div id="Vu91380">
+    <a href="https://www.php.net/manual/vote-note.php?id=91380&amp;page=function.scandir&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd91380">
+    <a href="https://www.php.net/manual/vote-note.php?id=91380&amp;page=function.scandir&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V91380" title="48% like this...">
+    -1
+    </div>
+  </div>
+  <a href="function.scandir.php.html#91380" class="name">
+  <strong class="user"><em>magicmind at netcabo dot pt</em></strong></a><a class="genanchor" href="function.scandir.php.html#91380"> &para;</a><div class="date" title="2009-06-09 05:20"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom91380">
+<div class="phpcode"><code><span class="html">Hello all,<br /><br />I just added a extension filter to the getDirectoryTree function, so it can filter an extension for files in the folders/subfolders:<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">getDirectoryTree</span><span class="keyword">( </span><span class="default">$outerDir </span><span class="keyword">, </span><span class="default">$x</span><span class="keyword">){ <br />    </span><span class="default">$dirs </span><span class="keyword">= </span><span class="default">array_diff</span><span class="keyword">( </span><span class="default">scandir</span><span class="keyword">( </span><span class="default">$outerDir </span><span class="keyword">), Array( </span><span class="string">"."</span><span class="keyword">, </span><span class="string">".." </span><span class="keyword">) ); <br />    </span><span class="default">$dir_array </span><span class="keyword">= Array(); <br />    foreach( </span><span class="default">$dirs </span><span class="keyword">as </span><span class="default">$d </span><span class="keyword">){ <br />        if( </span><span class="default">is_dir</span><span class="keyword">(</span><span class="default">$outerDir</span><span class="keyword">.</span><span class="string">"/"</span><span class="keyword">.</span><span class="default">$d</span><span class="keyword">)  ){<br />            </span><span class="default">$dir_array</span><span class="keyword">[ </span><span class="default">$d </span><span class="keyword">] = </span><span class="default">getDirectoryTree</span><span class="keyword">( </span><span class="default">$outerDir</span><span class="keyword">.</span><span class="string">"/"</span><span class="keyword">.</span><span class="default">$d </span><span class="keyword">, </span><span class="default">$x</span><span class="keyword">); <br />        }else{<br />         if ((</span><span class="default">$x</span><span class="keyword">)?</span><span class="default">ereg</span><span class="keyword">(</span><span class="default">$x</span><span class="keyword">.</span><span class="string">'$'</span><span class="keyword">,</span><span class="default">$d</span><span class="keyword">):</span><span class="default">1</span><span class="keyword">) <br />            </span><span class="default">$dir_array</span><span class="keyword">[ </span><span class="default">$d </span><span class="keyword">] = </span><span class="default">$d</span><span class="keyword">; <br />            }<br />    } <br />    return </span><span class="default">$dir_array</span><span class="keyword">; <br />} <br /><br /></span><span class="default">$dirlist </span><span class="keyword">= </span><span class="default">getDirectoryTree</span><span class="keyword">(</span><span class="string">'filmes'</span><span class="keyword">,</span><span class="string">'flv'</span><span class="keyword">);<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="54344">  <div class="votes">
+    <div id="Vu54344">
+    <a href="https://www.php.net/manual/vote-note.php?id=54344&amp;page=function.scandir&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd54344">
+    <a href="https://www.php.net/manual/vote-note.php?id=54344&amp;page=function.scandir&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V54344" title="46% like this...">
+    -1
+    </div>
+  </div>
+  <a href="function.scandir.php.html#54344" class="name">
+  <strong class="user"><em>progrium+php at gmail dot com</em></strong></a><a class="genanchor" href="function.scandir.php.html#54344"> &para;</a><div class="date" title="2005-06-30 04:54"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom54344">
+<div class="phpcode"><code><span class="html">I made this to represent a directory tree in an array that uses the file or directory names as keys and full paths as the value for files. Directories are nested arrays.<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">generatePathTree</span><span class="keyword">(</span><span class="default">$rootPath</span><span class="keyword">) {<br />    </span><span class="default">$pathStack </span><span class="keyword">= array(</span><span class="default">$rootPath</span><span class="keyword">);<br />    </span><span class="default">$contentsRoot </span><span class="keyword">= array();<br />    </span><span class="default">$contents </span><span class="keyword">= &amp;</span><span class="default">$contentsRoot</span><span class="keyword">;<br />    while (</span><span class="default">$path </span><span class="keyword">= </span><span class="default">array_pop</span><span class="keyword">(</span><span class="default">$pathStack</span><span class="keyword">)) {<br />       </span><span class="default">$contents</span><span class="keyword">[</span><span class="default">basename</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">)] = array();<br />       </span><span class="default">$contents </span><span class="keyword">= &amp;</span><span class="default">$contents</span><span class="keyword">[</span><span class="default">basename</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">)];<br />       foreach (</span><span class="default">scandir</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">) as </span><span class="default">$filename</span><span class="keyword">) {<br />           if (</span><span class="string">'.' </span><span class="keyword">!= </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$filename</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">)) {<br />               </span><span class="default">$newPath </span><span class="keyword">= </span><span class="default">$path</span><span class="keyword">.</span><span class="string">'/'</span><span class="keyword">.</span><span class="default">$filename</span><span class="keyword">;<br />               if (</span><span class="default">is_dir</span><span class="keyword">(</span><span class="default">$newPath</span><span class="keyword">)) {<br />                   </span><span class="default">array_push</span><span class="keyword">(</span><span class="default">$pathStack</span><span class="keyword">, </span><span class="default">$newPath</span><span class="keyword">);<br />                   </span><span class="default">$contents</span><span class="keyword">[</span><span class="default">basename</span><span class="keyword">(</span><span class="default">$newPath</span><span class="keyword">)] = array();<br />               } else {<br />                   </span><span class="default">$contents</span><span class="keyword">[</span><span class="default">basename</span><span class="keyword">(</span><span class="default">$filename</span><span class="keyword">)] = </span><span class="default">$newPath</span><span class="keyword">;<br />               }<br />           }<br />       }<br />    }<br />    return </span><span class="default">$contentsRoot</span><span class="keyword">[</span><span class="default">basename</span><span class="keyword">(</span><span class="default">$rootPath</span><span class="keyword">)];<br />}<br /></span><span class="default">?&gt;<br /></span><br />The function will return something like this:<br /><br />Array<br />(<br />    [index.php] =&gt; /usr/local/www/index.php<br />    [js] =&gt; Array<br />        (<br />            [async.js] =&gt; /usr/local/www/js/async.js<br />            [dom.js] =&gt; /usr/local/www/js/dom.js<br />            [effects.js] =&gt; /usr/local/www/js/effects.js<br />            [prototype.js] =&gt; /usr/local/www/js/prototype.js<br />        )<br /><br />    [logo.png] =&gt; /usr/local/www/logo.png<br />    [server.php] =&gt; /usr/local/www/server.php<br />    [test.js] =&gt; /usr/local/www/test.js<br />)</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="87527">  <div class="votes">
+    <div id="Vu87527">
+    <a href="https://www.php.net/manual/vote-note.php?id=87527&amp;page=function.scandir&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd87527">
+    <a href="https://www.php.net/manual/vote-note.php?id=87527&amp;page=function.scandir&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V87527" title="44% like this...">
+    -4
+    </div>
+  </div>
+  <a href="function.scandir.php.html#87527" class="name">
+  <strong class="user"><em>dsiembab at fullchannel dot net</em></strong></a><a class="genanchor" href="function.scandir.php.html#87527"> &para;</a><div class="date" title="2008-12-08 11:29"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom87527">
+<div class="phpcode"><code><span class="html">Back in the saddle of scandir I wrote this function for a function that I needed to seperate directories from files. Since I am still learning from my last example way below I would figure I would add it so it can be criticized.<br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">dirlist</span><span class="keyword">(</span><span class="default">$dir</span><span class="keyword">, </span><span class="default">$bool </span><span class="keyword">= </span><span class="string">"dirs"</span><span class="keyword">){<br />   </span><span class="default">$truedir </span><span class="keyword">= </span><span class="default">$dir</span><span class="keyword">;<br />   </span><span class="default">$dir </span><span class="keyword">= </span><span class="default">scandir</span><span class="keyword">(</span><span class="default">$dir</span><span class="keyword">);<br />   if(</span><span class="default">$bool </span><span class="keyword">== </span><span class="string">"files"</span><span class="keyword">){ </span><span class="comment">// dynamic function based on second pram<br />      </span><span class="default">$direct </span><span class="keyword">= </span><span class="string">'is_dir'</span><span class="keyword">; <br />   }elseif(</span><span class="default">$bool </span><span class="keyword">== </span><span class="string">"dirs"</span><span class="keyword">){<br />      </span><span class="default">$direct </span><span class="keyword">= </span><span class="string">'is_file'</span><span class="keyword">;<br />   }<br />   foreach(</span><span class="default">$dir </span><span class="keyword">as </span><span class="default">$k </span><span class="keyword">=&gt; </span><span class="default">$v</span><span class="keyword">){<br />      if((</span><span class="default">$direct</span><span class="keyword">(</span><span class="default">$truedir</span><span class="keyword">.</span><span class="default">$dir</span><span class="keyword">[</span><span class="default">$k</span><span class="keyword">])) || </span><span class="default">$dir</span><span class="keyword">[</span><span class="default">$k</span><span class="keyword">] == </span><span class="string">'.' </span><span class="keyword">|| </span><span class="default">$dir</span><span class="keyword">[</span><span class="default">$k</span><span class="keyword">] == </span><span class="string">'..' </span><span class="keyword">){<br />         unset(</span><span class="default">$dir</span><span class="keyword">[</span><span class="default">$k</span><span class="keyword">]);<br />      }<br />   }<br />   </span><span class="default">$dir </span><span class="keyword">= </span><span class="default">array_values</span><span class="keyword">(</span><span class="default">$dir</span><span class="keyword">);<br />   return </span><span class="default">$dir</span><span class="keyword">;<br />}<br /></span><span class="default">?&gt;<br />&lt;?php<br />print_r</span><span class="keyword">(</span><span class="default">dirlist</span><span class="keyword">(</span><span class="string">"../"</span><span class="keyword">));  </span><span class="comment">//confirm array of subdirectories<br /><br /></span><span class="default">print_r</span><span class="keyword">(</span><span class="default">dirlist</span><span class="keyword">(</span><span class="string">"../"</span><span class="keyword">, </span><span class="string">"files"</span><span class="keyword">) </span><span class="comment">// confirm list on files in the directory <br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="68856">  <div class="votes">
+    <div id="Vu68856">
+    <a href="https://www.php.net/manual/vote-note.php?id=68856&amp;page=function.scandir&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd68856">
+    <a href="https://www.php.net/manual/vote-note.php?id=68856&amp;page=function.scandir&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V68856" title="43% like this...">
+    -2
+    </div>
+  </div>
+  <a href="function.scandir.php.html#68856" class="name">
+  <strong class="user"><em>beingmrkenny at gmail dot com</em></strong></a><a class="genanchor" href="function.scandir.php.html#68856"> &para;</a><div class="date" title="2006-08-13 11:41"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom68856">
+<div class="phpcode"><code><span class="html">I wrote this function to read a folder and place all the folders and sub folders it contains into an array.<br /><br /><span class="default">&lt;?php<br /><br /></span><span class="comment">// Initialise empty array, otherwise an error occurs<br /></span><span class="default">$folders </span><span class="keyword">= array();<br /><br />function </span><span class="default">recursive_subfolders</span><span class="keyword">(</span><span class="default">$folders</span><span class="keyword">) {<br /><br />    </span><span class="comment">// Set path here<br />    </span><span class="default">$path </span><span class="keyword">= </span><span class="string">'/path/to/folder'</span><span class="keyword">;<br />    <br />    </span><span class="comment">// Create initial "Folders" array<br />    </span><span class="keyword">if (</span><span class="default">$dir </span><span class="keyword">= </span><span class="default">opendir</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">)) {<br />        </span><span class="default">$j </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br />        while ((</span><span class="default">$file </span><span class="keyword">= </span><span class="default">readdir</span><span class="keyword">(</span><span class="default">$dir</span><span class="keyword">)) !== </span><span class="default">false</span><span class="keyword">) {<br />            if (</span><span class="default">$file </span><span class="keyword">!= </span><span class="string">'.' </span><span class="keyword">&amp;&amp; </span><span class="default">$file </span><span class="keyword">!= </span><span class="string">'..' </span><span class="keyword">&amp;&amp; </span><span class="default">is_dir</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">.</span><span class="default">$file</span><span class="keyword">)) {<br />                </span><span class="default">$j</span><span class="keyword">++;<br />                </span><span class="default">$folders</span><span class="keyword">[</span><span class="default">$j</span><span class="keyword">] = </span><span class="default">$path </span><span class="keyword">. </span><span class="default">$file</span><span class="keyword">;<br />            }<br />        }<br />    }<br />    <br />    </span><span class="default">closedir</span><span class="keyword">(</span><span class="default">$dir</span><span class="keyword">);<br />    <br />    </span><span class="comment">// Then check each folder in that array for subfolders and add the subfolders to the "Folders" array.<br />    </span><span class="default">$j </span><span class="keyword">= </span><span class="default">count</span><span class="keyword">(</span><span class="default">$folders</span><span class="keyword">);<br />    foreach (</span><span class="default">$folders </span><span class="keyword">as </span><span class="default">$folder</span><span class="keyword">) {<br />        if (</span><span class="default">$dir </span><span class="keyword">= </span><span class="default">opendir</span><span class="keyword">(</span><span class="default">$folder</span><span class="keyword">)) {<br />            while ((</span><span class="default">$file </span><span class="keyword">= </span><span class="default">readdir</span><span class="keyword">(</span><span class="default">$dir</span><span class="keyword">)) !== </span><span class="default">false</span><span class="keyword">) {<br />                </span><span class="default">$pathto </span><span class="keyword">= </span><span class="default">$folder</span><span class="keyword">. </span><span class="string">'/' </span><span class="keyword">. </span><span class="default">$file</span><span class="keyword">;<br />                if (</span><span class="default">$file </span><span class="keyword">!= </span><span class="string">'.' </span><span class="keyword">&amp;&amp; </span><span class="default">$file </span><span class="keyword">!= </span><span class="string">'..' </span><span class="keyword">&amp;&amp; </span><span class="default">is_dir</span><span class="keyword">(</span><span class="default">$pathto</span><span class="keyword">) &amp;&amp; !</span><span class="default">in_array</span><span class="keyword">(</span><span class="default">$pathto</span><span class="keyword">, </span><span class="default">$folders</span><span class="keyword">)) {<br />                    </span><span class="default">$j</span><span class="keyword">++;<br />                    </span><span class="default">$folders</span><span class="keyword">[</span><span class="default">$j</span><span class="keyword">] = </span><span class="default">$pathto</span><span class="keyword">;<br />                    </span><span class="default">$folders </span><span class="keyword">= </span><span class="default">recursive_subfolders</span><span class="keyword">(</span><span class="default">$folders</span><span class="keyword">);<br />                }<br />            }<br />        }<br />        </span><span class="default">closedir</span><span class="keyword">(</span><span class="default">$dir</span><span class="keyword">);<br />    }<br />    <br />    </span><span class="default">sort</span><span class="keyword">(</span><span class="default">$folders</span><span class="keyword">);<br />    return </span><span class="default">$folders</span><span class="keyword">;<br />}<br /><br /></span><span class="default">$folders </span><span class="keyword">= </span><span class="default">recursive_subfolders</span><span class="keyword">(</span><span class="default">$folders</span><span class="keyword">);<br /><br /></span><span class="default">?&gt;<br /></span><br />$folders now contains an array with the full paths to each subfolder. E.g.:<br /><br />Array<br />(<br />    [0] =&gt; /path/to/folder/dir1<br />    [1] =&gt; /path/to/folder/dir1/subdir<br />    [2] =&gt; /path/to/folder/dir1/subdir/subsubdir<br />    [3] =&gt; /path/to/dolfer/dir2<br />)<br /><br />This function has only been tested on Linux.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="124346">  <div class="votes">
+    <div id="Vu124346">
+    <a href="https://www.php.net/manual/vote-note.php?id=124346&amp;page=function.scandir&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd124346">
+    <a href="https://www.php.net/manual/vote-note.php?id=124346&amp;page=function.scandir&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V124346" title="37% like this...">
+    -2
+    </div>
+  </div>
+  <a href="function.scandir.php.html#124346" class="name">
+  <strong class="user"><em>webmaster at gmail dot com</em></strong></a><a class="genanchor" href="function.scandir.php.html#124346"> &para;</a><div class="date" title="2019-10-27 08:17"><strong>4 years ago</strong></div>
+  <div class="text" id="Hcom124346">
+<div class="phpcode"><code><span class="html">easy way to list every item in a directory<br /><br /><span class="default">&lt;?php<br />$itemnum </span><span class="keyword">= </span><span class="default">1</span><span class="keyword">;<br /></span><span class="default">$dir </span><span class="keyword">= </span><span class="string">'C:/Path/To/Directory'</span><span class="keyword">;<br />foreach(</span><span class="default">scandir</span><span class="keyword">(</span><span class="default">$dir</span><span class="keyword">) as </span><span class="default">$item</span><span class="keyword">){<br />    if (!(</span><span class="default">$item </span><span class="keyword">== </span><span class="string">'.'</span><span class="keyword">)) {<br />        if (!(</span><span class="default">$item </span><span class="keyword">== </span><span class="string">'..'</span><span class="keyword">)) {<br />              echo(</span><span class="default">$itemnum</span><span class="keyword">.</span><span class="string">" = "</span><span class="keyword">.</span><span class="default">$item</span><span class="keyword">.</span><span class="string">"&lt;br&gt;"</span><span class="keyword">);<br />             </span><span class="default">$itemnum </span><span class="keyword">= (</span><span class="default">$itemnum </span><span class="keyword">+ </span><span class="default">1</span><span class="keyword">);<br />}}}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="95588">  <div class="votes">
+    <div id="Vu95588">
+    <a href="https://www.php.net/manual/vote-note.php?id=95588&amp;page=function.scandir&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd95588">
+    <a href="https://www.php.net/manual/vote-note.php?id=95588&amp;page=function.scandir&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V95588" title="37% like this...">
+    -2
+    </div>
+  </div>
+  <a href="function.scandir.php.html#95588" class="name">
+  <strong class="user"><em>phpnet at novaclic dot com</em></strong></a><a class="genanchor" href="function.scandir.php.html#95588"> &para;</a><div class="date" title="2010-01-11 02:36"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom95588">
+<div class="phpcode"><code><span class="html">Was looking for a simple way to search for a file/directory using a mask. Here is such a function.<br /><br />By default, this function will keep in memory the scandir() result, to avoid scaning multiple time for the same directory.<br /><br />Requires at least PHP5.<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">sdir</span><span class="keyword">( </span><span class="default">$path</span><span class="keyword">=</span><span class="string">'.'</span><span class="keyword">, </span><span class="default">$mask</span><span class="keyword">=</span><span class="string">'*'</span><span class="keyword">, </span><span class="default">$nocache</span><span class="keyword">=</span><span class="default">0 </span><span class="keyword">){<br />    static </span><span class="default">$dir </span><span class="keyword">= array(); </span><span class="comment">// cache result in memory<br />    </span><span class="keyword">if ( !isset(</span><span class="default">$dir</span><span class="keyword">[</span><span class="default">$path</span><span class="keyword">]) || </span><span class="default">$nocache</span><span class="keyword">) {<br />        </span><span class="default">$dir</span><span class="keyword">[</span><span class="default">$path</span><span class="keyword">] = </span><span class="default">scandir</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">);<br />    } <br />    foreach (</span><span class="default">$dir</span><span class="keyword">[</span><span class="default">$path</span><span class="keyword">] as </span><span class="default">$i</span><span class="keyword">=&gt;</span><span class="default">$entry</span><span class="keyword">) {<br />        if (</span><span class="default">$entry</span><span class="keyword">!=</span><span class="string">'.' </span><span class="keyword">&amp;&amp; </span><span class="default">$entry</span><span class="keyword">!=</span><span class="string">'..' </span><span class="keyword">&amp;&amp; </span><span class="default">fnmatch</span><span class="keyword">(</span><span class="default">$mask</span><span class="keyword">, </span><span class="default">$entry</span><span class="keyword">) ) {<br />            </span><span class="default">$sdir</span><span class="keyword">[] = </span><span class="default">$entry</span><span class="keyword">;<br />        }<br />    }<br />    return (</span><span class="default">$sdir</span><span class="keyword">);<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="96326">  <div class="votes">
+    <div id="Vu96326">
+    <a href="https://www.php.net/manual/vote-note.php?id=96326&amp;page=function.scandir&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd96326">
+    <a href="https://www.php.net/manual/vote-note.php?id=96326&amp;page=function.scandir&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V96326" title="36% like this...">
+    -3
+    </div>
+  </div>
+  <a href="function.scandir.php.html#96326" class="name">
+  <strong class="user"><em>boen dot robot at gmail dot com</em></strong></a><a class="genanchor" href="function.scandir.php.html#96326"> &para;</a><div class="date" title="2010-02-20 10:10"><strong>13 years ago</strong></div>
+  <div class="text" id="Hcom96326">
+<div class="phpcode"><code><span class="html">If you have a folder with many files and/or subfolders, doing a recursive scandir will likely either slow down your application, or cause a high rise in RAM consumption due to the large size of the generated array.<br /><br />To help with this, as well as to make processing of files in a folder easier, I wrote a function that reads a folder and its subfolders recursively, and calls a function upon each match.<br /><br /><span class="default">&lt;?php<br /></span><span class="comment">/**<br /> * Calls a function for every file in a folder.<br /> *<br /> * @author Vasil Rangelov a.k.a. boen_robot<br /> *<br /> * @param string $callback The function to call. It must accept one argument that is a relative filepath of the file.<br /> * @param string $dir The directory to traverse.<br /> * @param array $types The file types to call the function for. Leave as NULL to match all types.<br /> * @param bool $recursive Whether to list subfolders as well.<br /> * @param string $baseDir String to append at the beginning of every filepath that the callback will receive.<br /> */<br /></span><span class="keyword">function </span><span class="default">dir_walk</span><span class="keyword">(</span><span class="default">$callback</span><span class="keyword">, </span><span class="default">$dir</span><span class="keyword">, </span><span class="default">$types </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">, </span><span class="default">$recursive </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">, </span><span class="default">$baseDir </span><span class="keyword">= </span><span class="string">''</span><span class="keyword">) {<br />    if (</span><span class="default">$dh </span><span class="keyword">= </span><span class="default">opendir</span><span class="keyword">(</span><span class="default">$dir</span><span class="keyword">)) {<br />        while ((</span><span class="default">$file </span><span class="keyword">= </span><span class="default">readdir</span><span class="keyword">(</span><span class="default">$dh</span><span class="keyword">)) !== </span><span class="default">false</span><span class="keyword">) {<br />            if (</span><span class="default">$file </span><span class="keyword">=== </span><span class="string">'.' </span><span class="keyword">|| </span><span class="default">$file </span><span class="keyword">=== </span><span class="string">'..'</span><span class="keyword">) {<br />                continue;<br />            }<br />            if (</span><span class="default">is_file</span><span class="keyword">(</span><span class="default">$dir </span><span class="keyword">. </span><span class="default">$file</span><span class="keyword">)) {<br />                if (</span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$types</span><span class="keyword">)) {<br />                    if (!</span><span class="default">in_array</span><span class="keyword">(</span><span class="default">strtolower</span><span class="keyword">(</span><span class="default">pathinfo</span><span class="keyword">(</span><span class="default">$dir </span><span class="keyword">. </span><span class="default">$file</span><span class="keyword">, </span><span class="default">PATHINFO_EXTENSION</span><span class="keyword">)), </span><span class="default">$types</span><span class="keyword">, </span><span class="default">true</span><span class="keyword">)) {<br />                        continue;<br />                    }<br />                }<br />                </span><span class="default">$callback</span><span class="keyword">(</span><span class="default">$baseDir </span><span class="keyword">. </span><span class="default">$file</span><span class="keyword">);<br />            }elseif(</span><span class="default">$recursive </span><span class="keyword">&amp;&amp; </span><span class="default">is_dir</span><span class="keyword">(</span><span class="default">$dir </span><span class="keyword">. </span><span class="default">$file</span><span class="keyword">)) {<br />                </span><span class="default">dir_walk</span><span class="keyword">(</span><span class="default">$callback</span><span class="keyword">, </span><span class="default">$dir </span><span class="keyword">. </span><span class="default">$file </span><span class="keyword">. </span><span class="default">DIRECTORY_SEPARATOR</span><span class="keyword">, </span><span class="default">$types</span><span class="keyword">, </span><span class="default">$recursive</span><span class="keyword">, </span><span class="default">$baseDir </span><span class="keyword">. </span><span class="default">$file </span><span class="keyword">. </span><span class="default">DIRECTORY_SEPARATOR</span><span class="keyword">);<br />            }<br />        }<br />        </span><span class="default">closedir</span><span class="keyword">(</span><span class="default">$dh</span><span class="keyword">);<br />    }<br />}<br /></span><span class="default">?&gt;<br /></span><br />Of course, because it is recursive, a folder with many levels of folders could potentially consume lots of memory, but then again, so can every other recursive scandir implementation here.<br /><br />BTW, there's also the RecursiveDirectoryIterator SPL class:<br /><a href="http://bg.php.net/manual/en/class.recursivedirectoryiterator.php" rel="nofollow" target="_blank">http://bg.php.net/manual/en/class.recursivedirectoryiterator.php</a><br />which, even if using the same approach, will most likely be faster and hold down deeper levels (because it works on the C level), but this one will always work, regardless of settings... even on PHP4.<br /><br />Point is, avoid recursive scandir implementations.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="81597">  <div class="votes">
+    <div id="Vu81597">
+    <a href="https://www.php.net/manual/vote-note.php?id=81597&amp;page=function.scandir&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd81597">
+    <a href="https://www.php.net/manual/vote-note.php?id=81597&amp;page=function.scandir&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V81597" title="33% like this...">
+    -6
+    </div>
+  </div>
+  <a href="function.scandir.php.html#81597" class="name">
+  <strong class="user"><em>asamir at asamir dot net</em></strong></a><a class="genanchor" href="function.scandir.php.html#81597"> &para;</a><div class="date" title="2008-03-05 04:21"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom81597">
+<div class="phpcode"><code><span class="html">This is a modification of scanDirectories function that generates a list of all files in the chosen directory and all subdirectories of specific extentions $allowext<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">scanDirectories</span><span class="keyword">(</span><span class="default">$rootDir</span><span class="keyword">, </span><span class="default">$allowext</span><span class="keyword">, </span><span class="default">$allData</span><span class="keyword">=array()) {<br />    </span><span class="default">$dirContent </span><span class="keyword">= </span><span class="default">scandir</span><span class="keyword">(</span><span class="default">$rootDir</span><span class="keyword">);<br />    foreach(</span><span class="default">$dirContent </span><span class="keyword">as </span><span class="default">$key </span><span class="keyword">=&gt; </span><span class="default">$content</span><span class="keyword">) {<br />        </span><span class="default">$path </span><span class="keyword">= </span><span class="default">$rootDir</span><span class="keyword">.</span><span class="string">'/'</span><span class="keyword">.</span><span class="default">$content</span><span class="keyword">;<br />        </span><span class="default">$ext </span><span class="keyword">= </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$content</span><span class="keyword">, </span><span class="default">strrpos</span><span class="keyword">(</span><span class="default">$content</span><span class="keyword">, </span><span class="string">'.'</span><span class="keyword">) + </span><span class="default">1</span><span class="keyword">);<br />        <br />        if(</span><span class="default">in_array</span><span class="keyword">(</span><span class="default">$ext</span><span class="keyword">, </span><span class="default">$allowext</span><span class="keyword">)) {<br />            if(</span><span class="default">is_file</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">) &amp;&amp; </span><span class="default">is_readable</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">)) {<br />                </span><span class="default">$allData</span><span class="keyword">[] = </span><span class="default">$path</span><span class="keyword">;<br />            }elseif(</span><span class="default">is_dir</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">) &amp;&amp; </span><span class="default">is_readable</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">)) {<br />                </span><span class="comment">// recursive callback to open new directory<br />                </span><span class="default">$allData </span><span class="keyword">= </span><span class="default">scanDirectories</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">, </span><span class="default">$allData</span><span class="keyword">);<br />            }<br />        }<br />    }<br />    return </span><span class="default">$allData</span><span class="keyword">;<br />}<br /><br /></span><span class="default">$rootDir </span><span class="keyword">= </span><span class="string">"www"</span><span class="keyword">;<br /></span><span class="default">$allowext </span><span class="keyword">= array(</span><span class="string">"zip"</span><span class="keyword">,</span><span class="string">"rar"</span><span class="keyword">,</span><span class="string">"html"</span><span class="keyword">);<br /></span><span class="default">$files_array </span><span class="keyword">= </span><span class="default">scanDirectories</span><span class="keyword">(</span><span class="default">$rootDir</span><span class="keyword">,</span><span class="default">$allowext</span><span class="keyword">);<br /></span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$files_array</span><span class="keyword">);<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="78977">  <div class="votes">
+    <div id="Vu78977">
+    <a href="https://www.php.net/manual/vote-note.php?id=78977&amp;page=function.scandir&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd78977">
+    <a href="https://www.php.net/manual/vote-note.php?id=78977&amp;page=function.scandir&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V78977" title="33% like this...">
+    -6
+    </div>
+  </div>
+  <a href="function.scandir.php.html#78977" class="name">
+  <strong class="user"><em>cHH</em></strong></a><a class="genanchor" href="function.scandir.php.html#78977"> &para;</a><div class="date" title="2007-11-05 09:46"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom78977">
+<div class="phpcode"><code><span class="html">Since scandir() returns and array, here is a more concise method of dealing with the '.' and '..' problem when listing directories:<br /><br /><span class="default">&lt;?php<br />$target </span><span class="keyword">= </span><span class="string">'/'</span><span class="keyword">;<br /></span><span class="default">$weeds </span><span class="keyword">= array(</span><span class="string">'.'</span><span class="keyword">, </span><span class="string">'..'</span><span class="keyword">);<br /></span><span class="default">$directories </span><span class="keyword">= </span><span class="default">array_diff</span><span class="keyword">(</span><span class="default">scandir</span><span class="keyword">(</span><span class="default">$target</span><span class="keyword">), </span><span class="default">$weeds</span><span class="keyword">);<br />    <br />foreach(</span><span class="default">$directories </span><span class="keyword">as </span><span class="default">$value</span><span class="keyword">)<br />{<br />   if(</span><span class="default">is_dir</span><span class="keyword">(</span><span class="default">$target</span><span class="keyword">.</span><span class="default">$value</span><span class="keyword">))<br />   {<br />      echo </span><span class="default">$value</span><span class="keyword">.</span><span class="string">'&lt;br /&gt;'</span><span class="keyword">;<br />   }<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="123057">  <div class="votes">
+    <div id="Vu123057">
+    <a href="https://www.php.net/manual/vote-note.php?id=123057&amp;page=function.scandir&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd123057">
+    <a href="https://www.php.net/manual/vote-note.php?id=123057&amp;page=function.scandir&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V123057" title="28% like this...">
+    -3
+    </div>
+  </div>
+  <a href="function.scandir.php.html#123057" class="name">
+  <strong class="user"><em>admin at kmoz000 dot free</em></strong></a><a class="genanchor" href="function.scandir.php.html#123057"> &para;</a><div class="date" title="2018-08-21 01:49"><strong>5 years ago</strong></div>
+  <div class="text" id="Hcom123057">
+<div class="phpcode"><code><span class="html">function ScaniDir($path){<br />  $ptd= opendir($path);<br />  while (( $ptdf=readdir($ptd))){<br />      $srca = $path.'/'.$ptdf;<br />     if (is_file($srca) and pathinfo($srca, PATHINFO_EXTENSION)=='pdf') {$files['src'][]=$srca;$files['name'][]=explode('.',$ptdf)[0];}<br />     <br />    }<br />return $files ;<br /><br /> }</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="113167">  <div class="votes">
+    <div id="Vu113167">
+    <a href="https://www.php.net/manual/vote-note.php?id=113167&amp;page=function.scandir&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd113167">
+    <a href="https://www.php.net/manual/vote-note.php?id=113167&amp;page=function.scandir&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V113167" title="28% like this...">
+    -3
+    </div>
+  </div>
+  <a href="function.scandir.php.html#113167" class="name">
+  <strong class="user"><em>hex at mail dot nnov dot ru</em></strong></a><a class="genanchor" href="function.scandir.php.html#113167"> &para;</a><div class="date" title="2013-09-07 07:38"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom113167">
+<div class="phpcode"><code><span class="html">// Extreme minimal version recursive scan:<br />function rscandir($dir){<br />  $dirs = array_fill_keys( array_diff( scandir( $dir ), array( '.', '..' ) ), array());<br />  foreach( $dirs as $d =&gt; $v )<br />    if( is_dir($dir."/".$d) )<br />      $dirs[$d] = rscandir($dir."/".$d);<br />  return $dirs;<br />}</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="50600">  <div class="votes">
+    <div id="Vu50600">
+    <a href="https://www.php.net/manual/vote-note.php?id=50600&amp;page=function.scandir&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd50600">
+    <a href="https://www.php.net/manual/vote-note.php?id=50600&amp;page=function.scandir&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V50600" title="28% like this...">
+    -3
+    </div>
+  </div>
+  <a href="function.scandir.php.html#50600" class="name">
+  <strong class="user"><em>csaba at alum dot mit dot edu</em></strong></a><a class="genanchor" href="function.scandir.php.html#50600"> &para;</a><div class="date" title="2005-03-04 04:52"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom50600">
+<div class="phpcode"><code><span class="html">A nice way to filter the files/directories you get back from scandir:<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">pathFilter </span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">, </span><span class="default">$aFilter</span><span class="keyword">) {<br />   </span><span class="comment">// returns true iff $path survives the tests from $aFilter<br />   // $aFilter is an array of regular expressions: [-]/regExp/modifiers<br />   // if there is a leading '-' it means exclude $path upon a match (a NOT test)<br />   // If the first expression has a leading '-', $path is in, unless it gets excluded.<br />   // Otherwise, $path is out, unless it gets included via the filter tests.<br />   // The tests are applied in succession.<br />   // A NOT test is applied only if $path is currently (within the tests) included<br />   // Other tests are applied only if $path is currently excluded.  Thus,<br />   // array("/a/", "-/b/", "/c/") =&gt; passes if $path has a c or if $path has an a but no b<br />   // array("/a/", "/c/", "-/b/") =&gt; passes if $path has an a or c, but no b<br />   // array("-/b/", "/a/", "/c/") =&gt; passes if $path has no b, or if $path has an a or c<br />   </span><span class="keyword">if (!</span><span class="default">$aFilter</span><span class="keyword">) return </span><span class="default">true</span><span class="keyword">;           </span><span class="comment">// automatic inclusion (pass) if no filters<br />   </span><span class="keyword">foreach (</span><span class="default">$aFilter </span><span class="keyword">as </span><span class="default">$filter</span><span class="keyword">) break;  </span><span class="comment">// we don't know how it's indexed<br />   </span><span class="default">$in </span><span class="keyword">= </span><span class="default">$filter</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">]==</span><span class="string">"-"</span><span class="keyword">;                </span><span class="comment">// initial in/exclusion based on first filter<br />   </span><span class="keyword">foreach (</span><span class="default">$aFilter </span><span class="keyword">as </span><span class="default">$filter</span><span class="keyword">)         </span><span class="comment">// walk the filters<br />      </span><span class="keyword">if (</span><span class="default">$in</span><span class="keyword">==</span><span class="default">$not</span><span class="keyword">=(</span><span class="default">$filter</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">]==</span><span class="string">"-"</span><span class="keyword">))   </span><span class="comment">//     testing only when necessary<br />         </span><span class="default">$in </span><span class="keyword">^= </span><span class="default">preg_match</span><span class="keyword">(</span><span class="default">substr</span><span class="keyword">(</span><span class="default">$filter</span><span class="keyword">,</span><span class="default">$not</span><span class="keyword">),</span><span class="default">$path</span><span class="keyword">);    </span><span class="comment">// flip in/exclusion upon a match<br />   </span><span class="keyword">return </span><span class="default">$in</span><span class="keyword">;<br />}<br /></span><span class="default">?&gt;<br /></span><br />Csaba Gabor from Vienna</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="124679">  <div class="votes">
+    <div id="Vu124679">
+    <a href="https://www.php.net/manual/vote-note.php?id=124679&amp;page=function.scandir&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd124679">
+    <a href="https://www.php.net/manual/vote-note.php?id=124679&amp;page=function.scandir&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V124679" title="22% like this...">
+    -5
+    </div>
+  </div>
+  <a href="function.scandir.php.html#124679" class="name">
+  <strong class="user"><em>djacobson at usa dot rugby</em></strong></a><a class="genanchor" href="function.scandir.php.html#124679"> &para;</a><div class="date" title="2020-02-03 09:39"><strong>4 years ago</strong></div>
+  <div class="text" id="Hcom124679">
+<div class="phpcode"><code><span class="html"><span class="default">&lt;?php<br /></span><span class="comment">/**<br />  * Get rid of the dots, the occasional `.DS_Store` file and reindex the <br />  * resulting array all at once.<br />  *<br />  * @param string $path_to_directory The relative path to your target directory.<br />  *<br />  * @return array The reindexed array of files.<br />  */<br /></span><span class="keyword">function </span><span class="default">get_the_files</span><span class="keyword">( </span><span class="default">$path_to_directory </span><span class="keyword">) {<br />    return </span><span class="default">array_slice</span><span class="keyword">( </span><span class="default">array_diff</span><span class="keyword">( </span><span class="default">scandir</span><span class="keyword">( </span><span class="default">$path_to_directory </span><span class="keyword">), array( </span><span class="string">'..'</span><span class="keyword">, </span><span class="string">'.'</span><span class="keyword">, </span><span class="string">'.DS_Store' </span><span class="keyword">) ), </span><span class="default">0 </span><span class="keyword">);<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="51839">  <div class="votes">
+    <div id="Vu51839">
+    <a href="https://www.php.net/manual/vote-note.php?id=51839&amp;page=function.scandir&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd51839">
+    <a href="https://www.php.net/manual/vote-note.php?id=51839&amp;page=function.scandir&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V51839" title="20% like this...">
+    -6
+    </div>
+  </div>
+  <a href="function.scandir.php.html#51839" class="name">
+  <strong class="user"><em>wwwebdesigner at web doott de</em></strong></a><a class="genanchor" href="function.scandir.php.html#51839"> &para;</a><div class="date" title="2005-04-12 12:20"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom51839">
+<div class="phpcode"><code><span class="html">using sort of scandir() that returns the content sorted by Filemodificationtime.<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">scandir_by_mtime</span><span class="keyword">(</span><span class="default">$folder</span><span class="keyword">) {<br />  </span><span class="default">$dircontent </span><span class="keyword">= </span><span class="default">scandir</span><span class="keyword">(</span><span class="default">$folder</span><span class="keyword">);<br />  </span><span class="default">$arr </span><span class="keyword">= array();<br />  foreach(</span><span class="default">$dircontent </span><span class="keyword">as </span><span class="default">$filename</span><span class="keyword">) {<br />    if (</span><span class="default">$filename </span><span class="keyword">!= </span><span class="string">'.' </span><span class="keyword">&amp;&amp; </span><span class="default">$filename </span><span class="keyword">!= </span><span class="string">'..'</span><span class="keyword">) {<br />      if (</span><span class="default">filemtime</span><span class="keyword">(</span><span class="default">$folder</span><span class="keyword">.</span><span class="default">$filename</span><span class="keyword">) === </span><span class="default">false</span><span class="keyword">) return </span><span class="default">false</span><span class="keyword">;<br />      </span><span class="default">$dat </span><span class="keyword">= </span><span class="default">date</span><span class="keyword">(</span><span class="string">"YmdHis"</span><span class="keyword">, </span><span class="default">filemtime</span><span class="keyword">(</span><span class="default">$folder</span><span class="keyword">.</span><span class="default">$filename</span><span class="keyword">));<br />      </span><span class="default">$arr</span><span class="keyword">[</span><span class="default">$dat</span><span class="keyword">] = </span><span class="default">$filename</span><span class="keyword">;<br />    }<br />  }<br />  if (!</span><span class="default">ksort</span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">)) return </span><span class="default">false</span><span class="keyword">;<br />  return </span><span class="default">$arr</span><span class="keyword">;<br />}<br /></span><span class="default">?&gt;<br /></span><br />returns false if an error occured<br />otherwise it returns an array like this.<br />Array<br />(<br />    [20040813231320] =&gt; DSC00023.JPG<br />    [20040813231456] =&gt; DSC00024.JPG<br />    [20040814003728] =&gt; MOV00055.MPG<br />    [20040814003804] =&gt; DSC00056.JPG<br />    [20040814003946] =&gt; DSC00057.JPG<br />    [20040814004030] =&gt; DSC00058.JPG<br />    [20040814014516] =&gt; DSC00083.JPG<br />    [20050401161718] =&gt; album.txt<br />)</span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=function.scandir&amp;redirect=https://www.php.net/manual/ru/function.scandir.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="ref.dir.php.html">Функции для работы с каталогами</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="function.chdir.php.html" title="chdir">chdir</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.chroot.php.html" title="chroot">chroot</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.closedir.php.html" title="closedir">closedir</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.dir.php.html" title="dir">dir</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.getcwd.php.html" title="getcwd">getcwd</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.opendir.php.html" title="opendir">opendir</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.readdir.php.html" title="readdir">readdir</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.rewinddir.php.html" title="rewinddir">rewinddir</a>
+                        </li>
+                                                <li class="current">
+                            <a href="function.scandir.php.html" title="scandir">scandir</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

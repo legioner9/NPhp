@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: stream_wrapper_register - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="function.stream-wrapper-register.php.html">
+ <link rel="shorturl" href="https://www.php.net/stream-wrapper-register">
+ <link rel="alternate" href="https://www.php.net/stream-wrapper-register" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="ref.stream.php.html">
+ <link rel="prev" href="function.stream-supports-lock.php.html">
+ <link rel="next" href="function.stream-wrapper-restore.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/function.stream-wrapper-register.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/function.stream-wrapper-register.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/function.stream-wrapper-register.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/function.stream-wrapper-register.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/function.stream-wrapper-register.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/function.stream-wrapper-register.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/function.stream-wrapper-register.php" hreflang="pt_BR">
+ <link rel="alternate" href="function.stream-wrapper-register.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/function.stream-wrapper-register.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/function.stream-wrapper-register.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="function.stream-wrapper-restore.php.html">
+          stream_wrapper_restore &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="function.stream-supports-lock.php.html">
+          &laquo; stream_supports_lock        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.basic.other.php.html'>Другие базовые модули</a></li>      <li><a href='book.stream.php.html'>Потоки</a></li>      <li><a href='ref.stream.php.html'>Функции для работы с потоками</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/function.stream-wrapper-register.php'>English</option>
+            <option value='de/function.stream-wrapper-register.php'>German</option>
+            <option value='es/function.stream-wrapper-register.php'>Spanish</option>
+            <option value='fr/function.stream-wrapper-register.php'>French</option>
+            <option value='it/function.stream-wrapper-register.php'>Italian</option>
+            <option value='ja/function.stream-wrapper-register.php'>Japanese</option>
+            <option value='pt_BR/function.stream-wrapper-register.php'>Brazilian Portuguese</option>
+            <option value='ru/function.stream-wrapper-register.php' selected="selected">Russian</option>
+            <option value='tr/function.stream-wrapper-register.php'>Turkish</option>
+            <option value='zh/function.stream-wrapper-register.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/stream/functions/stream-wrapper-register.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Ffunction.stream-wrapper-register%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="function.stream-wrapper-register" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">stream_wrapper_register</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.3.2, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">stream_wrapper_register</span> &mdash; <span class="dc-title">Регистрирует обёртку URL, реализованную в виде PHP-класса</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.stream-wrapper-register-description">
+  <h3 class="title">Описание</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="methodname"><strong>stream_wrapper_register</strong></span>(<span class="methodparam"><span class="type">string</span> <code class="parameter">$protocol</code></span>, <span class="methodparam"><span class="type">string</span> <code class="parameter">$class</code></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter">$flags</code><span class="initializer"> = 0</span></span>): <span class="type">bool</span></div>
+
+  <p class="para rdfs-comment">
+   Позволяет вам реализовать ваши собственные обработчики протоколов и потоков для использования
+   со всеми другими функциями файловой системы (такими как  <span class="function"><a href="function.fopen.php.html" class="function">fopen()</a></span>,
+   <span class="function"><a href="function.fread.php.html" class="function">fread()</a></span> и т.д.).
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.stream-wrapper-register-parameters">
+  <h3 class="title">Список параметров</h3>
+  <p class="para">
+   <dl>
+    
+     <dt>
+<code class="parameter">protocol</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Название регистрируемой обёртки.
+       Допустимые имена протоколов должны содержать только буквы, цифры, точки (.), плюсы (+) или дефисы (-).
+      </p>
+     </dd>
+
+    
+    
+     <dt>
+<code class="parameter">class</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Название класса, который реализует  протокол <code class="parameter">protocol</code>.
+      </p>
+     </dd>
+
+    
+    
+     <dt>
+<code class="parameter">flags</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Должно быть установлено в <strong><code>STREAM_IS_URL</code></strong>, если
+       параметр <code class="parameter">protocol</code> является протоколом URL. По умолчанию 0,
+    локальный поток.
+      </p>
+     </dd>
+
+    
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.stream-wrapper-register-returnvalues">
+  <h3 class="title">Возвращаемые значения</h3>
+  <p class="para">
+   Возвращает <strong><code>true</code></strong> в случае успешного выполнения или <strong><code>false</code></strong> в случае возникновения ошибки.
+  </p>
+  <p class="para">
+   <span class="function"><strong>stream_wrapper_register()</strong></span> будет возвращать <strong><code>false</code></strong>, если
+   протокол <code class="parameter">protocol</code> уже имеет обработчик.
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.stream-wrapper-register-examples">
+  <h3 class="title">Примеры</h3>
+  <p class="para">
+   <div class="example" id="">
+    <p><strong>Пример #1 Как зарегистрировать обёртку потока</strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$existed </span><span style="color: #007700">= </span><span style="color: #0000BB">in_array</span><span style="color: #007700">(</span><span style="color: #DD0000">"var"</span><span style="color: #007700">, </span><span style="color: #0000BB">stream_get_wrappers</span><span style="color: #007700">());<br />if (</span><span style="color: #0000BB">$existed</span><span style="color: #007700">) {<br />    </span><span style="color: #0000BB">stream_wrapper_unregister</span><span style="color: #007700">(</span><span style="color: #DD0000">"var"</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">stream_wrapper_register</span><span style="color: #007700">(</span><span style="color: #DD0000">"var"</span><span style="color: #007700">, </span><span style="color: #DD0000">"VariableStream"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$myvar </span><span style="color: #007700">= </span><span style="color: #DD0000">""</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$fp </span><span style="color: #007700">= </span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #DD0000">"var://myvar"</span><span style="color: #007700">, </span><span style="color: #DD0000">"r+"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">fwrite</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">, </span><span style="color: #DD0000">"line1\n"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">fwrite</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">, </span><span style="color: #DD0000">"line2\n"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">fwrite</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">, </span><span style="color: #DD0000">"line3\n"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">rewind</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">);<br />while (!</span><span style="color: #0000BB">feof</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">)) {<br />    echo </span><span style="color: #0000BB">fgets</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$myvar</span><span style="color: #007700">);<br /><br />if (</span><span style="color: #0000BB">$existed</span><span style="color: #007700">) {<br />    </span><span style="color: #0000BB">stream_wrapper_restore</span><span style="color: #007700">(</span><span style="color: #DD0000">"var"</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+    </div>
+
+    
+<div class="example-contents"><p>
+ Результат выполнения приведённого примера:
+</p></div>
+
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+line1
+line2
+line3
+string(18) &quot;line1
+line2
+line3
+&quot;
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.stream-wrapper-register-seealso">
+  <h3 class="title">Смотрите также</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member">Класс-прототип <a href="class.streamwrapper.php.html" class="xref">streamWrapper</a></li>
+    <li class="member"><a href="stream.streamwrapper.example-1.php.html" class="xref">Пример класса, зарегистрированного в качестве обёртки потока</a></li>
+    <li class="member"><span class="function"><a href="function.stream-wrapper-unregister.php.html" class="function" rel="rdfs-seeAlso">stream_wrapper_unregister()</a> - Отменяет регистрацию обёртки URL</span></li>
+    <li class="member"><span class="function"><a href="function.stream-wrapper-restore.php.html" class="function" rel="rdfs-seeAlso">stream_wrapper_restore()</a> - Восстанавливает отменённую ранее встроенную обёртку</span></li>
+    <li class="member"><span class="function"><a href="function.stream-get-wrappers.php.html" class="function" rel="rdfs-seeAlso">stream_get_wrappers()</a> - Получить список зарегистрированных потоков</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+
+</div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=function.stream-wrapper-register&amp;redirect=https://www.php.net/manual/ru/function.stream-wrapper-register.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">13 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="51855">  <div class="votes">
+    <div id="Vu51855">
+    <a href="https://www.php.net/manual/vote-note.php?id=51855&amp;page=function.stream-wrapper-register&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd51855">
+    <a href="https://www.php.net/manual/vote-note.php?id=51855&amp;page=function.stream-wrapper-register&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V51855" title="71% like this...">
+    9
+    </div>
+  </div>
+  <a href="function.stream-wrapper-register.php.html#51855" class="name">
+  <strong class="user"><em>cellog at php dot net</em></strong></a><a class="genanchor" href="function.stream-wrapper-register.php.html#51855"> &para;</a><div class="date" title="2005-04-12 07:45"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom51855">
+<div class="phpcode"><code><span class="html">If you plan to use your wrapper in a require_once you need to define stream_stat().  If you plan to allow any other tests like is_file()/is_dir(), you have to define url_stat().<br /><br />stream_stat() must define the size of the file, or it will never be included.  url_stat() must define mode, or is_file()/is_dir()/is_executable(), and any of those functions affected by clearstatcache() simply won't work.<br /><br />It's not documented, but directories must be a mode like 040777 (octal), and files a mode like 0100666.  If you wish the file to be executable, use 7s instead of 6s.  The last 3 digits are exactly the same thing as what you pass to chmod.  040000 defines a directory, and 0100000 defines a file.  It would be really helpful to add this to the official manual!</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="77057">  <div class="votes">
+    <div id="Vu77057">
+    <a href="https://www.php.net/manual/vote-note.php?id=77057&amp;page=function.stream-wrapper-register&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd77057">
+    <a href="https://www.php.net/manual/vote-note.php?id=77057&amp;page=function.stream-wrapper-register&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V77057" title="83% like this...">
+    4
+    </div>
+  </div>
+  <a href="function.stream-wrapper-register.php.html#77057" class="name">
+  <strong class="user"><em>fordiman at gmail dot com</em></strong></a><a class="genanchor" href="function.stream-wrapper-register.php.html#77057"> &para;</a><div class="date" title="2007-08-13 05:59"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom77057">
+<div class="phpcode"><code><span class="html">Updated. I figured there's no need to store the variable name if we're dereferenceing; we can just store the pointer and not have to dereference in each function for brevity.<br /><br />Also, I added the assertion that the stream is a string, since we're behaving basically like it has to be, and I changed the name to GlobalStream and global://, as that's a more descriptive moniker than VariableName/var://.<br /><span class="default">&lt;?php<br /></span><span class="keyword">class </span><span class="default">GlobalStream </span><span class="keyword">{<br />    private </span><span class="default">$pos</span><span class="keyword">;<br />    private </span><span class="default">$stream</span><span class="keyword">;<br />    public function </span><span class="default">stream_open</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">, </span><span class="default">$mode</span><span class="keyword">, </span><span class="default">$options</span><span class="keyword">, &amp;</span><span class="default">$opened_path</span><span class="keyword">) {<br />        </span><span class="default">$url </span><span class="keyword">= </span><span class="default">parse_url</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">);<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">stream </span><span class="keyword">= &amp;</span><span class="default">$GLOBALS</span><span class="keyword">[</span><span class="default">$url</span><span class="keyword">[</span><span class="string">"host"</span><span class="keyword">]];<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">pos </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; <br />        if (!</span><span class="default">is_string</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">stream</span><span class="keyword">)) return </span><span class="default">false</span><span class="keyword">;<br />        return </span><span class="default">true</span><span class="keyword">;<br />    }<br />    public function </span><span class="default">stream_read</span><span class="keyword">(</span><span class="default">$count</span><span class="keyword">) {<br />        </span><span class="default">$p</span><span class="keyword">=&amp;</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">pos</span><span class="keyword">;<br />        </span><span class="default">$ret </span><span class="keyword">= </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">stream</span><span class="keyword">, </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">pos</span><span class="keyword">, </span><span class="default">$count</span><span class="keyword">);<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">pos </span><span class="keyword">+= </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$ret</span><span class="keyword">);<br />        return </span><span class="default">$ret</span><span class="keyword">;<br />    }<br />    public function </span><span class="default">stream_write</span><span class="keyword">(</span><span class="default">$data</span><span class="keyword">){<br />        </span><span class="default">$l</span><span class="keyword">=</span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$data</span><span class="keyword">);<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">stream </span><span class="keyword">= <br />            </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">stream</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">pos</span><span class="keyword">) . <br />            </span><span class="default">$data </span><span class="keyword">. <br />            </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">stream</span><span class="keyword">, </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">pos </span><span class="keyword">+= </span><span class="default">$l</span><span class="keyword">);<br />        return </span><span class="default">$l</span><span class="keyword">;<br />    }<br />    public function </span><span class="default">stream_tell</span><span class="keyword">() {<br />        return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">pos</span><span class="keyword">;<br />    }<br />    public function </span><span class="default">stream_eof</span><span class="keyword">() {<br />        return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">pos </span><span class="keyword">&gt;= </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">stream</span><span class="keyword">);<br />    }<br />    public function </span><span class="default">stream_seek</span><span class="keyword">(</span><span class="default">$offset</span><span class="keyword">, </span><span class="default">$whence</span><span class="keyword">) {<br />        </span><span class="default">$l</span><span class="keyword">=</span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">stream</span><span class="keyword">);<br />        switch (</span><span class="default">$whence</span><span class="keyword">) {<br />            case </span><span class="default">SEEK_SET</span><span class="keyword">: </span><span class="default">$newPos </span><span class="keyword">= </span><span class="default">$offset</span><span class="keyword">; break;<br />            case </span><span class="default">SEEK_CUR</span><span class="keyword">: </span><span class="default">$newPos </span><span class="keyword">= </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">pos </span><span class="keyword">+ </span><span class="default">$offset</span><span class="keyword">; break;<br />            case </span><span class="default">SEEK_END</span><span class="keyword">: </span><span class="default">$newPos </span><span class="keyword">= </span><span class="default">$l </span><span class="keyword">+ </span><span class="default">$offset</span><span class="keyword">; break;<br />            default: return </span><span class="default">false</span><span class="keyword">;<br />        }<br />        </span><span class="default">$ret </span><span class="keyword">= (</span><span class="default">$newPos </span><span class="keyword">&gt;=</span><span class="default">0 </span><span class="keyword">&amp;&amp; </span><span class="default">$newPos </span><span class="keyword">&lt;=</span><span class="default">$l</span><span class="keyword">);<br />        if (</span><span class="default">$ret</span><span class="keyword">) </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">pos</span><span class="keyword">=</span><span class="default">$newPos</span><span class="keyword">;<br />        return </span><span class="default">$ret</span><span class="keyword">;<br />    }<br />}<br /></span><span class="default">stream_wrapper_register</span><span class="keyword">(</span><span class="string">'global'</span><span class="keyword">, </span><span class="string">'GlobalStream'</span><span class="keyword">) or die(</span><span class="string">'Failed to register protocol global://'</span><span class="keyword">);<br /><br /></span><span class="default">$myvar </span><span class="keyword">= </span><span class="string">""</span><span class="keyword">;<br />   <br /></span><span class="default">$fp </span><span class="keyword">= </span><span class="default">fopen</span><span class="keyword">(</span><span class="string">"global://myvar"</span><span class="keyword">, </span><span class="string">"r+"</span><span class="keyword">);<br /><br /></span><span class="default">fwrite</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">, </span><span class="string">"line1\n"</span><span class="keyword">);<br /></span><span class="default">fwrite</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">, </span><span class="string">"line2\n"</span><span class="keyword">);<br /></span><span class="default">fwrite</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">, </span><span class="string">"line3\n"</span><span class="keyword">);<br /><br /></span><span class="default">rewind</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">);<br />while (!</span><span class="default">feof</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">)) {<br />    echo </span><span class="default">fgets</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">);<br />}<br /></span><span class="default">fclose</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">);<br /></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$myvar</span><span class="keyword">);<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="77055">  <div class="votes">
+    <div id="Vu77055">
+    <a href="https://www.php.net/manual/vote-note.php?id=77055&amp;page=function.stream-wrapper-register&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd77055">
+    <a href="https://www.php.net/manual/vote-note.php?id=77055&amp;page=function.stream-wrapper-register&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V77055" title="61% like this...">
+    4
+    </div>
+  </div>
+  <a href="function.stream-wrapper-register.php.html#77055" class="name">
+  <strong class="user"><em>fordiman at gmail dot com</em></strong></a><a class="genanchor" href="function.stream-wrapper-register.php.html#77055"> &para;</a><div class="date" title="2007-08-13 05:32"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom77055">
+<div class="phpcode"><code><span class="html">Updated for PHP 5, and optimized for readability, low line count, and minimum memory use:<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">class </span><span class="default">VariableStream </span><span class="keyword">{<br />    private </span><span class="default">$position</span><span class="keyword">;<br />    private </span><span class="default">$varname</span><span class="keyword">;<br />    public function </span><span class="default">stream_open</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">, </span><span class="default">$mode</span><span class="keyword">, </span><span class="default">$options</span><span class="keyword">, &amp;</span><span class="default">$opened_path</span><span class="keyword">) {<br />        </span><span class="default">$url </span><span class="keyword">= </span><span class="default">parse_url</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">);<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">varname </span><span class="keyword">= </span><span class="default">$url</span><span class="keyword">[</span><span class="string">"host"</span><span class="keyword">];<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">position </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; <br />        return </span><span class="default">true</span><span class="keyword">;<br />    }<br />    public function </span><span class="default">stream_read</span><span class="keyword">(</span><span class="default">$count</span><span class="keyword">) {<br />        </span><span class="default">$p</span><span class="keyword">=&amp;</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">position</span><span class="keyword">;<br />        </span><span class="default">$ret </span><span class="keyword">= </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$GLOBALS</span><span class="keyword">[</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">varname</span><span class="keyword">], </span><span class="default">$p</span><span class="keyword">, </span><span class="default">$count</span><span class="keyword">);<br />        </span><span class="default">$p </span><span class="keyword">+= </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$ret</span><span class="keyword">);<br />        return </span><span class="default">$ret</span><span class="keyword">;<br />    }<br />    public function </span><span class="default">stream_write</span><span class="keyword">(</span><span class="default">$data</span><span class="keyword">){<br />        </span><span class="default">$v</span><span class="keyword">=&amp;</span><span class="default">$GLOBALS</span><span class="keyword">[</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">varname</span><span class="keyword">];<br />        </span><span class="default">$l</span><span class="keyword">=</span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$data</span><span class="keyword">);<br />        </span><span class="default">$p</span><span class="keyword">=&amp;</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">position</span><span class="keyword">;<br />        </span><span class="default">$v </span><span class="keyword">= </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$v</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">$p</span><span class="keyword">) . </span><span class="default">$data </span><span class="keyword">. </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$v</span><span class="keyword">, </span><span class="default">$p </span><span class="keyword">+= </span><span class="default">$l</span><span class="keyword">);<br />        return </span><span class="default">$l</span><span class="keyword">;<br />    }<br />    public function </span><span class="default">stream_tell</span><span class="keyword">() {<br />        return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">position</span><span class="keyword">;<br />    }<br />    public function </span><span class="default">stream_eof</span><span class="keyword">() {<br />        return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">position </span><span class="keyword">&gt;= </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$GLOBALS</span><span class="keyword">[</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">varname</span><span class="keyword">]);<br />    }<br />    public function </span><span class="default">stream_seek</span><span class="keyword">(</span><span class="default">$offset</span><span class="keyword">, </span><span class="default">$whence</span><span class="keyword">) {<br />        </span><span class="default">$l</span><span class="keyword">=</span><span class="default">strlen</span><span class="keyword">(&amp;</span><span class="default">$GLOBALS</span><span class="keyword">[</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">varname</span><span class="keyword">]);<br />        </span><span class="default">$p</span><span class="keyword">=&amp;</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">position</span><span class="keyword">;<br />        switch (</span><span class="default">$whence</span><span class="keyword">) {<br />            case </span><span class="default">SEEK_SET</span><span class="keyword">: </span><span class="default">$newPos </span><span class="keyword">= </span><span class="default">$offset</span><span class="keyword">; break;<br />            case </span><span class="default">SEEK_CUR</span><span class="keyword">: </span><span class="default">$newPos </span><span class="keyword">= </span><span class="default">$p </span><span class="keyword">+ </span><span class="default">$offset</span><span class="keyword">; break;<br />            case </span><span class="default">SEEK_END</span><span class="keyword">: </span><span class="default">$newPos </span><span class="keyword">= </span><span class="default">$l </span><span class="keyword">+ </span><span class="default">$offset</span><span class="keyword">; break;<br />            default: return </span><span class="default">false</span><span class="keyword">;<br />        }<br />        </span><span class="default">$ret </span><span class="keyword">= (</span><span class="default">$newPos </span><span class="keyword">&gt;=</span><span class="default">0 </span><span class="keyword">&amp;&amp; </span><span class="default">$newPos </span><span class="keyword">&lt;=</span><span class="default">$l</span><span class="keyword">);<br />        if (</span><span class="default">$ret</span><span class="keyword">) </span><span class="default">$p</span><span class="keyword">=</span><span class="default">$newPos</span><span class="keyword">;<br />        return </span><span class="default">$ret</span><span class="keyword">;<br />    }<br />}<br /></span><span class="default">stream_wrapper_register</span><span class="keyword">(</span><span class="string">"var"</span><span class="keyword">, </span><span class="string">"VariableStream"</span><span class="keyword">) <br />or die(</span><span class="string">"Failed to register protocol"</span><span class="keyword">);<br /><br /></span><span class="default">$myvar </span><span class="keyword">= </span><span class="string">""</span><span class="keyword">;<br />   <br /></span><span class="default">$fp </span><span class="keyword">= </span><span class="default">fopen</span><span class="keyword">(</span><span class="string">"var://myvar"</span><span class="keyword">, </span><span class="string">"r+"</span><span class="keyword">);<br /><br /></span><span class="default">fwrite</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">, </span><span class="string">"line1\n"</span><span class="keyword">);<br /></span><span class="default">fwrite</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">, </span><span class="string">"line2\n"</span><span class="keyword">);<br /></span><span class="default">fwrite</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">, </span><span class="string">"line3\n"</span><span class="keyword">);<br /><br /></span><span class="default">rewind</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">);<br />while (!</span><span class="default">feof</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">)) {<br />    echo </span><span class="default">fgets</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">);<br />}<br /></span><span class="default">fclose</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">);<br /></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$myvar</span><span class="keyword">);<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="75645">  <div class="votes">
+    <div id="Vu75645">
+    <a href="https://www.php.net/manual/vote-note.php?id=75645&amp;page=function.stream-wrapper-register&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd75645">
+    <a href="https://www.php.net/manual/vote-note.php?id=75645&amp;page=function.stream-wrapper-register&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V75645" title="66% like this...">
+    2
+    </div>
+  </div>
+  <a href="function.stream-wrapper-register.php.html#75645" class="name">
+  <strong class="user"><em>phpnet at povaddict dot com dot ar</em></strong></a><a class="genanchor" href="function.stream-wrapper-register.php.html#75645"> &para;</a><div class="date" title="2007-06-09 08:10"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom75645">
+<div class="phpcode"><code><span class="html">In response to Anonymouse at Coward dot com:<br /><br />The manual says "Reading stops when up to length bytes have been read, [...] or (after opening userspace stream) when 8192 bytes have been read whichever comes first."<br /><br />I tested it and fread($filehandle, 4096) returns 4096 bytes, so it's working as the manual says it should. You're right when you say "8192 bytes is always passed to stream_read as count", but that doesn't mean fread will return 8192 bytes. If you call fread twice with length 4096, PHP calls stream_read passing 8192 as count on the first fread, and doesn't call it on second fread. On both cases, fread returns the correct amount of bytes.<br /><br /><span class="default">&lt;?php<br /><br /></span><span class="keyword">class </span><span class="default">VariableStream </span><span class="keyword">{<br />    var </span><span class="default">$position</span><span class="keyword">;<br />    var </span><span class="default">$varname</span><span class="keyword">;<br />  <br />    function </span><span class="default">stream_open</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">, </span><span class="default">$mode</span><span class="keyword">, </span><span class="default">$options</span><span class="keyword">, &amp;</span><span class="default">$opened_path</span><span class="keyword">)<br />    {<br />        </span><span class="default">$url </span><span class="keyword">= </span><span class="default">parse_url</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">);<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">varname </span><span class="keyword">= </span><span class="default">$url</span><span class="keyword">[</span><span class="string">"host"</span><span class="keyword">];<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">position </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br />       <br />        return </span><span class="default">true</span><span class="keyword">;<br />    }<br /><br />    function </span><span class="default">stream_read</span><span class="keyword">(</span><span class="default">$count</span><span class="keyword">)<br />    {<br />        echo </span><span class="string">"stream_read called asking for </span><span class="default">$count</span><span class="string"> bytes\n"</span><span class="keyword">;<br />        </span><span class="default">$ret </span><span class="keyword">= </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$GLOBALS</span><span class="keyword">[</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">varname</span><span class="keyword">], </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">position</span><span class="keyword">, </span><span class="default">$count</span><span class="keyword">);<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">position </span><span class="keyword">+= </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$ret</span><span class="keyword">);<br />        return </span><span class="default">$ret</span><span class="keyword">;<br />    }<br /><br />    function </span><span class="default">stream_eof</span><span class="keyword">()<br />    {<br />        return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">position </span><span class="keyword">&gt;= </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$GLOBALS</span><span class="keyword">[</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">varname</span><span class="keyword">]);<br />    }<br /><br />}<br /><br /></span><span class="default">stream_wrapper_register</span><span class="keyword">(</span><span class="string">"var"</span><span class="keyword">, </span><span class="string">"VariableStream"</span><span class="keyword">)<br />    or die(</span><span class="string">"Failed to register protocol"</span><span class="keyword">);<br /><br /></span><span class="default">$myvar </span><span class="keyword">= </span><span class="string">""</span><span class="keyword">;<br /></span><span class="default">$l</span><span class="keyword">=</span><span class="default">range</span><span class="keyword">(</span><span class="string">'a'</span><span class="keyword">,</span><span class="string">'z'</span><span class="keyword">);<br />for(</span><span class="default">$i</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">;</span><span class="default">$i</span><span class="keyword">&lt;</span><span class="default">65536</span><span class="keyword">;</span><span class="default">$i</span><span class="keyword">++) {<br />    </span><span class="default">$myvar </span><span class="keyword">.= </span><span class="default">$l</span><span class="keyword">[</span><span class="default">array_rand</span><span class="keyword">(</span><span class="default">$l</span><span class="keyword">)];<br />}<br />   <br /></span><span class="default">$fp </span><span class="keyword">= </span><span class="default">fopen</span><span class="keyword">(</span><span class="string">"var://myvar"</span><span class="keyword">, </span><span class="string">"r+"</span><span class="keyword">);<br /><br />while (!</span><span class="default">feof</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">)) {<br />    </span><span class="default">$out </span><span class="keyword">= </span><span class="default">fread</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">,</span><span class="default">1000</span><span class="keyword">);<br />    echo </span><span class="string">"fread returned "</span><span class="keyword">,</span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$out</span><span class="keyword">),</span><span class="string">" bytes\n"</span><span class="keyword">;<br />}<br /><br /></span><span class="default">fclose</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">);<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="82601">  <div class="votes">
+    <div id="Vu82601">
+    <a href="https://www.php.net/manual/vote-note.php?id=82601&amp;page=function.stream-wrapper-register&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd82601">
+    <a href="https://www.php.net/manual/vote-note.php?id=82601&amp;page=function.stream-wrapper-register&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V82601" title="60% like this...">
+    1
+    </div>
+  </div>
+  <a href="function.stream-wrapper-register.php.html#82601" class="name">
+  <strong class="user"><em>phrank</em></strong></a><a class="genanchor" href="function.stream-wrapper-register.php.html#82601"> &para;</a><div class="date" title="2008-04-17 01:38"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom82601">
+<div class="phpcode"><code><span class="html">Actually, I don't know if there's a better way to figure out if stream_read() was called by fgets() or e.g. fread() than this one:<br /><br />    public function stream_read($count)<br />    {<br />        $bt = debug_backtrace();<br />        if(($bt[0]['function'] == 'stream_read') &amp;&amp;<br />           ($bt[1]['function'] == 'fgets'))<br />        {<br />                $pos = strpos($GLOBALS[$this-&gt;varname], "\n", $this-&gt;position);<br />                $retval = substr($GLOBALS[$this-&gt;varname], $this-&gt;position, ($pos &gt; $count) ? $count : $pos+1);<br /><br />        }<br />        else<br />        {<br />                $retval = substr($GLOBALS[$this-&gt;varname], $this-&gt;position, $count);<br /><br />        }<br />                $this-&gt;position += strlen($retval);<br />                return (string)$retval;<br />    }</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="71057">  <div class="votes">
+    <div id="Vu71057">
+    <a href="https://www.php.net/manual/vote-note.php?id=71057&amp;page=function.stream-wrapper-register&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd71057">
+    <a href="https://www.php.net/manual/vote-note.php?id=71057&amp;page=function.stream-wrapper-register&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V71057" title="60% like this...">
+    1
+    </div>
+  </div>
+  <a href="function.stream-wrapper-register.php.html#71057" class="name">
+  <strong class="user"><em>none at your dot biz</em></strong></a><a class="genanchor" href="function.stream-wrapper-register.php.html#71057"> &para;</a><div class="date" title="2006-11-09 04:35"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom71057">
+<div class="phpcode"><code><span class="html">In case someone else starts scratching their head like I was, you should change the VariableStream::stream_eof() function to something like this:<br /><br />   function stream_eof()<br />   {<br />       $eof = ($this-&gt;position &gt;= strlen($GLOBALS[$this-&gt;varname]));<br />        if(version_compare(PHP_VERSION,'5.0','&gt;=') &amp;&amp; version_compare(PHP_VERSION,'5.1','&lt;'))<br />        {<br />            $eof = !$eof;<br />        }<br />        return $eof;<br />   }<br /><br />PHP 5.0 introduced a bug that wasn't fixed until 5.1</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="54012">  <div class="votes">
+    <div id="Vu54012">
+    <a href="https://www.php.net/manual/vote-note.php?id=54012&amp;page=function.stream-wrapper-register&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd54012">
+    <a href="https://www.php.net/manual/vote-note.php?id=54012&amp;page=function.stream-wrapper-register&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V54012" title="60% like this...">
+    1
+    </div>
+  </div>
+  <a href="function.stream-wrapper-register.php.html#54012" class="name">
+  <strong class="user"><em>jhannus at php dot net</em></strong></a><a class="genanchor" href="function.stream-wrapper-register.php.html#54012"> &para;</a><div class="date" title="2005-06-20 07:37"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom54012">
+<div class="phpcode"><code><span class="html">It is worth noting that if your wrapper supports stream_flush() then when you flcose() your stream this function will be called prior to closing the stream.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="41524">  <div class="votes">
+    <div id="Vu41524">
+    <a href="https://www.php.net/manual/vote-note.php?id=41524&amp;page=function.stream-wrapper-register&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd41524">
+    <a href="https://www.php.net/manual/vote-note.php?id=41524&amp;page=function.stream-wrapper-register&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V41524" title="60% like this...">
+    1
+    </div>
+  </div>
+  <a href="function.stream-wrapper-register.php.html#41524" class="name">
+  <strong class="user"><em>simon at firepages dot org</em></strong></a><a class="genanchor" href="function.stream-wrapper-register.php.html#41524"> &para;</a><div class="date" title="2004-04-13 10:53"><strong>19 years ago</strong></div>
+  <div class="text" id="Hcom41524">
+<div class="phpcode"><code><span class="html">using streams to use the ever useful fgetcsv() on a variable where explode() would not work (and would otherwise require regex(though that may be easier;)))<br /><br />$explode_this="yak, llama, 'big llama', 'wobmat, with a comma in it', bandycoot";<br /> <br /><span class="default">&lt;?php <br /></span><span class="keyword">class </span><span class="default">csvstream</span><span class="keyword">{ <br />   var </span><span class="default">$position</span><span class="keyword">;  <br />   var </span><span class="default">$varname</span><span class="keyword">;  <br />   function </span><span class="default">stream_open</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">, </span><span class="default">$mode</span><span class="keyword">, </span><span class="default">$options</span><span class="keyword">, &amp;</span><span class="default">$opened_path</span><span class="keyword">){  <br />       </span><span class="default">$url </span><span class="keyword">= </span><span class="default">parse_url</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">);  <br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">varname </span><span class="keyword">= </span><span class="default">$url</span><span class="keyword">[</span><span class="string">'host'</span><span class="keyword">] ; <br />       </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">position </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;  <br />       return </span><span class="default">true</span><span class="keyword">; <br />   } <br />  function </span><span class="default">stream_read</span><span class="keyword">(</span><span class="default">$count</span><span class="keyword">){  <br />       </span><span class="default">$ret </span><span class="keyword">= </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$GLOBALS</span><span class="keyword">[</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">varname</span><span class="keyword">], </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">position</span><span class="keyword">, </span><span class="default">$count</span><span class="keyword">);  <br />       </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">position </span><span class="keyword">+= </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$ret</span><span class="keyword">);  <br />       return </span><span class="default">$ret</span><span class="keyword">;  <br />   } <br />  function </span><span class="default">stream_eof</span><span class="keyword">(){  <br />       return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">position </span><span class="keyword">&gt;= </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$GLOBALS</span><span class="keyword">[</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">varname</span><span class="keyword">]);  <br />   }  <br />   function </span><span class="default">stream_tell</span><span class="keyword">(){  <br />       return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">position</span><span class="keyword">;  <br />   }  <br />} <br /><br />   </span><span class="default">stream_wrapper_register</span><span class="keyword">(</span><span class="string">"csvstr"</span><span class="keyword">, </span><span class="string">"csvstream"</span><span class="keyword">) ; <br />   </span><span class="default">$str</span><span class="keyword">=</span><span class="string">"yak, llama, 'big llama', 'wobmat, with a comma in it', bandycoot"</span><span class="keyword">; <br /><br />   </span><span class="default">$fp </span><span class="keyword">= </span><span class="default">fopen</span><span class="keyword">(</span><span class="string">"csvstr://str"</span><span class="keyword">, </span><span class="string">"r+"</span><span class="keyword">);  <br />   </span><span class="default">print_r</span><span class="keyword">(</span><span class="default">fgetcsv</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">,</span><span class="default">100</span><span class="keyword">,</span><span class="string">","</span><span class="keyword">,</span><span class="string">"'"</span><span class="keyword">)); <br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="78490">  <div class="votes">
+    <div id="Vu78490">
+    <a href="https://www.php.net/manual/vote-note.php?id=78490&amp;page=function.stream-wrapper-register&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd78490">
+    <a href="https://www.php.net/manual/vote-note.php?id=78490&amp;page=function.stream-wrapper-register&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V78490" title="57% like this...">
+    1
+    </div>
+  </div>
+  <a href="function.stream-wrapper-register.php.html#78490" class="name">
+  <strong class="user"><em>yeiniel at gmail dot com</em></strong></a><a class="genanchor" href="function.stream-wrapper-register.php.html#78490"> &para;</a><div class="date" title="2007-10-14 07:30"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom78490">
+<div class="phpcode"><code><span class="html">on using dir_opendir on PHP5 make sure you not return a resource object on success. A resource object is diferent from false but php make a cast to bool to dir_opendir return value and modify the value of your resource to 1. <br /><br />example:<br /><br />class myclass{<br />  private $mysqlHandler;<br />  public function dir_opendir(....)<br />  {<br />    $this-&gt;mysqlHandler = mysql_connect(....);<br />    return $this-&gt;mysqlHandler; //this is wrong, next<br />                                          //time you use <br />                                          //$this-&gt;mysqlHandler<br />                                          // the value is 1<br />  }<br />}</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="113147">  <div class="votes">
+    <div id="Vu113147">
+    <a href="https://www.php.net/manual/vote-note.php?id=113147&amp;page=function.stream-wrapper-register&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd113147">
+    <a href="https://www.php.net/manual/vote-note.php?id=113147&amp;page=function.stream-wrapper-register&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V113147" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="function.stream-wrapper-register.php.html#113147" class="name">
+  <strong class="user"><em>dmarjos at gmail dot com</em></strong></a><a class="genanchor" href="function.stream-wrapper-register.php.html#113147"> &para;</a><div class="date" title="2013-09-05 01:23"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom113147">
+<div class="phpcode"><code><span class="html">Be aware that even when stream_wrapper_register won't fail, open_basedir will affect functionality of the class.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="85763">  <div class="votes">
+    <div id="Vu85763">
+    <a href="https://www.php.net/manual/vote-note.php?id=85763&amp;page=function.stream-wrapper-register&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd85763">
+    <a href="https://www.php.net/manual/vote-note.php?id=85763&amp;page=function.stream-wrapper-register&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V85763" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="function.stream-wrapper-register.php.html#85763" class="name">
+  <strong class="user"><em>Anonymous</em></strong></a><a class="genanchor" href="function.stream-wrapper-register.php.html#85763"> &para;</a><div class="date" title="2008-09-16 11:19"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom85763">
+<div class="phpcode"><code><span class="html">"for use with all the other filesystem functions"<br /><br />"all" is not accurate.  Unfortunately, zip_open(), and presumably others, will ignore your custom stream wrapper.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="51557">  <div class="votes">
+    <div id="Vu51557">
+    <a href="https://www.php.net/manual/vote-note.php?id=51557&amp;page=function.stream-wrapper-register&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd51557">
+    <a href="https://www.php.net/manual/vote-note.php?id=51557&amp;page=function.stream-wrapper-register&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V51557" title="46% like this...">
+    -1
+    </div>
+  </div>
+  <a href="function.stream-wrapper-register.php.html#51557" class="name">
+  <strong class="user"><em>Hayley Watson</em></strong></a><a class="genanchor" href="function.stream-wrapper-register.php.html#51557"> &para;</a><div class="date" title="2005-04-03 11:07"><strong>18 years ago</strong></div>
+  <div class="text" id="Hcom51557">
+<div class="phpcode"><code><span class="html">The current URL standard is RFC 3986 - available at www.ietf.org/rfc/rfc3986.txt</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="74765">  <div class="votes">
+    <div id="Vu74765">
+    <a href="https://www.php.net/manual/vote-note.php?id=74765&amp;page=function.stream-wrapper-register&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd74765">
+    <a href="https://www.php.net/manual/vote-note.php?id=74765&amp;page=function.stream-wrapper-register&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V74765" title="40% like this...">
+    -2
+    </div>
+  </div>
+  <a href="function.stream-wrapper-register.php.html#74765" class="name">
+  <strong class="user"><em>Anonymouse at Coward dot com</em></strong></a><a class="genanchor" href="function.stream-wrapper-register.php.html#74765"> &para;</a><div class="date" title="2007-04-26 09:18"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom74765">
+<div class="phpcode"><code><span class="html">Use caution with writing code that may use stream wrappers with fread, as fread behaviour is 'inconsistent' with normal file operations because of the 8192 bytes internal buffer used by PHP ( &gt;= 5.0.5 IIRC ).<br /><br />ie:<br /><br />fread($filehandle, filesize($filename))<br /><br />will not work correctly if the file is larger than 8KB, it will only get you the first 8192 bytes. Also, it seems that:<br /><br />fread($filehandle, 4096)<br /><br />will still give you 8KB (if the file is larger than 8KB) as 8192 bytes is always passed to stream_read as count.<br /><br />This makes it somewhat impossible to just 'drop in' a stream where normally a file would be used without taking special care. <br /><br />Yes, it IS mentioned in the documentation here if you read it really well, but I for one spent some time scratching my head over it, and looking at the bug tracker, I am not the only one. The dev's say this inconsistancy is a feature though, even if it does make stream wrappers pretty much useless 'out of the box'.<br /><br />file_get_contents and stream_get_contents seem to work ok though.</span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=function.stream-wrapper-register&amp;redirect=https://www.php.net/manual/ru/function.stream-wrapper-register.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="ref.stream.php.html">Функции для работы с потоками</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="function.stream-bucket-append.php.html" title="stream_&#8203;bucket_&#8203;append">stream_&#8203;bucket_&#8203;append</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.stream-bucket-make-writeable.php.html" title="stream_&#8203;bucket_&#8203;make_&#8203;writeable">stream_&#8203;bucket_&#8203;make_&#8203;writeable</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.stream-bucket-new.php.html" title="stream_&#8203;bucket_&#8203;new">stream_&#8203;bucket_&#8203;new</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.stream-bucket-prepend.php.html" title="stream_&#8203;bucket_&#8203;prepend">stream_&#8203;bucket_&#8203;prepend</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.stream-context-create.php.html" title="stream_&#8203;context_&#8203;create">stream_&#8203;context_&#8203;create</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.stream-context-get-default.php.html" title="stream_&#8203;context_&#8203;get_&#8203;default">stream_&#8203;context_&#8203;get_&#8203;default</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.stream-context-get-options.php.html" title="stream_&#8203;context_&#8203;get_&#8203;options">stream_&#8203;context_&#8203;get_&#8203;options</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.stream-context-get-params.php.html" title="stream_&#8203;context_&#8203;get_&#8203;params">stream_&#8203;context_&#8203;get_&#8203;params</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.stream-context-set-default.php.html" title="stream_&#8203;context_&#8203;set_&#8203;default">stream_&#8203;context_&#8203;set_&#8203;default</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.stream-context-set-option.php.html" title="stream_&#8203;context_&#8203;set_&#8203;option">stream_&#8203;context_&#8203;set_&#8203;option</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.stream-context-set-options.php.html" title="stream_&#8203;context_&#8203;set_&#8203;options">stream_&#8203;context_&#8203;set_&#8203;options</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.stream-context-set-params.php.html" title="stream_&#8203;context_&#8203;set_&#8203;params">stream_&#8203;context_&#8203;set_&#8203;params</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.stream-copy-to-stream.php.html" title="stream_&#8203;copy_&#8203;to_&#8203;stream">stream_&#8203;copy_&#8203;to_&#8203;stream</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.stream-filter-append.php.html" title="stream_&#8203;filter_&#8203;append">stream_&#8203;filter_&#8203;append</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.stream-filter-prepend.php.html" title="stream_&#8203;filter_&#8203;prepend">stream_&#8203;filter_&#8203;prepend</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.stream-filter-register.php.html" title="stream_&#8203;filter_&#8203;register">stream_&#8203;filter_&#8203;register</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.stream-filter-remove.php.html" title="stream_&#8203;filter_&#8203;remove">stream_&#8203;filter_&#8203;remove</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.stream-get-contents.php.html" title="stream_&#8203;get_&#8203;contents">stream_&#8203;get_&#8203;contents</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.stream-get-filters.php.html" title="stream_&#8203;get_&#8203;filters">stream_&#8203;get_&#8203;filters</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.stream-get-line.php.html" title="stream_&#8203;get_&#8203;line">stream_&#8203;get_&#8203;line</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.stream-get-meta-data.php.html" title="stream_&#8203;get_&#8203;meta_&#8203;data">stream_&#8203;get_&#8203;meta_&#8203;data</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.stream-get-transports.php.html" title="stream_&#8203;get_&#8203;transports">stream_&#8203;get_&#8203;transports</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.stream-get-wrappers.php.html" title="stream_&#8203;get_&#8203;wrappers">stream_&#8203;get_&#8203;wrappers</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.stream-is-local.php.html" title="stream_&#8203;is_&#8203;local">stream_&#8203;is_&#8203;local</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.stream-isatty.php.html" title="stream_&#8203;isatty">stream_&#8203;isatty</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.stream-notification-callback.php.html" title="stream_&#8203;notification_&#8203;callback">stream_&#8203;notification_&#8203;callback</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.stream-register-wrapper.php.html" title="stream_&#8203;register_&#8203;wrapper">stream_&#8203;register_&#8203;wrapper</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.stream-resolve-include-path.php.html" title="stream_&#8203;resolve_&#8203;include_&#8203;path">stream_&#8203;resolve_&#8203;include_&#8203;path</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.stream-select.php.html" title="stream_&#8203;select">stream_&#8203;select</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.stream-set-blocking.php.html" title="stream_&#8203;set_&#8203;blocking">stream_&#8203;set_&#8203;blocking</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.stream-set-chunk-size.php.html" title="stream_&#8203;set_&#8203;chunk_&#8203;size">stream_&#8203;set_&#8203;chunk_&#8203;size</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.stream-set-read-buffer.php.html" title="stream_&#8203;set_&#8203;read_&#8203;buffer">stream_&#8203;set_&#8203;read_&#8203;buffer</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.stream-set-timeout.php.html" title="stream_&#8203;set_&#8203;timeout">stream_&#8203;set_&#8203;timeout</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.stream-set-write-buffer.php.html" title="stream_&#8203;set_&#8203;write_&#8203;buffer">stream_&#8203;set_&#8203;write_&#8203;buffer</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.stream-socket-accept.php.html" title="stream_&#8203;socket_&#8203;accept">stream_&#8203;socket_&#8203;accept</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.stream-socket-client.php.html" title="stream_&#8203;socket_&#8203;client">stream_&#8203;socket_&#8203;client</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.stream-socket-enable-crypto.php.html" title="stream_&#8203;socket_&#8203;enable_&#8203;crypto">stream_&#8203;socket_&#8203;enable_&#8203;crypto</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.stream-socket-get-name.php.html" title="stream_&#8203;socket_&#8203;get_&#8203;name">stream_&#8203;socket_&#8203;get_&#8203;name</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.stream-socket-pair.php.html" title="stream_&#8203;socket_&#8203;pair">stream_&#8203;socket_&#8203;pair</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.stream-socket-recvfrom.php.html" title="stream_&#8203;socket_&#8203;recvfrom">stream_&#8203;socket_&#8203;recvfrom</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.stream-socket-sendto.php.html" title="stream_&#8203;socket_&#8203;sendto">stream_&#8203;socket_&#8203;sendto</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.stream-socket-server.php.html" title="stream_&#8203;socket_&#8203;server">stream_&#8203;socket_&#8203;server</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.stream-socket-shutdown.php.html" title="stream_&#8203;socket_&#8203;shutdown">stream_&#8203;socket_&#8203;shutdown</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.stream-supports-lock.php.html" title="stream_&#8203;supports_&#8203;lock">stream_&#8203;supports_&#8203;lock</a>
+                        </li>
+                                                <li class="current">
+                            <a href="function.stream-wrapper-register.php.html" title="stream_&#8203;wrapper_&#8203;register">stream_&#8203;wrapper_&#8203;register</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.stream-wrapper-restore.php.html" title="stream_&#8203;wrapper_&#8203;restore">stream_&#8203;wrapper_&#8203;restore</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.stream-wrapper-unregister.php.html" title="stream_&#8203;wrapper_&#8203;unregister">stream_&#8203;wrapper_&#8203;unregister</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

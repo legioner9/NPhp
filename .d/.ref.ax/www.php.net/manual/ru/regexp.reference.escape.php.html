@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: Экранирующие последовательности - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="regexp.reference.escape.php.html">
+ <link rel="shorturl" href="regexp.reference.escape.php.html">
+ <link rel="alternate" href="regexp.reference.escape.php.html" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="reference.pcre.pattern.syntax.php.html">
+ <link rel="prev" href="regexp.reference.meta.php.html">
+ <link rel="next" href="regexp.reference.unicode.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/regexp.reference.escape.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/regexp.reference.escape.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/regexp.reference.escape.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/regexp.reference.escape.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/regexp.reference.escape.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/regexp.reference.escape.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/regexp.reference.escape.php" hreflang="pt_BR">
+ <link rel="alternate" href="regexp.reference.escape.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/regexp.reference.escape.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/regexp.reference.escape.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="regexp.reference.unicode.php.html">
+          Свойства Unicode-символов &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="regexp.reference.meta.php.html">
+          &laquo; Метасимволы        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.basic.text.php.html'>Обработка текста</a></li>      <li><a href='book.pcre.php.html'>PCRE</a></li>      <li><a href='pcre.pattern.php.html'>Регулярные выражения PCRE</a></li>      <li><a href='reference.pcre.pattern.syntax.php.html'>Описание синтаксиса Perl-совместимых регулярных выражений</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/regexp.reference.escape.php'>English</option>
+            <option value='de/regexp.reference.escape.php'>German</option>
+            <option value='es/regexp.reference.escape.php'>Spanish</option>
+            <option value='fr/regexp.reference.escape.php'>French</option>
+            <option value='it/regexp.reference.escape.php'>Italian</option>
+            <option value='ja/regexp.reference.escape.php'>Japanese</option>
+            <option value='pt_BR/regexp.reference.escape.php'>Brazilian Portuguese</option>
+            <option value='ru/regexp.reference.escape.php' selected="selected">Russian</option>
+            <option value='tr/regexp.reference.escape.php'>Turkish</option>
+            <option value='zh/regexp.reference.escape.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/pcre/pattern.syntax.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Fregexp.reference.escape%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="regexp.reference.escape" class="section">
+  <h2 class="title">Экранирующие последовательности</h2>
+  <p class="para">
+   Обратная косая черта («\») имеет несколько назначений. Прежде всего, если она
+   предшествует не буквенно-цифровому символу, она снимает с него специальное значение,
+   которое он мог иметь. Применение обратной косой черты как экранирующего символа
+   допустимо как в символьном классе, так и вне него.
+  </p>
+  <p class="para">
+   Например, если нужно задать соответствие символу «*»,
+   в шаблоне указывают «\*». Это предотвратит трактование последующего символа
+   как метасимвола с особым значением. В любых случаях безопасно экранировать
+   не буквенно-цифровые символы символом обратной косой черты «\», если нужно убедиться,
+   что они означают в шаблоне самих себя. В частном случае для сопоставления
+   с самим символом обратной косой черты, используйте запись «\\».
+  </p>
+  <blockquote class="note"><p><strong class="note">Замечание</strong>: 
+   <p class="para">
+    <a href="language.types.string.php.html#language.types.string.syntax" class="link">PHP-строки</a>, заключённые
+    в одинарные и двойные кавычки, по-особому интерпретируют обратную косую черту.
+    Таким образом, если необходимо сопоставить \ с регулярным выражением \\,
+    в PHP-коде нужно использовать &quot;\\\\&quot; или &#039;\\\\&#039;.
+   </p>
+  </p></blockquote>
+  <p class="para">
+   Если указан модификатор
+   <a href="reference.pcre.pattern.modifiers.php.html" class="link">PCRE_EXTENDED</a>,
+   пробельные символы в шаблоне (вне описания символьного класса) игнорируются.
+   Также игнорируется часть строки, находящаяся между символом «#»
+   (опять же, не участвующем в описании символьного класса)
+   и следующим символом перевода строки. В этой ситуации обратный слеш можно применять
+   как экранирующий символ для указания вхождений пробельных символов
+   или символа «#» в шаблоне.
+  </p>
+  <p class="para">
+    Второе применение обратного слеша заключается в том, что он позволяет использовать
+    непечатные символы в видимой форме в описании шаблона.
+    При том что в PCRE нет ограничений на использование непечатных символов
+    (исключая бинарный ноль, который интерпретируется как конец шаблона),
+    при редактировании программного кода в каком-либо текстовом редакторе
+    гораздо удобнее использовать следующие комбинации, чем реальные символы, которые
+    они представляют:
+  </p>
+  <p class="para">
+   <dl>
+    
+     <dt>
+<em>\a</em></dt>
+
+     <dd>
+
+      <span class="simpara">символ оповещения, сигнал, (BEL, шестнадцатеричный код 07)</span>
+     </dd>
+
+    
+    
+     <dt>
+<em>\cx</em></dt>
+
+     <dd>
+
+      <span class="simpara">&quot;control+x&quot;, где x — произвольный символ</span>
+     </dd>
+
+    
+    
+     <dt>
+<em>\e</em></dt>
+
+     <dd>
+
+      <span class="simpara">escape (шестнадцатеричный код 1B)</span>
+     </dd>
+
+    
+    
+     <dt>
+<em>\f</em></dt>
+
+     <dd>
+
+      <span class="simpara">разрыв страницы (шестнадцатеричный код 0C)</span>
+     </dd>
+
+    
+    
+     <dt>
+<em>\n</em></dt>
+
+     <dd>
+
+      <span class="simpara">перевод строки (шестнадцатеричный код 0A)</span>
+     </dd>
+
+    
+    
+     <dt>
+<em>\p{xx}</em></dt>
+
+     <dd>
+
+      <span class="simpara">
+       символ со свойством xx, подробнее об этом рассказано в разделе
+       «<a href="regexp.reference.unicode.php.html" class="link">Свойства Unicode-символов</a>»
+      </span>
+     </dd>
+
+    
+    
+     <dt>
+<em>\P{xx}</em></dt>
+
+     <dd>
+
+      <span class="simpara">
+       символ без свойства xx, подробнее об этом рассказано в разделе
+       «<a href="regexp.reference.unicode.php.html" class="link">Свойства Unicode-символов</a>»
+      </span>
+     </dd>
+
+    
+    
+     <dt>
+<em>\r</em></dt>
+
+     <dd>
+
+      <span class="simpara">возврат каретки (шестнадцатеричный код 0D)</span>
+     </dd>
+
+    
+    
+     <dt>
+<em>\R</em></dt>
+
+     <dd>
+
+      <span class="simpara">разрыв строки: совпадает с \n, \r и \r\n</span>
+     </dd>
+
+    
+    
+     <dt>
+<em>\t</em></dt>
+
+     <dd>
+
+      <span class="simpara">табуляция (шестнадцатеричный код 09)</span>
+     </dd>
+
+    
+    
+     <dt>
+<em>\xhh</em></dt>
+
+     <dd>
+
+      <span class="simpara">
+       символ с шестнадцатеричным кодом hh
+      </span>
+     </dd>
+
+    
+    
+     <dt>
+<em>\ddd</em></dt>
+
+     <dd>
+
+      <span class="simpara">символ с восьмеричным кодом ddd, либо ссылка на подмаску</span>
+     </dd>
+
+    
+   </dl>
+
+  </p>
+  <p class="para">
+   Если быть более точным, комбинация «<code class="literal">\cx</code>» интерпретируется
+   следующим образом: если «<code class="literal">x</code>» — символ нижнего регистра,
+   он преобразовывается в верхний регистр.
+   После этого шестой бит символа (шестнадцатеричный код 40) инвертируется.
+   Таким образом, «<code class="literal">\cz</code>» интерпретируется как шестнадцатеричное
+   значение 1A, в то время как «<code class="literal">\c{</code>» получает шестнадцатеричное
+   значение 3B, а «<code class="literal">\c;</code>» — 7B.
+  </p>
+  <p class="para">
+   После «<code class="literal">\x</code>» считываются ещё две шестнадцатеричные цифры
+   (они могут быть записаны в нижнем или верхнем регистре).
+   В <em>режиме UTF-8</em>, разрешается использование
+   «<code class="literal">\x{...}</code>», где содержимое скобок является строкой
+   из шестнадцатеричных цифр. Она интерпретируется как символ UTF-8 character с кодом,
+   совпадающим с данным шестнадцатеричным числом.
+   Исходная шестнадцатеричная экранирующая последовательность,
+   <code class="literal">\xhh</code>, совпадает с двухбайтным UTF-8 символом, если его значение
+   превышает 127.
+  </p>
+  <p class="para">
+   После «<code class="literal">\0</code>» считываются две восьмеричные цифры.
+   Если в записи менее двух цифр, будут использованы
+   все фактически присутствующие цифры. Таким образом, последовательность
+   «<code class="literal">\0\x\07</code>» будет интерпретирована как два бинарных нуля,
+   за которыми следует символ оповещения (звонок). Если вы используете
+   представление числа в восьмеричном коде, убедитесь, что за
+   начальным нулём следуют две значащие цифры.
+  </p>
+  <p class="para">
+   Обработка обратного слеша, за которым следует ненулевая цифра, несколько сложнее.
+   Вне символьного класса PCRE воспринимает обратный слеш и следующие за ним цифры
+   как десятичное число. Если полученное значение меньше десяти,
+   либо если шаблон содержит по меньшей мере такое же количество предшествующих
+   текущей позиции подмасок, вся конструкция интерпретируется как
+   <em>ссылка на подмаску</em>.
+   Более детальное описание будет приведено ниже при обсуждении механизма работы подмасок.
+  </p>
+  <p class="para">
+   Внутри символьного класса, либо если полученное значение больше 9 и соответствующее
+   количество предшествующих подмасок отсутствует, PCRE считывает до трёх восьмеричных
+   цифр, следующих за обратным слешем, и генерирует один байт из последних 8-ми
+   значащих битов полученного значения. Все последующие цифры обозначают себя же. Например:
+  </p>
+  <p class="para">
+   <dl>
+    
+     <dt>
+<em>\040</em></dt>
+
+     <dd>
+<span class="simpara">ещё один способ записи пробела</span></dd>
+
+    
+    
+     <dt>
+<em>\40</em></dt>
+
+     <dd>
+
+      <span class="simpara">
+       то же самое, если данной записи предшествует менее сорока подмасок
+      </span>
+     </dd>
+
+    
+    
+     <dt>
+<em>\7</em></dt>
+
+     <dd>
+<span class="simpara">всегда интерпретируется как ссылка на подмаску</span></dd>
+
+    
+    
+     <dt>
+<em>\11</em></dt>
+
+     <dd>
+
+      <span class="simpara">
+       может быть как обратной ссылкой, так и альтернативной записью символа табуляции
+      </span>
+     </dd>
+
+    
+    
+     <dt>
+<em>\011</em></dt>
+
+     <dd>
+<span class="simpara">всегда интерпретируется как символ табуляции</span></dd>
+
+    
+    
+     <dt>
+<em>\0113</em></dt>
+
+     <dd>
+<span class="simpara">символ табуляции, за которым следует цифра «3»</span></dd>
+
+    
+    
+     <dt>
+<em>\113</em></dt>
+
+     <dd>
+
+      <span class="simpara">
+       интерпретируется как символ с восьмеричным кодом 113 (так как ссылок на подмаски не может быть более чем 99)
+      </span>
+     </dd>
+
+    
+    
+     <dt>
+<em>\377</em></dt>
+
+     <dd>
+<span class="simpara">байт, всецело состоящий из единичных битов</span></dd>
+
+    
+    
+     <dt>
+<em>\81</em></dt>
+
+     <dd>
+
+      <span class="simpara">
+       либо обратная ссылка, либо бинарный ноль, за которым следуют цифры «8» и «1»
+      </span>
+     </dd>
+
+    
+   </dl>
+
+  </p>
+  <p class="para">
+   Следует помнить, что восьмеричные значения, превышающие 100, следует писать без
+   лидирующего нуля, так как читается не более трёх восьмеричных цифр.
+  </p>
+  <p class="para">
+   Все последовательности, определяющие однобайтное значение, могут встречаться
+   как внутри, так и вне символьных классов. Кроме того, внутри символьного класса
+   запись «<code class="literal">\b</code>» интерпретируется как символ возврата
+   («backspace», шестнадцатеричный код 08). Вне символьного класса она имеет
+   другое значение (какое именно, описано ниже).
+  </p>
+  <p class="para">
+   Третье использование обратного слеша — указание общего типа символов:
+  </p>
+  <p class="para">
+   <dl>
+    
+     <dt>
+<em>\d</em></dt>
+
+     <dd>
+<span class="simpara">любая десятичная цифра</span></dd>
+
+    
+    
+     <dt>
+<em>\D</em></dt>
+
+     <dd>
+<span class="simpara">любой символ, кроме десятичной цифры</span></dd>
+
+    
+    
+     <dt>
+<em>\h</em></dt>
+
+     <dd>
+<span class="simpara">любой горизонтальный пробельный символ</span></dd>
+
+    
+    
+     <dt>
+<em>\H</em></dt>
+
+     <dd>
+<span class="simpara">любой символ, не являющийся горизонтальным пробельным символом</span></dd>
+
+    
+    
+     <dt>
+<em>\s</em></dt>
+
+     <dd>
+<span class="simpara">любой пробельный символ</span></dd>
+
+    
+    
+     <dt>
+<em>\S</em></dt>
+
+     <dd>
+<span class="simpara">любой непробельный символ</span></dd>
+
+    
+    
+     <dt>
+<em>\v</em></dt>
+
+     <dd>
+<span class="simpara">любой вертикальный пробельный символ</span></dd>
+
+    
+    
+     <dt>
+<em>\V</em></dt>
+
+     <dd>
+<span class="simpara">любой символ, не являющийся вертикальным пробельным символом</span></dd>
+
+    
+    
+     <dt>
+<em>\w</em></dt>
+
+     <dd>
+<span class="simpara">Любой символ, образующий «слово»</span></dd>
+
+    
+    
+     <dt>
+<em>\W</em></dt>
+
+     <dd>
+<span class="simpara">Любой символ, не образующий «слово»</span></dd>
+
+    
+   </dl>
+
+  </p>
+  <p class="para">
+   Каждая пара таких специальных последовательностей делит полное множество
+   всех символов на два непересекающихся множества.
+   Любой символ соответствует одному и только одному множеству из пары.
+  </p>
+  <p class="para">
+   Следующие символы считаются как «пробельные»: HT (9), LF (10), FF (12), CR (13),
+   и пробел (32). Тем не менее, если идёт локале-зависимый поиск, и произойдёт
+   совпадение с символами в диапазоне 128-255, они также будут восприняты как
+   пробельные, например NBSP (A0).
+  </p>
+  <p class="para">
+   Символ, образующий «слово» — это произвольная цифра, буква или символ подчёркивания,
+   проще говоря, любой символ, который может являться частью
+   «<em>слова</em>» в Perl. Определение букв и цифр управляется
+   символьными таблицами, с которыми была собрана PCRE. И, как следствие, эти наборы
+   могут отличаться в различных локализированных дистрибутивах.
+   Например, в локали «fr» (Франция) ряд символов с кодом выше 128 применяют
+   для записи ударных символов и поэтому они соответствуют маске <code class="literal">\w</code>.
+  </p>
+  <p class="para">
+   Описанные выше типы символов могут применяться как внутри, так и вне символьных
+   классов, и соответствуют одному символу данного типа. Если текущая точка
+   сравнения находится в конце строки, ни один из них не сможет совпасть, так как
+   нет символа, с которым могло бы произойти совпадение.
+  </p>
+  <p class="para">
+   Четвёртое использование обратного слеша — определение некоторых формальных утверждений,
+   описывающих условия касательно месторасположения особых позиций в строке
+   и совершенно не затрагивающих сами символы. Использование подмасок как более
+   сложных формальных утверждений описано ниже.
+   Такими управляющими последовательностями являются:
+  </p>
+  <p class="para">
+   <dl>
+    
+     <dt>
+<em>\b</em></dt>
+
+     <dd>
+<span class="simpara">граница слова</span></dd>
+
+    
+    
+     <dt>
+<em>\B</em></dt>
+
+     <dd>
+<span class="simpara">не является границей слова</span></dd>
+
+    
+    
+     <dt>
+<em>\A</em></dt>
+
+     <dd>
+<span class="simpara">начало данных (независимо от многострочного режима)</span></dd>
+
+    
+    
+     <dt>
+<em>\Z</em></dt>
+
+     <dd>
+
+      <span class="simpara">
+       конец данных либо позиция перед последним переводом строки (независимо от многострочного режима)
+      </span>
+     </dd>
+
+    
+    
+     <dt>
+<em>\z</em></dt>
+
+     <dd>
+<span class="simpara">конец данных (независимо от многострочного режима)</span></dd>
+
+    
+    
+     <dt>
+<em>\G</em></dt>
+
+     <dd>
+<span class="simpara">первая совпадающая позиция в строке</span></dd>
+
+    
+   </dl>
+
+  </p>
+  <p class="para">
+   Описанные выше последовательности не могут встречаться в символьных классах
+   (исключая комбинацию «<code class="literal">\b</code>», которая внутри класса означает
+   символ возврата «backspace»).
+  </p>
+  <p class="para">
+   Границей слова считается такая позиция в строке, в которой из текущего и
+   предыдущего символа только один соответствует <code class="literal">\w</code> или
+   <code class="literal">\W</code> (т.е. один из них соответствует <code class="literal">\w</code>,
+   а другой <code class="literal">\W</code>). Начало или конец строки также соответствуют
+   границе слова Если первый или, соответственно, последний символ совпадает
+   с <code class="literal">\w</code>.
+  </p>
+  <p class="para">
+   Специальные последовательности <code class="literal">\A</code>, <code class="literal">\Z</code> и
+   <code class="literal">\z</code> отличаются от общеупотребляемых метасимволов начала строки
+   («^») и конца строки («$»), описанных в разделе «<a href="regexp.reference.anchors.php.html" class="link">Якоря</a>»,
+   тем, что они всегда совпадают либо в самом начале либо в самом конце строки.
+   На них никак не влияют опции
+   <a href="reference.pcre.pattern.modifiers.php.html" class="link">PCRE_MULTILINE</a> и
+   <a href="reference.pcre.pattern.modifiers.php.html" class="link">PCRE_DOLLAR_ENDONLY</a>.
+   Разница между <code class="literal">\Z</code> и <code class="literal">\z</code> в том,
+   что <code class="literal">\Z</code> соответствует позиции перед последним символом
+   Если последний символ — перевод строки, кроме самого конца строки.
+   В то время, как <code class="literal">\z</code> соответствует исключительно концу данных.
+  </p>
+  <p class="para">
+   Утверждение <code class="literal">\G</code> является истинным только в том случае,
+   если текущая проверяемая позиция находится в начале совпадения, указанного
+   параметром <code class="parameter">offset</code> функции <span class="function"><a href="function.preg-match.php.html" class="function">preg_match()</a></span>.
+   Она отличается от <code class="literal">\A</code> при ненулевом значении параметра
+   <code class="parameter">offset</code>.
+  </p>
+
+  <p class="para">
+   <code class="literal">\Q</code> и <code class="literal">\E</code> могут быть использованы для
+   игнорирования метасимволов регулярных выражений в шаблоне. Например:
+   <code class="literal">\w+\Q.$.\E$</code> совпадёт с один или более символов,
+   составляющих «слово»,за которыми следуют символы <code class="literal">.$.</code>
+   и якорь в конце строки. Обратите внимание, что это не меняет поведения
+   разделителей; например, шаблон <code class="literal">#\Q#\E#$</code>
+   некорректен, потому что второй <code class="literal">#</code> отмечает конец шаблона,
+   а <code class="literal">\E#</code> интерпретируется как недопустимые модификаторы.
+  </p>
+
+  <p class="para">
+   Последовательность <code class="literal">\K</code> может быть использована для сброса
+   начала совпадения. Например, шаблон
+   <code class="literal">foo\Kbar</code> совпадёт с «foobar», но сообщит о том, что
+   совпал только с «bar». Использование
+   <code class="literal">\K</code> не мешает установке подмасок. Например, если шаблон
+   <code class="literal">(foo)\Kbar</code> совпадёт со строкой «foobar», первой подмаской
+   всё равно будет являться «foo».
+  </p>
+
+ </div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=regexp.reference.escape&amp;redirect=https://www.php.net/manual/ru/regexp.reference.escape.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">6 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="108096">  <div class="votes">
+    <div id="Vu108096">
+    <a href="https://www.php.net/manual/vote-note.php?id=108096&amp;page=regexp.reference.escape&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd108096">
+    <a href="https://www.php.net/manual/vote-note.php?id=108096&amp;page=regexp.reference.escape&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V108096" title="65% like this...">
+    53
+    </div>
+  </div>
+  <a href="regexp.reference.escape.php.html#108096" class="name">
+  <strong class="user"><em>mike at eastghost dot com</em></strong></a><a class="genanchor" href="regexp.reference.escape.php.html#108096"> &para;</a><div class="date" title="2012-03-28 07:25"><strong>11 years ago</strong></div>
+  <div class="text" id="Hcom108096">
+<div class="phpcode"><code><span class="html">"line break" is ill-defined:<br /><br /> -- Windows uses CR+LF (\r\n)<br /> -- Linux LF (\n)<br /> -- OSX CR (\r)<br /><br />Little-known special character:<br />\R in preg_* matches all three.<br /><br />preg_match( '/^\R$/', "match\nany\\n\rline\r\nending\r" ); // match any line endings</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="122423">  <div class="votes">
+    <div id="Vu122423">
+    <a href="https://www.php.net/manual/vote-note.php?id=122423&amp;page=regexp.reference.escape&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd122423">
+    <a href="https://www.php.net/manual/vote-note.php?id=122423&amp;page=regexp.reference.escape&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V122423" title="70% like this...">
+    8
+    </div>
+  </div>
+  <a href="regexp.reference.escape.php.html#122423" class="name">
+  <strong class="user"><em>Wirek</em></strong></a><a class="genanchor" href="regexp.reference.escape.php.html#122423"> &para;</a><div class="date" title="2018-02-22 01:38"><strong>5 years ago</strong></div>
+  <div class="text" id="Hcom122423">
+<div class="phpcode"><code><span class="html">Significantly updated version (with new $pat4 utilising \R properly, its results and comments):<br />Note that there are (sometimes difficult to grasp at first glance) nuances of meaning and application of escape sequences like \r, \R and \v - none of them is perfect in all situations, but they are quite useful nevertheless. Some official PCRE control options and their changes come in handy too - unfortunately neither (*ANYCRLF), (*ANY) nor (*CRLF) is documented here on php.net at the moment (although they seem to be available for over 10 years and 5 months now), but they are described on Wikipedia ("Newline/linebreak options" at <a href="https://en.wikipedia.org/wiki/Perl_Compatible_Regular_Expressions" rel="nofollow" target="_blank">https://en.wikipedia.org/wiki/Perl_Compatible_Regular_Expressions</a>) and official PCRE library site ("Newline convention" at <a href="http://www.pcre.org/original/doc/html/pcresyntax.html#SEC17" rel="nofollow" target="_blank">http://www.pcre.org/original/doc/html/pcresyntax.html#SEC17</a>) pretty well. The functionality of \R appears somehow disappointing (with default configuration of compile time option) according to php.net as well as official description ("Newline sequences" at <a href="https://www.pcre.org/original/doc/html/pcrepattern.html#newlineseq" rel="nofollow" target="_blank">https://www.pcre.org/original/doc/html/pcrepattern.html#newlineseq</a>) when used improperly.<br />A hint for those of you who are trying to fight off (or work around at least) the problem of matching a pattern correctly at the end ($) of any line in multiple lines mode (/m).<br /><span class="default">&lt;?php <br /></span><span class="comment">// Various OS-es have various end line (a.k.a line break) chars:<br />// - Windows uses CR+LF (\r\n);<br />// - Linux LF (\n);<br />// - OSX CR (\r).<br />// And that's why single dollar meta assertion ($) sometimes fails with multiline modifier (/m) mode - possible bug in PHP 5.3.8 or just a "feature"(?).<br /></span><span class="default">$str</span><span class="keyword">=</span><span class="string">"ABC ABC\n\n123 123\r\ndef def\rnop nop\r\n890 890\nQRS QRS\r\r~-_ ~-_"</span><span class="keyword">;<br /></span><span class="comment">//          C          3                   p          0                   _<br /></span><span class="default">$pat1</span><span class="keyword">=</span><span class="string">'/\w$/mi'</span><span class="keyword">;    </span><span class="comment">// This works excellent in JavaScript (Firefox 7.0.1+)<br /></span><span class="default">$pat2</span><span class="keyword">=</span><span class="string">'/\w\r?$/mi'</span><span class="keyword">;    </span><span class="comment">// Slightly better<br /></span><span class="default">$pat3</span><span class="keyword">=</span><span class="string">'/\w\R?$/mi'</span><span class="keyword">;    </span><span class="comment">// Somehow disappointing according to php.net and pcre.org when used improperly<br /></span><span class="default">$pat4</span><span class="keyword">=</span><span class="string">'/\w(?=\R)/i'</span><span class="keyword">;    </span><span class="comment">// Much better with allowed lookahead assertion (just to detect without capture) without multiline (/m) mode; note that with alternative for end of string ((?=\R|$)) it would grab all 7 elements as expected<br /></span><span class="default">$pat5</span><span class="keyword">=</span><span class="string">'/\w\v?$/mi'</span><span class="keyword">;<br /></span><span class="default">$pat6</span><span class="keyword">=</span><span class="string">'/(*ANYCRLF)\w$/mi'</span><span class="keyword">;    </span><span class="comment">// Excellent but undocumented on php.net at the moment (described on pcre.org and en.wikipedia.org)<br /></span><span class="default">$n</span><span class="keyword">=</span><span class="default">preg_match_all</span><span class="keyword">(</span><span class="default">$pat1</span><span class="keyword">, </span><span class="default">$str</span><span class="keyword">, </span><span class="default">$m1</span><span class="keyword">);<br /></span><span class="default">$o</span><span class="keyword">=</span><span class="default">preg_match_all</span><span class="keyword">(</span><span class="default">$pat2</span><span class="keyword">, </span><span class="default">$str</span><span class="keyword">, </span><span class="default">$m2</span><span class="keyword">);<br /></span><span class="default">$p</span><span class="keyword">=</span><span class="default">preg_match_all</span><span class="keyword">(</span><span class="default">$pat3</span><span class="keyword">, </span><span class="default">$str</span><span class="keyword">, </span><span class="default">$m3</span><span class="keyword">);<br /></span><span class="default">$r</span><span class="keyword">=</span><span class="default">preg_match_all</span><span class="keyword">(</span><span class="default">$pat4</span><span class="keyword">, </span><span class="default">$str</span><span class="keyword">, </span><span class="default">$m4</span><span class="keyword">);<br /></span><span class="default">$s</span><span class="keyword">=</span><span class="default">preg_match_all</span><span class="keyword">(</span><span class="default">$pat5</span><span class="keyword">, </span><span class="default">$str</span><span class="keyword">, </span><span class="default">$m5</span><span class="keyword">);<br /></span><span class="default">$t</span><span class="keyword">=</span><span class="default">preg_match_all</span><span class="keyword">(</span><span class="default">$pat6</span><span class="keyword">, </span><span class="default">$str</span><span class="keyword">, </span><span class="default">$m6</span><span class="keyword">);<br />echo </span><span class="default">$str</span><span class="keyword">.</span><span class="string">"\n1 !!! </span><span class="default">$pat1</span><span class="string"> (</span><span class="default">$n</span><span class="string">): "</span><span class="keyword">.</span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$m1</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">], </span><span class="default">true</span><span class="keyword">)<br />    .</span><span class="string">"\n2 !!! </span><span class="default">$pat2</span><span class="string"> (</span><span class="default">$o</span><span class="string">): "</span><span class="keyword">.</span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$m2</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">], </span><span class="default">true</span><span class="keyword">)<br />    .</span><span class="string">"\n3 !!! </span><span class="default">$pat3</span><span class="string"> (</span><span class="default">$p</span><span class="string">): "</span><span class="keyword">.</span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$m3</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">], </span><span class="default">true</span><span class="keyword">)<br />    .</span><span class="string">"\n4 !!! </span><span class="default">$pat4</span><span class="string"> (</span><span class="default">$r</span><span class="string">): "</span><span class="keyword">.</span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$m4</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">], </span><span class="default">true</span><span class="keyword">)<br />    .</span><span class="string">"\n5 !!! </span><span class="default">$pat5</span><span class="string"> (</span><span class="default">$s</span><span class="string">): "</span><span class="keyword">.</span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$m5</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">], </span><span class="default">true</span><span class="keyword">)<br />    .</span><span class="string">"\n6 !!! </span><span class="default">$pat6</span><span class="string"> (</span><span class="default">$t</span><span class="string">): "</span><span class="keyword">.</span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$m6</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">], </span><span class="default">true</span><span class="keyword">);<br /></span><span class="comment">// Note the difference among the three very helpful escape sequences in $pat2 (\r), $pat3 and $pat4 (\R), $pat5 (\v) and altered newline option in $pat6 ((*ANYCRLF)) - for some applications at least.<br /><br />/* The code above results in the following output:<br />ABC ABC<br /><br />123 123<br />def def<br />nop nop<br />890 890<br />QRS QRS<br /><br />~-_ ~-_<br />1 !!! /\w$/mi (3): Array<br />(<br />    [0] =&gt; C<br />    [1] =&gt; 0<br />    [2] =&gt; _<br />)<br /><br />2 !!! /\w\r?$/mi (5): Array<br />(<br />    [0] =&gt; C<br />    [1] =&gt; 3<br />    [2] =&gt; p<br />    [3] =&gt; 0<br />    [4] =&gt; _<br />)<br /><br />3 !!! /\w\R?$/mi (5): Array<br />(<br />    [0] =&gt; C<br /><br />    [1] =&gt; 3<br />    [2] =&gt; p<br />    [3] =&gt; 0<br />    [4] =&gt; _<br />)<br /><br />4 !!! /\w(?=\R)/i (6): Array<br />(<br />    [0] =&gt; C<br />    [1] =&gt; 3<br />    [2] =&gt; f<br />    [3] =&gt; p<br />    [4] =&gt; 0<br />    [5] =&gt; S<br />)<br /><br />5 !!! /\w\v?$/mi (5): Array<br />(<br />    [0] =&gt; C<br /><br />    [1] =&gt; 3<br />    [2] =&gt; p<br />    [3] =&gt; 0<br />    [4] =&gt; _<br />)<br /><br />6 !!! /(*ANYCRLF)\w$/mi (7): Array<br />(<br />    [0] =&gt; C<br />    [1] =&gt; 3<br />    [2] =&gt; f<br />    [3] =&gt; p<br />    [4] =&gt; 0<br />    [5] =&gt; S<br />    [6] =&gt; _<br />)<br /> */<br /></span><span class="default">?&gt;<br /></span>Unfortunately, I haven't got any access to a server with the latest PHP version - my local PHP is 5.3.8 and my public host's PHP is version 5.2.17.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="124071">  <div class="votes">
+    <div id="Vu124071">
+    <a href="https://www.php.net/manual/vote-note.php?id=124071&amp;page=regexp.reference.escape&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd124071">
+    <a href="https://www.php.net/manual/vote-note.php?id=124071&amp;page=regexp.reference.escape&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V124071" title="64% like this...">
+    4
+    </div>
+  </div>
+  <a href="regexp.reference.escape.php.html#124071" class="name">
+  <strong class="user"><em>Anonymous</em></strong></a><a class="genanchor" href="regexp.reference.escape.php.html#124071"> &para;</a><div class="date" title="2019-07-25 03:03"><strong>4 years ago</strong></div>
+  <div class="text" id="Hcom124071">
+<div class="phpcode"><code><span class="html">A non breaking space is not considered as a space and cannot be caught by \s.<br /><br />it can be found with : <br /><br />- [\xc2\xa0] in utf-8<br />- \x{00a0} in unicode</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="104553">  <div class="votes">
+    <div id="Vu104553">
+    <a href="https://www.php.net/manual/vote-note.php?id=104553&amp;page=regexp.reference.escape&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd104553">
+    <a href="https://www.php.net/manual/vote-note.php?id=104553&amp;page=regexp.reference.escape&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V104553" title="59% like this...">
+    9
+    </div>
+  </div>
+  <a href="regexp.reference.escape.php.html#104553" class="name">
+  <strong class="user"><em>grigor at the domain gatchev.info</em></strong></a><a class="genanchor" href="regexp.reference.escape.php.html#104553"> &para;</a><div class="date" title="2011-06-22 01:59"><strong>12 years ago</strong></div>
+  <div class="text" id="Hcom104553">
+<div class="phpcode"><code><span class="html">As \v matches both single char line ends (CR, LF) and double char (CR+LF, LF+CR), it is not a fixed length atom (eg. is not allowed in lookbehind assertions).</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="124209">  <div class="votes">
+    <div id="Vu124209">
+    <a href="https://www.php.net/manual/vote-note.php?id=124209&amp;page=regexp.reference.escape&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd124209">
+    <a href="https://www.php.net/manual/vote-note.php?id=124209&amp;page=regexp.reference.escape&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V124209" title="42% like this...">
+    -1
+    </div>
+  </div>
+  <a href="regexp.reference.escape.php.html#124209" class="name">
+  <strong class="user"><em>tharabar at gmail dot com</em></strong></a><a class="genanchor" href="regexp.reference.escape.php.html#124209"> &para;</a><div class="date" title="2019-09-19 04:08"><strong>4 years ago</strong></div>
+  <div class="text" id="Hcom124209">
+<div class="phpcode"><code><span class="html">Required to use \007 instead of \a</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="122412">  <div class="votes">
+    <div id="Vu122412">
+    <a href="https://www.php.net/manual/vote-note.php?id=122412&amp;page=regexp.reference.escape&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd122412">
+    <a href="https://www.php.net/manual/vote-note.php?id=122412&amp;page=regexp.reference.escape&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V122412" title="30% like this...">
+    -4
+    </div>
+  </div>
+  <a href="regexp.reference.escape.php.html#122412" class="name">
+  <strong class="user"><em>Wirek</em></strong></a><a class="genanchor" href="regexp.reference.escape.php.html#122412"> &para;</a><div class="date" title="2018-02-20 12:21"><strong>5 years ago</strong></div>
+  <div class="text" id="Hcom122412">
+<div class="phpcode"><code><span class="html">Note that there are (sometimes difficult to grasp at first glance) nuances of meaning and application of escape sequences like \r, \R and \v - none of them is perfect in all situations, but they are quite useful nevertheless. Some official PCRE control options and their changes come in handy too - unfortunately neither (*ANYCRLF), (*ANY) nor (*CRLF) is documented here on php.net at the moment (although they seem to be available for over 10 years and 5 months now), but they are described on Wikipedia ("Newline/linebreak options" at <a href="https://en.wikipedia.org/wiki/Perl_Compatible_Regular_Expressions" rel="nofollow" target="_blank">https://en.wikipedia.org/wiki/Perl_Compatible_Regular_Expressions</a>) and official PCRE library site ("Newline convention" at <a href="http://www.pcre.org/original/doc/html/pcresyntax.html#SEC17" rel="nofollow" target="_blank">http://www.pcre.org/original/doc/html/pcresyntax.html#SEC17</a>) pretty well. The functionality of \R appears somehow disappointing (with default configuration of compile time option) according to php.net as well as official description ("Newline sequences" at <a href="https://www.pcre.org/original/doc/html/pcrepattern.html#newlineseq" rel="nofollow" target="_blank">https://www.pcre.org/original/doc/html/pcrepattern.html#newlineseq</a>).<br /><br />A hint for those of you who are trying to fight off (or work around at least) the problem of matching a pattern correctly at the end ($) of any line in multiple lines mode (/m).<br /><span class="default">&lt;?php <br /></span><span class="comment">// Various OS-es have various end line (a.k.a line break) chars:<br />// - Windows uses CR+LF (\r\n);<br />// - Linux LF (\n);<br />// - OSX CR (\r).<br />// And that's why single dollar meta assertion ($) sometimes fails with multiline modifier (/m) mode - possible bug in PHP 5.3.8 or just a "feature"(?).<br /></span><span class="default">$str</span><span class="keyword">=</span><span class="string">"ABC ABC\n\n123 123\r\ndef def\rnop nop\r\n890 890\nQRS QRS\r\r~-_ ~-_"</span><span class="keyword">;<br /></span><span class="comment">//          C          3                   p          0                   _<br /></span><span class="default">$pat1</span><span class="keyword">=</span><span class="string">'/\w$/mi'</span><span class="keyword">;    </span><span class="comment">// This works excellent in JavaScript (Firefox 7.0.1+)<br /></span><span class="default">$pat2</span><span class="keyword">=</span><span class="string">'/\w\r?$/mi'</span><span class="keyword">;<br /></span><span class="default">$pat3</span><span class="keyword">=</span><span class="string">'/\w\R?$/mi'</span><span class="keyword">;    </span><span class="comment">// Somehow disappointing according to php.net and pcre.org<br /></span><span class="default">$pat4</span><span class="keyword">=</span><span class="string">'/\w\v?$/mi'</span><span class="keyword">;<br /></span><span class="default">$pat5</span><span class="keyword">=</span><span class="string">'/(*ANYCRLF)\w$/mi'</span><span class="keyword">;    </span><span class="comment">// Excellent but undocumented on php.net at the moment<br /></span><span class="default">$n</span><span class="keyword">=</span><span class="default">preg_match_all</span><span class="keyword">(</span><span class="default">$pat1</span><span class="keyword">, </span><span class="default">$str</span><span class="keyword">, </span><span class="default">$m1</span><span class="keyword">);<br /></span><span class="default">$o</span><span class="keyword">=</span><span class="default">preg_match_all</span><span class="keyword">(</span><span class="default">$pat2</span><span class="keyword">, </span><span class="default">$str</span><span class="keyword">, </span><span class="default">$m2</span><span class="keyword">);<br /></span><span class="default">$p</span><span class="keyword">=</span><span class="default">preg_match_all</span><span class="keyword">(</span><span class="default">$pat3</span><span class="keyword">, </span><span class="default">$str</span><span class="keyword">, </span><span class="default">$m3</span><span class="keyword">);<br /></span><span class="default">$r</span><span class="keyword">=</span><span class="default">preg_match_all</span><span class="keyword">(</span><span class="default">$pat4</span><span class="keyword">, </span><span class="default">$str</span><span class="keyword">, </span><span class="default">$m4</span><span class="keyword">);<br /></span><span class="default">$s</span><span class="keyword">=</span><span class="default">preg_match_all</span><span class="keyword">(</span><span class="default">$pat5</span><span class="keyword">, </span><span class="default">$str</span><span class="keyword">, </span><span class="default">$m5</span><span class="keyword">);<br />echo </span><span class="default">$str</span><span class="keyword">.</span><span class="string">"\n1 !!! </span><span class="default">$pat1</span><span class="string"> (</span><span class="default">$n</span><span class="string">): "</span><span class="keyword">.</span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$m1</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">], </span><span class="default">true</span><span class="keyword">)<br />    .</span><span class="string">"\n2 !!! </span><span class="default">$pat2</span><span class="string"> (</span><span class="default">$o</span><span class="string">): "</span><span class="keyword">.</span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$m2</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">], </span><span class="default">true</span><span class="keyword">)<br />    .</span><span class="string">"\n3 !!! </span><span class="default">$pat3</span><span class="string"> (</span><span class="default">$p</span><span class="string">): "</span><span class="keyword">.</span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$m3</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">], </span><span class="default">true</span><span class="keyword">)<br />    .</span><span class="string">"\n4 !!! </span><span class="default">$pat4</span><span class="string"> (</span><span class="default">$r</span><span class="string">): "</span><span class="keyword">.</span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$m4</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">], </span><span class="default">true</span><span class="keyword">)<br />    .</span><span class="string">"\n5 !!! </span><span class="default">$pat5</span><span class="string"> (</span><span class="default">$s</span><span class="string">): "</span><span class="keyword">.</span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$m5</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">], </span><span class="default">true</span><span class="keyword">);<br /></span><span class="comment">// Note the difference among the three very helpful escape sequences in $pat2 (\r), $pat3 (\R), $pat4 (\v) and altered newline option in $pat5 ((*ANYCRLF)) - for some applications at least.<br /><br />/* The code above results in the following output:<br />ABC ABC<br /><br />123 123<br />def def<br />nop nop<br />890 890<br />QRS QRS<br /><br />~-_ ~-_<br />1 !!! /\w$/mi (3): Array<br />(<br />    [0] =&gt; C<br />    [1] =&gt; 0<br />    [2] =&gt; _<br />)<br /><br />2 !!! /\w\r?$/mi (5): Array<br />(<br />    [0] =&gt; C<br />    [1] =&gt; 3<br />    [2] =&gt; p<br />    [3] =&gt; 0<br />    [4] =&gt; _<br />)<br /><br />3 !!! /\w\R?$/mi (5): Array<br />(<br />    [0] =&gt; C<br /><br />    [1] =&gt; 3<br />    [2] =&gt; p<br />    [3] =&gt; 0<br />    [4] =&gt; _<br />) <br /><br />4 !!! /\w\v?$/mi (5): Array<br />(<br />    [0] =&gt; C<br /><br />    [1] =&gt; 3<br />    [2] =&gt; p<br />    [3] =&gt; 0<br />    [4] =&gt; _<br />)<br /><br />5 !!! /(*ANYCRLF)\w$/mi (7): Array<br />(<br />    [0] =&gt; C<br />    [1] =&gt; 3<br />    [2] =&gt; f<br />    [3] =&gt; p<br />    [4] =&gt; 0<br />    [5] =&gt; S<br />    [6] =&gt; _<br />)<br /> */<br /></span><span class="default">?&gt;<br /></span>Unfortunately, I haven't got any access to a server with the latest PHP version - my local PHP is 5.3.8 and my public host's PHP is version 5.2.17.</span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=regexp.reference.escape&amp;redirect=https://www.php.net/manual/ru/regexp.reference.escape.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="reference.pcre.pattern.syntax.php.html">Описание синтаксиса Perl-совместимых регулярных выражений</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="regexp.introduction.php.html" title="Вступление">Вступление</a>
+                        </li>
+                                                <li class="">
+                            <a href="regexp.reference.delimiters.php.html" title="Разделители">Разделители</a>
+                        </li>
+                                                <li class="">
+                            <a href="regexp.reference.meta.php.html" title="Метасимволы">Метасимволы</a>
+                        </li>
+                                                <li class="current">
+                            <a href="regexp.reference.escape.php.html" title="Экранирующие последовательности">Экранирующие последовательности</a>
+                        </li>
+                                                <li class="">
+                            <a href="regexp.reference.unicode.php.html" title="Свойства Unicode-&#8203;символов">Свойства Unicode-&#8203;символов</a>
+                        </li>
+                                                <li class="">
+                            <a href="regexp.reference.anchors.php.html" title="Якоря">Якоря</a>
+                        </li>
+                                                <li class="">
+                            <a href="regexp.reference.dot.php.html" title="Метасимвол точка">Метасимвол точка</a>
+                        </li>
+                                                <li class="">
+                            <a href="regexp.reference.character-classes.php.html" title="Символьные классы">Символьные классы</a>
+                        </li>
+                                                <li class="">
+                            <a href="regexp.reference.alternation.php.html" title="Альтернативный выбор">Альтернативный выбор</a>
+                        </li>
+                                                <li class="">
+                            <a href="regexp.reference.internal-options.php.html" title="Установка внутренних опций">Установка внутренних опций</a>
+                        </li>
+                                                <li class="">
+                            <a href="regexp.reference.subpatterns.php.html" title="Подмаски">Подмаски</a>
+                        </li>
+                                                <li class="">
+                            <a href="regexp.reference.repetition.php.html" title="Повторение">Повторение</a>
+                        </li>
+                                                <li class="">
+                            <a href="regexp.reference.back-references.php.html" title="Обратные ссылки">Обратные ссылки</a>
+                        </li>
+                                                <li class="">
+                            <a href="regexp.reference.assertions.php.html" title="Утверждения">Утверждения</a>
+                        </li>
+                                                <li class="">
+                            <a href="regexp.reference.onlyonce.php.html" title="Однократные подмаски">Однократные подмаски</a>
+                        </li>
+                                                <li class="">
+                            <a href="regexp.reference.conditional.php.html" title="Условные подмаски">Условные подмаски</a>
+                        </li>
+                                                <li class="">
+                            <a href="regexp.reference.comments.php.html" title="Комментарии">Комментарии</a>
+                        </li>
+                                                <li class="">
+                            <a href="regexp.reference.recursive.php.html" title="Рекурсивные шаблоны">Рекурсивные шаблоны</a>
+                        </li>
+                                                <li class="">
+                            <a href="regexp.reference.performance.php.html" title="Производительность">Производительность</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

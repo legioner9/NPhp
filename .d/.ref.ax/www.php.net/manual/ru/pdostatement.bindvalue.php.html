@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: PDOStatement::bindValue - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="pdostatement.bindvalue.php.html">
+ <link rel="shorturl" href="pdostatement.bindvalue.php.html">
+ <link rel="alternate" href="pdostatement.bindvalue.php.html" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="class.pdostatement.php.html">
+ <link rel="prev" href="pdostatement.bindparam.php.html">
+ <link rel="next" href="pdostatement.closecursor.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/pdostatement.bindvalue.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/pdostatement.bindvalue.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/pdostatement.bindvalue.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/pdostatement.bindvalue.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/pdostatement.bindvalue.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/pdostatement.bindvalue.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/pdostatement.bindvalue.php" hreflang="pt_BR">
+ <link rel="alternate" href="pdostatement.bindvalue.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/pdostatement.bindvalue.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/pdostatement.bindvalue.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="pdostatement.closecursor.php.html">
+          PDOStatement::closeCursor &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="pdostatement.bindparam.php.html">
+          &laquo; PDOStatement::bindParam        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.database.php.html'>Модули для работы с базами данных</a></li>      <li><a href='refs.database.abstract.php.html'>Уровни абстракции</a></li>      <li><a href='book.pdo.php.html'>PDO</a></li>      <li><a href='class.pdostatement.php.html'>PDOStatement</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/pdostatement.bindvalue.php'>English</option>
+            <option value='de/pdostatement.bindvalue.php'>German</option>
+            <option value='es/pdostatement.bindvalue.php'>Spanish</option>
+            <option value='fr/pdostatement.bindvalue.php'>French</option>
+            <option value='it/pdostatement.bindvalue.php'>Italian</option>
+            <option value='ja/pdostatement.bindvalue.php'>Japanese</option>
+            <option value='pt_BR/pdostatement.bindvalue.php'>Brazilian Portuguese</option>
+            <option value='ru/pdostatement.bindvalue.php' selected="selected">Russian</option>
+            <option value='tr/pdostatement.bindvalue.php'>Turkish</option>
+            <option value='zh/pdostatement.bindvalue.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/pdo/pdostatement/bindvalue.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Fpdostatement.bindvalue%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="pdostatement.bindvalue" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">PDOStatement::bindValue</h1>
+  <p class="verinfo">(PHP 5 &gt;= 5.1.0, PHP 7, PHP 8, PECL pdo &gt;= 1.0.0)</p><p class="refpurpose"><span class="refname">PDOStatement::bindValue</span> &mdash; <span class="dc-title">
+   Связывает параметр с заданным значением
+  </span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-pdostatement.bindvalue-description">
+  <h3 class="title">Описание</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="methodname"><strong>PDOStatement::bindValue</strong></span>(<span class="methodparam"><span class="type"><span class="type">string</span>|<span class="type">int</span></span> <code class="parameter">$param</code></span>, <span class="methodparam"><span class="type"><a href="language.types.declarations.php.html#language.types.declarations.mixed" class="type mixed">mixed</a></span> <code class="parameter">$value</code></span>, <span class="methodparam"><span class="type">int</span> <code class="parameter">$type</code><span class="initializer"> = PDO::PARAM_STR</span></span>): <span class="type">bool</span></div>
+
+  <p class="para rdfs-comment">
+   Задаёт значение именованной или неименованной псевдопеременной в подготовленном
+   SQL-запросе.
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-pdostatement.bindvalue-parameters">
+  <h3 class="title">Список параметров</h3>
+  <p class="para">
+   <dl>
+    
+     <dt>
+<code class="parameter">param</code></dt>
+
+      <dd>
+
+       <p class="para">
+        Идентификатор параметра запроса. Для подготавливаемых запросов с именованными
+        параметрами это будет имя в виде <var class="varname">:name</var>. Если
+        используются неименованные параметры (знаки вопроса ?) это будет позиция
+        псевдопеременной в запросе (начиная с 1).
+       </p>
+      </dd>
+
+     
+    
+     <dt>
+<code class="parameter">value</code></dt>
+
+      <dd>
+
+       <p class="para">
+        Значение, которое требуется привязать к параметру.
+       </p>
+      </dd>
+
+     
+    
+     <dt>
+<code class="parameter">type</code></dt>
+
+      <dd>
+
+       <p class="para">
+        Явно заданный тип данных параметра. Тип задаётся одной из
+        <a href="pdo.constants.php.html" class="link">констант <code class="literal">PDO::PARAM_*</code></a>.
+       </p>
+      </dd>
+
+     
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-pdostatement.bindvalue-returnvalues">
+  <h3 class="title">Возвращаемые значения</h3>
+  <p class="para">
+   Возвращает <strong><code>true</code></strong> в случае успешного выполнения или <strong><code>false</code></strong> в случае возникновения ошибки.
+  </p>
+ </div>
+
+
+ <div class="refsect1 errors" id="refsect1-pdostatement.bindvalue-errors">
+  <h3 class="title">Ошибки</h3>
+  <p class="para">
+ Выдаёт ошибку уровня <strong><code>E_WARNING</code></strong>, если атрибуту <strong><code>PDO::ATTR_ERRMODE</code></strong>
+ установлено значение <strong><code>PDO::ERRMODE_WARNING</code></strong>.
+</p>
+<p class="para">
+ Выбрасывает исключение <span class="classname"><a href="class.pdoexception.php.html" class="classname">PDOException</a></span>, если атрибуту <strong><code>PDO::ATTR_ERRMODE</code></strong>
+ установлено значение <strong><code>PDO::ERRMODE_EXCEPTION</code></strong>.
+</p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-pdostatement.bindvalue-examples">
+  <h3 class="title">Примеры</h3>
+  <div class="example" id="example-3199">
+   <p><strong>Пример #1 
+    Выполнение подготовленного запроса с именованными псевдопеременными
+   </strong></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/* Выполнение запроса с привязкой PHP-переменных */<br /></span><span style="color: #0000BB">$calories </span><span style="color: #007700">= </span><span style="color: #0000BB">150</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$colour </span><span style="color: #007700">= </span><span style="color: #DD0000">'red'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$sth </span><span style="color: #007700">= </span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prepare</span><span style="color: #007700">(</span><span style="color: #DD0000">'SELECT name, colour, calories<br />    FROM fruit<br />    WHERE calories &lt; :calories AND colour = :colour'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/* Устанавливает значение параметра, используя его имя */<br /></span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">bindValue</span><span style="color: #007700">(</span><span style="color: #DD0000">'calories'</span><span style="color: #007700">, </span><span style="color: #0000BB">$calories</span><span style="color: #007700">, </span><span style="color: #0000BB">PDO</span><span style="color: #007700">::</span><span style="color: #0000BB">PARAM_INT</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">/* По желанию, в именах параметров можно также ставить двоеточие ":" */<br /></span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">bindValue</span><span style="color: #007700">(</span><span style="color: #DD0000">':colour'</span><span style="color: #007700">, </span><span style="color: #0000BB">$colour</span><span style="color: #007700">, </span><span style="color: #0000BB">PDO</span><span style="color: #007700">::</span><span style="color: #0000BB">PARAM_STR</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+   </div>
+
+  </div>
+
+  <div class="example" id="example-3202">
+   <p><strong>Пример #2 
+    Выполнение подготовленного запроса с неименованными псевдопеременными (?)
+   </strong></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/* Выполнение запроса с привязкой PHP-переменных */<br /></span><span style="color: #0000BB">$calories </span><span style="color: #007700">= </span><span style="color: #0000BB">150</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$colour </span><span style="color: #007700">= </span><span style="color: #DD0000">'red'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$sth </span><span style="color: #007700">= </span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prepare</span><span style="color: #007700">(</span><span style="color: #DD0000">'SELECT name, colour, calories<br />    FROM fruit<br />    WHERE calories &lt; ? AND colour = ?'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">bindValue</span><span style="color: #007700">(</span><span style="color: #0000BB">1</span><span style="color: #007700">, </span><span style="color: #0000BB">$calories</span><span style="color: #007700">, </span><span style="color: #0000BB">PDO</span><span style="color: #007700">::</span><span style="color: #0000BB">PARAM_INT</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">bindValue</span><span style="color: #007700">(</span><span style="color: #0000BB">2</span><span style="color: #007700">, </span><span style="color: #0000BB">$colour</span><span style="color: #007700">, </span><span style="color: #0000BB">PDO</span><span style="color: #007700">::</span><span style="color: #0000BB">PARAM_STR</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$sth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+   </div>
+
+  </div>
+
+
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-pdostatement.bindvalue-seealso">
+  <h3 class="title">Смотрите также</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="methodname"><a href="pdo.prepare.php.html" class="methodname" rel="rdfs-seeAlso">PDO::prepare()</a> - Подготавливает запрос к выполнению и возвращает связанный с этим запросом
+   объект</span></li>
+    <li class="member"><span class="methodname"><a href="pdostatement.execute.php.html" class="methodname" rel="rdfs-seeAlso">PDOStatement::execute()</a> - Запускает подготовленный запрос на выполнение</span></li>
+    <li class="member"><span class="methodname"><a href="pdostatement.bindparam.php.html" class="methodname" rel="rdfs-seeAlso">PDOStatement::bindParam()</a> - Привязывает параметр запроса к переменной</span></li>
+   </ul>
+  </p>
+
+ </div>
+
+</div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=pdostatement.bindvalue&amp;redirect=https://www.php.net/manual/ru/pdostatement.bindvalue.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">14 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="80285">  <div class="votes">
+    <div id="Vu80285">
+    <a href="https://www.php.net/manual/vote-note.php?id=80285&amp;page=pdostatement.bindvalue&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd80285">
+    <a href="https://www.php.net/manual/vote-note.php?id=80285&amp;page=pdostatement.bindvalue&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V80285" title="84% like this...">
+    154
+    </div>
+  </div>
+  <a href="pdostatement.bindvalue.php.html#80285" class="name">
+  <strong class="user"><em>streaky at mybrokenlogic dot com</em></strong></a><a class="genanchor" href="pdostatement.bindvalue.php.html#80285"> &para;</a><div class="date" title="2008-01-08 02:20"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom80285">
+<div class="phpcode"><code><span class="html">What the bindValue() docs fail to explain without reading them _very_ carefully is that bindParam() is passed to PDO byref - whereas bindValue() isn't.<br /><br />Thus with bindValue() you can do something like $stmt-&gt;bindValue(":something", "bind this"); whereas with bindParam() it will fail because you can't pass a string by reference, for example.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="118662">  <div class="votes">
+    <div id="Vu118662">
+    <a href="https://www.php.net/manual/vote-note.php?id=118662&amp;page=pdostatement.bindvalue&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd118662">
+    <a href="https://www.php.net/manual/vote-note.php?id=118662&amp;page=pdostatement.bindvalue&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V118662" title="87% like this...">
+    69
+    </div>
+  </div>
+  <a href="pdostatement.bindvalue.php.html#118662" class="name">
+  <strong class="user"><em>D.Kellner</em></strong></a><a class="genanchor" href="pdostatement.bindvalue.php.html#118662"> &para;</a><div class="date" title="2016-01-15 05:48"><strong>8 years ago</strong></div>
+  <div class="text" id="Hcom118662">
+<div class="phpcode"><code><span class="html">When binding parameters, apparently you can't use a placeholder twice (e.g. "select * from mails where sender=:me or recipient=:me"), you'll have to give them different names otherwise your query will return empty handed (but not fail, unfortunately).  Just in case you're struggling with something like this.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="119935">  <div class="votes">
+    <div id="Vu119935">
+    <a href="https://www.php.net/manual/vote-note.php?id=119935&amp;page=pdostatement.bindvalue&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd119935">
+    <a href="https://www.php.net/manual/vote-note.php?id=119935&amp;page=pdostatement.bindvalue&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V119935" title="78% like this...">
+    29
+    </div>
+  </div>
+  <a href="pdostatement.bindvalue.php.html#119935" class="name">
+  <strong class="user"><em>e-ruiz at git hub</em></strong></a><a class="genanchor" href="pdostatement.bindvalue.php.html#119935"> &para;</a><div class="date" title="2016-09-23 04:40"><strong>7 years ago</strong></div>
+  <div class="text" id="Hcom119935">
+<div class="phpcode"><code><span class="html">Be careful when trying to validate using PDO::PARAM_INT. <br /><br />Take this sample into account:<br /><br /><span class="default">&lt;?php<br /></span><span class="comment">/* php --version<br /> * PHP 5.6.25 (cli) (built: Aug 24 2016 09:50:46)<br /> * Copyright (c) 1997-2016 The PHP Group<br /> * Zend Engine v2.6.0, Copyright (c) 1998-2016 Zend Technologies<br /> */<br /><br /></span><span class="default">$id </span><span class="keyword">= </span><span class="string">'1a'</span><span class="keyword">; <br /></span><span class="default">$stm </span><span class="keyword">= </span><span class="default">$pdo</span><span class="keyword">-&gt;</span><span class="default">prepare</span><span class="keyword">(</span><span class="string">'select * from author where id = :id'</span><span class="keyword">);<br /></span><span class="default">$bind </span><span class="keyword">= </span><span class="default">$stm</span><span class="keyword">-&gt;</span><span class="default">bindValue</span><span class="keyword">(</span><span class="string">':id'</span><span class="keyword">, </span><span class="default">$id</span><span class="keyword">, </span><span class="default">PDO</span><span class="keyword">::</span><span class="default">PARAM_INT</span><span class="keyword">);<br /><br /></span><span class="default">$stm</span><span class="keyword">-&gt;</span><span class="default">execute</span><span class="keyword">();<br /></span><span class="default">$authors </span><span class="keyword">= </span><span class="default">$stm</span><span class="keyword">-&gt;</span><span class="default">fetchAll</span><span class="keyword">();<br /><br /></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$id</span><span class="keyword">);         </span><span class="comment">// string(2)<br /></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$bind</span><span class="keyword">);       </span><span class="comment">// true<br /></span><span class="default">var_dump</span><span class="keyword">((int)</span><span class="default">$id</span><span class="keyword">);    </span><span class="comment">// int(1)<br /></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">is_int</span><span class="keyword">(</span><span class="default">$id</span><span class="keyword">)); </span><span class="comment">// false<br /></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$authors</span><span class="keyword">);    </span><span class="comment">// the author id=1  =(<br /><br />// remember<br /></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">1 </span><span class="keyword">== </span><span class="string">'1'</span><span class="keyword">);    </span><span class="comment">// true<br /></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">1 </span><span class="keyword">=== </span><span class="string">'1'</span><span class="keyword">);   </span><span class="comment">// false<br /></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">1 </span><span class="keyword">=== </span><span class="string">'1a'</span><span class="keyword">);  </span><span class="comment">// false<br /></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">1 </span><span class="keyword">== </span><span class="string">'1a'</span><span class="keyword">);   </span><span class="comment">// true<br /></span><span class="default">?&gt;<br /></span><br />My opinion: bindValue() should test is_int() internaly first of anything, <br />It is a bug? I'm not sure.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="95065">  <div class="votes">
+    <div id="Vu95065">
+    <a href="https://www.php.net/manual/vote-note.php?id=95065&amp;page=pdostatement.bindvalue&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd95065">
+    <a href="https://www.php.net/manual/vote-note.php?id=95065&amp;page=pdostatement.bindvalue&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V95065" title="72% like this...">
+    44
+    </div>
+  </div>
+  <a href="pdostatement.bindvalue.php.html#95065" class="name">
+  <strong class="user"><em>cpd-dev</em></strong></a><a class="genanchor" href="pdostatement.bindvalue.php.html#95065"> &para;</a><div class="date" title="2009-12-11 04:46"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom95065">
+<div class="phpcode"><code><span class="html">Although bindValue() escapes quotes it does not escape "%" and "_", so be careful when using LIKE. A malicious parameter full of %%% can dump your entire database if you don't escape the parameter yourself. PDO does not provide any other escape method to handle it.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="104503">  <div class="votes">
+    <div id="Vu104503">
+    <a href="https://www.php.net/manual/vote-note.php?id=104503&amp;page=pdostatement.bindvalue&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd104503">
+    <a href="https://www.php.net/manual/vote-note.php?id=104503&amp;page=pdostatement.bindvalue&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V104503" title="70% like this...">
+    17
+    </div>
+  </div>
+  <a href="pdostatement.bindvalue.php.html#104503" class="name">
+  <strong class="user"><em>Anonymous</em></strong></a><a class="genanchor" href="pdostatement.bindvalue.php.html#104503"> &para;</a><div class="date" title="2011-06-18 08:40"><strong>12 years ago</strong></div>
+  <div class="text" id="Hcom104503">
+<div class="phpcode"><code><span class="html">Note that the third parameter ($data_type) in the majority of cases will not type cast the value into anything else to be used in the query, nor will it throw any sort of error if the type does not match up with the value provided. This parameter essentially has no effect whatsoever except throwing an error if it is set and is not a float, so do not think that it is adding any extra level of security to the queries.<br /><br />The two exceptions where type casting is performed:<br /><br />- if you use PDO::PDO_PARAM_INT and provide a boolean, it will be converted to a long<br />- if you use PDO::PDO_PARAM_BOOL and provide a long, it will be converted to a boolean<br /><br /><span class="default">&lt;?php<br /><br />$query </span><span class="keyword">= </span><span class="string">'SELECT * FROM `users` WHERE username = :username AND `password` = ENCRYPT( :password, `crypt_password`)'</span><span class="keyword">;<br /><br /></span><span class="default">$sth</span><span class="keyword">= </span><span class="default">$dbh</span><span class="keyword">-&gt;</span><span class="default">prepare</span><span class="keyword">(</span><span class="default">$query</span><span class="keyword">);<br /><br /></span><span class="comment">// First try passing a random numerical value as the third parameter<br /></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$sth</span><span class="keyword">-&gt;</span><span class="default">bindValue</span><span class="keyword">(</span><span class="string">':username'</span><span class="keyword">,</span><span class="string">'bob'</span><span class="keyword">, </span><span class="default">12345.67</span><span class="keyword">)); </span><span class="comment">// bool(true)<br /><br />// Next try passing a string using the boolean type<br /></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$sth</span><span class="keyword">-&gt;</span><span class="default">bindValue</span><span class="keyword">(</span><span class="string">':password'</span><span class="keyword">,</span><span class="string">'topsecret_pw'</span><span class="keyword">, </span><span class="default">PDO</span><span class="keyword">::</span><span class="default">PARAM_BOOL</span><span class="keyword">)); </span><span class="comment">// bool(true)<br /><br /></span><span class="default">$sth</span><span class="keyword">-&gt;</span><span class="default">execute</span><span class="keyword">(); </span><span class="comment">// Query is executed successfully<br /></span><span class="default">$result </span><span class="keyword">= </span><span class="default">$sth</span><span class="keyword">-&gt;</span><span class="default">fetchAll</span><span class="keyword">(); </span><span class="comment">// Returns the result of the query<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="104939">  <div class="votes">
+    <div id="Vu104939">
+    <a href="https://www.php.net/manual/vote-note.php?id=104939&amp;page=pdostatement.bindvalue&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd104939">
+    <a href="https://www.php.net/manual/vote-note.php?id=104939&amp;page=pdostatement.bindvalue&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V104939" title="66% like this...">
+    17
+    </div>
+  </div>
+  <a href="pdostatement.bindvalue.php.html#104939" class="name">
+  <strong class="user"><em>contact[at]maximeelomari.com</em></strong></a><a class="genanchor" href="pdostatement.bindvalue.php.html#104939"> &para;</a><div class="date" title="2011-07-17 05:19"><strong>12 years ago</strong></div>
+  <div class="text" id="Hcom104939">
+<div class="phpcode"><code><span class="html">This function is useful for bind value on an array. You can specify the type of the value in advance with $typeArray.<br /><br /><span class="default">&lt;?php<br /></span><span class="comment">/**<br /> * @param string $req : the query on which link the values<br /> * @param array $array : associative array containing the values ​​to bind<br /> * @param array $typeArray : associative array with the desired value for its corresponding key in $array<br /> * */<br /></span><span class="keyword">function </span><span class="default">bindArrayValue</span><span class="keyword">(</span><span class="default">$req</span><span class="keyword">, </span><span class="default">$array</span><span class="keyword">, </span><span class="default">$typeArray </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">)<br />{<br />    if(</span><span class="default">is_object</span><span class="keyword">(</span><span class="default">$req</span><span class="keyword">) &amp;&amp; (</span><span class="default">$req </span><span class="keyword">instanceof </span><span class="default">PDOStatement</span><span class="keyword">))<br />    {<br />        foreach(</span><span class="default">$array </span><span class="keyword">as </span><span class="default">$key </span><span class="keyword">=&gt; </span><span class="default">$value</span><span class="keyword">)<br />        {<br />            if(</span><span class="default">$typeArray</span><span class="keyword">)<br />                </span><span class="default">$req</span><span class="keyword">-&gt;</span><span class="default">bindValue</span><span class="keyword">(</span><span class="string">":</span><span class="default">$key</span><span class="string">"</span><span class="keyword">,</span><span class="default">$value</span><span class="keyword">,</span><span class="default">$typeArray</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">]);<br />            else<br />            {<br />                if(</span><span class="default">is_int</span><span class="keyword">(</span><span class="default">$value</span><span class="keyword">))<br />                    </span><span class="default">$param </span><span class="keyword">= </span><span class="default">PDO</span><span class="keyword">::</span><span class="default">PARAM_INT</span><span class="keyword">;<br />                elseif(</span><span class="default">is_bool</span><span class="keyword">(</span><span class="default">$value</span><span class="keyword">))<br />                    </span><span class="default">$param </span><span class="keyword">= </span><span class="default">PDO</span><span class="keyword">::</span><span class="default">PARAM_BOOL</span><span class="keyword">;<br />                elseif(</span><span class="default">is_null</span><span class="keyword">(</span><span class="default">$value</span><span class="keyword">))<br />                    </span><span class="default">$param </span><span class="keyword">= </span><span class="default">PDO</span><span class="keyword">::</span><span class="default">PARAM_NULL</span><span class="keyword">;<br />                elseif(</span><span class="default">is_string</span><span class="keyword">(</span><span class="default">$value</span><span class="keyword">))<br />                    </span><span class="default">$param </span><span class="keyword">= </span><span class="default">PDO</span><span class="keyword">::</span><span class="default">PARAM_STR</span><span class="keyword">;<br />                else<br />                    </span><span class="default">$param </span><span class="keyword">= </span><span class="default">FALSE</span><span class="keyword">;<br />                    <br />                if(</span><span class="default">$param</span><span class="keyword">)<br />                    </span><span class="default">$req</span><span class="keyword">-&gt;</span><span class="default">bindValue</span><span class="keyword">(</span><span class="string">":</span><span class="default">$key</span><span class="string">"</span><span class="keyword">,</span><span class="default">$value</span><span class="keyword">,</span><span class="default">$param</span><span class="keyword">);<br />            }<br />        }<br />    }<br />}<br /><br /></span><span class="comment">/**<br /> * ## EXEMPLE ##<br /> * $array = array('language' =&gt; 'php','lines' =&gt; 254, 'publish' =&gt; true);<br /> * $typeArray = array('language' =&gt; PDO::PARAM_STR,'lines' =&gt; PDO::PARAM_INT,'publish' =&gt; PDO::PARAM_BOOL);<br /> * $req = 'SELECT * FROM code WHERE language = :language AND lines = :lines AND publish = :publish';<br /> * You can bind $array like that :<br /> * bindArrayValue($array,$req,$typeArray);<br /> * The function is more useful when you use limit clause because they need an integer.<br /> * */<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="116721">  <div class="votes">
+    <div id="Vu116721">
+    <a href="https://www.php.net/manual/vote-note.php?id=116721&amp;page=pdostatement.bindvalue&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd116721">
+    <a href="https://www.php.net/manual/vote-note.php?id=116721&amp;page=pdostatement.bindvalue&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V116721" title="55% like this...">
+    3
+    </div>
+  </div>
+  <a href="pdostatement.bindvalue.php.html#116721" class="name">
+  <strong class="user"><em>Vladimir Kovpak</em></strong></a><a class="genanchor" href="pdostatement.bindvalue.php.html#116721"> &para;</a><div class="date" title="2015-02-19 06:11"><strong>8 years ago</strong></div>
+  <div class="text" id="Hcom116721">
+<div class="phpcode"><code><span class="html"><span class="default">&lt;?php<br /></span><span class="comment">/**<br />* Bind bit value.<br />*/<br /><br /></span><span class="default">$sql </span><span class="keyword">= </span><span class="string">'SELECT * FROM myTable WHERE level &amp; ?'</span><span class="keyword">;<br /></span><span class="default">$sth </span><span class="keyword">= </span><span class="default">\App</span><span class="keyword">::</span><span class="default">pdo</span><span class="keyword">()-&gt;</span><span class="default">prepare</span><span class="keyword">(</span><span class="default">$sql</span><span class="keyword">);<br /></span><span class="default">$sth</span><span class="keyword">-&gt;</span><span class="default">bindValue</span><span class="keyword">(</span><span class="default">1</span><span class="keyword">, </span><span class="default">0b0101</span><span class="keyword">, </span><span class="default">\PDO</span><span class="keyword">::</span><span class="default">PARAM_INT</span><span class="keyword">);<br /></span><span class="default">$sth</span><span class="keyword">-&gt;</span><span class="default">execute</span><span class="keyword">();<br /></span><span class="default">$result </span><span class="keyword">= </span><span class="default">$sth</span><span class="keyword">-&gt;</span><span class="default">fetchAll</span><span class="keyword">(</span><span class="default">\PDO</span><span class="keyword">::</span><span class="default">FETCH_ASSOC</span><span class="keyword">);</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="93346">  <div class="votes">
+    <div id="Vu93346">
+    <a href="https://www.php.net/manual/vote-note.php?id=93346&amp;page=pdostatement.bindvalue&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd93346">
+    <a href="https://www.php.net/manual/vote-note.php?id=93346&amp;page=pdostatement.bindvalue&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V93346" title="56% like this...">
+    3
+    </div>
+  </div>
+  <a href="pdostatement.bindvalue.php.html#93346" class="name">
+  <strong class="user"><em>nicolas dot baptiste at gmail dot com</em></strong></a><a class="genanchor" href="pdostatement.bindvalue.php.html#93346"> &para;</a><div class="date" title="2009-09-04 08:06"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom93346">
+<div class="phpcode"><code><span class="html">This actually works to bind NULL on an integer field in MySQL :<br /><br />$stm-&gt;bindValue(':param', null, PDO::PARAM_INT);</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="115510">  <div class="votes">
+    <div id="Vu115510">
+    <a href="https://www.php.net/manual/vote-note.php?id=115510&amp;page=pdostatement.bindvalue&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd115510">
+    <a href="https://www.php.net/manual/vote-note.php?id=115510&amp;page=pdostatement.bindvalue&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V115510" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="pdostatement.bindvalue.php.html#115510" class="name">
+  <strong class="user"><em>me at iabdullah dot info</em></strong></a><a class="genanchor" href="pdostatement.bindvalue.php.html#115510"> &para;</a><div class="date" title="2014-08-07 09:47"><strong>9 years ago</strong></div>
+  <div class="text" id="Hcom115510">
+<div class="phpcode"><code><span class="html">The reason that we cannot define the value variable for bindValue() after calling it, is because that it binds the value to the prepared statement immediately and does not wait until the execute() to happen.<br /><br />The following code will issue a notice and prevent the query from taking place:<br /><span class="default">&lt;?php<br />    $st </span><span class="keyword">= </span><span class="default">$db</span><span class="keyword">-&gt;</span><span class="default">prepare </span><span class="keyword">(</span><span class="string">"SELECT * FROM posts WHERE id= :val "</span><span class="keyword">);<br />    </span><span class="default">$st</span><span class="keyword">-&gt;</span><span class="default">bindValue</span><span class="keyword">(</span><span class="string">':val'</span><span class="keyword">,</span><span class="default">$val</span><span class="keyword">);<br /><br />    </span><span class="default">$val </span><span class="keyword">= </span><span class="string">'2'</span><span class="keyword">;<br />    </span><span class="default">$st</span><span class="keyword">-&gt;</span><span class="default">execute</span><span class="keyword">();<br /></span><span class="default">?&gt;<br /></span>The output:<br />Notice: Undefined variable: val.<br /><br />Whereas in the case of bindParam, the evaluation of the value to the parameter will not be performed until the call of execute(). And that's to gain the benefit of reference passing.<br /><span class="default">&lt;?php<br />    $st </span><span class="keyword">= </span><span class="default">$db</span><span class="keyword">-&gt;</span><span class="default">prepare </span><span class="keyword">(</span><span class="string">"SELECT * FROM posts WHERE id = :val "</span><span class="keyword">);<br />    </span><span class="default">$st</span><span class="keyword">-&gt;</span><span class="default">bindParam</span><span class="keyword">(</span><span class="string">':val'</span><span class="keyword">,</span><span class="default">$val</span><span class="keyword">);<br /><br />    </span><span class="default">$val </span><span class="keyword">= </span><span class="string">'2'</span><span class="keyword">;<br />    </span><span class="comment">// <br />    // some code<br />    //<br />    </span><span class="default">$val </span><span class="keyword">= </span><span class="string">'3'</span><span class="keyword">; </span><span class="comment">// re-assigning the value variable<br />    </span><span class="default">$st</span><span class="keyword">-&gt;</span><span class="default">execute</span><span class="keyword">();<br /></span><span class="default">?&gt;<br /></span>works fine.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="95328">  <div class="votes">
+    <div id="Vu95328">
+    <a href="https://www.php.net/manual/vote-note.php?id=95328&amp;page=pdostatement.bindvalue&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd95328">
+    <a href="https://www.php.net/manual/vote-note.php?id=95328&amp;page=pdostatement.bindvalue&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V95328" title="43% like this...">
+    -3
+    </div>
+  </div>
+  <a href="pdostatement.bindvalue.php.html#95328" class="name">
+  <strong class="user"><em>goofiq dot no dot spam at antispam dot wp dot pl</em></strong></a><a class="genanchor" href="pdostatement.bindvalue.php.html#95328"> &para;</a><div class="date" title="2009-12-27 10:43"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom95328">
+<div class="phpcode"><code><span class="html">bindValue with data_type depend parameter name<br /><br /><span class="default">&lt;?php<br /><br />$db </span><span class="keyword">= new </span><span class="default">PDO </span><span class="keyword">(...);<br /></span><span class="default">$db </span><span class="keyword">-&gt; </span><span class="default">setAttribute </span><span class="keyword">(</span><span class="default">PDO</span><span class="keyword">::</span><span class="default">ATTR_STATEMENT_CLASS</span><span class="keyword">, array (</span><span class="string">'MY_PDOStatement '</span><span class="keyword">, array (</span><span class="default">$db</span><span class="keyword">)));<br /><br />class </span><span class="default">MY_PDOStatement </span><span class="keyword">extends </span><span class="default">PDOStatement </span><span class="keyword">{<br /><br />  public function </span><span class="default">execute </span><span class="keyword">(</span><span class="default">$input </span><span class="keyword">= array ()) {<br />    foreach (</span><span class="default">$input </span><span class="keyword">as </span><span class="default">$param </span><span class="keyword">=&gt; </span><span class="default">$value</span><span class="keyword">) {<br />      if (</span><span class="default">preg_match </span><span class="keyword">(</span><span class="string">'/_id$/'</span><span class="keyword">, </span><span class="default">$param</span><span class="keyword">))<br />        </span><span class="default">$this </span><span class="keyword">-&gt; </span><span class="default">bindValue </span><span class="keyword">(</span><span class="default">$param</span><span class="keyword">, </span><span class="default">$value</span><span class="keyword">, </span><span class="default">PDO</span><span class="keyword">::</span><span class="default">PARAM_INT</span><span class="keyword">);<br />      else<br />        </span><span class="default">$this </span><span class="keyword">-&gt; </span><span class="default">bindValue </span><span class="keyword">(</span><span class="default">$param</span><span class="keyword">, </span><span class="default">$value</span><span class="keyword">, </span><span class="default">PDO</span><span class="keyword">::</span><span class="default">PARAM_STR</span><span class="keyword">);<br />    }<br />    return </span><span class="default">parent</span><span class="keyword">::</span><span class="default">execute </span><span class="keyword">();<br />  }<br /><br />}<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="71780">  <div class="votes">
+    <div id="Vu71780">
+    <a href="https://www.php.net/manual/vote-note.php?id=71780&amp;page=pdostatement.bindvalue&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd71780">
+    <a href="https://www.php.net/manual/vote-note.php?id=71780&amp;page=pdostatement.bindvalue&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V71780" title="41% like this...">
+    -5
+    </div>
+  </div>
+  <a href="pdostatement.bindvalue.php.html#71780" class="name">
+  <strong class="user"><em>ts//tpdada//art//pl</em></strong></a><a class="genanchor" href="pdostatement.bindvalue.php.html#71780"> &para;</a><div class="date" title="2006-12-15 06:34"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom71780">
+<div class="phpcode"><code><span class="html">For bind whole array at once<br /><br /><span class="default">&lt;?php<br /><br /></span><span class="keyword">function </span><span class="default">PDOBindArray</span><span class="keyword">(&amp;</span><span class="default">$poStatement</span><span class="keyword">, &amp;</span><span class="default">$paArray</span><span class="keyword">){<br /> <br />  foreach (</span><span class="default">$paArray </span><span class="keyword">as </span><span class="default">$k</span><span class="keyword">=&gt;</span><span class="default">$v</span><span class="keyword">){<br /><br />    @</span><span class="default">$poStatement</span><span class="keyword">-&gt;</span><span class="default">bindValue</span><span class="keyword">(</span><span class="string">':'</span><span class="keyword">.</span><span class="default">$k</span><span class="keyword">,</span><span class="default">$v</span><span class="keyword">);<br /><br />  } </span><span class="comment">// foreach<br />  <br /> </span><span class="keyword">} </span><span class="comment">// function<br /><br />// example<br /><br /></span><span class="default">$stmt </span><span class="keyword">= </span><span class="default">$dbh</span><span class="keyword">-&gt;</span><span class="default">prepare</span><span class="keyword">(</span><span class="string">"INSERT INTO tExample (id,value) VALUES (:id,:value)"</span><span class="keyword">);<br /><br /></span><span class="default">$taValues </span><span class="keyword">= array(<br /> </span><span class="string">'id' </span><span class="keyword">=&gt; </span><span class="string">'1'</span><span class="keyword">,<br /> </span><span class="string">'value' </span><span class="keyword">=&gt; </span><span class="string">'2'<br /></span><span class="keyword">); </span><span class="comment">// array<br /><br /></span><span class="default">PDOBindArray</span><span class="keyword">(</span><span class="default">$stmt</span><span class="keyword">,</span><span class="default">$taValues</span><span class="keyword">);<br /><br /></span><span class="default">$stmt</span><span class="keyword">-&gt;</span><span class="default">execute</span><span class="keyword">();<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="119956">  <div class="votes">
+    <div id="Vu119956">
+    <a href="https://www.php.net/manual/vote-note.php?id=119956&amp;page=pdostatement.bindvalue&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd119956">
+    <a href="https://www.php.net/manual/vote-note.php?id=119956&amp;page=pdostatement.bindvalue&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V119956" title="36% like this...">
+    -5
+    </div>
+  </div>
+  <a href="pdostatement.bindvalue.php.html#119956" class="name">
+  <strong class="user"><em>sageptr at gmail dot com</em></strong></a><a class="genanchor" href="pdostatement.bindvalue.php.html#119956"> &para;</a><div class="date" title="2016-09-28 03:32"><strong>7 years ago</strong></div>
+  <div class="text" id="Hcom119956">
+<div class="phpcode"><code><span class="html">Be careful in edge cases!<br />With MySQL native prepares your integer can be wrapped around on some machines:<br /><br /><span class="default">&lt;?php<br />$x </span><span class="keyword">= </span><span class="default">2147483648</span><span class="keyword">;<br /></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$x</span><span class="keyword">); </span><span class="comment">// prints: int(2147483648)<br /></span><span class="default">$s </span><span class="keyword">= </span><span class="default">$db</span><span class="keyword">-&gt;</span><span class="default">prepare</span><span class="keyword">(</span><span class="string">'SELECT :int AS I, :str AS S;'</span><span class="keyword">);<br /></span><span class="default">$s</span><span class="keyword">-&gt;</span><span class="default">bindValue</span><span class="keyword">(</span><span class="string">':int'</span><span class="keyword">, </span><span class="default">$x</span><span class="keyword">, </span><span class="default">PDO</span><span class="keyword">::</span><span class="default">PARAM_INT</span><span class="keyword">);<br /></span><span class="default">$s</span><span class="keyword">-&gt;</span><span class="default">bindValue</span><span class="keyword">(</span><span class="string">':str'</span><span class="keyword">, </span><span class="default">$x</span><span class="keyword">, </span><span class="default">PDO</span><span class="keyword">::</span><span class="default">PARAM_STR</span><span class="keyword">);<br /></span><span class="default">$s</span><span class="keyword">-&gt;</span><span class="default">execute</span><span class="keyword">();<br /></span><span class="default">var_dump</span><span class="keyword">( </span><span class="default">$s</span><span class="keyword">-&gt;</span><span class="default">fetchAll</span><span class="keyword">(</span><span class="default">PDO</span><span class="keyword">::</span><span class="default">FETCH_ASSOC</span><span class="keyword">) );<br /></span><span class="comment">/* prints: array(2) {<br />  ["I"]=&gt;<br />  string(11) "-2147483648"<br />  ["S"]=&gt;<br />  string(10) "2147483648"<br />} */<br /></span><span class="default">?&gt;<br /></span><br />Also, trying to bind PDO::PARAM_BOOL in MySQL with native prepares can make your query silently fail and return empty set.<br /><br />Emulated prepares work more stable in this cases, because they convert everything to strings and just decide whenever to quote argument or not to quote.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="118046">  <div class="votes">
+    <div id="Vu118046">
+    <a href="https://www.php.net/manual/vote-note.php?id=118046&amp;page=pdostatement.bindvalue&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd118046">
+    <a href="https://www.php.net/manual/vote-note.php?id=118046&amp;page=pdostatement.bindvalue&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V118046" title="36% like this...">
+    -11
+    </div>
+  </div>
+  <a href="pdostatement.bindvalue.php.html#118046" class="name">
+  <strong class="user"><em>consatangmailcom</em></strong></a><a class="genanchor" href="pdostatement.bindvalue.php.html#118046"> &para;</a><div class="date" title="2015-09-24 11:04"><strong>8 years ago</strong></div>
+  <div class="text" id="Hcom118046">
+<div class="phpcode"><code><span class="html">The parameter must names like a php variable.<br />e.g.<br /><span class="default">&lt;?php<br />$dbh </span><span class="keyword">= new </span><span class="default">PDO</span><span class="keyword">(</span><span class="string">"mysql:dbname=test;host=127.0.0.1"</span><span class="keyword">, </span><span class="string">"user"</span><span class="keyword">, </span><span class="string">"password"</span><span class="keyword">);<br /><br /></span><span class="default">$sth </span><span class="keyword">= </span><span class="default">$dbh</span><span class="keyword">-&gt;</span><span class="default">prepare</span><span class="keyword">(</span><span class="string">"SELECT * FROM `table` WHERE `last-name`=:last-name"</span><span class="keyword">);<br /><br />if(</span><span class="default">$sth </span><span class="keyword">!== </span><span class="default">false </span><span class="keyword">&amp;&amp; </span><span class="default">$sth</span><span class="keyword">-&gt;</span><span class="default">bindValue</span><span class="keyword">(</span><span class="string">":last-name"</span><span class="keyword">, </span><span class="string">"Ngo"</span><span class="keyword">)) {<br />    </span><span class="default">$sth</span><span class="keyword">-&gt;</span><span class="default">execute</span><span class="keyword">();<br />}<br /><br /></span><span class="comment">// output: PHP Warning:  PDOStatement::execute(): SQLSTATE[HY093]: Invalid parameter number: parameter was not defined<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="90625">  <div class="votes">
+    <div id="Vu90625">
+    <a href="https://www.php.net/manual/vote-note.php?id=90625&amp;page=pdostatement.bindvalue&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd90625">
+    <a href="https://www.php.net/manual/vote-note.php?id=90625&amp;page=pdostatement.bindvalue&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V90625" title="23% like this...">
+    -29
+    </div>
+  </div>
+  <a href="pdostatement.bindvalue.php.html#90625" class="name">
+  <strong class="user"><em>Lambdaman</em></strong></a><a class="genanchor" href="pdostatement.bindvalue.php.html#90625"> &para;</a><div class="date" title="2009-04-30 05:19"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom90625">
+<div class="phpcode"><code><span class="html">If you want to bind a null value to a database field you must use 'NULL' in quotes (for MySQL):<br /><br /><span class="default">&lt;?php<br /><br />$stmt</span><span class="keyword">-&gt;</span><span class="default">bindValue</span><span class="keyword">(:</span><span class="default">fieldName</span><span class="keyword">, </span><span class="string">'NULL'</span><span class="keyword">);<br /><br /></span><span class="comment">// not<br /></span><span class="default">$stmt</span><span class="keyword">-&gt;</span><span class="default">bindValue</span><span class="keyword">(:</span><span class="default">fieldName</span><span class="keyword">, </span><span class="default">NULL</span><span class="keyword">);<br /></span><span class="comment">// or<br /></span><span class="default">$stmt</span><span class="keyword">-&gt;</span><span class="default">bindValue</span><span class="keyword">(:</span><span class="default">fieldName</span><span class="keyword">, </span><span class="default">null</span><span class="keyword">);<br /><br /></span><span class="default">?&gt;<br /></span><br />Using PHP's null/NULL as a value doesn't work.</span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=pdostatement.bindvalue&amp;redirect=https://www.php.net/manual/ru/pdostatement.bindvalue.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="class.pdostatement.php.html">PDOStatement</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="pdostatement.bindcolumn.php.html" title="bindColumn">bindColumn</a>
+                        </li>
+                                                <li class="">
+                            <a href="pdostatement.bindparam.php.html" title="bindParam">bindParam</a>
+                        </li>
+                                                <li class="current">
+                            <a href="pdostatement.bindvalue.php.html" title="bindValue">bindValue</a>
+                        </li>
+                                                <li class="">
+                            <a href="pdostatement.closecursor.php.html" title="closeCursor">closeCursor</a>
+                        </li>
+                                                <li class="">
+                            <a href="pdostatement.columncount.php.html" title="columnCount">columnCount</a>
+                        </li>
+                                                <li class="">
+                            <a href="pdostatement.debugdumpparams.php.html" title="debugDumpParams">debugDumpParams</a>
+                        </li>
+                                                <li class="">
+                            <a href="pdostatement.errorcode.php.html" title="errorCode">errorCode</a>
+                        </li>
+                                                <li class="">
+                            <a href="pdostatement.errorinfo.php.html" title="errorInfo">errorInfo</a>
+                        </li>
+                                                <li class="">
+                            <a href="pdostatement.execute.php.html" title="execute">execute</a>
+                        </li>
+                                                <li class="">
+                            <a href="pdostatement.fetch.php.html" title="fetch">fetch</a>
+                        </li>
+                                                <li class="">
+                            <a href="pdostatement.fetchall.php.html" title="fetchAll">fetchAll</a>
+                        </li>
+                                                <li class="">
+                            <a href="pdostatement.fetchcolumn.php.html" title="fetchColumn">fetchColumn</a>
+                        </li>
+                                                <li class="">
+                            <a href="pdostatement.fetchobject.php.html" title="fetchObject">fetchObject</a>
+                        </li>
+                                                <li class="">
+                            <a href="pdostatement.getattribute.php.html" title="getAttribute">getAttribute</a>
+                        </li>
+                                                <li class="">
+                            <a href="pdostatement.getcolumnmeta.php.html" title="getColumnMeta">getColumnMeta</a>
+                        </li>
+                                                <li class="">
+                            <a href="pdostatement.getiterator.php.html" title="getIterator">getIterator</a>
+                        </li>
+                                                <li class="">
+                            <a href="pdostatement.nextrowset.php.html" title="nextRowset">nextRowset</a>
+                        </li>
+                                                <li class="">
+                            <a href="pdostatement.rowcount.php.html" title="rowCount">rowCount</a>
+                        </li>
+                                                <li class="">
+                            <a href="pdostatement.setattribute.php.html" title="setAttribute">setAttribute</a>
+                        </li>
+                                                <li class="">
+                            <a href="pdostatement.setfetchmode.php.html" title="setFetchMode">setFetchMode</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>

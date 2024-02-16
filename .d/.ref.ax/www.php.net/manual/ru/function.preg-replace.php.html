@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: preg_replace - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="function.preg-replace.php.html">
+ <link rel="shorturl" href="https://www.php.net/preg-replace">
+ <link rel="alternate" href="https://www.php.net/preg-replace" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="ref.pcre.php.html">
+ <link rel="prev" href="function.preg-replace-callback.php.html">
+ <link rel="next" href="function.preg-split.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/function.preg-replace.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/function.preg-replace.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/function.preg-replace.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/function.preg-replace.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/function.preg-replace.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/function.preg-replace.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/function.preg-replace.php" hreflang="pt_BR">
+ <link rel="alternate" href="function.preg-replace.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/function.preg-replace.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/function.preg-replace.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="function.preg-split.php.html">
+          preg_split &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="function.preg-replace-callback.php.html">
+          &laquo; preg_replace_callback        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='funcref.php.html'>Справочник функций</a></li>      <li><a href='refs.basic.text.php.html'>Обработка текста</a></li>      <li><a href='book.pcre.php.html'>PCRE</a></li>      <li><a href='ref.pcre.php.html'>Функции PCRE</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/function.preg-replace.php'>English</option>
+            <option value='de/function.preg-replace.php'>German</option>
+            <option value='es/function.preg-replace.php'>Spanish</option>
+            <option value='fr/function.preg-replace.php'>French</option>
+            <option value='it/function.preg-replace.php'>Italian</option>
+            <option value='ja/function.preg-replace.php'>Japanese</option>
+            <option value='pt_BR/function.preg-replace.php'>Brazilian Portuguese</option>
+            <option value='ru/function.preg-replace.php' selected="selected">Russian</option>
+            <option value='tr/function.preg-replace.php'>Turkish</option>
+            <option value='zh/function.preg-replace.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/reference/pcre/functions/preg-replace.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Ffunction.preg-replace%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="function.preg-replace" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">preg_replace</h1>
+  <p class="verinfo">(PHP 4, PHP 5, PHP 7, PHP 8)</p><p class="refpurpose"><span class="refname">preg_replace</span> &mdash; <span class="dc-title">Выполняет поиск и замену по регулярному выражению</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.preg-replace-description">
+  <h3 class="title">Описание</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="methodname"><strong>preg_replace</strong></span>(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><span class="type">string</span>|<span class="type">array</span></span> <code class="parameter">$pattern</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><span class="type">string</span>|<span class="type">array</span></span> <code class="parameter">$replacement</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type"><span class="type">string</span>|<span class="type">array</span></span> <code class="parameter">$subject</code></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter">$limit</code><span class="initializer"> = -1</span></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="methodparam"><span class="type">int</span> <code class="parameter reference">&$count</code><span class="initializer"> = <strong><code>null</code></strong></span></span><br>): <span class="type"><span class="type">string</span>|<span class="type">array</span>|<span class="type">null</span></span></div>
+
+  <p class="para rdfs-comment">
+   Выполняет поиск совпадений в строке <code class="parameter">subject</code> с шаблоном
+   <code class="parameter">pattern</code> и заменяет их на
+   <code class="parameter">replacement</code>.
+  </p>
+  <p class="para">
+   Для соответствия точной строке, а не шаблону, вместо этой функции
+   используйте функцию <span class="function"><a href="function.str-replace.php.html" class="function">str_replace()</a></span>
+   или <span class="function"><a href="function.str-ireplace.php.html" class="function">str_ireplace()</a></span>.
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.preg-replace-parameters">
+  <h3 class="title">Список параметров</h3>
+  <p class="para">
+   <dl>
+    
+     <dt>
+<code class="parameter">pattern</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Искомый шаблон. Может быть как строкой, так и массивом строк.
+      </p>
+      <p class="para">
+       Также доступны некоторые <a href="reference.pcre.pattern.modifiers.php.html" class="link">модификаторы PCRE</a>.
+      </p>
+     </dd>
+
+    
+    
+     <dt>
+<code class="parameter">replacement</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Строка или массив строк для замены. Если этот параметр является
+       строкой, а <code class="parameter">pattern</code> является массивом,
+       все шаблоны будут заменены этой строкой. Если и
+       <code class="parameter">pattern</code> и <code class="parameter">replacement</code>
+       являются массивами, каждый элемент <code class="parameter">pattern</code> будет
+       заменён соответствующим элементом из <code class="parameter">replacement</code>.
+       Если массив <code class="parameter">replacement</code> содержит меньше
+       элементов, чем массив <code class="parameter">pattern</code>, то все
+       лишние шаблоны из <code class="parameter">pattern</code> будут
+       заменены пустыми строками.
+      </p>
+      <p class="para">
+       <code class="parameter">replacement</code> может содержать ссылки вида
+       <code class="literal">\<span class="replaceable">n</span></code>, либо
+       <code class="literal">$<span class="replaceable">n</span></code>,
+       причём последний вариант предпочтительней. Каждая такая ссылка
+       будет заменена на подстроку, соответствующую
+       <span class="replaceable">n</span>-ой подмаске.
+       <span class="replaceable">n</span> может принимать значения от 0
+       до 99, причём ссылка <code class="literal">\0</code> (либо
+       <code class="literal">$0</code>) соответствует вхождению всего шаблона.
+       Подмаски нумеруются слева направо, начиная с единицы.
+       Обратите внимание, что обратные слеши в строке (<span class="type">string</span>) литералы могут требовать экранирования.
+      </p>
+      <p class="para">
+       При замене по шаблону с использованием ссылок на подмаски
+       может возникнуть ситуация, когда непосредственно за маской
+       следует цифра (например, установка цифры сразу после совпавшей маски).
+       В таком случае нельзя использовать знакомую нотацию вида
+       <code class="literal">\1</code> для ссылки на подмаски.
+       Запись, например, <code class="literal">\11</code>, смутит
+       <span class="function"><strong>preg_replace()</strong></span>, так как она не сможет понять,
+       хотите ли вы использовать ссылку <code class="literal">\1</code>, за
+       которой следует цифра <code class="literal">1</code> или же вы хотите
+       просто использовать ссылку <code class="literal">\11</code>, за которой
+       ничего не следует. Это недоразумение можно устранить, если
+       воспользоваться конструкцией <code class="literal">${1}1</code>,
+       использующей изолированную ссылку <code class="literal">$1</code>, и
+       следующую за ней цифру <code class="literal">1</code>.
+      </p>
+      <p class="para">
+       При использовании устаревшего модификатора <code class="literal">e</code> эта
+       функция экранирует некоторые символы (а именно
+       <code class="literal">&#039;</code>, <code class="literal">&quot;</code>,
+       <code class="literal">\</code> и NULL) в строках, замещающих обратные
+       ссылки. Это сделано для удостоверения корректности синтаксиса
+       при использовании обратных ссылок внутри одинарных или двойных
+       кавычек (например, <code class="literal">&#039;strlen(\&#039;$1\&#039;)+strlen(&quot;$2&quot;)&#039;</code>).
+       Убедитесь, что вы владеете <a href="language.types.string.php.html" class="link">синтаксисом
+       обработки строк</a> PHP для того, чтобы точно осознавать,
+       как будет выглядеть интерпретированная строка.
+      </p>
+     </dd>
+
+    
+    
+     <dt>
+<code class="parameter">subject</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Строка или массив строк для поиска и замены.
+      </p>
+      <p class="para">
+       Если <code class="parameter">subject</code> является массивом, то
+       поиск с заменой осуществляется для каждого элемента
+       массива <code class="parameter">subject</code>, а возвращаемое значение
+       также будет являться массивом.
+      </p>
+      <p class="para">
+       Если параметр <code class="parameter">subject</code> является ассоциативным массивом,
+       ключи будут сохранены в возвращаемом значении.
+      </p>
+     </dd>
+
+    
+    
+     <dt>
+<code class="parameter">limit</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Максимально возможное количество замен каждого шаблона
+       для каждой строки <code class="parameter">subject</code>.
+       По умолчанию равно <code class="literal">-1</code> (без ограничений).
+      </p>
+     </dd>
+
+    
+    
+     <dt>
+<code class="parameter">count</code></dt>
+
+     <dd>
+
+      <p class="para">
+       Если указана, то эта переменная будет заполнена количеством
+       произведённых замен.
+      </p>
+     </dd>
+
+    
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.preg-replace-returnvalues">
+  <h3 class="title">Возвращаемые значения</h3>
+  <p class="para">
+   <span class="function"><strong>preg_replace()</strong></span> возвращает массив, если
+   параметр <code class="parameter">subject</code> является массивом, иначе
+   возвращается строка.
+  </p>
+  <p class="para">
+   Если найдены совпадения, возвращается новая версия <code class="parameter">subject</code>,
+   иначе <code class="parameter">subject</code> возвращается нетронутым, в
+   случае ошибки возвращается <strong><code>null</code></strong>.
+  </p>
+ </div>
+
+
+ <div class="refsect1 errors" id="refsect1-function.preg-replace-errors">
+  <h3 class="title">Ошибки</h3>
+  <p class="para">
+   Использование модификатора &quot;\e&quot; является ошибкой; в этом случае
+   выдаётся ошибка уровня <strong><code>E_WARNING</code></strong>;.
+  </p>
+  <p class="para">
+Если переданный шаблон регулярного выражения не компилируется в допустимое регулярное выражение, выдаётся ошибка уровня <strong><code>E_WARNING</code></strong>.
+</p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.preg-replace-examples">
+  <h3 class="title">Примеры</h3>
+  <p class="para">
+   <div class="example" id="">
+    <p><strong>Пример #1 Использование подмасок, за которыми следует цифра</strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$string </span><span style="color: #007700">= </span><span style="color: #DD0000">'April 15, 2003'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$pattern </span><span style="color: #007700">= </span><span style="color: #DD0000">'/(\w+) (\d+), (\d+)/i'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$replacement </span><span style="color: #007700">= </span><span style="color: #DD0000">'${1}1,$3'</span><span style="color: #007700">;<br />echo </span><span style="color: #0000BB">preg_replace</span><span style="color: #007700">(</span><span style="color: #0000BB">$pattern</span><span style="color: #007700">, </span><span style="color: #0000BB">$replacement</span><span style="color: #007700">, </span><span style="color: #0000BB">$string</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+    </div>
+
+    
+<div class="example-contents"><p>
+ Результат выполнения приведённого примера:
+</p></div>
+
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+April1,2003
+</pre></div>
+    </div>
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="">
+    <p><strong>Пример #2 Использование массивов с числовыми индексами в качестве аргументов функции <span class="function"><strong>preg_replace()</strong></span></strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$string </span><span style="color: #007700">= </span><span style="color: #DD0000">'The quick brown fox jumps over the lazy dog.'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$patterns </span><span style="color: #007700">= array();<br /></span><span style="color: #0000BB">$patterns</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">] = </span><span style="color: #DD0000">'/quick/'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$patterns</span><span style="color: #007700">[</span><span style="color: #0000BB">1</span><span style="color: #007700">] = </span><span style="color: #DD0000">'/brown/'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$patterns</span><span style="color: #007700">[</span><span style="color: #0000BB">2</span><span style="color: #007700">] = </span><span style="color: #DD0000">'/fox/'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$replacements </span><span style="color: #007700">= array();<br /></span><span style="color: #0000BB">$replacements</span><span style="color: #007700">[</span><span style="color: #0000BB">2</span><span style="color: #007700">] = </span><span style="color: #DD0000">'bear'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$replacements</span><span style="color: #007700">[</span><span style="color: #0000BB">1</span><span style="color: #007700">] = </span><span style="color: #DD0000">'black'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$replacements</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">] = </span><span style="color: #DD0000">'slow'</span><span style="color: #007700">;<br />echo </span><span style="color: #0000BB">preg_replace</span><span style="color: #007700">(</span><span style="color: #0000BB">$patterns</span><span style="color: #007700">, </span><span style="color: #0000BB">$replacements</span><span style="color: #007700">, </span><span style="color: #0000BB">$string</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+    </div>
+
+    
+<div class="example-contents"><p>
+ Результат выполнения приведённого примера:
+</p></div>
+
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+The bear black slow jumps over the lazy dog.
+</pre></div>
+    </div>
+    <div class="example-contents"><p>
+     Отсортировав по ключам шаблоны и замены, получаем желаемый результат:
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />ksort</span><span style="color: #007700">(</span><span style="color: #0000BB">$patterns</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">ksort</span><span style="color: #007700">(</span><span style="color: #0000BB">$replacements</span><span style="color: #007700">);<br />echo </span><span style="color: #0000BB">preg_replace</span><span style="color: #007700">(</span><span style="color: #0000BB">$patterns</span><span style="color: #007700">, </span><span style="color: #0000BB">$replacements</span><span style="color: #007700">, </span><span style="color: #0000BB">$string</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+    </div>
+
+    
+<div class="example-contents"><p>
+ Результат выполнения приведённого примера:
+</p></div>
+
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+The slow black bear jumps over the lazy dog.
+</pre></div>
+    </div>
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="">
+    <p><strong>Пример #3 Замена по нескольким шаблонам</strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$patterns </span><span style="color: #007700">= array (</span><span style="color: #DD0000">'/(19|20)(\d{2})-(\d{1,2})-(\d{1,2})/'</span><span style="color: #007700">,<br />                   </span><span style="color: #DD0000">'/^\s*{(\w+)}\s*=/'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$replace </span><span style="color: #007700">= array (</span><span style="color: #DD0000">'\3/\4/\1\2'</span><span style="color: #007700">, </span><span style="color: #DD0000">'$\1 ='</span><span style="color: #007700">);<br />echo </span><span style="color: #0000BB">preg_replace</span><span style="color: #007700">(</span><span style="color: #0000BB">$patterns</span><span style="color: #007700">, </span><span style="color: #0000BB">$replace</span><span style="color: #007700">, </span><span style="color: #DD0000">'{startDate} = 1999-5-27'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+    </div>
+
+    
+<div class="example-contents"><p>
+ Результат выполнения приведённого примера:
+</p></div>
+
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+$startDate = 5/27/1999
+</pre></div>
+    </div>
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="">
+    <p><strong>Пример #4 Чистка пробелов</strong></p>
+    <div class="example-contents"><p>
+     Этот пример вычищает лишние пробелы в строке.
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$str </span><span style="color: #007700">= </span><span style="color: #DD0000">'foo   o'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$str </span><span style="color: #007700">= </span><span style="color: #0000BB">preg_replace</span><span style="color: #007700">(</span><span style="color: #DD0000">'/\s\s+/'</span><span style="color: #007700">, </span><span style="color: #DD0000">' '</span><span style="color: #007700">, </span><span style="color: #0000BB">$str</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">// Это теперь будет 'foo o'<br /></span><span style="color: #007700">echo </span><span style="color: #0000BB">$str</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="">
+    <p><strong>Пример #5 Использование параметра <code class="parameter">count</code></strong></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$count </span><span style="color: #007700">= </span><span style="color: #0000BB">0</span><span style="color: #007700">;<br /><br />echo </span><span style="color: #0000BB">preg_replace</span><span style="color: #007700">(array(</span><span style="color: #DD0000">'/\d/'</span><span style="color: #007700">, </span><span style="color: #DD0000">'/\s/'</span><span style="color: #007700">), </span><span style="color: #DD0000">'*'</span><span style="color: #007700">, </span><span style="color: #DD0000">'xp 4 to'</span><span style="color: #007700">, -</span><span style="color: #0000BB">1 </span><span style="color: #007700">, </span><span style="color: #0000BB">$count</span><span style="color: #007700">);<br />echo </span><span style="color: #0000BB">$count</span><span style="color: #007700">; </span><span style="color: #FF8000">//3<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+    </div>
+
+    
+<div class="example-contents"><p>
+ Результат выполнения приведённого примера:
+</p></div>
+
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+xp***to
+3
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.preg-replace-notes">
+  <h3 class="title">Примечания</h3>
+  <blockquote class="note"><p><strong class="note">Замечание</strong>: 
+   <p class="para">
+    При использовании массивов в <code class="parameter">pattern</code> и
+    <code class="parameter">replacement</code>, ключи обрабатываются в том
+    порядке, в котором они находятся в массиве. Этот порядок
+    <em>не всегда</em> совпадает с числовым порядком
+    индексов. Если вы используете индексы для сопоставления
+    друг с другом нужного <code class="parameter">pattern</code> и
+    <code class="parameter">replacement</code>, то вам необходимо прогнать
+    через функцию <span class="function"><a href="function.ksort.php.html" class="function">ksort()</a></span> оба массива перед
+    использованием <span class="function"><strong>preg_replace()</strong></span>.
+   </p>
+  </p></blockquote>
+  <blockquote class="note"><p><strong class="note">Замечание</strong>: 
+   <p class="para">
+    Если и <code class="parameter">pattern</code> и <code class="parameter">replacement</code> являются массивами,
+    правила соответствия будут действовать последовательно.
+    То есть, вторая пара <code class="parameter">pattern</code>/<code class="parameter">replacement</code> будет работать со строкой,
+    полученной в результате первой пары <code class="parameter">pattern</code>/<code class="parameter">replacement</code>,
+    а не с исходной строкой.
+    Если вы хотите имитировать замену, действующую параллельно, например, поменять местами два значения,
+    замените один шаблон промежуточным заполнителем, а затем в последующей паре замените этот промежуточный заполнитель требуемой заменой.
+   </p>
+   <div class="example" id="">
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$p </span><span style="color: #007700">= array(</span><span style="color: #DD0000">'/a/'</span><span style="color: #007700">, </span><span style="color: #DD0000">'/b/'</span><span style="color: #007700">, </span><span style="color: #DD0000">'/c/'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$r </span><span style="color: #007700">= array(</span><span style="color: #DD0000">'b'</span><span style="color: #007700">, </span><span style="color: #DD0000">'c'</span><span style="color: #007700">, </span><span style="color: #DD0000">'d'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">preg_replace</span><span style="color: #007700">(</span><span style="color: #0000BB">$p</span><span style="color: #007700">, </span><span style="color: #0000BB">$r</span><span style="color: #007700">, </span><span style="color: #DD0000">'a'</span><span style="color: #007700">));<br /></span><span style="color: #FF8000">// prints d<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+    </div>
+
+   </div>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.preg-replace-seealso">
+  <h3 class="title">Смотрите также</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><a href="pcre.pattern.php.html" class="link">Регулярные выражения PCRE</a></li>
+    <li class="member"><span class="function"><a href="function.preg-quote.php.html" class="function" rel="rdfs-seeAlso">preg_quote()</a> - Экранирует символы в регулярных выражениях</span></li>
+    <li class="member"><span class="function"><a href="function.preg-filter.php.html" class="function" rel="rdfs-seeAlso">preg_filter()</a> - Производит поиск и замену по регулярному выражению</span></li>
+    <li class="member"><span class="function"><a href="function.preg-match.php.html" class="function" rel="rdfs-seeAlso">preg_match()</a> - Выполняет проверку на соответствие регулярному выражению</span></li>
+    <li class="member"><span class="function"><a href="function.preg-replace-callback.php.html" class="function" rel="rdfs-seeAlso">preg_replace_callback()</a> - Выполняет поиск по регулярному выражению и замену с использованием callback-функции</span></li>
+    <li class="member"><span class="function"><a href="function.preg-split.php.html" class="function" rel="rdfs-seeAlso">preg_split()</a> - Разбивает строку по регулярному выражению</span></li>
+    <li class="member"><span class="function"><a href="function.preg-last-error.php.html" class="function" rel="rdfs-seeAlso">preg_last_error()</a> - Возвращает код ошибки выполнения последнего регулярного выражения PCRE</span></li>
+    <li class="member"><span class="function"><a href="function.str-replace.php.html" class="function" rel="rdfs-seeAlso">str_replace()</a> - Заменяет все вхождения строки поиска на строку замены</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=function.preg-replace&amp;redirect=https://www.php.net/manual/ru/function.preg-replace.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">9 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="89364">  <div class="votes">
+    <div id="Vu89364">
+    <a href="https://www.php.net/manual/vote-note.php?id=89364&amp;page=function.preg-replace&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd89364">
+    <a href="https://www.php.net/manual/vote-note.php?id=89364&amp;page=function.preg-replace&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V89364" title="87% like this...">
+    766
+    </div>
+  </div>
+  <a href="function.preg-replace.php.html#89364" class="name">
+  <strong class="user"><em>arkani at iol dot pt</em></strong></a><a class="genanchor" href="function.preg-replace.php.html#89364"> &para;</a><div class="date" title="2009-03-04 11:00"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom89364">
+<div class="phpcode"><code><span class="html">Because i search a lot 4 this:<br /><br />The following should be escaped if you are trying to match that character<br /><br />\ ^ . $ | ( ) [ ]<br />* + ? { } ,<br /><br />Special Character Definitions<br />\ Quote the next metacharacter<br />^ Match the beginning of the line<br />. Match any character (except newline)<br />$ Match the end of the line (or before newline at the end)<br />| Alternation<br />() Grouping<br />[] Character class<br />* Match 0 or more times<br />+ Match 1 or more times<br />? Match 1 or 0 times<br />{n} Match exactly n times<br />{n,} Match at least n times<br />{n,m} Match at least n but not more than m times<br />More Special Character Stuff<br />\t tab (HT, TAB)<br />\n newline (LF, NL)<br />\r return (CR)<br />\f form feed (FF)<br />\a alarm (bell) (BEL)<br />\e escape (think troff) (ESC)<br />\033 octal char (think of a PDP-11)<br />\x1B hex char<br />\c[ control char<br />\l lowercase next char (think vi)<br />\u uppercase next char (think vi)<br />\L lowercase till \E (think vi)<br />\U uppercase till \E (think vi)<br />\E end case modification (think vi)<br />\Q quote (disable) pattern metacharacters till \E<br />Even More Special Characters<br />\w Match a "word" character (alphanumeric plus "_")<br />\W Match a non-word character<br />\s Match a whitespace character<br />\S Match a non-whitespace character<br />\d Match a digit character<br />\D Match a non-digit character<br />\b Match a word boundary<br />\B Match a non-(word boundary)<br />\A Match only at beginning of string<br />\Z Match only at end of string, or before newline at the end<br />\z Match only at end of string<br />\G Match only where previous m//g left off (works only with /g)</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="111695">  <div class="votes">
+    <div id="Vu111695">
+    <a href="https://www.php.net/manual/vote-note.php?id=111695&amp;page=function.preg-replace&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd111695">
+    <a href="https://www.php.net/manual/vote-note.php?id=111695&amp;page=function.preg-replace&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V111695" title="59% like this...">
+    4
+    </div>
+  </div>
+  <a href="function.preg-replace.php.html#111695" class="name">
+  <strong class="user"><em>nik at rolls dot cc</em></strong></a><a class="genanchor" href="function.preg-replace.php.html#111695"> &para;</a><div class="date" title="2013-03-17 10:14"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom111695">
+<div class="phpcode"><code><span class="html">To split Pascal/CamelCase into Title Case (for example, converting descriptive class names for use in human-readable frontends), you can use the below function:<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">expandCamelCase</span><span class="keyword">(</span><span class="default">$source</span><span class="keyword">) {<br />  return </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'/(?&lt;!^)([A-Z][a-z]|(?&lt;=[a-z])[^a-z]|(?&lt;=[A-Z])[0-9_])/'</span><span class="keyword">, </span><span class="string">' $1'</span><span class="keyword">, </span><span class="default">$source</span><span class="keyword">);<br />}<br /></span><span class="default">?&gt;<br /></span><br />Before:<br />  ExpandCamelCaseAPIDescriptorPHP5_3_4Version3_21Beta<br />After:<br />  Expand Camel Case API Descriptor PHP 5_3_4 Version 3_21 Beta</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="122778">  <div class="votes">
+    <div id="Vu122778">
+    <a href="https://www.php.net/manual/vote-note.php?id=122778&amp;page=function.preg-replace&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd122778">
+    <a href="https://www.php.net/manual/vote-note.php?id=122778&amp;page=function.preg-replace&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V122778" title="52% like this...">
+    1
+    </div>
+  </div>
+  <a href="function.preg-replace.php.html#122778" class="name">
+  <strong class="user"><em>bublifuk at mailinator dot com</em></strong></a><a class="genanchor" href="function.preg-replace.php.html#122778"> &para;</a><div class="date" title="2018-05-30 03:36"><strong>5 years ago</strong></div>
+  <div class="text" id="Hcom122778">
+<div class="phpcode"><code><span class="html">A delimiter can be any ASCII non-alphanumeric, non-backslash, non-whitespace character:  !"#$%&amp;'*+,./:;=?@^_`|~-  and  ({[&lt;&gt;]})</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="74037">  <div class="votes">
+    <div id="Vu74037">
+    <a href="https://www.php.net/manual/vote-note.php?id=74037&amp;page=function.preg-replace&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd74037">
+    <a href="https://www.php.net/manual/vote-note.php?id=74037&amp;page=function.preg-replace&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V74037" title="53% like this...">
+    1
+    </div>
+  </div>
+  <a href="function.preg-replace.php.html#74037" class="name">
+  <strong class="user"><em>ismith at nojunk dot motorola dot com</em></strong></a><a class="genanchor" href="function.preg-replace.php.html#74037"> &para;</a><div class="date" title="2007-03-21 09:47"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom74037">
+<div class="phpcode"><code><span class="html">Be aware that when using the "/u" modifier, if your input text contains any bad UTF-8 code sequences, then preg_replace will return an empty string, regardless of whether there were any matches.<br /><br />This is due to the PCRE library returning an error code if the string contains bad UTF-8.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="81486">  <div class="votes">
+    <div id="Vu81486">
+    <a href="https://www.php.net/manual/vote-note.php?id=81486&amp;page=function.preg-replace&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd81486">
+    <a href="https://www.php.net/manual/vote-note.php?id=81486&amp;page=function.preg-replace&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V81486" title="51% like this...">
+    1
+    </div>
+  </div>
+  <a href="function.preg-replace.php.html#81486" class="name">
+  <strong class="user"><em>php-comments-REMOVE dot ME at dotancohen dot com</em></strong></a><a class="genanchor" href="function.preg-replace.php.html#81486"> &para;</a><div class="date" title="2008-02-29 12:02"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom81486">
+<div class="phpcode"><code><span class="html">Below is a function for converting Hebrew final characters to their<br />normal equivelants should they appear in the middle of a word.<br />The /b argument does not treat Hebrew letters as part of a word,<br />so I had to work around that limitation.<br /><br /><span class="default">&lt;?php<br /><br />$text</span><span class="keyword">=</span><span class="string">"עברית מבולגנת"</span><span class="keyword">;<br /><br />function </span><span class="default">hebrewNotWordEndSwitch </span><span class="keyword">(</span><span class="default">$from</span><span class="keyword">, </span><span class="default">$to</span><span class="keyword">, </span><span class="default">$text</span><span class="keyword">) {<br />   </span><span class="default">$text</span><span class="keyword">=<br />    </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'/'</span><span class="keyword">.</span><span class="default">$from</span><span class="keyword">.</span><span class="string">'([א-ת])/u'</span><span class="keyword">,</span><span class="string">'$2'</span><span class="keyword">.</span><span class="default">$to</span><span class="keyword">.</span><span class="string">'$1'</span><span class="keyword">,</span><span class="default">$text</span><span class="keyword">);<br />   return </span><span class="default">$text</span><span class="keyword">;<br />}<br /><br />do {<br />   </span><span class="default">$text_before</span><span class="keyword">=</span><span class="default">$text</span><span class="keyword">;<br />   </span><span class="default">$text</span><span class="keyword">=</span><span class="default">hebrewNotWordEndSwitch</span><span class="keyword">(</span><span class="string">"ך"</span><span class="keyword">,</span><span class="string">"כ"</span><span class="keyword">,</span><span class="default">$text</span><span class="keyword">);<br />   </span><span class="default">$text</span><span class="keyword">=</span><span class="default">hebrewNotWordEndSwitch</span><span class="keyword">(</span><span class="string">"ם"</span><span class="keyword">,</span><span class="string">"מ"</span><span class="keyword">,</span><span class="default">$text</span><span class="keyword">);<br />   </span><span class="default">$text</span><span class="keyword">=</span><span class="default">hebrewNotWordEndSwitch</span><span class="keyword">(</span><span class="string">"ן"</span><span class="keyword">,</span><span class="string">"נ"</span><span class="keyword">,</span><span class="default">$text</span><span class="keyword">);<br />   </span><span class="default">$text</span><span class="keyword">=</span><span class="default">hebrewNotWordEndSwitch</span><span class="keyword">(</span><span class="string">"ף"</span><span class="keyword">,</span><span class="string">"פ"</span><span class="keyword">,</span><span class="default">$text</span><span class="keyword">);<br />   </span><span class="default">$text</span><span class="keyword">=</span><span class="default">hebrewNotWordEndSwitch</span><span class="keyword">(</span><span class="string">"ץ"</span><span class="keyword">,</span><span class="string">"צ"</span><span class="keyword">,</span><span class="default">$text</span><span class="keyword">);<br />}   while ( </span><span class="default">$text_before</span><span class="keyword">!=</span><span class="default">$text </span><span class="keyword">);<br /><br />print </span><span class="default">$text</span><span class="keyword">; </span><span class="comment">// עברית מסודרת!<br /><br /></span><span class="default">?&gt;<br /></span><br />The do-while is necessary for multiple instances of letters, such<br />as "אנני" which would start off as "אןןי". Note that there's still the<br />problem of acronyms with gershiim but that's not a difficult one<br />to solve. The code is in use at <a href="http://gibberish.co.il" rel="nofollow" target="_blank">http://gibberish.co.il</a> which you can<br />use to translate wrongly-encoded Hebrew, transliterize, and some<br />other Hebrew-related functions.<br /><br />To ensure that there will be no regular characters at the end of a<br />word, just convert all regular characters to their final forms, then<br />run this function. Enjoy!</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="102589">  <div class="votes">
+    <div id="Vu102589">
+    <a href="https://www.php.net/manual/vote-note.php?id=102589&amp;page=function.preg-replace&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd102589">
+    <a href="https://www.php.net/manual/vote-note.php?id=102589&amp;page=function.preg-replace&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V102589" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="function.preg-replace.php.html#102589" class="name">
+  <strong class="user"><em>me at perochak dot com</em></strong></a><a class="genanchor" href="function.preg-replace.php.html#102589"> &para;</a><div class="date" title="2011-02-22 09:57"><strong>12 years ago</strong></div>
+  <div class="text" id="Hcom102589">
+<div class="phpcode"><code><span class="html">If you would like to remove a tag along with the text inside it then use the following code.<br /><br /><span class="default">&lt;?php<br />preg_replace</span><span class="keyword">(</span><span class="string">'/(&lt;tag&gt;.+?)+(&lt;\/tag&gt;)/i'</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">, </span><span class="default">$string</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />example<br /><span class="default">&lt;?php $string</span><span class="keyword">=</span><span class="string">'&lt;span class="normalprice"&gt;55 PKR&lt;/span&gt;'</span><span class="keyword">; </span><span class="default">?&gt;<br /></span><br /><span class="default">&lt;?php<br />$string </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'/(&lt;span class="normalprice"&gt;.+?)+(&lt;\/span&gt;)/i'</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">, </span><span class="default">$string</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />This will results a null or empty string.<br /><br /><span class="default">&lt;?php<br />$string</span><span class="keyword">=</span><span class="string">'My String &lt;span class="normalprice"&gt;55 PKR&lt;/span&gt;'</span><span class="keyword">;<br /><br /></span><span class="default">$string </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'/(&lt;span class="normalprice"&gt;.+?)+(&lt;\/span&gt;)/i'</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">, </span><span class="default">$string</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />This will results a " My String"</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="77317">  <div class="votes">
+    <div id="Vu77317">
+    <a href="https://www.php.net/manual/vote-note.php?id=77317&amp;page=function.preg-replace&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd77317">
+    <a href="https://www.php.net/manual/vote-note.php?id=77317&amp;page=function.preg-replace&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V77317" title="47% like this...">
+    -1
+    </div>
+  </div>
+  <a href="function.preg-replace.php.html#77317" class="name">
+  <strong class="user"><em>sternkinder at gmail dot com</em></strong></a><a class="genanchor" href="function.preg-replace.php.html#77317"> &para;</a><div class="date" title="2007-08-24 03:10"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom77317">
+<div class="phpcode"><code><span class="html">From what I can see, the problem is, that if you go straight and substitute all 'A's wit 'T's you can't tell for sure which 'T's to substitute with 'A's afterwards. This can be for instance solved by simply replacing all 'A's by another character (for instance '_' or whatever you like), then replacing all 'T's by 'A's, and then replacing all '_'s (or whatever character you chose) by 'A's:<br /><br /><span class="default">&lt;?php<br />$dna </span><span class="keyword">= </span><span class="string">"AGTCTGCCCTAG"</span><span class="keyword">;<br />echo </span><span class="default">str_replace</span><span class="keyword">(array(</span><span class="string">"A"</span><span class="keyword">,</span><span class="string">"G"</span><span class="keyword">,</span><span class="string">"C"</span><span class="keyword">,</span><span class="string">"T"</span><span class="keyword">,</span><span class="string">"_"</span><span class="keyword">,</span><span class="string">"-"</span><span class="keyword">), array(</span><span class="string">"_"</span><span class="keyword">,</span><span class="string">"-"</span><span class="keyword">,</span><span class="string">"G"</span><span class="keyword">,</span><span class="string">"A"</span><span class="keyword">,</span><span class="string">"T"</span><span class="keyword">,</span><span class="string">"C"</span><span class="keyword">), </span><span class="default">$dna</span><span class="keyword">); </span><span class="comment">//output will be TCAGACGGGATC<br /></span><span class="default">?&gt;<br /></span><br />Although I don't know how transliteration in perl works (though I remember that is kind of similar to the UNIX command "tr") I would suggest following function for "switching" single chars:<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">switch_chars</span><span class="keyword">(</span><span class="default">$subject</span><span class="keyword">,</span><span class="default">$switch_table</span><span class="keyword">,</span><span class="default">$unused_char</span><span class="keyword">=</span><span class="string">"_"</span><span class="keyword">) {<br />    foreach ( </span><span class="default">$switch_table </span><span class="keyword">as </span><span class="default">$_1 </span><span class="keyword">=&gt; </span><span class="default">$_2 </span><span class="keyword">) {<br />        </span><span class="default">$subject </span><span class="keyword">= </span><span class="default">str_replace</span><span class="keyword">(</span><span class="default">$_1</span><span class="keyword">,</span><span class="default">$unused_char</span><span class="keyword">,</span><span class="default">$subject</span><span class="keyword">);<br />        </span><span class="default">$subject </span><span class="keyword">= </span><span class="default">str_replace</span><span class="keyword">(</span><span class="default">$_2</span><span class="keyword">,</span><span class="default">$_1</span><span class="keyword">,</span><span class="default">$subject</span><span class="keyword">);<br />        </span><span class="default">$subject </span><span class="keyword">= </span><span class="default">str_replace</span><span class="keyword">(</span><span class="default">$unused_char</span><span class="keyword">,</span><span class="default">$_2</span><span class="keyword">,</span><span class="default">$subject</span><span class="keyword">);<br />    }<br />    return </span><span class="default">$subject</span><span class="keyword">;<br />}<br /><br />echo </span><span class="default">switch_chars</span><span class="keyword">(</span><span class="string">"AGTCTGCCCTAG"</span><span class="keyword">, array(</span><span class="string">"A"</span><span class="keyword">=&gt;</span><span class="string">"T"</span><span class="keyword">,</span><span class="string">"G"</span><span class="keyword">=&gt;</span><span class="string">"C"</span><span class="keyword">)); </span><span class="comment">//output will be TCAGACGGGATC<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="124391">  <div class="votes">
+    <div id="Vu124391">
+    <a href="https://www.php.net/manual/vote-note.php?id=124391&amp;page=function.preg-replace&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd124391">
+    <a href="https://www.php.net/manual/vote-note.php?id=124391&amp;page=function.preg-replace&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V124391" title="40% like this...">
+    -1
+    </div>
+  </div>
+  <a href="function.preg-replace.php.html#124391" class="name">
+  <strong class="user"><em>mail at johanvandemerwe dot nl</em></strong></a><a class="genanchor" href="function.preg-replace.php.html#124391"> &para;</a><div class="date" title="2019-11-13 12:41"><strong>4 years ago</strong></div>
+  <div class="text" id="Hcom124391">
+<div class="phpcode"><code><span class="html">Sample for replacing bracketed short-codes<br /><br />The used short-codes are purely used for educational purposes for they could be shorter as in 'italic' to 'i' or 'bold' to 'b'.<br /><br />Sample text<br />----<br />This sample shows how to have [italic]italic[/italic], [bold]bold[/bold] and [underline]underlined[/underline] and [strikethrough]striked[/striketrhough] text. <br /><br />with this function:<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">textDecoration</span><span class="keyword">(</span><span class="default">$html</span><span class="keyword">)<br />{<br />    </span><span class="default">$patterns </span><span class="keyword">= [<br />        </span><span class="string">'/\[(italic)\].*?\[\/\1\] ?/'</span><span class="keyword">,<br />        </span><span class="string">'/\[(bold)\].*?\[\/\1\] ?/'</span><span class="keyword">,<br />        </span><span class="string">'/\[(underline)\].*?\[\/\1\] ?/'<br />    </span><span class="keyword">];<br /><br />    </span><span class="default">$replacements </span><span class="keyword">= [<br />        </span><span class="string">'&lt;i&gt;$1&lt;/i&gt;'</span><span class="keyword">,<br />        </span><span class="string">'&lt;strong&gt;$1&lt;/strong&gt;'</span><span class="keyword">,<br />        </span><span class="string">'&lt;u&gt;$1&lt;/u&gt;'<br />    </span><span class="keyword">];<br /><br />    return </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="default">$patterns</span><span class="keyword">, </span><span class="default">$replacements</span><span class="keyword">, </span><span class="default">$html</span><span class="keyword">);<br />}<br /><br /></span><span class="default">$html </span><span class="keyword">= </span><span class="default">textDecoration</span><span class="keyword">(</span><span class="default">$html</span><span class="keyword">);<br /><br />echo </span><span class="default">$html</span><span class="keyword">; </span><span class="comment">// or return<br /></span><span class="default">?&gt;<br /></span><br />results in:<br />----<br />This sample shows how to have &lt;i&gt;italic&lt;/i&gt;, &lt;b&gt;bold&lt;/b&gt; and &lt;u&gt;underlined&lt;/u&gt; and [strikethrough]striked[/striketrhough] text.<br /><br />Notice!<br />There is no [strikethrough]striked[/striketrhough] fallback in the patterns and replacements array</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="127704">  <div class="votes">
+    <div id="Vu127704">
+    <a href="https://www.php.net/manual/vote-note.php?id=127704&amp;page=function.preg-replace&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd127704">
+    <a href="https://www.php.net/manual/vote-note.php?id=127704&amp;page=function.preg-replace&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V127704" title="20% like this...">
+    -3
+    </div>
+  </div>
+  <a href="function.preg-replace.php.html#127704" class="name">
+  <strong class="user"><em>razvan_bc at yahoo dot com</em></strong></a><a class="genanchor" href="function.preg-replace.php.html#127704"> &para;</a><div class="date" title="2022-10-08 10:11"><strong>1 year ago</strong></div>
+  <div class="text" id="Hcom127704">
+<div class="phpcode"><code><span class="html">How to replace all comments inside code without remove crln  = \r\n or cr \r each line?<br /><br /><span class="default">&lt;?php<br />$txt_target</span><span class="keyword">=&lt;&lt;&lt;t1<br /></span><span class="string">this;//    dsdsds<br />    nope<br />    <br />/*<br />    ok<br />    */<br />is;huge<br />/*text bla*/<br />    /*bla*/<br /> <br /></span><span class="keyword">t1;<br /><br /></span><span class="comment">/*<br />=======================================================================<br />expected result:<br />=======================================================================<br />this;<br />    nope<br /><br />is;huge<br />=======================================================================<br />visualizing in a hex viewer .. to_check_with_a_hex_viewer.txt ...<br /> t  h  i  s  ; LF TAB n  o  p  e CR LF CR LF  i  s  ;  h  u  g  e CR LF<br />74 68 69 73 3b 0a 09 6e 6f 70 65 0d 0a 0d 0a 69 73 3b 68 75 67 65 0d 0a<br />I used F3 (viewer + options 3: hex) in mythical TOTAL COMMANDER!<br />=======================================================================<br />*/<br /><br /></span><span class="keyword">echo </span><span class="string">'&lt;hr&gt;&lt;pre&gt;'</span><span class="keyword">;<br />echo  </span><span class="default">$txt_target</span><span class="keyword">;<br />echo </span><span class="string">'&lt;/pre&gt;'</span><span class="keyword">;<br /><br /></span><span class="comment">//  a single line '//' comments<br /></span><span class="default">$txt_target </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'![ \t]*//.*[ \t]*!'</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">, </span><span class="default">$txt_target</span><span class="keyword">);<br /><br /></span><span class="comment">//  /* comment */<br /></span><span class="default">$txt_target </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'/\/\*([^\/]*)\*\/(\s+)/smi'</span><span class="keyword">, </span><span class="string">''</span><span class="keyword">, </span><span class="default">$txt_target</span><span class="keyword">);<br />echo </span><span class="string">'&lt;hr&gt;&lt;pre&gt;'</span><span class="keyword">;<br />echo  </span><span class="default">$txt_target</span><span class="keyword">;<br />echo </span><span class="string">'&lt;/pre&gt;&lt;hr&gt;'</span><span class="keyword">;<br /><br /></span><span class="default">file_put_contents</span><span class="keyword">(</span><span class="string">'to_check_with_a_hex_viewer.txt'</span><span class="keyword">,</span><span class="default">$txt_target</span><span class="keyword">);<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=function.preg-replace&amp;redirect=https://www.php.net/manual/ru/function.preg-replace.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="ref.pcre.php.html">Функции PCRE</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="function.preg-filter.php.html" title="preg_&#8203;filter">preg_&#8203;filter</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.preg-grep.php.html" title="preg_&#8203;grep">preg_&#8203;grep</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.preg-last-error-msg.php.html" title="preg_&#8203;last_&#8203;error_&#8203;msg">preg_&#8203;last_&#8203;error_&#8203;msg</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.preg-last-error.php.html" title="preg_&#8203;last_&#8203;error">preg_&#8203;last_&#8203;error</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.preg-match-all.php.html" title="preg_&#8203;match_&#8203;all">preg_&#8203;match_&#8203;all</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.preg-match.php.html" title="preg_&#8203;match">preg_&#8203;match</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.preg-quote.php.html" title="preg_&#8203;quote">preg_&#8203;quote</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.preg-replace-callback-array.php.html" title="preg_&#8203;replace_&#8203;callback_&#8203;array">preg_&#8203;replace_&#8203;callback_&#8203;array</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.preg-replace-callback.php.html" title="preg_&#8203;replace_&#8203;callback">preg_&#8203;replace_&#8203;callback</a>
+                        </li>
+                                                <li class="current">
+                            <a href="function.preg-replace.php.html" title="preg_&#8203;replace">preg_&#8203;replace</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.preg-split.php.html" title="preg_&#8203;split">preg_&#8203;split</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>
