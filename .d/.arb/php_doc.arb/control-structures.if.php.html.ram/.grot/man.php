@@ -6,7 +6,7 @@ $b = 4;
 if ($a > $b)
     echo "a больше! b\n"; ?>
 
-<?php if (true): ?>
+<?php if (false): ?>
 
     html code to run if condition is true
 
