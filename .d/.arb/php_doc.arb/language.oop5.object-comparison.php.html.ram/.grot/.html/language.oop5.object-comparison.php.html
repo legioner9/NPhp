@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PHP: Сравнение объектов - Manual </title>
+
+ <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg%3Fv=2">
+ <link rel="icon" type="image/png" sizes="196x196" href="../../favicon-196x196.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png%3Fv=2">
+ <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png%3Fv=2">
+ <link rel="shortcut icon" href="../../favicon.ico%3Fv=2">
+
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="https://www.php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="language.oop5.object-comparison.php.html">
+ <link rel="shorturl" href="https://www.php.net/oop5.object-comparison">
+ <link rel="alternate" href="https://www.php.net/oop5.object-comparison" hreflang="x-default">
+
+ <link rel="contents" href="index.php.html">
+ <link rel="index" href="language.oop5.php.html">
+ <link rel="prev" href="language.oop5.cloning.php.html">
+ <link rel="next" href="language.oop5.late-static-bindings.php.html">
+
+ <link rel="alternate" href="https://www.php.net/manual/en/language.oop5.object-comparison.php" hreflang="en">
+ <link rel="alternate" href="https://www.php.net/manual/de/language.oop5.object-comparison.php" hreflang="de">
+ <link rel="alternate" href="https://www.php.net/manual/es/language.oop5.object-comparison.php" hreflang="es">
+ <link rel="alternate" href="https://www.php.net/manual/fr/language.oop5.object-comparison.php" hreflang="fr">
+ <link rel="alternate" href="https://www.php.net/manual/it/language.oop5.object-comparison.php" hreflang="it">
+ <link rel="alternate" href="https://www.php.net/manual/ja/language.oop5.object-comparison.php" hreflang="ja">
+ <link rel="alternate" href="https://www.php.net/manual/pt_BR/language.oop5.object-comparison.php" hreflang="pt_BR">
+ <link rel="alternate" href="language.oop5.object-comparison.php.html" hreflang="ru">
+ <link rel="alternate" href="https://www.php.net/manual/tr/language.oop5.object-comparison.php" hreflang="tr">
+ <link rel="alternate" href="https://www.php.net/manual/zh/language.oop5.object-comparison.php" hreflang="zh">
+
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1689765002&amp;f=%252Ffonts%252FFira%252Ffira.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1700771401&amp;f=%252Ffonts%252FFont-Awesome%252Fcss%252Ffontello.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1705413607&amp;f=%252Fstyles%252Ftheme-base.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../../cached.php%3Ft=1701958202&amp;f=%252Fstyles%252Ftheme-medium.css" media="screen">
+
+ <base href="">
+
+
+</head>
+<body class="docs ">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="https://www.php.net/" class="brand"><img src="../../images/logos/php-logo.svg" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="https://www.php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="https://www.php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="https://www.php.net/get-involved" >Get Involved</a></li>
+      <li class=""><a href="https://www.php.net/support">Help</a></li>
+      <li class="">
+        <a href="https://www.php.net/releases/8.3/index.php">
+          <img src="../../images/php8/logo_php8_3.svg" alt="php8.3" height="22" width="60">
+        </a>
+      </li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="https://www.php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <input type="search" name="pattern" class="search-query" placeholder="Search" accesskey="s">
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href='https://www.php.net/conferences/index.php#2024-02-13-1'>Dutch PHP Conference 2024</a></div>
+<nav id="trick"><div><dl>
+<dt><a href='https://www.php.net/manual/en/getting-started.php'>Getting Started</a></dt>
+	<dd><a href='https://www.php.net/manual/en/introduction.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/tutorial.php'>A simple tutorial</a></dd>
+<dt><a href='https://www.php.net/manual/en/langref.php'>Language Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/language.basic-syntax.php'>Basic syntax</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.types.php'>Types</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.variables.php'>Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.constants.php'>Constants</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.expressions.php'>Expressions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.operators.php'>Operators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.control-structures.php'>Control Structures</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.functions.php'>Functions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.oop5.php'>Classes and Objects</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.namespaces.php'>Namespaces</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.enumerations.php'>Enumerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.errors.php'>Errors</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.exceptions.php'>Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.fibers.php'>Fibers</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.generators.php'>Generators</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.attributes.php'>Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/language.references.php'>References Explained</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.variables.php'>Predefined Variables</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.exceptions.php'>Predefined Exceptions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.interfaces.php'>Predefined Interfaces and Classes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/reserved.attributes.php'>Predefined Attributes</a></dd>
+	<dd><a href='https://www.php.net/manual/en/context.php'>Context options and parameters</a></dd>
+	<dd><a href='https://www.php.net/manual/en/wrappers.php'>Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/security.php'>Security</a></dt>
+	<dd><a href='https://www.php.net/manual/en/security.intro.php'>Introduction</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.general.php'>General considerations</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.cgi-bin.php'>Installed as CGI binary</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.apache.php'>Installed as an Apache module</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.sessions.php'>Session Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.filesystem.php'>Filesystem Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.database.php'>Database Security</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.errors.php'>Error Reporting</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.variables.php'>User Submitted Data</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.hiding.php'>Hiding PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/security.current.php'>Keeping Current</a></dd>
+<dt><a href='https://www.php.net/manual/en/features.php'>Features</a></dt>
+	<dd><a href='https://www.php.net/manual/en/features.http-auth.php'>HTTP authentication with PHP</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.cookies.php'>Cookies</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.sessions.php'>Sessions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.xforms.php'>Dealing with XForms</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.file-upload.php'>Handling file uploads</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.remote-files.php'>Using remote files</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.connection-handling.php'>Connection handling</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.commandline.php'>Command line usage</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.gc.php'>Garbage Collection</a></dd>
+	<dd><a href='https://www.php.net/manual/en/features.dtrace.php'>DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href='https://www.php.net/manual/en/funcref.php'>Function Reference</a></dt>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.php.php'>Affecting PHP's Behaviour</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.audio.php'>Audio Formats Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.auth.php'>Authentication Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.cmdline.php'>Command Line Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.compression.php'>Compression and Archive Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.crypto.php'>Cryptography Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.database.php'>Database Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.calendar.php'>Date and Time Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.file.php'>File System Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.international.php'>Human Language and Character Encoding Support</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.image.php'>Image Processing and Generation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.mail.php'>Mail Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.math.php'>Mathematical Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.nontext.php'>Non-Text MIME Output</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.fileprocess.process.php'>Process Control Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.other.php'>Other Basic Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.remote.other.php'>Other Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.search.php'>Search Engine Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.server.php'>Server Specific Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.session.php'>Session Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.text.php'>Text Processing</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.basic.vartype.php'>Variable and Type Related Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.webservice.php'>Web Services</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.utilspec.windows.php'>Windows Only Extensions</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.xml.php'>XML Manipulation</a></dd>
+	<dd><a href='https://www.php.net/manual/en/refs.ui.php'>GUI Extensions</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="language.oop5.late-static-bindings.php.html">
+          Позднее статическое связывание &raquo;
+        </a>
+      </div>
+              <div class="prev">
+        <a href="language.oop5.cloning.php.html">
+          &laquo; Клонирование объектов        </a>
+      </div>
+          <ul>
+            <li><a href='index.php.html'>Руководство по PHP</a></li>      <li><a href='langref.php.html'>Справочник языка</a></li>      <li><a href='language.oop5.php.html'>Классы и объекты</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="https://www.php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value='en/language.oop5.object-comparison.php'>English</option>
+            <option value='de/language.oop5.object-comparison.php'>German</option>
+            <option value='es/language.oop5.object-comparison.php'>Spanish</option>
+            <option value='fr/language.oop5.object-comparison.php'>French</option>
+            <option value='it/language.oop5.object-comparison.php'>Italian</option>
+            <option value='ja/language.oop5.object-comparison.php'>Japanese</option>
+            <option value='pt_BR/language.oop5.object-comparison.php'>Brazilian Portuguese</option>
+            <option value='ru/language.oop5.object-comparison.php' selected="selected">Russian</option>
+            <option value='tr/language.oop5.object-comparison.php'>Turkish</option>
+            <option value='zh/language.oop5.object-comparison.php'>Chinese (Simplified)</option>
+            <option value='help-translate.php'>Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://github.com/php/doc-ru/blob/master/language/oop5/object-comparison.xml">Submit a Pull Request</a>
+      <a href="https://github.com/php/doc-ru/issues/new?body=From%20manual%20page:%20https:%2F%2Fphp.net%2Flanguage.oop5.object-comparison%0A%0A---">Report a Bug</a>
+    </div>
+  </div><div id="language.oop5.object-comparison" class="sect1">
+ <h2 class="title">Сравнение объектов</h2>
+ <p class="para">
+  При использовании оператора сравнения (<code class="literal">==</code>),
+  свойства объектов просто сравниваются друг с другом, а именно: два
+  объекта равны, если они имеют одинаковые атрибуты и значения
+  (значения сравниваются через <code class="literal">==</code>) и являются
+  экземплярами одного и того же класса.
+ </p>
+ <p class="para">
+  С другой стороны, при использовании оператора идентичности (<code class="literal">===</code>),
+  переменные, содержащие объекты, считаются идентичными только тогда, когда
+  они ссылаются на один и тот же экземпляр одного и того же класса.
+ </p>
+ <p class="para">
+  Следующий пример пояснит эти правила.
+  <div class="example" id="example-859">
+   <p><strong>Пример #1 Пример сравнения объектов</strong></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function </span><span style="color: #0000BB">bool2str</span><span style="color: #007700">(</span><span style="color: #0000BB">$bool</span><span style="color: #007700">)<br />{<br />    return (string) </span><span style="color: #0000BB">$bool</span><span style="color: #007700">;<br />}<br /><br />function </span><span style="color: #0000BB">compareObjects</span><span style="color: #007700">(&amp;</span><span style="color: #0000BB">$o1</span><span style="color: #007700">, &amp;</span><span style="color: #0000BB">$o2</span><span style="color: #007700">)<br />{<br />    echo </span><span style="color: #DD0000">'o1 == o2 : ' </span><span style="color: #007700">. </span><span style="color: #0000BB">bool2str</span><span style="color: #007700">(</span><span style="color: #0000BB">$o1 </span><span style="color: #007700">== </span><span style="color: #0000BB">$o2</span><span style="color: #007700">) . </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />    echo </span><span style="color: #DD0000">'o1 != o2 : ' </span><span style="color: #007700">. </span><span style="color: #0000BB">bool2str</span><span style="color: #007700">(</span><span style="color: #0000BB">$o1 </span><span style="color: #007700">!= </span><span style="color: #0000BB">$o2</span><span style="color: #007700">) . </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />    echo </span><span style="color: #DD0000">'o1 === o2 : ' </span><span style="color: #007700">. </span><span style="color: #0000BB">bool2str</span><span style="color: #007700">(</span><span style="color: #0000BB">$o1 </span><span style="color: #007700">=== </span><span style="color: #0000BB">$o2</span><span style="color: #007700">) . </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />    echo </span><span style="color: #DD0000">'o1 !== o2 : ' </span><span style="color: #007700">. </span><span style="color: #0000BB">bool2str</span><span style="color: #007700">(</span><span style="color: #0000BB">$o1 </span><span style="color: #007700">!== </span><span style="color: #0000BB">$o2</span><span style="color: #007700">) . </span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />}<br /><br />class </span><span style="color: #0000BB">Flag<br /></span><span style="color: #007700">{<br />    public </span><span style="color: #0000BB">$flag</span><span style="color: #007700">;<br /><br />    function </span><span style="color: #0000BB">__construct</span><span style="color: #007700">(</span><span style="color: #0000BB">$flag </span><span style="color: #007700">= </span><span style="color: #0000BB">true</span><span style="color: #007700">) {<br />        </span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">flag </span><span style="color: #007700">= </span><span style="color: #0000BB">$flag</span><span style="color: #007700">;<br />    }<br />}<br /><br />class </span><span style="color: #0000BB">OtherFlag<br /></span><span style="color: #007700">{<br />    public </span><span style="color: #0000BB">$flag</span><span style="color: #007700">;<br /><br />    function </span><span style="color: #0000BB">__construct</span><span style="color: #007700">(</span><span style="color: #0000BB">$flag </span><span style="color: #007700">= </span><span style="color: #0000BB">true</span><span style="color: #007700">) {<br />        </span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">flag </span><span style="color: #007700">= </span><span style="color: #0000BB">$flag</span><span style="color: #007700">;<br />    }<br />}<br /><br /></span><span style="color: #0000BB">$o </span><span style="color: #007700">= new </span><span style="color: #0000BB">Flag</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$p </span><span style="color: #007700">= new </span><span style="color: #0000BB">Flag</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$q </span><span style="color: #007700">= </span><span style="color: #0000BB">$o</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$r </span><span style="color: #007700">= new </span><span style="color: #0000BB">OtherFlag</span><span style="color: #007700">();<br /><br />echo </span><span style="color: #DD0000">"Два экземпляра одного и того же класса\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">compareObjects</span><span style="color: #007700">(</span><span style="color: #0000BB">$o</span><span style="color: #007700">, </span><span style="color: #0000BB">$p</span><span style="color: #007700">);<br /><br />echo </span><span style="color: #DD0000">"\nДве ссылки на один и тот же экземпляр\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">compareObjects</span><span style="color: #007700">(</span><span style="color: #0000BB">$o</span><span style="color: #007700">, </span><span style="color: #0000BB">$q</span><span style="color: #007700">);<br /><br />echo </span><span style="color: #DD0000">"\nЭкземпляры двух разных классов\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">compareObjects</span><span style="color: #007700">(</span><span style="color: #0000BB">$o</span><span style="color: #007700">, </span><span style="color: #0000BB">$r</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div>
+     </div>
+
+     
+<div class="example-contents"><p>
+ Результат выполнения приведённого примера:
+</p></div>
+
+     <div class="example-contents screen">
+<div class="cdata"><pre>
+Два экземпляра одного и того же класса
+o1 == o2 : TRUE
+o1 != o2 : FALSE
+o1 === o2 : FALSE
+o1 !== o2 : TRUE
+
+Две ссылки на один и тот же экземпляр
+o1 == o2 : TRUE
+o1 != o2 : FALSE
+o1 === o2 : TRUE
+o1 !== o2 : FALSE
+
+Экземпляры двух разных классов
+o1 == o2 : FALSE
+o1 != o2 : TRUE
+o1 === o2 : FALSE
+o1 !== o2 : TRUE
+</pre></div>
+     </div>
+    </div>
+   </p>
+   <blockquote class="note"><p><strong class="note">Замечание</strong>: 
+    <p class="para">
+     Модули могут определять собственные правила для сравнения
+     своих объектов (<code class="literal">==</code>).
+    </p>
+   </p></blockquote>
+</div><section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="https://www.php.net/manual/add-note.php?sect=language.oop5.object-comparison&amp;redirect=https://www.php.net/manual/ru/language.oop5.object-comparison.php">＋<small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">12 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="71623">  <div class="votes">
+    <div id="Vu71623">
+    <a href="https://www.php.net/manual/vote-note.php?id=71623&amp;page=language.oop5.object-comparison&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd71623">
+    <a href="https://www.php.net/manual/vote-note.php?id=71623&amp;page=language.oop5.object-comparison&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V71623" title="83% like this...">
+    84
+    </div>
+  </div>
+  <a href="language.oop5.object-comparison.php.html#71623" class="name">
+  <strong class="user"><em>jazfresh at hotmail.com</em></strong></a><a class="genanchor" href="language.oop5.object-comparison.php.html#71623"> &para;</a><div class="date" title="2006-12-08 02:36"><strong>17 years ago</strong></div>
+  <div class="text" id="Hcom71623">
+<div class="phpcode"><code><span class="html">Note that when comparing object attributes, the comparison is recursive (at least, it is with PHP 5.2). That is, if $a-&gt;x contains an object then that will be compared with $b-&gt;x in the same manner. Be aware that this can lead to recursion errors:<br /><span class="default">&lt;?php<br /></span><span class="keyword">class </span><span class="default">Foo </span><span class="keyword">{<br />    public </span><span class="default">$x</span><span class="keyword">;<br />}<br /></span><span class="default">$a </span><span class="keyword">= new </span><span class="default">Foo</span><span class="keyword">();<br /></span><span class="default">$b </span><span class="keyword">= new </span><span class="default">Foo</span><span class="keyword">();<br /></span><span class="default">$a</span><span class="keyword">-&gt;</span><span class="default">x </span><span class="keyword">= </span><span class="default">$b</span><span class="keyword">;<br /></span><span class="default">$b</span><span class="keyword">-&gt;</span><span class="default">x </span><span class="keyword">= </span><span class="default">$a</span><span class="keyword">;<br /><br /></span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$a </span><span class="keyword">== </span><span class="default">$b</span><span class="keyword">);<br /></span><span class="default">?&gt;<br /></span>Results in:<br />PHP Fatal error:  Nesting level too deep - recursive dependency? in test.php on line 11</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="98725">  <div class="votes">
+    <div id="Vu98725">
+    <a href="https://www.php.net/manual/vote-note.php?id=98725&amp;page=language.oop5.object-comparison&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd98725">
+    <a href="https://www.php.net/manual/vote-note.php?id=98725&amp;page=language.oop5.object-comparison&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V98725" title="80% like this...">
+    63
+    </div>
+  </div>
+  <a href="language.oop5.object-comparison.php.html#98725" class="name">
+  <strong class="user"><em>Anonymous</em></strong></a><a class="genanchor" href="language.oop5.object-comparison.php.html#98725"> &para;</a><div class="date" title="2010-07-02 09:00"><strong>13 years ago</strong></div>
+  <div class="text" id="Hcom98725">
+<div class="phpcode"><code><span class="html">Comparison using &lt;&gt; operators should be documented.  Between two objects, at least in PHP5.3, the comparison operation stops and returns at the first unequal property found.<br /><br /><span class="default">&lt;?php<br /><br />$o1 </span><span class="keyword">= new </span><span class="default">stdClass</span><span class="keyword">();<br /></span><span class="default">$o1</span><span class="keyword">-&gt;</span><span class="default">prop1 </span><span class="keyword">= </span><span class="string">'c'</span><span class="keyword">;<br /></span><span class="default">$o1</span><span class="keyword">-&gt;</span><span class="default">prop2 </span><span class="keyword">= </span><span class="default">25</span><span class="keyword">;<br /></span><span class="default">$o1</span><span class="keyword">-&gt;</span><span class="default">prop3 </span><span class="keyword">= </span><span class="default">201</span><span class="keyword">;<br /></span><span class="default">$o1</span><span class="keyword">-&gt;</span><span class="default">prop4 </span><span class="keyword">= </span><span class="default">1000</span><span class="keyword">;<br /><br /></span><span class="default">$o2 </span><span class="keyword">= new </span><span class="default">stdClass</span><span class="keyword">();<br /></span><span class="default">$o2</span><span class="keyword">-&gt;</span><span class="default">prop1 </span><span class="keyword">= </span><span class="string">'c'</span><span class="keyword">;<br /></span><span class="default">$o2</span><span class="keyword">-&gt;</span><span class="default">prop2 </span><span class="keyword">= </span><span class="default">25</span><span class="keyword">;<br /></span><span class="default">$o2</span><span class="keyword">-&gt;</span><span class="default">prop3 </span><span class="keyword">= </span><span class="default">200</span><span class="keyword">;<br /></span><span class="default">$o2</span><span class="keyword">-&gt;</span><span class="default">prop4 </span><span class="keyword">= </span><span class="default">9999</span><span class="keyword">;<br /><br />echo (int)(</span><span class="default">$o1 </span><span class="keyword">&lt; </span><span class="default">$o2</span><span class="keyword">); </span><span class="comment">// 0<br /></span><span class="keyword">echo (int)(</span><span class="default">$o1 </span><span class="keyword">&gt; </span><span class="default">$o2</span><span class="keyword">); </span><span class="comment">// 1<br /><br /></span><span class="default">$o1</span><span class="keyword">-&gt;</span><span class="default">prop3 </span><span class="keyword">= </span><span class="default">200</span><span class="keyword">;<br /><br />echo (int)(</span><span class="default">$o1 </span><span class="keyword">&lt; </span><span class="default">$o2</span><span class="keyword">); </span><span class="comment">// 1<br /></span><span class="keyword">echo (int)(</span><span class="default">$o1 </span><span class="keyword">&gt; </span><span class="default">$o2</span><span class="keyword">); </span><span class="comment">// 0<br /><br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="121105">  <div class="votes">
+    <div id="Vu121105">
+    <a href="https://www.php.net/manual/vote-note.php?id=121105&amp;page=language.oop5.object-comparison&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd121105">
+    <a href="https://www.php.net/manual/vote-note.php?id=121105&amp;page=language.oop5.object-comparison&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V121105" title="61% like this...">
+    7
+    </div>
+  </div>
+  <a href="language.oop5.object-comparison.php.html#121105" class="name">
+  <strong class="user"><em>rnealxp at yahoo dot com</em></strong></a><a class="genanchor" href="language.oop5.object-comparison.php.html#121105"> &para;</a><div class="date" title="2017-05-20 10:26"><strong>6 years ago</strong></div>
+  <div class="text" id="Hcom121105">
+<div class="phpcode"><code><span class="html">These three functions call themselves recursively and handle any nesting levels of arrays/objects/values and do strict comparisons. The entry-point to this function set would be "valuesAreIdentical".<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">function </span><span class="default">valuesAreIdentical</span><span class="keyword">(</span><span class="default">$v1</span><span class="keyword">, </span><span class="default">$v2</span><span class="keyword">): </span><span class="default">bool </span><span class="keyword">{<br />    </span><span class="default">$type1 </span><span class="keyword">= </span><span class="default">gettype</span><span class="keyword">(</span><span class="default">$v1</span><span class="keyword">);<br />    </span><span class="default">$type2 </span><span class="keyword">= </span><span class="default">gettype</span><span class="keyword">(</span><span class="default">$v2</span><span class="keyword">);<br /><br />    if(</span><span class="default">$type1 </span><span class="keyword">!== </span><span class="default">$type2</span><span class="keyword">){<br />        return </span><span class="default">false</span><span class="keyword">;<br />    }<br /><br />    switch(</span><span class="default">true</span><span class="keyword">){<br />        case (</span><span class="default">$type1</span><span class="keyword">===</span><span class="string">'boolean' </span><span class="keyword">|| </span><span class="default">$type1</span><span class="keyword">===</span><span class="string">'integer' </span><span class="keyword">|| </span><span class="default">$type1</span><span class="keyword">===</span><span class="string">'double' </span><span class="keyword">|| </span><span class="default">$type1</span><span class="keyword">===</span><span class="string">'string'</span><span class="keyword">):<br />            </span><span class="comment">//Do strict comparison here.<br />            </span><span class="keyword">if(</span><span class="default">$v1 </span><span class="keyword">!== </span><span class="default">$v2</span><span class="keyword">){<br />                return </span><span class="default">false</span><span class="keyword">;<br />            }<br />            break;<br /><br />        case (</span><span class="default">$type1</span><span class="keyword">===</span><span class="string">'array'</span><span class="keyword">):<br />            </span><span class="default">$bool </span><span class="keyword">= </span><span class="default">arraysAreIdentical</span><span class="keyword">(</span><span class="default">$v1</span><span class="keyword">, </span><span class="default">$v2</span><span class="keyword">);<br />            if(</span><span class="default">$bool</span><span class="keyword">===</span><span class="default">false</span><span class="keyword">){<br />                return </span><span class="default">false</span><span class="keyword">;<br />            }<br />            break;<br /><br />        case </span><span class="string">'object'</span><span class="keyword">:<br />            </span><span class="default">$bool </span><span class="keyword">= </span><span class="default">objectsAreIdentical</span><span class="keyword">(</span><span class="default">$v1</span><span class="keyword">,</span><span class="default">$v2</span><span class="keyword">);<br />            if(</span><span class="default">$bool</span><span class="keyword">===</span><span class="default">false</span><span class="keyword">){<br />                return </span><span class="default">false</span><span class="keyword">;<br />            }<br />            break;<br /><br />        case </span><span class="string">'NULL'</span><span class="keyword">:<br />            </span><span class="comment">//Since both types were of type NULL, consider their "values" equal.<br />            </span><span class="keyword">break;<br /><br />        case </span><span class="string">'resource'</span><span class="keyword">:<br />            </span><span class="comment">//How to compare if at all?<br />            </span><span class="keyword">break;<br /><br />        case </span><span class="string">'unknown type'</span><span class="keyword">:<br />            </span><span class="comment">//How to compare if at all?<br />            </span><span class="keyword">break;<br />    } </span><span class="comment">//end switch<br /><br />    //All tests passed.<br />    </span><span class="keyword">return </span><span class="default">true</span><span class="keyword">;<br />}<br /><br />function </span><span class="default">objectsAreIdentical</span><span class="keyword">(</span><span class="default">$o1</span><span class="keyword">, </span><span class="default">$o2</span><span class="keyword">): </span><span class="default">bool </span><span class="keyword">{<br />    </span><span class="comment">//See if loose comparison passes.<br />    </span><span class="keyword">if(</span><span class="default">$o1 </span><span class="keyword">!= </span><span class="default">$o2</span><span class="keyword">){<br />        return </span><span class="default">false</span><span class="keyword">;<br />    }<br /><br />    </span><span class="comment">//Now do strict(er) comparison.<br />    </span><span class="default">$objReflection1 </span><span class="keyword">= new </span><span class="default">ReflectionObject</span><span class="keyword">(</span><span class="default">$o1</span><span class="keyword">);<br />    </span><span class="default">$objReflection2 </span><span class="keyword">= new </span><span class="default">ReflectionObject</span><span class="keyword">(</span><span class="default">$o2</span><span class="keyword">);<br /><br />    </span><span class="default">$arrProperties1 </span><span class="keyword">= </span><span class="default">$objReflection1</span><span class="keyword">-&gt;</span><span class="default">getProperties</span><span class="keyword">(</span><span class="default">ReflectionProperty</span><span class="keyword">::</span><span class="default">IS_PUBLIC</span><span class="keyword">);<br />    </span><span class="default">$arrProperties2 </span><span class="keyword">= </span><span class="default">$objReflection2</span><span class="keyword">-&gt;</span><span class="default">getProperties</span><span class="keyword">(</span><span class="default">ReflectionProperty</span><span class="keyword">::</span><span class="default">IS_PUBLIC</span><span class="keyword">);<br /><br />    </span><span class="default">$bool </span><span class="keyword">= </span><span class="default">arraysAreIdentical</span><span class="keyword">(</span><span class="default">$arrProperties1</span><span class="keyword">, </span><span class="default">$arrProperties2</span><span class="keyword">);<br />    if(</span><span class="default">$bool</span><span class="keyword">===</span><span class="default">false</span><span class="keyword">){<br />        return </span><span class="default">false</span><span class="keyword">;<br />    }<br /><br />    foreach(</span><span class="default">$arrProperties1 </span><span class="keyword">as </span><span class="default">$key</span><span class="keyword">=&gt;</span><span class="default">$propName</span><span class="keyword">){<br />        </span><span class="default">$bool </span><span class="keyword">= </span><span class="default">valuesAreIdentical</span><span class="keyword">(</span><span class="default">$o1</span><span class="keyword">-&gt;</span><span class="default">$propName</span><span class="keyword">, </span><span class="default">$o2</span><span class="keyword">-&gt;</span><span class="default">$propName</span><span class="keyword">);<br />        if(</span><span class="default">$bool</span><span class="keyword">===</span><span class="default">false</span><span class="keyword">){<br />            return </span><span class="default">false</span><span class="keyword">;<br />        }<br />    }<br /><br />    </span><span class="comment">//All tests passed.<br />    </span><span class="keyword">return </span><span class="default">true</span><span class="keyword">;<br />}<br /><br />function </span><span class="default">arraysAreIdentical</span><span class="keyword">(array </span><span class="default">$arr1</span><span class="keyword">, array </span><span class="default">$arr2</span><span class="keyword">): </span><span class="default">bool </span><span class="keyword">{<br />    </span><span class="default">$count </span><span class="keyword">= </span><span class="default">count</span><span class="keyword">(</span><span class="default">$arr1</span><span class="keyword">);<br /><br />    </span><span class="comment">//Require that they have the same size.<br />    </span><span class="keyword">if(</span><span class="default">count</span><span class="keyword">(</span><span class="default">$arr2</span><span class="keyword">) !== </span><span class="default">$count</span><span class="keyword">){<br />        return </span><span class="default">false</span><span class="keyword">;<br />    }<br /><br />    </span><span class="comment">//Require that they have the same keys.<br />    </span><span class="default">$arrKeysInCommon </span><span class="keyword">= </span><span class="default">array_intersect_key</span><span class="keyword">(</span><span class="default">$arr1</span><span class="keyword">, </span><span class="default">$arr2</span><span class="keyword">);<br />    if(</span><span class="default">count</span><span class="keyword">(</span><span class="default">$arrKeysInCommon</span><span class="keyword">)!== </span><span class="default">$count</span><span class="keyword">){<br />        return </span><span class="default">false</span><span class="keyword">;<br />    }<br /><br />    </span><span class="comment">//Require that their keys be in the same order.<br />    </span><span class="default">$arrKeys1 </span><span class="keyword">= </span><span class="default">array_keys</span><span class="keyword">(</span><span class="default">$arr1</span><span class="keyword">);<br />    </span><span class="default">$arrKeys2 </span><span class="keyword">= </span><span class="default">array_keys</span><span class="keyword">(</span><span class="default">$arr2</span><span class="keyword">);<br />    foreach(</span><span class="default">$arrKeys1 </span><span class="keyword">as </span><span class="default">$key</span><span class="keyword">=&gt;</span><span class="default">$val</span><span class="keyword">){<br />        if(</span><span class="default">$arrKeys1</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">] !== </span><span class="default">$arrKeys2</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">]){<br />            return </span><span class="default">false</span><span class="keyword">;<br />        }<br />    }<br /><br />    </span><span class="comment">//They do have same keys and in same order.<br />    </span><span class="keyword">foreach(</span><span class="default">$arr1 </span><span class="keyword">as </span><span class="default">$key</span><span class="keyword">=&gt;</span><span class="default">$val</span><span class="keyword">){<br />        </span><span class="default">$bool </span><span class="keyword">= </span><span class="default">valuesAreIdentical</span><span class="keyword">(</span><span class="default">$arr1</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">], </span><span class="default">$arr2</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">]);<br />        if(</span><span class="default">$bool</span><span class="keyword">===</span><span class="default">false</span><span class="keyword">){<br />            return </span><span class="default">false</span><span class="keyword">;<br />        }<br />    }<br /><br />    </span><span class="comment">//All tests passed.<br />    </span><span class="keyword">return </span><span class="default">true</span><span class="keyword">;<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="124904">  <div class="votes">
+    <div id="Vu124904">
+    <a href="https://www.php.net/manual/vote-note.php?id=124904&amp;page=language.oop5.object-comparison&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd124904">
+    <a href="https://www.php.net/manual/vote-note.php?id=124904&amp;page=language.oop5.object-comparison&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V124904" title="50% like this...">
+    0
+    </div>
+  </div>
+  <a href="language.oop5.object-comparison.php.html#124904" class="name">
+  <strong class="user"><em>rnealxp at yahoo dot com</em></strong></a><a class="genanchor" href="language.oop5.object-comparison.php.html#124904"> &para;</a><div class="date" title="2020-04-12 04:19"><strong>3 years ago</strong></div>
+  <div class="text" id="Hcom124904">
+<div class="phpcode"><code><span class="html">Please use this corrected version of function "valuesAreIdentical" instead of that which I previously posted (dependencies found in previous post); if an Admin can just replace the fn snippet, awesome/thanks, otherwise, apologies.<br /><span class="default">&lt;?php<br />    </span><span class="keyword">public static function </span><span class="default">valuesAreIdentical</span><span class="keyword">(</span><span class="default">$v1</span><span class="keyword">, </span><span class="default">$v2</span><span class="keyword">):</span><span class="default">bool</span><span class="keyword">{<br />        </span><span class="default">$type1 </span><span class="keyword">= </span><span class="default">gettype</span><span class="keyword">(</span><span class="default">$v1</span><span class="keyword">);<br />        </span><span class="default">$type2 </span><span class="keyword">= </span><span class="default">gettype</span><span class="keyword">(</span><span class="default">$v2</span><span class="keyword">);<br />        switch(</span><span class="default">true</span><span class="keyword">){<br />            case (</span><span class="default">$type1 </span><span class="keyword">!== </span><span class="default">$type2</span><span class="keyword">):<br />                return </span><span class="default">false</span><span class="keyword">;<br />            case (</span><span class="default">$type1</span><span class="keyword">===</span><span class="string">'boolean' </span><span class="keyword">|| </span><span class="default">$type1</span><span class="keyword">===</span><span class="string">'integer' </span><span class="keyword">|| </span><span class="default">$type1</span><span class="keyword">===</span><span class="string">'double' </span><span class="keyword">|| </span><span class="default">$type1</span><span class="keyword">===</span><span class="string">'string'</span><span class="keyword">):<br />                </span><span class="comment">//Do strict comparison here.<br />                </span><span class="keyword">return (</span><span class="default">$v1</span><span class="keyword">===</span><span class="default">$v2</span><span class="keyword">);<br />            case (</span><span class="default">$type1</span><span class="keyword">===</span><span class="string">'array'</span><span class="keyword">):<br />                return </span><span class="default">self</span><span class="keyword">::</span><span class="default">arraysAreIdentical</span><span class="keyword">(</span><span class="default">$v1</span><span class="keyword">, </span><span class="default">$v2</span><span class="keyword">);<br />            case (</span><span class="default">$type1</span><span class="keyword">===</span><span class="string">'object'</span><span class="keyword">):<br />                return </span><span class="default">self</span><span class="keyword">::</span><span class="default">objectsAreIdentical</span><span class="keyword">(</span><span class="default">$v1</span><span class="keyword">,</span><span class="default">$v2</span><span class="keyword">);<br />            case (</span><span class="default">$type1</span><span class="keyword">===</span><span class="string">'NULL'</span><span class="keyword">):<br />                </span><span class="comment">//Since both types were of type NULL, consider their "values" equal.<br />                </span><span class="keyword">return </span><span class="default">true</span><span class="keyword">;<br />            case (</span><span class="default">$type1</span><span class="keyword">===</span><span class="string">'resource' </span><span class="keyword">|| </span><span class="default">$type1</span><span class="keyword">===</span><span class="string">'unknown type'</span><span class="keyword">):<br />                </span><span class="comment">//How to compare if at all?<br />                </span><span class="keyword">return </span><span class="default">true</span><span class="keyword">;<br />            default:<br />                return </span><span class="default">true</span><span class="keyword">; </span><span class="comment">//Code-flow not intended to arrive here.             <br />        </span><span class="keyword">} </span><span class="comment">//end switch<br />    </span><span class="keyword">}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="114407">  <div class="votes">
+    <div id="Vu114407">
+    <a href="https://www.php.net/manual/vote-note.php?id=114407&amp;page=language.oop5.object-comparison&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd114407">
+    <a href="https://www.php.net/manual/vote-note.php?id=114407&amp;page=language.oop5.object-comparison&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V114407" title="48% like this...">
+    -1
+    </div>
+  </div>
+  <a href="language.oop5.object-comparison.php.html#114407" class="name">
+  <strong class="user"><em>nhuhoai</em></strong></a><a class="genanchor" href="language.oop5.object-comparison.php.html#114407"> &para;</a><div class="date" title="2014-02-17 12:45"><strong>9 years ago</strong></div>
+  <div class="text" id="Hcom114407">
+<div class="phpcode"><code><span class="html">For comparison about two objects in a class, you can use an interface like this and customize your functions for each class:<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">interface </span><span class="default">EQU </span><span class="keyword">{<br />    public static function </span><span class="default">compare</span><span class="keyword">( </span><span class="default">EQU $me</span><span class="keyword">, </span><span class="default">EQU $you </span><span class="keyword">);<br />    public function </span><span class="default">equals</span><span class="keyword">( </span><span class="default">EQU $you </span><span class="keyword">);<br />}<br /></span><span class="default">?&gt;<br /></span><br />If you gotcha a super class, you can make generic functions (not safe but work with not complex class):<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">abstract class </span><span class="default">SuperClass </span><span class="keyword">{<br />    public function </span><span class="default">__construct</span><span class="keyword">( ) {<br />        </span><span class="comment">// do what you need<br />    </span><span class="keyword">}<br />    public static function </span><span class="default">compare</span><span class="keyword">( </span><span class="default">$obj1</span><span class="keyword">, </span><span class="default">$obj2 </span><span class="keyword">) {<br />        return </span><span class="default">serialize</span><span class="keyword">( </span><span class="default">$obj1 </span><span class="keyword">) == </span><span class="default">serialize</span><span class="keyword">( </span><span class="default">$obj2 </span><span class="keyword">);<br />    }<br />    public function </span><span class="default">equals</span><span class="keyword">( </span><span class="default">$obj </span><span class="keyword">) {<br />        return static::</span><span class="default">compare</span><span class="keyword">( </span><span class="default">$this</span><span class="keyword">, </span><span class="default">$obj </span><span class="keyword">);<br />    }<br />}<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div>
+  <div class="note" id="73542">  <div class="votes">
+    <div id="Vu73542">
+    <a href="https://www.php.net/manual/vote-note.php?id=73542&amp;page=language.oop5.object-comparison&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd73542">
+    <a href="https://www.php.net/manual/vote-note.php?id=73542&amp;page=language.oop5.object-comparison&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V73542" title="43% like this...">
+    -2
+    </div>
+  </div>
+  <a href="language.oop5.object-comparison.php.html#73542" class="name">
+  <strong class="user"><em>rune at zedeler dot dk</em></strong></a><a class="genanchor" href="language.oop5.object-comparison.php.html#73542"> &para;</a><div class="date" title="2007-02-28 08:34"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom73542">
+<div class="phpcode"><code><span class="html">Whoops, apparently I hadn't checked the array-part of the below very well.<br />Forgot to test if the arrays had same length, and had some misaligned parenthesis.<br />This one should work better :+)<br /><br />&lt;?<br />function deepCompare($a,$b) {<br />  if(is_object($a) &amp;&amp; is_object($b)) {<br />    if(get_class($a)!=get_class($b))<br />      return false;<br />    foreach($a as $key =&gt; $val) {<br />      if(!deepCompare($val,$b-&gt;$key))<br />        return false;<br />    }<br />    return true;<br />  }<br />  else if(is_array($a) &amp;&amp; is_array($b)) {<br />    while(!is_null(key($a)) &amp;&amp; !is_null(key($b))) {<br />      if (key($a)!==key($b) || !deepCompare(current($a),current($b)))<br />        return false;<br />      next($a); next($b);<br />    }<br />    return is_null(key($a)) &amp;&amp; is_null(key($b));<br />  }<br />  else<br />    return $a===$b;<br />}<br />?&gt;</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="85606">  <div class="votes">
+    <div id="Vu85606">
+    <a href="https://www.php.net/manual/vote-note.php?id=85606&amp;page=language.oop5.object-comparison&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd85606">
+    <a href="https://www.php.net/manual/vote-note.php?id=85606&amp;page=language.oop5.object-comparison&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V85606" title="44% like this...">
+    -4
+    </div>
+  </div>
+  <a href="language.oop5.object-comparison.php.html#85606" class="name">
+  <strong class="user"><em>wbcarts at juno dot com</em></strong></a><a class="genanchor" href="language.oop5.object-comparison.php.html#85606"> &para;</a><div class="date" title="2008-09-08 01:36"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom85606">
+<div class="phpcode"><code><span class="html">COMPARING OBJECTS using PHP's usort() method.<br /><br />PHP and MySQL both provide ways to sort your data already, and it is a good idea to use that if possible. However, since this section is on comparing your own PHP objects (and that you may need to alter the sorting method in PHP), here is an example of how you can do that using PHP's "user-defined" sort method, usort() and your own class compare() methods.<br /><br /><span class="default">&lt;?php<br /><br /></span><span class="comment">/*<br /> * Employee.php<br /> *<br /> * This class defines a compare() method, which tells PHP the sorting rules<br /> * for this object - which is to sort by emp_id.<br /> *<br /> */<br /></span><span class="keyword">class </span><span class="default">Employee<br /></span><span class="keyword">{<br />    public </span><span class="default">$first</span><span class="keyword">;<br />    public </span><span class="default">$last</span><span class="keyword">;<br />    public </span><span class="default">$emp_id</span><span class="keyword">;     </span><span class="comment">// the property we're interested in...<br /><br />    </span><span class="keyword">public function </span><span class="default">__construct</span><span class="keyword">(</span><span class="default">$emp_first</span><span class="keyword">, </span><span class="default">$emp_last</span><span class="keyword">, </span><span class="default">$emp_ID</span><span class="keyword">)<br />    {<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">first </span><span class="keyword">= </span><span class="default">$emp_first</span><span class="keyword">;<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">last </span><span class="keyword">= </span><span class="default">$emp_last</span><span class="keyword">;<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">emp_id </span><span class="keyword">= </span><span class="default">$emp_ID</span><span class="keyword">;<br />    }<br /><br />    </span><span class="comment">/*<br />     * define the rules for sorting this object - using emp_id.<br />     * Make sure this function returns a -1, 0, or 1.<br />     */<br />    </span><span class="keyword">public static function </span><span class="default">compare</span><span class="keyword">(</span><span class="default">$a</span><span class="keyword">, </span><span class="default">$b</span><span class="keyword">)<br />    {<br />        if (</span><span class="default">$a</span><span class="keyword">-&gt;</span><span class="default">emp_id </span><span class="keyword">&lt; </span><span class="default">$b</span><span class="keyword">-&gt;</span><span class="default">emp_id</span><span class="keyword">) return -</span><span class="default">1</span><span class="keyword">;<br />        else if(</span><span class="default">$a</span><span class="keyword">-&gt;</span><span class="default">emp_id </span><span class="keyword">== </span><span class="default">$b</span><span class="keyword">-&gt;</span><span class="default">emp_id</span><span class="keyword">) return </span><span class="default">0</span><span class="keyword">;<br />        else return </span><span class="default">1</span><span class="keyword">;<br />    }<br /><br />    public function </span><span class="default">__toString</span><span class="keyword">()<br />    {<br />        return </span><span class="string">"Employee[first=</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">first</span><span class="string">, last=</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">last</span><span class="string">, emp_id=</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">emp_id</span><span class="string">]"</span><span class="keyword">;<br />    }<br />}<br /><br /></span><span class="comment"># create a PHP array and initialize it with Employee objects.<br /></span><span class="default">$employees </span><span class="keyword">= array(<br />  new </span><span class="default">Employee</span><span class="keyword">(</span><span class="string">"John"</span><span class="keyword">, </span><span class="string">"Smith"</span><span class="keyword">, </span><span class="default">345</span><span class="keyword">),<br />  new </span><span class="default">Employee</span><span class="keyword">(</span><span class="string">"Jane"</span><span class="keyword">, </span><span class="string">"Doe"</span><span class="keyword">, </span><span class="default">231</span><span class="keyword">),<br />  new </span><span class="default">Employee</span><span class="keyword">(</span><span class="string">"Mike"</span><span class="keyword">, </span><span class="string">"Barnes"</span><span class="keyword">, </span><span class="default">522</span><span class="keyword">),<br />  new </span><span class="default">Employee</span><span class="keyword">(</span><span class="string">"Vicky"</span><span class="keyword">, </span><span class="string">"Jones"</span><span class="keyword">, </span><span class="default">107</span><span class="keyword">),<br />  new </span><span class="default">Employee</span><span class="keyword">(</span><span class="string">"John"</span><span class="keyword">, </span><span class="string">"Doe"</span><span class="keyword">, </span><span class="default">2</span><span class="keyword">),<br />  new </span><span class="default">Employee</span><span class="keyword">(</span><span class="string">"Kevin"</span><span class="keyword">, </span><span class="string">"Patterson"</span><span class="keyword">, </span><span class="default">89</span><span class="keyword">)<br />);<br /><br /></span><span class="comment"># sort the $employees array using Employee compare() method.<br /></span><span class="default">usort</span><span class="keyword">(</span><span class="default">$employees</span><span class="keyword">, array(</span><span class="string">"Employee"</span><span class="keyword">, </span><span class="string">"compare"</span><span class="keyword">));<br /><br /></span><span class="comment"># print the results<br /></span><span class="keyword">foreach(</span><span class="default">$employees </span><span class="keyword">as </span><span class="default">$employee</span><span class="keyword">)<br />{<br />  echo </span><span class="default">$employee </span><span class="keyword">. </span><span class="string">'&lt;br&gt;'</span><span class="keyword">;<br />}<br /></span><span class="default">?&gt;<br /></span><br />Results are now sorted by emp_id:<br /><br />Employee[first=John, last=Doe, emp_id=2]<br />Employee[first=Kevin, last=Patterson, emp_id=89]<br />Employee[first=Vicky, last=Jones, emp_id=107]<br />Employee[first=Jane, last=Doe, emp_id=231]<br />Employee[first=John, last=Smith, emp_id=345]<br />Employee[first=Mike, last=Barnes, emp_id=522]<br /><br />Important Note: Your PHP code will never directly call the Employee's compare() method, but PHP's usort() calls it many many times. Also, when defining the rules for sorting, make sure to get to a "primitive type" level... that is, down to a number or string, and that the function returns a -1, 0, or 1, for reliable and consistent results.<br /><br />Also see: <a href="http://www.php.net/manual/en/function.usort.php" rel="nofollow" target="_blank">http://www.php.net/manual/en/function.usort.php</a> for more examples of PHP's sorting facilities.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="81600">  <div class="votes">
+    <div id="Vu81600">
+    <a href="https://www.php.net/manual/vote-note.php?id=81600&amp;page=language.oop5.object-comparison&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd81600">
+    <a href="https://www.php.net/manual/vote-note.php?id=81600&amp;page=language.oop5.object-comparison&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V81600" title="41% like this...">
+    -3
+    </div>
+  </div>
+  <a href="language.oop5.object-comparison.php.html#81600" class="name">
+  <strong class="user"><em>cross+php at distal dot com</em></strong></a><a class="genanchor" href="language.oop5.object-comparison.php.html#81600"> &para;</a><div class="date" title="2008-03-05 08:50"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom81600">
+<div class="phpcode"><code><span class="html">In response to "rune at zedeler dot dk"s comment about class contents being equal, I have a similar issue.  I want to sort an array of objects using sort().<br /><br />I know I can do it with usort(), but I'm used to C++ where you can define operators that allow comparison.  I see in the zend source code that it calls a compare_objects function, but I don't see any way to implement that function for an object.  Would it have to be an extension to provide that interface?<br /><br />If so, I'd like to suggest that you allow equivalence and/or comparison operations to be defined in a class definition in PHP.  Then, the sorts of things rune and I want to do would be much easier.</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="128273">  <div class="votes">
+    <div id="Vu128273">
+    <a href="https://www.php.net/manual/vote-note.php?id=128273&amp;page=language.oop5.object-comparison&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd128273">
+    <a href="https://www.php.net/manual/vote-note.php?id=128273&amp;page=language.oop5.object-comparison&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V128273" title="33% like this...">
+    -1
+    </div>
+  </div>
+  <a href="language.oop5.object-comparison.php.html#128273" class="name">
+  <strong class="user"><em>cpmjr1 at gmail dot com</em></strong></a><a class="genanchor" href="language.oop5.object-comparison.php.html#128273"> &para;</a><div class="date" title="2023-03-02 05:32"><strong>11 months ago</strong></div>
+  <div class="text" id="Hcom128273">
+<div class="phpcode"><code><span class="html">It is not immediately obvious based on the docs, but the equality comparison operator does also check protected and private properties.<br /><br />Example:<br /><span class="default">&lt;?php<br /></span><span class="keyword">class </span><span class="default">A </span><span class="keyword">{ public </span><span class="default">$a </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; private </span><span class="default">$b </span><span class="keyword">= </span><span class="default">1</span><span class="keyword">; public function </span><span class="default">__construct</span><span class="keyword">(</span><span class="default">$test</span><span class="keyword">) {</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">b </span><span class="keyword">= </span><span class="default">$test</span><span class="keyword">;}}<br />echo </span><span class="string">"A(1) == A(2) " </span><span class="keyword">. </span><span class="default">var_export</span><span class="keyword">((new </span><span class="default">A</span><span class="keyword">(</span><span class="default">1</span><span class="keyword">)) == (new </span><span class="default">A</span><span class="keyword">(</span><span class="default">2</span><span class="keyword">)), </span><span class="default">true</span><span class="keyword">) . </span><span class="string">"\n"</span><span class="keyword">;<br />echo </span><span class="string">"A(1) == A(1) " </span><span class="keyword">. </span><span class="default">var_export</span><span class="keyword">((new </span><span class="default">A</span><span class="keyword">(</span><span class="default">1</span><span class="keyword">)) == (new </span><span class="default">A</span><span class="keyword">(</span><span class="default">1</span><span class="keyword">)), </span><span class="default">true</span><span class="keyword">) . </span><span class="string">"\n"</span><span class="keyword">;<br /></span><span class="default">?&gt;<br /></span>Output:<br />A(1) == A(2) false<br />A(1) == A(1) true</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="73528">  <div class="votes">
+    <div id="Vu73528">
+    <a href="https://www.php.net/manual/vote-note.php?id=73528&amp;page=language.oop5.object-comparison&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd73528">
+    <a href="https://www.php.net/manual/vote-note.php?id=73528&amp;page=language.oop5.object-comparison&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V73528" title="36% like this...">
+    -3
+    </div>
+  </div>
+  <a href="language.oop5.object-comparison.php.html#73528" class="name">
+  <strong class="user"><em>rune at zedeler dot dk</em></strong></a><a class="genanchor" href="language.oop5.object-comparison.php.html#73528"> &para;</a><div class="date" title="2007-02-27 08:27"><strong>16 years ago</strong></div>
+  <div class="text" id="Hcom73528">
+<div class="phpcode"><code><span class="html">I haven't found a build-in function to check whether two obects are identical - that is, all their fields are identical.<br />In other words,<br /><br />&lt;?<br />class A {<br />  var $x;<br />  function __construct($x) { $this-&gt;x = $x; }<br /><br />}<br />$identical1 = new A(42);<br />$identical2 = new A(42);<br />$different = new A('42');<br />?&gt;<br /><br />Comparing the objects with "==" will claim that all three of them are equal. Comparing with "===" will claim that all are un-equal.<br />I have found no build-in function to check that the two identicals are <br />identical, but not identical to the different.<br /><br />The following function does that:<br /><br />&lt;?<br />function deepCompare($a,$b) {<br />  if(is_object($a) &amp;&amp; is_object($b)) {<br />    if(get_class($a)!=get_class($b))<br />      return false;<br />    foreach($a as $key =&gt; $val) {<br />      if(!deepCompare($val,$b-&gt;$key))<br />    return false;<br />    }<br />    return true;<br />  }<br />  else if(is_array($a) &amp;&amp; is_array($b)) {<br />    while(!is_null(key($a) &amp;&amp; !is_null(key($b)))) {<br />      if (key($a)!==key($b) || !deepCompare(current($a),current($b)))<br />    return false;<br />      next($a); next($b);<br />    }<br />    return true;<br />  }<br />  else<br />    return $a===$b;<br />}<br />?&gt;</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="85769">  <div class="votes">
+    <div id="Vu85769">
+    <a href="https://www.php.net/manual/vote-note.php?id=85769&amp;page=language.oop5.object-comparison&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd85769">
+    <a href="https://www.php.net/manual/vote-note.php?id=85769&amp;page=language.oop5.object-comparison&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V85769" title="33% like this...">
+    -4
+    </div>
+  </div>
+  <a href="language.oop5.object-comparison.php.html#85769" class="name">
+  <strong class="user"><em>Hayley Watson</em></strong></a><a class="genanchor" href="language.oop5.object-comparison.php.html#85769"> &para;</a><div class="date" title="2008-09-16 03:33"><strong>15 years ago</strong></div>
+  <div class="text" id="Hcom85769">
+<div class="phpcode"><code><span class="html">This has already been mentioned (see jazfresh at hotmail.com's note), but here it is again in more detail because for objects the difference between == and === is significant.<br /><br />Loose equality (==) over objects is recursive: if the properties of the two objects being compared are themselves objects, then those properties will also be compared using ==.<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">class </span><span class="default">Link<br /></span><span class="keyword">{<br />    public </span><span class="default">$link</span><span class="keyword">; function </span><span class="default">__construct</span><span class="keyword">(</span><span class="default">$link</span><span class="keyword">) { </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">link </span><span class="keyword">= </span><span class="default">$link</span><span class="keyword">; }<br />}<br />class </span><span class="default">Leaf<br /></span><span class="keyword">{<br />    public </span><span class="default">$leaf</span><span class="keyword">; function </span><span class="default">__construct</span><span class="keyword">(</span><span class="default">$leaf</span><span class="keyword">) { </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">leaf </span><span class="keyword">= </span><span class="default">$leaf</span><span class="keyword">; }<br />}<br /><br /></span><span class="default">$leaf1 </span><span class="keyword">= new </span><span class="default">Leaf</span><span class="keyword">(</span><span class="default">42</span><span class="keyword">);<br /></span><span class="default">$leaf2 </span><span class="keyword">= new </span><span class="default">Leaf</span><span class="keyword">(</span><span class="default">42</span><span class="keyword">);<br /><br /></span><span class="default">$link1 </span><span class="keyword">= new </span><span class="default">Link</span><span class="keyword">(</span><span class="default">$leaf1</span><span class="keyword">);<br /></span><span class="default">$link2 </span><span class="keyword">= new </span><span class="default">Link</span><span class="keyword">(</span><span class="default">$leaf2</span><span class="keyword">);<br /><br />echo </span><span class="string">"Comparing Leaf object equivalence: is \$leaf1==\$leaf2? "</span><span class="keyword">, (</span><span class="default">$leaf1 </span><span class="keyword">== </span><span class="default">$leaf2  </span><span class="keyword">? </span><span class="string">"Yes" </span><span class="keyword">: </span><span class="string">"No"</span><span class="keyword">), </span><span class="string">"\n"</span><span class="keyword">;<br />echo </span><span class="string">"Comparing Leaf object identity: is \$leaf1===\$leaf2? "</span><span class="keyword">,   (</span><span class="default">$leaf1 </span><span class="keyword">=== </span><span class="default">$leaf2 </span><span class="keyword">? </span><span class="string">"Yes" </span><span class="keyword">: </span><span class="string">"No"</span><span class="keyword">), </span><span class="string">"\n"</span><span class="keyword">;<br />echo </span><span class="string">"\n"</span><span class="keyword">;<br />echo </span><span class="string">"Comparing Link object equivalence: is \$link1==\$link2? "</span><span class="keyword">,(</span><span class="default">$link1 </span><span class="keyword">== </span><span class="default">$link2  </span><span class="keyword">? </span><span class="string">"Yes" </span><span class="keyword">: </span><span class="string">"No"</span><span class="keyword">), </span><span class="string">"\n"</span><span class="keyword">;<br />echo </span><span class="string">"Comparing Link object identity: is \$link1===\$link2? "</span><span class="keyword">,  (</span><span class="default">$link1 </span><span class="keyword">=== </span><span class="default">$link2 </span><span class="keyword">? </span><span class="string">"Yes" </span><span class="keyword">: </span><span class="string">"No"</span><span class="keyword">), </span><span class="string">"\n"</span><span class="keyword">;<br /></span><span class="default">?&gt;<br /></span><br />Even though $link1 and $link2 contain different Leaf objects, they are still equivalent because the Leaf objects are themselves equivalent.<br /><br />The practical upshot is that using "==" when "===" would be more appropriate can result in a severe performance penalty, especially if the objects are large and/or complex. In fact, if there are any circular relationships involved between the objects or (recursively) any of their properties, then a fatal error can result because of the implied infinite loop.<br /><br /><span class="default">&lt;?php<br /></span><span class="keyword">class </span><span class="default">Foo </span><span class="keyword">{ public </span><span class="default">$foo</span><span class="keyword">; }<br /></span><span class="default">$t </span><span class="keyword">= new </span><span class="default">Foo</span><span class="keyword">; </span><span class="default">$t</span><span class="keyword">-&gt;</span><span class="default">foo </span><span class="keyword">= </span><span class="default">$t</span><span class="keyword">;<br /></span><span class="default">$g </span><span class="keyword">= new </span><span class="default">Foo</span><span class="keyword">; </span><span class="default">$g</span><span class="keyword">-&gt;</span><span class="default">foo </span><span class="keyword">= </span><span class="default">$g</span><span class="keyword">;<br /><br />echo </span><span class="string">"Strict identity:   "</span><span class="keyword">, (</span><span class="default">$t</span><span class="keyword">===</span><span class="default">$g </span><span class="keyword">? </span><span class="string">"True" </span><span class="keyword">: </span><span class="string">"False"</span><span class="keyword">),</span><span class="string">"\n"</span><span class="keyword">;<br />echo </span><span class="string">"Loose equivalence: "</span><span class="keyword">, (</span><span class="default">$t</span><span class="keyword">==</span><span class="default">$g  </span><span class="keyword">? </span><span class="string">"True" </span><span class="keyword">: </span><span class="string">"False"</span><span class="keyword">), </span><span class="string">"\n"</span><span class="keyword">;<br /></span><span class="default">?&gt;<br /></span><br />So preference should be given to comparing objects with "===" rather than "=="; if two distinct objects are to be compared for equivalence, try to do so by examining suitable individual properties. (Maybe PHP could get a magic "__equals" method that gets used to evaluate "=="? :) )</span></code></div>
+  </div>
+ </div>
+  <div class="note" id="112297">  <div class="votes">
+    <div id="Vu112297">
+    <a href="https://www.php.net/manual/vote-note.php?id=112297&amp;page=language.oop5.object-comparison&amp;vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd112297">
+    <a href="https://www.php.net/manual/vote-note.php?id=112297&amp;page=language.oop5.object-comparison&amp;vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V112297" title="33% like this...">
+    -7
+    </div>
+  </div>
+  <a href="language.oop5.object-comparison.php.html#112297" class="name">
+  <strong class="user"><em>Oddant</em></strong></a><a class="genanchor" href="language.oop5.object-comparison.php.html#112297"> &para;</a><div class="date" title="2013-05-29 05:15"><strong>10 years ago</strong></div>
+  <div class="text" id="Hcom112297">
+<div class="phpcode"><code><span class="html">This example is way too much confusing, if you new to php comparison motor, you should think (after reading this example) that '==' is actually comparing the type of the objects. that's not true, it actually compares the type of the objects AND the properties of them.<br /><br /><span class="default">&lt;?php<br /><br /></span><span class="keyword">class </span><span class="default">A </span><span class="keyword">{<br />    private </span><span class="default">$value</span><span class="keyword">;<br />    function </span><span class="default">__construct </span><span class="keyword">(</span><span class="default">$value</span><span class="keyword">)<br />    {<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">value </span><span class="keyword">= </span><span class="default">$value</span><span class="keyword">;<br />    }<br />}<br />class </span><span class="default">B </span><span class="keyword">{<br />    private </span><span class="default">$value</span><span class="keyword">;<br />    function </span><span class="default">__construct </span><span class="keyword">(</span><span class="default">$value</span><span class="keyword">)<br />    {<br />        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">value </span><span class="keyword">= </span><span class="default">$value</span><span class="keyword">;<br />    }<br />}<br /><br /></span><span class="default">$a1 </span><span class="keyword">= new </span><span class="default">A </span><span class="keyword">(</span><span class="default">1</span><span class="keyword">);<br /></span><span class="default">$a2 </span><span class="keyword">= new </span><span class="default">A </span><span class="keyword">(</span><span class="default">2</span><span class="keyword">);<br /></span><span class="default">$b1 </span><span class="keyword">= new </span><span class="default">B </span><span class="keyword">(</span><span class="default">1</span><span class="keyword">);<br /><br /></span><span class="default">var_dump</span><span class="keyword">( </span><span class="default">$a1 </span><span class="keyword">== </span><span class="default">$a2 </span><span class="keyword">);<br /></span><span class="default">var_dump</span><span class="keyword">( </span><span class="default">$a1 </span><span class="keyword">== </span><span class="default">$b1 </span><span class="keyword">);<br /></span><span class="default">?&gt;</span></span></code></div>
+  </div>
+ </div></div>
+<div class="foot"><a href="https://www.php.net/manual/add-note.php?sect=language.oop5.object-comparison&amp;redirect=https://www.php.net/manual/ru/language.oop5.object-comparison.php">＋<small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class='layout-menu'>
+
+        <ul class='parent-menu-list'>
+                                    <li>
+                <a href="language.oop5.php.html">Классы и объекты</a>
+
+                                    <ul class='child-menu-list'>
+
+                                                <li class="">
+                            <a href="oop5.intro.php.html" title="Введение">Введение</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.basic.php.html" title="Основы">Основы</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.properties.php.html" title="Свойства">Свойства</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.constants.php.html" title="Константы классов">Константы классов</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.autoload.php.html" title="Автоматическая загрузка классов">Автоматическая загрузка классов</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.decon.php.html" title="Конструкторы и деструкторы">Конструкторы и деструкторы</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.visibility.php.html" title="Область видимости">Область видимости</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.inheritance.php.html" title="Наследование">Наследование</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.paamayim-nekudotayim.php.html" title="Оператор разрешения области видимости (::)">Оператор разрешения области видимости (::)</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.static.php.html" title="Ключевое слово static">Ключевое слово static</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.abstract.php.html" title="Абстрактные классы">Абстрактные классы</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.interfaces.php.html" title="Интерфейсы объектов">Интерфейсы объектов</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.traits.php.html" title="Трейты">Трейты</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.anonymous.php.html" title="Анонимные классы">Анонимные классы</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.overloading.php.html" title="Перегрузка">Перегрузка</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.iterations.php.html" title="Итераторы объектов">Итераторы объектов</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.magic.php.html" title="Магические методы">Магические методы</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.final.php.html" title="Ключевое слово final">Ключевое слово final</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.cloning.php.html" title="Клонирование объектов">Клонирование объектов</a>
+                        </li>
+                                                <li class="current">
+                            <a href="language.oop5.object-comparison.php.html" title="Сравнение объектов">Сравнение объектов</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.late-static-bindings.php.html" title="Позднее статическое связывание">Позднее статическое связывание</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.references.php.html" title="Объекты и ссылки">Объекты и ссылки</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.serialization.php.html" title="Сериализация объектов">Сериализация объектов</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.variance.php.html" title="Ковариантность и контравариантность">Ковариантность и контравариантность</a>
+                        </li>
+                                                <li class="">
+                            <a href="language.oop5.changelog.php.html" title="Журнал изменений ООП">Журнал изменений ООП</a>
+                        </li>
+                        
+                    </ul>
+                
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="https://www.php.net/copyright.php">Copyright &copy; 2001-2024 The PHP Group</a></li>
+        <li><a href="https://www.php.net/my.php">My PHP.net</a></li>
+        <li><a href="https://www.php.net/contact.php">Contact</a></li>
+        <li><a href="https://www.php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="https://www.php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fhogan-3.0.2.min.js"></script>
+<script src="../../cached.php%3Ft=1421837618&amp;f=%252Fjs%252Fext%252Ftypeahead.min.js"></script>
+<script src="../../cached.php%3Ft=1657876202&amp;f=%252Fjs%252Fext%252Fmousetrap.min.js"></script>
+<script src="../../cached.php%3Ft=1657730402&amp;f=%252Fjs%252Fext%252Fjquery.scrollTo.min.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fsearch.js"></script>
+<script src="../../cached.php%3Ft=1701958202&amp;f=%252Fjs%252Fcommon.js"></script>
+
+<a id="toTop" href="javascript:;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="../../images/to-top@2x.png"></a>
+
+</body>
+</html>
