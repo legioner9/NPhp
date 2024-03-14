@@ -27,3 +27,7 @@ foreach (xrange(1, 9, 2) as $number) {
 
 // echo xrange(1, 9, 2)->next();
 
+var_dump(xrange(1, 9, 2));
+var_dump(xrange(1, 9, 2));
+var_dump(xrange(1, 9, 2));
+var_dump(xrange(1, 9, 2));
